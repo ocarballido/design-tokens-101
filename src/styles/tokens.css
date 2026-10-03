@@ -110,7 +110,7 @@
   --t101-color-text-success-default: var(--t101-color-emerald-700);
   --t101-color-text-warning-default: var(--t101-color-amber-700);
   --t101-color-white: #fff;
-  /* Solo código (V24): Figma no tiene variables de duración. Panel móvil y acordeón del sidebar. Fuente: docs/sistema-tokens-v1.md §4.7. */
+  /* Solo código (V24): Figma tiene variables Timing, pero se aplican a Figma Motion y esta web no diseña animaciones en Figma. Panel móvil y acordeón del sidebar. Fuente: docs/sistema-tokens-v1.md §4.7. */
   --t101-duration-200: 200ms;
   /* Solo código (V24): curva de las animaciones de la interfaz. Fuente: docs/sistema-tokens-v1.md §4.7. */
   --t101-easing-standard: cubic-bezier(0.2, 0, 0, 1);
