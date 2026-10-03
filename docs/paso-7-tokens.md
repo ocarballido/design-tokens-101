@@ -184,7 +184,8 @@ tokens/figma/*/*.tokens.json        exportación de Figma, sin tocar (C10)
         │  tools/figma-to-dtcg.mjs  (alias, tipos, unidades)
         ▼
 tokens/dtcg/*/*.tokens.json         DTCG 2025.10 estricto (generado)
-tokens/code-only.tokens.json        line-height, space/negative, breakpoint (a mano, §4)
+tokens/code-only.tokens.json        line-height, space/negative, breakpoint, duration, easing (a mano, §4)
+                                    + size/sidebar/width y color/background/overlay hasta que existan en Figma
         │  tokens/tokens101.resolver.json  (base + theme + layout)
         │  terrazzo.config.mjs
         ▼
@@ -201,14 +202,14 @@ Tailwind CSS v4 → bg-neutral-default, text-body-default, p-400, desktop:…
 
 | Bloque | Tokens | Qué contiene |
 |---|---|---|
-| `:root` | 149 | Todo, con Light y Mobile. `color-scheme: light` |
+| `:root` | 153 | Todo, con Light y Mobile. `color-scheme: light` (149 en el paso 7; 153 tras V16, V24 y V25) |
 | `[data-theme="dark"]` | 31 | Semantic color, Dark. `color-scheme: dark` |
 | `@media (prefers-color-scheme: dark)` → `:root:not([data-theme="light"])` | 31 | Igual (modo `system`, D07) |
 | `@media (width >= 64rem)` → `:root` | 9 | Layout, Desktop (D10, D11) |
 
 Ejemplos: `--t101-space-100: 0.25rem;` · `--t101-color-emerald-500: #3c9;` · `--t101-color-text-on-accent: var(--t101-color-neutral-950);` · `--t101-font-size-heading-1: var(--t101-font-size-06);` y, en Desktop, `var(--t101-font-size-07)`.
 
-**`theme.css` generado:** 84 variables de Tailwind. Empieza por `--*: initial` (sin tema por defecto). Cada token tiene una regla explícita en `terrazzo.config.mjs`: o se expone o se descarta con motivo. Un token nuevo sin regla detiene el build.
+**`theme.css` generado:** 87 variables de Tailwind (84 en el paso 7; 87 tras V16, V24 y V25). Empieza por `--*: initial` (sin tema por defecto). Cada token tiene una regla explícita en `terrazzo.config.mjs`: o se expone o se descarta con motivo. Un token nuevo sin regla detiene el build.
 
 | No se expone | Motivo |
 |---|---|

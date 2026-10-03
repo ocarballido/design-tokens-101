@@ -539,10 +539,12 @@ Scopes disponibles según [Figma — Create and manage variables](https://help.f
 | | | `color/text/*` | No | Relleno de texto y relleno de forma (los iconos usan tokens de texto) |
 | | | `color/border/*` | No | Trazo |
 | **Semantic size** | 1 (`Value`) | `radius/control`, `radius/container` | No | Radio |
-| | | `size/content/max-width` (D20) | No | Ancho y alto |
+| | | `size/content/max-width` (D20, V27) y `size/sidebar/width` (V16, pendiente) | No | Ancho y alto |
 | **Layout** (D10) | Desktop, Mobile | `font-size/{estilo}` (9 tokens, §4.2) | No | Tamaño de fuente. Se usan desde los estilos de texto (§8) |
 
-**No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02) y `breakpoint/desktop` (D11). Su fuente única es esta especificación.
+**No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/desktop` (D11), `duration/200` y `easing/standard` (V24). Su fuente única es esta especificación.
+
+**Pendientes de crear en Figma** (mientras tanto, en `tokens/code-only.tokens.json`): `size/sidebar/width` en Semantic size (V16) y `color/background/overlay` en Semantic color (V25). Al reexportar, se quitan de ese archivo.
 
 **Code syntax Web (S6, S27, D03):** `var(--t101-` + ruta con `/` sustituida por `-` + `)`. Ejemplo: `color/background/accent/strong/hover` → `var(--t101-color-background-accent-strong-hover)`. Se aplica a todas las variables, también a las ocultas.
 

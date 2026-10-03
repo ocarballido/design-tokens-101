@@ -574,7 +574,7 @@ SiteFooter
 ```
 
 - Regiones: `header`, `nav` (sidebar), `main` (la lección), `footer`. Sin columna lateral de índice (D16).
-- Columna de la lección con ancho máximo `size/content/max-width` (720 px, D20), centrada.
+- Columna de la lección con ancho máximo `size/content/max-width` (960 px desde V27; antes 720 px, D20), centrada.
 - Dos marcos en Figma (D09): escritorio 1440 px (Layout Desktop) y móvil 375 px (Layout Mobile), cada uno en Light y Dark.
 
 ### 4.10 Ajustes tras el diseño de Oscar (2026-10-02)
@@ -596,7 +596,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `SiteHeader` | `size=large` (escritorio) y `size=small` (móvil, sin selectores: D19). |
 | `SiteFooter` | Logotipo, autor y aviso P7. |
 | `Callout`, `InCode`, `LessonHeader`, `PageNavLink` | Borde de 1 px en los cuatro lados (`border-width/100`). |
-| Plantilla | Columna con ancho máximo `size/content/max-width` (720 px, D20), centrada. Sidebar con dos secciones: "Empezar aquí" y "Recursos". |
+| Plantilla | Columna con ancho máximo `size/content/max-width` (720 px en Figma, D20; 960 px desde V27), centrada. Sidebar con dos secciones: "Empezar aquí" y "Recursos". |
 | Navegación móvil | En Figma, panel a pantalla completa (D21). **En código, panel lateral con overlay (V25):** ancho `size/sidebar/width`, selectores arriba, sidebar debajo, botón de cerrar `li:x`. |
 | `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
 | "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
@@ -622,6 +622,15 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D17 | `body/strong` para la negrita. |
 | D18 | `Callout` con etiqueta fija por variante. |
 | D19 | En móvil, los selectores pasan al panel de navegación. |
-| D20 | `size/content/max-width` = 720 px. |
-| D21 | Panel de navegación móvil a pantalla completa. |
+| D20 | `size/content/max-width` = 720 px (960 px desde V27). |
+| D21 | Panel de navegación móvil a pantalla completa. **Sustituida por V25:** panel lateral con overlay. |
 | D22 | Logotipos como SVG, fuera de la regla "solo tokens". |
+| V16 | `size/sidebar/width` = 304 px (sidebar de escritorio y panel móvil). |
+| V17 | Sidebar fijo (`sticky`) en escritorio. |
+| V18 | Etiqueta del `Callout` en `text/{rol}/default`. |
+| V19 | "En esta página" con viñetas. |
+| V23 | `SidebarItem` sin radio. |
+| V24 | Animación del acordeón y del panel móvil con `duration/200` y `easing/standard`. |
+| V25 | Panel móvil lateral con overlay `color/background/overlay`. |
+| V26 | Selectores sin marca inferior en la opción actual. |
+| V27 | `size/content/max-width` = 960 px. |

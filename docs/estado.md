@@ -137,8 +137,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Despliegue en Vercel: sin probar.
 
 **Paso 7 (2026-10-03): hecho** (V06–V12, detalle en `docs/paso-7-tokens.md` §8)
-- `npm run tokens`: `tools/figma-to-dtcg.mjs` normaliza `tokens/figma/` en `tokens/dtcg/`. Después, Terrazzo genera `src/styles/tokens.css` (capa 1, `--t101-*`: 150 en `:root` desde V16, 31 en cada bloque Dark y 9 en Desktop) y `src/styles/theme.css` (capa 2, `@theme inline` con 85 variables y sin tema por defecto).
-- Tokens solo de código en `tokens/code-only.tokens.json` (line-height, space negativo, breakpoint y, desde el paso 8, `size/sidebar/width`).
+- `npm run tokens`: `tools/figma-to-dtcg.mjs` normaliza `tokens/figma/` en `tokens/dtcg/`. Después, Terrazzo genera `src/styles/tokens.css` (capa 1, `--t101-*`: 153 en `:root` tras V16, V24 y V25, 31 en cada bloque Dark y 9 en Desktop) y `src/styles/theme.css` (capa 2, `@theme inline` con 87 variables y sin tema por defecto).
+- Tokens solo de código en `tokens/code-only.tokens.json`: line-height, space negativo, breakpoint, `duration/200` y `easing/standard` (V24), y, hasta que existan en Figma, `size/sidebar/width` (V16) y `color/background/overlay` (V25).
 - `npm run check:tokens`: code syntax de Figma, referencias, bloques de modo, hex, tokens solo de código y clases de Tailwind. Probado también en negativo.
 - `globals.css` importa las dos capas (y, desde el paso 8, los estilos de texto y los estilos base).
 - Al cambiar las variables en Figma: reexportar en `tokens/figma/` (C10), `npm run tokens`, `npm run check:tokens` y commit de todo lo generado.
