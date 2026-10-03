@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de contenido: C11, secciones del sidebar).
+Última actualización: 2026-10-03 (sesión de desarrollo: paso 8, componentes y páginas con el diseño, V13–V22).
 
 ---
 
@@ -17,7 +17,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
 | 6 | Contenido | Redactar los módulos 1 a 7 | Pendiente (en paralelo con 4, 7 y 8) |
 | 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Hecho (2026-10-03): Terrazzo + Resolver DTCG, dos capas y Tailwind (V06–V12) |
-| 8 | Desarrollo C | Componentes y páginas con el diseño | Desbloqueado. Guía en `docs/entrega-diseno.md` §3. Mejor después de 4 y 7 |
+| 8 | Desarrollo C | Componentes y páginas con el diseño | Hecho (2026-10-03): todo el inventario, plantilla y modos (V13–V22). Quedan detalles para Oscar (ver Desarrollo) |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
 
 ## Contenido
@@ -60,6 +60,12 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V06–V12 (módulo 6, itinerario de código):** la cadena Figma → normalización → Resolver DTCG → Terrazzo → dos capas → Tailwind (`docs/paso-7-tokens.md` §8). V09 es buen ejemplo de "separar la fuente de la recomendación": funciona, pero no está documentado, y por eso hay una prueba que lo vigila. V10 completa D07 (cómo se aplica el modo oscuro en CSS).
 - **Paso 7 (módulo 6):** todo `docs/paso-7-tokens.md`, sobre todo lo que la exportación DTCG de Figma no incluye (tipos y alias, §1) y por qué hace falta normalizar. Candidato a "errores frecuentes": esperar que la exportación de Figma conserve los alias.
 - **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
+- **V13 (módulo 6):** `next/font` sirve la fuente con un nombre propio, así que el nombre del token (`Inter`) no basta en CSS; la capa de Tailwind pone la variable de `next/font` delante. Candidato a "errores frecuentes": esperar que `font-family: Inter` use la fuente cargada con `next/font`.
+- **V14, V15 (módulo 6):** Tailwind no tiene espacio de nombres para el grosor de borde (`border-(length:--t101-border-width-100)`) y los estilos de texto compuestos se escriben como utilidades propias, comprobadas contra la tabla §8.
+- **V16 (módulos 3 y 4):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
+- **V18, V19 (módulo 9):** cuando el dibujo y la anatomía no coinciden, se decide cuál manda y se registra. Ejemplo para "Componentes y código".
+- **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
+- **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.
 
 **Verificado en el paso 4 (2026-10-03)**
 - El bloque 0 compila con `@next/mdx` sin cambios en el MDX.
@@ -84,14 +90,44 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 ## Desarrollo
 
-**Estado:** pasos 4 y 7 hechos (2026-10-03). Siguiente: paso 8 (componentes y páginas con el diseño).
+**Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel.
+
+**Paso 8 (2026-10-03): hecho** (V13–V22)
+- **Bloque A, base:** Inter y JetBrains Mono con `next/font` (V13), estilos de texto de §8 como utilidades `type-*` (V15, `src/styles/text-styles.css`), grosor de borde con `border-(length:--t101-border-width-*)` (V14), estilos base, anillo de foco (`focus-ring`, `focus-ring-inset`) y flujo del texto (`flow`) en `src/styles/base.css`. Token `size/sidebar/width` (V16).
+- **Bloque B, componentes:** `Button`, `IconButton`, `TextLink` (el `Link` de la anatomía), `Callout` (V18), `InCode`, `CodeBlock` (con `filename` desde el MDX gracias a `tools/rehype-code-meta.mjs`), `Code`, tabla y `LessonHeader`. Iconos de Lucide (`lucide-react`, ISC, D08).
+- **Bloque C, estructura:** `SiteHeader` (D19), `Sidebar` (C11, fijo en escritorio, V17), panel móvil como `<dialog>` (D21, V22), `ThemeToggle` (D07, V10, V21), `LanguageSwitcher`, `SkipLink`, `PageNav` y `SiteFooter` (P7).
+- **Bloque D, logotipos:** versiones para Dark (V20) y enlace "Tokens101, inicio" (D22).
+- `npm run check:tokens` compara además los estilos de texto con la tabla §8 (probado en negativo) y vigila `w-sidebar`, `font-mono` y la sintaxis de borde.
+
+**Paso 8: comprobación en navegador (2026-10-03)**
+- Hecha con Google Chrome sin interfaz (`puppeteer-core`) sobre `next start`: la extensión de Chrome no estaba conectada en la sesión. No se ha probado a mano ni con lector de pantalla.
+- 320 px: ninguna de las 16 páginas tiene scroll horizontal (1.4.10).
+- Teclado: todas las paradas de tabulador muestran el anillo (2 px, `border/focus`). Orden: SkipLink → logotipo → idiomas → temas → sidebar → contenido. El SkipLink lleva el foco al `main`.
+- Objetivos: todos ≥ 24 × 24 px fuera de los enlaces dentro del texto (excepción de 2.5.8). Selectores de 35–36 px, filas del sidebar de 36 y 40 px, `IconButton` de 40.
+- ThemeToggle: `dark` pone `data-theme` y se mantiene al recargar; `system` sigue a `prefers-color-scheme`; `light` gana a un sistema oscuro. El logotipo cambia con el tema.
+- `InCode`, secciones del sidebar (C11, también tras navegar), copiar código ("Copiado" y portapapeles) y panel móvil (Escape cierra y el foco vuelve al botón): funcionan.
+- 375 y 1440 px comparados con las plantillas de Figma (35:843, 35:1479, 52:487, 55:833): coinciden salvo las diferencias de abajo.
+
+**Paso 8: diferencias con Figma que conviene confirmar** (se ha seguido la anatomía, como en V18)
+- Filas del sidebar con `radius/control` (anatomía §4.2); en Figma son rectas.
+- Pie: todo el texto en `text/neutral/subtle` (anatomía §4.8); en Figma, "Una web creada por: Oscar Carballido" va en `text/neutral/default`.
+- `LessonHeader`: la primera línea es el nombre de la sección (prop `section`, §4.1); en Figma pone "01".
+- `Button`: Figma usa `min-height` 40 px y `min-width` 100 px sin token; en código no se aplican (sin icono mide unos 36 px de alto, ≥ 24). `Button` no se usa todavía en ninguna página.
+- Hueco entre el texto del enlace y el icono externo: `space/100` (Figma: `space/200` en `size=default`, `space/150` en `small`).
+
+**Pendiente o sin verificar**
+- **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
+- `/favicon.ico` da 404: no hay favicon en el diseño.
+- `next/font/google` descarga las fuentes al compilar: el build necesita red (en local funciona; en Vercel, sin probar).
+- Lector de pantalla y prueba manual en Safari y Firefox: sin hacer.
+- `npm` bloquea el `postinstall` de `@swc/core`, que llega como dependencia de next-intl. No hace falta para el enrutado, y el build funciona sin él.
+- Despliegue en Vercel: sin probar.
 
 **Paso 7 (2026-10-03): hecho** (V06–V12, detalle en `docs/paso-7-tokens.md` §8)
-- `npm run tokens`: `tools/figma-to-dtcg.mjs` normaliza `tokens/figma/` en `tokens/dtcg/`. Después, Terrazzo genera `src/styles/tokens.css` (capa 1, `--t101-*`: 149 en `:root`, 31 en cada bloque Dark y 9 en Desktop) y `src/styles/theme.css` (capa 2, `@theme inline` con 84 variables y sin tema por defecto).
-- Tokens solo de código en `tokens/code-only.tokens.json` (line-height, space negativo, breakpoint).
+- `npm run tokens`: `tools/figma-to-dtcg.mjs` normaliza `tokens/figma/` en `tokens/dtcg/`. Después, Terrazzo genera `src/styles/tokens.css` (capa 1, `--t101-*`: 150 en `:root` desde V16, 31 en cada bloque Dark y 9 en Desktop) y `src/styles/theme.css` (capa 2, `@theme inline` con 85 variables y sin tema por defecto).
+- Tokens solo de código en `tokens/code-only.tokens.json` (line-height, space negativo, breakpoint y, desde el paso 8, `size/sidebar/width`).
 - `npm run check:tokens`: code syntax de Figma, referencias, bloques de modo, hex, tokens solo de código y clases de Tailwind. Probado también en negativo.
-- `globals.css` importa las dos capas. Todavía no se aplican estilos a ningún elemento: la web se sigue viendo sin estilo hasta el paso 8.
-- **Para el paso 8:** carga de fuentes (`next/font`), grosor de borde en Tailwind (sin espacio de nombres), estilos de texto de §8, estilos base y `ThemeToggle` (`data-theme`, V10).
+- `globals.css` importa las dos capas (y, desde el paso 8, los estilos de texto y los estilos base).
 - Al cambiar las variables en Figma: reexportar en `tokens/figma/` (C10), `npm run tokens`, `npm run check:tokens` y commit de todo lo generado.
 
 **Paso 7: lo encontrado**
@@ -105,12 +141,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Componentes provisionales sin estilo en `src/components/`: `Callout` (4 variantes, etiqueta fija traducida), `InCode` (botón con `aria-expanded`, cerrado por defecto), `Sidebar` (`nav` con `aria-label`, secciones con `aria-expanded`, `aria-current="page"`) y `LessonHeader`. Los enlaces internos del MDX pasan por el `Link` de next-intl.
 - `npm run check:content` (`tools/check-content.mjs`, después de `npm run build`): comprueba las anclas, el orden del sidebar, `aria-current` y los enlaces internos en las 16 páginas. Se probó también en negativo (detecta un `id` roto).
 - Lecciones sin traducir en español con aviso (V02); prefijo de idioma siempre (V03); `/{locale}` redirige a la primera lección (V04); nombres de sección en `meta.json` (V05).
-
-**Pendiente o sin verificar**
-- El despliegable de `InCode` y de las secciones del sidebar no se ha probado a mano en un navegador. Sí se ha comprobado el HTML inicial (`aria-expanded`, `aria-controls`, `hidden`).
-- Las secciones del sidebar se muestran todas abiertas (`defaultOpen`). **Decidido (C11):** solo la sección de la lección actual empieza abierta; se aplica en el paso 8.
-- `npm` bloquea el `postinstall` de `@swc/core`, que llega como dependencia de next-intl. No hace falta para el enrutado, y el build funciona sin él.
-- Despliegue en Vercel: sin probar.
 
 **Para los pasos 7 y 8 (de la sesión de diseño):** ver `docs/entrega-diseno.md`.
 - Hay un estilo de texto más, `body/strong` (§8): en CSS es `font-weight: var(--t101-font-weight-600)` sobre `body/default`.
@@ -129,3 +159,5 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **2026-10-03 — npm funciona en la sesión de desarrollo** (Claude Code, en local). El 403 de la sesión de contenido no se repite.
 - **2026-10-03 — Anclas con tildes (sesión de desarrollo).** El `id` conserva la tilde y el `href` sale codificado; funciona porque el navegador descodifica el fragmento. Si alguien compara los `href` con los `id` como texto, parecerán rotos aunque no lo estén.
 - **2026-10-03 — Claude Code y los Projects.** Claude Code no lee los documentos de un Project de claude.ai; carga `CLAUDE.md` y los archivos que importa con `@ruta` ([Claude Code — Memory](https://code.claude.com/docs/en/memory)). Por eso la fuente de verdad pasa al repositorio (P9).
+- **2026-10-03 — `next/font` y el token de familia (sesión de desarrollo).** `next/font` renombra la fuente; el nombre que guarda Figma (`Inter`) no la encuentra. Se resuelve en la capa de Tailwind (V13), sin tocar el token.
+- **2026-10-03 — Diferencias entre el dibujo y la anatomía (sesión de desarrollo).** Etiqueta del `Callout`, viñetas de "En esta página", radio del sidebar, color del pie y primera línea de `LessonHeader`. Las dos primeras las decidió Oscar (V18, V19); las demás están en Desarrollo → "diferencias con Figma". Para diseño: crear `size/sidebar/width` (V16).
