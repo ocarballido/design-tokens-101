@@ -1,0 +1,197 @@
+{
+  "font-size": {
+    "heading": {
+      "1": {
+        "$type": "number",
+        "$value": 40,
+        "$description": "Tamaño del estilo de texto heading/1. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:3",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-heading-1)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:7d84f48eac97fff4a5cf0b366f55a82db7095dd4/-1:-1",
+            "targetVariableName": "font-size/07",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      },
+      "2": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "Tamaño del estilo de texto heading/2. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:4",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-heading-2)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:15fde596dbf96a471baa2852b0f539f077f76be0/-1:-1",
+            "targetVariableName": "font-size/06",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      },
+      "3": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "Tamaño del estilo de texto heading/3. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:5",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-heading-3)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:3038744b90a509e22b6b3610b4410a94d71c6793/-1:-1",
+            "targetVariableName": "font-size/05",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      },
+      "4": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "Tamaño del estilo de texto heading/4. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:6",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-heading-4)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:3f0fd387b75b7cd3083de15a8c927c17538e0e3b/-1:-1",
+            "targetVariableName": "font-size/04",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      }
+    },
+    "body": {
+      "default": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Tamaño del estilo de texto body/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:7",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-body-default)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:c95c241011ea1f295dbe044a547adf1109b121a3/-1:-1",
+            "targetVariableName": "font-size/03",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      },
+      "small": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "Tamaño del estilo de texto body/small. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:8",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-body-small)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:fa853bb698a24f8068e169ef5268703f99167172/-1:-1",
+            "targetVariableName": "font-size/02",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      }
+    },
+    "label": {
+      "default": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "Tamaño del estilo de texto label/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:9",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-label-default)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:fa853bb698a24f8068e169ef5268703f99167172/-1:-1",
+            "targetVariableName": "font-size/02",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      }
+    },
+    "caption": {
+      "default": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "Tamaño del estilo de texto caption/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:10",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-caption-default)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:cb216951b23773f75dc0dca825b9f15bf9d3f14b/-1:-1",
+            "targetVariableName": "font-size/01",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      }
+    },
+    "code": {
+      "default": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "Tamaño del estilo de texto code/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:16:11",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-font-size-code-default)"
+          },
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:fa853bb698a24f8068e169ef5268703f99167172/-1:-1",
+            "targetVariableName": "font-size/02",
+            "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+            "targetVariableSetName": "Primitives"
+          }
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Desktop"
+  }
+}
