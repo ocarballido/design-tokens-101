@@ -6,6 +6,14 @@ Archivo: [TokensDS](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS
 
 Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad), `docs/componentes-v1.md` (anatomía y props), `docs/decisiones.md`.
 
+> **Cambios posteriores a la entrega (sesión de desarrollo, 2026-10-03, decididos por Oscar).** Mandan sobre lo que dice este documento y sobre el archivo de Figma hasta que diseño los incorpore:
+> - **V16:** token `size/sidebar/width` = 304 px (Semantic size). Pendiente de crear en Figma.
+> - **V23:** `SidebarItem` sin radio.
+> - **V24:** tokens solo de código `duration/200` y `easing/standard` para las animaciones.
+> - **V25 (sustituye a D21):** el panel móvil es lateral, entra desde la izquierda con el ancho `size/sidebar/width` y un overlay `color/background/overlay` (negro al 50 %). Pendiente de crear el token y de dibujar el panel en Figma.
+> - **V26:** los selectores de idioma y tema no llevan marca inferior (`Marker`). Pendiente de quitarla en Figma.
+> - **V27:** `size/content/max-width` = 960 px (ya cambiado en Figma; falta actualizar la descripción de la variable, que dice 720 px).
+
 ---
 
 ## 1. Dónde está cada cosa
@@ -28,7 +36,7 @@ Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-to
 |---|---|---|---|
 | Primitives | Value | 97 | Sí |
 | Semantic color | Light, Dark | 31 | Sí (un archivo por modo) |
-| Semantic size | Value | 3 (`radius/control`, `radius/container`, `size/content/max-width`) | Sí |
+| Semantic size | Value | 3 (`radius/control`, `radius/container`, `size/content/max-width`); falta `size/sidebar/width` (V16) | Sí |
 | Layout | Desktop, Mobile | 9 (`font-size/{estilo}`) | Sí (un archivo por modo) |
 
 - Todas tienen code syntax Web `var(--t101-…)` (D03). Ninguna con `ALL_SCOPES`.
@@ -81,16 +89,16 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `state=active` (solo `Button`, `IconButton`, `ThemeOption`) | `:active` |
 | `state=focus` | `:focus-visible`: anillo `border-width/200` con `color/border/focus`, por fuera (`outline` + `outline-offset`) |
 | `current=true` | Prop `current` → `aria-current` / `aria-pressed` + estilos |
-| Capa `Marker` (sidebar, selectores) | Borde de un lado (`border-inline-start` o `border-block-end`) de `border-width/200` con `color/border/accent/strong` |
+| Capa `Marker` (sidebar; en los selectores ya no, V26) | Borde de un lado (`border-inline-start` o `border-block-end`) de `border-width/200` con `color/border/accent/strong` |
 
 Sin disabled ni loading en v1 (D14).
 
 ### 3.2 Plantilla
 
 - Regiones: `header`, `nav` (sidebar), `main`, `footer`.
-- Columna de la lección: `max-width: var(--t101-size-content-max-width)` (720 px), centrada, con padding `space/400` (D20).
+- Columna de la lección: `max-width: var(--t101-size-content-max-width)` (960 px desde V27; 720 px en D20), centrada, con padding `space/400`.
 - Sidebar: secciones "Empezar aquí" y "Recursos".
-- Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel a pantalla completa con los selectores y el sidebar; el botón pasa a `li:x` (D21).
+- Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel lateral desde la izquierda, con los selectores y el sidebar, y un overlay sobre el contenido (V25, sustituye a D21). El panel tiene su botón de cerrar (`li:x`).
 - Logotipos: SVG (D22), en `public/brand/` (C10).
 
 ## 4. Accesibilidad comprobada en el diseño
@@ -99,7 +107,7 @@ Comprobado con scripts sobre el archivo el 2026-10-02 (contraste con la fórmula
 
 - Todos los textos ≥ 4,5:1 y todos los iconos ≥ 3:1, en todas las variantes y en las seis plantillas.
 - Todas las variantes `focus` tienen el anillo `border/focus` (≥ 3:1 frente a los fondos).
-- Indicadores de "actual" (`Marker`) ≥ 3:1 frente a su fondo.
+- Indicadores de "actual" (`Marker`) ≥ 3:1 frente a su fondo. *Desde V26, los selectores no llevan `Marker` (riesgo de 1.4.1 y 1.4.11 aceptado por Oscar).*
 - Objetivos interactivos ≥ 24 × 24 px (2.5.8).
 - Ningún valor suelto: todo color, espacio, radio y grosor usa variables; todo texto usa un estilo (salvo los logotipos, D22).
 
