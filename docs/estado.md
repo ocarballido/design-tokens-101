@@ -57,6 +57,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **P9:** cómo se comparte una fuente de verdad entre sesiones y herramientas (material para el módulo 10).
 - **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
 - **V02:** mientras falte el inglés, `/en/…` muestra el español con un aviso. Puede citarse en "Cómo se hizo esta web".
+- **Paso 7 (módulo 6):** todo `docs/paso-7-tokens.md`, sobre todo lo que la exportación DTCG de Figma no incluye (tipos y alias, §1) y por qué hace falta normalizar. Candidato a "errores frecuentes": esperar que la exportación de Figma conserve los alias.
 - **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
 
 **Verificado en el paso 4 (2026-10-03)**
@@ -82,7 +83,12 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 ## Desarrollo
 
-**Estado:** paso 4 hecho (2026-10-03). Siguiente: paso 7 (tokens desde la exportación DTCG de Figma).
+**Estado:** paso 4 hecho (2026-10-03). **Paso 7 en curso:** inspección y comparación hechas; esperando la decisión de Oscar (A8, A9, A12, tema oscuro, familias de reserva y carpetas). Informe en `docs/paso-7-tokens.md` §7.
+
+**Paso 7 (2026-10-03): lo encontrado**
+- La exportación de Figma no es DTCG completo: tamaños como `number` sin unidad, `font-weight` como `number` (scope `FONT_STYLE`), familia como `string` (no es un tipo DTCG) y **alias resueltos**, con la referencia solo en `com.figma.aliasData`. Ninguna herramienta la usa tal cual: hace falta un paso de normalización (probado: 82 alias recuperados).
+- Comparación Style Dictionary 5.5.5 / Terrazzo 2.7.1 con la entrada normalizada: las dos dan `var()` y hex. Terrazzo une los modos con el Resolver de DTCG 2025.10. Style Dictionary convierte mal `64rem` → `4rem`. El plugin de Tailwind de Terrazzo no encaja con las dos capas (S7). Recomendación: Terrazzo + hex.
+- A12: los espacios de nombres por propiedad de Tailwind (`--background-color-*`, `--text-color-*`…) dan `bg-neutral-default` / `text-neutral-default`. Funcionan en 4.3.3, pero **no están documentados**.
 
 **Hecho (paso 4)**
 - Next.js 16.3 (App Router, Turbopack) + TypeScript 7 + Tailwind CSS 4.3 (solo `@import "tailwindcss"`, sin colores ni tipografías) + next-intl 4.14 (`en` por defecto, `es`) + `@next/mdx` con `remark-frontmatter`, `remark-mdx-frontmatter`, `remark-gfm` y `rehype-slug` (V01).

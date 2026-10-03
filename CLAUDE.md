@@ -12,6 +12,7 @@ Los documentos de `docs/` son la fuente de verdad compartida entre las sesiones 
 Lee bajo demanda, cuando el trabajo lo pida:
 - `docs/sistema-tokens-v1.md`: especificación de los tokens (valores, nombres, modos, estilos de texto). Fuente de verdad de los tokens que no salen de Figma.
 - `docs/entrega-diseno.md`: entrega del diseño a desarrollo (variables, componentes, estados y plantilla).
+- `docs/paso-7-tokens.md`: qué exporta Figma, comparación Style Dictionary / Terrazzo y propuesta para Tailwind (paso 7).
 - `docs/componentes-v1.md`: anatomía de cada componente (props, partes, tokens por estado, accesibilidad).
 - `docs/fase-1-fundamentos-tokens.md`: teoría de base del curso (histórico).
 - `content/README.md`: convenciones de las lecciones MDX.
