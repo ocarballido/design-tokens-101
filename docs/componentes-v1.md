@@ -594,6 +594,8 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `Callout`, `InCode`, `LessonHeader`, `PageNavLink` | Borde de 1 px en los cuatro lados (`border-width/100`). |
 | Plantilla | Columna con ancho máximo `size/content/max-width` (720 px, D20), centrada. Sidebar con dos secciones: "Empezar aquí" y "Recursos". |
 | Navegación móvil | Panel a pantalla completa (D21): selectores de idioma y tema arriba, sidebar debajo; el botón de menú pasa a cerrar (`li:x`). |
+| `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
+| "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
 
 ---
 

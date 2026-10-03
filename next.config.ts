@@ -1,3 +1,4 @@
+import path from 'node:path';
 import createMDX from '@next/mdx';
 import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from 'next';
@@ -15,7 +16,8 @@ const withMDX = createMDX({
       ['remark-mdx-frontmatter', { name: 'frontmatter' }],
       'remark-gfm',
     ],
-    rehypePlugins: ['rehype-slug'],
+    // Los plugins propios se indican por ruta absoluta (texto serializable, como pide Turbopack).
+    rehypePlugins: ['rehype-slug', path.resolve('tools/rehype-code-meta.mjs')],
   },
 });
 

@@ -1,5 +1,6 @@
-// Provisional, sin estilo (paso 4). Anatomía: docs/componentes-v1.md §4.1.
-// title es el único h1 de la página.
+import { useFormatter, useTranslations } from 'next-intl';
+
+// Anatomía: docs/componentes-v1.md §4.1 (con contenedor, §4.10). title es el único h1 de la página.
 
 type LessonHeaderProps = {
   title: string;
@@ -9,14 +10,32 @@ type LessonHeaderProps = {
 };
 
 export function LessonHeader({ title, description, lastReviewed, section }: LessonHeaderProps) {
+  const t = useTranslations('LessonHeader');
+  const format = useFormatter();
+
   return (
-    <header data-component="LessonHeader">
-      {section ? <p>{section}</p> : null}
-      <h1>{title}</h1>
-      {description ? <p>{description}</p> : null}
+    <header
+      data-component="LessonHeader"
+      className="flex flex-col gap-100 rounded-container border-(length:--t101-border-width-100) border-neutral-default p-400"
+    >
+      {section ? <p className="type-caption-default text-neutral-subtle">{section}</p> : null}
+      <h1 className="type-heading-1 text-neutral-default">{title}</h1>
+      {description ? <p className="type-body-default text-neutral-subtle">{description}</p> : null}
       {lastReviewed ? (
-        <p>
-          <time dateTime={lastReviewed}>{lastReviewed}</time>
+        <p className="type-caption-default text-neutral-subtle">
+          {t.rich('lastReviewed', {
+            date: () => (
+              <time dateTime={lastReviewed}>
+                {/* La fecha del frontmatter es un día (AAAA-MM-DD), sin hora: se formatea en UTC. */}
+                {format.dateTime(new Date(lastReviewed), {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+            ),
+          })}
         </p>
       ) : null}
     </header>

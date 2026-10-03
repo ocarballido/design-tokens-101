@@ -17,5 +17,16 @@
   "Languages": {
     "en": "English",
     "es": "Spanish"
+  },
+  "LessonHeader": {
+    "lastReviewed": "Last reviewed: <date></date>"
+  },
+  "CodeBlock": {
+    "copy": "Copy code",
+    "copied": "Copied",
+    "label": "Code"
+  },
+  "Table": {
+    "label": "Table"
   }
 }
