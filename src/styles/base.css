@@ -1,5 +1,19 @@
 /* Estilos base y utilidades compartidas (paso 8). Solo variables --t101-* (S27). */
 
+/* Variante dark: con los mismos selectores que el modo Dark de tokens.css (V10): elegido en el
+ * selector o "system" con el sistema en oscuro. Solo la usan los logotipos (V20): los colores
+ * cambian solos con los tokens. https://tailwindcss.com/docs/dark-mode#using-a-data-attribute */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
 @layer base {
   /* Fondo y texto de la página; el estilo de texto por defecto es body/default (§8). */
   html {
