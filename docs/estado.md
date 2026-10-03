@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de desarrollo: paso 7, tokens en CSS y Tailwind, V06–V12).
+Última actualización: 2026-10-03 (sesión de contenido: C11, secciones del sidebar).
 
 ---
 
@@ -108,7 +108,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 **Pendiente o sin verificar**
 - El despliegable de `InCode` y de las secciones del sidebar no se ha probado a mano en un navegador. Sí se ha comprobado el HTML inicial (`aria-expanded`, `aria-controls`, `hidden`).
-- Las secciones del sidebar se muestran todas abiertas (`defaultOpen`). `componentes-v1.md` no dice cuáles empiezan abiertas: hay que decidirlo antes del paso 8.
+- Las secciones del sidebar se muestran todas abiertas (`defaultOpen`). **Decidido (C11):** solo la sección de la lección actual empieza abierta; se aplica en el paso 8.
 - `npm` bloquea el `postinstall` de `@swc/core`, que llega como dependencia de next-intl. No hace falta para el enrutado, y el build funciona sin él.
 - Despliegue en Vercel: sin probar.
 

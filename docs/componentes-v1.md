@@ -392,7 +392,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 | Prop | Tipo | En Figma |
 |---|---|---|
 | `title` | `string` | Texto |
-| `defaultOpen` | `boolean` | Variante `open` = `true` / `false` |
+| `defaultOpen` | `boolean`: `true` solo si la sección contiene la lección actual (C11) | Variante `open` = `true` / `false` |
 | `children` | los `SidebarItem` | Slot (visible solo con `open = true`) |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
 
