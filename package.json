@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "check:content": "node tools/check-content.mjs"
+    "check:content": "node tools/check-content.mjs",
+    "tokens": "node tools/figma-to-dtcg.mjs && tz build",
+    "check:tokens": "node tools/check-tokens.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -25,6 +27,8 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@terrazzo/cli": "2.7.1",
+    "@terrazzo/plugin-css": "2.7.1",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",

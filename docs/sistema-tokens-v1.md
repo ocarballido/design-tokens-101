@@ -204,6 +204,8 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 
 **Familias:** `font-family/sans` = Inter · `font-family/mono` = JetBrains Mono.
 
+**Familias de reserva en CSS (V11):** `ui-sans-serif, system-ui, sans-serif` para `sans` y `ui-monospace, monospace` para `mono`. Se añaden en la capa de Tailwind (`--font-sans`, `--font-mono`), no en el token: Figma admite un solo nombre de familia.
+
 **Tamaños:** escala enumerada del SDS ([SDS theme.css](https://raw.githubusercontent.com/figma/sds/main/src/theme.css)).
 
 | Token | px (Figma) | rem (CSS) |
@@ -253,7 +255,7 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 - **Fuente:** Figma admite variables Number en el peso tipográfico, solo con números como 400 o 700 ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Comprobado en el archivo: una variable Number con valor 600 en un estilo de texto de Inter lo convierte en Semi Bold.
 - **Fuente:** en Dev Mode, un peso aplicado con una variable String no se muestra como referencia a la variable, solo como número; con una variable Number sí aparece la referencia ([Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)).
 - **Recomendación aceptada:** con Number, el mismo número está en Figma, en DTCG (`fontWeight` admite números de 1 a 1000) y en CSS. Es la excepción a la regla "sin valores en el nombre": el peso numérico es el nombre estándar del paso en CSS.
-- *Pendiente para la sesión de desarrollo (paso 7):* la importación DTCG de Figma no incluye el tipo `fontWeight` entre sus tipos admitidos ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Hay que comprobar con qué `$type` exporta Figma estas variables (probablemente `number`).
+- La importación DTCG de Figma no incluye el tipo `fontWeight` entre sus tipos admitidos ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). **Comprobado en el paso 7 (2026-10-03):** Figma exporta estas variables como `"$type": "number"` con el scope `FONT_STYLE`. La normalización (`tools/figma-to-dtcg.mjs`, V06) las convierte en `fontWeight`.
 
 **Interlineado** (número sin unidad, multiplicador del tamaño de fuente, como define DTCG):
 
@@ -557,7 +559,7 @@ Pruebas hechas con la API de plugins en el archivo TokensDS (plan Professional),
 
 ## 8. Estilos de texto por rol (S24)
 
-Son la capa semántica de la tipografía. Cada estilo vincula familia y peso a las variables primitivas de §4.2, y el tamaño a su token de la colección Layout (D10). El interlineado se escribe como porcentaje, sin variable (D01). **En código, esta tabla es la fuente de los estilos compuestos**: la exportación DTCG de Figma trabaja con variables por modo y probablemente no incluye los estilos de texto (se verifica en el paso 7).
+Son la capa semántica de la tipografía. Cada estilo vincula familia y peso a las variables primitivas de §4.2, y el tamaño a su token de la colección Layout (D10). El interlineado se escribe como porcentaje, sin variable (D01). **En código, esta tabla es la fuente de los estilos compuestos**: la exportación DTCG de Figma trabaja con variables por modo y no incluye los estilos de texto (comprobado en el paso 7, 2026-10-03: ningún archivo de `tokens/figma/` trae tokens `typography`).
 
 **Por qué existe `body/strong` (D17).** En Figma, poner negrita a un fragmento de texto (aplicando la fuente o vinculando `font-weight/600`) separa ese fragmento de su estilo de texto: queda sin estilo (comprobado en el archivo el 2026-10-02). Para que todo el texto siga ligado a un estilo, el texto destacado tiene su propio estilo. En código no cambia nada: `<strong>` hereda tamaño e interlineado y aplica el peso 600.
 

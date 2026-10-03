@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de desarrollo: esqueleto del paso 4, V01–V05).
+Última actualización: 2026-10-03 (sesión de desarrollo: paso 7, tokens en CSS y Tailwind, V06–V12).
 
 ---
 
@@ -16,7 +16,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
 | 6 | Contenido | Redactar los módulos 1 a 7 | Pendiente (en paralelo con 4, 7 y 8) |
-| 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Desbloqueado. Oscar exporta las 4 colecciones a `tokens/figma/` y los logotipos a `public/brand/` (C10) |
+| 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Hecho (2026-10-03): Terrazzo + Resolver DTCG, dos capas y Tailwind (V06–V12) |
 | 8 | Desarrollo C | Componentes y páginas con el diseño | Desbloqueado. Guía en `docs/entrega-diseno.md` §3. Mejor después de 4 y 7 |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
 
@@ -57,6 +57,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **P9:** cómo se comparte una fuente de verdad entre sesiones y herramientas (material para el módulo 10).
 - **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
 - **V02:** mientras falte el inglés, `/en/…` muestra el español con un aviso. Puede citarse en "Cómo se hizo esta web".
+- **V06–V12 (módulo 6, itinerario de código):** la cadena Figma → normalización → Resolver DTCG → Terrazzo → dos capas → Tailwind (`docs/paso-7-tokens.md` §8). V09 es buen ejemplo de "separar la fuente de la recomendación": funciona, pero no está documentado, y por eso hay una prueba que lo vigila. V10 completa D07 (cómo se aplica el modo oscuro en CSS).
 - **Paso 7 (módulo 6):** todo `docs/paso-7-tokens.md`, sobre todo lo que la exportación DTCG de Figma no incluye (tipos y alias, §1) y por qué hace falta normalizar. Candidato a "errores frecuentes": esperar que la exportación de Figma conserve los alias.
 - **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
 
@@ -83,9 +84,17 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 ## Desarrollo
 
-**Estado:** paso 4 hecho (2026-10-03). **Paso 7 en curso:** inspección y comparación hechas; esperando la decisión de Oscar (A8, A9, A12, tema oscuro, familias de reserva y carpetas). Informe en `docs/paso-7-tokens.md` §7.
+**Estado:** pasos 4 y 7 hechos (2026-10-03). Siguiente: paso 8 (componentes y páginas con el diseño).
 
-**Paso 7 (2026-10-03): lo encontrado**
+**Paso 7 (2026-10-03): hecho** (V06–V12, detalle en `docs/paso-7-tokens.md` §8)
+- `npm run tokens`: `tools/figma-to-dtcg.mjs` normaliza `tokens/figma/` en `tokens/dtcg/`. Después, Terrazzo genera `src/styles/tokens.css` (capa 1, `--t101-*`: 149 en `:root`, 31 en cada bloque Dark y 9 en Desktop) y `src/styles/theme.css` (capa 2, `@theme inline` con 84 variables y sin tema por defecto).
+- Tokens solo de código en `tokens/code-only.tokens.json` (line-height, space negativo, breakpoint).
+- `npm run check:tokens`: code syntax de Figma, referencias, bloques de modo, hex, tokens solo de código y clases de Tailwind. Probado también en negativo.
+- `globals.css` importa las dos capas. Todavía no se aplican estilos a ningún elemento: la web se sigue viendo sin estilo hasta el paso 8.
+- **Para el paso 8:** carga de fuentes (`next/font`), grosor de borde en Tailwind (sin espacio de nombres), estilos de texto de §8, estilos base y `ThemeToggle` (`data-theme`, V10).
+- Al cambiar las variables en Figma: reexportar en `tokens/figma/` (C10), `npm run tokens`, `npm run check:tokens` y commit de todo lo generado.
+
+**Paso 7: lo encontrado**
 - La exportación de Figma no es DTCG completo: tamaños como `number` sin unidad, `font-weight` como `number` (scope `FONT_STYLE`), familia como `string` (no es un tipo DTCG) y **alias resueltos**, con la referencia solo en `com.figma.aliasData`. Ninguna herramienta la usa tal cual: hace falta un paso de normalización (probado: 82 alias recuperados).
 - Comparación Style Dictionary 5.5.5 / Terrazzo 2.7.1 con la entrada normalizada: las dos dan `var()` y hex. Terrazzo une los modos con el Resolver de DTCG 2025.10. Style Dictionary convierte mal `64rem` → `4rem`. El plugin de Tailwind de Terrazzo no encaja con las dos capas (S7). Recomendación: Terrazzo + hex.
 - A12: los espacios de nombres por propiedad de Tailwind (`--background-color-*`, `--text-color-*`…) dan `bg-neutral-default` / `text-neutral-default`. Funcionan en 4.3.3, pero **no están documentados**.

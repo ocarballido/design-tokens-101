@@ -117,7 +117,7 @@ Resultado comprobado: 82 alias, 55 `dimension`, 4 `fontWeight`, 2 `fontFamily` y
 
 **Empate:** ninguna lee la exportación de Figma sin preparar, y en las dos el `@theme inline` de Tailwind se escribe fuera de la herramienta (§6).
 
-## 5. Recomendación (pendiente de decisión de Oscar: A8, A9)
+## 5. Recomendación (decidida: V06, V07, V08)
 
 **Terrazzo**, con el paso de normalización propio delante. Motivos:
 
@@ -130,7 +130,7 @@ En contra de Terrazzo: el plugin de Tailwind no nos sirve; la opción `only` no 
 
 **A8, formato de color: hex.** Fuente de verdad sRGB (S9) y Figma exporta hex exacto: hex no añade redondeos. oklch obligaría a convertir y redondear valores que ya están decididos en sRGB.
 
-## 6. Propuesta para Tailwind: `@theme inline` y A12 (pendiente de decisión)
+## 6. Tailwind: `@theme inline` y A12 (decidida: V09)
 
 ### 6.1 Dos capas (S7, S27)
 
@@ -173,11 +173,57 @@ Mapeo propuesto (capa 2):
 - Propuesta: generar este archivo con el mismo build (script propio leyendo los tokens resueltos), para que un token nuevo en Figma aparezca sin tocar CSS a mano.
 - `--breakpoint-*` no admite `var()` porque las media queries no leen variables; se escribe el valor (`64rem`) generado desde el token.
 
-## 7. Preguntas abiertas para Oscar
+## 7. Decisiones
 
-1. **Herramienta (A8):** Terrazzo (recomendado) o Style Dictionary.
-2. **Formato de color (A8):** hex (recomendado) u oklch.
-3. **A12:** opción B (recomendada), A o C.
-4. **Tema oscuro (D07):** propuesta `:root` = Light; Dark con `[data-theme="dark"]` y con `@media (prefers-color-scheme: dark)` sobre `:root:not([data-theme="light"])` (modo `system`). Más `color-scheme` en cada bloque.
-5. **Familias tipográficas:** Figma exporta un único nombre (`"Inter"`). La especificación no fija familias de reserva para CSS (`system-ui, sans-serif`) ni cómo se cargan las fuentes (`next/font`). Hueco de la especificación.
-6. **Dónde van los archivos** (C10 deja la carpeta a desarrollo). Propuesta: `tools/figma-to-dtcg.mjs` (normalización), `tokens/dtcg/` (DTCG normalizado, generado y versionado para poder enseñarlo), `tokens/code-only.tokens.json` (solo código, fuente a mano), `tokens/tokens101.resolver.json`, `terrazzo.config.mjs` y salida en `src/styles/tokens.css` + `src/styles/theme.css` (generados).
+Oscar eligió las recomendaciones (2026-10-03): Terrazzo + normalización (V06), hex (V07), Resolver (V08), espacios de nombres por propiedad (V09), tema oscuro con `data-theme` y `prefers-color-scheme` (V10), familias de reserva en la capa de Tailwind (V11, provisional) y carpetas (V12).
+
+## 8. Implementación
+
+```txt
+tokens/figma/*/*.tokens.json        exportación de Figma, sin tocar (C10)
+        │  tools/figma-to-dtcg.mjs  (alias, tipos, unidades)
+        ▼
+tokens/dtcg/*/*.tokens.json         DTCG 2025.10 estricto (generado)
+tokens/code-only.tokens.json        line-height, space/negative, breakpoint (a mano, §4)
+        │  tokens/tokens101.resolver.json  (base + theme + layout)
+        │  terrazzo.config.mjs
+        ▼
+src/styles/tokens.css               capa 1: --t101-*            (plugin-css)
+src/styles/theme.css                capa 2: @theme inline       (plugin propio)
+        │  src/app/globals.css: @import de los dos
+        ▼
+Tailwind CSS v4 → bg-neutral-default, text-body-default, p-400, desktop:…
+```
+
+**Comandos:** `npm run tokens` (normaliza y genera) y `npm run check:tokens` (comprueba).
+
+**`tokens.css` generado:**
+
+| Bloque | Tokens | Qué contiene |
+|---|---|---|
+| `:root` | 149 | Todo, con Light y Mobile. `color-scheme: light` |
+| `[data-theme="dark"]` | 31 | Semantic color, Dark. `color-scheme: dark` |
+| `@media (prefers-color-scheme: dark)` → `:root:not([data-theme="light"])` | 31 | Igual (modo `system`, D07) |
+| `@media (width >= 64rem)` → `:root` | 9 | Layout, Desktop (D10, D11) |
+
+Ejemplos: `--t101-space-100: 0.25rem;` · `--t101-color-emerald-500: #3c9;` · `--t101-color-text-on-accent: var(--t101-color-neutral-950);` · `--t101-font-size-heading-1: var(--t101-font-size-06);` y, en Desktop, `var(--t101-font-size-07)`.
+
+**`theme.css` generado:** 84 variables de Tailwind. Empieza por `--*: initial` (sin tema por defecto). Cada token tiene una regla explícita en `terrazzo.config.mjs`: o se expone o se descarta con motivo. Un token nuevo sin regla detiene el build.
+
+| No se expone | Motivo |
+|---|---|
+| Primitivos de color | Solo son destino de alias (S22) |
+| `font-size/01`…`10` | Los usan los tokens de Layout (D10), no los componentes |
+| `border-width/*` | Tailwind no tiene espacio de nombres para el grosor de borde. Se decide en el paso 8 |
+
+**`check:tokens` comprueba:**
+- que cada code syntax de Figma tiene su variable;
+- que no hay `var()` rotos;
+- que los bloques de modo coinciden con sus colecciones;
+- que los hex son idénticos a Figma;
+- los valores de los tokens solo de código;
+- 15 clases de Tailwind que deben existir y 7 que no (`bg-red-500`, `p-4`, `bg-text-neutral-default`…).
+
+Se probó en negativo: detecta un hex cambiado, una referencia rota y una variable de la paleta por defecto de Tailwind.
+
+**Pendiente para el paso 8:** carga de las fuentes (`next/font`), grosor de borde en Tailwind, estilos de texto compuestos (§8 de la especificación), estilos base (`body`) y `ThemeToggle` (poner o quitar `data-theme`).

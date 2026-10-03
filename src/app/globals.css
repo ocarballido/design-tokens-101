@@ -1,2 +1,7 @@
-/* Sin colores ni tipografías hasta el paso 7: los tokens --t101-* llegan con la exportación de Figma. */
 @import "tailwindcss";
+/* Capa 1: variables --t101-* con sus modos. Generado por `npm run tokens`. */
+@import "../styles/tokens.css";
+/* Capa 2: @theme inline de Tailwind que apunta a la capa 1 (S7, V09). Generado por `npm run tokens`. */
+@import "../styles/theme.css";
+
+/* Los componentes aplican los tokens en el paso 8. */

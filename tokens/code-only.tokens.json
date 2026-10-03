@@ -1,0 +1,27 @@
+{
+  "line-height": {
+    "$type": "number",
+    "$description": "Solo código (D01): Figma interpreta una variable en el interlineado como píxeles. Fuente: docs/sistema-tokens-v1.md §4.2.",
+    "tight": { "$value": 1.2, "$description": "Títulos grandes" },
+    "snug": { "$value": 1.4, "$description": "Interfaz, textos cortos" },
+    "normal": { "$value": 1.5, "$description": "Texto de lectura" }
+  },
+  "space": {
+    "negative": {
+      "$type": "dimension",
+      "$description": "Solo código (D02): en Figma el scope GAP también cubre el padding. Fuente: docs/sistema-tokens-v1.md §4.1.",
+      "100": { "$value": { "value": -4, "unit": "px" } },
+      "200": { "$value": { "value": -8, "unit": "px" } },
+      "300": { "$value": { "value": -12, "unit": "px" } },
+      "400": { "$value": { "value": -16, "unit": "px" } },
+      "600": { "$value": { "value": -24, "unit": "px" } }
+    }
+  },
+  "breakpoint": {
+    "desktop": {
+      "$type": "dimension",
+      "$value": { "value": 64, "unit": "rem" },
+      "$description": "Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Fuente: docs/sistema-tokens-v1.md §4.2."
+    }
+  }
+}
