@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de contenido: bloque 0 al día con el paso 7 y corrección de V24).
+Última actualización: 2026-10-03 (sesión de contenido: módulo 1 en borrador, T6).
 
 ---
 
@@ -34,12 +34,16 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
   - `05-what-we-teach`: módulo 6 con la normalización. `06-requirements`: versiones probadas. `99-resources/01-sources`: Terrazzo Resolvers y API de plugins (Timing y Easing).
 - **V24 corregido** (sesión de contenido, decisión de Oscar): Figma sí tiene variables Timing y Easing; los tokens de movimiento siguen solo en código.
 
+- **Módulo 1, Fundamentos, en español (2026-10-03, borrador pendiente de revisión de Oscar):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
+
 **Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Falta ejecutar el build en local.**
 
 **Pendiente**
 - Lección del módulo 8 (Ejercicio final) a partir del ejercicio de cierre (S8–S29).
 - **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
-- Módulos 1 a 8.
+- Módulos 2 a 8. Módulo 1 escrito; falta la revisión de Oscar.
+- **Build del módulo 1 sin ejecutar** (npm da 403 en la sesión de contenido). Comprobados con script aparte: anclas, enlaces internos y llaves fuera de código en el MDX. Primera vez que una lección usa un `Callout` dentro de un `InCode` (página 04 del bloque 0).
+- **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
@@ -181,4 +185,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **2026-10-03 — Anclas con tildes (sesión de desarrollo).** El `id` conserva la tilde y el `href` sale codificado; funciona porque el navegador descodifica el fragmento. Si alguien compara los `href` con los `id` como texto, parecerán rotos aunque no lo estén.
 - **2026-10-03 — Claude Code y los Projects.** Claude Code no lee los documentos de un Project de claude.ai; carga `CLAUDE.md` y los archivos que importa con `@ruta` ([Claude Code — Memory](https://code.claude.com/docs/en/memory)). Por eso la fuente de verdad pasa al repositorio (P9).
 - **2026-10-03 — `next/font` y el token de familia (sesión de desarrollo).** `next/font` renombra la fuente; el nombre que guarda Figma (`Inter`) no la encuentra. Se resuelve en la capa de Tailwind (V13), sin tocar el token.
+- **2026-10-03 — Timing y Easing en Figma (sesión de contenido).** Figma tiene variables Timing y Easing, aplicables a animaciones de Figma Motion. V24 está corregido; **para desarrollo:** el `$description` de `duration/200` en `tokens/code-only.tokens.json` todavía dice "Figma no tiene variables de duración". Cambiarlo regenera el CSS, así que no se ha tocado desde la sesión de contenido.
+- **2026-10-03 — Peso en Figma (sesión de contenido).** La ayuda de Figma lista el peso entre los scopes de las variables Number ([Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)): D04 tiene ahora fuente oficial además de la prueba.
 - **2026-10-03 — Diferencias entre el dibujo y la anatomía (sesión de desarrollo).** Etiqueta del `Callout`, viñetas de "En esta página", radio del sidebar, color del pie y primera línea de `LessonHeader`. Las dos primeras las decidió Oscar (V18, V19); las demás están en Desarrollo → "diferencias con Figma". Para diseño: crear `size/sidebar/width` (V16).
