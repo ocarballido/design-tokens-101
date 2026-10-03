@@ -8,6 +8,7 @@ Convenciones para escribir y mantener las lecciones. Última revisión: 30/09/20
 content/
 ├── es/                      ← idioma de trabajo (se cierra primero)
 │   ├── 00-start-here/
+│   │   ├── meta.json            ← nombre de la sección en el sidebar
 │   │   ├── 01-what-is-tokens101.mdx
 │   │   ├── 02-why-this-site.mdx
 │   │   ├── 03-what-is-dtcg.mdx
@@ -16,12 +17,14 @@ content/
 │   │   ├── 06-requirements.mdx
 │   │   └── 07-how-this-site-was-made.mdx
 │   └── 99-resources/
+│       ├── meta.json
 │       └── 01-sources.mdx
 └── en/                      ← misma estructura y mismos nombres de archivo
 ```
 
 - **Orden por prefijo numérico de dos cifras**, como la documentación de Next.js ([Docs Contribution Guide](https://nextjs.org/docs/community/contribution-guide)). El prefijo no aparece en la URL.
 - **Mismos nombres de archivo en todos los idiomas**, para que cada página y su traducción compartan ruta. Los slugs están en inglés porque el inglés es el idioma por defecto. *Decisión provisional: se puede cambiar antes de publicar.*
+- **Cada carpeta de sección tiene un `meta.json`** con el nombre que se ve en el sidebar: `{"title": "Empezar aquí"}`. Es la convención de Fumadocs (V05). Si en un idioma falta el `meta.json` o una lección, la web usa la versión en español y avisa de que no está traducida (V02).
 - Los enlaces internos se escriben sin idioma ni prefijo numérico: `/start-here/what-is-dtcg`. El componente que sustituya a `a` en `mdx-components.tsx` debe usar el `Link` de next-intl para añadir el idioma.
 
 ## Frontmatter
@@ -46,7 +49,7 @@ lastReviewed: 2026-09-30          # última verificación de las fuentes
 5. Bloques `<InCode>` opcionales: el itinerario de código.
 6. Apartado final "Fuentes".
 
-**Anclas.** Los enlaces de "En esta página" asumen `rehype-slug` (github-slugger): minúsculas, sin signos de puntuación, espacios convertidos en guiones y tildes conservadas. Por eso los títulos evitan `¿?`, comillas y dos puntos. *Pendiente de verificar en el prototipo.*
+**Anclas.** Los enlaces de "En esta página" asumen `rehype-slug` (github-slugger): minúsculas, sin signos de puntuación, espacios convertidos en guiones y tildes conservadas. Por eso los títulos evitan `¿?`, comillas y dos puntos. *Verificado en el esqueleto (2026-10-03): las tildes se conservan y `npm run build && npm run check:content` comprueba que todas las anclas tienen destino.*
 
 ## Componentes que usa el contenido
 

@@ -1,0 +1,21 @@
+{
+  "Callout": {
+    "note": "Nota",
+    "warning": "Aviso",
+    "recommendation": "Recomendación",
+    "pending": "Pendiente"
+  },
+  "InCode": {
+    "label": "En código"
+  },
+  "Sidebar": {
+    "label": "Lecciones"
+  },
+  "Lesson": {
+    "untranslated": "Esta lección todavía no está traducida. Se muestra en {language}."
+  },
+  "Languages": {
+    "en": "inglés",
+    "es": "español"
+  }
+}

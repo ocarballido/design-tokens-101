@@ -16,3 +16,7 @@ __pycache__/
 .DS_Store
 CLAUDE.local.md
 tools/scales.json
+
+# Next.js
+next-env.d.ts
+*.tsbuildinfo

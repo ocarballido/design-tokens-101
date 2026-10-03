@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de contenido: fuente de verdad trasladada del Project de claude.ai a este repositorio, P9).
+Última actualización: 2026-10-03 (sesión de desarrollo: esqueleto del paso 4, V01–V05).
 
 ---
 
@@ -13,7 +13,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 1 | Contenido | Revisar el bloque 0 (MDX en español) | Hecho (2026-09-30): aprobado por Oscar |
 | 2 | Contenido | Ejercicio de cierre de la fase 1 → especificación `docs/sistema-tokens-v1.md` | Hecho (2026-09-30) |
 | 3 | Oscar | Crear el repositorio en GitHub | Hecho (2026-10-03): `ocarballido/design-tokens-101`. Documentos trasladados aquí (P9) |
-| 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | **Siguiente.** Desbloqueado |
+| 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
 | 6 | Contenido | Redactar los módulos 1 a 7 | Pendiente (en paralelo con 4, 7 y 8) |
 | 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Desbloqueado. Oscar exporta las 4 colecciones desde Figma (`docs/entrega-diseno.md` §2) |
@@ -55,10 +55,13 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **D17:** en Figma la negrita de un fragmento rompe el estilo de texto; por eso existe `body/strong` (módulo 3). Candidato a "errores frecuentes".
 - **D20:** token de ancho máximo de la columna de lectura y por qué es una excepción a "semánticos siempre alias" (módulos 3 y 4).
 - **P9:** cómo se comparte una fuente de verdad entre sesiones y herramientas (material para el módulo 10).
+- **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
+- **V02:** mientras falte el inglés, `/en/…` muestra el español con un aviso. Puede citarse en "Cómo se hizo esta web".
+- **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
 
-**Sin verificar**
-- El MDX no se ha compilado: en la sesión de contenido el registro de npm estaba bloqueado. Se revisó con un script (llaves, etiquetas y anclas) sin errores. La prueba real es el primer build (paso 4).
-- Formato de las anclas con `rehype-slug` (tildes conservadas).
+**Verificado en el paso 4 (2026-10-03)**
+- El bloque 0 compila con `@next/mdx` sin cambios en el MDX.
+- Anclas: `rehype-slug` conserva las tildes en el `id` (`qué-define-la-especificación`). El `href` sale codificado (`#qu%C3%A9-…`), y el navegador lo descodifica antes de buscar el `id` ([HTML Standard](https://html.spec.whatwg.org/multipage/browsing-the-web.html#find-a-potential-indicated-element)). Las 76 anclas de "En esta página" tienen destino, 34 de ellas con tildes (`npm run check:content`).
 
 ## Diseño
 
@@ -79,9 +82,20 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 ## Desarrollo
 
-**Estado:** no iniciado. Repositorio creado (2026-10-03) con `docs/`, `content/`, `tools/` y `CLAUDE.md`.
+**Estado:** paso 4 hecho (2026-10-03). Siguiente: paso 7 (tokens desde la exportación DTCG de Figma).
 
-**Paso 4 (siguiente):** comprobar que la decisión de contenido funciona (MDX con `@next/mdx` + next-intl + frontmatter + anclas) antes de aplicar el diseño.
+**Hecho (paso 4)**
+- Next.js 16.3 (App Router, Turbopack) + TypeScript 7 + Tailwind CSS 4.3 (solo `@import "tailwindcss"`, sin colores ni tipografías) + next-intl 4.14 (`en` por defecto, `es`) + `@next/mdx` con `remark-frontmatter`, `remark-mdx-frontmatter`, `remark-gfm` y `rehype-slug` (V01).
+- Rutas `/{locale}/{seccion}/{leccion}` generadas en estático desde `content/` (`src/lib/content.ts`): el prefijo `NN-` ordena y no sale en la URL. `title` → `h1` y `<title>`; `description` → `<meta>`; `nav_title` → sidebar.
+- Componentes provisionales sin estilo en `src/components/`: `Callout` (4 variantes, etiqueta fija traducida), `InCode` (botón con `aria-expanded`, cerrado por defecto), `Sidebar` (`nav` con `aria-label`, secciones con `aria-expanded`, `aria-current="page"`) y `LessonHeader`. Los enlaces internos del MDX pasan por el `Link` de next-intl.
+- `npm run check:content` (`tools/check-content.mjs`, después de `npm run build`): comprueba las anclas, el orden del sidebar, `aria-current` y los enlaces internos en las 16 páginas. Se probó también en negativo (detecta un `id` roto).
+- Lecciones sin traducir en español con aviso (V02); prefijo de idioma siempre (V03); `/{locale}` redirige a la primera lección (V04); nombres de sección en `meta.json` (V05).
+
+**Pendiente o sin verificar**
+- El despliegable de `InCode` y de las secciones del sidebar no se ha probado a mano en un navegador. Sí se ha comprobado el HTML inicial (`aria-expanded`, `aria-controls`, `hidden`).
+- Las secciones del sidebar se muestran todas abiertas (`defaultOpen`). `componentes-v1.md` no dice cuáles empiezan abiertas: hay que decidirlo antes del paso 8.
+- `npm` bloquea el `postinstall` de `@swc/core`, que llega como dependencia de next-intl. No hace falta para el enrutado, y el build funciona sin él.
+- Despliegue en Vercel: sin probar.
 
 **Para los pasos 7 y 8 (de la sesión de diseño):** ver `docs/entrega-diseno.md`.
 - Hay un estilo de texto más, `body/strong` (§8): en CSS es `font-weight: var(--t101-font-weight-600)` sobre `body/default`.
@@ -97,4 +111,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **2026-09-30 — npm.** En el entorno de la sesión de contenido, el registro de npm devuelve 403. Si pasa lo mismo en desarrollo, el build habrá que hacerlo en local o en Vercel.
 - **2026-09-30 — MCP de Figma usa el code syntax (sesión de diseño).** `get_design_context` escribe las variables con su code syntax Web y un valor de reserva: `gap-[var(--t101-space-200,8px)]`. Material para el módulo 10.
 - **2026-09-30 — Scopes en la API de plugins (sesión de diseño).** Solo hay un scope `GAP` para gap y padding de auto layout. La ayuda de Figma los enumera por separado en la interfaz, pero la API no permite separarlos.
+- **2026-10-03 — npm funciona en la sesión de desarrollo** (Claude Code, en local). El 403 de la sesión de contenido no se repite.
+- **2026-10-03 — Anclas con tildes (sesión de desarrollo).** El `id` conserva la tilde y el `href` sale codificado; funciona porque el navegador descodifica el fragmento. Si alguien compara los `href` con los `id` como texto, parecerán rotos aunque no lo estén.
 - **2026-10-03 — Claude Code y los Projects.** Claude Code no lee los documentos de un Project de claude.ai; carga `CLAUDE.md` y los archivos que importa con `@ruta` ([Claude Code — Memory](https://code.claude.com/docs/en/memory)). Por eso la fuente de verdad pasa al repositorio (P9).

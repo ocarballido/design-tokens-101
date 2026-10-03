@@ -29,8 +29,10 @@ Lee bajo demanda, cuando el trabajo lo pida:
 
 - `content/{locale}/NN-seccion/NN-pagina.mdx`: lecciones (C6). El español es el idioma de trabajo; el inglés es el idioma por defecto de la web (C5).
 - `docs/`: documentos compartidos.
-- `tools/`: scripts de escalas y contraste (`python3 tools/scales.py`, `python3 tools/semantic.py`).
-- Pendiente: la aplicación Next.js (paso 4 de `docs/estado.md`) y la carpeta de tokens exportados de Figma (paso 7).
+- `tools/`: scripts de escalas y contraste (`python3 tools/scales.py`, `python3 tools/semantic.py`) y comprobación del contenido compilado (`npm run build && npm run check:content`).
+- `src/`: la aplicación Next.js. `app/[locale]/[section]/[lesson]/page.tsx` carga las lecciones; `lib/content.ts` lee `content/`; `components/`, los componentes; `i18n/`, next-intl; `mdx-components.tsx`, los componentes del MDX.
+- `messages/{locale}.json`: textos de la interfaz (next-intl).
+- Pendiente: la carpeta de tokens exportados de Figma (paso 7).
 
 ## Stack
 

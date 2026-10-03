@@ -153,7 +153,11 @@ Resultados de las verificaciones por prueba en el archivo de Figma TokensDS (pla
 
 | # | Decisión | Estado | Fecha |
 |---|---|---|---|
-| — | Todavía no hay decisiones de desarrollo. Se numeran `V01`, `V02`… | — | — |
+| V01 | **Esqueleto (paso 4):** Next.js 16.3, next-intl 4.14, Tailwind CSS 4.3, `@next/mdx` 16.3, TypeScript 7, npm y carpeta `src/`. Lo que dicen las fuentes: en Next.js 16 el middleware se llama `proxy.ts` ([next-intl — App Router](https://next-intl.dev/docs/getting-started/app-router/with-i18n-routing)); con Turbopack, los plugins de MDX se escriben como texto y con opciones serializables ([Next.js — MDX](https://nextjs.org/docs/app/guides/mdx#using-plugins-with-turbopack)); TypeScript 7 no tiene API de JavaScript y Next.js comprueba los tipos con el CLI `tsc` ([Next.js — TypeScript](https://nextjs.org/docs/app/api-reference/config/typescript#using-typescript-7)). Las lecciones se cargan con `import()` dinámico desde `src/app/[locale]/[section]/[lesson]/page.tsx`, con `generateStaticParams` y `dynamicParams = false`. Configuración en `next.config.ts`. | Cerrada | 2026-10-03 |
+| V02 | **Lecciones sin traducir:** si falta `content/{locale}/…/NN-pagina.mdx`, se muestra la versión en español con un aviso `pending` en el idioma de la página, y el `article` lleva `lang="es"` (WCAG 3.1.2). La estructura del sidebar sale de `content/es` (idioma de trabajo, C5). Propuesta de la sesión de desarrollo; Oscar elige la recomendación. | Provisional | 2026-10-03 |
+| V03 | **Prefijo de idioma siempre en la URL** (`/en/…`, `/es/…`; `localePrefix: 'always'`, valor por defecto de next-intl). La raíz `/` redirige según el `Accept-Language` del navegador y, si no coincide ninguno, a `/en` (detección de next-intl). Oscar elige la recomendación. | Provisional | 2026-10-03 |
+| V04 | **Sin portada:** `/{locale}` redirige a la primera lección hasta que se diseñe una portada. | Provisional | 2026-10-03 |
+| V05 | **Nombre de las secciones en `meta.json`:** cada carpeta de sección tiene un `meta.json` por idioma (`content/es/00-start-here/meta.json` → `{"title": "Empezar aquí"}`). Es la convención de Fumadocs ([Page Conventions](https://fumadocs.dev/docs/page-conventions)), lo que facilita la migración de C4. Sin `meta.json` en un idioma, se usa el español (V02). Oscar elige la recomendación. | Cerrada | 2026-10-03 |
 
 ## Decisiones abiertas
 
