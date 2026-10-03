@@ -1,8 +1,8 @@
 ---
 title: Cómo encajan Figma, DTCG y Tailwind
-description: Vista general del recorrido de un token, desde una variable de Figma hasta una clase de Tailwind CSS, pasando por el formato DTCG.
+description: Vista general del recorrido de un token, desde una variable de Figma hasta una clase de Tailwind CSS, pasando por la exportación de Figma y el formato DTCG.
 nav_title: Figma + DTCG + Tailwind
-lastReviewed: 2026-09-30
+lastReviewed: 2026-10-03
 ---
 
 Esta página es el mapa del curso. Muestra el recorrido completo de un token, desde Figma hasta el código, sin entrar todavía en detalle. Cada paso tiene su módulo, y al final del curso volverás aquí con todas las piezas encajadas.
@@ -11,26 +11,31 @@ Esta página es el mapa del curso. Muestra el recorrido completo de un token, de
 
 - [El recorrido de un token](#el-recorrido-de-un-token)
 - [1 Figma define las decisiones](#1-figma-define-las-decisiones)
-- [2 DTCG las transporta](#2-dtcg-las-transporta)
+- [2 Figma exporta casi DTCG](#2-figma-exporta-casi-dtcg)
 - [3 Una herramienta de traducción las convierte](#3-una-herramienta-de-traducción-las-convierte)
 - [4 Tailwind CSS las convierte en clases](#4-tailwind-css-las-convierte-en-clases)
 - [Un solo nombre en todo el recorrido](#un-solo-nombre-en-todo-el-recorrido)
-- [Lo que todavía no está decidido](#lo-que-todavía-no-está-decidido)
+- [Lo que hemos decidido](#lo-que-hemos-decidido)
 
 ## El recorrido de un token
 
 ```txt
-Figma                 DTCG (JSON)             Herramienta de         CSS / Tailwind CSS
-variables y modos  →  un archivo por modo  →  traducción          →  variables y clases
-                                              (Style Dictionary
-                                               o Terrazzo)
+Figma: variables, colecciones y modos
+   ↓  Export modes
+JSON de Figma: casi DTCG, un archivo por modo
+   ↓  normalización: tipos, unidades y alias
+DTCG estricto
+   ↓  herramienta de traducción (en Tokens101, Terrazzo)
+Variables CSS
+   ↓  @theme inline
+Clases de Tailwind CSS
 ```
 
 La idea central es tener **una sola fuente de verdad**. Los tokens se definen una vez y todo lo demás se genera a partir de ahí, sin copiar valores a mano.
 
 <Callout variant="recommendation">
 
-En Tokens101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens que Figma no gestiona, como el z-index, viven solo en código. Cada token tiene una única fuente.
+En Tokens101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens viven en código y no en Figma, porque Figma no los guarda como necesitamos: el interlineado, el espaciado negativo y el punto de corte entre móvil y escritorio. Lo verás en el módulo De Figma al código. Cada token tiene una única fuente.
 
 </Callout>
 
@@ -46,29 +51,63 @@ Los modos de variables requieren un plan Education, Professional, Organization o
 
 </Callout>
 
-## 2 DTCG las transporta
+## 2 Figma exporta casi DTCG
 
-Figma exporta cada modo como un archivo JSON en formato DTCG: clic derecho sobre un modo → *Export mode*, o sobre la colección → *Export modes* (misma fuente). Ese archivo es el puente entre el diseño y el código.
+Figma exporta cada modo como un archivo JSON: clic derecho sobre un modo → *Export mode*, o sobre la colección → *Export modes*. Según su ayuda, el archivo sigue el formato DTCG ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Qué contiene un archivo DTCG lo explicamos en [Qué es DTCG](/start-here/what-is-dtcg).
 
-Qué contiene un archivo DTCG lo explicamos en [Qué es DTCG](/start-here/what-is-dtcg).
+Al exportar las variables de esta web comprobamos que el archivo de Figma no es DTCG completo. Tiene cuatro diferencias:
+
+| Qué | Qué exporta Figma | Qué espera DTCG |
+|---|---|---|
+| Alias | El valor ya resuelto; la referencia va en la extensión `com.figma.aliasData` | Una referencia: `"{color.neutral.950}"` |
+| Tamaños | `number` sin unidad: `4` | `dimension` con unidad: `{ "value": 4, "unit": "px" }` |
+| Familia tipográfica | `string` | `fontFamily` |
+| Peso tipográfico | `number` | `fontWeight` |
+
+Lo que dicen las fuentes:
+
+- La propia ayuda de Figma reconoce que `string` no es un tipo DTCG oficial, y documenta la extensión `com.figma.aliasData` para los alias entre colecciones ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- La especificación DTCG prohíbe que una herramienta adivine el tipo de un token a partir de su valor ([Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)). Por eso una herramienta no puede saber que `4` son píxeles.
+
+<Callout variant="warning">
+
+Si pasas la exportación tal cual a una herramienta de traducción, obtienes CSS inválido (`--t101-space-100: 4`, sin unidad) y pierdes los alias. Lo comprobamos con Style Dictionary 5.5.5 y Terrazzo 2.7.1 en octubre de 2026.
+
+</Callout>
+
+<Callout variant="recommendation">
+
+En Tokens101 añadimos un paso de **normalización**: un script que recupera los alias, añade las unidades y pone el tipo DTCG correcto. El tipo se deduce del **scope** de cada variable en Figma (dónde se puede aplicar), que es una decisión de diseño, y no del valor. Lo construimos paso a paso en el módulo De Figma al código.
+
+</Callout>
 
 ## 3 Una herramienta de traducción las convierte
 
 Una herramienta de traducción lee los archivos DTCG y genera código. La especificación cita como ejemplos Style Dictionary y Terrazzo ([DTCG Format Module — Translation tool](https://www.designtokens.org/TR/2025.10/format/#translation-tool)).
 
 - **Style Dictionary** soporta DTCG, pero su documentación advierte que el soporte de la versión 2025.10 todavía no es completo ([Style Dictionary — DTCG](https://styledictionary.com/info/dtcg/)).
-- **Terrazzo** es una cadena de herramientas nativa de DTCG y tiene un plugin oficial para Tailwind CSS v4 ([Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)).
+- **Terrazzo** es una cadena de herramientas nativa de DTCG. Une los modos con el Resolver Module de DTCG ([Terrazzo — Resolvers](https://terrazzo.app/docs/guides/resolvers)) y tiene un plugin oficial para Tailwind CSS v4 ([Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)).
 
-El resultado son **variables CSS** (custom properties), una por token, con un selector distinto para cada modo:
+<Callout variant="recommendation">
+
+Tokens101 usa **Terrazzo** para generar las variables CSS. Probamos su plugin de Tailwind y no encaja con el patrón de dos capas del apartado 4, así que esa capa la generamos aparte.
+
+</Callout>
+
+El resultado son **variables CSS** (custom properties), una por token, con un selector distinto para cada modo. Este es un token real de esta web:
 
 ```css
 :root {
-  --color-action-primary: oklch(…);
+  --t101-color-text-neutral-default: var(--t101-color-neutral-900);
 }
-.dark {
-  --color-action-primary: oklch(…);
+[data-theme="dark"] {
+  --t101-color-text-neutral-default: var(--t101-color-neutral-50);
 }
 ```
+
+- El alias se conserva como `var()`: el token semántico sigue apuntando a un primitivo.
+- En modo oscuro cambia el primitivo al que apunta, no el nombre del token.
+- El prefijo `--t101-` evita choques de nombres; lo explicamos en el módulo De Figma al código.
 
 <Callout variant="note">
 
@@ -97,6 +136,22 @@ El patrón habitual tiene dos capas y es el que documenta shadcn/ui ([shadcn/ui 
 
 Con esto, la clase `bg-warning` usa el token y cambia sola al activar el modo oscuro. Ejemplo tomado de la documentación de shadcn/ui.
 
+En Tokens101, la capa 2 de nuestro token queda así:
+
+```css
+@theme inline {
+  --text-color-neutral-default: var(--t101-color-text-neutral-default);
+}
+```
+
+Y genera la clase `text-neutral-default`.
+
+<Callout variant="warning">
+
+La documentación de Tailwind CSS cita el espacio de nombres `--color-*`, pero no `--text-color-*`. Funciona en Tailwind CSS 4.3, aunque no está documentado, así que una prueba automática del proyecto avisa si deja de funcionar.
+
+</Callout>
+
 </InCode>
 
 ## Un solo nombre en todo el recorrido
@@ -105,23 +160,32 @@ El objetivo es que un token se llame igual en todas partes:
 
 | Dónde | Cómo se ve |
 |---|---|
-| Variable de Figma | `color/action/primary` |
-| JSON DTCG | grupos anidados `color` → `action` → `primary` |
-| Variable CSS | `--color-action-primary` |
-| Clase de Tailwind CSS | depende de cómo se exponga en `@theme` |
+| Variable de Figma | `color/text/neutral/default` |
+| Code syntax Web en Figma | `var(--t101-color-text-neutral-default)` |
+| JSON DTCG | grupos anidados `color` → `text` → `neutral` → `default` |
+| Variable CSS | `--t101-color-text-neutral-default` |
+| Clase de Tailwind CSS | `text-neutral-default` |
+
+En la clase, el inicio `text-` ya indica la propiedad, así que el nombre no la repite.
 
 Ese nombre compartido es lo que permite pasar de un diseño a un componente sin traducir nada, ya sea una persona o un agente de IA quien lo haga.
 
-## Lo que todavía no está decidido
+## Lo que hemos decidido
 
-Somos transparentes con lo que aún no hemos comprobado. Estas decisiones se tomarán en los módulos correspondientes, probando con archivos reales:
+Cuando escribimos esta página por primera vez, estas cuestiones estaban abiertas. Las decidimos al construir la web, probando con los archivos reales exportados de Figma:
+
+<Callout variant="recommendation">
+
+- **Herramienta:** Terrazzo, con el paso de normalización delante.
+- **Cómo unir los archivos de cada modo:** con un archivo del Resolver Module de DTCG ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)), que describe un conjunto fijo de tokens y dos ejes de modo: tema (claro y oscuro) y layout (móvil y escritorio).
+- **Clases de Tailwind CSS:** un espacio de nombres por propiedad (`bg-`, `text-`, `border-`), con el riesgo explicado en el apartado 4.
+- **Color:** los valores se guardan en sRGB en Figma y se escriben en hexadecimal en el CSS, sin conversiones. Por qué no usamos oklch para guardarlos lo explicamos en el módulo Primitivos.
+
+</Callout>
 
 <Callout variant="pending">
 
-- **Style Dictionary o Terrazzo.** Los compararemos con los archivos exportados desde Figma.
-- **Cómo unir los archivos de cada modo** en una sola salida CSS.
-- **Qué nombres de clase queremos en Tailwind CSS.** Depende de la convención de nombres que elijamos en el módulo Nombrar.
-- **Espacio de color.** Figma solo importa sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)), mientras que en CSS queremos poder usar oklch. Tenemos que verificar qué exporta Figma y cómo lo convierte cada herramienta.
+La ayuda de Figma documenta cómo exporta los alias **entre** colecciones, pero no los alias **dentro** de una misma colección. Nuestro sistema no tiene ninguno, así que no lo hemos podido comprobar.
 
 </Callout>
 
@@ -130,7 +194,9 @@ Somos transparentes con lo que aún no hemos comprobado. Estas decisiones se tom
 - [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
 - [Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
 - [Style Dictionary — DTCG](https://styledictionary.com/info/dtcg/)
+- [Terrazzo — Resolvers](https://terrazzo.app/docs/guides/resolvers)
 - [Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)
 - [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
 - [shadcn/ui — Theming](https://ui.shadcn.com/docs/theming)

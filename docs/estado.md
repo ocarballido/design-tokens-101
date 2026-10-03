@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de desarrollo: correcciones de Oscar al paso 8, V23–V27).
+Última actualización: 2026-10-03 (sesión de contenido: bloque 0 al día con el paso 7 y corrección de V24).
 
 ---
 
@@ -28,6 +28,13 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
   - 00-start-here: what-is-tokens101, why-this-site, what-is-dtcg, figma-dtcg-tailwind, what-we-teach, requirements, how-this-site-was-made
   - 99-resources: sources
 - Convenciones de contenido (`content/README.md`).
+- **Bloque 0 al día con el paso 7 (2026-10-03, aprobado por Oscar):**
+  - `04-figma-dtcg-tailwind`: recorrido con el paso de normalización; apartado "Figma exporta casi DTCG" (alias resueltos, tamaños sin unidad, `string`, peso como `number`); Terrazzo (V06); ejemplo CSS real con `--t101-` y `data-theme`; capa 2 con `--text-color-*` y su riesgo (V09); "Lo que hemos decidido" (V06–V09, S9). Queda un `pending`: Figma no documenta los alias dentro de una colección.
+  - `03-what-is-dtcg`: fila `string` en la tabla de importación, aviso de que la exportación no deshace las conversiones y mención de la normalización y del Resolver.
+  - `05-what-we-teach`: módulo 6 con la normalización. `06-requirements`: versiones probadas. `99-resources/01-sources`: Terrazzo Resolvers y API de plugins (Timing y Easing).
+- **V24 corregido** (sesión de contenido, decisión de Oscar): Figma sí tiene variables Timing y Easing; los tokens de movimiento siguen solo en código.
+
+**Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Falta ejecutar el build en local.**
 
 **Pendiente**
 - Lección del módulo 8 (Ejercicio final) a partir del ejercicio de cierre (S8–S29).
@@ -58,6 +65,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
 - **V02:** mientras falte el inglés, `/en/…` muestra el español con un aviso. Puede citarse en "Cómo se hizo esta web".
 - **V06–V12 (módulo 6, itinerario de código):** la cadena Figma → normalización → Resolver DTCG → Terrazzo → dos capas → Tailwind (`docs/paso-7-tokens.md` §8). V09 es buen ejemplo de "separar la fuente de la recomendación": funciona, pero no está documentado, y por eso hay una prueba que lo vigila. V10 completa D07 (cómo se aplica el modo oscuro en CSS).
+- **Timing y Easing en Figma (módulos 1, 2 y 6):** existen como tipos de variable. Sin verificar: si se exportan en DTCG y en qué unidad (la ayuda de Figma dice milisegundos; la API de plugins, segundos).
 - **Paso 7 (módulo 6):** todo `docs/paso-7-tokens.md`, sobre todo lo que la exportación DTCG de Figma no incluye (tipos y alias, §1) y por qué hace falta normalizar. Candidato a "errores frecuentes": esperar que la exportación de Figma conserve los alias.
 - **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
 - **V13 (módulo 6):** `next/font` sirve la fuente con un nombre propio, así que el nombre del token (`Inter`) no basta en CSS; la capa de Tailwind pone la variable de `next/font` delante. Candidato a "errores frecuentes": esperar que `font-family: Inter` use la fuente cargada con `next/font`.

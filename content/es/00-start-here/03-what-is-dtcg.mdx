@@ -2,7 +2,7 @@
 title: Qué es DTCG
 description: DTCG es el grupo del W3C que define un formato JSON común para intercambiar tokens de diseño entre herramientas. Qué es, qué estado tiene y para qué lo usamos.
 nav_title: Qué es DTCG
-lastReviewed: 2026-09-30
+lastReviewed: 2026-10-03
 ---
 
 DTCG son las siglas de **Design Tokens Community Group**, un grupo comunitario del W3C. También se usa "DTCG" para referirse a la especificación que publica: un formato de archivo para que distintas herramientas puedan leer y escribir los mismos tokens.
@@ -117,8 +117,11 @@ Hay restricciones de importación que conviene conocer desde el principio:
 | `fontFamily` | String | Un único nombre de fuente, no una lista |
 | `duration` | Number | Solo unidad `s` |
 | `number` | Number o Boolean | Boolean si lleva la extensión `com.figma.type: "boolean"` |
+| `string` | String | No es un tipo DTCG oficial, pero Figma lo acepta |
 
 Además, Figma convierte los puntos de los grupos en barras (`color.accent.light` pasa a `color/accent/light`) y, si dos tokens acaban con el mismo nombre, solo importa el primero (misma fuente).
+
+Al exportar, Figma no deshace esas conversiones: los tamaños salen como `number` sin unidad y la familia tipográfica como `string`. Además, los alias salen con el valor ya resuelto. Lo explicamos en [Figma exporta casi DTCG](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg).
 
 <Callout variant="warning">
 
@@ -128,13 +131,13 @@ DTCG admite unidades `rem` y otros espacios de color, pero Figma solo importa `p
 
 ## Cómo lo usamos en Tokens101
 
-DTCG es el **punto intermedio** entre Figma y el código. Exportamos las variables de Figma en DTCG y una herramienta de traducción las convierte en variables CSS. Lo verás completo en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind).
+DTCG es el **punto intermedio** entre Figma y el código. Exportamos las variables de Figma, las normalizamos a DTCG estricto y una herramienta de traducción las convierte en variables CSS. Lo verás completo en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind).
 
 <InCode title="Los modos no están en el Format Module">
 
 El Format Module no define modos. Para expresar claro y oscuro existe el Resolver Module, que organiza los tokens en *sets* (siempre cargados) y *modifiers* (ejes de variación) con *contexts* (los valores posibles, como `light` y `dark`). Sus documentos usan la extensión `.resolver.json` ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)).
 
-Figma, por su parte, exporta un archivo por modo. Cómo se unen esos archivos lo veremos en el módulo De Figma al código.
+Figma, por su parte, exporta un archivo por modo. En Tokens101 unimos esos archivos con un documento del Resolver Module; lo veremos en el módulo De Figma al código.
 
 </InCode>
 
