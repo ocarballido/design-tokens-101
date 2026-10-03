@@ -61,6 +61,7 @@ Documentos relacionados:
 | T3 | **Estructura de cada lección:** introducción breve → "En esta página" con enlaces → contenido con fuentes → cómo se hace en Figma (si aplica) → bloques "En código" opcionales → Fuentes. | Cerrada | 2026-09-30 |
 | T4 | Los módulos 9 y 10 no se publican hasta haberlos estudiado y verificado. El módulo 7 necesita investigación propia (W3C/WAI, MDN). | Cerrada | 2026-09-30 |
 | T5 | Queda fuera del curso: fundamentos de Figma, plugins de terceros para tokens (se usan las variables nativas y la exportación DTCG de Figma), fundamentos de CSS/React/Tailwind y elección estética. | Cerrada | 2026-09-30 |
+| T6 | **Módulo 1, Fundamentos: cuatro lecciones y un ejercicio.** Qué es un token · Tipos simples · Tipos compuestos y estilos · Una sola fuente de verdad · Ejercicio (inventario de valores sueltos de un diseño propio). La división simples / compuestos sigue la del Format Module de DTCG ([Types](https://www.designtokens.org/TR/2025.10/format/#types), [Composite types](https://www.designtokens.org/TR/2025.10/format/#composite-types)) y la de Figma entre variables y estilos ([Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). **Cada módulo termina con un ejercicio corto** que prepara el siguiente (como promete "Qué es Tokens101"). Oscar delegó la decisión en la sesión de contenido. | Cerrada | 2026-10-03 |
 
 ## Contenido y técnica
 
