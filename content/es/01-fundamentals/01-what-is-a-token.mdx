@@ -1,0 +1,136 @@
+---
+title: Qué es un token
+description: Un token de diseño es una decisión de diseño con nombre. Qué problema resuelve, qué partes tiene y en qué se diferencia de una variable de Figma o de una variable CSS.
+nav_title: Qué es un token
+lastReviewed: 2026-10-03
+---
+
+Antes de crear tokens conviene saber qué problema resuelven y qué los distingue de un valor cualquiera. En esta lección verás qué partes tiene un token y por qué no es lo mismo que una variable de Figma o una variable CSS.
+
+**En esta página**
+
+- [El problema de los valores sueltos](#el-problema-de-los-valores-sueltos)
+- [Un token es una decisión con nombre](#un-token-es-una-decisión-con-nombre)
+- [Las partes de un token](#las-partes-de-un-token)
+- [Token variable y clase no son lo mismo](#token-variable-y-clase-no-son-lo-mismo)
+- [En Figma](#en-figma)
+
+## El problema de los valores sueltos
+
+Imagina un diseño donde el color de marca, `#33CC99`, está escrito a mano en cuarenta sitios: rellenos en Figma, bordes, botones en el código. Aparecen tres problemas:
+
+- **Cambiarlo es costoso.** Hay que buscar y reemplazar en Figma y en el código, y cualquier aparición olvidada se queda con el valor antiguo.
+- **Aparecen variantes por error.** `#33CC99` y `#33CC98` se ven iguales en pantalla, pero son dos colores distintos.
+- **El valor no dice para qué sirve.** `#33CC99` no indica si es el fondo de un botón, un borde o el color de un enlace.
+
+El tercer problema es el más importante: **un valor suelto pierde la intención** con la que se eligió.
+
+## Un token es una decisión con nombre
+
+La especificación DTCG define un token de diseño como información asociada a un nombre legible por personas; como mínimo, un par nombre/valor ([Format Module — Design token](https://www.designtokens.org/TR/2025.10/format/#design-token)). La misma especificación presenta los tokens como una forma de expresar decisiones de diseño independiente de la plataforma, para compartirlas entre disciplinas, herramientas y tecnologías ([Format Module — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)).
+
+Dicho de forma más corta: **un token es una decisión de diseño con nombre**.
+
+| Sin token | Con token |
+|---|---|
+| `#33CC99` en cuarenta sitios | `color/emerald/500` en cuarenta sitios, y `#33CC99` en un único lugar |
+| Para cambiarlo, buscar y reemplazar | Para cambiarlo, editar el token |
+| El valor no explica nada | El nombre dice qué es y, en los tokens semánticos, para qué se usa |
+
+<Callout variant="note">
+
+Los tokens que nombran **qué valor es** (`color/emerald/500`) y los que nombran **para qué se usa** (`color/text/neutral/default`) son dos capas distintas: primitivos y semánticos. Las verás en los módulos Primitivos y Relaciones.
+
+</Callout>
+
+## Las partes de un token
+
+En la especificación DTCG, un token es un objeto JSON. Las propiedades que define la especificación empiezan por `$` ([Format Module — Design token](https://www.designtokens.org/TR/2025.10/format/#design-token)):
+
+| Propiedad | Obligatoria | Qué es |
+|---|---|---|
+| Nombre | Sí | La clave del objeto, por ejemplo `500` dentro del grupo `color` → `emerald` |
+| `$value` | Sí | El valor del token |
+| `$type` | Tiene que poder determinarse | La categoría del valor: `color`, `dimension`… Puede estar en el token, heredarse de su grupo o venir del token al que apunta ([Format Module — Type](https://www.designtokens.org/TR/2025.10/format/#type-0)) |
+| `$description` | No | Un texto que explica el propósito del token ([Format Module — Description](https://www.designtokens.org/TR/2025.10/format/#description)) |
+| `$extensions` | No | Datos propios de una herramienta. Figma, por ejemplo, guarda ahí el code syntax ([Format Module — Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)) |
+| `$deprecated` | No | Marca un token como obsoleto, con o sin explicación ([Format Module — Deprecated](https://www.designtokens.org/TR/2025.10/format/#deprecated)) |
+
+Este es el color de marca de Tokens101 escrito en DTCG:
+
+```json filename="tokens.json"
+{
+  "color": {
+    "emerald": {
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.2, 0.8, 0.6],
+          "hex": "#33CC99"
+        },
+        "$description": "Color de marca de Tokens101"
+      }
+    }
+  }
+}
+```
+
+- El nombre completo del token es `color.emerald.500`: los grupos y el nombre, unidos por puntos.
+- El tipo es lo que permite a una herramienta saber cómo tratar el valor. La especificación prohíbe que una herramienta adivine el tipo mirando el valor ([Format Module — Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
+
+## Token variable y clase no son lo mismo
+
+El token es el **concepto**: la decisión con su nombre, su valor y su tipo. Cada herramienta lo representa a su manera:
+
+| Representación | Ejemplo con el espaciado de 16 px |
+|---|---|
+| El token (la decisión) | Espaciado `400`: 16 px |
+| Variable de Figma | `space/400`, de tipo Number, con valor `16` |
+| Token DTCG | `space.400`, de tipo `dimension`, con valor `{ "value": 16, "unit": "px" }` |
+| Variable CSS | `--t101-space-400: 1rem` |
+| Clase de Tailwind CSS | `p-400`, `gap-400` |
+
+Son cinco representaciones de **una misma decisión**. En un sistema bien montado, la decisión se toma en un único lugar y el resto se genera a partir de ahí. Cuál es ese lugar lo verás en [Una sola fuente de verdad](/fundamentals/source-of-truth).
+
+<Callout variant="note">
+
+La ayuda de Figma lo explica desde el otro lado: las variables guardan valores reutilizables, y cuando una variable apunta a otra (un alias) puedes implementar tokens de diseño ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). La variable es la herramienta; el token es la decisión.
+
+</Callout>
+
+## En Figma
+
+En Figma, cada token es una **variable**. Las variables se crean en la vista Variables, dentro de una **colección**. Cada variable tiene un nombre, un tipo y un valor por cada **modo** de la colección ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+
+El nombre de la variable usa `/` para agruparla: `space/400` aparece dentro del grupo `space`. Al exportar a DTCG, cada `/` se convierte en un nivel de grupo del JSON.
+
+Cómo crear colecciones y variables paso a paso lo verás en el módulo Primitivos, cuando tengas decididas las escalas.
+
+<InCode title="El mismo token en CSS y en Tailwind CSS">
+
+Esta web genera las variables CSS a partir de la exportación de Figma. El espaciado del ejemplo queda así:
+
+```css
+:root {
+  --t101-space-400: 1rem;
+}
+```
+
+Figma guarda `16` (en píxeles) y el CSS lo escribe en `rem`: 16 px entre 16 = 1rem. Por qué usamos `rem` lo explicamos en [Tipos simples](/fundamentals/simple-types).
+
+Tailwind CSS lo expone como utilidad dentro de `@theme inline`, y la clase `p-400` aplica ese padding ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)):
+
+```css
+@theme inline {
+  --spacing-400: var(--t101-space-400);
+}
+```
+
+</InCode>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)

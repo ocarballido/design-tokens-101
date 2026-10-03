@@ -1,0 +1,124 @@
+---
+title: Una sola fuente de verdad
+description: Cada token se define en un único lugar y todo lo demás se genera a partir de él. Dónde está esa fuente en Tokens101, qué tokens viven en código y por qué.
+nav_title: Fuente de verdad
+lastReviewed: 2026-10-03
+---
+
+Un token pierde su valor si existe en dos sitios que pueden contradecirse. En esta lección verás qué significa tener una sola fuente de verdad, dónde está en Tokens101 y por qué algunos tokens se definen en código en lugar de en Figma.
+
+**En esta página**
+
+- [Qué es una fuente de verdad](#qué-es-una-fuente-de-verdad)
+- [Dónde está la fuente en Tokens101](#dónde-está-la-fuente-en-tokens101)
+- [Los tokens que viven en código](#los-tokens-que-viven-en-código)
+- [Cómo se mantiene un solo nombre](#cómo-se-mantiene-un-solo-nombre)
+- [En Figma](#en-figma)
+
+## Qué es una fuente de verdad
+
+En [Qué es un token](/fundamentals/what-is-a-token) viste que un mismo token tiene varias representaciones: la variable de Figma, el JSON, la variable CSS, la clase de Tailwind CSS. La **fuente de verdad** es la representación donde se toma la decisión. Las demás se generan a partir de ella y nadie las edita a mano.
+
+La especificación DTCG nace de ese problema: muchas herramientas exportan tokens, pero cada una a su manera, y los equipos acaban manteniendo código propio para conectarlas ([Format Module — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)). Un formato común permite generar cada representación desde la misma fuente.
+
+<Callout variant="warning">
+
+Si el mismo token se edita en Figma **y** en el CSS, tarde o temprano los dos valores no coincidirán, y nadie sabrá cuál es el correcto. Es el mismo problema de los valores sueltos, un nivel más arriba.
+
+</Callout>
+
+## Dónde está la fuente en Tokens101
+
+<Callout variant="recommendation">
+
+La regla de Tokens101: **cada token tiene una única fuente**, y la fuente puede ser distinta según el token.
+
+- **Variables de Figma** para los tokens que se usan al diseñar: colores, espaciados, radios, grosores de borde, familias, pesos y tamaños de fuente.
+- **Especificación del sistema** para los tokens que Figma no puede guardar como necesitamos, y para la combinación de los estilos de texto, que no se exporta ([Tipos compuestos y estilos](/fundamentals/composite-types#lo-que-no-se-exporta)).
+
+</Callout>
+
+Lo que dicen las fuentes: ni DTCG ni Figma imponen dónde tiene que estar la fuente de verdad. Elegir las variables de Figma como fuente principal es una decisión nuestra, porque el público principal del curso diseña en Figma.
+
+Lo que se genera a partir de esas fuentes, y que nadie edita a mano:
+
+| Qué | Se genera desde |
+|---|---|
+| Archivos DTCG normalizados | La exportación de Figma |
+| Variables CSS de los tokens | Los archivos DTCG |
+| Tema de Tailwind CSS | Las variables CSS |
+
+## Los tokens que viven en código
+
+Estos tokens se definen en código y no existen como variables de Figma:
+
+| Token | Por qué no está en Figma |
+|---|---|
+| **Interlineado** (`line-height/tight`, `snug`, `normal`) | Figma lee una variable de interlineado como píxeles, no como multiplicador. Lo comprobamos en Figma ([Tipos simples](/fundamentals/simple-types#interlineado)) |
+| **Espaciado negativo** (`space/negative/*`) | Lo comprobamos en la API de plugins de Figma: el mismo scope (`GAP`) cubre el gap y el padding, y Figma acepta padding negativo. Un padding negativo no es válido en CSS ([MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)), así que no podemos limitar el token al gap |
+| **Punto de corte** (`breakpoint/desktop`, 64rem) | En Figma Design, el modo se asigna a capas y marcos ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)) y no cambia con el ancho; en el foro de Figma se pide como mejora ([hilo del foro, 2025](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209)). En CSS, el punto de corte va en una media query, y las media queries no admiten variables CSS ([MDN — Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)) |
+| **Duración y curva** (`duration/200`, `easing/standard`) | Figma tiene variables Timing y Easing, pero se aplican a animaciones de Figma Motion, y esta web no diseña animaciones en Figma ([Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación)) |
+
+<Callout variant="recommendation">
+
+Un token vive en código cuando Figma no puede guardarlo de forma que funcione igual en el diseño y en el CSS, o cuando no se usa al diseñar. Si algún día Figma lo permite, el token puede pasar a Figma, pero **se mueve, no se copia**: nunca está en los dos sitios.
+
+</Callout>
+
+<Callout variant="note">
+
+Que un token viva en código no significa que viva en el CSS escrito a mano. En esta web se escriben en un archivo DTCG propio, y de ahí se generan las variables CSS igual que las demás.
+
+</Callout>
+
+## Cómo se mantiene un solo nombre
+
+Una sola fuente no basta si cada representación se llama de una manera. Figma permite dar a cada variable un **code syntax**: el nombre que tendrá en código, uno por plataforma (Web, Android o iOS). Ese nombre aparece en los fragmentos de código de Dev Mode al inspeccionar un elemento que usa la variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+
+| Representación | Nombre |
+|---|---|
+| Variable de Figma | `space/400` |
+| Code syntax Web | `var(--t101-space-400)` |
+| Variable CSS generada | `--t101-space-400` |
+
+Cuando el code syntax coincide con la variable CSS generada, quien inspecciona el diseño en Dev Mode ve el mismo nombre que encontrará en el código.
+
+<Callout variant="recommendation">
+
+En Tokens101 todas las variables tienen code syntax Web, también las ocultas. El formato es `var(--t101-` más la ruta de la variable con guiones. El prefijo `--t101-` lo explicamos en el módulo De Figma al código.
+
+</Callout>
+
+## En Figma
+
+Para añadir el code syntax a una variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+1. Abre la edición de la variable (*Edit variable*).
+2. En la sección *Code syntax*, pulsa *Add code syntax*.
+3. Elige la plataforma *Web* y escribe el nombre, por ejemplo `var(--t101-space-400)`.
+
+Lo harás con cada variable del sistema a partir del módulo Primitivos.
+
+<InCode title="No edites el CSS generado">
+
+En el repositorio de esta web, las variables CSS están en archivos generados. Si cambias un valor en ellos, el siguiente cambio en Figma lo sobrescribirá. El flujo es siempre el mismo:
+
+```txt
+1. Cambiar la variable en Figma (o el token de código en su archivo DTCG)
+2. Exportar de nuevo desde Figma
+3. Generar otra vez el CSS
+4. Comprobar que todo coincide
+```
+
+Cómo se automatiza cada paso lo verás en el módulo De Figma al código.
+
+</InCode>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- Foro de Figma: [Automatic variable mode switching for true responsive previews](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209) (2025, hilo de la comunidad)
+- [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+- [MDN — Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

@@ -1,0 +1,103 @@
+---
+title: "Ejercicio: inventario de valores"
+description: Haz inventario de los valores sueltos de un diseño propio, clasifícalos por tipo y decide dónde viviría cada uno. Es el punto de partida de tus primitivos.
+nav_title: Ejercicio
+lastReviewed: 2026-10-03
+---
+
+Antes de crear tokens hay que saber qué valores usas de verdad. En este ejercicio harás inventario de un diseño propio y aplicarás lo visto en el módulo: tipos simples, compuestos y fuente de verdad. El resultado es la lista de partida para el módulo Primitivos.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Elige el diseño](#paso-1-elige-el-diseño)
+- [Paso 2 Anota cada valor distinto](#paso-2-anota-cada-valor-distinto)
+- [Paso 3 Clasifica por tipo](#paso-3-clasifica-por-tipo)
+- [Paso 4 Busca casi duplicados](#paso-4-busca-casi-duplicados)
+- [Paso 5 Agrupa los compuestos](#paso-5-agrupa-los-compuestos)
+- [Paso 6 Decide dónde viviría cada valor](#paso-6-decide-dónde-viviría-cada-valor)
+- [Comprueba tu inventario](#comprueba-tu-inventario)
+- [En Figma](#en-figma)
+
+## Qué necesitas
+
+- Un diseño propio en Figma, de tres a cinco pantallas. Mejor uno real que uno hecho para el ejercicio: así el inventario muestra cómo trabajas de verdad.
+- Una tabla donde anotar: un documento, una hoja de cálculo o un marco de Figma con texto.
+- Entre 45 y 90 minutos, según el tamaño del diseño.
+
+<Callout variant="note">
+
+Si todavía no tienes un diseño propio, usa un archivo de la comunidad de Figma con pocas pantallas. Lo importante es que los valores no estén ya organizados como variables, para que tengas algo que ordenar.
+
+</Callout>
+
+## Paso 1 Elige el diseño
+
+Elige pantallas variadas: una con texto largo, otra con formularios o botones y otra con listas o tarjetas. Cuantos más tipos de elemento, más completo será el inventario.
+
+## Paso 2 Anota cada valor distinto
+
+Recorre las pantallas y anota cada valor **distinto**, no cada uso. Para cada uno, apunta también **cuántas veces aparece** y **dónde** (por ejemplo, "fondo de botón" o "texto secundario").
+
+Busca en estas propiedades:
+
+- Colores de relleno, de texto y de borde.
+- Tamaños de fuente, pesos, familias e interlineados.
+- Espacios: padding, gap y márgenes entre elementos.
+- Radios de esquina y grosores de borde.
+- Sombras y opacidades.
+- Anchos fijos, si los hay.
+
+## Paso 3 Clasifica por tipo
+
+Asigna a cada valor su tipo DTCG, según [Tipos simples](/fundamentals/simple-types#cómo-se-corresponden). Puedes usar esta plantilla:
+
+| Valor | Tipo DTCG | Veces | Dónde aparece |
+|---|---|---|---|
+| `#33CC99` | `color` | 14 | Botón principal, enlaces |
+| `16 px` (padding) | `dimension` | 22 | Tarjetas, botones |
+| `600` | `fontWeight` | 9 | Títulos, botones |
+| `150 %` | `number` (interlineado) | 30 | Texto de lectura |
+
+## Paso 4 Busca casi duplicados
+
+Ordena cada tipo de menor a mayor y busca valores muy parecidos: `#33CC99` y `#33CC98`, o un padding de 15 px y otro de 16 px. Son el síntoma del problema de los valores sueltos que viste en [Qué es un token](/fundamentals/what-is-a-token#el-problema-de-los-valores-sueltos).
+
+Marca cada caso. No hace falta decidir todavía cuál se queda: lo harás al construir las escalas en el módulo Primitivos.
+
+## Paso 5 Agrupa los compuestos
+
+Busca las combinaciones que se repiten juntas, sobre todo en el texto: por ejemplo, Inter 32 px, peso 600, interlineado 120 % en todos los títulos de sección. Cada combinación repetida es un candidato a **estilo de texto** ([Tipos compuestos y estilos](/fundamentals/composite-types)).
+
+Nombra cada combinación por su **rol** (título, texto de lectura, etiqueta), no por su tamaño.
+
+## Paso 6 Decide dónde viviría cada valor
+
+Añade una columna a la tabla: **Figma** o **código**. Usa el criterio de [Una sola fuente de verdad](/fundamentals/source-of-truth#los-tokens-que-viven-en-código): un valor va en código si Figma no puede guardarlo de forma que funcione igual en el diseño y en el CSS, o si no se usa al diseñar. El interlineado, por ejemplo, irá en código.
+
+## Comprueba tu inventario
+
+Tu inventario está completo si puedes responder que sí a estas preguntas:
+
+- ¿Cada valor tiene un tipo DTCG?
+- ¿Sabes cuántas veces aparece cada valor y dónde?
+- ¿Has marcado los casi duplicados?
+- ¿Tienes una lista de combinaciones de texto nombradas por su rol?
+- ¿Sabes qué valores irían en Figma y cuáles en código?
+
+<Callout variant="recommendation">
+
+Guarda el inventario. En el módulo Primitivos lo usarás para decidir cuántos pasos necesita cada escala: si tu diseño usa nueve espaciados distintos, probablemente puedas quedarte con menos, y el recuento te dirá cuáles se usan más.
+
+</Callout>
+
+## En Figma
+
+Para encontrar los colores más deprisa, selecciona todas las capas de una pantalla. Cuando la selección mezcla rellenos distintos, el panel derecho muestra una sección *Selection colors* con los colores sólidos y los degradados de los rellenos y trazos seleccionados. No incluye imágenes, rellenos ocultos ni máscaras ([Figma — View and adjust colors in a mixed selection](https://help.figma.com/hc/en-us/articles/360042553434)).
+
+Para los tamaños, espacios y radios, inspecciona los elementos uno a uno en el panel derecho.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10 — Types](https://www.designtokens.org/TR/2025.10/format/#types)
+- [Figma — View and adjust colors in a mixed selection](https://help.figma.com/hc/en-us/articles/360042553434)

@@ -1,0 +1,201 @@
+---
+title: Tipos simples
+description: Los tipos de token de un solo valor que define DTCG, los tipos de variable de Figma y cómo se corresponden en Tokens101, con sus excepciones.
+nav_title: Tipos simples
+lastReviewed: 2026-10-03
+---
+
+Cada token tiene un tipo, y el tipo decide cómo lo trata cada herramienta. En esta lección verás los tipos de un solo valor que define DTCG, los que tiene Figma y cómo encajan entre sí. Algunos no encajan del todo; esas excepciones son las que marcan qué tokens viven en código.
+
+**En esta página**
+
+- [Los tipos simples de DTCG](#los-tipos-simples-de-dtcg)
+- [Los tipos de variable de Figma](#los-tipos-de-variable-de-figma)
+- [Cómo se corresponden](#cómo-se-corresponden)
+- [Color](#color)
+- [Dimensiones px y rem](#dimensiones-px-y-rem)
+- [Peso y familia tipográfica](#peso-y-familia-tipográfica)
+- [Interlineado](#interlineado)
+- [Duración y curva de animación](#duración-y-curva-de-animación)
+- [Opacidad](#opacidad)
+- [En Figma](#en-figma)
+
+## Los tipos simples de DTCG
+
+La especificación DTCG define siete tipos de un solo valor ([Format Module — Types](https://www.designtokens.org/TR/2025.10/format/#types)):
+
+| Tipo | Qué guarda | Ejemplo de `$value` |
+|---|---|---|
+| `color` | Un color, con su espacio de color | `{ "colorSpace": "srgb", "components": [0.2, 0.8, 0.6] }` |
+| `dimension` | Una medida con unidad: `px` o `rem` | `{ "value": 16, "unit": "px" }` |
+| `fontFamily` | Un nombre de fuente o una lista de nombres | `"Inter"` |
+| `fontWeight` | Un peso de 1 a 1000, o un nombre como `"bold"` | `600` |
+| `duration` | Un tiempo en `ms` o `s` | `{ "value": 200, "unit": "ms" }` |
+| `cubicBezier` | Una curva de animación: cuatro números | `[0.2, 0, 0, 1]` |
+| `number` | Un número sin unidad | `1.5` |
+
+Cada tipo tiene su apartado en la especificación: [color](https://www.designtokens.org/TR/2025.10/format/#color), [dimension](https://www.designtokens.org/TR/2025.10/format/#dimension), [fontFamily](https://www.designtokens.org/TR/2025.10/format/#font-family), [fontWeight](https://www.designtokens.org/TR/2025.10/format/#font-weight), [duration](https://www.designtokens.org/TR/2025.10/format/#duration), [cubicBezier](https://www.designtokens.org/TR/2025.10/format/#cubic-bezier) y [number](https://www.designtokens.org/TR/2025.10/format/#number). Como ejemplos de uso de `number`, la especificación cita las posiciones de un degradado y el interlineado sin unidad.
+
+## Los tipos de variable de Figma
+
+Figma tiene seis tipos de variable ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Cada uno se aplica a unas propiedades concretas ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
+
+| Tipo | Se aplica a (selección) |
+|---|---|
+| **Color** | Rellenos, trazos, paradas de degradado, color de sombra |
+| **Number** | Tamaño de fuente, interlineado, espaciado entre letras, gap y padding, ancho y alto, radio, grosor de trazo, opacidad de capa |
+| **String** | Contenido de un texto, familia tipográfica, peso y estilo |
+| **Boolean** | Visibilidad de una capa |
+| **Timing** | Retraso y duración de una animación (Figma Motion) |
+| **Easing** | Curva de una animación (Figma Motion) |
+
+<Callout variant="note">
+
+Los tipos no coinciden uno a uno. DTCG no tiene `string` ni `boolean`, y Figma no tiene un tipo propio para dimensiones, pesos o familias: los guarda como Number o String.
+
+</Callout>
+
+## Cómo se corresponden
+
+Esta tabla resume qué tipo DTCG le corresponde a cada clase de valor, cómo se guarda en Figma y qué hacemos en Tokens101:
+
+| Qué guarda | Tipo DTCG | En Figma | En Tokens101 |
+|---|---|---|---|
+| Color | `color` | Variable Color | Variable Color, con valores en sRGB |
+| Espaciado, radio, grosor de borde, tamaño de fuente, anchos | `dimension` | Variable Number, sin unidad (Figma trabaja en píxeles) | Variable Number; en código se convierte a `rem` |
+| Peso tipográfico | `fontWeight` | Variable String o Number | **Variable Number** (`font-weight/400` … `700`) |
+| Familia tipográfica | `fontFamily` | Variable String, con un único nombre | Variable String; las fuentes de reserva se añaden en código |
+| Interlineado | `number` | Variable Number, pero Figma la lee como píxeles | **En código, no en Figma.** En Figma, los estilos de texto usan porcentaje |
+| Duración | `duration` | Variable Timing (Figma Motion) | **En código** |
+| Curva de animación | `cubicBezier` | Variable Easing (Figma Motion) | **En código** |
+| Opacidad | No tiene tipo propio | Variable Number (opacidad de capa) | Sin tokens de opacidad; la transparencia va dentro del color |
+
+Las filas en negrita son decisiones del sistema de esta web. Los apartados siguientes explican cada una.
+
+<Callout variant="recommendation">
+
+Decisiones de Tokens101 en esta tabla: el peso como Number, el interlineado en código, y la duración y la curva en código. Las dos primeras salen de pruebas en Figma; la tercera es una elección para mantener el movimiento junto al código que lo usa. Las explicamos abajo.
+
+</Callout>
+
+## Color
+
+Un token de color en DTCG es un objeto con dos propiedades obligatorias, `colorSpace` y `components`, y dos opcionales: `alpha` (si falta, vale 1, totalmente opaco) y `hex`, un valor de reserva ([Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)). El Color Module admite catorce espacios de color, entre ellos sRGB, Display P3 y oklch.
+
+Figma, al importar, admite color en sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Al exportar, escribe sRGB con el `hex` añadido.
+
+<Callout variant="recommendation">
+
+En Tokens101 los colores se guardan en sRGB, que es lo que Figma importa y exporta sin conversiones. Las escalas se construyen en oklch y se guardan en sRGB. Por qué, y cómo, lo explicamos en el módulo Primitivos.
+
+</Callout>
+
+## Dimensiones px y rem
+
+DTCG admite dos unidades en `dimension`: `px` y `rem`. Un `rem` equivale al tamaño de fuente por defecto del sistema ([Format Module — Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)). Figma importa dimensiones en `px` y las guarda como Number sin unidad ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+
+Lo que dicen las fuentes de accesibilidad:
+
+- MDN explica que muchas personas aumentan el tamaño de letra por defecto del navegador, que las medidas absolutas como `px` no se adaptan a ese ajuste y recomienda medidas relativas como `rem` para el tamaño de fuente ([MDN — length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)).
+- WCAG 2.2 pide que el texto se pueda ampliar al 200 % sin perder contenido (criterio 1.4.4). Se puede cumplir con el zoom del navegador, así que el criterio no obliga a usar una unidad concreta. Entre sus técnicas suficientes están los tamaños de fuente en porcentaje y en `em` ([Understanding 1.4.4 Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)).
+
+<Callout variant="recommendation">
+
+En Figma diseñamos en píxeles, porque es lo que Figma admite. En el CSS convertimos los tamaños de fuente y los espaciados a `rem` (16 px = 1rem), para que la interfaz respete el tamaño de letra que la persona haya elegido en su navegador. Aplicarlo también al espaciado es una decisión nuestra, para que el texto y el espacio que lo rodea crezcan en proporción.
+
+</Callout>
+
+## Peso y familia tipográfica
+
+**Peso.** DTCG acepta un número de 1 a 1000 o un nombre predefinido, como `"bold"` (700) ([Format Module — Font weight](https://www.designtokens.org/TR/2025.10/format/#font-weight)). CSS trabaja con números. En Figma, el peso admite dos tipos de variable:
+
+- **String**, con el nombre del estilo de la fuente, por ejemplo `Semi Bold` ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+- **Number**: el peso aparece entre los scopes de las variables Number ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+
+Lo probamos: una variable Number con el valor `600` aplicada al peso da Inter Semi Bold. Además, en Dev Mode un peso con variable String aparece sin referencia a la variable.
+
+<Callout variant="recommendation">
+
+En Tokens101 los pesos son variables Number: `font-weight/400`, `500`, `600` y `700`. Así el valor en Figma es el mismo número que necesita el CSS.
+
+</Callout>
+
+**Familia.** DTCG admite un nombre o una lista de nombres de fuente ([Format Module — Font family](https://www.designtokens.org/TR/2025.10/format/#font-family)). Figma importa un único nombre ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Por eso en Figma guardamos `Inter`, y las fuentes de reserva (`system-ui`, `sans-serif`…) se añaden en el CSS.
+
+## Interlineado
+
+DTCG trata el interlineado como un `number`: un multiplicador del tamaño de fuente, sin unidad ([Format Module — Number](https://www.designtokens.org/TR/2025.10/format/#number)). `1.5` significa 1,5 veces el tamaño de la letra. Figma permite aplicar una variable Number al interlineado ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+
+<Callout variant="warning">
+
+Lo probamos en Figma: una variable con valor `1.5` aplicada al interlineado da 1,5 **píxeles**, y una con `150` da 150 píxeles, también en estilos de texto definidos en porcentaje. Figma lee la variable como píxeles, no como multiplicador.
+
+</Callout>
+
+<Callout variant="recommendation">
+
+En Tokens101 los tokens de interlineado (`line-height/tight` 1.2, `snug` 1.4 y `normal` 1.5) viven en código. En Figma, los estilos de texto usan 120 %, 140 % y 150 % escritos a mano, sin variable.
+
+</Callout>
+
+## Duración y curva de animación
+
+DTCG define `duration`, en `ms` o `s`, y `cubicBezier`, cuatro números que describen una curva ([Format Module — Duration](https://www.designtokens.org/TR/2025.10/format/#duration), [Cubic Bézier](https://www.designtokens.org/TR/2025.10/format/#cubic-bezier)). Figma tiene variables Timing y Easing, que se aplican a animaciones de Figma Motion ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+
+<Callout variant="recommendation">
+
+Tokens101 no diseña animaciones en Figma, así que los tokens `duration/200` (200 ms) y `easing/standard` viven en código, junto a las transiciones que los usan.
+
+</Callout>
+
+<Callout variant="pending">
+
+No hemos comprobado si Figma exporta las variables Timing y Easing en DTCG. Tampoco su unidad: la ayuda de Figma habla de milisegundos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)).
+
+</Callout>
+
+## Opacidad
+
+DTCG no define un tipo para la opacidad. La transparencia de un color va en su propiedad `alpha` ([Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)). Figma permite aplicar una variable Number a la opacidad de una capa, y la muestra en porcentaje (40 %), mientras que CSS la espera como decimal (`0.4`).
+
+<Callout variant="recommendation">
+
+Tokens101 no tiene tokens de opacidad. Cuando hace falta transparencia, el token es un color con `alpha`: por ejemplo, la capa que oscurece la página al abrir el menú en móvil es negro con `alpha` 0,5.
+
+</Callout>
+
+## En Figma
+
+El tipo se elige al crear la variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Al crear cada variable, piensa ya en dos cosas:
+
+- **El tipo**, según la tabla de [Cómo se corresponden](#cómo-se-corresponden).
+- **Dónde se podrá aplicar** (su *scope*). Una variable Number puede servir para el radio, el padding o el tamaño de letra; el scope limita las propiedades a las que se puede aplicar (misma fuente). Lo configuraremos en el módulo Primitivos.
+
+<InCode title="Los tipos en el CSS generado">
+
+Así quedan en el CSS de esta web algunos de los tipos de la lección:
+
+```css
+:root {
+  --t101-color-emerald-500: #3c9;       /* color, en hexadecimal */
+  --t101-space-400: 1rem;               /* dimension: 16 px en Figma */
+  --t101-font-weight-600: 600;          /* fontWeight */
+  --t101-line-height-normal: 1.5;       /* number, definido en código */
+}
+```
+
+El CSS no conserva el tipo: una variable CSS es texto. Por eso el tipo tiene que estar bien definido **antes**, en el archivo DTCG, para que la herramienta sepa convertir `16` en `1rem` y no en `16`.
+
+</InCode>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Design Tokens Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)
+- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma Plugin API — Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
+- [MDN — length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
+- [WCAG 2.2 — Understanding 1.4.4 Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)
