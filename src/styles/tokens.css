@@ -152,6 +152,8 @@
   --t101-radius-full: 624.9375rem;
   /* Ancho máximo del contenido de la lección: 720 px = 45rem. Con el padding horizontal (space/400) deja ≈ 688 px de texto, unas 70 letras por línea con body/default (D20). */
   --t101-size-content-max-width: 45rem;
+  /* Ancho del sidebar en escritorio (V16). Va en Semantic size; está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §4.6. */
+  --t101-size-sidebar-width: 19rem;
   --t101-space-0: 0rem;
   --t101-space-050: 0.125rem;
   --t101-space-100: 0.25rem;

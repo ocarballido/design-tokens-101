@@ -38,8 +38,8 @@
   --text-color-on-accent: var(--t101-color-text-on-accent);
   --text-color-success-default: var(--t101-color-text-success-default);
   --text-color-warning-default: var(--t101-color-text-warning-default);
-  --font-mono: var(--t101-font-family-mono), ui-monospace, monospace;
-  --font-sans: var(--t101-font-family-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono, var(--t101-font-family-mono)), ui-monospace, monospace;
+  --font-sans: var(--font-inter, var(--t101-font-family-sans)), ui-sans-serif, system-ui, sans-serif;
   --text-body-default: var(--t101-font-size-body-default);
   --text-body-small: var(--t101-font-size-body-small);
   --text-caption-default: var(--t101-font-size-caption-default);
@@ -68,6 +68,7 @@
   --radius-control: var(--t101-radius-control);
   --radius-full: var(--t101-radius-full);
   --container-content: var(--t101-size-content-max-width);
+  --container-sidebar: var(--t101-size-sidebar-width);
   --spacing-0: var(--t101-space-0);
   --spacing-050: var(--t101-space-050);
   --spacing-100: var(--t101-space-100);

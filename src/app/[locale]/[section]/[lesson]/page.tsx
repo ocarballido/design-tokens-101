@@ -51,7 +51,9 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
           description={lesson.frontmatter.description}
           lastReviewed={lesson.frontmatter.lastReviewed}
         />
-        <Content />
+        <div className="flow">
+          <Content />
+        </div>
       </article>
     </>
   );

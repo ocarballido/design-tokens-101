@@ -3,5 +3,7 @@
 @import "../styles/tokens.css";
 /* Capa 2: @theme inline de Tailwind que apunta a la capa 1 (S7, V09). Generado por `npm run tokens`. */
 @import "../styles/theme.css";
-
-/* Los componentes aplican los tokens en el paso 8. */
+/* Estilos de texto de §8 (S24, V15). Escrito a mano. */
+@import "../styles/text-styles.css";
+/* Estilos base, anillo de foco y flujo del texto. Escrito a mano. */
+@import "../styles/base.css";

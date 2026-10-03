@@ -75,6 +75,10 @@ function tailwindTheme() {
     sans: 'ui-sans-serif, system-ui, sans-serif',
     mono: 'ui-monospace, monospace',
   }; // V11
+  // V13: next/font sirve la fuente con un nombre propio y lo publica en una variable CSS
+  // (https://nextjs.org/docs/app/api-reference/components/font#css-variables).
+  // Va primero; si no existe, se usa el nombre del token.
+  const NEXT_FONT_VARIABLES = { sans: '--font-inter', mono: '--font-jetbrains-mono' };
 
   const ref = (id) => `var(--t101-${id.replace(/\./g, '-')})`;
   const rules = [
@@ -90,15 +94,19 @@ function tailwindTheme() {
     [/^color\.border\.(.+)$/, (m, id) => [[`--border-color-${m[1].replace(/\./g, '-')}`, ref(id)]]],
     [/^space\.(.+)$/, (m, id) => [[`--spacing-${m[1].replace(/\./g, '-')}`, ref(id)]]],
     [/^radius\.(.+)$/, (m, id) => [[`--radius-${m[1]}`, ref(id)]]],
-    // Tailwind no tiene espacio de nombres para el grosor de borde: se resuelve en el paso 8.
+    // Tailwind no tiene espacio de nombres para el grosor de borde: los componentes usan border-(length:--t101-border-width-*) (V14).
     [/^border-width\./, () => null],
     // Primitivos de tamaño de fuente: los usan los tokens de Layout (D10), no los componentes.
     [/^font-size\.\d+$/, () => null],
     [/^font-size\.(.+)$/, (m, id) => [[`--text-${m[1].replace(/\./g, '-')}`, ref(id)]]],
     [/^font-weight\.(.+)$/, (m, id) => [[`--font-weight-${m[1]}`, ref(id)]]],
-    [/^font-family\.(sans|mono)$/, (m, id) => [[`--font-${m[1]}`, `${ref(id)}, ${FONT_FALLBACKS[m[1]]}`]]],
+    [/^font-family\.(sans|mono)$/, (m, id) => [
+      [`--font-${m[1]}`, `var(${NEXT_FONT_VARIABLES[m[1]]}, ${ref(id)}), ${FONT_FALLBACKS[m[1]]}`],
+    ]],
     [/^line-height\.(.+)$/, (m, id) => [[`--leading-${m[1]}`, ref(id)]]],
+    // --container-* da max-w-* y w-* (https://tailwindcss.com/docs/max-width).
     [/^size\.content\.max-width$/, (m, id) => [['--container-content', ref(id)]]],
+    [/^size\.sidebar\.width$/, (m, id) => [['--container-sidebar', ref(id)]]],
     // Las media queries no leen variables: el breakpoint se escribe con su valor (D11).
     [/^breakpoint\.desktop$/, () => [['--breakpoint-desktop', `${bpValue}${bpUnit}`]]],
   ];

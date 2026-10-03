@@ -161,7 +161,7 @@ Mapeo propuesto (capa 2):
 | `color/border/*` | `--border-color-*` (y `--outline-color-focus`, `--ring-color-focus` para el foco) | `border-neutral-default`, `outline-focus` |
 | `space/*` | `--spacing-*` | `p-400`, `gap-200` |
 | `radius/control`, `radius/container` | `--radius-*` | `rounded-control` |
-| `border-width/*` | — (Tailwind no tiene espacio de nombres; `border-(length:--t101-border-width-100)` o `@utility`) | pendiente |
+| `border-width/*` | — (Tailwind no tiene espacio de nombres; `border-(length:--t101-border-width-100)` ) | Resuelto en el paso 8 (V14) |
 | `font-size/{estilo}` (Layout) | `--text-*` | `text-body-default` |
 | `font-weight/*` | `--font-weight-*` | `font-600` |
 | `font-family/*` | `--font-*` | `font-sans`, `font-mono` |
@@ -214,7 +214,7 @@ Ejemplos: `--t101-space-100: 0.25rem;` · `--t101-color-emerald-500: #3c9;` · `
 |---|---|
 | Primitivos de color | Solo son destino de alias (S22) |
 | `font-size/01`…`10` | Los usan los tokens de Layout (D10), no los componentes |
-| `border-width/*` | Tailwind no tiene espacio de nombres para el grosor de borde. Se decide en el paso 8 |
+| `border-width/*` | Tailwind no tiene espacio de nombres para el grosor de borde. En el paso 8 se usa `border-(length:--t101-border-width-100)` (V14) |
 
 **`check:tokens` comprueba:**
 - que cada code syntax de Figma tiene su variable;

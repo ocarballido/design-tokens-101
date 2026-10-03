@@ -17,6 +17,15 @@
       "600": { "$value": { "value": -24, "unit": "px" } }
     }
   },
+  "size": {
+    "sidebar": {
+      "width": {
+        "$type": "dimension",
+        "$value": { "value": 304, "unit": "px" },
+        "$description": "Ancho del sidebar en escritorio (V16). Va en Semantic size; está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §4.6."
+      }
+    }
+  },
   "breakpoint": {
     "desktop": {
       "$type": "dimension",

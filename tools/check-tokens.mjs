@@ -5,7 +5,8 @@
 //      los dos bloques Dark = Semantic color; el bloque Desktop = Layout.
 //   4. Los colores primitivos conservan el hex exportado por Figma (S9, A8).
 //   5. Los tokens solo de código tienen los valores de sistema-tokens-v1.md §4.
-//   6. Tailwind CSS genera las clases de los tokens y no genera las del tema por defecto (V09).
+//   6. Los estilos de texto de src/styles/text-styles.css coinciden con la tabla §8 (V15).
+//   7. Tailwind CSS genera las clases de los tokens y no genera las del tema por defecto (V09).
 //      Vigila los espacios de nombres por propiedad, que Tailwind no documenta.
 // Uso: npm run tokens && npm run check:tokens
 
@@ -87,13 +88,41 @@ const codeOnly = {
   '--t101-line-height-tight': '1.2', '--t101-line-height-snug': '1.4', '--t101-line-height-normal': '1.5',
   '--t101-space-negative-100': '-0.25rem', '--t101-space-negative-200': '-0.5rem', '--t101-space-negative-300': '-0.75rem',
   '--t101-space-negative-400': '-1rem', '--t101-space-negative-600': '-1.5rem', '--t101-breakpoint-desktop': '64rem',
+  '--t101-size-sidebar-width': '19rem',
 };
 for (const [name, value] of Object.entries(codeOnly)) {
   if (blocks.root.get(name) !== value) errors.push(`${name}: ${blocks.root.get(name)} ≠ ${value} (§4)`);
 }
 
-// 6. Tailwind
-const compiler = await compile(`${themeCss}\n@tailwind utilities;`, { base: ROOT });
+// 6. Estilos de texto (V15): src/styles/text-styles.css frente a la tabla §8 de la especificación.
+const textStylesCss = read('src/styles/text-styles.css');
+const spec = read('docs/sistema-tokens-v1.md');
+const section8 = spec.slice(spec.indexOf('## 8. Estilos de texto'));
+const styleRows = [...section8.matchAll(/^\| ([a-z]+\/[a-z0-9]+) \| `font-family\/(\w+)` \| `(font-size\/[\w/-]+)` [^|]*\| `(line-height\/\w+)` [^|]*\| `(font-weight\/\d+)` \|/gm)];
+if (styleRows.length !== 10) errors.push(`§8: se esperaban 10 estilos de texto y se leyeron ${styleRows.length}`);
+const cssVar = (path) => `var(--t101-${path.replace(/\//g, '-')})`;
+for (const [, style, family, size, lineHeight, weight] of styleRows) {
+  const block = new RegExp(`@utility type-${style.replace('/', '-')} \\{([^}]*)\\}`).exec(textStylesCss)?.[1];
+  if (!block) {
+    errors.push(`text-styles.css: falta type-${style.replace('/', '-')} (§8)`);
+    continue;
+  }
+  const want = {
+    'font-family': `var(--font-${family})`,
+    'font-size': cssVar(size),
+    'line-height': cssVar(lineHeight),
+    'font-weight': cssVar(weight),
+  };
+  for (const [prop, value] of Object.entries(want)) {
+    if (!block.includes(`${prop}: ${value};`)) errors.push(`type-${style.replace('/', '-')}: ${prop} debería ser ${value} (§8)`);
+  }
+}
+for (const [, name] of textStylesCss.matchAll(/var\((--t101-[\w-]+)\)/g)) {
+  if (!defined.has(name)) errors.push(`text-styles.css: var(${name}) no está definido`);
+}
+
+// 7. Tailwind
+const compiler = await compile(`${themeCss}\n${textStylesCss}\n@tailwind utilities;`, { base: ROOT });
 const expected = {
   'bg-neutral-default': 'background-color: var(--t101-color-background-neutral-default)',
   'bg-accent-strong-default': 'background-color: var(--t101-color-background-accent-strong-default)',
@@ -107,14 +136,19 @@ const expected = {
   'rounded-control': 'border-radius: var(--t101-radius-control)',
   'text-body-default': 'font-size: var(--t101-font-size-body-default)',
   'font-600': 'font-weight: var(--t101-font-weight-600)',
-  'font-sans': 'font-family: var(--t101-font-family-sans), ui-sans-serif, system-ui, sans-serif',
+  'font-sans': 'font-family: var(--font-inter, var(--t101-font-family-sans)), ui-sans-serif, system-ui, sans-serif',
+  'font-mono': 'font-family: var(--font-jetbrains-mono, var(--t101-font-family-mono)), ui-monospace, monospace',
   'leading-normal': 'line-height: var(--t101-line-height-normal)',
   'max-w-content': 'max-width: var(--t101-size-content-max-width)',
+  'w-sidebar': 'width: var(--t101-size-sidebar-width)',
+  // V14: el grosor de borde se escribe con la sintaxis de variable de Tailwind (no hay espacio de nombres).
+  'border-(length:--t101-border-width-100)': 'border-width: var(--t101-border-width-100)',
+  'type-heading-1': 'font-size: var(--t101-font-size-heading-1)',
 };
 const forbidden = ['bg-text-neutral-default', 'text-text-neutral-default', 'bg-red-500', 'p-4', 'text-xl', 'rounded-lg', 'lg:p-400'];
 const output = compiler.build([...Object.keys(expected), ...forbidden, 'desktop:p-400']);
 const ruleFor = (cls) => {
-  const selector = `.${cls.replace(/[:/]/g, (c) => `\\${c}`)}`;
+  const selector = `.${cls.replace(/[:/()]/g, (c) => `\\${c}`)}`;
   const start = output.indexOf(`${selector} {`) >= 0 ? output.indexOf(`${selector} {`) : output.indexOf(`${selector}:`);
   return start < 0 ? null : output.slice(start, output.indexOf('}', start) + 1);
 };

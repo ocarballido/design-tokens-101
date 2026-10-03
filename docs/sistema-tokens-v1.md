@@ -206,6 +206,8 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 
 **Familias de reserva en CSS (V11):** `ui-sans-serif, system-ui, sans-serif` para `sans` y `ui-monospace, monospace` para `mono`. Se añaden en la capa de Tailwind (`--font-sans`, `--font-mono`), no en el token: Figma admite un solo nombre de familia.
 
+**Carga de las fuentes (V13):** `next/font/google` aloja Inter y JetBrains Mono en la web y las publica en `--font-inter` y `--font-jetbrains-mono`. La capa de Tailwind las pone delante del token: `var(--font-inter, var(--t101-font-family-sans))` y después las de reserva.
+
 **Tamaños:** escala enumerada del SDS ([SDS theme.css](https://raw.githubusercontent.com/figma/sds/main/src/theme.css)).
 
 | Token | px (Figma) | rem (CSS) |
@@ -309,6 +311,7 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 | Token | px (Figma) | rem (CSS) | Uso |
 |---|---|---|---|
 | size/content/max-width | 720 | 45 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 688 px de texto, unas 70 letras por línea con `body/default`). |
+| size/sidebar/width | 304 | 19 | Ancho del sidebar en escritorio (V16). En Figma se dibujó a 305 px sin variable. **Pendiente de crear en Figma**; hasta entonces vive en `tokens/code-only.tokens.json`. |
 
 - Colección **Semantic size**, scope "ancho y alto". Es un valor directo, **excepción a la regla 6** (§5.2): no hay escala primitiva de tamaños y un solo valor no la justifica. Si aparecen más tamaños de maquetación, se crea la escala y este token pasa a ser alias.
 - Categoría nueva en el vocabulario: `size`.
@@ -560,6 +563,8 @@ Pruebas hechas con la API de plugins en el archivo TokensDS (plan Professional),
 ## 8. Estilos de texto por rol (S24)
 
 Son la capa semántica de la tipografía. Cada estilo vincula familia y peso a las variables primitivas de §4.2, y el tamaño a su token de la colección Layout (D10). El interlineado se escribe como porcentaje, sin variable (D01). **En código, esta tabla es la fuente de los estilos compuestos**: la exportación DTCG de Figma trabaja con variables por modo y no incluye los estilos de texto (comprobado en el paso 7, 2026-10-03: ningún archivo de `tokens/figma/` trae tokens `typography`).
+
+**En código (V15):** cada estilo es una utilidad de Tailwind en `src/styles/text-styles.css` (`type-heading-1`, `type-body-default`…). `npm run check:tokens` la compara con esta tabla, así que un cambio aquí sin cambiar el CSS hace fallar la comprobación.
 
 **Por qué existe `body/strong` (D17).** En Figma, poner negrita a un fragmento de texto (aplicando la fuente o vinculando `font-weight/600`) separa ese fragmento de su estilo de texto: queda sin estilo (comprobado en el archivo el 2026-10-02). Para que todo el texto siga ligado a un estilo, el texto destacado tiene su propio estilo. En código no cambia nada: `<strong>` hereda tamaño e interlineado y aplica el peso 600.
 

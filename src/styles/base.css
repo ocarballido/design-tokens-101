@@ -1,0 +1,53 @@
+/* Estilos base y utilidades compartidas (paso 8). Solo variables --t101-* (S27). */
+
+@layer base {
+  /* Fondo y texto de la página; el estilo de texto por defecto es body/default (§8). */
+  html {
+    background-color: var(--t101-color-background-neutral-default);
+    color: var(--t101-color-text-neutral-default);
+    font-family: var(--font-sans);
+    font-size: var(--t101-font-size-body-default);
+    line-height: var(--t101-line-height-normal);
+    font-weight: var(--t101-font-weight-400);
+  }
+
+  /* D17: la negrita del texto es body/strong (peso 600), con el tamaño del texto que la rodea. */
+  strong,
+  b {
+    font-weight: var(--t101-font-weight-600);
+  }
+
+  /* Las anclas de "En esta página" no quedan tapadas por la cabecera. */
+  :target {
+    scroll-margin-block-start: var(--t101-space-600);
+  }
+}
+
+/* Anillo de foco (componentes-v1.md §1.3, entrega-diseno.md §3.1): border-width/200 con
+ * border/focus, por fuera del control. outline se dibuja fuera del borde; con
+ * offset 0 queda pegado al control. Solo con :focus-visible (2.4.7). */
+@utility focus-ring {
+  &:focus-visible {
+    outline: var(--t101-border-width-200) solid var(--t101-color-border-focus);
+    outline-offset: 0;
+  }
+}
+
+/* Igual, pero hacia dentro: para controles dentro de un contenedor con overflow que
+ * recortaría el anillo (sidebar con scroll propio, cabecera de InCode). Es como lo dibuja Figma. */
+@utility focus-ring-inset {
+  &:focus-visible {
+    outline: var(--t101-border-width-200) solid var(--t101-color-border-focus);
+    outline-offset: calc(var(--t101-border-width-200) * -1);
+  }
+}
+
+/* Separación vertical del texto de la lección (Figma: 16 px entre bloques, 24 px antes de cada apartado). */
+@utility flow {
+  & > * + * {
+    margin-block-start: var(--t101-space-400);
+  }
+  & > h2 {
+    margin-block-start: var(--t101-space-600);
+  }
+}

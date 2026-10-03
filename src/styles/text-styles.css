@@ -1,0 +1,76 @@
+/* Estilos de texto por rol (S24): la tabla §8 de docs/sistema-tokens-v1.md, escrita a mano (V15).
+ * La exportación DTCG de Figma no incluye los estilos de texto, así que la fuente es la tabla.
+ * Cada estilo es una utilidad de Tailwind: `type-heading-1`, `type-body-default`…
+ * El tamaño cambia con el modo Layout (D10, D11) porque --t101-font-size-{estilo} cambia en tokens.css.
+ * Si cambia la tabla §8, cambia este archivo; `npm run check:tokens` lo compara con la tabla. */
+
+@utility type-heading-1 {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-heading-1);
+  line-height: var(--t101-line-height-tight);
+  font-weight: var(--t101-font-weight-700);
+}
+
+@utility type-heading-2 {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-heading-2);
+  line-height: var(--t101-line-height-tight);
+  font-weight: var(--t101-font-weight-600);
+}
+
+@utility type-heading-3 {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-heading-3);
+  line-height: var(--t101-line-height-tight);
+  font-weight: var(--t101-font-weight-600);
+}
+
+@utility type-heading-4 {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-heading-4);
+  line-height: var(--t101-line-height-snug);
+  font-weight: var(--t101-font-weight-600);
+}
+
+@utility type-body-default {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-body-default);
+  line-height: var(--t101-line-height-normal);
+  font-weight: var(--t101-font-weight-400);
+}
+
+/* D17: en código, <strong> hereda tamaño e interlineado y aplica el peso 600. */
+@utility type-body-strong {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-body-default);
+  line-height: var(--t101-line-height-normal);
+  font-weight: var(--t101-font-weight-600);
+}
+
+@utility type-body-small {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-body-small);
+  line-height: var(--t101-line-height-normal);
+  font-weight: var(--t101-font-weight-400);
+}
+
+@utility type-label-default {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-label-default);
+  line-height: var(--t101-line-height-snug);
+  font-weight: var(--t101-font-weight-500);
+}
+
+@utility type-caption-default {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-caption-default);
+  line-height: var(--t101-line-height-snug);
+  font-weight: var(--t101-font-weight-400);
+}
+
+@utility type-code-default {
+  font-family: var(--font-mono);
+  font-size: var(--t101-font-size-code-default);
+  line-height: var(--t101-line-height-normal);
+  font-weight: var(--t101-font-weight-400);
+}

@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { Sidebar } from '@/components/Sidebar';
 import { routing } from '@/i18n/routing';
 import { getSections, lessonHref } from '@/lib/content';
+import { inter, jetbrainsMono } from '../fonts';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -34,7 +35,7 @@ export default async function LocaleLayout({
   }));
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
         <NextIntlClientProvider>
           <Sidebar label={t('label')} sections={sections} />
