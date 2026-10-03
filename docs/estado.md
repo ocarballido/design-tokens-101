@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de contenido: módulo 1 en borrador, T6).
+Última actualización: 2026-10-03 (sesión de desarrollo: build y comprobación del módulo 1 y del bloque 0).
 
 ---
 
@@ -36,13 +36,12 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 - **Módulo 1, Fundamentos, en español (2026-10-03, borrador pendiente de revisión de Oscar):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
 
-**Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Falta ejecutar el build en local.**
+**Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Build ejecutado en local por la sesión de desarrollo (2026-10-03): sin errores** (ver Desarrollo → "Comprobación del contenido").
 
 **Pendiente**
 - Lección del módulo 8 (Ejercicio final) a partir del ejercicio de cierre (S8–S29).
 - **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
 - Módulos 2 a 8. Módulo 1 escrito; falta la revisión de Oscar.
-- **Build del módulo 1 sin ejecutar** (npm da 403 en la sesión de contenido). Comprobados con script aparte: anclas, enlaces internos y llaves fuera de código en el MDX. Primera vez que una lección usa un `Callout` dentro de un `InCode` (página 04 del bloque 0).
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
@@ -113,6 +112,14 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Bloque C, estructura:** `SiteHeader` (D19), `Sidebar` (C11, fijo en escritorio, V17), panel móvil como `<dialog>` (D21, V22), `ThemeToggle` (D07, V10, V21), `LanguageSwitcher`, `SkipLink`, `PageNav` y `SiteFooter` (P7).
 - **Bloque D, logotipos:** versiones para Dark (V20) y enlace "Tokens101, inicio" (D22).
 - `npm run check:tokens` compara además los estilos de texto con la tabla §8 (probado en negativo) y vigila `w-sidebar`, `font-mono` y la sintaxis de borde.
+
+**Comprobación del contenido: bloque 0 actualizado y módulo 1 (2026-10-03)**
+- `npm run build`: compila sin errores; 13 lecciones × 2 idiomas (26 rutas). `npm run check:content`: sin errores, 174 anclas (56 con caracteres no ASCII), enlaces internos y orden del sidebar.
+- Sidebar: sección "Fundamentos" (`meta.json`, V05) con sus 5 lecciones en orden. Anterior/siguiente: "Cómo se hizo" → "Qué es un token" y "Ejercicio" → "Fuentes consultadas".
+- `Callout` dentro de `InCode` (`/es/start-here/figma-dtcg-tailwind`), Light y Dark, 375 y 1440 px: se ve dentro del bloque sin desbordar; conserva la etiqueta "Aviso" y su fondo propio (`background/warning/subtle`). Contraste de etiqueta y texto sobre ese fondo: 4,77:1 en Light y 10,32:1 en Dark. El `InCode` se alcanza con el tabulador, muestra el anillo de foco y se abre y cierra con Enter y con Espacio (`aria-expanded` y `hidden` cambian).
+- Módulo 1 a 320 px: ninguna de las 5 páginas tiene scroll horizontal de página (1.4.10). Las 7 tablas más anchas que la columna (hasta 630 px en `composite-types`) y los bloques de código se desplazan dentro de su contenedor (`overflow-x: auto`, enfocable).
+- Hecho con Chrome sin interfaz (`puppeteer-core`) sobre `next start`. Sin prueba manual ni con lector de pantalla.
+- Detalle visual menor, sin cambiar: a 375 px, un `Code` en línea que salta de renglón deja un trozo de su fondo al final de la línea anterior (pasa en cualquier párrafo, no solo en el `Callout`).
 
 **Correcciones de Oscar (2026-10-03, V23–V27)**
 - `SidebarItem` sin radio (V23).
