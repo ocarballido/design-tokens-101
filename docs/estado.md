@@ -65,7 +65,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V16 (módulos 3 y 4):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
 - **V18, V19 (módulo 9):** cuando el dibujo y la anatomía no coinciden, se decide cuál manda y se registra. Ejemplo para "Componentes y código".
 - **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
-- **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que Figma no puede guardar, y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
+- **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
 - **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
 - **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
 - **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.

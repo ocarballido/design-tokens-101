@@ -326,7 +326,7 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 | duration/200 | 200 ms | `duration` | Panel de navegación móvil y acordeón del sidebar |
 | easing/standard | `cubic-bezier(0.2, 0, 0, 1)` | `cubicBezier` | Curva de todas las animaciones de la interfaz |
 
-- Figma no tiene variables de duración ni de curva: viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11).
+- Viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11). **Precisión (2026-10-03):** Figma sí tiene variables **Timing** y **Easing** ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes); [Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Oscar decide mantener estos tokens solo en código. Sin verificar: si esas variables se exportan en DTCG y en qué unidad (la ayuda dice milisegundos; la API de plugins, segundos).
 - Con `prefers-reduced-motion: reduce` no hay animación (2.3.3 Animation from Interactions, AAA, [WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)).
 
 ## 5. Nomenclatura
