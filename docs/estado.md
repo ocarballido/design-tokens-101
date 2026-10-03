@@ -16,7 +16,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
 | 6 | Contenido | Redactar los módulos 1 a 7 | Pendiente (en paralelo con 4, 7 y 8) |
-| 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Desbloqueado. Oscar exporta las 4 colecciones desde Figma (`docs/entrega-diseno.md` §2) |
+| 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Desbloqueado. Oscar exporta las 4 colecciones a `tokens/figma/` y los logotipos a `public/brand/` (C10) |
 | 8 | Desarrollo C | Componentes y páginas con el diseño | Desbloqueado. Guía en `docs/entrega-diseno.md` §3. Mejor después de 4 y 7 |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
 

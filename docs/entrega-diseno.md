@@ -33,7 +33,7 @@ Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-to
 
 - Todas tienen code syntax Web `var(--t101-…)` (D03). Ninguna con `ALL_SCOPES`.
 - **Si ya exportaste antes del 2026-10-02, vuelve a exportar:** desde entonces se añadieron la colección Layout, 5 colores semánticos (`border/accent/default`, `background/neutral/hover`, `background/neutral/active`, `text/accent/hover`, `border/accent/strong`) y `size/content/max-width`.
-- **Cómo exportar:** en la vista Variables, clic derecho sobre la colección → *Export modes* (todos sus modos) o sobre un modo → *Export mode* ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). *Propuesta:* guardar los archivos en `tokens/figma/` del repositorio, sin editarlos a mano.
+- **Cómo exportar:** en la vista Variables, clic derecho sobre la colección → *Export modes* (todos sus modos) o sobre un modo → *Export mode* ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Los archivos se guardan en `tokens/figma/` del repositorio, sin editarlos a mano (C10).
 - **Modos en CSS:**
   - Semantic color: Light por defecto; Dark con el selector de tema (`light`/`dark`/`system`, D07; `system` respeta `prefers-color-scheme`).
   - Layout: Mobile por defecto; Desktop con `@media (width >= 64rem)` (D11).
@@ -91,7 +91,7 @@ Sin disabled ni loading en v1 (D14).
 - Columna de la lección: `max-width: var(--t101-size-content-max-width)` (720 px), centrada, con padding `space/400` (D20).
 - Sidebar: secciones "Empezar aquí" y "Recursos".
 - Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel a pantalla completa con los selectores y el sidebar; el botón pasa a `li:x` (D21).
-- Logotipos: SVG (D22). *Pendiente:* exportarlos desde Figma al repositorio.
+- Logotipos: SVG (D22), en `public/brand/` (C10).
 
 ## 4. Accesibilidad comprobada en el diseño
 
