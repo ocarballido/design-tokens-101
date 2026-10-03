@@ -1,0 +1,146 @@
+---
+title: Qué es DTCG
+description: DTCG es el grupo del W3C que define un formato JSON común para intercambiar tokens de diseño entre herramientas. Qué es, qué estado tiene y para qué lo usamos.
+nav_title: Qué es DTCG
+lastReviewed: 2026-09-30
+---
+
+DTCG son las siglas de **Design Tokens Community Group**, un grupo comunitario del W3C. También se usa "DTCG" para referirse a la especificación que publica: un formato de archivo para que distintas herramientas puedan leer y escribir los mismos tokens.
+
+**En esta página**
+
+- [El problema que resuelve](#el-problema-que-resuelve)
+- [Qué define la especificación](#qué-define-la-especificación)
+- [Un token en formato DTCG](#un-token-en-formato-dtcg)
+- [Estado actual](#estado-actual)
+- [DTCG en Figma](#dtcg-en-figma)
+- [Cómo lo usamos en Tokens101](#cómo-lo-usamos-en-tokens101)
+
+## El problema que resuelve
+
+La especificación nombra tres tipos de herramientas que trabajan con tokens ([Format Module — Terminology](https://www.designtokens.org/TR/2025.10/format/#terminology)):
+
+| Tipo | Qué hace | Ejemplos citados |
+|---|---|---|
+| Herramienta de diseño | Crear y editar diseño visual | Figma, Sketch, Adobe XD |
+| Herramienta de traducción | Convertir tokens de un formato a otro, por ejemplo a código | Style Dictionary, Terrazzo |
+| Herramienta de documentación | Documentar el uso de los tokens | Storybook, Zeroheight, Supernova |
+
+Cada herramienta tenía su propio formato. El objetivo de DTCG es mejorar la interoperabilidad entre ellas definiendo **un formato estándar** para los datos de tokens, de modo que los equipos no tengan que escribir su propio código de conexión ([Format Module — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)).
+
+## Qué define la especificación
+
+La versión actual, **2025.10**, se divide en módulos:
+
+- **[Format Module](https://www.designtokens.org/TR/2025.10/format/)**: la estructura del archivo. Qué es un token, un grupo, un alias y los tipos de valor.
+- **[Color Module](https://www.designtokens.org/tr/2025.10/color)**: cómo se representa un color (espacio de color y componentes).
+- **[Resolver Module](https://www.designtokens.org/TR/2025.10/resolver/)**: cómo trabajar con tokens en varios contextos, como modo claro y modo oscuro.
+
+Conceptos clave del Format Module:
+
+- **Token**: información asociada a un nombre legible; como mínimo, un par nombre/valor.
+- **Tipo** (`$type`): la categoría del valor, para que las herramientas sepan tratarlo.
+- **Grupo**: un conjunto de tokens para organizarlos. La especificación dice que los grupos son arbitrarios y que las herramientas no deben deducir de ellos el tipo ni el propósito de un token.
+- **Alias** (o referencia): un token cuyo valor es otro token.
+- **Token compuesto**: un token cuyo valor tiene varias partes con nombre, como una sombra o un estilo tipográfico.
+
+Fuente: [Format Module — Terminology](https://www.designtokens.org/TR/2025.10/format/#terminology).
+
+Los tipos simples que define son `color`, `dimension`, `fontFamily`, `fontWeight`, `duration`, `cubicBezier` y `number`. Los compuestos son `strokeStyle`, `border`, `transition`, `shadow`, `gradient` y `typography` ([Format Module — Types](https://www.designtokens.org/TR/2025.10/format/#types)).
+
+## Un token en formato DTCG
+
+Un archivo DTCG es un archivo JSON. Las propiedades de la especificación empiezan por `$`. Este ejemplo define un color primitivo y un token semántico que apunta a él:
+
+```json filename="tokens.json"
+{
+  "color": {
+    "blue": {
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.145, 0.388, 0.922],
+          "hex": "#2563eb"
+        }
+      }
+    },
+    "action": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.blue.500}"
+      }
+    }
+  }
+}
+```
+
+- `color.blue.500` tiene un valor explícito: un objeto con espacio de color y componentes.
+- `color.action.primary` es un **alias**: su valor es el nombre completo de otro token entre llaves. Las llaves solo pueden apuntar a tokens completos, no a grupos ([Format Module — Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)).
+
+Algunas reglas que afectan a cómo nombrarás tus tokens ([Format Module — Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)):
+
+- Los nombres no pueden empezar por `$`.
+- Los nombres no pueden contener `{`, `}` ni `.`.
+- Los nombres distinguen mayúsculas y minúsculas, pero la especificación advierte que dos nombres que solo se diferencian en eso pueden producir duplicados al convertirlos a código.
+
+La especificación recomienda las extensiones `.tokens` o `.tokens.json` ([Format Module — File extensions](https://www.designtokens.org/TR/2025.10/format/#file-extensions)).
+
+## Estado actual
+
+- **Versión:** 2025.10, publicada el 28 de octubre de 2025 como *Final Community Group Report*.
+- **No es un estándar del W3C** ni está en el proceso de estándares del W3C. Lo publica un grupo comunitario.
+- **Es estable.** El documento dice que se considera estable y que las actualizaciones llegarán en especificaciones nuevas que la sustituyan.
+
+Fuente: [Format Module — Status of this document](https://www.designtokens.org/TR/2025.10/format/#sotd).
+
+<Callout variant="note">
+
+"No es un estándar del W3C" no significa que no sea fiable. Significa que no ha pasado por el proceso formal de estándares del W3C. El propio documento indica que, tras un amplio consenso, está pensado para que las herramientas lo implementen.
+
+</Callout>
+
+## DTCG en Figma
+
+Figma importa y exporta variables en formato DTCG ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)):
+
+- **Exportar un modo:** vista Variables → clic derecho sobre el modo → *Export mode*.
+- **Exportar todos los modos de una colección:** clic derecho sobre la colección → *Export modes*.
+- **Importar:** crear una colección nueva y arrastrar uno o varios archivos JSON a la vista Variables. Cada archivo crea un modo.
+
+Hay restricciones de importación que conviene conocer desde el principio:
+
+| Tipo DTCG | Variable de Figma | Restricción al importar |
+|---|---|---|
+| `color` | Color | Solo espacios de color sRGB y HSL |
+| `dimension` | Number | Solo unidad `px` |
+| `fontFamily` | String | Un único nombre de fuente, no una lista |
+| `duration` | Number | Solo unidad `s` |
+| `number` | Number o Boolean | Boolean si lleva la extensión `com.figma.type: "boolean"` |
+
+Además, Figma convierte los puntos de los grupos en barras (`color.accent.light` pasa a `color/accent/light`) y, si dos tokens acaban con el mismo nombre, solo importa el primero (misma fuente).
+
+<Callout variant="warning">
+
+DTCG admite unidades `rem` y otros espacios de color, pero Figma solo importa `px` y sRGB o HSL. Un archivo DTCG válido no siempre se importa completo en Figma. Lo tendremos en cuenta al diseñar nuestras escalas.
+
+</Callout>
+
+## Cómo lo usamos en Tokens101
+
+DTCG es el **punto intermedio** entre Figma y el código. Exportamos las variables de Figma en DTCG y una herramienta de traducción las convierte en variables CSS. Lo verás completo en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind).
+
+<InCode title="Los modos no están en el Format Module">
+
+El Format Module no define modos. Para expresar claro y oscuro existe el Resolver Module, que organiza los tokens en *sets* (siempre cargados) y *modifiers* (ejes de variación) con *contexts* (los valores posibles, como `light` y `dark`). Sus documentos usan la extensión `.resolver.json` ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)).
+
+Figma, por su parte, exporta un archivo por modo. Cómo se unen esos archivos lo veremos en el módulo De Figma al código.
+
+</InCode>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Design Tokens Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
+- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)

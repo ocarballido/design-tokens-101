@@ -1,0 +1,136 @@
+---
+title: Cómo encajan Figma, DTCG y Tailwind
+description: Vista general del recorrido de un token, desde una variable de Figma hasta una clase de Tailwind CSS, pasando por el formato DTCG.
+nav_title: Figma + DTCG + Tailwind
+lastReviewed: 2026-09-30
+---
+
+Esta página es el mapa del curso. Muestra el recorrido completo de un token, desde Figma hasta el código, sin entrar todavía en detalle. Cada paso tiene su módulo, y al final del curso volverás aquí con todas las piezas encajadas.
+
+**En esta página**
+
+- [El recorrido de un token](#el-recorrido-de-un-token)
+- [1 Figma define las decisiones](#1-figma-define-las-decisiones)
+- [2 DTCG las transporta](#2-dtcg-las-transporta)
+- [3 Una herramienta de traducción las convierte](#3-una-herramienta-de-traducción-las-convierte)
+- [4 Tailwind CSS las convierte en clases](#4-tailwind-css-las-convierte-en-clases)
+- [Un solo nombre en todo el recorrido](#un-solo-nombre-en-todo-el-recorrido)
+- [Lo que todavía no está decidido](#lo-que-todavía-no-está-decidido)
+
+## El recorrido de un token
+
+```txt
+Figma                 DTCG (JSON)             Herramienta de         CSS / Tailwind CSS
+variables y modos  →  un archivo por modo  →  traducción          →  variables y clases
+                                              (Style Dictionary
+                                               o Terrazzo)
+```
+
+La idea central es tener **una sola fuente de verdad**. Los tokens se definen una vez y todo lo demás se genera a partir de ahí, sin copiar valores a mano.
+
+<Callout variant="recommendation">
+
+En Tokens101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens que Figma no gestiona, como el z-index, viven solo en código. Cada token tiene una única fuente.
+
+</Callout>
+
+## 1 Figma define las decisiones
+
+En Figma, cada token es una **variable**. Las variables se organizan en **colecciones**, y cada colección puede tener varios **modos**, por ejemplo Light y Dark. Cada modo guarda un valor por variable ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+
+Cada variable puede tener además un **code syntax**: el nombre que tendrá en código para cada plataforma (Web, Android, iOS). Ese nombre aparece en Dev Mode ([Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)). Lo usaremos para que el nombre en Figma y el nombre en CSS coincidan.
+
+<Callout variant="warning">
+
+Los modos de variables requieren un plan Education, Professional, Organization o Enterprise. El número de modos por colección depende del plan ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Más detalles en [Requisitos](/start-here/requirements).
+
+</Callout>
+
+## 2 DTCG las transporta
+
+Figma exporta cada modo como un archivo JSON en formato DTCG: clic derecho sobre un modo → *Export mode*, o sobre la colección → *Export modes* (misma fuente). Ese archivo es el puente entre el diseño y el código.
+
+Qué contiene un archivo DTCG lo explicamos en [Qué es DTCG](/start-here/what-is-dtcg).
+
+## 3 Una herramienta de traducción las convierte
+
+Una herramienta de traducción lee los archivos DTCG y genera código. La especificación cita como ejemplos Style Dictionary y Terrazzo ([DTCG Format Module — Translation tool](https://www.designtokens.org/TR/2025.10/format/#translation-tool)).
+
+- **Style Dictionary** soporta DTCG, pero su documentación advierte que el soporte de la versión 2025.10 todavía no es completo ([Style Dictionary — DTCG](https://styledictionary.com/info/dtcg/)).
+- **Terrazzo** es una cadena de herramientas nativa de DTCG y tiene un plugin oficial para Tailwind CSS v4 ([Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)).
+
+El resultado son **variables CSS** (custom properties), una por token, con un selector distinto para cada modo:
+
+```css
+:root {
+  --color-action-primary: oklch(…);
+}
+.dark {
+  --color-action-primary: oklch(…);
+}
+```
+
+<Callout variant="note">
+
+Hasta aquí no hace falta Tailwind CSS. Cualquier proyecto web puede usar estas variables directamente.
+
+</Callout>
+
+## 4 Tailwind CSS las convierte en clases
+
+Tailwind CSS v4 se configura en CSS con la directiva `@theme`. Las variables definidas dentro de `@theme` generan clases de utilidad; las definidas en `:root` son variables normales. Para que una variable del tema apunte a otra variable hay que usar `@theme inline` ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)).
+
+El patrón habitual tiene dos capas y es el que documenta shadcn/ui ([shadcn/ui — Theming](https://ui.shadcn.com/docs/theming)):
+
+<InCode title="Las dos capas en CSS">
+
+```css
+/* Capa 1: los tokens, con un valor por modo */
+:root  { --warning: oklch(0.84 0.16 84); }
+.dark  { --warning: oklch(0.41 0.11 46); }
+
+/* Capa 2: Tailwind CSS los expone como utilidades */
+@theme inline {
+  --color-warning: var(--warning);
+}
+```
+
+Con esto, la clase `bg-warning` usa el token y cambia sola al activar el modo oscuro. Ejemplo tomado de la documentación de shadcn/ui.
+
+</InCode>
+
+## Un solo nombre en todo el recorrido
+
+El objetivo es que un token se llame igual en todas partes:
+
+| Dónde | Cómo se ve |
+|---|---|
+| Variable de Figma | `color/action/primary` |
+| JSON DTCG | grupos anidados `color` → `action` → `primary` |
+| Variable CSS | `--color-action-primary` |
+| Clase de Tailwind CSS | depende de cómo se exponga en `@theme` |
+
+Ese nombre compartido es lo que permite pasar de un diseño a un componente sin traducir nada, ya sea una persona o un agente de IA quien lo haga.
+
+## Lo que todavía no está decidido
+
+Somos transparentes con lo que aún no hemos comprobado. Estas decisiones se tomarán en los módulos correspondientes, probando con archivos reales:
+
+<Callout variant="pending">
+
+- **Style Dictionary o Terrazzo.** Los compararemos con los archivos exportados desde Figma.
+- **Cómo unir los archivos de cada modo** en una sola salida CSS.
+- **Qué nombres de clase queremos en Tailwind CSS.** Depende de la convención de nombres que elijamos en el módulo Nombrar.
+- **Espacio de color.** Figma solo importa sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)), mientras que en CSS queremos poder usar oklch. Tenemos que verificar qué exporta Figma y cómo lo convierte cada herramienta.
+
+</Callout>
+
+## Fuentes
+
+- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Style Dictionary — DTCG](https://styledictionary.com/info/dtcg/)
+- [Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)
+- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
+- [shadcn/ui — Theming](https://ui.shadcn.com/docs/theming)

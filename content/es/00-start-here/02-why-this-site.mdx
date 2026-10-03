@@ -1,0 +1,58 @@
+---
+title: Por qué existe esta web
+description: Tokens101 nace de la necesidad de aprender a trabajar con tokens de diseño de principio a fin, con Figma, DTCG y Tailwind CSS.
+nav_title: Por qué existe
+lastReviewed: 2026-09-30
+---
+
+Hay mucha información sobre tokens de diseño, pero está repartida entre la documentación de Figma, una especificación técnica, las herramientas de conversión y los sistemas de diseño de cada empresa. Tokens101 reúne ese recorrido en un solo lugar y en orden.
+
+**En esta página**
+
+- [El problema que resuelven los tokens](#el-problema-que-resuelven-los-tokens)
+- [El problema de aprenderlos](#el-problema-de-aprenderlos)
+- [Por qué Figma DTCG y Tailwind CSS](#por-qué-figma-dtcg-y-tailwind-css)
+- [Y la IA](#y-la-ia)
+
+## El problema que resuelven los tokens
+
+Sin tokens, un mismo valor, por ejemplo el azul de la marca, se repite a mano en decenas de sitios de Figma y del código. Cambiarlo obliga a buscar y reemplazar en dos mundos, aparecen variantes por error (`#2563EB` frente a `#2564EB`) y el valor suelto no dice para qué sirve.
+
+Un token es una **decisión de diseño con nombre**. La especificación DTCG los describe como una forma de expresar decisiones de diseño independiente de la plataforma, para compartirlas entre disciplinas, herramientas y tecnologías y crear un vocabulario común ([DTCG Format Module 2025.10 — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)).
+
+## El problema de aprenderlos
+
+Entender qué es un token es la parte corta. Lo difícil es todo lo que viene después:
+
+- **Planificar** qué valores existen y cómo se organizan en capas.
+- **Nombrar** los tokens para que se entiendan en Figma y en el código.
+- **Crearlos** en Figma con variables, colecciones y modos.
+- **Implementarlos**: sacarlos de Figma y convertirlos en algo que el código pueda usar.
+
+La propia especificación DTCG señala el problema de fondo: muchas herramientas permiten exportar tokens, pero cada una a su manera, así que los equipos acaban escribiendo y manteniendo su propio código "pegamento" para conectarlas ([DTCG Format Module 2025.10 — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)).
+
+Tokens101 nace de la necesidad de aprender ese recorrido completo, desde la idea hasta la implementación, con una metodología que se pueda seguir y comprobar.
+
+## Por qué Figma DTCG y Tailwind CSS
+
+- **Figma**, porque es donde se diseña. Sus variables, colecciones y modos son la herramienta nativa para crear tokens ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- **DTCG**, porque es el formato común para mover tokens entre herramientas. Figma importa y exporta variables en este formato (misma fuente).
+- **Tailwind CSS**, como posible destino en código. Su versión 4 se configura en CSS con variables de tema ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)), lo que encaja con tokens exportados como variables CSS.
+
+Tailwind CSS es opcional. La parte que va de Figma a variables CSS funciona sin él. Lo explicamos en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind).
+
+## Y la IA
+
+Los agentes de IA que generan interfaces trabajan mejor con información estructurada y nombrada. Un agente que ve `bg-[#2563EB]` solo ve un número. Si ve `color.action.primary`, tiene una intención que puede reutilizar.
+
+<Callout variant="pending">
+
+Que un sistema de tokens bien nombrado mejore el resultado de un agente de IA es una **hipótesis** de este curso. La comprobaremos en el módulo final, comparando el mismo diseño generado con y sin el sistema preparado.
+
+</Callout>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10 (W3C DTCG)](https://www.designtokens.org/TR/2025.10/format/)
+- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
