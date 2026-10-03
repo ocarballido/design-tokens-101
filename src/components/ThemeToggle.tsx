@@ -3,11 +3,11 @@
 import { LaptopMinimal, Moon, SunDim, type LucideIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useSyncExternalStore } from 'react';
-import { Marker } from '@/components/Marker';
 import { cx } from '@/lib/cx';
 import { THEME_STORAGE_KEY, type Theme } from '@/lib/theme';
 
 // Anatomía: docs/componentes-v1.md §4.5 y §4.10. Tres botones con aria-pressed (D07).
+// Sin marca inferior en la opción actual (V26).
 // - `light` y `dark` ponen data-theme en <html>; `system` lo quita y manda prefers-color-scheme (V10).
 // - La elección se guarda en localStorage (V21). THEME_SCRIPT (src/lib/theme.ts) la aplica antes de pintar.
 
@@ -59,14 +59,13 @@ export function ThemeToggle() {
             aria-label={t(value)}
             onClick={() => setTheme(value)}
             className={cx(
-              'relative flex cursor-pointer items-center justify-center rounded-control p-150 focus-ring',
+              'flex cursor-pointer items-center justify-center rounded-control p-150 focus-ring',
               isCurrent
                 ? 'bg-neutral-default text-accent-default'
                 : 'text-neutral-subtle hover:bg-neutral-hover hover:text-neutral-default active:bg-neutral-active active:text-neutral-default',
             )}
           >
             <Icon aria-hidden className="size-600" />
-            {isCurrent ? <Marker /> : null}
           </button>
         );
       })}

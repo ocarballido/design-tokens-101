@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de desarrollo: paso 8, componentes y páginas con el diseño, V13–V22).
+Última actualización: 2026-10-03 (sesión de desarrollo: correcciones de Oscar al paso 8, V23–V27).
 
 ---
 
@@ -65,6 +65,9 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V16 (módulos 3 y 4):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
 - **V18, V19 (módulo 9):** cuando el dibujo y la anatomía no coinciden, se decide cuál manda y se registra. Ejemplo para "Componentes y código".
 - **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
+- **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que Figma no puede guardar, y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
+- **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
+- **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
 - **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.
 
 **Verificado en el paso 4 (2026-10-03)**
@@ -99,6 +102,14 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Bloque D, logotipos:** versiones para Dark (V20) y enlace "Tokens101, inicio" (D22).
 - `npm run check:tokens` compara además los estilos de texto con la tabla §8 (probado en negativo) y vigila `w-sidebar`, `font-mono` y la sintaxis de borde.
 
+**Correcciones de Oscar (2026-10-03, V23–V27)**
+- `SidebarItem` sin radio (V23).
+- Panel móvil lateral desde la izquierda, con overlay `color/background/overlay`, animado y con la página bloqueada (V25, sustituye a D21). Pulsar el overlay o Escape lo cierran con animación.
+- Acordeón del sidebar animado (V24). Tokens solo de código `duration/200` y `easing/standard`; sin animación con `prefers-reduced-motion`.
+- Selectores de idioma y tema sin marca inferior (V26). **Riesgo de accesibilidad aceptado** (1.4.1 y 1.4.11).
+- Ancho máximo del contenido a 800 px (V27): **pendiente de que Oscar cambie la variable en Figma y reexporte**; la web sigue en 720 px.
+- Comprobado en Chrome sin interfaz: entrada y salida animadas, scroll de la página bloqueado, foco en "Cerrar menú" al abrir y de vuelta en "Abrir menú" al cerrar, acordeón invisible al cerrarse (fuera del tabulador) y sin transición con movimiento reducido.
+
 **Paso 8: comprobación en navegador (2026-10-03)**
 - Hecha con Google Chrome sin interfaz (`puppeteer-core`) sobre `next start`: la extensión de Chrome no estaba conectada en la sesión. No se ha probado a mano ni con lector de pantalla.
 - 320 px: ninguna de las 16 páginas tiene scroll horizontal (1.4.10).
@@ -109,7 +120,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - 375 y 1440 px comparados con las plantillas de Figma (35:843, 35:1479, 52:487, 55:833): coinciden salvo las diferencias de abajo.
 
 **Paso 8: diferencias con Figma que conviene confirmar** (se ha seguido la anatomía, como en V18)
-- Filas del sidebar con `radius/control` (anatomía §4.2); en Figma son rectas.
 - Pie: todo el texto en `text/neutral/subtle` (anatomía §4.8); en Figma, "Una web creada por: Oscar Carballido" va en `text/neutral/default`.
 - `LessonHeader`: la primera línea es el nombre de la sección (prop `section`, §4.1); en Figma pone "01".
 - `Button`: Figma usa `min-height` 40 px y `min-width` 100 px sin token; en código no se aplican (sin icono mide unos 36 px de alto, ≥ 24). `Button` no se usa todavía en ninguna página.
@@ -117,6 +127,9 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 **Pendiente o sin verificar**
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
+- **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
+- **Oscar:** `size/content/max-width` a 800 en Figma y reexportar Semantic size (V27).
+- **Filas del sidebar:** la diferencia de radio con Figma queda resuelta por V23.
 - `/favicon.ico` da 404: no hay favicon en el diseño.
 - `next/font/google` descarga las fuentes al compilar: el build necesita red (en local funciona; en Vercel, sin probar).
 - Lector de pantalla y prueba manual en Safari y Firefox: sin hacer.

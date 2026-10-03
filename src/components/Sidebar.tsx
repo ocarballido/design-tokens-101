@@ -70,9 +70,19 @@ function SidebarSection({
         <span className="flex-1">{title}</span>
         <Chevron aria-hidden className="size-600 shrink-0 text-neutral-subtle group-hover:text-neutral-default" />
       </button>
-      <ul id={listId} hidden={!open}>
-        {children}
-      </ul>
+      {/* V24: se despliega animando la altura (filas de rejilla de 0fr a 1fr). Cerrada, la lista
+          queda invisible: visibility la saca del orden de tabulación y del árbol de accesibilidad
+          al terminar la animación. Sin animación con prefers-reduced-motion. */}
+      <div
+        className={cx(
+          'grid motion-safe:transition-[grid-template-rows,visibility] motion-safe:duration-(--t101-duration-200) motion-safe:ease-standard',
+          open ? 'visible grid-rows-[1fr]' : 'invisible grid-rows-[0fr]',
+        )}
+      >
+        <ul id={listId} className="min-h-0 overflow-hidden">
+          {children}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -84,7 +94,7 @@ function SidebarItem({ title, href, current }: { title: string; href: string; cu
         href={href}
         aria-current={current ? 'page' : undefined}
         className={cx(
-          'block rounded-control px-300 py-200 type-label-default focus-ring-inset',
+          'block px-300 py-200 type-label-default focus-ring-inset', // Sin radio (V23).
           // Actual: fondo y texto de acento y marca lateral, no solo color (1.4.1).
           current
             ? 'border-s-(length:--t101-border-width-200) border-accent-strong bg-accent-subtle text-accent-default'

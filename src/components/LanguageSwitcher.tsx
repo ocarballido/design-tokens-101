@@ -1,12 +1,12 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { Marker } from '@/components/Marker';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §4.4 y §4.10. Dos enlaces a la misma lección en el otro idioma.
-// - El idioma actual lleva aria-current="true" y una marca inferior, no solo color (1.4.1).
+// - El idioma actual lleva aria-current="true". Sin marca inferior (V26): se distingue por el
+//   recuadro y el color del texto; riesgo de 1.4.1 y 1.4.11 aceptado por Oscar.
 // - Cada enlace lleva el atributo lang de su idioma (3.1.2) y su nombre completo, que contiene
 //   el texto visible ("ES" → "Español"), como pide 2.5.3 Label in Name.
 
@@ -33,14 +33,13 @@ export function LanguageSwitcher() {
               aria-label={NAMES[locale]}
               aria-current={isCurrent ? 'true' : undefined}
               className={cx(
-                'relative flex items-center justify-center rounded-control p-200 type-label-default uppercase focus-ring',
+                'flex items-center justify-center rounded-control p-200 type-label-default uppercase focus-ring',
                 isCurrent
                   ? 'bg-neutral-default text-accent-default'
                   : 'text-neutral-subtle hover:bg-neutral-hover hover:text-neutral-default',
               )}
             >
               {locale}
-              {isCurrent ? <Marker /> : null}
             </Link>
           </li>
         );

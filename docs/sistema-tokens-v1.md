@@ -4,7 +4,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-10-02.
+Última actualización: 2026-10-03.
 
 **Registro de cambios**
 
@@ -19,6 +19,8 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 | 2026-10-02 | Diseño | Estilo de texto `body/strong` para el texto destacado (D17): §8. |
 | 2026-10-02 | Diseño | A13 cerrada con los valores iniciales (D23): §6.3. |
 | 2026-10-03 | Contenido | Documento trasladado al repositorio (P9); rutas actualizadas. |
+| 2026-10-03 | Desarrollo | Paso 8: carga de fuentes con `next/font` (V13, §4.2), estilos de texto como utilidades (V15, §8) y token `size/sidebar/width` (V16, §4.6). |
+| 2026-10-03 | Desarrollo | Tokens de movimiento solo de código (V24, §4.7), `color/background/overlay` (V25, §6.1) y ancho máximo del contenido a 800 px (V27, §4.6, pendiente de reexportar). |
 
 ---
 
@@ -310,12 +312,22 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 
 | Token | px (Figma) | rem (CSS) | Uso |
 |---|---|---|---|
-| size/content/max-width | 720 | 45 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 688 px de texto, unas 70 letras por línea con `body/default`). |
-| size/sidebar/width | 304 | 19 | Ancho del sidebar en escritorio (V16). En Figma se dibujó a 305 px sin variable. **Pendiente de crear en Figma**; hasta entonces vive en `tokens/code-only.tokens.json`. |
+| size/content/max-width | 800 | 50 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 768 px de texto). **V27:** antes 720 px; pendiente de cambiar en Figma y reexportar. |
+| size/sidebar/width | 304 | 19 | Ancho del sidebar en escritorio (V16) y del panel de navegación móvil (V25). En Figma se dibujó a 305 px sin variable. **Pendiente de crear en Figma**; hasta entonces vive en `tokens/code-only.tokens.json`. |
 
 - Colección **Semantic size**, scope "ancho y alto". Es un valor directo, **excepción a la regla 6** (§5.2): no hay escala primitiva de tamaños y un solo valor no la justifica. Si aparecen más tamaños de maquetación, se crea la escala y este token pasa a ser alias.
 - Categoría nueva en el vocabulario: `size`.
 - `breakpoint/desktop` (D11) sigue siendo un token solo de código.
+
+### 4.7 Movimiento (V24) — tokens solo de código
+
+| Token | Valor | Tipo DTCG | Uso |
+|---|---|---|---|
+| duration/200 | 200 ms | `duration` | Panel de navegación móvil y acordeón del sidebar |
+| easing/standard | `cubic-bezier(0.2, 0, 0, 1)` | `cubicBezier` | Curva de todas las animaciones de la interfaz |
+
+- Figma no tiene variables de duración ni de curva: viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11).
+- Con `prefers-reduced-motion: reduce` no hay animación (2.3.3 Animation from Interactions, AAA, [WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)).
 
 ## 5. Nomenclatura
 
@@ -410,6 +422,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/border/accent/strong` | `emerald/600` (#0EA075) | `emerald/400` (#4FD7A6) |
 | `color/text/on-accent` | `neutral/950` (#050C09) | `neutral/950` (#050C09) |
 | `color/border/focus` | `emerald/600` (#0EA075) | `emerald/400` (#4FD7A6) |
+| `color/background/overlay` (V25) | `black` al 50 % (#00000080) | `black` al 50 % (#00000080) |
 | `color/background/info/subtle` | `blue/50` (#F1F6FB) | `blue/950` (#1D2747) |
 | `color/border/info/default` | `blue/300` (#A0C4ED) | `blue/700` (#3058B9) |
 | `color/text/info/default` | `blue/700` (#3058B9) | `blue/300` (#A0C4ED) |
@@ -423,7 +436,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/border/danger/default` | `red/300` (#EDADAD) | `red/700` (#A63D35) |
 | `color/text/danger/default` | `red/700` (#A63D35) | `red/300` (#EDADAD) |
 
-31 tokens. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
+31 tokens de Figma y uno solo de código por ahora, `color/background/overlay` (V25): capa sobre el contenido cuando el panel móvil está abierto; valor directo porque un alias no puede cambiar la opacidad, y pendiente de crear en Figma. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
 
 **Por qué así:**
 - **Botón principal con el color de marca.** `emerald/500` y texto oscuro (`on-accent` = `neutral/950`), en vez de un verde oscuro con texto blanco. El color de marca se ve tal cual y el texto cumple 9,63:1.

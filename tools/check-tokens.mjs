@@ -89,6 +89,8 @@ const codeOnly = {
   '--t101-space-negative-100': '-0.25rem', '--t101-space-negative-200': '-0.5rem', '--t101-space-negative-300': '-0.75rem',
   '--t101-space-negative-400': '-1rem', '--t101-space-negative-600': '-1.5rem', '--t101-breakpoint-desktop': '64rem',
   '--t101-size-sidebar-width': '19rem',
+  '--t101-duration-200': '200ms', '--t101-easing-standard': 'cubic-bezier(0.2, 0, 0, 1)',
+  '--t101-color-background-overlay': '#00000080',
 };
 for (const [name, value] of Object.entries(codeOnly)) {
   if (blocks.root.get(name) !== value) errors.push(`${name}: ${blocks.root.get(name)} ≠ ${value} (§4)`);
@@ -141,6 +143,8 @@ const expected = {
   'leading-normal': 'line-height: var(--t101-line-height-normal)',
   'max-w-content': 'max-width: var(--t101-size-content-max-width)',
   'w-sidebar': 'width: var(--t101-size-sidebar-width)',
+  'ease-standard': 'transition-timing-function: var(--t101-easing-standard)',
+  'bg-overlay': 'background-color: var(--t101-color-background-overlay)',
   // V14: el grosor de borde se escribe con la sintaxis de variable de Tailwind (no hay espacio de nombres).
   'border-(length:--t101-border-width-100)': 'border-width: var(--t101-border-width-100)',
   'type-heading-1': 'font-size: var(--t101-font-size-heading-1)',

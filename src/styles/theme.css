@@ -16,6 +16,7 @@
   --background-color-neutral-hover: var(--t101-color-background-neutral-hover);
   --background-color-neutral-strong: var(--t101-color-background-neutral-strong);
   --background-color-neutral-subtle: var(--t101-color-background-neutral-subtle);
+  --background-color-overlay: var(--t101-color-background-overlay);
   --background-color-success-subtle: var(--t101-color-background-success-subtle);
   --background-color-warning-subtle: var(--t101-color-background-warning-subtle);
   --border-color-accent-default: var(--t101-color-border-accent-default);
@@ -38,6 +39,7 @@
   --text-color-on-accent: var(--t101-color-text-on-accent);
   --text-color-success-default: var(--t101-color-text-success-default);
   --text-color-warning-default: var(--t101-color-text-warning-default);
+  --ease-standard: var(--t101-easing-standard);
   --font-mono: var(--font-jetbrains-mono, var(--t101-font-family-mono)), ui-monospace, monospace;
   --font-sans: var(--font-inter, var(--t101-font-family-sans)), ui-sans-serif, system-ui, sans-serif;
   --text-body-default: var(--t101-font-size-body-default);

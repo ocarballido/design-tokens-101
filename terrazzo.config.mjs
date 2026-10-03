@@ -18,6 +18,8 @@ const variableName = (token) => `--t101-${token.id.replace(/\./g, '-')}`;
 
 // Tokens que cambian con cada modo (el resto se escribe una sola vez en :root).
 const THEME_TOKENS = ['color.background.**', 'color.text.**', 'color.border.**'];
+// Tokens de color solo de código, iguales en Light y Dark: solo en :root (V25).
+const THEME_INVARIANT = ['color.background.overlay'];
 const LAYOUT_TOKENS = ['font-size.heading.**', 'font-size.body.**', 'font-size.label.**', 'font-size.caption.**', 'font-size.code.**'];
 
 export default defineConfig({
@@ -42,12 +44,14 @@ export default defineConfig({
         {
           input: { theme: 'dark', layout: 'mobile' },
           include: THEME_TOKENS,
+          exclude: THEME_INVARIANT,
           prepare: (contents) => `[data-theme="dark"] {\n  color-scheme: dark;\n  ${contents}\n}`,
         },
         // …o "system" con el sistema en oscuro (todo lo que no sea "light" explícito).
         {
           input: { theme: 'dark', layout: 'mobile' },
           include: THEME_TOKENS,
+          exclude: THEME_INVARIANT,
           prepare: (contents) =>
             `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n    color-scheme: dark;\n    ${contents}\n  }\n}`,
         },
@@ -107,6 +111,11 @@ function tailwindTheme() {
     // --container-* da max-w-* y w-* (https://tailwindcss.com/docs/max-width).
     [/^size\.content\.max-width$/, (m, id) => [['--container-content', ref(id)]]],
     [/^size\.sidebar\.width$/, (m, id) => [['--container-sidebar', ref(id)]]],
+    // V24: --ease-* da ease-standard (https://tailwindcss.com/docs/transition-timing-function).
+    // La duración no tiene espacio de nombres: duration-(--t101-duration-200)
+    // (https://tailwindcss.com/docs/transition-duration).
+    [/^easing\.(.+)$/, (m, id) => [[`--ease-${m[1]}`, ref(id)]]],
+    [/^duration\./, () => null],
     // Las media queries no leen variables: el breakpoint se escribe con su valor (D11).
     [/^breakpoint\.desktop$/, () => [['--breakpoint-desktop', `${bpValue}${bpUnit}`]]],
   ];

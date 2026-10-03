@@ -31,6 +31,11 @@
     font-weight: var(--t101-font-weight-600);
   }
 
+  /* Con el panel de navegación móvil abierto, la página no hace scroll; solo el panel (V25). */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
   /* Las anclas de "En esta página" no quedan tapadas por la cabecera. */
   :target {
     scroll-margin-block-start: var(--t101-space-600);

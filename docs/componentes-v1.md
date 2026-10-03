@@ -385,9 +385,11 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 | Separador con el contenido (borde derecho) | `border/neutral/default`, `border-width/100` |
 | Separación entre secciones | `space/*` |
 
-**Móvil** (por debajo de 64rem, D11): el sidebar se oculta y va dentro del panel de navegación a pantalla completa (D21).
+**Móvil** (por debajo de 64rem, D11): el sidebar se oculta y va dentro del panel de navegación lateral, que entra desde la izquierda con un overlay sobre el contenido (V25).
 
 **Escritorio:** ancho `size/sidebar/width` (304 px, V16) y fijo al hacer scroll (`sticky`), con scroll propio si no cabe (V17).
+
+**Acordeón:** las secciones se abren y se cierran con una animación de altura (`duration/200`, `easing/standard`, V24), sin animación con `prefers-reduced-motion`.
 
 #### `SidebarSection` (cabecera de una sección: un botón)
 
@@ -424,7 +426,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 | Fondo | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Texto | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
 | Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera |
-| Radio | `radius/control` | ← | ← |
+| Radio | Sin radio (V23) | ← | ← |
 
 **Con `current = true`.**
 
@@ -434,7 +436,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 | Texto | `text/accent/default` | ← | ← |
 | Marca lateral (trazo izquierdo) | `border/accent/strong`, `border-width/200` | ← | ← |
 | Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera |
-| Radio | `radius/control` | ← | ← |
+| Radio | Sin radio (V23) | ← | ← |
 
 **Texto.** `label/default`.
 
@@ -498,7 +500,7 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 **Texto.** `label/default`.
 
 **Accesibilidad.**
-- El idioma actual lleva `aria-current="true"` y se distingue por la marca, no solo por el color (1.4.1).
+- El idioma actual lleva `aria-current="true"`. Sin marca inferior desde V26 (riesgo de 1.4.1 aceptado).
 - Cada enlace lleva el atributo `lang` de su idioma (`lang="en"` en "EN") (3.1.2 Language of Parts, AA, [WCAG 2.2](https://www.w3.org/TR/WCAG22/#language-of-parts)).
 - Nombre accesible completo: "Español" / "English".
 
@@ -588,14 +590,14 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `Callout` | Etiqueta fija por variante (D18). Borde de `pending`: `border/neutral/default` (decorativo). |
 | `IconButton` | 40 × 40 px, sin fondo en `default`. |
 | `SidebarItem` / `SidebarSection` | Filas de 36 / 40 px (padding `space/200` vertical y `space/300` horizontal). En `focus` + `current`, la marca lateral es un rectángulo `Marker` porque el trazo lo ocupa el anillo de foco. |
-| `LanguageSwitcher` / `ThemeToggle` | Grupo con fondo `background/neutral/strong`; la opción actual es un recuadro `background/neutral/default` con texto o icono `text/accent/default` y una marca inferior `border/accent/strong` (`Marker`, alto `border-width/200`). Opciones no actuales: texto o icono `text/neutral/subtle`; en hover, `text/neutral/default` y fondo `background/neutral/hover`. |
+| `LanguageSwitcher` / `ThemeToggle` | Grupo con fondo `background/neutral/strong`; la opción actual es un recuadro `background/neutral/default` con texto o icono `text/accent/default`. **Sin marca inferior desde V26** (en Figma sigue la capa `Marker`; riesgo de 1.4.1 y 1.4.11 aceptado). Opciones no actuales: texto o icono `text/neutral/subtle`; en hover, `text/neutral/default` y fondo `background/neutral/hover`. |
 | `CodeBlock` | Props: `children`, `filename`; solo de Figma: `showFilename`, `showCopied`. Botón copiar: `IconButton` con `li:copy`. |
 | `SkipLink` | Se dibuja en estado de foco. En las plantillas está oculto. |
 | `SiteHeader` | `size=large` (escritorio) y `size=small` (móvil, sin selectores: D19). |
 | `SiteFooter` | Logotipo, autor y aviso P7. |
 | `Callout`, `InCode`, `LessonHeader`, `PageNavLink` | Borde de 1 px en los cuatro lados (`border-width/100`). |
 | Plantilla | Columna con ancho máximo `size/content/max-width` (720 px, D20), centrada. Sidebar con dos secciones: "Empezar aquí" y "Recursos". |
-| Navegación móvil | Panel a pantalla completa (D21): selectores de idioma y tema arriba, sidebar debajo; el botón de menú pasa a cerrar (`li:x`). |
+| Navegación móvil | En Figma, panel a pantalla completa (D21). **En código, panel lateral con overlay (V25):** ancho `size/sidebar/width`, selectores arriba, sidebar debajo, botón de cerrar `li:x`. |
 | `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
 | "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
 
