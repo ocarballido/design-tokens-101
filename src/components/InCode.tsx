@@ -47,12 +47,21 @@ export function InCode({ title, defaultOpen = false, children }: InCodeProps) {
         </span>
         {title ? <span className="type-label-default text-neutral-default">{title}</span> : null}
       </button>
+      {/* V24: se despliega animando la altura (filas de rejilla de 0fr a 1fr), como SidebarSection.
+          Cerrado, el contenido queda invisible: visibility lo saca del orden de tabulación y del
+          árbol de accesibilidad al terminar la animación. Sin animación con prefers-reduced-motion.
+          El borde y el padding van en el hijo interior: en el que se recorta impedirían llegar a 0. */}
       <div
-        id={contentId}
-        hidden={!open}
-        className="flow border-t-(length:--t101-border-width-100) border-neutral-default p-400 text-neutral-default"
+        className={cx(
+          'grid motion-safe:transition-[grid-template-rows,visibility] motion-safe:duration-(--t101-duration-200) motion-safe:ease-standard',
+          open ? 'visible grid-rows-[1fr]' : 'invisible grid-rows-[0fr]',
+        )}
       >
-        {children}
+        <div id={contentId} className="min-h-0 overflow-hidden">
+          <div className="flow border-t-(length:--t101-border-width-100) border-neutral-default p-400 text-neutral-default">
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );

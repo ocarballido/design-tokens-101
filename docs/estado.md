@@ -126,6 +126,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - `SidebarItem` sin radio (V23).
 - Panel móvil lateral desde la izquierda, con overlay `color/background/overlay`, animado y con la página bloqueada (V25, sustituye a D21). Pulsar el overlay o Escape lo cierran con animación.
 - Acordeón del sidebar animado (V24). Tokens solo de código `duration/200` y `easing/standard`; sin animación con `prefers-reduced-motion`.
+- `InCode` animado igual que `SidebarSection` (V24): filas de rejilla de `0fr` a `1fr` con `duration/200` y `easing/standard`; cerrado queda `invisible` (fuera del tabulador). Comprobado en Chrome sin interfaz: altura intermedia a 80 ms al abrir y al cerrar, 0 px e `invisible` cerrado, y sin transición con movimiento reducido.
 - Selectores de idioma y tema sin marca inferior (V26). **Riesgo de accesibilidad aceptado** (1.4.1 y 1.4.11).
 - Ancho máximo del contenido a 960 px (V27): cambiado en Figma, reexportado y regenerado.
 - Comprobado en Chrome sin interfaz: entrada y salida animadas, scroll de la página bloqueado, foco en "Cerrar menú" al abrir y de vuelta en "Abrir menú" al cerrar, acordeón invisible al cerrarse (fuera del tabulador) y sin transición con movimiento reducido.
