@@ -68,7 +68,9 @@ for (const [file, css] of [['tokens.css', tokensCss], ['theme.css', themeCss]]) 
 
 // 3. Bloques de modo
 const sameSet = (a, b) => a.length === b.length && a.every((x) => b.includes(x));
-const darkNames = figmaFiles.dark.map(varName).sort();
+// Más los tokens solo de código que cambian con el tema (V28), hasta que existan en Figma.
+const THEME_CODE_ONLY = ['--t101-color-background-neutral-translucent'];
+const darkNames = [...figmaFiles.dark.map(varName), ...THEME_CODE_ONLY].sort();
 const desktopNames = figmaFiles.desktop.map(varName).sort();
 for (const block of ['darkAttr', 'darkMedia']) {
   if (!sameSet([...blocks[block].keys()].sort(), darkNames)) errors.push(`El bloque ${block} no coincide con Semantic color`);
@@ -91,9 +93,14 @@ const codeOnly = {
   '--t101-size-sidebar-width': '19rem',
   '--t101-duration-200': '200ms', '--t101-easing-standard': 'cubic-bezier(0.2, 0, 0, 1)',
   '--t101-color-background-overlay': '#00000080',
+  '--t101-blur-300': '0.75rem', '--t101-color-background-neutral-translucent': '#ffffffe6',
 };
 for (const [name, value] of Object.entries(codeOnly)) {
   if (blocks.root.get(name) !== value) errors.push(`${name}: ${blocks.root.get(name)} ≠ ${value} (§4)`);
+}
+for (const block of ['darkAttr', 'darkMedia']) {
+  const value = blocks[block].get('--t101-color-background-neutral-translucent');
+  if (value !== '#050c09e6') errors.push(`${block}: --t101-color-background-neutral-translucent: ${value} ≠ #050c09e6 (§6.1)`);
 }
 
 // 6. Estilos de texto (V15): src/styles/text-styles.css frente a la tabla §8 de la especificación.
@@ -145,11 +152,13 @@ const expected = {
   'w-sidebar': 'width: var(--t101-size-sidebar-width)',
   'ease-standard': 'transition-timing-function: var(--t101-easing-standard)',
   'bg-overlay': 'background-color: var(--t101-color-background-overlay)',
+  'bg-neutral-translucent': 'background-color: var(--t101-color-background-neutral-translucent)',
+  'backdrop-blur-300': '--tw-backdrop-blur: blur(var(--t101-blur-300))',
   // V14: el grosor de borde se escribe con la sintaxis de variable de Tailwind (no hay espacio de nombres).
   'border-(length:--t101-border-width-100)': 'border-width: var(--t101-border-width-100)',
   'type-heading-1': 'font-size: var(--t101-font-size-heading-1)',
 };
-const forbidden = ['bg-text-neutral-default', 'text-text-neutral-default', 'bg-red-500', 'p-4', 'text-xl', 'rounded-lg', 'lg:p-400'];
+const forbidden = ['bg-text-neutral-default', 'text-text-neutral-default', 'bg-red-500', 'p-4', 'text-xl', 'rounded-lg', 'lg:p-400', 'backdrop-blur-md'];
 const output = compiler.build([...Object.keys(expected), ...forbidden, 'desktop:p-400']);
 const ruleFor = (cls) => {
   const selector = `.${cls.replace(/[:/()]/g, (c) => `\\${c}`)}`;

@@ -49,6 +49,13 @@
       "$description": "Solo código (V24): curva de las animaciones de la interfaz. Fuente: docs/sistema-tokens-v1.md §4.7."
     }
   },
+  "blur": {
+    "300": {
+      "$type": "dimension",
+      "$value": { "value": 12, "unit": "px" },
+      "$description": "Solo código (V28): difuminado del contenido que pasa por debajo de la cabecera sticky (backdrop-filter). Sin estilos de efecto en Figma en v1 (S28). La numeración sigue la de space (300 = 12 px). Fuente: docs/sistema-tokens-v1.md §4.8."
+    }
+  },
   "breakpoint": {
     "desktop": {
       "$type": "dimension",

@@ -21,6 +21,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 | 2026-10-03 | Contenido | Documento trasladado al repositorio (P9); rutas actualizadas. |
 | 2026-10-03 | Desarrollo | Paso 8: carga de fuentes con `next/font` (V13, §4.2), estilos de texto como utilidades (V15, §8) y token `size/sidebar/width` (V16, §4.6). |
 | 2026-10-03 | Desarrollo | Tokens de movimiento solo de código (V24, §4.7), `color/background/overlay` (V25, §6.1) y ancho máximo del contenido a 960 px (V27, §4.6). |
+| 2026-10-03 | Desarrollo | Cabecera sticky (V28): `color/background/neutral/translucent` (§6.1), `blur/300` solo de código (§4.8) y énfasis `translucent` en el vocabulario (§5.2). |
 
 ---
 
@@ -329,6 +330,15 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 - Viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11). **Precisión (2026-10-03):** Figma sí tiene variables **Timing** y **Easing** ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes); [Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Oscar decide mantener estos tokens solo en código. Sin verificar: si esas variables se exportan en DTCG y en qué unidad (la ayuda dice milisegundos; la API de plugins, segundos).
 - Con `prefers-reduced-motion: reduce` no hay animación (2.3.3 Animation from Interactions, AAA, [WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)).
 
+### 4.8 Desenfoque (V28) — token solo de código
+
+| Token | px | rem (CSS) | Uso |
+|---|---|---|---|
+| blur/300 | 12 | 0.75 | Difuminado del contenido que pasa por debajo de la cabecera sticky (`backdrop-filter`) |
+
+- Vive en `tokens/code-only.tokens.json`: sin estilos de efecto en Figma en v1 (S28). Tipo DTCG `dimension`. La numeración sigue la de `space` (`300` = 12 px).
+- En Tailwind, `backdrop-blur-300` (espacio de nombres `--blur-*`).
+
 ## 5. Nomenclatura
 
 ### 5.1 Escuela y orden — Cerradas (A2, A3)
@@ -350,7 +360,7 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 4. **Hoja explícita:** si un nombre fuera a la vez token y grupo, el token lleva `/default`. DTCG prohíbe que un objeto sea token y grupo a la vez ([DTCG Format — Groups](https://www.designtokens.org/TR/2025.10/format/#group-structure)).
    - **Estado en el lugar del énfasis (D13).** Cuando un estado se añade a un token cuyo énfasis es el de por defecto y que ya es un token final, el estado ocupa el lugar del énfasis en vez de crear un nivel nuevo: `color/text/accent/default` → `color/text/accent/hover`; `color/background/neutral/hover`. Así no hay que renombrar tokens ni convertir un token en grupo. Es el patrón del SDS de Figma (`--sds-color-background-neutral-default` / `--sds-color-background-neutral-hover`, [SDS theme.css](https://raw.githubusercontent.com/figma/sds/main/src/theme.css)). Consecuencia: en ese nivel conviven palabras de énfasis (`default`, `subtle`, `strong`) y de estado (`hover`, `active`); se distinguen por el vocabulario. Cuando el énfasis no es el de por defecto, el estado va en su propio nivel, como ya ocurre en `color/background/accent/strong/{default,hover,active}`.
 5. **Primitivos:** categoría / paleta / paso (`color/red/500`, `space/400`, `radius/200`). Las paletas se nombran por su tono o por su naturaleza (neutral), **nunca por su rol**.
-6. **Semánticos:** siempre son alias de un primitivo, nunca valores directos. Máximo dos saltos (componente → semántico → primitivo). Excepción: `size/content/max-width` (D20).
+6. **Semánticos:** siempre son alias de un primitivo, nunca valores directos. Máximo dos saltos (componente → semántico → primitivo). Excepciones: `size/content/max-width` (D20) y los colores con transparencia, `color/background/overlay` (V25) y `color/background/neutral/translucent` (V28), porque un alias no puede cambiar la opacidad.
 7. **Pares de contraste:** el texto o el borde sobre un fondo de color fuerte se nombra `on-{rol}` (`color/text/on-accent`). Cada par se comprueba con WCAG 2.2.
 
 **Vocabulario**
@@ -360,7 +370,7 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 | Categoría | `color`, `space`, `radius`, `border-width`, `font-family`, `font-size`, `font-weight`, `line-height`, `size` (D20) |
 | Propiedad (color) | `background`, `text`, `border` |
 | Rol | `neutral`, `accent`, `info`, `success`, `warning`, `danger` (no `error`; como el SDS y Atlassian). |
-| Énfasis | `default`, `subtle` (menos énfasis: fondos tintados, texto secundario), `strong` (más énfasis: fondos sólidos). Aprobado por Oscar (2026-09-30). |
+| Énfasis | `default`, `subtle` (menos énfasis: fondos tintados, texto secundario), `strong` (más énfasis: fondos sólidos). Aprobado por Oscar (2026-09-30). `translucent` (fondo con transparencia, V28). |
 | Estado | `default`, `hover`, `active`, `disabled` (solo en elementos interactivos) |
 
 **Ejemplos**
@@ -423,6 +433,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/text/on-accent` | `neutral/950` (#050C09) | `neutral/950` (#050C09) |
 | `color/border/focus` | `emerald/600` (#0EA075) | `emerald/400` (#4FD7A6) |
 | `color/background/overlay` (V25) | `black` al 50 % (#00000080) | `black` al 50 % (#00000080) |
+| `color/background/neutral/translucent` (V28) | `white` al 90 % (#FFFFFFE6) | `neutral/950` al 90 % (#050C09E6) |
 | `color/background/info/subtle` | `blue/50` (#F1F6FB) | `blue/950` (#1D2747) |
 | `color/border/info/default` | `blue/300` (#A0C4ED) | `blue/700` (#3058B9) |
 | `color/text/info/default` | `blue/700` (#3058B9) | `blue/300` (#A0C4ED) |
@@ -436,7 +447,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/border/danger/default` | `red/300` (#EDADAD) | `red/700` (#A63D35) |
 | `color/text/danger/default` | `red/700` (#A63D35) | `red/300` (#EDADAD) |
 
-31 tokens de Figma y uno solo de código por ahora, `color/background/overlay` (V25): capa sobre el contenido cuando el panel móvil está abierto; valor directo porque un alias no puede cambiar la opacidad, y pendiente de crear en Figma. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
+31 tokens de Figma y dos solo de código por ahora, pendientes de crear en Figma: `color/background/overlay` (V25), capa sobre el contenido cuando el panel móvil está abierto, y `color/background/neutral/translucent` (V28), fondo de la cabecera sticky. Los dos son valores directos porque un alias no puede cambiar la opacidad. El segundo cambia con el modo, así que vive en `tokens/code-only.light.tokens.json` y `tokens/code-only.dark.tokens.json`, enganchados al modificador `theme` del Resolver. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
 
 **Por qué así:**
 - **Botón principal con el color de marca.** `emerald/500` y texto oscuro (`on-accent` = `neutral/950`), en vez de un verde oscuro con texto blanco. El color de marca se ve tal cual y el texto cumple 9,63:1.
@@ -542,9 +553,9 @@ Scopes disponibles según [Figma — Create and manage variables](https://help.f
 | | | `size/content/max-width` (D20, V27) y `size/sidebar/width` (V16, pendiente) | No | Ancho y alto |
 | **Layout** (D10) | Desktop, Mobile | `font-size/{estilo}` (9 tokens, §4.2) | No | Tamaño de fuente. Se usan desde los estilos de texto (§8) |
 
-**No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/desktop` (D11), `duration/200` y `easing/standard` (V24). Su fuente única es esta especificación.
+**No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/desktop` (D11), `duration/200` y `easing/standard` (V24), `blur/300` (V28). Su fuente única es esta especificación.
 
-**Pendientes de crear en Figma** (mientras tanto, en `tokens/code-only.tokens.json`): `size/sidebar/width` en Semantic size (V16) y `color/background/overlay` en Semantic color (V25). Al reexportar, se quitan de ese archivo.
+**Pendientes de crear en Figma** (mientras tanto, en `tokens/code-only.tokens.json`): `size/sidebar/width` en Semantic size (V16), y `color/background/overlay` (V25) y `color/background/neutral/translucent` (V28) en Semantic color. Al reexportar, se quitan de ese archivo.
 
 **Code syntax Web (S6, S27, D03):** `var(--t101-` + ruta con `/` sustituida por `-` + `)`. Ejemplo: `color/background/accent/strong/hover` → `var(--t101-color-background-accent-strong-hover)`. Se aplica a todas las variables, también a las ocultas.
 

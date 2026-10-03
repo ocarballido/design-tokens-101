@@ -36,7 +36,13 @@
     overflow: hidden;
   }
 
-  /* Las anclas de "En esta página" no quedan tapadas por la cabecera. */
+  /* V28: la cabecera es sticky. Al saltar a un ancla o mover el foco, el navegador deja libre su
+   * altura (2.4.11 Focus Not Obscured). --site-header-height la mide HeaderHeight. */
+  html {
+    scroll-padding-block-start: var(--site-header-height, 0);
+  }
+
+  /* Las anclas de "En esta página" no quedan pegadas a la cabecera. */
   :target {
     scroll-margin-block-start: var(--t101-space-600);
   }

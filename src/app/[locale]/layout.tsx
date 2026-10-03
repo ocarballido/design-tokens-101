@@ -57,9 +57,10 @@ export default async function LocaleLayout({
           <SkipLink target={MAIN_ID} />
           <SiteHeader sidebar={sidebar} />
           <div className="flex flex-1">
-            {/* Escritorio (D11): sidebar fijo al hacer scroll (V17), con scroll propio si no cabe. */}
+            {/* Escritorio (D11): sidebar fijo al hacer scroll (V17), debajo de la cabecera sticky (V28),
+                con scroll propio si no cabe. */}
             <div className="hidden w-sidebar shrink-0 border-e-(length:--t101-border-width-100) border-neutral-default bg-neutral-default desktop:block">
-              <div className="sticky top-0 max-h-dvh overflow-y-auto">
+              <div className="sticky top-(--site-header-height) max-h-[calc(100dvh-var(--site-header-height))] overflow-y-auto">
                 <Sidebar {...sidebar} />
               </div>
             </div>

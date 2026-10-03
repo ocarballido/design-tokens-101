@@ -8,7 +8,7 @@ export function SkipLink({ target }: { target: string }) {
   return (
     <a
       href={`#${target}`}
-      className="fixed start-400 top-400 z-10 rounded-control bg-accent-strong-default px-400 py-200 type-label-default text-on-accent not-focus:sr-only focus-ring"
+      className="fixed start-400 top-400 z-20 rounded-control bg-accent-strong-default px-400 py-200 type-label-default text-on-accent not-focus:sr-only focus-ring"
     >
       {t('label')}
     </a>

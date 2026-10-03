@@ -4,6 +4,7 @@
   --*: initial;
   --default-font-family: var(--font-sans);
   --default-mono-font-family: var(--font-mono);
+  --blur-300: var(--t101-blur-300);
   --breakpoint-desktop: 64rem;
   --background-color-accent-strong-active: var(--t101-color-background-accent-strong-active);
   --background-color-accent-strong-default: var(--t101-color-background-accent-strong-default);
@@ -16,6 +17,7 @@
   --background-color-neutral-hover: var(--t101-color-background-neutral-hover);
   --background-color-neutral-strong: var(--t101-color-background-neutral-strong);
   --background-color-neutral-subtle: var(--t101-color-background-neutral-subtle);
+  --background-color-neutral-translucent: var(--t101-color-background-neutral-translucent);
   --background-color-overlay: var(--t101-color-background-overlay);
   --background-color-success-subtle: var(--t101-color-background-success-subtle);
   --background-color-warning-subtle: var(--t101-color-background-warning-subtle);

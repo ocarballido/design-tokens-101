@@ -1,7 +1,7 @@
 {
   "name": "Tokens101",
   "version": "2025.10",
-  "description": "Une las colecciones de Figma (normalizadas en tokens/dtcg/) y los tokens solo de código. Un conjunto fijo y dos ejes de modo: theme (Semantic color) y layout (Layout). V08.",
+  "description": "Une las colecciones de Figma (normalizadas en tokens/dtcg/) y los tokens solo de código (los que cambian con el tema, en code-only.{light,dark}.tokens.json, V28). Un conjunto fijo y dos ejes de modo: theme (Semantic color) y layout (Layout). V08.",
   "sets": {
     "base": {
       "sources": [
@@ -15,8 +15,8 @@
     "theme": {
       "default": "light",
       "contexts": {
-        "light": [{ "$ref": "dtcg/semantic-color/Light.tokens.json" }],
-        "dark": [{ "$ref": "dtcg/semantic-color/Dark.tokens.json" }]
+        "light": [{ "$ref": "dtcg/semantic-color/Light.tokens.json" }, { "$ref": "code-only.light.tokens.json" }],
+        "dark": [{ "$ref": "dtcg/semantic-color/Dark.tokens.json" }, { "$ref": "code-only.dark.tokens.json" }]
       }
     },
     "layout": {

@@ -541,11 +541,13 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 
 | Parte | Token |
 |---|---|
-| Fondo | `background/neutral/default` |
+| Fondo | `background/neutral/translucent` con `blur/300` detrás (V28); `background/neutral/default` con `prefers-reduced-transparency: reduce` |
 | Borde inferior | `border/neutral/default`, `border-width/100` |
 | Logotipo | SVG (D22), enlace con nombre accesible "Tokens101, inicio" |
 
-**Accesibilidad.** Es la región `header`.
+**Comportamiento (V28).** Sticky arriba en móvil y en escritorio; el contenido pasa por debajo. El sidebar de escritorio queda sticky justo debajo.
+
+**Accesibilidad.** Es la región `header`. Al ser sticky, `scroll-padding` deja libre su altura para que el foco y las anclas no queden tapados (2.4.11). Los textos de la cabecera están sobre fondos opacos (selectores) o son el logotipo (exento, D22), así que la transparencia no cambia su contraste.
 
 ### 4.8 `SiteFooter`
 

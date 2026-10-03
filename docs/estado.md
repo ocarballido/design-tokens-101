@@ -78,6 +78,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
 - **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
 - **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
+- **V28 (módulos 3, 5 y 6):** otro semántico con transparencia que no puede ser alias, y además cambia con el modo: un token solo de código por modo, enganchado al modificador del Resolver. `blur/300` como token solo de código. Para el módulo 7: cabecera sticky y 2.4.11 (foco no tapado), `prefers-reduced-transparency`.
 - **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
 - **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.
 
@@ -129,6 +130,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - `InCode` animado igual que `SidebarSection` (V24): filas de rejilla de `0fr` a `1fr` con `duration/200` y `easing/standard`; cerrado queda `invisible` (fuera del tabulador). Comprobado en Chrome sin interfaz: altura intermedia a 80 ms al abrir y al cerrar, 0 px e `invisible` cerrado, y sin transición con movimiento reducido.
 - Selectores de idioma y tema sin marca inferior (V26). **Riesgo de accesibilidad aceptado** (1.4.1 y 1.4.11).
 - Ancho máximo del contenido a 960 px (V27): cambiado en Figma, reexportado y regenerado.
+- **Cabecera sticky (V28):** se queda arriba en móvil y escritorio, con `background/neutral/translucent` (90 %) y `backdrop-blur-300`; el sidebar queda sticky debajo. Tokens nuevos en `tokens/code-only.{light,dark}.tokens.json` (el color, por modo) y `tokens/code-only.tokens.json` (`blur/300`); `npm run check:tokens` los vigila. Comprobado en Chrome sin interfaz: cabecera en `top: 0` y sidebar a 77 px tras 1500 px de scroll; ancla a 100 px del borde (cabecera de 77); 42 paradas de tabulador en el contenido, ninguna tapada; fondo `rgba(255,255,255,.9)` / `rgba(5,12,9,.9)` y opaco con transparencia reducida; panel móvil sin cambios; sin scroll horizontal a 320 px.
 - Comprobado en Chrome sin interfaz: entrada y salida animadas, scroll de la página bloqueado, foco en "Cerrar menú" al abrir y de vuelta en "Abrir menú" al cerrar, acordeón invisible al cerrarse (fuera del tabulador) y sin transición con movimiento reducido.
 
 **Paso 8: comprobación en navegador (2026-10-03)**
@@ -149,6 +151,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 **Pendiente o sin verificar**
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
 - **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
+- **Diseño:** crear `color/background/neutral/translucent` (Light `white` y Dark `neutral/950`, al 90 %) en Semantic color y quitar `tokens/code-only.{light,dark}.tokens.json` al reexportar (y su entrada del Resolver) (V28). Dibujar la cabecera translúcida.
 - **Diseño:** actualizar la descripción de `size/content/max-width` en Figma (dice 720 px; ahora es 960 px, V27).
 - **Filas del sidebar:** la diferencia de radio con Figma queda resuelta por V23.
 - `/favicon.ico` da 404: no hay favicon en el diseño.
