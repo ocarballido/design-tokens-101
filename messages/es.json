@@ -28,5 +28,34 @@
   },
   "Table": {
     "label": "Tabla"
+  },
+  "SkipLink": {
+    "label": "Saltar al contenido"
+  },
+  "SiteHeader": {
+    "home": "Tokens101, inicio"
+  },
+  "MobileNav": {
+    "open": "Abrir menú",
+    "close": "Cerrar menú",
+    "label": "Navegación"
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma"
+  },
+  "ThemeToggle": {
+    "label": "Modo de color",
+    "light": "Modo claro",
+    "dark": "Modo oscuro",
+    "system": "Modo del sistema"
+  },
+  "PageNav": {
+    "label": "Lección anterior y siguiente",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "SiteFooter": {
+    "createdBy": "Una web creada por:",
+    "notice": "Esta web se ha hecho con ayuda de Claude (Anthropic) y con la revisión de una persona."
   }
 }

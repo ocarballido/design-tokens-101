@@ -3,8 +3,9 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Callout } from '@/components/Callout';
 import { LessonHeader } from '@/components/LessonHeader';
+import { PageNav } from '@/components/PageNav';
 import { routing } from '@/i18n/routing';
-import { getLesson, getLessons, getSections } from '@/lib/content';
+import { getLesson, getLessons, getSections, lessonHref, type Lesson } from '@/lib/content';
 
 type Params = { locale: string; section: string; lesson: string };
 
@@ -15,6 +16,9 @@ export function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+
+const toTarget = (lesson?: Lesson) =>
+  lesson ? { title: lesson.frontmatter.nav_title ?? lesson.frontmatter.title, href: lessonHref(lesson) } : undefined;
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { locale, section, lesson: slug } = await params;
@@ -35,6 +39,8 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
   const sectionTitle = getSections(locale).find((item) => item.slug === section)?.title;
   const untranslated = lesson.contentLocale !== locale;
   const t = await getTranslations({ locale });
+  const lessons = getLessons(locale);
+  const index = lessons.findIndex((item) => item.file === lesson.file);
 
   return (
     <>
@@ -44,7 +50,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
         </Callout>
       ) : null}
       {/* lang marca el idioma real del texto cuando se muestra sin traducir (WCAG 3.1.2). */}
-      <article lang={untranslated ? lesson.contentLocale : undefined}>
+      <article lang={untranslated ? lesson.contentLocale : undefined} className="flex flex-col gap-600">
         <LessonHeader
           section={sectionTitle}
           title={lesson.frontmatter.title}
@@ -55,6 +61,7 @@ export default async function LessonPage({ params }: { params: Promise<Params> }
           <Content />
         </div>
       </article>
+      <PageNav previous={toTarget(lessons[index - 1])} next={toTarget(lessons[index + 1])} />
     </>
   );
 }

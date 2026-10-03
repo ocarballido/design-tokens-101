@@ -1,4 +1,4 @@
-import { useFormatter, useTranslations } from 'next-intl';
+import { useFormatter, useLocale, useTranslations } from 'next-intl';
 
 // Anatomía: docs/componentes-v1.md §4.1 (con contenedor, §4.10). title es el único h1 de la página.
 
@@ -12,6 +12,7 @@ type LessonHeaderProps = {
 export function LessonHeader({ title, description, lastReviewed, section }: LessonHeaderProps) {
   const t = useTranslations('LessonHeader');
   const format = useFormatter();
+  const locale = useLocale();
 
   return (
     <header
@@ -22,7 +23,8 @@ export function LessonHeader({ title, description, lastReviewed, section }: Less
       <h1 className="type-heading-1 text-neutral-default">{title}</h1>
       {description ? <p className="type-body-default text-neutral-subtle">{description}</p> : null}
       {lastReviewed ? (
-        <p className="type-caption-default text-neutral-subtle">
+        // La fecha va en el idioma de la interfaz, aunque la lección se muestre sin traducir (3.1.2).
+        <p lang={locale} className="type-caption-default text-neutral-subtle">
           {t.rich('lastReviewed', {
             date: () => (
               <time dateTime={lastReviewed}>

@@ -387,6 +387,8 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 
 **Móvil** (por debajo de 64rem, D11): el sidebar se oculta y va dentro del panel de navegación a pantalla completa (D21).
 
+**Escritorio:** ancho `size/sidebar/width` (304 px, V16) y fijo al hacer scroll (`sticky`), con scroll propio si no cabe (V17).
+
 #### `SidebarSection` (cabecera de una sección: un botón)
 
 | Prop | Tipo | En Figma |

@@ -1,10 +1,13 @@
 'use client';
 
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useId, useState, type ReactNode } from 'react';
 import { Link, usePathname } from '@/i18n/navigation';
+import { cx } from '@/lib/cx';
 
-// Provisional, sin estilo (paso 4). Anatomía: docs/componentes-v1.md §4.2.
-// Recibe las secciones ya leídas de content/ (src/lib/content.ts) desde el layout.
+// Anatomía: docs/componentes-v1.md §4.2. Recibe las secciones ya leídas de content/
+// (src/lib/content.ts) desde el layout. Se usa en el escritorio y en el panel móvil (D21).
+// Anillo de foco por dentro (focus-ring-inset): el sidebar tiene scroll propio y lo recortaría.
 
 export type SidebarData = {
   label: string;
@@ -19,9 +22,15 @@ export function Sidebar({ label, sections }: SidebarData) {
   const pathname = usePathname();
 
   return (
-    <nav aria-label={label} data-component="Sidebar">
+    <nav aria-label={label} data-component="Sidebar" className="flex flex-col">
       {sections.map((section) => (
-        <SidebarSection key={section.slug} title={section.title} defaultOpen>
+        // C11: al cargar cada página, solo está abierta la sección de la lección actual.
+        // La key con la ruta vuelve a aplicar defaultOpen al navegar a otra lección.
+        <SidebarSection
+          key={`${section.slug}:${pathname}`}
+          title={section.title}
+          defaultOpen={section.lessons.some((lesson) => lesson.href === pathname)}
+        >
           {section.lessons.map((lesson) => (
             <SidebarItem
               key={lesson.href}
@@ -47,6 +56,7 @@ function SidebarSection({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const listId = useId();
+  const Chevron = open ? ChevronUp : ChevronDown;
 
   return (
     <div data-component="SidebarSection">
@@ -55,8 +65,10 @@ function SidebarSection({
         aria-expanded={open}
         aria-controls={listId}
         onClick={() => setOpen((value) => !value)}
+        className="group flex w-full cursor-pointer items-center gap-200 rounded-control px-300 py-200 text-start type-label-default text-neutral-default hover:bg-neutral-hover focus-ring-inset"
       >
-        {title}
+        <span className="flex-1">{title}</span>
+        <Chevron aria-hidden className="size-600 shrink-0 text-neutral-subtle group-hover:text-neutral-default" />
       </button>
       <ul id={listId} hidden={!open}>
         {children}
@@ -68,7 +80,17 @@ function SidebarSection({
 function SidebarItem({ title, href, current }: { title: string; href: string; current: boolean }) {
   return (
     <li data-component="SidebarItem">
-      <Link href={href} aria-current={current ? 'page' : undefined}>
+      <Link
+        href={href}
+        aria-current={current ? 'page' : undefined}
+        className={cx(
+          'block rounded-control px-300 py-200 type-label-default focus-ring-inset',
+          // Actual: fondo y texto de acento y marca lateral, no solo color (1.4.1).
+          current
+            ? 'border-s-(length:--t101-border-width-200) border-accent-strong bg-accent-subtle text-accent-default'
+            : 'text-neutral-subtle hover:bg-neutral-hover hover:text-neutral-default',
+        )}
+      >
         {title}
       </Link>
     </li>
