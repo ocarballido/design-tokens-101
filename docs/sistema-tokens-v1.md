@@ -20,7 +20,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 | 2026-10-02 | Diseño | A13 cerrada con los valores iniciales (D23): §6.3. |
 | 2026-10-03 | Contenido | Documento trasladado al repositorio (P9); rutas actualizadas. |
 | 2026-10-03 | Desarrollo | Paso 8: carga de fuentes con `next/font` (V13, §4.2), estilos de texto como utilidades (V15, §8) y token `size/sidebar/width` (V16, §4.6). |
-| 2026-10-03 | Desarrollo | Tokens de movimiento solo de código (V24, §4.7), `color/background/overlay` (V25, §6.1) y ancho máximo del contenido a 800 px (V27, §4.6, pendiente de reexportar). |
+| 2026-10-03 | Desarrollo | Tokens de movimiento solo de código (V24, §4.7), `color/background/overlay` (V25, §6.1) y ancho máximo del contenido a 960 px (V27, §4.6). |
 
 ---
 
@@ -312,7 +312,7 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 
 | Token | px (Figma) | rem (CSS) | Uso |
 |---|---|---|---|
-| size/content/max-width | 800 | 50 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 768 px de texto). **V27:** antes 720 px; pendiente de cambiar en Figma y reexportar. |
+| size/content/max-width | 960 | 60 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 928 px de texto). **V27:** antes 720 px. La descripción de la variable en Figma todavía dice 720 px. |
 | size/sidebar/width | 304 | 19 | Ancho del sidebar en escritorio (V16) y del panel de navegación móvil (V25). En Figma se dibujó a 305 px sin variable. **Pendiente de crear en Figma**; hasta entonces vive en `tokens/code-only.tokens.json`. |
 
 - Colección **Semantic size**, scope "ancho y alto". Es un valor directo, **excepción a la regla 6** (§5.2): no hay escala primitiva de tamaños y un solo valor no la justifica. Si aparecen más tamaños de maquetación, se crea la escala y este token pasa a ser alias.

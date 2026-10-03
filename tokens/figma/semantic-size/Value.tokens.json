@@ -45,7 +45,7 @@
     "content": {
       "max-width": {
         "$type": "number",
-        "$value": 720,
+        "$value": 960,
         "$description": "Ancho máximo del contenido de la lección: 720 px = 45rem. Con el padding horizontal (space/400) deja ≈ 688 px de texto, unas 70 letras por línea con body/default (D20).",
         "$extensions": {
           "com.figma.variableId": "VariableID:55:668",

@@ -107,7 +107,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Panel móvil lateral desde la izquierda, con overlay `color/background/overlay`, animado y con la página bloqueada (V25, sustituye a D21). Pulsar el overlay o Escape lo cierran con animación.
 - Acordeón del sidebar animado (V24). Tokens solo de código `duration/200` y `easing/standard`; sin animación con `prefers-reduced-motion`.
 - Selectores de idioma y tema sin marca inferior (V26). **Riesgo de accesibilidad aceptado** (1.4.1 y 1.4.11).
-- Ancho máximo del contenido a 800 px (V27): **pendiente de que Oscar cambie la variable en Figma y reexporte**; la web sigue en 720 px.
+- Ancho máximo del contenido a 960 px (V27): cambiado en Figma, reexportado y regenerado.
 - Comprobado en Chrome sin interfaz: entrada y salida animadas, scroll de la página bloqueado, foco en "Cerrar menú" al abrir y de vuelta en "Abrir menú" al cerrar, acordeón invisible al cerrarse (fuera del tabulador) y sin transición con movimiento reducido.
 
 **Paso 8: comprobación en navegador (2026-10-03)**
@@ -128,7 +128,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 **Pendiente o sin verificar**
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
 - **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
-- **Oscar:** `size/content/max-width` a 800 en Figma y reexportar Semantic size (V27).
+- **Diseño:** actualizar la descripción de `size/content/max-width` en Figma (dice 720 px; ahora es 960 px, V27).
 - **Filas del sidebar:** la diferencia de radio con Figma queda resuelta por V23.
 - `/favicon.ico` da 404: no hay favicon en el diseño.
 - `next/font/google` descarga las fuentes al compilar: el build necesita red (en local funciona; en Vercel, sin probar).
