@@ -590,7 +590,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Fondo de la cabecera | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Título | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
 | Chevron | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
-| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por dentro (D27) |
 | Radio | Sin radio (D26) | ← | ← |
 
 **Con `current = true`** (V30). Se combina con `open = true` y con `open = false` (el alumno puede cerrar la sección de la lección actual).
@@ -600,7 +600,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Fondo de la cabecera | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Título | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
 | Chevron | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
-| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por dentro (D27) |
 | Radio | Sin radio (D26) | ← | ← |
 
 **Texto.** `label/default`.
@@ -620,7 +620,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 |---|---|---|---|
 | Fondo | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Texto | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
-| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por dentro (D27) |
 | Radio | Sin radio (V23) | ← | ← |
 
 **Con `current = true`.**
@@ -630,7 +630,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Fondo | `background/accent/subtle` | ← | ← |
 | Texto | `text/accent/default` | ← | ← |
 | Marca lateral (trazo izquierdo) | `border/accent/strong`, `border-width/200` | ← | ← |
-| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por dentro (D27) |
 | Radio | Sin radio (V23) | ← | ← |
 
 **Texto.** `label/default`.
@@ -640,6 +640,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 - `Sidebar` es un `nav` con `aria-label` (p. ej. "Lecciones").
 - `SidebarSection` es un `button` con `aria-expanded`: patrón Disclosure. Con `current = true` no lleva ARIA propio (V30): la lección actual ya se anuncia con el `aria-current` del `SidebarItem`, y `LessonHeader` dice la sección. Por eso el color no es el único medio de saberlo (1.4.1), aunque la sección esté cerrada.
 - El `SidebarItem` actual lleva `aria-current="page"` y se distingue por la marca lateral además del color (1.4.1).
+- Anillo de foco por dentro (D27, excepción a §1.3): el sidebar tiene scroll propio y las secciones se pliegan con `overflow: hidden`, así que un anillo por fuera quedaría recortado. En código, `focus-ring-inset`. Sigue siendo de 2 px con `border/focus` (≥ 3:1, 2.4.7).
 - Filas de al menos 24 px de alto (diseñadas a 36 / 40 px).
 - Contraste: título de sección 17,79 / 18,89; título y chevron de la sección `current` 5,08 / 10,92 (`text/accent/default` sobre `background/neutral/default`) y en hover 6,62 / 10,58 (`text/accent/hover` sobre `background/neutral/hover`); ítem `default` 7,74 / 7,65; ítem `hover` 16,28 / 14,34; ítem `current` 4,85 / 8,30 (≥ 4,5:1); marca lateral frente a `background/accent/subtle` 3,18 / 8,30 (≥ 3:1).
 
@@ -797,7 +798,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | Navegación móvil | En Figma, panel a pantalla completa (D21). **En código, panel lateral con overlay (V25):** ancho `size/sidebar/width`, selectores arriba, sidebar debajo, botón de cerrar `li:x`. |
 | `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
 | "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
-| `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Sin radio (D26), como `SidebarItem` (V23). Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
+| `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Anillo de foco por dentro, como `SidebarItem` (D27). Sin radio (D26), como `SidebarItem` (V23). Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
 | `Flow` (D24) | `FlowGroup` tiene una variante `size` solo de Figma: `large` (Desktop, pasos en fila que bajan de línea) y `small` (Mobile, pasos apilados a todo el ancho). Motivo: Figma no deja cambiar la dirección de un slot en una instancia. En código no es un prop: `flex-wrap` desde 64rem y apilados por debajo (D11). Conector como componente propio, `FlowConnector`. Foco de `FlowStep` dibujado como en `PageNavLink` (el anillo ocupa el lugar del borde); en código el borde se mantiene y el anillo va por fuera. Medidas en `entrega-diseno.md` §3.3. |
 
 ---
@@ -838,3 +839,4 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D24 | Diseño de `Flow` aprobado: `FlowConnector` propio y variante `size` de `FlowGroup` solo de Figma (§4.10). |
 | D25 | Variante `current` de `SidebarSection` en Figma (§4.2, §4.10). |
 | D26 | `SidebarSection` sin radio, como `SidebarItem` (§4.2). |
+| D27 | Anillo de foco por dentro en `SidebarSection` y `SidebarItem` (§4.2). |

@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma, D25, y cabecera de sección sin radio, D26).
+Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma, D25, cabecera de sección sin radio, D26, y anillo de foco por dentro en el sidebar, D27).
 
 ---
 
@@ -136,7 +136,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Nota técnica: al clonar una variante con la API de Figma, el texto pierde su vínculo con la propiedad `title` y las instancias muestran "Label". Se reconectó a mano; comprobado en las 6 plantillas.
 - **Sin radio (D26):** se probó `radius/control` y Oscar lo revirtió; las 12 variantes quedan con radio 0 y sin variable, como `SidebarItem` (V23). §4.2 actualizada y `rounded-control` quitado de `src/components/Sidebar.tsx` (sesión de diseño, a petición de Oscar).
 - **Corregido para seguir §4.2** (Oscar eligió las recomendaciones, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `default`); en las plantillas, la sección actual con `open = true` (C11). Registrado en `componentes-v1.md` §4.10.
-- **Pregunta abierta para Oscar: anillo de foco de `SidebarSection` y `SidebarItem`.** §4.2 y Figma lo ponen por fuera; el código usa `focus-ring-inset` (por dentro) a propósito: el sidebar tiene scroll propio y la lista se pliega con `overflow: hidden`, así que un anillo por fuera quedaría recortado (`src/styles/base.css`). Opciones: a) aceptar el anillo por dentro en el sidebar y dibujarlo así en Figma, anotándolo en §4.2 (recomendado: no cambia el código y el anillo se ve entero); b) mantenerlo por fuera y que desarrollo deje espacio alrededor de las filas para que no se recorte.
+- **Anillo de foco por dentro (D27):** variantes `focus` de `SidebarSection` y `SidebarItem` con trazo interior, fuera del auto layout (las filas siguen en 40 y 36 px). Coincide con el código (`focus-ring-inset`); §4.2 actualizada.
 - Visto de paso, sin cambiar: en las plantillas, "Recursos" tiene `open = false` pero muestra su lección; por C11 debería verse cerrada.
 
 **Pendiente**

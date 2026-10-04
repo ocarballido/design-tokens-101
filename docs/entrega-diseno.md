@@ -90,7 +90,7 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 |---|---|
 | `state=hover` | `:hover` |
 | `state=active` (solo `Button`, `IconButton`, `ThemeOption`) | `:active` |
-| `state=focus` | `:focus-visible`: anillo `border-width/200` con `color/border/focus`, por fuera (`outline` + `outline-offset`) |
+| `state=focus` | `:focus-visible`: anillo `border-width/200` con `color/border/focus`, por fuera (`outline` + `outline-offset`). En el sidebar (`SidebarSection`, `SidebarItem`), por dentro (D27, `focus-ring-inset`) |
 | `current=true` | Prop `current` → `aria-current` / `aria-pressed` + estilos |
 | Capa `Marker` (sidebar; en los selectores ya no, V26) | Borde de un lado (`border-inline-start` o `border-block-end`) de `border-width/200` con `color/border/accent/strong` |
 
