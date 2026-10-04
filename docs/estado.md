@@ -54,6 +54,13 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Revisión del módulo 2 por Oscar. Módulos 3 a 8 (módulo 1 aprobado el 2026-10-04).
 - **Pendientes de verificar del módulo 2:** qué exporta Figma en DTCG cuando una variable de color se escribió en oklch, y cómo muestra un oklch fuera de sRGB en un archivo sRGB (`color-space`); si los alias a variables ocultas funcionan desde otro archivo que usa la biblioteca (`primitives-collection`).
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
+- **Herramienta de escalas de color (T8, al final de los módulos 2 a 8).** Requisitos propuestos:
+  - Entrada: color de marca en hex, RGB u HSL; opciones de tinte de los neutros (`TINT`) y de escalas de estado.
+  - Salida visual: las escalas con `ColorScale` (C14) y la tabla de oklch, hex y contraste (WCAG 2.2 sobre el hex, S30).
+  - Salida para Figma: un archivo DTCG importable en una colección (la importación de Figma admite color en sRGB). **Verificar antes:** formato exacto que acepta la importación (nombres, grupos) y si respeta `$extensions` (visibilidad, scopes, code syntax).
+  - Todo en el navegador, sin servidor. Una prueba automática comprueba que da los mismos hex que `tools/scales.py`.
+  - Avisar cuando el método da escalas pobres (marcas muy claras, muy oscuras o casi grises): comprobarlo antes de diseñar la herramienta.
+  - Mientras no exista, el módulo 2 enseña el script y oklch.com.
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
