@@ -74,6 +74,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 **Pendiente de reflejar en el contenido**
 - **Color con opacidad exportado de Figma (módulo 3, `direct-values`; módulo 6):** el `pending` de `direct-values` ("Falta comprobar cómo exporta Figma una variable de color con opacidad") ya se puede resolver con el JSON real de Hallazgos: `alpha` aparte y en float32 (`0.8999999761581421`), `hex` sin opacidad. Para el módulo 6 y "errores frecuentes": sin corregir, el 90 % sale `e5` en el CSS; por eso el normalizador recupera el valor escrito (V31).
+- **V32 (módulos 5 y 6):** cada bloque de modo del CSS lleva todos los tokens de su colección, aunque el valor sea igual en los dos modos (`overlay`). El CSS es un espejo de la colección de Figma; buen ejemplo de preferir una regla simple y comprobable a ahorrar dos líneas.
 - **Ya no hay tokens de Figma en los archivos solo de código (módulo 6):** `size/sidebar/width`, `overlay` y `translucent` salen de la exportación desde el 2026-10-04; `code-only.{light,dark}.tokens.json` ya no existen. Si alguna lección los cita como solo de código o habla de esos archivos, hay que cambiarla.
 - S14, S15, S17: nomenclatura propiedad primero y convención (módulo 4).
 - S21: tabla semántica y contraste (módulos 5 y 7; el módulo 3 ya la refleja).
@@ -167,7 +168,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Quitados `size` y `color` de `tokens/code-only.tokens.json`; borrados `code-only.light.tokens.json` y `code-only.dark.tokens.json`, sus `$ref` del Resolver y la mención de su `description`. En `terrazzo.config.mjs` se quita `THEME_INVARIANT` (excluía `overlay` de los bloques Dark).
 - `npm run check:tokens`: la comprobación de V28 (`THEME_CODE_ONLY`) se quita, porque los bloques Dark ya coinciden con Semantic color. Una nueva (5b) exige los tres tokens en la exportación de Figma (y los dos colores también en Dark) y sus valores en el CSS. Probada en negativo: es la que detectó el `e5`.
 - `npm run tokens && npm run check:tokens`: sin errores. 155 tokens en `:root`, 33 en cada bloque Dark (antes 32) y 9 en Desktop.
-- CSS antes y después: mismos valores (`19rem`, `#00000080`, `#ffffffe6` / `#050c09e6`). Única diferencia que no es de comentarios: `--t101-color-background-overlay` aparece también en los dos bloques Dark, con el mismo valor, porque ahora es de Semantic color (cada bloque de modo lleva los tokens de su colección, V08).
+- CSS antes y después: mismos valores (`19rem`, `#00000080`, `#ffffffe6` / `#050c09e6`). Única diferencia que no es de comentarios: `--t101-color-background-overlay` aparece también en los dos bloques Dark, con el mismo valor, porque ahora es de Semantic color (cada bloque de modo lleva todos los tokens de su colección, V32).
 - `npm run build && npm run check:content`: sin errores. Chrome sin interfaz, Light y Dark a 320, 375 y 1440 px (las 32 lecciones): sin cambios en la cabecera (`rgba(255,255,255,.9)` / `rgba(5,12,9,.9)`, `blur(12px)`), el panel móvil (304 px, `::backdrop` `rgba(0,0,0,.5)`) ni el sidebar (304 px).
 
 **Paso 8 (2026-10-03): hecho** (V13–V22)
