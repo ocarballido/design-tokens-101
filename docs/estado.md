@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de desarrollo: módulo 3 comprobado, `Code` que parte nombres largos, S32 en los tokens, prueba de `$ref` con Terrazzo y `SidebarSection` con `current`, V30).
+Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma, D25).
 
 ---
 
@@ -128,6 +128,18 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Auditoría: sin valores sueltos, todo el texto con estilo, contraste igual que la tabla de §3.7, pasos con enlace de 154 × 65 px o más.
 - **Siguiente: la sesión de desarrollo lo implementa** (paso 2 del orden de C13).
 
+**`SidebarSection` con `current` (V30): hecho en Figma el 2026-10-04 (D25), pendiente de la revisión de Oscar**
+- Propiedad de variante `current` = `true` / `false` (por defecto `false`) en [27:910](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=27-910): 12 variantes (`state` × `open` × `current`). Con `current = false`, nada cambia.
+- Con `current = true`: título y chevron en `text/accent/default` (`default`, `focus`) y `text/accent/hover` (`hover`, fondo `background/neutral/hover`); anillo `border/focus` de `border-width/200` por fuera en `focus`; padding, gap, `label/default` e icono iguales que con `false`.
+- Plantillas (35:843, 35:1479, 52:487, 52:688, 55:699, 55:833): "Empezar aquí" con `current = true`.
+- Auditoría: sin valores sueltos en las 6 variantes nuevas, texto con `label/default`, cabecera de 304 × 40 px (≥ 24 × 24). Contraste en Figma: 5,08 / 10,92 (`text/accent/default` sobre `background/neutral/default`) y 6,62 / 10,58 (`text/accent/hover` sobre `background/neutral/hover`), igual que en código.
+- Nota técnica: al clonar una variante con la API de Figma, el texto pierde su vínculo con la propiedad `title` y las instancias muestran "Label". Se reconectó a mano; comprobado en las 6 plantillas.
+- **Diferencias con §4.2 que ya existían en Figma (pendientes de decisión de Oscar; no se han cambiado):**
+  1. Radio de la cabecera: Figma 0 sin variable; §4.2 dice `radius/control` y el código usa `rounded-control`. La variante nueva copia el 0 de `current = false`, como pidió Oscar.
+  2. Chevron en `focus` con `current = false`: Figma `text/neutral/default`; §4.2 dice `text/neutral/subtle`.
+  3. En las plantillas, la sección de la lección actual está con `open = false` (chevron hacia abajo) aunque muestra sus lecciones; por C11 debería ser `open = true`.
+  4. Anillo de foco: Figma y §4.2 lo ponen por fuera; el código usa `focus-ring-inset` (por dentro).
+
 **Pendiente**
 - A14: nombre del logotipo ("design-tokens 101" frente a "Tokens101"). No bloquea.
 - Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).
@@ -228,7 +240,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Hueco entre el texto del enlace y el icono externo: `space/100` (Figma: `space/200` en `size=default`, `space/150` en `small`).
 
 **Pendiente o sin verificar**
-- **Figma (Oscar, D05):** añadir a `SidebarSection` la variante `current` = `true` / `false` (V30): título y chevron en `text/accent/default`; en hover, `text/accent/hover` sobre `background/neutral/hover`; combinable con `open` y con `state`. Ya está en código y en `componentes-v1.md` §4.2.
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
 - **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
 - **Diseño:** crear `color/background/neutral/translucent` (Light `white` y Dark `neutral/950`, al 90 %) en Semantic color y quitar `tokens/code-only.{light,dark}.tokens.json` al reexportar (y su entrada del Resolver) (V28). Dibujar la cabecera translúcida.
