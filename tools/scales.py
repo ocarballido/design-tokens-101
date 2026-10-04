@@ -125,7 +125,8 @@ def status_scales(chroma_factor=0.66):
 
 if __name__ == '__main__':
     ACCENT_HSL = (160, 60, 50)  # color de marca de Tokens101: #33CC99 (S8)
-    out = build(ACCENT_HSL)
+    TINT = 0.5                  # croma de los neutros: gray × 0,5 (S11); 0 = gris puro
+    out = build(ACCENT_HSL, TINT)
     out['status'] = status_scales(0.66)
     white = [1, 1, 1]; n950 = out['neutral'][-1]['rgb']
     print('Color de marca:', out['accent_input'])

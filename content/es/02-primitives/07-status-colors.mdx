@@ -1,0 +1,156 @@
+---
+title: Escalas de estado
+description: Las escalas de color para información, éxito, aviso y error. Por qué se nombran por su tono y no por su rol, cómo se armonizan con el acento y por qué no hay escala verde.
+nav_title: Escalas de estado
+lastReviewed: 2026-10-04
+---
+
+Una interfaz necesita colores para avisar: un mensaje informativo, un éxito, un aviso, un error. En esta lección verás cómo construye Tokens101 esas escalas con el mismo método que el acento, por qué se nombran por su tono y por qué no hay escala verde.
+
+**En esta página**
+
+- [Escalas por tono, no por rol](#escalas-por-tono-no-por-rol)
+- [Cómo se construyen](#cómo-se-construyen)
+- [Por qué no hay escala verde](#por-qué-no-hay-escala-verde)
+- [Las tres escalas](#las-tres-escalas)
+- [Blanco y negro](#blanco-y-negro)
+- [En Figma](#en-figma)
+
+## Escalas por tono, no por rol
+
+Los primitivos de estado son escalas puras, nombradas por su tono. El rol (información, éxito, aviso, error) lo pone el token semántico que apunta a ellas:
+
+| Rol semántico | Escala primitiva |
+|---|---|
+| `info` | `blue` |
+| `success` | `emerald` (la del acento) |
+| `warning` | `amber` |
+| `danger` | `red` |
+
+Por ejemplo, el texto de un mensaje de error en Light es `color/text/danger/default`, que apunta a `color/red/700`. Cómo se crean esos alias lo verás en el módulo Relaciones.
+
+<Callout variant="recommendation">
+
+Separar tono y rol permite cambiar de opinión sin renombrar nada. Si mañana `warning` tuviera que ser naranja, crearías la escala `orange` y cambiarías los alias de `warning`. Ningún primitivo se llamaría `warning` con un color que no le corresponde.
+
+</Callout>
+
+## Cómo se construyen
+
+Las tres escalas siguen el método del acento ([Escalas de color](/primitives/color-scales#el-método)), con dos diferencias:
+
+- **La referencia es la escala de Tailwind CSS del mismo tono:** `red`, `amber` y `blue` de Tailwind CSS v4 ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)). No hay color de marca que colocar, así que se toman L, C y también H de cada paso. El tono de Tailwind varía un poco de un paso a otro: en `red`, de 17,4 en el `50` a 27,5 en el `700`.
+- **El croma se multiplica por 0,66**, la misma reducción que tiene el acento frente a su referencia. Así las escalas de estado tienen la misma intensidad que la marca y no compiten con ella.
+
+Después, igual que el acento: ajuste a sRGB reduciendo el croma (ninguno de los 33 pasos lo necesita) y contraste calculado sobre el hex.
+
+<Callout variant="recommendation">
+
+El factor 0,66 es una decisión estética de Tokens101. Con el croma original de Tailwind, los colores de estado serían más intensos que el de la marca, y además 16 de los 33 pasos no cabrían en sRGB (comprobado con el script), porque la paleta de Tailwind aprovecha la gama más ancha de las pantallas actuales ([Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)).
+
+</Callout>
+
+## Por qué no hay escala verde
+
+El acento de Tokens101 ya es verde: tono 165,4. Una escala `green` para el éxito sería casi idéntica a `emerald`. Por eso `success` usa `emerald`.
+
+La consecuencia: el éxito y el acento comparten color. El color no basta para distinguir un mensaje de éxito de un elemento de marca, y no debe bastar. El criterio 1.4.1 Use of Color (nivel A) de WCAG 2.2 dice que el color no puede ser el único medio visual para transmitir información o distinguir un elemento ([Understanding 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)).
+
+<Callout variant="recommendation">
+
+En Tokens101, los mensajes de estado llevan siempre icono y texto además del color. Un `Callout` de aviso, por ejemplo, tiene su icono y su etiqueta, "Aviso". Así se cumple 1.4.1, y que `success` comparta color con el acento no causa confusión.
+
+</Callout>
+
+## Las tres escalas
+
+Contraste con blanco calculado con la fórmula de WCAG 2.2 sobre el hex.
+
+**red**
+
+| Paso | oklch | Hex | Contraste con blanco |
+|---|---|---|---|
+| 50 | 0.971 0.009 17.4 | `#FBF3F3` | 1,09 |
+| 100 | 0.936 0.021 17.7 | `#F8E5E5` | 1,21 |
+| 200 | 0.885 0.041 18.3 | `#F3CFCF` | 1,43 |
+| 300 | 0.808 0.075 19.6 | `#EDADAD` | 1,88 |
+| 400 | 0.704 0.126 22.2 | `#E37E7B` | 2,79 |
+| 500 | 0.637 0.156 25.3 | `#DA5E58` | 3,67 |
+| 600 | 0.577 0.162 27.3 | `#C74A41` | 4,68 |
+| 700 | 0.505 0.141 27.5 | `#A63D35` | 6,29 |
+| 800 | 0.444 0.117 26.9 | `#89342E` | 8,09 |
+| 900 | 0.396 0.093 25.7 | `#702F2B` | 9,86 |
+| 950 | 0.258 0.061 26.0 | `#3C1613` | 15,95 |
+
+**amber**
+
+| Paso | oklch | Hex | Contraste con blanco |
+|---|---|---|---|
+| 50 | 0.987 0.015 95.3 | `#FEFBF0` | 1,04 |
+| 100 | 0.962 0.039 95.6 | `#FAF3D6` | 1,11 |
+| 200 | 0.924 0.079 95.7 | `#F6E6AA` | 1,25 |
+| 300 | 0.879 0.112 91.6 | `#F2D57E` | 1,44 |
+| 400 | 0.828 0.125 84.4 | `#ECC060` | 1,71 |
+| 500 | 0.769 0.124 70.1 | `#E6A554` | 2,13 |
+| 600 | 0.666 0.118 58.3 | `#C98044` | 3,16 |
+| 700 | 0.555 0.108 49.0 | `#A55E35` | 4,94 |
+| 800 | 0.473 0.090 46.2 | `#854A2D` | 6,97 |
+| 900 | 0.414 0.074 45.9 | `#6C3E27` | 8,91 |
+| 950 | 0.279 0.051 45.6 | `#3D2012` | 14,85 |
+
+**blue**
+
+| Paso | oklch | Hex | Contraste con blanco |
+|---|---|---|---|
+| 50 | 0.970 0.009 254.6 | `#F1F6FB` | 1,09 |
+| 100 | 0.932 0.021 255.6 | `#DFEAF7` | 1,22 |
+| 200 | 0.882 0.039 254.1 | `#C7DAF2` | 1,42 |
+| 300 | 0.809 0.069 251.8 | `#A0C4ED` | 1,81 |
+| 400 | 0.707 0.109 254.6 | `#71A3E3` | 2,61 |
+| 500 | 0.623 0.141 259.8 | `#5286DB` | 3,63 |
+| 600 | 0.546 0.162 262.9 | `#3B6ACD` | 5,09 |
+| 700 | 0.488 0.160 264.4 | `#3058B9` | 6,52 |
+| 800 | 0.424 0.131 265.6 | `#2B4895` | 8,52 |
+| 900 | 0.379 0.096 265.5 | `#293F75` | 10,18 |
+| 950 | 0.282 0.060 267.9 | `#1D2747` | 14,65 |
+
+Fíjate en el `amber`: hasta el `600` no llega a 3:1 con blanco. Los amarillos son muy claros en todos sus pasos medios, como viste con HSL en [Espacio de color](/primitives/color-space#por-qué-construir-en-oklch). Por eso el texto de aviso en Light usa `amber/700`.
+
+## Blanco y negro
+
+Dos primitivos más, sueltos, fuera de las escalas:
+
+| Token | Valor | Por qué existe |
+|---|---|---|
+| `color/white` | `#FFFFFF` | Fondo de la página en Light. Ningún paso de `neutral` es blanco puro: `neutral/50` es `#F9FAFA` |
+| `color/black` | `#000000` | Reservado para sombras y capas sobre el contenido. Tokens101 no tiene sombras en su primera versión |
+
+## En Figma
+
+Igual que en [Escalas de color](/primitives/color-scales#en-figma): una variable Color por paso (`color/red/50` … `color/blue/950`), más `color/white` y `color/black`. Sin scope, ocultas al publicar y con su code syntax Web, por ejemplo `var(--t101-color-red-700)`.
+
+<InCode title="Generar las escalas de estado con tools/scales.py">
+
+`python3 tools/scales.py` imprime también las tres escalas de estado. Desde Python puedes probar otro factor de croma:
+
+```python
+import sys; sys.path.insert(0, "tools")
+import scales as s
+
+estado = s.status_scales(0.66)   # el factor de Tokens101
+estado["red"][7]["hex"]          # paso 700 → '#A63D35'
+
+intensas = s.status_scales(1.0)  # croma original de Tailwind, ajustado a sRGB
+```
+
+Para añadir otro tono (por ejemplo, `orange`), copia en `TW_STATUS` sus valores L, C y H del CSS de Tailwind CSS.
+
+</InCode>
+
+## Fuentes
+
+- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS — theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
+- [Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4) (blog oficial)
+- [WCAG 2.2 — Understanding 1.4.1 Use of Color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+- [WCAG 2.2 — Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)

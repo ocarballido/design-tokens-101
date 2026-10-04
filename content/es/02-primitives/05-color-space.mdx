@@ -1,0 +1,176 @@
+---
+title: Espacio de color
+description: Por qué Tokens101 construye sus escalas de color en oklch y las guarda en sRGB, qué pasa con los colores fuera de gama, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
+nav_title: Espacio de color
+lastReviewed: 2026-10-04
+---
+
+Antes de construir una escala de color hay que decidir en qué espacio de color se piensa y en cuál se guarda. Tokens101 los separa: construye en oklch y guarda en sRGB. En esta lección verás qué significa cada uno, por qué los separamos, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
+
+**En esta página**
+
+- [Espacio de color y gama](#espacio-de-color-y-gama)
+- [Por qué construir en oklch](#por-qué-construir-en-oklch)
+- [Por qué guardar en sRGB](#por-qué-guardar-en-srgb)
+- [Colores fuera de gama](#colores-fuera-de-gama)
+- [Los límites de Figma](#los-límites-de-figma)
+- [El contraste se mide sobre lo que se guarda](#el-contraste-se-mide-sobre-lo-que-se-guarda)
+- [En Figma](#en-figma)
+
+## Espacio de color y gama
+
+Un **espacio de color** es una forma organizada de describir colores con coordenadas, normalmente tres. Cada espacio tiene una **gama**: el conjunto de colores que puede representar ([MDN — Color space](https://developer.mozilla.org/en-US/docs/Glossary/Color_space)).
+
+Tres espacios aparecen en este curso:
+
+| Espacio | Qué es | Coordenadas |
+|---|---|---|
+| **sRGB** | El espacio estándar de la web y el más compatible. Su gama es más estrecha que la de Display P3 | Rojo, verde y azul, de 0 a 1 (o un hex como `#33CC99`) |
+| **Display P3** | Un espacio de gama más ancha, típico de las pantallas de gama ancha actuales: verdes y rojos más intensos que sRGB | Rojo, verde y azul, de 0 a 1 |
+| **oklch** | Una forma de describir el color según cómo lo percibimos, basada en Oklab | Luminosidad (L), croma (C) y tono (H) |
+
+Las dos primeras definiciones son de MDN (misma fuente). Oklab es un modelo publicado por Björn Ottosson en 2020 para que los cambios de luminosidad, croma y tono se perciban como independientes entre sí ([Ottosson — A perceptual color space for image processing](https://bottosson.github.io/posts/oklab/)). oklch es su forma polar.
+
+<Callout variant="note">
+
+oklch no tiene una gama propia limitada como sRGB: su croma no tiene un máximo teórico, aunque en la práctica no supera 0,5 ([MDN — oklch()](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch)). Por eso con oklch puedes escribir colores que ninguna pantalla sRGB puede mostrar.
+
+</Callout>
+
+## Por qué construir en oklch
+
+En oklch, L representa la luminosidad tal como la percibimos ([MDN — oklch()](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch)). En HSL, uno de los modelos del selector de color de Figma, la luminosidad es una cuenta sobre los canales RGB, no una medida de lo que vemos.
+
+Lo comprobamos con el script del repositorio. Tres colores con la misma luminosidad en HSL, 50 %:
+
+| Color en HSL | Hex | L en oklch | Contraste con blanco |
+|---|---|---|---|
+| `hsl(60 100% 50%)`, amarillo | `#FFFF00` | 0,968 | 1,07:1 |
+| `hsl(120 100% 50%)`, verde | `#00FF00` | 0,866 | 1,37:1 |
+| `hsl(240 100% 50%)`, azul | `#0000FF` | 0,452 | 8,59:1 |
+
+Para HSL los tres son "igual de claros". A la vista, y para el contraste, no se parecen en nada. oklch sí refleja la diferencia.
+
+Para una escala, eso importa por dos motivos:
+
+- **Pasos regulares.** Si fijas la L de cada paso, el salto visual entre dos pasos es parecido en cualquier tono.
+- **Contraste más predecible.** Dos colores con L muy distinta suelen contrastar bien, aunque la cifra exacta hay que calcularla siempre (lo verás abajo).
+
+<Callout variant="recommendation">
+
+Tokens101 construye las escalas en oklch: decide la L y el croma de cada paso y mantiene el tono. Es lo mismo que hace Tailwind CSS, cuya paleta por defecto se define en oklch desde la versión 4 ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)).
+
+</Callout>
+
+## Por qué guardar en sRGB
+
+Lo que dicen las fuentes:
+
+- La importación de variables en formato DTCG de Figma admite color en sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- Los archivos nuevos de Figma usan el perfil de color sRGB. Se puede cambiar a Display P3 en cualquier plan; al convertir el perfil, los valores de las variables de color no cambian ([Figma — Manage color profiles](https://help.figma.com/hc/en-us/articles/360039825114-Manage-color-profiles-in-design-files)).
+- El Color Module de DTCG admite catorce espacios de color, entre ellos `srgb`, `display-p3` y `oklch`, y un `hex` opcional de reserva ([Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color/#supported-color-spaces)).
+- Al exportar las variables de esta web, Figma escribe cada color con `"colorSpace": "srgb"` y su `hex` (comprobado en la exportación).
+
+<Callout variant="recommendation">
+
+Tokens101 guarda los colores en sRGB. Los valores sRGB son la fuente de verdad en Figma, el archivo trabaja con el perfil sRGB y el CSS escribe el mismo valor en hexadecimal, sin conversiones. Así, el color que ves en Figma es el que se exporta y el que llega a la web.
+
+</Callout>
+
+**Por qué no Display P3.** Daría verdes más intensos en las pantallas que lo admiten. Lo descartamos porque la importación DTCG de Figma no lo admite, porque no hemos verificado cómo lo exporta Figma y porque añade una capa de complejidad al curso. Es una decisión nuestra; no es una norma.
+
+## Colores fuera de gama
+
+Construir en oklch y guardar en sRGB tiene una consecuencia: algunas combinaciones de L, C y H no caben en sRGB. Hay que llevarlas a un color que sí quepa.
+
+La propia paleta de Tailwind CSS lo muestra. Desde la versión 4 aprovecha la gama más ancha de las pantallas modernas para que los colores sean más intensos ([Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)). Con el script del repositorio comprobamos que `green-500`, `green-600` y `green-700` de Tailwind quedan fuera de sRGB: `green-500` tiene un croma de 0,219, y en sRGB su máximo con esa L y ese tono es 0,201.
+
+El método de Tokens101 para llevar un color a sRGB:
+
+- **Se conservan L y H.** El color sigue siendo igual de claro y del mismo tono.
+- **Se reduce el croma** hasta que el color cabe.
+
+El módulo CSS Color 4 del W3C sigue la misma idea: su algoritmo de mapeo de gama trabaja en OKLCh y reduce el croma ([CSS Color 4 — Gamut mapping](https://www.w3.org/TR/css-color-4/#gamut-mapping)). Es un borrador de recomendación candidata, no una recomendación final.
+
+<Callout variant="note">
+
+En las escalas de Tokens101 el ajuste no llega a actuar: al multiplicar el croma de Tailwind por 0,66 (lo verás en [Escalas de color](/primitives/color-scales)), todos los pasos caben en sRGB. El ajuste está en el método para que funcione con cualquier color de marca.
+
+</Callout>
+
+<Flow caption="Recorrido de un color de Tokens101, desde que se construye hasta que llega al CSS.">
+  <FlowStep title="Construir en oklch" meta="L, C y H de cada paso" />
+  <FlowStep title="Ajustar a sRGB" meta="Se reduce el croma si no cabe" />
+  <FlowStep title="Guardar en Figma" meta="Variable Color en sRGB (hex)" />
+  <FlowStep title="Exportar a DTCG" meta="colorSpace srgb y hex" />
+  <FlowStep title="Escribir el CSS" meta="El mismo hex, sin conversión" />
+</Flow>
+
+## Los límites de Figma
+
+- **El selector de color acepta oklch.** El modelo de color CSS del selector admite `oklch()`, `oklab()` y `color(display-p3 …)`, y Figma guarda el valor en el espacio de color en el que lo escribiste, sin convertirlo ([Figma — Color models](https://help.figma.com/hc/en-us/articles/360043042113)).
+- **La importación DTCG no acepta oklch.** Admite sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- **Figma no genera escalas.** Puedes escribir un color, pero el método (L por paso, croma, ajuste de gama) lo tienes que aplicar tú o un script.
+
+<Callout variant="pending">
+
+No hemos comprobado qué exporta Figma en DTCG cuando el valor de una variable se escribió en oklch, ni cómo muestra un color oklch fuera de sRGB en un archivo con perfil sRGB. Mientras no lo verifiquemos, escribimos en Figma el hex en sRGB que da el script.
+
+</Callout>
+
+## El contraste se mide sobre lo que se guarda
+
+WCAG 2.2 calcula el contraste a partir de la luminancia relativa de cada color en sRGB, y pide no redondear: 4,499:1 no cumple el mínimo de 4,5:1 ([Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)).
+
+<Callout variant="recommendation">
+
+En Tokens101 el contraste se calcula siempre sobre el hex guardado, no sobre la L de oklch ni sobre el valor antes de redondear al hex. La L sirve para construir la escala; la cifra que vale para accesibilidad es la de WCAG sobre el color final.
+
+</Callout>
+
+## En Figma
+
+1. Comprueba que el archivo usa el perfil de color sRGB ([Figma — Manage color profiles](https://help.figma.com/hc/en-us/articles/360039825114-Manage-color-profiles-in-design-files)). Es el valor por defecto.
+2. Al crear una variable Color, escribe su valor en hex, el que da el script. No hace falta cambiar el modelo de color del selector.
+
+Las variables de color las crearás en [Escalas de color](/primitives/color-scales).
+
+<InCode title="Reproducir las conversiones con tools/scales.py">
+
+El script del repositorio no tiene dependencias: funciona con Python 3. Desde la raíz del repositorio, abre Python y carga sus funciones:
+
+```python
+import sys; sys.path.insert(0, "tools")
+import scales as s
+
+# De hex a oklch: L, C, H
+s.rgb_to_oklch(*s.hex_to_rgb("#33CC99"))
+# → (0.755, 0.145, 165.4), redondeado
+
+# De oklch a sRGB, con ajuste de gama: devuelve el color y el croma usado
+rgb, croma = s.oklch_to_rgb_gamut(0.723, 0.219, 149.6)
+s.hexs(rgb), croma
+# → ('#00C65A', 0.201): el croma 0.219 no cabía y se reduce a 0.201
+
+# Contraste WCAG entre dos colores guardados
+s.contrast(s.hex_to_rgb("#1A7D5C"), [1, 1, 1])
+# → 5.082…
+```
+
+Las fórmulas de conversión son las de Ottosson. `oklch_to_rgb_gamut` busca el croma máximo que cabe en sRGB con la L y el tono que le das.
+
+</InCode>
+
+## Fuentes
+
+- [MDN — Color space](https://developer.mozilla.org/en-US/docs/Glossary/Color_space)
+- [MDN — oklch()](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch)
+- [Björn Ottosson — A perceptual color space for image processing](https://bottosson.github.io/posts/oklab/) (blog del autor de Oklab)
+- [Design Tokens Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color/)
+- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma — Manage color profiles in design files](https://help.figma.com/hc/en-us/articles/360039825114-Manage-color-profiles-in-design-files)
+- [Figma — Color models in Figma Design](https://help.figma.com/hc/en-us/articles/360043042113)
+- [CSS Color Module Level 4 — Gamut mapping](https://www.w3.org/TR/css-color-4/#gamut-mapping)
+- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4) (blog oficial)
+- [WCAG 2.2 — Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)

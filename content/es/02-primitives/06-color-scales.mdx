@@ -1,0 +1,158 @@
+---
+title: Escalas de color
+description: El método con el que Tokens101 construye la escala del acento y la de los neutros a partir del color de marca, el resultado con su contraste y cómo crear las variables en Figma.
+nav_title: Escalas de color
+lastReviewed: 2026-10-04
+---
+
+Con el espacio de color decidido, puedes construir las escalas. Tokens101 parte de un único color de marca, `#33CC99`, y genera dos escalas de once pasos: la del acento y la de los neutros. En esta lección verás el método paso a paso, el resultado y lo que dice sobre el uso de cada color.
+
+**En esta página**
+
+- [El método](#el-método)
+- [La escala del acento](#la-escala-del-acento)
+- [La escala de neutros](#la-escala-de-neutros)
+- [Lo que la escala dice sobre su uso](#lo-que-la-escala-dice-sobre-su-uso)
+- [El nombre de las paletas](#el-nombre-de-las-paletas)
+- [En Figma](#en-figma)
+
+## El método
+
+<Flow caption="Los siete pasos para construir la escala del acento a partir del color de marca.">
+  <FlowStep title="Convertir la marca a oklch" meta="#33CC99 → L 0,755 · C 0,145 · H 165,4" />
+  <FlowStep title="Elegir una curva de referencia" meta="L y C de green de Tailwind CSS" />
+  <FlowStep title="Colocar la marca en su paso" meta="El de L más cercana: 500" />
+  <FlowStep title="Escalar el croma" meta="0,145 ÷ 0,219 ≈ 0,66 en todos los pasos" />
+  <FlowStep title="Mantener el tono" meta="H 165,4 en los once pasos" />
+  <FlowStep title="Ajustar a sRGB" meta="Reducir el croma si no cabe" />
+  <FlowStep title="Comprobar el contraste" meta="WCAG 2.2 sobre el hex" />
+</Flow>
+
+**1. Convertir la marca a oklch.** `#33CC99` es oklch(0.755 0.145 165.4). Por qué oklch lo viste en [Espacio de color](/primitives/color-space).
+
+**2. Elegir una curva de referencia.** Para no repartir los once pasos a ojo, el método toma la luminosidad (L) y el croma (C) de cada paso de una escala probada: `green` de Tailwind CSS v4, cuyo tono (≈150) es cercano al de la marca ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)).
+
+**3. Colocar la marca en su paso.** La marca va exacta, sin retocar, en el paso cuya L se parece más a la suya. Su L es 0,755; en la curva de `green`, el `400` tiene 0,792 y el `500`, 0,723. El más cercano es el `500`.
+
+**4. Escalar el croma.** La marca es menos intensa que la referencia: en el paso `500`, 0,145 frente a 0,219. El croma de todos los pasos se multiplica por esa proporción, 0,66. Así la escala entera tiene la intensidad de la marca.
+
+**5. Mantener el tono.** Todos los pasos usan el tono de la marca, 165,4. De la referencia se toman L y C, nunca el tono.
+
+**6. Ajustar a sRGB.** Si un paso no cabe en sRGB, se reduce su croma y se conservan L y H. Con este color de marca ningún paso lo necesita.
+
+**7. Comprobar el contraste.** Se calcula con la fórmula de WCAG 2.2 sobre el hex de cada paso ([Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)).
+
+<Callout variant="recommendation">
+
+El método es nuestro, no una norma. Lo elegimos porque se puede reproducir con un script y porque el color de marca aparece tal cual en la escala. Si tu marca tiene otro tono, usa como referencia la curva de Tailwind CSS cuyo tono se parezca más al suyo: el método funciona igual, porque de la referencia toma L y C, no el tono.
+
+</Callout>
+
+## La escala del acento
+
+| Paso | oklch | Hex | Contraste con blanco | Contraste con `neutral/950` |
+|---|---|---|---|---|
+| 50 | 0.982 0.012 165.4 | `#F2FCF7` | 1,05 | 18,86 |
+| 100 | 0.962 0.029 165.4 | `#E1F9EE` | 1,11 | 17,86 |
+| 200 | 0.925 0.056 165.4 | `#C4F3DD` | 1,22 | 16,19 |
+| 300 | 0.871 0.099 165.4 | `#93EAC5` | 1,42 | 13,94 |
+| 400 | 0.792 0.139 165.4 | `#4FD7A6` | 1,81 | 10,92 |
+| **500** | **0.755 0.145 165.4** | **`#33CC99`** (marca) | 2,05 | 9,63 |
+| 600 | 0.627 0.129 165.4 | `#0EA075` | 3,33 | 5,93 |
+| 700 | 0.527 0.102 165.4 | `#1A7D5C` | 5,08 | 3,89 |
+| 800 | 0.448 0.079 165.4 | `#1F624A` | 7,23 | 2,73 |
+| 900 | 0.393 0.063 165.4 | `#1F503E` | 9,23 | 2,14 |
+| 950 | 0.266 0.043 165.4 | `#0D2C20` | 15,02 | 1,32 |
+
+Fíjate en el `500`: su L (0,755) no es la de la referencia (0,723), porque es la de la marca. Es el único paso que no sigue la curva.
+
+## La escala de neutros
+
+Los neutros son los grises de la interfaz: fondos, texto y bordes. Tailwind CSS tiene dos escalas grises: `neutral`, sin croma, y `gray`, con un ligero tinte azulado ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). El método mezcla las dos y les da el tono de la marca:
+
+- **L** de `neutral`.
+- **C** de `gray` multiplicado por 0,5: un tinte suave.
+- **H** de la marca, 165,4.
+
+| Paso | oklch | Hex | Contraste con blanco | Contraste con `neutral/950` |
+|---|---|---|---|---|
+| 50 | 0.985 0.001 165.4 | `#F9FAFA` | 1,05 | 18,89 |
+| 100 | 0.970 0.002 165.4 | `#F4F5F5` | 1,09 | 18,09 |
+| 200 | 0.922 0.003 165.4 | `#E3E6E5` | 1,26 | 15,73 |
+| 300 | 0.870 0.005 165.4 | `#D1D5D3` | 1,48 | 13,33 |
+| 400 | 0.708 0.011 165.4 | `#9BA39F` | 2,58 | 7,65 |
+| 500 | 0.556 0.013 165.4 | `#6C7671` | 4,70 | 4,20 |
+| 600 | 0.439 0.015 165.4 | `#4B5550` | 7,74 | 2,55 |
+| 700 | 0.371 0.017 165.4 | `#38433E` | 10,29 | 1,92 |
+| 800 | 0.269 0.017 165.4 | `#1F2924` | 14,99 | 1,32 |
+| 900 | 0.205 0.017 165.4 | `#101A15` | 17,79 | 1,11 |
+| 950 | 0.145 0.014 165.4 | `#050C09` | 19,76 | 1,00 |
+
+<Callout variant="recommendation">
+
+Neutros tintados con el tono de la marca, con un tinte suave. Un gris puro también funciona; el tinte busca que los grises y el acento parezcan de la misma familia. Es una decisión estética: si tu marca no la necesita, usa `tint=0`.
+
+</Callout>
+
+## Lo que la escala dice sobre su uso
+
+WCAG 2.2 pide un contraste mínimo de 4,5:1 para el texto normal y de 3:1 para el texto grande ([Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)). Las tablas ya te dicen qué combinaciones sirven:
+
+- **El color de marca no admite texto blanco:** 2,05:1. Con texto oscuro (`neutral/950`) llega a 9,63:1.
+- **Para texto blanco sobre el acento** hace falta el `700` o más oscuro: 5,08:1.
+- **Para un enlace sobre fondo blanco** tampoco sirve el `500`. El `700` sí.
+- **El gris más claro que sirve para texto sobre blanco** es `neutral/500`: 4,70:1.
+
+Qué combinación usa la web para cada cosa se decide en los tokens semánticos (módulo Relaciones), y el contraste se estudia a fondo en el módulo Accesibilidad.
+
+## El nombre de las paletas
+
+La paleta del acento se llama **`emerald`**: su tono, 165,4, está cerca del de `emerald` de Tailwind CSS, entre 162 y 173 según el paso ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). No se llama `brand` ni `accent`, por la regla que viste en [Qué es un primitivo](/primitives/what-is-a-primitive#el-nombre-dice-qué-valor-es).
+
+La de los neutros se llama **`neutral`**, como la escala gris de Tailwind CSS: se nombra por su naturaleza, no por un tono.
+
+## En Figma
+
+En la colección `Primitives`, crea una variable Color por paso: `color/emerald/50` … `color/emerald/950` y `color/neutral/50` … `color/neutral/950` ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+
+1. Escribe el valor en hex, el de la tabla o el que te dé el script.
+2. En el scope, desmarca todas las propiedades.
+3. Marca *Hide from publishing* ([Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)).
+4. Añade el code syntax Web: `var(--t101-color-emerald-500)`.
+
+<Callout variant="recommendation">
+
+Los primitivos de color no tienen scope y se ocultan al publicar: nadie los aplica a un diseño. Su única función es ser el destino de los tokens semánticos. Así, quien diseña con la biblioteca elige `color/text/neutral/default`, y no `neutral/900`. Lo ampliamos en [La colección completa](/primitives/primitives-collection).
+
+</Callout>
+
+<InCode title="Generar tus escalas con tools/scales.py">
+
+Desde la raíz del repositorio:
+
+```bash
+python3 tools/scales.py
+```
+
+El script imprime cada escala con su oklch, su hex y su contraste con blanco y con `neutral/950`, y marca el paso de la marca. También escribe `tools/scales.json`.
+
+Para generar las escalas de otra marca, cambia los valores de entrada al final del script. El color va en HSL (grados, porcentaje, porcentaje):
+
+```python filename="tools/scales.py"
+ACCENT_HSL = (160, 60, 50)  # color de marca de Tokens101: #33CC99 (S8)
+TINT = 0.5                  # croma de los neutros: gray × 0,5 (S11); 0 = gris puro
+out = build(ACCENT_HSL, TINT)
+```
+
+`build` aplica el método de esta lección. `TINT` es el multiplicador del croma de los neutros.
+
+</InCode>
+
+## Fuentes
+
+- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS — theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
+- [WCAG 2.2 — Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
+- [Björn Ottosson — A perceptual color space for image processing](https://bottosson.github.io/posts/oklab/) (blog del autor de Oklab)
