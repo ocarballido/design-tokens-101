@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma, D25).
+Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma y correcciones para seguir §4.2, D25).
 
 ---
 
@@ -134,11 +134,9 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Plantillas (35:843, 35:1479, 52:487, 52:688, 55:699, 55:833): "Empezar aquí" con `current = true`.
 - Auditoría: sin valores sueltos en las 6 variantes nuevas, texto con `label/default`, cabecera de 304 × 40 px (≥ 24 × 24). Contraste en Figma: 5,08 / 10,92 (`text/accent/default` sobre `background/neutral/default`) y 6,62 / 10,58 (`text/accent/hover` sobre `background/neutral/hover`), igual que en código.
 - Nota técnica: al clonar una variante con la API de Figma, el texto pierde su vínculo con la propiedad `title` y las instancias muestran "Label". Se reconectó a mano; comprobado en las 6 plantillas.
-- **Diferencias con §4.2 que ya existían en Figma (pendientes de decisión de Oscar; no se han cambiado):**
-  1. Radio de la cabecera: Figma 0 sin variable; §4.2 dice `radius/control` y el código usa `rounded-control`. La variante nueva copia el 0 de `current = false`, como pidió Oscar.
-  2. Chevron en `focus` con `current = false`: Figma `text/neutral/default`; §4.2 dice `text/neutral/subtle`.
-  3. En las plantillas, la sección de la lección actual está con `open = false` (chevron hacia abajo) aunque muestra sus lecciones; por C11 debería ser `open = true`.
-  4. Anillo de foco: Figma y §4.2 lo ponen por fuera; el código usa `focus-ring-inset` (por dentro).
+- **Corregido para seguir §4.2** (Oscar eligió las recomendaciones, 2026-10-04): radio `radius/control` en las 12 variantes (antes 0 sin variable); chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `default`); en las plantillas, la sección actual con `open = true` (C11). Registrado en `componentes-v1.md` §4.10.
+- **Pregunta abierta para Oscar: anillo de foco de `SidebarSection` y `SidebarItem`.** §4.2 y Figma lo ponen por fuera; el código usa `focus-ring-inset` (por dentro) a propósito: el sidebar tiene scroll propio y la lista se pliega con `overflow: hidden`, así que un anillo por fuera quedaría recortado (`src/styles/base.css`). Opciones: a) aceptar el anillo por dentro en el sidebar y dibujarlo así en Figma, anotándolo en §4.2 (recomendado: no cambia el código y el anillo se ve entero); b) mantenerlo por fuera y que desarrollo deje espacio alrededor de las filas para que no se recorte.
+- Visto de paso, sin cambiar: en las plantillas, "Recursos" tiene `open = false` pero muestra su lección; por C11 debería verse cerrada.
 
 **Pendiente**
 - A14: nombre del logotipo ("design-tokens 101" frente a "Tokens101"). No bloquea.
