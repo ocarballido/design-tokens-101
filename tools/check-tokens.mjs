@@ -1,5 +1,6 @@
 // Comprueba los tokens generados por `npm run tokens` (paso 7, docs/paso-7-tokens.md):
-//   1. Cada code syntax Web de Figma (var(--t101-…), S6/D03) tiene su variable en tokens.css.
+//   1. Cada code syntax Web de Figma (var(--t101-…), S6/D03) tiene su variable en tokens.css y es
+//      la ruta de la variable con guiones (V33): detecta un code syntax viejo o copiado de otra.
 //   2. Cada var(--t101-…) usado en tokens.css y theme.css está definido (sin referencias rotas).
 //   3. Los bloques de modo contienen exactamente los tokens de su colección:
 //      los dos bloques Dark = Semantic color; el bloque Desktop = Layout.
@@ -21,15 +22,20 @@ const tokensCss = read('src/styles/tokens.css');
 const themeCss = read('src/styles/theme.css');
 const errors = [];
 
+// Ruta de cada variable en la exportación (color/text/accent/default), para comprobar su code syntax.
+const tokenPath = new WeakMap();
+
 function figmaTokens(file) {
   const out = [];
-  (function walk(node) {
+  (function walk(node, parents) {
     for (const [key, value] of Object.entries(node)) {
       if (key.startsWith('$')) continue;
-      if (value && typeof value === 'object' && '$value' in value) out.push(value);
-      else if (value && typeof value === 'object') walk(value);
+      if (value && typeof value === 'object' && '$value' in value) {
+        tokenPath.set(value, [...parents, key]);
+        out.push(value);
+      } else if (value && typeof value === 'object') walk(value, [...parents, key]);
     }
-  })(JSON.parse(read(path.join('tokens/figma', file))));
+  })(JSON.parse(read(path.join('tokens/figma', file))), []);
   return out;
 }
 const varName = (token) => /var\((--t101-[^)]+)\)/.exec(token.$extensions['com.figma.codeSyntax'].WEB)[1];
@@ -57,6 +63,10 @@ const figmaFiles = {
 };
 for (const token of Object.values(figmaFiles).flat()) {
   if (!blocks.root.has(varName(token))) errors.push(`Falta ${varName(token)} (code syntax de Figma) en :root`);
+  const route = tokenPath.get(token);
+  const expected = `var(--t101-${route.join('-')})`;
+  const syntax = token.$extensions['com.figma.codeSyntax'].WEB;
+  if (syntax !== expected) errors.push(`${route.join('/')}: code syntax ${syntax} ≠ ${expected} (ruta de la variable)`);
 }
 
 // 2. Referencias

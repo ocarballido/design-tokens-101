@@ -226,7 +226,7 @@ Ejemplos: `--t101-space-100: 0.25rem;` · `--t101-color-emerald-500: #3c9;` · `
 | `border-width/*` | Tailwind no tiene espacio de nombres para el grosor de borde. En el paso 8 se usa `border-(length:--t101-border-width-100)` (V14) |
 
 **`check:tokens` comprueba:**
-- que cada code syntax de Figma tiene su variable;
+- que cada code syntax de Figma tiene su variable y es la ruta de la variable con guiones (V33);
 - que no hay `var()` rotos;
 - que los bloques de modo coinciden con sus colecciones;
 - que los hex son idénticos a Figma;
