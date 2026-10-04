@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const lesson = getLesson(locale, section, slug);
   if (!lesson) return {};
   return {
-    title: `${lesson.frontmatter.title} · Tokens101`,
+    title: `${lesson.frontmatter.title} · DesignToken101`,
     description: lesson.frontmatter.description,
   };
 }
