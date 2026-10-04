@@ -33,7 +33,7 @@ Figma presenta el modelo en tres capas en su curso sobre sistemas de diseño ([F
 
 Lo que dice el curso de cada capa:
 
-- **Los primitivos son solo de referencia.** Existen para que otros tokens apunten a ellos, no para aplicarlos al diseño.
+- **Los primitivos sirven de referencia.** Existen para que otros tokens apunten a ellos, no para aplicarlos al diseño.
 - **Los semánticos añaden el contexto.** En `surface/brand-contrast`, cada palabra dice algo: es una superficie, es de la marca y busca contraste.
 - **Los tokens de componente no son para todos.** El curso dice que no todos los equipos los necesitan y que son más habituales en sistemas grandes, de empresa.
 
@@ -61,7 +61,7 @@ Podrías aplicar `color/emerald/700` directamente al texto de los enlaces. Funci
 
 - **Al cambiar de tema.** En el modo Dark, el enlace necesita `emerald/400`. Si el diseño usa el primitivo, tienes que cambiar cada enlace. Si usa el semántico, cambias un alias.
 - **Al cambiar una decisión.** Si decides que los enlaces sean más oscuros, cambias el destino de `color/text/accent/default`. Los demás usos de `emerald/700`, como el texto de un mensaje de éxito, no se mueven.
-- **Al leer el diseño.** `color/text/accent/default` dice dónde se usa. `color/emerald/700` solo dice qué color es.
+- **Al leer el diseño.** `color/text/accent/default` dice dónde se usa. `color/emerald/700` dice qué color es, y nada más.
 
 <Callout variant="note">
 
@@ -81,7 +81,7 @@ Tres reglas acompañan a esa decisión. Son nuestras, no de DTCG ni de Figma:
 
 1. **Los semánticos son siempre alias de un primitivo**, nunca un valor directo. Hay cuatro excepciones, y cada una tiene un motivo: las verás en [Cuando un semántico no es alias](/relations/direct-values).
 2. **Como máximo, dos saltos:** componente → semántico → primitivo. Si algún día hay tokens de componente, apuntarán a un semántico, no a un primitivo.
-3. **Los primitivos de color se ocultan al publicar.** Quien diseña con la biblioteca solo ve los semánticos.
+3. **Los primitivos de color se ocultan al publicar.** Quien diseña con la biblioteca ve los semánticos, no los primitivos.
 
 En las lecciones siguientes verás la capa semántica completa: [color](/relations/semantic-color), [estados](/relations/states), [tamaño y radio](/relations/semantic-size) y [estilos de texto](/relations/text-styles).
 

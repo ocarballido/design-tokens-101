@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de desarrollo: `ColorScale` implementado y módulo 2 comprobado con los cambios de Oscar).
+Última actualización: 2026-10-04 (sesión de contenido: módulo 3, Relaciones, en borrador; falta el build).
 
 ---
 
@@ -15,7 +15,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 3 | Oscar | Crear el repositorio en GitHub | Hecho (2026-10-03): `ocarballido/design-tokens-101`. Documentos trasladados aquí (P9) |
 | 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
-| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en borrador, compilado y comprobado (2026-10-04), pendiente de revisión |
+| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en borrador, compilado y comprobado (2026-10-04), pendiente de revisión; módulo 3 en borrador (2026-10-04), sin build, pendiente de revisión |
 | 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Hecho (2026-10-03): Terrazzo + Resolver DTCG, dos capas y Tailwind (V06–V12) |
 | 8 | Desarrollo C | Componentes y páginas con el diseño | Hecho (2026-10-03): todo el inventario, plantilla y modos (V13–V22). Quedan detalles para Oscar (ver Desarrollo) |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
@@ -41,9 +41,13 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Cambios generales (2026-10-04):** `01-what-is-tokens101` con "Un curso técnico para diseñadores" (P10), "Lo que no es" y "Un sistema tan grande como lo que resuelve" (P11); "Qué no enseñamos" de `05-what-we-teach` ampliado (no es una guía de sistemas de diseño). **Sin guiones largos** en `content/` y `docs/` (C15), con la regla en `content/README.md`.
 - **`tools/scales.py` (S30):** contraste sobre el hex guardado, escalas de estado en la salida, sin `green` y constante `TINT`. Valores sin cambios; §3.5 de la especificación recalculada.
 
+- **Módulo 3, Relaciones, en español (2026-10-04, borrador pendiente de revisión de Oscar, T9):** `content/es/03-relations/` con `meta.json` (V05) y diez páginas: `what-is-an-alias`, `layers` (con el `Flow` de capas de C13: componente de ejemplo → semántico → primitivo → valor, con el color de los enlaces para que las metas quepan a 320 px), `semantic-color` (con `ColorScale` de `emerald` y un paso destacado, C14), `states`, `semantic-size`, `text-styles`, `direct-values`, `component-tokens`, `semantic-collections` y `exercise-aliases` (T6: mapa de alias en una tabla, sin Figma; prepara el módulo 4). Ningún paso de `Flow` es `pending`. Refleja S1, S3, S21–S24, D06, D12–D14 (salvo la nomenclatura de D13, módulo 4), D17, D20, D23, V16, V25, V27, V28 y P11.
+- **Cambios fuera del módulo 3 (2026-10-04, T9):** `05-what-we-teach`: el paso "Relaciones" del `Flow` enlaza al módulo, y "Qué construyes" pasa a "Tu mapa de alias: los primeros tokens semánticos" (módulo 3) y "Tu convención de nombres y las colecciones semánticas en Figma" (módulo 4). Módulos 1 y 2: las menciones al módulo Relaciones llevan enlace; el texto aprobado del módulo 1 no cambia. El cierre del ejercicio del módulo 2 dice ahora que la lista se convierte en semánticos en el ejercicio del módulo 3 (antes: "crearás un token semántico por cada uso"). `99-resources/01-sources`: Atlassian Design tokens y Understanding 1.4.11.
 - **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Build y comprobación hechos por la sesión de desarrollo (2026-10-04, ver Desarrollo → "Gráficos `Flow` del bloque 0"). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
 
 **`ColorScale` (C14): implementado por la sesión de desarrollo (2026-10-04)** y comprobado en `color-scales` (2) y `status-colors` (3); ver Desarrollo → "`ColorScale` y módulo 2 con los cambios de Oscar". Pendiente de la revisión de Oscar en el navegador (C14 es provisional). Entre 1024 y ~1060 px el hex más largo baja su última letra de línea (V29). La descripción de `99-resources/01-sources` rompía el build al cambiar el guion largo por dos puntos (C15: en YAML, `: ` dentro de un valor sin comillas no es válido); se ha entrecomillado sin cambiar el texto. **Al usar dos puntos en el frontmatter, entrecomilla el valor.**
+
+**Comprobación del módulo 3 (2026-10-04): falta el build.** npm volvió a dar 403 en la sesión de contenido (`npm ci`), así que no se ha ejecutado `npm run build && npm run check:content`. Comprobado con un script aparte (reglas de `rehype-slug`): 32 páginas en español, 322 enlaces internos y 251 anclas, todos con destino; etiquetas `Callout`/`InCode`/`Flow` equilibradas; sin `{`, `}` ni `<` sueltos fuera del código; sin guiones largos; frontmatter con dos puntos entrecomillado. **Para la sesión de desarrollo:** compilar y comprobar el `Flow` de `layers` (4 pasos sueltos) y el `ColorScale` de `semantic-color` (`highlight="700"`, etiqueta "text/accent/default en Light") a 320, 375, 1024 y 1440 px, Light y Dark. Los commits intermedios del módulo tenían enlaces a lecciones aún sin escribir; en el último commit ya existen todas.
 
 **Comprobación del módulo 2 (2026-10-04): build hecho por la sesión de desarrollo, sin errores y sin cambios en el MDX** (ver Desarrollo → "Módulo 2: comprobado"). En la sesión de contenido npm volvió a dar 403 en la sesión de contenido, así que allí se comprobó con un script aparte (reglas de `rehype-slug`): 22 páginas en español, 148 anclas, todos los enlaces internos y anclas con destino, `href` de `Flow` existentes, etiquetas `Callout`/`InCode`/`Flow` equilibradas y sin `{`, `}` ni `<` sueltos fuera del código.
 
@@ -51,7 +55,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 **Pendiente**
 - Lección del módulo 8 (Ejercicio final) a partir del ejercicio de cierre (S8–S29).
-- Revisión del módulo 2 por Oscar. Módulos 3 a 8 (módulo 1 aprobado el 2026-10-04).
+- Revisión de los módulos 2 y 3 por Oscar. Módulos 4 a 8 (módulo 1 aprobado el 2026-10-04).
+- **Pendientes de verificar del módulo 3:** qué modo del destino usa Figma cuando un alias cruza a una colección con varios modos (en Tokens101 no ocurre: todos los alias apuntan a `Primitives`); si la herramienta del CSS admite `$ref` de DTCG para derivar un color con otro `alpha` (`direct-values`); cómo exporta Figma una variable de color con opacidad, cuando se creen `overlay` y `translucent`.
 - **Pendientes de verificar del módulo 2:** qué exporta Figma en DTCG cuando una variable de color se escribió en oklch, y cómo muestra un oklch fuera de sRGB en un archivo sRGB (`color-space`); si los alias a variables ocultas funcionan desde otro archivo que usa la biblioteca (`primitives-collection`).
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
 - **Herramienta de escalas de color (T8, al final de los módulos 2 a 8).** Requisitos propuestos:
@@ -67,9 +72,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 **Pendiente de reflejar en el contenido**
 - S14, S15, S17: nomenclatura propiedad primero y convención (módulo 4).
-- S21: tabla semántica y contraste (módulos 3, 5 y 7).
-- S22, S23: visibilidad y scopes de los semánticos; semánticos de radio (módulo 3, apartados "En Figma"). La parte de los primitivos ya está en el módulo 2.
-- S24: estilos de texto como capa semántica tipográfica (módulo 3).
+- S21: tabla semántica y contraste (módulos 5 y 7; el módulo 3 ya la refleja).
 - S25, S26: tokens solo de código cuando Figma no los admite (módulo 6).
 - S27: prefijo `--t101-` y por qué evita la referencia circular (módulo 6). Matiza el error corregido n.º 8 de la fase 1.
 - **D01:** Figma interpreta una variable en el interlineado como píxeles; por eso `line-height/*` es solo de código y los estilos usan porcentaje (módulo 6; reflejado en los módulos 1 y 2). Candidato a "errores frecuentes".
@@ -77,13 +80,12 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **D03:** code syntax Web con `var(--t101-…)`; ejemplo real de lo que produce el servidor MCP de Figma con cada formato (módulos 6 y 10).
 - **D04:** pesos como variables Number; diferencia entre String y Number en Dev Mode (módulo 6; reflejado en los módulos 1 y 2). Afecta a la fase 1 (tema 2, "Peso tipográfico").
 - **D10, D11:** tamaños de texto por contexto (colección Layout) y breakpoint solo de código (módulos 5 y 6).
-- **D12–D14:** tokens de estado, por qué no hay categoría `action`, el estado en el lugar del énfasis (patrón SDS) y por qué no hay disabled (módulos 3, 4 y 7). Buen ejemplo para el módulo 7: el hover no necesita 3:1, el indicador de seleccionado sí.
-- **D17:** en Figma la negrita de un fragmento rompe el estilo de texto; por eso existe `body/strong` (módulo 3). Candidato a "errores frecuentes".
-- **D20:** token de ancho máximo de la columna de lectura y por qué es una excepción a "semánticos siempre alias" (módulos 3 y 4).
+- **D12–D14:** el estado en el lugar del énfasis, D13 (módulo 4) y el contraste por estado (módulo 7: el hover no necesita 3:1, el indicador de seleccionado sí). Los tokens de estado y la falta de disabled ya están en el módulo 3 (`states`).
+- **D17:** candidato a "errores frecuentes" (la negrita de un fragmento rompe el estilo de texto). Reflejado en los módulos 1 y 3.
+- **D20:** token de ancho máximo de la columna de lectura (módulo 4, nombre y categoría `size`; reflejado en el módulo 3).
 - **S16, S17 (regla 5), S20:** paletas por tono y nunca por rol. Reflejado en el módulo 2; el módulo 4 (Nombrar) debe retomarlo con el resto de la convención.
 - **`$root` de DTCG 2025.10 (módulo 4):** ver Hallazgos (2026-10-04).
-- **P10, P11:** reflejados en `01-what-is-tokens101`. P11 conviene recordarlo en los módulos 3 (capa de componentes solo cuando se justifica, S1) y 8 (ejercicio final).
-- **C14:** cuando exista `ColorScale`, valorar usarlo también en el módulo 3 para mostrar a qué paso apunta cada semántico.
+- **P10, P11:** reflejados en `01-what-is-tokens101`. P11 está en el módulo 3 (capa de componente, S1); falta recordarlo en el módulo 8 (ejercicio final).
 - **P9:** cómo se comparte una fuente de verdad entre sesiones y herramientas (material para el módulo 10).
 - **C12:** al hablar de los modos del sistema, se usan los nombres de Figma (Light, Dark, Desktop, Mobile). Aplicado ya en el bloque 0 y en los módulos 1 y 2.
 - **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
@@ -94,12 +96,11 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
 - **V13 (módulo 6):** `next/font` sirve la fuente con un nombre propio, así que el nombre del token (`Inter`) no basta en CSS; la capa de Tailwind pone la variable de `next/font` delante. Candidato a "errores frecuentes": esperar que `font-family: Inter` use la fuente cargada con `next/font`.
 - **V14, V15 (módulo 6):** Tailwind no tiene espacio de nombres para el grosor de borde (`border-(length:--t101-border-width-100)`) y los estilos de texto compuestos se escriben como utilidades propias, comprobadas contra la tabla §8.
-- **V16 (módulos 3 y 4):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
+- **V16 (módulo 4; reflejado en el módulo 3):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
 - **V18, V19 (módulo 9):** cuando el dibujo y la anatomía no coinciden, se decide cuál manda y se registra. Ejemplo para "Componentes y código".
 - **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
 - **V24 (módulo 6; reflejado en el módulo 2):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
-- **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
-- **V28 (módulos 3, 5 y 6):** otro semántico con transparencia que no puede ser alias, y además cambia con el modo: un token solo de código por modo, enganchado al modificador del Resolver. `blur/300` como token solo de código. Para el módulo 7: cabecera sticky y 2.4.11 (foco no tapado), `prefers-reduced-transparency`.
+- **V28 (módulos 5 y 6; la excepción a la regla 6 ya está en el módulo 3):** otro semántico con transparencia que no puede ser alias, y además cambia con el modo: un token solo de código por modo, enganchado al modificador del Resolver. `blur/300` como token solo de código. Para el módulo 7: cabecera sticky y 2.4.11 (foco no tapado), `prefers-reduced-transparency`.
 - **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
 - **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.
 
@@ -259,5 +260,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **2026-10-04: Espaciado negativo y CSS (sesión de contenido).** En CSS, `gap` y `padding` no admiten valores negativos ([MDN: gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap), [MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)); la superposición se hace con márgenes negativos ([MDN: margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)). Un gap negativo de Figma tampoco se copia tal cual en CSS: refuerza D02. Reflejado en la lección Espaciado.
 - **2026-10-04: `$root` en DTCG 2025.10 (sesión de contenido, para el módulo 4).** Los grupos pueden contener un token con el nombre reservado `$root` ([Format Module: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)). No cambia la regla 4 de `sistema-tokens-v1.md` §5.2 (hoja explícita con `/default`), pero el módulo Nombrar debe mencionarlo para no decir que DTCG no tiene alternativa.
 - **2026-10-04: Figma acepta oklch en el selector de color (sesión de contenido).** El modelo CSS del selector admite `oklch()`, `oklab()` y `color(display-p3 …)`, y Figma guarda el valor en el espacio de color en que se escribe, sin convertirlo ([Figma: Color models](https://help.figma.com/hc/en-us/articles/360043042113)). No cambia S9 (guardamos sRGB): la importación DTCG sigue admitiendo solo sRGB y HSL. **Sin verificar:** qué `colorSpace` exporta una variable cuyo valor se escribió en oklch, y cómo se ve un oklch fuera de sRGB en un archivo sRGB. Reflejado en la lección Espacio de color del módulo 2.
+- **2026-10-04: `$ref` y la opacidad (sesión de contenido).** La regla 6 (§5.2) y V25/V28 dicen que "un alias no puede cambiar la opacidad". Es exacto para Figma y para la sintaxis de llaves de DTCG, pero DTCG 2025.10 tiene `$ref` (JSON Pointer), que puede tomar los `components` de otro color y fijar un `alpha` propio (ejemplo del [Format Module](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). No cambia nada (Figma no lo exporta y no está probado con Terrazzo); la lección `direct-values` lo explica y lo marca como pendiente. **Para Oscar:** si quieres, se precisa la redacción de la regla 6 ("un alias de Figma o con llaves no puede…").
+- **2026-10-04: Semánticos sin uso (sesión de contenido).** Los tokens de `danger` y el fondo y el borde de `success` no los usa ningún componente (comprobado en `src/`); `text/success/default` lo usa el mensaje "Copiado" de `CodeBlock`. Se crearon con S21, antes de P11. La lección `semantic-color` lo dice tal cual. **Para Oscar:** mantenerlos (juego completo de mensajes) o quitarlos hasta que haga falta, según P11.
 - **2026-10-04: Referencias de `tools/scales.py` (sesión de contenido).** Coinciden con el CSS fuente de Tailwind CSS 4.3.3. El script calculaba el contraste sin redondear; corregido (S30).
 - **2026-10-03: Diferencias entre el dibujo y la anatomía (sesión de desarrollo).** Etiqueta del `Callout`, viñetas de "En esta página", radio del sidebar, color del pie y primera línea de `LessonHeader`. Las dos primeras las decidió Oscar (V18, V19); las demás están en Desarrollo → "diferencias con Figma". Para diseño: crear `size/sidebar/width` (V16).
