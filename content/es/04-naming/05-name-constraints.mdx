@@ -1,0 +1,115 @@
+---
+title: Un nombre en Figma, DTCG y CSS
+description: Cómo se transforma un mismo nombre de token al pasar de Figma a DTCG y a CSS, qué caracteres admite cada uno, qué errores deja pasar Figma y qué hacer con los nombres largos.
+nav_title: Figma, DTCG y CSS
+lastReviewed: 2026-10-04
+---
+
+Un nombre de token no vive en un único sitio. Nace como variable en Figma, viaja en un archivo DTCG y termina como variable CSS. Cada uno tiene sus reglas, y un nombre tiene que cumplir las tres a la vez. En esta lección verás cómo cambia el nombre en cada paso y qué restricciones impone cada formato.
+
+**En esta página**
+
+- [Un nombre, tres formas](#un-nombre-tres-formas)
+- [La barra no se puede deshacer](#la-barra-no-se-puede-deshacer)
+- [Los caracteres que admite cada formato](#los-caracteres-que-admite-cada-formato)
+- [Mayúsculas y minúsculas](#mayúsculas-y-minúsculas)
+- [Lo que Figma deja pasar](#lo-que-figma-deja-pasar)
+- [Los nombres largos](#los-nombres-largos)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Un nombre, tres formas
+
+Este es el recorrido del color de los enlaces de DesignToken101, desde la variable de Figma hasta la variable CSS que usa la web:
+
+<Flow caption="El mismo nombre de token en Figma, en DTCG y en CSS. Cada formato separa los niveles de una manera.">
+  <FlowStep title="Variable de Figma" meta="color/text/accent/default" />
+  <FlowStep title="Grupos en el archivo DTCG" meta="color › text › accent › default" />
+  <FlowStep title="Referencia en DTCG" meta="{color.text.accent.default}" />
+  <FlowStep title="Variable CSS" meta="--t101-color-text-accent-default" />
+</Flow>
+
+1. **Figma.** Los niveles se separan con `/`, y cada `/` crea un grupo en la vista Variables ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+2. **Grupos en DTCG.** Al exportar, cada nivel es un objeto anidado dentro del anterior. El último, `default`, es el token: el objeto que tiene `$value`.
+3. **Referencia en DTCG.** Cuando otro token apunta a este, los niveles se unen con puntos dentro de llaves ([Format Module: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)).
+4. **CSS.** Los niveles se unen con guiones y se añade el prefijo `--t101-`, el espacio de nombres de DesignToken101. El code syntax Web de la variable de Figma guarda ese nombre ([Una sola fuente de verdad](/fundamentals/source-of-truth#cómo-se-mantiene-un-solo-nombre)). Por qué hace falta el prefijo lo verás en el módulo De Figma al código.
+
+## La barra no se puede deshacer
+
+En Figma y en DTCG, los niveles están separados: sabes dónde acaba uno y empieza el siguiente. En CSS, no. Los niveles y las palabras compuestas se unen con el mismo guion:
+
+| Figma | CSS |
+|---|---|
+| `color/text/on-accent` | `--t101-color-text-on-accent` |
+| `size/content/max-width` | `--t101-size-content-max-width` |
+
+Leyendo `--t101-color-text-on-accent`, no puedes saber si `on-accent` es un nivel o dos. La conversión funciona en un sentido, de Figma a CSS, pero no en el contrario.
+
+<Callout variant="recommendation">
+
+Trata el nombre de Figma como el original y el de CSS como una traducción. Por eso cada variable de DesignToken101 lleva su code syntax escrito, en vez de deducirlo del CSS. Y por eso la regla 1 pide guiones dentro de un nivel y nunca otro separador: un `_` o una mayúscula en medio de un nivel darían en CSS un nombre distinto del esperado.
+
+</Callout>
+
+## Los caracteres que admite cada formato
+
+| Carácter | DTCG | Figma | CSS |
+|---|---|---|---|
+| `.` | Prohibido | Rechazado | Escapado |
+| `{` y `}` | Prohibidos | Rechazados | Escapados |
+| `$` al principio de un nivel | Prohibido | Rechazado | Escapado |
+| Espacio | Permitido | Aceptado | Escapado |
+| `/` | No es un separador: el nivel es el grupo | Separa los niveles | Se convierte en `-` |
+| Letras, números, `-` y `_` | Permitidos | Aceptados | Permitidos |
+
+De dónde sale cada columna:
+
+- **DTCG** prohíbe `{`, `}` y `.` en cualquier parte de un nombre, y que un nombre empiece por `$`. Son los caracteres de las referencias y de las propiedades reservadas, como `$value` ([Format Module: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)).
+- **Figma.** Las páginas de ayuda que hemos consultado no dicen qué caracteres admite. Lo comprobamos el 2026-10-04 con la API de plugins: rechaza `.`, `{`, `}` y cualquier nivel que empiece por `$` ("invalid variable name"), y acepta espacios, mayúsculas, guiones y guiones bajos.
+- **CSS.** El nombre de una variable CSS empieza por `--` y sigue las reglas de los identificadores ([MDN: Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)). Un identificador admite letras, números, `-` y `_`; cualquier otro carácter tiene que ir escapado con una barra invertida ([MDN: custom-ident](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/custom-ident)).
+
+Los tres formatos coinciden en lo que admiten sin problemas: **letras, números y guiones**. Es lo que permite la convención de DesignToken101.
+
+## Mayúsculas y minúsculas
+
+DTCG distingue mayúsculas de minúsculas: `Color` y `color` son dos tokens distintos. La especificación lo permite, pero avisa de que las herramientas pueden mostrar advertencias, porque esos nombres dan problemas al exportarse a otros lenguajes ([Format Module: Name and value](https://www.designtokens.org/TR/2025.10/format/#name-and-value)). En CSS ocurre lo mismo: `--my-color` y `--My-color` son variables distintas ([MDN: Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)).
+
+Si un nombre pasa a un formato o a un lenguaje que no distingue mayúsculas, dos tokens que se diferenciaban por ellas chocan. Con todo en minúsculas (regla 1), ese problema no existe.
+
+## Lo que Figma deja pasar
+
+Figma no comprueba la convención, y hay dos errores que acepta sin avisar:
+
+- **Un token que también es grupo.** Figma te deja tener `…/accent/default` y `…/accent/default/hover` en la misma colección (comprobado el 2026-10-04 con la API de plugins). En DTCG, esa estructura no es válida ([Format Module: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)). Lo viste en [Estados en el nombre](/naming/states-in-names#un-token-no-puede-ser-también-un-grupo).
+- **Mayúsculas y espacios.** Figma los acepta, pero en CSS no funcionan tal cual.
+
+Lo que Figma sí impide es repetir un nombre dentro de una colección: al intentarlo con la API, da el error "duplicate variable name". Al importar un archivo DTCG, Figma convierte los puntos en barras y, si dos nombres coinciden, importa el primero e ignora el resto ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+
+<Callout variant="pending">
+
+**Qué exporta Figma cuando un token es también un grupo.** No lo hemos comprobado: en el archivo de DesignToken101 no ocurre, porque la convención lo evita. Si te pasa, revisa el archivo exportado antes de usarlo.
+
+</Callout>
+
+## Los nombres largos
+
+Propiedad primero da nombres largos. El más largo de DesignToken101 es `color/background/accent/strong/default`, con 38 caracteres. En el selector de variables de Figma se lee sin problema, porque cada nivel es un grupo. En un texto, en cambio, ocupa mucho: en esta web, a 320 px de ancho, no cabe en una línea, y la web lo parte para que no aparezca scroll horizontal (WCAG 2.2, [Understanding 1.4.10 Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html)).
+
+Un nombre largo no se arregla abreviando: `bg` en vez de `background` ahorra caracteres y pierde claridad ([La convención de DesignToken101](/naming/naming-convention#las-reglas)). Se arregla con la regla 3: escribir los niveles necesarios y ninguno más. Si un nombre te parece largo, revisa si algún nivel no distingue nada.
+
+## Lo que te llevas
+
+- El mismo nombre se escribe con `/` en Figma, con grupos y puntos en DTCG y con guiones en CSS, y la conversión no se puede deshacer.
+- Los tres formatos admiten sin problemas letras, números y guiones, en minúsculas.
+- Figma acepta errores que DTCG no admite, como un token que también es grupo: la convención tiene que evitarlos.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)
+- [Design Tokens Format Module 2025.10: Name and value](https://www.designtokens.org/TR/2025.10/format/#name-and-value)
+- [Design Tokens Format Module 2025.10: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)
+- [Design Tokens Format Module 2025.10: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [MDN: Custom properties (--*)](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+- [MDN: custom-ident](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/custom-ident)
+- [Understanding 1.4.10 Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html)

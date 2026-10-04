@@ -1,0 +1,119 @@
+---
+title: Crear las variables en Figma
+description: Cómo crear las colecciones semánticas en Figma con sus nombres definitivos, cómo trabajar con muchas variables a la vez y qué pasa si después tienes que renombrar una.
+nav_title: Crear las variables
+lastReviewed: 2026-10-04
+---
+
+Con la convención escrita y los nombres decididos, toca crear las variables semánticas en Figma. En esta lección verás cómo crear las colecciones, cómo crear cada variable con todo lo que necesita y cómo trabajar con muchas a la vez. Al final, qué pasa si un día tienes que renombrar una.
+
+**En esta página**
+
+- [Las colecciones de este módulo](#las-colecciones-de-este-módulo)
+- [Crear una variable completa](#crear-una-variable-completa)
+- [Trabajar con muchas variables](#trabajar-con-muchas-variables)
+- [Si tienes que renombrar](#si-tienes-que-renombrar)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Las colecciones de este módulo
+
+En este módulo creas dos colecciones semánticas, cada una con un único modo:
+
+| Colección | Modo | Contenido |
+|---|---|---|
+| `Semantic color` | Light | Fondos, textos y bordes |
+| `Semantic size` | `Value` | Radios semánticos y medidas de maquetación |
+
+Crea cada colección como creaste `Primitives` en el módulo 2 ([Qué es un primitivo, En Figma](/primitives/what-is-a-primitive#en-figma)) y cambia el nombre de su modo. En `Semantic color`, el modo se llama Light: los alias de este módulo son los de la columna Light de tu mapa.
+
+<Callout variant="note">
+
+El modo Dark de `Semantic color` y la colección `Layout`, con los tamaños de texto de Desktop y Mobile, llegan en el módulo Modos y temas. Los dejamos para entonces por un motivo didáctico: en este módulo aprendes a nombrar, y en el siguiente, a trabajar con modos.
+
+</Callout>
+
+## Crear una variable completa
+
+Cada variable semántica necesita seis cosas. Las dos primeras se escriben al crearla; las otras, en el panel de edición de la variable ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+1. **El nombre completo, con sus `/`.** Al escribir `color/background/neutral/subtle`, Figma crea los grupos `color`, `background` y `neutral` y pone la variable dentro.
+2. **El alias.** Haz clic derecho en el valor y elige *Create alias*. Después, busca el primitivo en la lista: `color/neutral/50`, por ejemplo.
+3. **La descripción.** Para qué se usa la variable, en una frase: "Fondo de tarjetas y bloques de código". Figma la exporta como `$description`.
+4. **El scope.** El de su propiedad: *Frame fill* y *Shape fill* para los fondos, *Text fill* y *Shape fill* para los textos, *Stroke* para los bordes ([Un scope por propiedad](/relations/semantic-collections#un-scope-por-propiedad)).
+5. **El code syntax Web.** El nombre en CSS, con el formato `var(--t101-…)` y los niveles unidos con guiones: `var(--t101-color-background-neutral-subtle)` ([Una sola fuente de verdad](/fundamentals/source-of-truth#cómo-se-mantiene-un-solo-nombre)).
+6. **La visibilidad.** Los semánticos se publican: deja sin marcar *Hide from publishing*.
+
+<Callout variant="recommendation">
+
+Crea las variables ya con su nombre definitivo, escrito antes en tu tabla. Corregir un nombre en una tabla cuesta menos que en una colección: en la tabla no hay alias, scopes ni code syntax que revisar.
+
+</Callout>
+
+## Trabajar con muchas variables
+
+Una colección semántica tiene decenas de variables. Figma permite trabajar con varias a la vez ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+| Quieres… | Cómo se hace |
+|---|---|
+| Seleccionar varias variables | ⌘ (Mac) o Ctrl (Windows) para elegirlas una a una; ⇧ Shift para un rango |
+| Poner el mismo scope a varias | Seleccionarlas, clic derecho, *Edit variables* |
+| Ocultarlas o publicarlas a la vez | Igual: *Edit variables* sobre la selección |
+| Duplicar una variable | Seleccionarla y pulsar ⇧ Shift + Enter |
+| Agrupar variables sueltas | Seleccionarlas, clic derecho, *New group with selection* |
+| Renombrar un grupo | Doble clic en el nombre del grupo, en el panel lateral de la vista Variables |
+| Duplicar, desagrupar o borrar un grupo | Clic derecho en el nombre del grupo |
+
+Una forma de avanzar con orden es crear primero una variable completa de cada propiedad (un fondo, un texto, un borde) y duplicarla para las demás de esa propiedad. Después, en cada copia, cambia el nombre, el alias, la descripción y el code syntax.
+
+<Callout variant="warning">
+
+**Al duplicar, revisa todo lo que lleva la copia.** No hemos comprobado qué datos copia Figma al duplicar una variable. Antes de seguir, abre la copia y revisa los seis puntos de la lista anterior. Un code syntax repetido daría a dos variables distintas el mismo nombre en CSS.
+
+</Callout>
+
+## Si tienes que renombrar
+
+En el ejercicio no hace falta renombrar: creas cada variable con su nombre definitivo. Pero en un archivo real se renombra, por ejemplo cuando un token pasa a tener estados y necesita `/default` ([La hoja explícita](/naming/states-in-names#la-hoja-explícita)), o cuando un equipo cambia de convención.
+
+Lo que pasa al renombrar una variable, comprobado el 2026-10-04 con la API de plugins de Figma:
+
+- **Los alias se conservan.** Si renombras el primitivo al que apunta un semántico, el semántico sigue apuntando a él con el nombre nuevo. Si renombras el semántico, su alias no cambia.
+- **Los vínculos del diseño se conservan.** Un elemento que usa la variable la sigue usando después del cambio de nombre.
+- **El code syntax no cambia.** Una variable renombrada de `color/text/accent` a `color/text/accent/default` sigue con el code syntax `var(--t101-color-text-accent)`. Tienes que actualizarlo a mano, o en código seguirá el nombre viejo.
+
+Los alias y los vínculos se conservan porque Figma los guarda por el identificador interno de la variable, no por su nombre.
+
+<Callout variant="pending">
+
+**Renombrar desde la interfaz.** Lo comprobado es el cambio de nombre con la API de plugins. No lo hemos probado a mano desde la vista Variables, ni al renombrar un grupo entero. Lo esperable es el mismo resultado, porque los datos de la variable son los mismos, pero no lo hemos visto.
+
+</Callout>
+
+<InCode title="Qué cambia en la exportación al renombrar">
+
+En el archivo DTCG que exporta Figma, el nombre son los grupos del JSON, y el code syntax va aparte, en `$extensions`. Tras renombrar sin actualizar el code syntax, la exportación tiene este aspecto:
+
+```json filename="Semantic color, Light (fragmento)"
+"accent": {
+  "default": {
+    "$type": "color",
+    "$extensions": {
+      "com.figma.codeSyntax": { "WEB": "var(--t101-color-text-accent)" }
+    }
+  }
+}
+```
+
+La ruta del JSON dice `color.text.accent.default`, y el code syntax dice otra cosa. En DesignToken101, `npm run check:tokens` comprueba que cada code syntax tenga su variable en el CSS, que se genera a partir de la ruta. Un code syntax viejo da error, así que se detecta antes de publicar.
+
+</InCode>
+
+## Lo que te llevas
+
+- En este módulo creas `Semantic color` con el modo Light y `Semantic size` con el modo `Value`, con las variables ya nombradas.
+- Cada variable lleva nombre, alias, descripción, scope, code syntax y visibilidad; duplicar y editar en bloque ahorra trabajo.
+- Renombrar conserva alias y vínculos, pero el code syntax hay que cambiarlo a mano.
+
+## Fuentes
+
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)

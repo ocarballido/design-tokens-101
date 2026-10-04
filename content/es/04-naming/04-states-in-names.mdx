@@ -1,0 +1,160 @@
+---
+title: Estados en el nombre
+description: Por qué un token con estados lleva default explícito, qué alternativa da DTCG 2025.10 con $root y por qué Figma no la admite, y dónde va el estado dentro del nombre en DesignToken101.
+nav_title: Estados en el nombre
+lastReviewed: 2026-10-04
+---
+
+En el módulo 3 viste que cada estado que cambia un color es un token: hover, active, foco. Esta lección resuelve dónde va ese estado dentro del nombre. Parece un detalle, pero toca una regla de DTCG que, si no la conoces, rompe la exportación de tu sistema.
+
+**En esta página**
+
+- [Un token no puede ser también un grupo](#un-token-no-puede-ser-también-un-grupo)
+- [La hoja explícita](#la-hoja-explícita)
+- [La alternativa de DTCG](#la-alternativa-de-dtcg)
+- [El estado en el lugar del énfasis](#el-estado-en-el-lugar-del-énfasis)
+- [Dónde va el estado](#dónde-va-el-estado)
+- [El vocabulario de estados fuera de los tokens](#el-vocabulario-de-estados-fuera-de-los-tokens)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Un token no puede ser también un grupo
+
+Imagina que tu sistema tiene el fondo del botón principal como `color/background/accent/strong`. Más tarde necesitas su hover. Lo natural sería añadir `color/background/accent/strong/hover`.
+
+En DTCG, cada `/` es un grupo. Con esos dos nombres, `strong` sería a la vez un token (tiene valor) y un grupo (contiene `hover`):
+
+```json filename="No válido en DTCG"
+{
+  "color": {
+    "background": {
+      "accent": {
+        "strong": {
+          "$type": "color",
+          "$value": "{color.emerald.500}",
+          "hover": {
+            "$value": "{color.emerald.400}"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+La especificación lo prohíbe: un objeto con `$value` es un token, y si además contiene otros tokens o grupos, la estructura no es válida. Las herramientas tienen que informar del error ([Format Module: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)).
+
+<Callout variant="warning">
+
+**Figma sí te deja crearlo.** Lo comprobamos el 2026-10-04 con la API de plugins: Figma acepta una variable `…/default` y otra `…/default/hover` en la misma colección. No te avisa de que el resultado no se podrá expresar en DTCG. La convención tiene que evitarlo por ti.
+
+</Callout>
+
+## La hoja explícita
+
+La solución de DesignToken101 es la regla 4 de la convención: **si un nombre fuera a la vez token y grupo, el token lleva `/default`**. El botón principal tiene tres tokens hermanos, ninguno dentro de otro:
+
+| Token | Light |
+|---|---|
+| `color/background/accent/strong/default` | `emerald/500` |
+| `color/background/accent/strong/hover` | `emerald/400` |
+| `color/background/accent/strong/active` | `emerald/600` |
+
+Ahora `strong` es únicamente un grupo, y `default`, `hover` y `active` son tokens. El SDS de Figma hace lo mismo: `--sds-color-background-brand-default` y `--sds-color-background-brand-hover` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+Lo que dicen las fuentes no coincide del todo:
+
+- **El artículo de Nathan Curtis** aconseja no añadir modificadores redundantes, como un estado `default` que no distingue nada ([Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676), artículo de autor). Es un buen consejo cuando un token no tiene hermanos.
+- **DTCG** obliga a separar el token del grupo cuando sí los tiene.
+
+En DesignToken101, `default` tiene dos usos, y ninguno es de relleno:
+
+- **Como énfasis**, es el énfasis normal de un rol, frente a `subtle` y `strong`. Se escribe aunque el rol tenga un único token (`color/text/info/default`), para que todos los roles se lean igual y puedan crecer sin renombrar.
+- **Como estado**, es el token en reposo frente a `hover` y `active` (`…/strong/default`).
+
+Cuando un token no tiene ni énfasis ni estados que lo distingan, el nivel no se escribe: `color/text/on-accent` no lleva `/default`.
+
+## La alternativa de DTCG
+
+DTCG 2025.10 tiene otra salida: un grupo puede contener un token con el nombre reservado `$root`, que hace de valor del propio grupo ([Format Module: Root tokens in groups](https://www.designtokens.org/TR/2025.10/format/#root-tokens-in-groups)):
+
+```json filename="Válido en DTCG 2025.10"
+{
+  "color": {
+    "background": {
+      "accent": {
+        "strong": {
+          "$root": {
+            "$type": "color",
+            "$value": "{color.emerald.500}"
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.emerald.400}"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Para apuntar al token raíz se escribe `{color.background.accent.strong.$root}`. Con `$root`, el nombre del token sin estado no necesita la palabra `default`.
+
+<Callout variant="recommendation">
+
+DesignToken101 no usa `$root`, por un motivo práctico: **Figma no admite nombres que empiecen por `$`**. Lo comprobamos el 2026-10-04 con la API de plugins: Figma rechaza `$root` y cualquier nivel que empiece por `$`. Como las variables nacen en Figma, la única forma de que el mismo nombre funcione en Figma y en DTCG es `/default`.
+
+</Callout>
+
+## El estado en el lugar del énfasis
+
+Queda un caso. El color de los enlaces es `color/text/accent/default`, con énfasis `default`. Al añadir su hover hay dos opciones:
+
+| Opción | Hover | Qué obliga a hacer |
+|---|---|---|
+| Un nivel nuevo de estado | `color/text/accent/default/hover` | Renombrar el token existente a `…/default/default`, porque si no sería a la vez token y grupo |
+| El estado ocupa el lugar del énfasis | `color/text/accent/hover` | Nada: el token existente no cambia |
+
+DesignToken101 usa la segunda: **cuando un token final con el énfasis por defecto necesita estados, el estado ocupa el lugar del énfasis**. Es el patrón del SDS de Figma, que tiene `--sds-color-background-neutral-default` junto a `--sds-color-background-neutral-hover` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+La consecuencia es que en ese nivel conviven palabras de énfasis (`default`, `subtle`, `strong`) y de estado (`hover`, `active`). No hay ambigüedad, porque las dos listas no comparten palabras salvo `default`, que en los dos casos significa "en reposo, sin modificar".
+
+## Dónde va el estado
+
+Con las dos reglas juntas, el estado va en uno de dos sitios:
+
+| Si el token… | El estado va… | Ejemplo |
+|---|---|---|
+| Tiene el énfasis por defecto | En el lugar del énfasis | `color/text/accent/default` → `color/text/accent/hover` |
+| Tiene otro énfasis (`strong`, `subtle`) | En su propio nivel, con `/default` explícito | `color/background/accent/strong/default` → `…/strong/hover` |
+
+Los tokens de estado de DesignToken101 siguen esta tabla:
+
+| Token | Patrón |
+|---|---|
+| `color/background/neutral/hover`, `…/neutral/active` | Lugar del énfasis |
+| `color/text/accent/hover` | Lugar del énfasis |
+| `color/background/accent/strong/hover`, `…/strong/active` | Nivel propio |
+
+`disabled` no es un estado en esta convención. Si hiciera falta, se añadiría como rol (`color/background/disabled/default`), como hace el SDS, en vez de un `disabled` por cada rol. Lo viste en [Por qué no hay disabled](/relations/states#por-qué-no-hay-disabled).
+
+## El vocabulario de estados fuera de los tokens
+
+Las palabras de estado significan lo mismo en todo el sistema, también en los componentes. En DesignToken101, `active` es "pulsado", como la pseudoclase `:active` de CSS ([MDN: :active](https://developer.mozilla.org/en-US/docs/Web/CSS/:active)).
+
+Por eso, cuando hizo falta marcar la sección del sidebar que contiene la lección actual, la variante del componente se llamó `current` y no `active`. Con `active`, quien leyera el componente no sabría si la sección está pulsada o es la actual. `current` es también la palabra de ARIA para ese caso, `aria-current` ([MDN: aria-current](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current)).
+
+## Lo que te llevas
+
+- En DTCG un token no puede ser también un grupo; por eso un token con estados lleva `/default`.
+- DTCG 2025.10 permite `$root`, pero Figma no admite nombres con `$`, así que DesignToken101 usa `/default`.
+- Si el token tiene el énfasis por defecto, el estado ocupa su lugar; si no, va en un nivel propio.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)
+- [Design Tokens Format Module 2025.10: Root tokens in groups](https://www.designtokens.org/TR/2025.10/format/#root-tokens-in-groups)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- Nathan Curtis, [Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676) (EightShapes, 2020; artículo de autor)
+- [MDN: :active](https://developer.mozilla.org/en-US/docs/Web/CSS/:active)
+- [MDN: aria-current](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current)
