@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de diseño: `Flow` diseñado en Figma, pendiente de la aprobación de Oscar).
+Última actualización: 2026-10-04 (sesión de diseño: diseño de `Flow` aprobado, D24; pasa a desarrollo).
 
 ---
 
@@ -97,13 +97,13 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 **Resumen de lo hecho**
 - **Variables:** Primitives (97), Semantic color (31, Light/Dark), Semantic size (3) y Layout (9, Desktop/Mobile). Code syntax Web `var(--t101-…)` en todas (D03). No existen en Figma: `line-height/*` (D01), `space/negative/*` (D02) ni `breakpoint/desktop` (D11).
 - **Estilos de texto:** 10 (§8 de la especificación, incluido `body/strong`, D17). Interlineado en porcentaje, sin variable (D01). Sin estilos de efecto (S28).
-- **Componentes:** 22, con nombres de propiedades iguales a los props de React. Plantillas de lección en escritorio y móvil, Light y Dark, y menú móvil abierto.
+- **Componentes:** 26 (22 + los 4 de `Flow`, D24), con nombres de propiedades iguales a los props de React. Plantillas de lección en escritorio y móvil, Light y Dark, y menú móvil abierto.
 - **Auditoría final (2026-10-02):** sin valores sueltos (salvo logotipos, D22), todo el texto con estilo, todos los `focus` con anillo `border/focus`, contraste de textos ≥ 4,5:1 e iconos ≥ 3:1 en Light y Dark, objetivos ≥ 24 × 24 px.
 
-**`Flow` (C13), diseñado el 2026-10-04, pendiente de la aprobación de Oscar**
-- `Flow`, `FlowGroup`, `FlowStep` (5 variantes) y `FlowConnector` en la página Components; el gráfico de la metodología en cuatro marcos (Desktop / Mobile × Light / Dark) en Pages. Nodos, medidas y notas para desarrollo en `docs/entrega-diseno.md` §3.3.
+**`Flow` (C13): diseñado y aprobado por Oscar el 2026-10-04 (D24)**
+- `Flow`, `FlowGroup` (`size` `large` / `small`, solo de Figma), `FlowStep` (5 variantes) y `FlowConnector` en la página Components; el gráfico de la metodología en cuatro marcos (Desktop / Mobile × Light / Dark) en Pages. Nodos, medidas y notas para desarrollo en `docs/entrega-diseno.md` §3.3; diferencias con la anatomía en `componentes-v1.md` §4.10.
 - Auditoría: sin valores sueltos, todo el texto con estilo, contraste igual que la tabla de §3.7, pasos con enlace de 154 × 65 px o más.
-- **Pendiente de decisión de Oscar** (no se ha tocado `componentes-v1.md`): anotar en §4.10 la variante solo de Figma `size` de `FlowGroup` (`large` / `small`, pasos apilados en Mobile), y corregir "`FlowStep` 4" a 5 variantes en §3.7.
+- **Siguiente: la sesión de desarrollo lo implementa** (paso 2 del orden de C13).
 
 **Pendiente**
 - A14: nombre del logotipo ("design-tokens 101" frente a "Tokens101"). No bloquea.

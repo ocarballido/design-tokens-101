@@ -103,7 +103,7 @@ Sin disabled ni loading en v1 (D14).
 - Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel lateral desde la izquierda, con los selectores y el sidebar, y un overlay sobre el contenido (V25, sustituye a D21). El panel tiene su botón de cerrar (`li:x`).
 - Logotipos: SVG (D22), en `public/brand/` (C10).
 
-### 3.3 `Flow` (C13) — diseñado el 2026-10-04, pendiente de la aprobación de Oscar
+### 3.3 `Flow` (C13) — diseñado y aprobado el 2026-10-04 (D24)
 
 Anatomía, props, tokens y accesibilidad en `componentes-v1.md` §3.7. Aquí, dónde está en Figma y lo que el dibujo añade.
 
@@ -130,7 +130,7 @@ El ejemplo es el MDX de §3.7 (cuatro fases y "Después"). Desktop mide `size/co
 | `FlowStep` | `title`, `meta` (texto), `status` (`default` / `pending`) | `showMeta`, `link` (`true` si hay `href`), `state` (`default` / `hover` / `focus`) |
 | `FlowConnector` | — (no es un prop: lo pone `Flow`) | — |
 
-Variantes de `FlowStep` (5): `link=false` con `status` `default` y `pending`; `link=true` con `state` `default`, `hover` y `focus` (`status=default`). §3.7 dice "`FlowStep` 4" en el título de variantes, pero su lista suma 5.
+Variantes de `FlowStep` (5): `link=false` con `status` `default` y `pending`; `link=true` con `state` `default`, `hover` y `focus` (`status=default`). Variantes de `FlowGroup` (2): `size` `large` y `small` (D24).
 
 **Medidas** (todo con variables)
 
@@ -146,7 +146,7 @@ Variantes de `FlowStep` (5): `link=false` con `status` `default` y `pending`; `l
 
 **Para desarrollo**
 
-- **`size` de `FlowGroup` es solo de Figma**, como el `size` de `SiteHeader`: Figma no deja cambiar la dirección de un slot en una instancia. En código: en fila con `flex-wrap` desde 64rem y apilados por debajo (`breakpoint/desktop`, D11).
+- **`size` de `FlowGroup` es solo de Figma** (D24), como el `size` de `SiteHeader`: Figma no deja cambiar la dirección de un slot en una instancia. En código: en fila con `flex-wrap` desde 64rem y apilados por debajo (`breakpoint/desktop`, D11).
 - **Foco de `FlowStep`:** en Figma el anillo sustituye al borde de 1 px (mismo dibujo que `PageNavLink`), así que la caja enfocada mide 2 px menos. En código, el borde `border/accent/default` se queda y el anillo es un `outline` por fuera (`focus-ring`), sin cambiar el tamaño.
 - **`FlowConnector`** es un componente aparte: un `li:arrow-down` decorativo. `Flow` lo pone entre cada dos elementos de primer nivel con `aria-hidden="true"`; el MDX no lo escribe. Si va dentro de la lista, que no sea un `<li>` propio: el lector de pantalla contaría un elemento de más.
 - **Hover del icono de enlace:** `text/accent/hover`, igual que el título (6,90 / 10,60 sobre `background/accent/subtle`; la tabla de §3.7 no lo recoge).
