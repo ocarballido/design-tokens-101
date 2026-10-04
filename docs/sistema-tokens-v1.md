@@ -400,6 +400,8 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 - **Iconos:** sin propiedad `icon`. Los iconos usan los tokens de texto de su contexto (p. ej. `color/text/warning/default`). Si algún día hace falta separarlos, se añade `icon` sin romper nada.
 - **Paleta primitiva del acento:** se nombra por su tono, no `brand` (coherente con S16). Nombre: **`emerald`** (confirmado por Oscar), porque su tono en oklch (165,4) es cercano al `emerald` de Tailwind CSS v4 (≈163).
 
+**Tokens de componente (S33, provisional).** DesignToken101 no tiene ninguno (S1, P11). Si un componente los justifica, se nombran componente / variante / propiedad / estado, con solo los niveles necesarios y el estado explícito si lo hay (regla 4): `button/primary/background/default`, `link/text`. Es el formato del curso de Figma (*asset-type-property-state*, [Figma: Update 1](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)). Apuntan siempre a un semántico (regla 6). Se revisa al crear el primero.
+
 **Prefijo CSS (S27): `--t101-`.** Ejemplo: `color/text/neutral/default` → `--t101-color-text-neutral-default`. Motivo: con propiedad primero, sin prefijo la capa 1 y la capa 2 de `@theme inline` tendrían el mismo nombre (referencia circular).
 
 ### 5.3 Colores de estado: Cerrado (ver §3.5)
