@@ -1,0 +1,112 @@
+---
+title: Cuando un semántico no es alias
+description: La regla de Tokens101 de que los semánticos son siempre alias, sus cuatro excepciones y por qué existe cada una, y cómo se controla una excepción para que no se convierta en un valor suelto.
+nav_title: Valores directos
+lastReviewed: 2026-10-04
+---
+
+En Tokens101, un semántico apunta siempre a un primitivo. Casi siempre: hay cuatro tokens semánticos con un valor propio. En esta lección verás cuáles son, por qué cada uno es una excepción y cómo se controla una excepción para que no acabe siendo un valor suelto con nombre de token.
+
+**En esta página**
+
+- [La regla](#la-regla)
+- [Las cuatro excepciones](#las-cuatro-excepciones)
+- [Sin escala a la que apuntar](#sin-escala-a-la-que-apuntar)
+- [Un alias no cambia la opacidad](#un-alias-no-cambia-la-opacidad)
+- [Cómo se controla una excepción](#cómo-se-controla-una-excepción)
+
+## La regla
+
+<Callout variant="recommendation">
+
+En Tokens101, **los semánticos son siempre alias de un primitivo, nunca valores directos.** Así, todo valor del sistema está en la colección de primitivos, y para saber de dónde sale un color o una medida basta con seguir el alias.
+
+</Callout>
+
+La regla es nuestra. DTCG permite que cualquier token tenga un valor propio o una referencia, sin distinguir capas ([Format Module: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)). Figma tampoco obliga a nada: una variable de cualquier colección puede tener un valor o un alias.
+
+## Las cuatro excepciones
+
+| Token | Valor | Colección | Por qué no es alias |
+|---|---|---|---|
+| `size/content/max-width` | 960 px | Semantic size | No hay escala de tamaños |
+| `size/sidebar/width` | 304 px | Semantic size | No hay escala de tamaños |
+| `color/background/overlay` | `color/black` al 50 % | Semantic color | Necesita una opacidad que el primitivo no tiene |
+| `color/background/neutral/translucent` | `white` al 90 % en Light, `neutral/950` al 90 % en Dark | Semantic color | Igual que el anterior, y además cambia con el modo |
+
+Las dos últimas, y `size/sidebar/width`, todavía no existen en Figma: viven en archivos de tokens de código hasta que se creen las variables.
+
+## Sin escala a la que apuntar
+
+Los dos tamaños de maquetación podrían ser alias si existiera una escala `size/*` de primitivos. No existe porque hay dos valores y ninguno se repite: crear una escala para ellos sería crear primitivos que solo usa un token cada uno.
+
+<Callout variant="recommendation">
+
+Si aparecen más tamaños de maquetación y empiezan a compartir valores, se crea la escala y estos tokens pasan a ser alias. Mientras tanto, un valor directo con nombre semántico es más claro que una escala inventada para justificarlo.
+
+</Callout>
+
+## Un alias no cambia la opacidad
+
+La capa que oscurece la página al abrir el menú en móvil es negra, con un 50 % de opacidad. El primitivo `color/black` existe, pero es negro opaco.
+
+- **En Figma**, un alias apunta a otra variable, y la ayuda no describe ninguna forma de modificar el valor de destino ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). No hay forma de decir "este primitivo, pero al 50 %".
+- **En DTCG**, la sintaxis de llaves tampoco: apunta al valor completo de un token ([Format Module: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)).
+
+Así que el token lleva el color completo, con su opacidad, como valor propio. Tokens101 no tiene tokens de opacidad: la transparencia va dentro del color, en su propiedad `alpha` ([Tipos simples](/fundamentals/simple-types)).
+
+<Callout variant="note">
+
+DTCG 2025.10 tiene una segunda sintaxis, `$ref`, que apunta a una parte de un valor. Su propio ejemplo construye un color tomando dos componentes de otro token y escribiendo el tercero a mano ([Format Module: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). Con ella, un color podría reutilizar los componentes de `color/black` y fijar su propio `alpha`.
+
+</Callout>
+
+<Callout variant="pending">
+
+No hemos probado `$ref` con las herramientas de esta web. Figma no lo exporta (sus alias son de variable completa), y no sabemos si la herramienta que genera el CSS lo admite. Hasta comprobarlo, Tokens101 mantiene estos colores como valores directos.
+
+</Callout>
+
+El fondo de la cabecera añade una dificultad: es blanco al 90 % en Light y `neutral/950` al 90 % en Dark. Un valor directo distinto por modo. En Figma eso es una variable de la colección `Semantic color` con un valor en cada columna. En código, mientras no exista en Figma, son dos archivos de tokens, uno por modo. Cómo se unen los modos en código lo verás en el módulo De Figma al código.
+
+## Cómo se controla una excepción
+
+Una excepción sin control acaba siendo un valor suelto con nombre de token. En Tokens101, cada valor directo cumple tres condiciones:
+
+1. **Tiene un motivo registrado.** Cada una está en el registro de decisiones del proyecto, con la fecha y el porqué.
+2. **Lo dice su descripción.** La descripción del token explica que es un valor directo y por qué, para quien lo encuentre en Figma o en el JSON.
+3. **Tiene una salida prevista.** Los tamaños pasarán a ser alias si aparece una escala; los colores, si una herramienta permite derivar la opacidad.
+
+<InCode title="Un valor directo en DTCG">
+
+Así está el overlay en el archivo de tokens de código. El `$value` es un color completo, con `alpha`, y la `$description` explica la excepción:
+
+```json filename="tokens/code-only.tokens.json (abreviado)"
+"overlay": {
+  "$type": "color",
+  "$value": {
+    "colorSpace": "srgb",
+    "components": [0, 0, 0],
+    "alpha": 0.5,
+    "hex": "#000000"
+  },
+  "$description": "color/black al 50 %, igual en Light y Dark. Valor directo: un alias no puede cambiar la opacidad."
+}
+```
+
+En el CSS generado sale como `#00000080`: el hex de ocho cifras lleva la opacidad en las dos últimas.
+
+</InCode>
+
+<Callout variant="pending">
+
+Cuando estos colores se creen en Figma, falta comprobar cómo exporta Figma una variable de color con opacidad. Todas las variables de color exportadas hasta ahora tienen `alpha` 1.
+
+</Callout>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)
+- [Design Tokens Format Module 2025.10: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)
+- [Design Tokens Format Module 2025.10: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)

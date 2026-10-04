@@ -1,0 +1,98 @@
+---
+title: Semánticos de tamaño
+description: Los semánticos de radio y de maquetación de Tokens101, por qué no hay semánticos de espaciado ni de grosor de borde, y cómo un valor suelto del diseño se convierte en token al llevarlo a código.
+nav_title: Semánticos de tamaño
+lastReviewed: 2026-10-04
+---
+
+El color no es la única categoría con capa semántica. En Tokens101 también la tienen el radio de las esquinas y dos medidas de la maquetación. En esta lección verás esos cuatro tokens, por qué el espaciado no tiene semánticos y cómo apareció uno de ellos al pasar el diseño a código.
+
+**En esta página**
+
+- [Dos radios con nombre](#dos-radios-con-nombre)
+- [Por qué el espaciado no tiene semánticos](#por-qué-el-espaciado-no-tiene-semánticos)
+- [Dos medidas de maquetación](#dos-medidas-de-maquetación)
+- [Un hueco que apareció en código](#un-hueco-que-apareció-en-código)
+- [En Figma](#en-figma)
+
+## Dos radios con nombre
+
+Tokens101 tiene nueve radios primitivos, del `radius/0` al `radius/full` ([Radio y grosor de borde](/primitives/radius-and-border#la-escala-de-radio)). Los componentes usan dos semánticos:
+
+| Token | Alias | Valor | Uso |
+|---|---|---|---|
+| `radius/control` | `radius/200` | 8 px | Botones, campos, chips, pasos de los gráficos |
+| `radius/container` | `radius/400` | 16 px | Tarjetas, `Callout`, bloques de código, grupos de los gráficos |
+
+Los dos nombres dicen a qué tipo de elemento se aplican, no cuánto miden. Si un día los controles tienen que ser más redondeados, cambias el alias de `radius/control` y todos los botones cambian a la vez, sin tocar las tarjetas.
+
+<Callout variant="recommendation">
+
+En Tokens101, **los componentes usan los semánticos de radio**. Los primitivos siguen visibles al publicar para los casos que no encajan en las dos categorías, como el grupo de los selectores de la cabecera. Si un radio primitivo empieza a repetirse en varios componentes con la misma función, es el momento de darle un semántico.
+
+</Callout>
+
+## Por qué el espaciado no tiene semánticos
+
+El espaciado y el grosor de borde no tienen capa semántica en Tokens101: los componentes aplican `space/400` o `border-width/100` directamente. Lo viste en el módulo 2, donde por eso se publican esos primitivos ([Espaciado](/primitives/spacing#en-figma)).
+
+Los sistemas que hemos consultado también nombran el espaciado por su paso: `space.200` en Atlassian ([Atlassian: Spacing](https://atlassian.design/foundations/spacing)) y `--sds-size-space-400` en el SDS ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+<Callout variant="recommendation">
+
+El motivo de Tokens101: un nombre como `space/inset/card` solo aporta si varias tarjetas tienen que cambiar de padding a la vez y por separado del resto. En esta web no pasa. Con la escala basta para mantener la coherencia, y añadir una capa costaría nombres que nadie consulta. Si aparece ese caso, se añade el semántico ([un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve)).
+
+</Callout>
+
+## Dos medidas de maquetación
+
+La web tiene dos medidas de maquetación con nombre propio:
+
+| Token | Valor | Uso |
+|---|---|---|
+| `size/content/max-width` | 960 px (60rem) | Ancho máximo de la columna de la lección, con su padding |
+| `size/sidebar/width` | 304 px (19rem) | Ancho del sidebar en escritorio y del panel de navegación en móvil |
+
+Las dos tienen algo que los demás semánticos no tienen: **no son alias**. Son valores directos, porque no hay una escala primitiva de tamaños a la que apuntar. Es una excepción a la regla de la capa semántica, y la verás con las demás en [Cuando un semántico no es alias](/relations/direct-values).
+
+El ancho del contenido también muestra que un token es una decisión revisable: empezó en 720 px y pasó a 960 px durante el desarrollo de la web. Bastó con cambiar el valor de la variable y regenerar el CSS.
+
+## Un hueco que apareció en código
+
+El sidebar no tenía token. En Figma estaba dibujado con un ancho de 305 px, escrito a mano y sin variable. Al llevarlo a código, ese valor suelto no tenía de dónde salir: o se copiaba como número (contra la regla de que todo valor sale de un token) o se creaba un token.
+
+Se creó `size/sidebar/width`, con 304 px (19rem). Mientras la variable no exista en Figma, el token vive en un archivo de tokens de código. Cuando se cree en Figma y se vuelva a exportar, se quitará de ese archivo.
+
+<Callout variant="note">
+
+Es un caso habitual: el diseño parece completo hasta que alguien tiene que escribir cada valor en código. El inventario del módulo 1 sirve para encontrar estos valores antes, y la revisión del diseño en código, para encontrar los que se escaparon.
+
+</Callout>
+
+## En Figma
+
+En Tokens101, los semánticos de tamaño están en la colección `Semantic size`, con un solo modo, `Value`: no cambian con el tema ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+
+- `radius/control` y `radius/container` son variables Number con alias a `radius/200` y `radius/400`, y scope *Corner radius*.
+- `size/content/max-width` es una variable Number con el valor 960 y scope *Width and height*.
+
+Los tamaños de texto, que también son semánticos y sí cambian entre Desktop y Mobile, van en otra colección. Los verás en [Estilos de texto como capa](/relations/text-styles).
+
+<InCode title="Un semántico de tamaño en CSS">
+
+El alias se conserva en el CSS generado, y Tailwind CSS lo expone con su nombre:
+
+```css filename="src/styles/tokens.css y theme.css (fragmentos)"
+--t101-radius-control: var(--t101-radius-200);
+--radius-control: var(--t101-radius-control);
+```
+
+En un componente se escribe `rounded-control`. Cómo se genera cada capa lo verás en el módulo De Figma al código.
+
+</InCode>
+
+## Fuentes
+
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Atlassian Design System: Spacing](https://atlassian.design/foundations/spacing)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)

@@ -1,0 +1,105 @@
+---
+title: Estilos de texto como capa
+description: Por qué los estilos de texto son la capa semántica de la tipografía en Tokens101, cómo se resuelve un estilo hasta sus primitivos y qué pasa con el texto que queda sin estilo.
+nav_title: Estilos de texto
+lastReviewed: 2026-10-04
+---
+
+En el módulo 1 viste que un estilo de texto agrupa varias decisiones tipográficas, y en el módulo 2 creaste los primitivos de tipografía, ocultos al publicar. Falta la pieza que los une: en Tokens101, **los estilos de texto son la capa semántica de la tipografía**. En esta lección verás qué capa ocupa cada parte de un estilo, cómo se resuelve hasta sus primitivos y por qué ningún texto debería quedar sin estilo.
+
+**En esta página**
+
+- [El estilo es el semántico](#el-estilo-es-el-semántico)
+- [Los diez estilos](#los-diez-estilos)
+- [De un estilo a sus primitivos](#de-un-estilo-a-sus-primitivos)
+- [Un texto sin estilo es un valor suelto](#un-texto-sin-estilo-es-un-valor-suelto)
+- [En Figma](#en-figma)
+
+## El estilo es el semántico
+
+Un semántico de color dice para qué se usa un color. Un estilo de texto hace lo mismo con la tipografía: `heading/2` dice que es un título de apartado, no que mide 32 px ni que pesa 600.
+
+| | Color | Tipografía |
+|---|---|---|
+| Primitivos | `color/emerald/700` | `font-family/sans`, `font-size/06`, `font-weight/600` |
+| Capa semántica | `color/text/accent/default` | El estilo de texto `heading/2` |
+| Lo que aplicas al diseño | El semántico | El estilo |
+
+La diferencia es la forma. Figma no tiene variables compuestas: para reunir familia, tamaño, peso e interlineado en una sola decisión, usa un estilo ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Lo viste en [Tipos compuestos y estilos](/fundamentals/composite-types). En DTCG, esa decisión sería un token `typography` con referencias a los primitivos.
+
+## Los diez estilos
+
+Se nombran por su rol, no por su tamaño:
+
+| Estilo | Tamaño (Desktop · Mobile) | Peso | Uso |
+|---|---|---|---|
+| `heading/1` | 40 · 32 | 700 | Título de la lección |
+| `heading/2` | 32 · 24 | 600 | Apartados |
+| `heading/3` | 24 · 20 | 600 | Subapartados |
+| `heading/4` | 20 · 20 | 600 | Títulos menores |
+| `body/default` | 16 · 16 | 400 | Texto de lectura |
+| `body/strong` | 16 · 16 | 600 | Texto destacado dentro del texto de lectura |
+| `body/small` | 14 · 14 | 400 | Texto secundario, tablas |
+| `label/default` | 14 · 14 | 500 | Sidebar, botones, etiquetas |
+| `caption/default` | 12 · 12 | 400 | Fechas de revisión, notas, pies de los gráficos |
+| `code/default` | 14 · 14 | 400 | Bloques y código en línea (JetBrains Mono) |
+
+Todos usan Inter, salvo `code/default`. Los tamaños cambian entre Desktop y Mobile: lo verás en el módulo Modos y temas.
+
+## De un estilo a sus primitivos
+
+Cada propiedad del estilo se resuelve por un camino distinto. Así queda `heading/1` en Desktop:
+
+| Propiedad | Lo que aplica el estilo | Apunta a | Valor |
+|---|---|---|---|
+| Familia | `font-family/sans` (primitivo) | No apunta a nada | Inter |
+| Tamaño | `font-size/heading/1` (semántico, colección Layout) | `font-size/07` | 40 px |
+| Peso | `font-weight/700` (primitivo) | No apunta a nada | 700 |
+| Interlineado | 120 %, sin variable | No aplica | 120 % |
+
+Tres cosas que mirar en la tabla:
+
+- **El tamaño tiene su propio semántico.** `font-size/heading/1` existe porque el tamaño del título cambia con el ancho de pantalla, y un semántico puede apuntar a un primitivo distinto en cada modo. La familia y el peso no cambian, así que el estilo aplica el primitivo directamente.
+- **La cadena más larga tiene dos saltos:** estilo → `font-size/heading/1` → `font-size/07`. Cumple el límite de [Las capas](/relations/layers#las-capas-de-tokens101).
+- **El interlineado no es una variable.** Figma lee una variable de interlineado como píxeles, así que el estilo usa un porcentaje escrito a mano y el token vive en código ([Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras)).
+
+<Callout variant="recommendation">
+
+En Tokens101, **un estilo aplica un primitivo directamente cuando la propiedad no cambia nunca, y un semántico cuando cambia con un modo.** Es la misma regla de todo el módulo, aplicada propiedad a propiedad: la capa semántica existe donde hay una decisión que puede cambiar.
+
+</Callout>
+
+## Un texto sin estilo es un valor suelto
+
+Si un texto del diseño tiene su tamaño y su peso aplicados a mano, sin estilo, es el equivalente de un hex escrito a mano: funciona, pero no responde a ningún cambio del sistema.
+
+El caso más frecuente es la negrita. En Figma, poner en negrita una parte de un párrafo separa ese fragmento de su estilo de texto: queda sin estilo, aunque el resto del párrafo lo tenga. Lo comprobamos en el archivo de Tokens101. Por eso existe `body/strong`: el texto destacado tiene su propio estilo y sigue ligado al sistema.
+
+<Callout variant="note">
+
+En código no cambia nada: `<strong>` hereda el tamaño y el interlineado del párrafo y aplica el peso 600. `body/strong` existe para que el diseño en Figma no tenga fragmentos sueltos.
+
+</Callout>
+
+## En Figma
+
+En Tokens101, cada estilo de texto vincula sus propiedades a variables ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
+
+1. Crea el estilo de texto con su nombre, por ejemplo `heading/1`.
+2. En la familia, aplica la variable `font-family/sans`.
+3. En el tamaño, aplica `font-size/heading/1`, de la colección `Layout`. Si aún no tienes esa colección, aplica de momento el primitivo (`font-size/07`) y cámbialo en el módulo Modos y temas: con el primitivo, el estilo no cambia en Mobile.
+4. En el peso, aplica `font-weight/700`.
+5. En el interlineado, escribe 120 %.
+
+Los semánticos de tamaño de texto están en la colección `Layout`, con los modos Desktop y Mobile, y cada uno apunta a un primitivo `font-size/*`. Los crearás en el módulo Modos y temas, cuando veas cómo funcionan los modos.
+
+<Callout variant="warning">
+
+La exportación DTCG de Figma no incluye los estilos de texto: solo las variables. La combinación que forma cada estilo necesita su propia fuente en código. En Tokens101 es la tabla de estilos de la especificación, y una comprobación automática vigila que el CSS coincida ([Tipos compuestos y estilos](/fundamentals/composite-types#lo-que-no-se-exporta)).
+
+</Callout>
+
+## Fuentes
+
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
