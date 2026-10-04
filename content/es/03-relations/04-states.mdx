@@ -1,0 +1,110 @@
+---
+title: Estados
+description: Los tokens semánticos de los estados de los controles en Tokens101 (hover, active, seleccionado y foco), qué pide WCAG 2.2 a cada uno, por qué no hay disabled y por qué dos tokens pueden apuntar al mismo primitivo.
+nav_title: Estados
+lastReviewed: 2026-10-04
+---
+
+Un control cambia de aspecto cuando pasas el ratón, cuando lo pulsas, cuando tiene el foco o cuando es la opción actual. Cada uno de esos cambios es una decisión de color, y en Tokens101 cada decisión es un token semántico. En esta lección verás qué tokens de estado tiene la web, qué pide WCAG 2.2 a cada estado y por qué no hay tokens para los controles desactivados.
+
+**En esta página**
+
+- [Un estado es otro token](#un-estado-es-otro-token)
+- [Los estados de Tokens101](#los-estados-de-tokens101)
+- [Qué pide WCAG a cada estado](#qué-pide-wcag-a-cada-estado)
+- [El texto en hover y active](#el-texto-en-hover-y-active)
+- [Por qué no hay disabled](#por-qué-no-hay-disabled)
+- [Mismo primitivo, distinto significado](#mismo-primitivo-distinto-significado)
+- [En Figma](#en-figma)
+
+## Un estado es otro token
+
+El botón principal tiene tres fondos: en reposo, al pasar el ratón y al pulsarlo. Son tres tokens, cada uno con su alias:
+
+| Token | Light | Dark |
+|---|---|---|
+| `color/background/accent/strong/default` | `emerald/500` | `emerald/500` |
+| `color/background/accent/strong/hover` | `emerald/400` | `emerald/400` |
+| `color/background/accent/strong/active` | `emerald/600` | `emerald/600` |
+
+El estado va en el nombre del token, no en el componente. Así, quien diseña el botón no elige "un verde un poco más claro": aplica `…/hover`, y el sistema decide qué verde es. Si un día el hover cambia, cambia en todos los componentes que lo usan.
+
+El hover es más claro y el active más oscuro por una razón de contraste. El texto del botón es oscuro (`color/text/on-accent`, `neutral/950`). Aclarar el fondo sube el contraste; oscurecerlo lo baja. Con el `600` queda en 5,93:1; con el `700`, bajaría a 3,89:1, por debajo de los 4,5:1 que pide el texto normal.
+
+<Callout variant="note">
+
+Dónde va el estado dentro del nombre (`…/strong/hover`, pero `text/accent/hover`) es una regla de nomenclatura. La verás en el módulo Nombrar.
+
+</Callout>
+
+## Los estados de Tokens101
+
+| Estado | Cómo se resuelve | Tokens |
+|---|---|---|
+| Hover y active de los controles neutros sin fondo (sidebar, "En esta página", cabecera de `InCode`, `IconButton`) | Aparece un fondo | `color/background/neutral/hover` (`neutral/100` / `neutral/800`) y `color/background/neutral/active` (`neutral/200` / `neutral/700`) |
+| Texto de esos controles en hover y active | Pasa a texto principal | `color/text/neutral/default` |
+| Hover de un enlace | Cambia el color, además del subrayado | `color/text/accent/hover` (`emerald/800` / `emerald/300`) |
+| Seleccionado o actual (lección actual del sidebar) | Una marca con forma propia, no solo color | `color/border/accent/strong` (`emerald/600` / `emerald/400`), con `background/accent/subtle` y `text/accent/default` |
+| Hover y active del botón principal | Cambia el fondo | `color/background/accent/strong/{hover,active}` |
+| Foco | Anillo de 2 px | `color/border/focus` (`emerald/600` / `emerald/400`) con `border-width/200` |
+
+Los valores van en Light / Dark. No hay una categoría `action` ni `interactive`: lo interactivo se expresa con el estado al final del nombre. El SDS de Figma hace lo mismo, con tokens como `--sds-color-background-neutral-hover` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+## Qué pide WCAG a cada estado
+
+Los umbrales de contraste para lo que no es texto están en el criterio 1.4.11 Non-text Contrast (AA): 3:1 frente a los colores adyacentes. Su guía oficial precisa qué estados lo necesitan ([Understanding 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)):
+
+- **El hover no necesita 3:1.** El tratamiento visual que se añade al pasar el ratón no es lo que permite identificar el control, así que no tiene que cumplir el umbral.
+- **El indicador de un estado sí.** Si algo marca que un control está seleccionado, esa marca tiene que contrastar 3:1 con lo que la rodea. Por eso la marca lateral de la lección actual usa `border/accent/strong`: 3,18:1 frente al fondo tintado de la fila en Light. El color de marca no llegaría: 2,05:1 sobre blanco.
+- **Dos colores del mismo componente no necesitan contrastar entre sí** si no aparecen uno junto al otro. El fondo en reposo y el de hover de un botón nunca se ven a la vez.
+- **El foco tiene que verse.** `border/focus` cumple 3:1 sobre los fondos de la página en los dos modos: 3,33:1 en Light y 10,92:1 en Dark.
+
+Y, como en todo el sistema, el color no puede ser el único medio para transmitir información (1.4.1, [Understanding 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)). La lección actual se distingue por un trazo además del color, y el enlace, por el subrayado.
+
+<Callout variant="note">
+
+Los selectores de idioma y de tema de la cabecera no llevan esa marca: es un riesgo de accesibilidad aceptado y registrado. Lo estudiaremos en el módulo Accesibilidad como ejemplo de decisión con un coste conocido.
+
+</Callout>
+
+## El texto en hover y active
+
+Los controles neutros usan a veces texto secundario (`color/text/neutral/subtle`). Sobre el fondo de active en Dark, ese texto se queda en 3,99:1, por debajo de 4,5:1.
+
+<Callout variant="recommendation">
+
+En Tokens101, **en hover y active, el texto de los controles neutros pasa a `color/text/neutral/default`**. Con esa regla, el par que no cumple no se usa nunca. Es una decisión nuestra, tomada al comprobar el contraste de cada par de estado.
+
+</Callout>
+
+## Por qué no hay disabled
+
+Ningún control de esta web se desactiva: no hay formularios ni botones que dependan de una condición. Por eso Tokens101 no tiene tokens de disabled.
+
+La guía de 1.4.11 exime de contraste a los componentes que no están disponibles para interactuar, como un control desactivado en HTML (misma fuente). Si un día hace falta, el plan es añadirlo como **rol**, no como un estado de cada rol: `color/background/disabled/default`, `color/text/disabled/default` y `color/border/disabled/default`. Es el patrón del SDS, que tiene `--sds-color-background-disabled-default` y equivalentes de texto, borde e icono ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+**Loading no es un token.** Un control que carga necesita un indicador de progreso y un texto que lo anuncie: es comportamiento del componente, y usa los tokens que ya existen.
+
+## Mismo primitivo, distinto significado
+
+`color/background/neutral/hover` y `color/background/neutral/strong` apuntan a los mismos primitivos: `neutral/100` en Light y `neutral/800` en Dark. Podrían ser un solo token, pero significan cosas distintas: uno es un estado y el otro, una superficie. Separados, puedes cambiar el hover sin tocar las superficies.
+
+Es la regla de [Semánticos de color](/relations/semantic-color#varios-semánticos-un-primitivo): un token por función, aunque el valor coincida.
+
+<Callout variant="note">
+
+En Light, `background/neutral/hover` (`neutral/100`) apenas se distingue de `background/neutral/subtle` (`neutral/50`): 1,04:1. WCAG no lo exige, como has visto. Pero si un control con hover está sobre un fondo `subtle`, el cambio casi no se nota. Si te pasa, el arreglo es cambiar un alias (a `neutral/200`, por ejemplo) y volver a comprobar el texto.
+
+</Callout>
+
+## En Figma
+
+En Figma, los estados son variantes del componente: una propiedad `state` con los valores `default`, `hover`, `focus`… Cada variante aplica el token de su estado. En el `SidebarItem` de Tokens101, por ejemplo, la variante `hover` aplica `color/background/neutral/hover` al fondo y `color/text/neutral/default` al texto.
+
+Los tokens de estado se crean como cualquier semántico: una variable con un alias por modo, en la colección `Semantic color`.
+
+## Fuentes
+
+- [Understanding 1.4.11 Non-text Contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
+- [Understanding 1.4.1 Use of Color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)

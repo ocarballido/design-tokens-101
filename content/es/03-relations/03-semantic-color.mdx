@@ -1,0 +1,172 @@
+---
+title: Semánticos de color
+description: Cómo pasar de la lista de usos a tokens semánticos de color, los de Tokens101 con su primitivo en Light y en Dark, por qué varios semánticos pueden apuntar al mismo primitivo y cuándo se añade uno nuevo.
+nav_title: Semánticos de color
+lastReviewed: 2026-10-04
+---
+
+El color es la capa semántica más grande de Tokens101 y la que mejor muestra para qué sirven los alias. En esta lección verás cómo se pasa de una lista de usos a tokens semánticos, cuáles tiene esta web y a qué primitivo apunta cada uno, y qué decide ese primitivo.
+
+**En esta página**
+
+- [Del uso al token](#del-uso-al-token)
+- [Fondo, texto y borde](#fondo-texto-y-borde)
+- [Light y Dark, lo justo](#light-y-dark-lo-justo)
+- [Los semánticos de color de Tokens101](#los-semánticos-de-color-de-tokens101)
+- [El contraste decide el paso](#el-contraste-decide-el-paso)
+- [Varios semánticos, un primitivo](#varios-semánticos-un-primitivo)
+- [Un token nuevo cuando hace falta](#un-token-nuevo-cuando-hace-falta)
+- [En Figma](#en-figma)
+
+## Del uso al token
+
+En el [ejercicio del módulo 2](/primitives/exercise-scales#paso-5-anota-qué-primitivo-usa-cada-elemento) anotaste qué primitivo usa cada elemento de tu diseño. Esa lista es el punto de partida. Así sería un fragmento de la de Tokens101:
+
+| Dónde aparece | Primitivo |
+|---|---|
+| Fondo de la página | `color/white` |
+| Fondo de los bloques de código | `color/neutral/50` |
+| Fondo de las tarjetas | `color/neutral/50` |
+| Texto del cuerpo | `color/neutral/900` |
+| Texto de los enlaces | `color/emerald/700` |
+
+Un token semántico no nombra un elemento, sino una **función**. Los bloques de código y las tarjetas comparten función (una superficie un poco distinta del fondo de la página), así que comparten token: `color/background/neutral/subtle`. Si dos usos tienen el mismo primitivo **y** la misma función, son un solo token. Si tienen el mismo primitivo y funciones distintas, son dos tokens: lo verás en [Varios semánticos, un primitivo](#varios-semánticos-un-primitivo).
+
+<Callout variant="note">
+
+En esta lección usamos los nombres de Tokens101 sin explicar cómo se construyen. Por qué empiezan por la propiedad y qué significa cada nivel lo verás en el módulo Nombrar.
+
+</Callout>
+
+## Fondo, texto y borde
+
+Cada semántico de color dice a qué propiedad se aplica: `background` (fondo), `text` (texto) o `border` (borde). Los iconos usan los tokens de texto de su contexto; no hay propiedad `icon`.
+
+Separar la propiedad tiene dos consecuencias prácticas:
+
+- **En Figma, cada propiedad tiene su scope.** Un token de texto solo aparece al elegir el color de un texto o de una forma, y no al elegir un relleno de marco. Lo verás en [Las colecciones semánticas](/relations/semantic-collections).
+- **El contraste se comprueba por pares.** Un texto se mide contra el fondo sobre el que va. Con la propiedad en el nombre, cada par se lee directamente: `text/neutral/default` sobre `background/neutral/default`.
+
+## Light y Dark, lo justo
+
+La colección de los semánticos de color tiene dos modos, Light y Dark. Cada modo puede apuntar a un primitivo distinto:
+
+| Token | Light | Dark |
+|---|---|---|
+| `color/text/neutral/default` | `neutral/900` | `neutral/50` |
+
+El nombre que aplicas al diseño es el mismo en los dos modos. Lo que cambia es el destino del alias. Es la razón de ser de la capa semántica: sin ella, cambiar de tema sería cambiar cada elemento del diseño. Cómo se crean y se aplican los modos lo verás en el módulo Modos y temas. En este módulo, basta con leer las dos columnas de las tablas.
+
+## Los semánticos de color de Tokens101
+
+Son 31 tokens en la colección `Semantic color` de Figma. En esta lección están los de base. Los de estado (hover, active, seleccionado y foco) los verás en [Estados](/relations/states), y dos tokens con transparencia, en [Cuando un semántico no es alias](/relations/direct-values).
+
+**Neutros:** la estructura de la página.
+
+| Token | Light | Dark | Uso |
+|---|---|---|---|
+| `color/background/neutral/default` | `white` | `neutral/950` | Fondo de la página |
+| `color/background/neutral/subtle` | `neutral/50` | `neutral/900` | Tarjetas, bloques de código, `Callout` pendiente |
+| `color/background/neutral/strong` | `neutral/100` | `neutral/800` | Superficies con más énfasis, como el grupo de los selectores de la cabecera |
+| `color/text/neutral/default` | `neutral/900` | `neutral/50` | Texto principal |
+| `color/text/neutral/subtle` | `neutral/600` | `neutral/400` | Texto secundario |
+| `color/border/neutral/default` | `neutral/200` | `neutral/800` | Separadores y bordes decorativos |
+| `color/border/neutral/strong` | `neutral/500` | `neutral/500` | Bordes que identifican algo y necesitan contraste |
+
+**Acento:** el color de la marca.
+
+| Token | Light | Dark | Uso |
+|---|---|---|---|
+| `color/text/accent/default` | `emerald/700` | `emerald/400` | Enlaces; icono y etiqueta del `Callout` de recomendación |
+| `color/background/accent/subtle` | `emerald/50` | `emerald/950` | Fondo tintado: `Callout` de recomendación, pasos de los gráficos |
+| `color/background/accent/strong/default` | `emerald/500` | `emerald/500` | Botón principal |
+| `color/text/on-accent` | `neutral/950` | `neutral/950` | Texto sobre el botón principal |
+| `color/border/accent/default` | `emerald/300` | `emerald/700` | Borde del `Callout` de recomendación (decorativo) |
+
+**Mensajes:** información, éxito, aviso y error. Los cuatro roles siguen el mismo patrón de tres tokens (fondo, borde y texto):
+
+| Token | Light | Dark | Uso |
+|---|---|---|---|
+| `color/background/info/subtle` | `blue/50` | `blue/950` | Fondo del `Callout` de nota |
+| `color/border/info/default` | `blue/300` | `blue/700` | Borde del `Callout` de nota |
+| `color/text/info/default` | `blue/700` | `blue/300` | Icono y etiqueta del `Callout` de nota |
+| `color/background/success/subtle` | `emerald/50` | `emerald/950` | Sin uso todavía |
+| `color/border/success/default` | `emerald/300` | `emerald/700` | Sin uso todavía |
+| `color/text/success/default` | `emerald/700` | `emerald/300` | Mensaje "Copiado" del bloque de código |
+| `color/background/warning/subtle` | `amber/50` | `amber/950` | Fondo del `Callout` de aviso |
+| `color/border/warning/default` | `amber/300` | `amber/700` | Borde del `Callout` de aviso |
+| `color/text/warning/default` | `amber/700` | `amber/300` | Icono y etiqueta del `Callout` de aviso |
+| `color/background/danger/subtle` | `red/50` | `red/950` | Sin uso todavía |
+| `color/border/danger/default` | `red/300` | `red/700` | Sin uso todavía |
+| `color/text/danger/default` | `red/700` | `red/300` | Sin uso todavía |
+
+El rol de error se llama `danger`, como en el SDS de Figma ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)) y en Atlassian ([Atlassian: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)). El éxito usa la escala `emerald`, la de la marca; viste por qué en [Escalas de estado](/primitives/status-colors#por-qué-no-hay-escala-verde).
+
+<Callout variant="note">
+
+Los valores completos, con su hex, están en la especificación del sistema, que es la fuente de esta tabla. Las tres decisiones más visibles (el tratamiento del botón principal, el fondo de Light y el de Dark) se cerraron al ver el diseño, y se pueden reabrir cambiando un alias y volviendo a comprobar el contraste.
+
+</Callout>
+
+## El contraste decide el paso
+
+En el módulo 2 viste qué pasos de cada escala sirven para texto ([Lo que la escala dice sobre su uso](/primitives/color-scales#lo-que-la-escala-dice-sobre-su-uso)). La capa semántica es donde se toma la decisión. Un ejemplo, el texto de los enlaces:
+
+<ColorScale palette="emerald" highlight="700" highlightLabel="text/accent/default en Light" caption="Escala emerald: en Light, el texto de los enlaces apunta al paso 700, no al color de marca." />
+
+- **El color de marca, `emerald/500`, no sirve para texto sobre blanco:** 2,05:1. WCAG 2.2 pide 4,5:1 para el texto normal ([Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)).
+- **`emerald/700` sí:** 5,08:1 sobre blanco. Por eso `color/text/accent/default` apunta a él en Light.
+- **En Dark se invierte:** sobre `neutral/950` el `700` se queda en 3,89:1, y el `400` llega a 10,92:1. Por eso Dark apunta al `400`.
+
+El botón principal hace lo contrario: mantiene el color de marca de fondo y cambia el texto. Con texto blanco no llegaría a 4,5:1; con `color/text/on-accent` (`neutral/950`), llega a 9,63:1. Los tokens `on-` existen para eso: nombran el texto que va **sobre** un fondo de color fuerte, y cada par se comprueba junto.
+
+<Callout variant="recommendation">
+
+En Tokens101, **cada alias de texto se elige comprobando su contraste** con el fondo con el que se usa, en Light y en Dark. Si cambias un alias, vuelves a comprobar el par. Es una regla nuestra; los umbrales son de WCAG 2.2. Cómo se comprueba con detalle lo verás en el módulo Accesibilidad.
+
+</Callout>
+
+## Varios semánticos, un primitivo
+
+`emerald/700` aparece en cuatro tokens:
+
+| Primitivo | Token | Modo |
+|---|---|---|
+| `emerald/700` | `color/text/accent/default` | Light |
+| `emerald/700` | `color/text/success/default` | Light |
+| `emerald/700` | `color/border/accent/default` | Dark |
+| `emerald/700` | `color/border/success/default` | Dark |
+
+No es una repetición: son cuatro decisiones que hoy coinciden. Si mañana el éxito necesita otro verde, cambias los alias de `success` y el acento no se mueve. Si los fundieras en un solo token, separarlos después obligaría a revisar cada elemento del diseño que lo usa.
+
+La regla de la primera sección, en una frase: **un token por función, aunque el valor coincida.**
+
+## Un token nuevo cuando hace falta
+
+Los semánticos de color no salieron todos a la vez. `color/border/accent/default` se añadió al diseñar el `Callout` de recomendación: los demás `Callout` tenían borde de su color, y este no tenía token. Se creó cuando el componente lo pidió, no antes.
+
+El criterio no se ha aplicado siempre. Hoy, los tokens de `danger` y el fondo y el borde de `success` no tienen ningún uso en la web: se crearon con el resto de la tabla, como un juego completo de mensajes, antes de fijar el criterio de la recomendación siguiente.
+
+<Callout variant="recommendation">
+
+Crea un semántico cuando un uso real lo necesita, como viste con el espaciado en el módulo 2 ([un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve)). Una matriz completa (todas las propiedades por todos los roles y todos los énfasis) da tokens que nadie usa y que alguien tiene que mantener.
+
+</Callout>
+
+## En Figma
+
+En Tokens101, los semánticos de color están en su propia colección, `Semantic color`, con los modos Light y Dark. Cada variable se crea así ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+1. Crea una variable Color con el nombre completo, por ejemplo `color/text/accent/default`.
+2. En la columna Light, haz clic derecho sobre el valor, elige *Create alias* y busca `color/emerald/700`.
+3. Repite en la columna Dark con `color/emerald/400`.
+4. Escribe en la descripción para qué se usa. En Tokens101, "Enlaces y texto de acento". La descripción llega a la exportación como `$description`.
+
+El scope y la visibilidad de estas variables los verás en [Las colecciones semánticas](/relations/semantic-collections). Las crearás para tu sistema en el módulo Nombrar, ya con su nombre definitivo.
+
+## Fuentes
+
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Atlassian Design System: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)
+- [Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
