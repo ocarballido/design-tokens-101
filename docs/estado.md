@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: módulo 2 completo en borrador; falta el build).
+Última actualización: 2026-10-04 (sesión de desarrollo: build y comprobación del módulo 2).
 
 ---
 
@@ -15,7 +15,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 3 | Oscar | Crear el repositorio en GitHub | Hecho (2026-10-03): `ocarballido/design-tokens-101`. Documentos trasladados aquí (P9) |
 | 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
-| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en borrador, pendiente de revisión y de build |
+| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en borrador, compilado y comprobado (2026-10-04), pendiente de revisión |
 | 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Hecho (2026-10-03): Terrazzo + Resolver DTCG, dos capas y Tailwind (V06–V12) |
 | 8 | Desarrollo C | Componentes y páginas con el diseño | Hecho (2026-10-03): todo el inventario, plantilla y modos (V13–V22). Quedan detalles para Oscar (ver Desarrollo) |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
@@ -41,7 +41,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 - **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Build y comprobación hechos por la sesión de desarrollo (2026-10-04, ver Desarrollo → "Gráficos `Flow` del bloque 0"). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
 
-**Comprobación del módulo 2 (2026-10-04): falta el build.** npm vuelve a dar 403 en la sesión de contenido, así que no se ha ejecutado `npm run build && npm run check:content`. Comprobado con un script aparte (reglas de `rehype-slug`): 22 páginas en español, 148 anclas, todos los enlaces internos y anclas con destino, `href` de `Flow` existentes, etiquetas `Callout`/`InCode`/`Flow` equilibradas y sin `{`, `}` ni `<` sueltos fuera del código. **Para la sesión de desarrollo:** `npm run build && npm run check:content`, y ver los dos `Flow` nuevos (`/es/primitives/color-space`, 5 pasos; `/es/primitives/color-scales`, 7 pasos, con metas largas) a 320, 375 y 1440 px en Light y Dark.
+**Comprobación del módulo 2 (2026-10-04): build hecho por la sesión de desarrollo, sin errores y sin cambios en el MDX** (ver Desarrollo → "Módulo 2: comprobado"). En la sesión de contenido npm volvió a dar 403 en la sesión de contenido, así que allí se comprobó con un script aparte (reglas de `rehype-slug`): 22 páginas en español, 148 anclas, todos los enlaces internos y anclas con destino, `href` de `Flow` existentes, etiquetas `Callout`/`InCode`/`Flow` equilibradas y sin `{`, `}` ni `<` sueltos fuera del código.
 
 **Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Build ejecutado en local por la sesión de desarrollo (2026-10-03): sin errores** (ver Desarrollo → "Comprobación del contenido").
 
@@ -149,6 +149,15 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - `npm run build && npm run check:content`: sin errores.
 - Chrome sin interfaz (`puppeteer-core`, `next start`), Light y Dark a 320, 375 y 1440 px: sin scroll horizontal de página; ningún paso ni grupo sale de la figura; conectores entre cada dos elementos (4 y 6); los pasos de un grupo apilados por debajo de 64rem y en fila desde 64rem; los pasos sueltos centrados y con el ancho de su texto, y los textos largos bajan de línea a 320 px. Teclado: en la metodología solo "Fundamentos" recibe foco (`/es/fundamentals/what-is-a-token`); en el recorrido, ninguno. Coincide con los marcos de Figma.
 - Sin nada que corregir en el MDX. Sin prueba manual ni con lector de pantalla.
+
+**Módulo 2: comprobado (2026-10-04)**
+- `npm run build`: compila sin errores; 22 lecciones × 2 idiomas. `npm run check:content`: sin errores, 302 anclas (104 con caracteres no ASCII), enlaces internos y orden del sidebar. No hizo falta tocar el MDX.
+- Sidebar: sección "Primitivos" con sus 9 lecciones en orden; en una lección del módulo, solo esa sección abierta (C11). Anterior/siguiente: "Ejercicio" del módulo 1 → "Qué es un primitivo" y "Ejercicio" del módulo 2 → "Fuentes consultadas" (y al revés).
+- `Flow` de `color-space` (5 pasos, 4 conectores) y `color-scales` (7 pasos, 6 conectores), Light y Dark a 320, 375 y 1440 px: sin scroll horizontal de página, ningún paso sale de la figura ni desborda su caja. Las metas largas caben en una línea incluso a 320 px (el paso más ancho mide 258 px en una columna de 288), así que no llegan a bajar de línea; el salto de línea ya se comprobó con los textos del bloque 0. Borde `border/accent/default` en cada modo.
+- Enlaces nuevos: el paso "Primitivos" del `Flow` de `what-we-teach` recibe foco con el tabulador (anillo de 2 px) y lleva a `/es/primitives/what-is-a-primitive`. Los 7 enlaces añadidos en `04-figma-dtcg-tailwind` y el módulo 1 llegan a su página; el ancla `#para-qué-sirve-el-scope` existe.
+- 320 px: ninguna de las 9 páginas tiene scroll horizontal de página (1.4.10). Las tablas más anchas que la columna (las de escalas de color, de 5 columnas y 417 px; la más ancha, 610 px en `what-is-a-primitive`) y los bloques de código se desplazan dentro de su contenedor (`overflow-x: auto`, enfocable).
+- `python3 tools/scales.py` y `python3 tools/semantic.py`: sin errores; las 17 comprobaciones de contraste de `semantic.py`, OK.
+- Hecho con Chrome sin interfaz (`puppeteer-core`, `next start`). Sin prueba manual ni con lector de pantalla.
 
 **Correcciones de Oscar (2026-10-03, V23–V27)**
 - `SidebarItem` sin radio (V23).
