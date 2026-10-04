@@ -39,9 +39,9 @@
   --t101-color-background-neutral-strong: var(--t101-color-neutral-100);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-50);
-  /* Fondo de la cabecera sticky (V28): color/white al 90 %, con blur/300 detrás. Valor directo: un alias no puede cambiar la opacidad. Va en Semantic color (modo Light); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
+  /* Fondo de la cabecera sticky (V28): color/white al 90 %, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. Va en Semantic color (modo Light); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
   --t101-color-background-neutral-translucent: #ffffffe6;
-  /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Va en Semantic color; está aquí hasta que exista la variable en Figma. Valor directo: un alias no puede cambiar la opacidad. Fuente: docs/sistema-tokens-v1.md §6.1. */
+  /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Va en Semantic color; está aquí hasta que exista la variable en Figma. Valor directo: un alias de Figma no puede cambiar la opacidad. Fuente: docs/sistema-tokens-v1.md §6.1. */
   --t101-color-background-overlay: #00000080;
   --t101-color-background-success-subtle: var(--t101-color-emerald-50);
   --t101-color-background-warning-subtle: var(--t101-color-amber-50);
@@ -204,7 +204,7 @@
   --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
-  /* Fondo de la cabecera sticky (V28): neutral/950 al 90 %, con blur/300 detrás. Valor directo: un alias no puede cambiar la opacidad. Va en Semantic color (modo Dark); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
+  /* Fondo de la cabecera sticky (V28): neutral/950 al 90 %, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. Va en Semantic color (modo Dark); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
   --t101-color-background-neutral-translucent: #050c09e6;
   --t101-color-background-success-subtle: var(--t101-color-emerald-950);
   --t101-color-background-warning-subtle: var(--t101-color-amber-950);
@@ -259,7 +259,7 @@
     --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
     /* Fondo de tarjetas y bloques de código */
     --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
-    /* Fondo de la cabecera sticky (V28): neutral/950 al 90 %, con blur/300 detrás. Valor directo: un alias no puede cambiar la opacidad. Va en Semantic color (modo Dark); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
+    /* Fondo de la cabecera sticky (V28): neutral/950 al 90 %, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. Va en Semantic color (modo Dark); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
     --t101-color-background-neutral-translucent: #050c09e6;
     --t101-color-background-success-subtle: var(--t101-color-emerald-950);
     --t101-color-background-warning-subtle: var(--t101-color-amber-950);
