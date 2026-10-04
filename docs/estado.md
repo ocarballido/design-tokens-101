@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma, D25, cabecera de sección sin radio, D26, y anillo de foco por dentro en el sidebar, D27).
+Última actualización: 2026-10-04 (sesión de desarrollo: D26 y D27 comprobados en el navegador; antes, sesión de diseño: variante `current` de `SidebarSection` en Figma, D25, cabecera de sección sin radio, D26, y anillo de foco por dentro en el sidebar, D27).
 
 ---
 
@@ -190,6 +190,15 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - `src/components/Sidebar.tsx`: prop `current` (la sección contiene la lección actual, el mismo cálculo que `defaultOpen`, C11). Título y chevron en `text-accent-default` y, en hover, `text-accent-hover`; el resto no cambia. Sin ARIA propio.
 - `npm run build`: sin errores. Chrome sin interfaz a 1440 px, Light y Dark, en `/es/relations/layers`: solo "Relaciones" lleva el acento (Light `#1A7D5C`, Dark `#4FD7A6`); en hover, `#1F624A` / `#93EAC5` sobre `background/neutral/hover`; al cerrar la sección conserva el acento. Las demás secciones no cambian.
 
+**Sidebar con D26 y D27: comprobado (2026-10-04)**
+- Cambio de la sesión de diseño en `src/components/Sidebar.tsx`: sin `rounded-control` en la cabecera de `SidebarSection` (D26). `npm run build && npm run check:content` y `npm run check:tokens`: sin errores.
+- Chrome sin interfaz (`puppeteer-core`, `next start`), Light y Dark, en `/es/relations/layers`, a 1440 px (sidebar) y a 375 px (panel móvil abierto):
+  - Radio 0 en la cabecera de sección (también en hover, sobre `background/neutral/hover`) y en las filas de lección (V23, D26).
+  - Anillo de foco con el tabulador en `SidebarSection`, `SidebarItem` y la lección actual: `outline` de 2 px `border/focus` con `outline-offset` de −2 px (`focus-ring-inset`, D27). El anillo queda entero dentro del contenedor con `overflow` más cercano, sin recortes; comprobado también en las capturas.
+  - Solo "Relaciones" lleva el acento en título y chevron (V30): Light `#1A7D5C`, Dark `#4FD7A6`.
+  - Alto de las filas: 40 px la cabecera y 35,6 px la lección (`label/default` de 14 px × 1,4 + `space/200` × 2; Figma redondea a 36).
+- Sin prueba manual ni con lector de pantalla.
+
 **Módulo 3: comprobado (2026-10-04)**
 - `npm run build`: compila sin errores; 32 lecciones × 2 idiomas. `npm run check:content`: sin errores, 450 anclas (156 con caracteres no ASCII), enlaces internos y orden del sidebar. No hizo falta tocar el MDX.
 - Sidebar: sección "Relaciones" con sus 10 lecciones en orden; en sus lecciones solo está abierta esa sección, en escritorio y en el panel móvil (C11), y la lección actual lleva `aria-current`. Anterior/siguiente: "Ejercicio" del módulo 2 → "Qué es un alias" y "Ejercicio" del módulo 3 → "Fuentes consultadas" (y al revés).
@@ -239,7 +248,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Hueco entre el texto del enlace y el icono externo: `space/100` (Figma: `space/200` en `size=default`, `space/150` en `small`).
 
 **Pendiente o sin verificar**
-- **Comprobar en el navegador `SidebarSection` sin radio (D26):** la sesión de diseño quitó `rounded-control` de `src/components/Sidebar.tsx`, pero no pudo compilar (npm da 403 en su entorno). Falta `npm run build` y ver la cabecera en `hover` y `focus`.
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
 - **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
 - **Diseño:** crear `color/background/neutral/translucent` (Light `white` y Dark `neutral/950`, al 90 %) en Semantic color y quitar `tokens/code-only.{light,dark}.tokens.json` al reexportar (y su entrada del Resolver) (V28). Dibujar la cabecera translúcida.
