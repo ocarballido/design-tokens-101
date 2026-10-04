@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: el diseño de `Flow` pasa a la sesión de diseño).
+Última actualización: 2026-10-04 (sesión de diseño: `Flow` diseñado en Figma, pendiente de la aprobación de Oscar).
 
 ---
 
@@ -100,8 +100,12 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Componentes:** 22, con nombres de propiedades iguales a los props de React. Plantillas de lección en escritorio y móvil, Light y Dark, y menú móvil abierto.
 - **Auditoría final (2026-10-02):** sin valores sueltos (salvo logotipos, D22), todo el texto con estilo, todos los `focus` con anillo `border/focus`, contraste de textos ≥ 4,5:1 e iconos ≥ 3:1 en Light y Dark, objetivos ≥ 24 × 24 px.
 
+**`Flow` (C13), diseñado el 2026-10-04, pendiente de la aprobación de Oscar**
+- `Flow`, `FlowGroup`, `FlowStep` (5 variantes) y `FlowConnector` en la página Components; el gráfico de la metodología en cuatro marcos (Desktop / Mobile × Light / Dark) en Pages. Nodos, medidas y notas para desarrollo en `docs/entrega-diseno.md` §3.3.
+- Auditoría: sin valores sueltos, todo el texto con estilo, contraste igual que la tabla de §3.7, pasos con enlace de 154 × 65 px o más.
+- **Pendiente de decisión de Oscar** (no se ha tocado `componentes-v1.md`): anotar en §4.10 la variante solo de Figma `size` de `FlowGroup` (`large` / `small`, pasos apilados en Mobile), y corregir "`FlowStep` 4" a 5 variantes en §3.7.
+
 **Pendiente**
-- **`Flow` (C13, encargado a la sesión de diseño):** diseñar `Flow`, `FlowGroup` y `FlowStep` según `componentes-v1.md` §3.7 (5 variantes de paso, Desktop y Mobile, Light y Dark).
 - A14: nombre del logotipo ("design-tokens 101" frente a "Tokens101"). No bloquea.
 - Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).
 - `tools/semantic.py` no incluye todavía los tokens de D06, D12 y D20 (el contraste se comprobó en Figma y con un cálculo aparte).
