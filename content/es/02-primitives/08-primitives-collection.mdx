@@ -1,0 +1,145 @@
+---
+title: La colección completa
+description: Repaso de la colección Primitives de Tokens101 en Figma. Qué se publica y qué se oculta, qué scope lleva cada escala, qué guarda la exportación y qué primitivos viven en código.
+nav_title: La colección completa
+lastReviewed: 2026-10-04
+---
+
+Ya tienes todas las escalas. En esta lección las ves juntas, como quedan en la colección `Primitives` de Figma, con el criterio que decide qué se publica y a qué propiedades se aplica cada una. También repasas los primitivos que no están en Figma y cómo comprobar que la colección está completa.
+
+**En esta página**
+
+- [La colección de un vistazo](#la-colección-de-un-vistazo)
+- [Qué se publica y qué se oculta](#qué-se-publica-y-qué-se-oculta)
+- [Para qué sirve el scope](#para-qué-sirve-el-scope)
+- [Lo que guarda la exportación](#lo-que-guarda-la-exportación)
+- [Los primitivos que viven en código](#los-primitivos-que-viven-en-código)
+- [Revisa tu colección](#revisa-tu-colección)
+
+## La colección de un vistazo
+
+Colección `Primitives`, con un modo, `Value`. 97 variables:
+
+| Variables | Tipo | Cuántas | Scope | Al publicar |
+|---|---|---|---|---|
+| `color/*` (escalas, `white` y `black`) | Color | 57 | Ninguno | Ocultas |
+| `space/*` | Number | 13 | *Gap* y *Padding* (`GAP`) | Visibles |
+| `radius/*` | Number | 9 | *Corner radius* | Visibles |
+| `border-width/*` | Number | 2 | *Stroke* | Visibles |
+| `font-family/*` | String | 2 | *Font family* | Ocultas |
+| `font-size/*` | Number | 10 | *Font size* | Ocultas |
+| `font-weight/*` | Number | 4 | *Font weight* | Ocultas |
+
+Todas llevan code syntax Web con el formato `var(--t101-…)`, también las ocultas. Por qué lo viste en [Una sola fuente de verdad](/fundamentals/source-of-truth#cómo-se-mantiene-un-solo-nombre).
+
+## Qué se publica y qué se oculta
+
+Cuando publicas un archivo como biblioteca, puedes ocultar variables concretas con *Hide from publishing* ([Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)).
+
+<Callout variant="recommendation">
+
+El criterio de Tokens101: **se publica lo que el diseñador aplica directamente; se oculta lo que se usa a través de otra capa.**
+
+- **Visibles:** espaciado, radio y grosor de borde. No hay tokens semánticos de espaciado ni de grosor, así que se aplican los primitivos. (Los componentes usan los semánticos de radio, pero un diseño puede necesitar otro radio de la escala).
+- **Ocultos:** color y tipografía. El color se aplica con sus tokens semánticos, que cambian con Light y Dark. La tipografía se aplica con estilos de texto.
+
+</Callout>
+
+Así, en el selector de quien usa la biblioteca no aparecen 57 colores sueltos, sino los tokens semánticos con su propósito en el nombre.
+
+<Callout variant="pending">
+
+La ayuda de Figma no explica qué pasa con los alias a variables ocultas cuando otro archivo usa la biblioteca. En el archivo de Tokens101, los tokens semánticos apuntan a primitivos ocultos y funcionan, pero todo está en el mismo archivo. No lo hemos comprobado desde un archivo distinto.
+
+</Callout>
+
+## Para qué sirve el scope
+
+El scope limita las propiedades a las que se puede aplicar una variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Una variable con scope *Corner radius* se ofrece al elegir el radio de una esquina, y no en el padding ni en el tamaño de letra.
+
+- **Las escalas con un uso** llevan ese scope: espaciado, radio, grosor y cada propiedad tipográfica.
+- **Los colores primitivos no tienen ningún scope**, así que no se ofrecen para ninguna propiedad. Su única función es ser el destino de los alias.
+
+<Callout variant="warning">
+
+Un scope no lo impide todo. El de espaciado, por ejemplo, cubre a la vez el gap y el padding: no puedes limitar una variable a uno de los dos ([Espaciado](/primitives/spacing#espaciado-negativo)).
+
+</Callout>
+
+## Lo que guarda la exportación
+
+Al exportar la colección, cada variable lleva en `$extensions` los datos propios de Figma. En la exportación de esta web aparecen estos:
+
+| Dato | Qué guarda | Ejemplo |
+|---|---|---|
+| `com.figma.variableId` | El identificador interno de la variable | `VariableID:13:66` |
+| `com.figma.scopes` | Los scopes, con el nombre de la API de plugins. Si la variable no tiene scope, el dato no aparece | `["GAP"]` |
+| `com.figma.hiddenFromPublishing` | `true` si está oculta. Si es visible, el dato no aparece | `true` |
+| `com.figma.codeSyntax` | El code syntax de cada plataforma | `{ "WEB": "var(--t101-space-400)" }` |
+
+Además, el archivo lleva el nombre del modo en su raíz: `"com.figma.modeName": "Value"`. DTCG permite que cada herramienta guarde sus datos en `$extensions` ([Format Module — Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)).
+
+Qué hace esta web con esos datos al generar el CSS lo verás en el módulo De Figma al código.
+
+## Los primitivos que viven en código
+
+Tres grupos de primitivos no están en Figma. Los explicamos al tratar cada escala; aquí los tienes juntos:
+
+| Tokens | Por qué no están en Figma | Dónde se explica |
+|---|---|---|
+| `line-height/tight`, `snug`, `normal` | Figma lee una variable de interlineado como píxeles, no como multiplicador | [Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras) |
+| `space/negative/100` … `600` | En Figma se aplicarían al gap o al padding, y en CSS ninguno de los dos admite negativos | [Espaciado](/primitives/spacing#espaciado-negativo) |
+| `duration/200` y `easing/standard` | Figma tiene variables Timing y Easing, pero se aplican a animaciones de Figma Motion, y esta web no diseña animaciones en Figma | [Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación) |
+
+Los valores de movimiento: `duration/200` = 200 ms y `easing/standard` = `cubic-bezier(0.2, 0, 0, 1)`, la curva de todas las animaciones de la interfaz. Cuando la persona pide movimiento reducido (`prefers-reduced-motion`), la web no anima; lo verás en el módulo Accesibilidad.
+
+<Callout variant="pending">
+
+Sigue sin comprobar si Figma exporta las variables Timing y Easing en DTCG, y en qué unidad: la ayuda de Figma habla de milisegundos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Si algún día pasan a Figma, se mueven, no se copian.
+
+</Callout>
+
+## Revisa tu colección
+
+Antes de pasar al módulo Relaciones, comprueba tu colección `Primitives`:
+
+- Tiene un solo modo.
+- Cada variable tiene la ruta completa: categoría, paleta (si la hay) y paso.
+- Ningún nombre de paleta es un rol (`brand`, `danger`, `primary`).
+- Cada escala que no es de color lleva su scope, y los colores no llevan ninguno.
+- Los colores y la tipografía están ocultos al publicar; el espaciado, el radio y el grosor, visibles.
+- Todas tienen code syntax Web.
+- No has creado variables de interlineado ni de espaciado negativo.
+
+<InCode title="Los primitivos de código en DTCG">
+
+Los primitivos de código se escriben a mano en un archivo DTCG del repositorio, junto a la exportación de Figma, y se generan en CSS como los demás:
+
+```json filename="tokens/code-only.tokens.json"
+{
+  "duration": {
+    "200": {
+      "$type": "duration",
+      "$value": { "value": 200, "unit": "ms" }
+    }
+  },
+  "easing": {
+    "standard": {
+      "$type": "cubicBezier",
+      "$value": [0.2, 0, 0, 1]
+    }
+  }
+}
+```
+
+El ejemplo está abreviado: en el archivo real cada token lleva una `$description` que explica por qué vive en código.
+
+</InCode>
+
+## Fuentes
+
+- [Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma Plugin API — Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
+- [Design Tokens Format Module 2025.10 — Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)

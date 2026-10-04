@@ -1,0 +1,99 @@
+---
+title: "Ejercicio: tus primitivos"
+description: Convierte el inventario del módulo 1 en escalas primitivas, créalas en Figma y anota qué primitivo usa cada elemento. Es el punto de partida de los tokens semánticos.
+nav_title: Ejercicio
+lastReviewed: 2026-10-04
+---
+
+En este ejercicio conviertes el inventario del módulo 1 en tu colección de primitivos, aplicando lo visto en el módulo: escalas, espacio de color, scopes y visibilidad. Al final anotarás qué primitivo usa cada elemento de tu diseño. Esa lista es el punto de partida del módulo Relaciones.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Espaciado radio y borde](#paso-1-espaciado-radio-y-borde)
+- [Paso 2 Tipografía](#paso-2-tipografía)
+- [Paso 3 Color](#paso-3-color)
+- [Paso 4 Crea la colección en Figma](#paso-4-crea-la-colección-en-figma)
+- [Paso 5 Anota qué primitivo usa cada elemento](#paso-5-anota-qué-primitivo-usa-cada-elemento)
+- [Comprueba tus primitivos](#comprueba-tus-primitivos)
+
+## Qué necesitas
+
+- El inventario del [ejercicio del módulo 1](/fundamentals/exercise-inventory), con cada valor, su tipo, cuántas veces aparece y dónde.
+- El color principal de tu marca.
+- Un archivo de Figma con el perfil de color sRGB.
+- Opcional: Python 3, si quieres generar las escalas de color con el script del repositorio.
+- Entre 60 y 120 minutos.
+
+## Paso 1 Espaciado radio y borde
+
+1. Elige la base del espaciado: 4 px, como Tokens101, u 8 px si tu equipo ya trabaja así ([Espaciado](/primitives/spacing#de-dónde-sale-la-base-de-4-px)).
+2. Lleva cada espaciado del inventario al paso más cercano. Los casi duplicados se funden; los valores entre dos pasos obligan a decidir ([Encajar tu inventario en la escala](/primitives/spacing#encajar-tu-inventario-en-la-escala)).
+3. Haz lo mismo con los radios y los grosores de borde. Si usas píldoras o círculos, añade un radio `full` ([Radio y grosor de borde](/primitives/radius-and-border)).
+
+Nombra cada paso con su número proporcional: con base 4, `space/400` = 16 px.
+
+## Paso 2 Tipografía
+
+1. Anota las familias (normalmente una o dos).
+2. Ordena los tamaños de menor a mayor y numéralos: `font-size/01`, `02`… Fusiona los casi duplicados.
+3. Anota los pesos que usas, con su número CSS: `font-weight/400`, `600`…
+4. Anota los interlineados como multiplicador (150 % = 1.5). Irán en código, no en Figma ([Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras)).
+
+## Paso 3 Color
+
+1. Convierte tu color de marca a oklch y genera su escala de once pasos con el método de [Escalas de color](/primitives/color-scales#el-método): en `tools/scales.py`, cambia `ACCENT_HSL` y ejecuta el script.
+2. Genera los neutros con el tono de tu marca. Elige el tinte: 0,5 como Tokens101, o 0 para un gris puro.
+3. Si tu diseño tiene mensajes de información, éxito, aviso o error, genera sus escalas por tono ([Escalas de estado](/primitives/status-colors)). Si tu marca ya es de uno de esos tonos, reutiliza su escala, como hace Tokens101 con `emerald`.
+4. Nombra cada paleta por su tono, no por su rol.
+5. Revisa el contraste de las tablas: qué paso admite texto blanco y cuál es el gris más claro que sirve para texto sobre blanco.
+
+<Callout variant="note">
+
+Si no usas el script, puedes aplicar el método a mano con un conversor a oklch. Lo importante es que la L de cada paso siga una curva de referencia y que el color de marca quede exacto en su paso.
+
+</Callout>
+
+## Paso 4 Crea la colección en Figma
+
+Crea la colección `Primitives` con un modo y añade las variables de los pasos 1 a 3. Para cada escala, aplica el scope y la visibilidad de [La colección completa](/primitives/primitives-collection#la-colección-de-un-vistazo), y añade el code syntax Web.
+
+No crees variables para los interlineados ni para los espaciados negativos: anótalos aparte como tokens de código.
+
+## Paso 5 Anota qué primitivo usa cada elemento
+
+Vuelve a la columna "Dónde aparece" de tu inventario. Para cada uso, anota el primitivo que le corresponde:
+
+| Dónde aparece | Valor original | Primitivo |
+|---|---|---|
+| Fondo del botón principal | `#33CC99` | `color/emerald/500` |
+| Texto secundario | `#6B7570` | `color/neutral/500` |
+| Fondo de la página | `#FFFFFF` | `color/white` |
+| Padding de las tarjetas | 15 px | `space/400` |
+
+Fíjate en que varios usos distintos pueden apuntar al mismo primitivo, y que cada uso tiene un nombre que describe su función: "fondo del botón principal", "texto secundario". Esos usos serán tus **tokens semánticos** en el módulo Relaciones.
+
+## Comprueba tus primitivos
+
+Tus primitivos están listos si puedes responder que sí a estas preguntas:
+
+- ¿Cada valor del inventario tiene un paso en una escala, o has decidido conscientemente eliminarlo?
+- ¿Los números de espaciado, radio y grosor son proporcionales a su valor?
+- ¿Tu color de marca aparece exacto en su escala?
+- ¿Ninguna paleta se llama por su rol?
+- ¿La colección `Primitives` tiene un solo modo, scopes y visibilidad según cada escala, y code syntax en todas las variables?
+- ¿Tienes una lista de usos con el primitivo que le corresponde a cada uno?
+
+<Callout variant="recommendation">
+
+Guarda la lista del paso 5. En el módulo Relaciones crearás un token semántico por cada uso, como alias del primitivo que has anotado.
+
+</Callout>
+
+## Fuentes
+
+Las de las lecciones del módulo. En especial:
+
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma — Manage color profiles in design files](https://help.figma.com/hc/en-us/articles/360039825114-Manage-color-profiles-in-design-files)
+- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)

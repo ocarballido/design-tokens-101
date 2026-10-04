@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: módulo 2, lecciones 1–7).
+Última actualización: 2026-10-04 (sesión de contenido: módulo 2 completo en borrador; falta el build).
 
 ---
 
@@ -15,7 +15,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 3 | Oscar | Crear el repositorio en GitHub | Hecho (2026-10-03): `ocarballido/design-tokens-101`. Documentos trasladados aquí (P9) |
 | 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
-| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en preparación |
+| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en borrador, pendiente de revisión y de build |
 | 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Hecho (2026-10-03): Terrazzo + Resolver DTCG, dos capas y Tailwind (V06–V12) |
 | 8 | Desarrollo C | Componentes y páginas con el diseño | Hecho (2026-10-03): todo el inventario, plantilla y modos (V13–V22). Quedan detalles para Oscar (ver Desarrollo) |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
@@ -36,44 +36,47 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 - **Módulo 1, Fundamentos, en español (2026-10-03; aprobado por Oscar el 2026-10-04):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
 
-- **Módulo 2, Primitivos, en español (en redacción desde el 2026-10-04, T7):** `content/es/02-primitives/` con `meta.json`. Hechas: `what-is-a-primitive`, `spacing`, `radius-and-border`, `typography`, `color-space` (con `Flow` del recorrido del color), `color-scales` (con `Flow` del método) y `status-colors`. Faltan: `primitives-collection` y `exercise-scales` (las ya escritas enlazan a ellas).
+- **Módulo 2, Primitivos, en español (2026-10-04, borrador pendiente de revisión de Oscar, T7):** `content/es/02-primitives/` con `meta.json` (V05) y nueve páginas: `what-is-a-primitive`, `spacing`, `radius-and-border`, `typography`, `color-space` (pedida por Oscar; con `Flow` del recorrido del color), `color-scales` (con `Flow` del método), `status-colors`, `primitives-collection` y `exercise-scales` (T6: prepara el módulo 3 con la lista de usos y su primitivo). Refleja S9–S13, S16–S20, S22 (primitivos), D01, D02, D04, V24 y Timing/Easing. Fuentes nuevas en `99-resources/01-sources`. Enlaces nuevos al módulo 2 desde `05-what-we-teach` (paso "Primitivos" del `Flow`), `04-figma-dtcg-tailwind` y el módulo 1 (sustituyen menciones sin enlace a "el módulo Primitivos"; el texto aprobado no cambia).
+- **`tools/scales.py` (S30):** contraste sobre el hex guardado, escalas de estado en la salida, sin `green` y constante `TINT`. Valores sin cambios; §3.5 de la especificación recalculada.
 
 - **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Build y comprobación hechos por la sesión de desarrollo (2026-10-04, ver Desarrollo → "Gráficos `Flow` del bloque 0"). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
+
+**Comprobación del módulo 2 (2026-10-04): falta el build.** npm vuelve a dar 403 en la sesión de contenido, así que no se ha ejecutado `npm run build && npm run check:content`. Comprobado con un script aparte (reglas de `rehype-slug`): 22 páginas en español, 148 anclas, todos los enlaces internos y anclas con destino, `href` de `Flow` existentes, etiquetas `Callout`/`InCode`/`Flow` equilibradas y sin `{`, `}` ni `<` sueltos fuera del código. **Para la sesión de desarrollo:** `npm run build && npm run check:content`, y ver los dos `Flow` nuevos (`/es/primitives/color-space`, 5 pasos; `/es/primitives/color-scales`, 7 pasos, con metas largas) a 320, 375 y 1440 px en Light y Dark.
 
 **Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Build ejecutado en local por la sesión de desarrollo (2026-10-03): sin errores** (ver Desarrollo → "Comprobación del contenido").
 
 **Pendiente**
 - Lección del módulo 8 (Ejercicio final) a partir del ejercicio de cierre (S8–S29).
-- **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
-- Módulos 2 a 8 (módulo 1 aprobado el 2026-10-04).
+- Revisión del módulo 2 por Oscar. Módulos 3 a 8 (módulo 1 aprobado el 2026-10-04).
+- **Pendientes de verificar del módulo 2:** qué exporta Figma en DTCG cuando una variable de color se escribió en oklch, y cómo muestra un oklch fuera de sRGB en un archivo sRGB (`color-space`); si los alias a variables ocultas funcionan desde otro archivo que usa la biblioteca (`primitives-collection`).
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
 
 **Pendiente de reflejar en el contenido**
-- S9, S10: lección sobre espacio de color y método de escalas (módulo 2).
-- S13, S18, S19: escalas primitivas y de estado (módulo 2).
 - S14, S15, S17: nomenclatura propiedad primero y convención (módulo 4).
 - S21: tabla semántica y contraste (módulos 3, 5 y 7).
-- S22, S23: visibilidad y scopes en Figma; semánticos de radio (módulos 2 y 3, apartados "En Figma").
+- S22, S23: visibilidad y scopes de los semánticos; semánticos de radio (módulo 3, apartados "En Figma"). La parte de los primitivos ya está en el módulo 2.
 - S24: estilos de texto como capa semántica tipográfica (módulo 3).
 - S25, S26: tokens solo de código cuando Figma no los admite (módulo 6).
 - S27: prefijo `--t101-` y por qué evita la referencia circular (módulo 6). Matiza el error corregido n.º 8 de la fase 1.
-- **D01:** Figma interpreta una variable en el interlineado como píxeles; por eso `line-height/*` es solo de código y los estilos usan porcentaje (módulos 2 y 6). Candidato a "errores frecuentes".
-- **D02:** el scope `GAP` cubre gap y padding; el espaciado negativo es solo de código (módulos 2 y 6).
+- **D01:** Figma interpreta una variable en el interlineado como píxeles; por eso `line-height/*` es solo de código y los estilos usan porcentaje (módulo 6; reflejado en los módulos 1 y 2). Candidato a "errores frecuentes".
+- **D02:** el scope `GAP` cubre gap y padding; el espaciado negativo es solo de código (módulo 6; reflejado en el módulo 2, con el hallazgo de que CSS tampoco admite `gap` negativo).
 - **D03:** code syntax Web con `var(--t101-…)`; ejemplo real de lo que produce el servidor MCP de Figma con cada formato (módulos 6 y 10).
-- **D04:** pesos como variables Number; diferencia entre String y Number en Dev Mode (módulos 2 y 6). Afecta a la fase 1 (tema 2, "Peso tipográfico").
+- **D04:** pesos como variables Number; diferencia entre String y Number en Dev Mode (módulo 6; reflejado en los módulos 1 y 2). Afecta a la fase 1 (tema 2, "Peso tipográfico").
 - **D10, D11:** tamaños de texto por contexto (colección Layout) y breakpoint solo de código (módulos 5 y 6).
 - **D12–D14:** tokens de estado, por qué no hay categoría `action`, el estado en el lugar del énfasis (patrón SDS) y por qué no hay disabled (módulos 3, 4 y 7). Buen ejemplo para el módulo 7: el hover no necesita 3:1, el indicador de seleccionado sí.
 - **D17:** en Figma la negrita de un fragmento rompe el estilo de texto; por eso existe `body/strong` (módulo 3). Candidato a "errores frecuentes".
 - **D20:** token de ancho máximo de la columna de lectura y por qué es una excepción a "semánticos siempre alias" (módulos 3 y 4).
+- **S16, S17 (regla 5), S20:** paletas por tono y nunca por rol. Reflejado en el módulo 2; el módulo 4 (Nombrar) debe retomarlo con el resto de la convención.
+- **`$root` de DTCG 2025.10 (módulo 4):** ver Hallazgos (2026-10-04).
 - **P9:** cómo se comparte una fuente de verdad entre sesiones y herramientas (material para el módulo 10).
-- **C12:** al hablar de los modos del sistema, se usan los nombres de Figma (Light, Dark, Desktop, Mobile). Aplicado ya en el bloque 0 y en el módulo 1.
+- **C12:** al hablar de los modos del sistema, se usan los nombres de Figma (Light, Dark, Desktop, Mobile). Aplicado ya en el bloque 0 y en los módulos 1 y 2.
 - **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
 - **V02:** mientras falte el inglés, `/en/…` muestra el español con un aviso. Puede citarse en "Cómo se hizo esta web".
 - **V06–V12 (módulo 6, itinerario de código):** la cadena Figma → normalización → Resolver DTCG → Terrazzo → dos capas → Tailwind (`docs/paso-7-tokens.md` §8). V09 es buen ejemplo de "separar la fuente de la recomendación": funciona, pero no está documentado, y por eso hay una prueba que lo vigila. V10 completa D07 (cómo se aplica el modo oscuro en CSS).
-- **Timing y Easing en Figma (módulos 1, 2 y 6):** existen como tipos de variable. Sin verificar: si se exportan en DTCG y en qué unidad (la ayuda de Figma dice milisegundos; la API de plugins, segundos).
+- **Timing y Easing en Figma (módulo 6; reflejado en los módulos 1 y 2):** existen como tipos de variable. Sin verificar: si se exportan en DTCG y en qué unidad (la ayuda de Figma dice milisegundos; la API de plugins, segundos).
 - **Paso 7 (módulo 6):** todo `docs/paso-7-tokens.md`, sobre todo lo que la exportación DTCG de Figma no incluye (tipos y alias, §1) y por qué hace falta normalizar. Candidato a "errores frecuentes": esperar que la exportación de Figma conserve los alias.
 - **V01:** en Next.js 16 el middleware se llama `proxy.ts`, y los plugins de MDX con Turbopack se escriben como texto (módulo 6, itinerario de código).
 - **V13 (módulo 6):** `next/font` sirve la fuente con un nombre propio, así que el nombre del token (`Inter`) no basta en CSS; la capa de Tailwind pone la variable de `next/font` delante. Candidato a "errores frecuentes": esperar que `font-family: Inter` use la fuente cargada con `next/font`.
@@ -81,7 +84,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V16 (módulos 3 y 4):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
 - **V18, V19 (módulo 9):** cuando el dibujo y la anatomía no coinciden, se decide cuál manda y se registra. Ejemplo para "Componentes y código".
 - **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
-- **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
+- **V24 (módulo 6; reflejado en el módulo 2):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
 - **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
 - **V28 (módulos 3, 5 y 6):** otro semántico con transparencia que no puede ser alias, y además cambia con el modo: un token solo de código por modo, enganchado al modificador del Resolver. `blur/300` como token solo de código. Para el módulo 7: cabecera sticky y 2.4.11 (foco no tapado), `prefers-reduced-transparency`.
 - **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
