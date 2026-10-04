@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma y correcciones para seguir §4.2, D25).
+Última actualización: 2026-10-04 (sesión de diseño: variante `current` de `SidebarSection` en Figma, D25, y cabecera de sección sin radio, D26).
 
 ---
 
@@ -134,7 +134,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Plantillas (35:843, 35:1479, 52:487, 52:688, 55:699, 55:833): "Empezar aquí" con `current = true`.
 - Auditoría: sin valores sueltos en las 6 variantes nuevas, texto con `label/default`, cabecera de 304 × 40 px (≥ 24 × 24). Contraste en Figma: 5,08 / 10,92 (`text/accent/default` sobre `background/neutral/default`) y 6,62 / 10,58 (`text/accent/hover` sobre `background/neutral/hover`), igual que en código.
 - Nota técnica: al clonar una variante con la API de Figma, el texto pierde su vínculo con la propiedad `title` y las instancias muestran "Label". Se reconectó a mano; comprobado en las 6 plantillas.
-- **Corregido para seguir §4.2** (Oscar eligió las recomendaciones, 2026-10-04): radio `radius/control` en las 12 variantes (antes 0 sin variable); chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `default`); en las plantillas, la sección actual con `open = true` (C11). Registrado en `componentes-v1.md` §4.10.
+- **Sin radio (D26):** se probó `radius/control` y Oscar lo revirtió; las 12 variantes quedan con radio 0 y sin variable, como `SidebarItem` (V23). §4.2 actualizada y `rounded-control` quitado de `src/components/Sidebar.tsx` (sesión de diseño, a petición de Oscar).
+- **Corregido para seguir §4.2** (Oscar eligió las recomendaciones, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `default`); en las plantillas, la sección actual con `open = true` (C11). Registrado en `componentes-v1.md` §4.10.
 - **Pregunta abierta para Oscar: anillo de foco de `SidebarSection` y `SidebarItem`.** §4.2 y Figma lo ponen por fuera; el código usa `focus-ring-inset` (por dentro) a propósito: el sidebar tiene scroll propio y la lista se pliega con `overflow: hidden`, así que un anillo por fuera quedaría recortado (`src/styles/base.css`). Opciones: a) aceptar el anillo por dentro en el sidebar y dibujarlo así en Figma, anotándolo en §4.2 (recomendado: no cambia el código y el anillo se ve entero); b) mantenerlo por fuera y que desarrollo deje espacio alrededor de las filas para que no se recorte.
 - Visto de paso, sin cambiar: en las plantillas, "Recursos" tiene `open = false` pero muestra su lección; por C11 debería verse cerrada.
 
@@ -238,6 +239,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Hueco entre el texto del enlace y el icono externo: `space/100` (Figma: `space/200` en `size=default`, `space/150` en `small`).
 
 **Pendiente o sin verificar**
+- **Comprobar en el navegador `SidebarSection` sin radio (D26):** la sesión de diseño quitó `rounded-control` de `src/components/Sidebar.tsx`, pero no pudo compilar (npm da 403 en su entorno). Falta `npm run build` y ver la cabecera en `hover` y `focus`.
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
 - **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
 - **Diseño:** crear `color/background/neutral/translucent` (Light `white` y Dark `neutral/950`, al 90 %) en Semantic color y quitar `tokens/code-only.{light,dark}.tokens.json` al reexportar (y su entrada del Resolver) (V28). Dibujar la cabecera translúcida.

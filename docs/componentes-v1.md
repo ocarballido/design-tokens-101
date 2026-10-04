@@ -591,7 +591,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Título | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
 | Chevron | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
 | Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
-| Radio | `radius/control` | ← | ← |
+| Radio | Sin radio (D26) | ← | ← |
 
 **Con `current = true`** (V30). Se combina con `open = true` y con `open = false` (el alumno puede cerrar la sección de la lección actual).
 
@@ -601,7 +601,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Título | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
 | Chevron | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
 | Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
-| Radio | `radius/control` | ← | ← |
+| Radio | Sin radio (D26) | ← | ← |
 
 **Texto.** `label/default`.
 
@@ -797,7 +797,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | Navegación móvil | En Figma, panel a pantalla completa (D21). **En código, panel lateral con overlay (V25):** ancho `size/sidebar/width`, selectores arriba, sidebar debajo, botón de cerrar `li:x`. |
 | `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
 | "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
-| `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): radio `radius/control` en todas las variantes (antes 0 sin variable) y chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
+| `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Sin radio (D26), como `SidebarItem` (V23). Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
 | `Flow` (D24) | `FlowGroup` tiene una variante `size` solo de Figma: `large` (Desktop, pasos en fila que bajan de línea) y `small` (Mobile, pasos apilados a todo el ancho). Motivo: Figma no deja cambiar la dirección de un slot en una instancia. En código no es un prop: `flex-wrap` desde 64rem y apilados por debajo (D11). Conector como componente propio, `FlowConnector`. Foco de `FlowStep` dibujado como en `PageNavLink` (el anillo ocupa el lugar del borde); en código el borde se mantiene y el anillo va por fuera. Medidas en `entrega-diseno.md` §3.3. |
 
 ---
@@ -836,3 +836,5 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | C13 | Componente `Flow` (con `FlowGroup` y `FlowStep`) para los gráficos del curso (§3.7). |
 | C14 | Componente `ColorScale` para las escalas de color (§3.8). Propuesta, pendiente de revisión. |
 | D24 | Diseño de `Flow` aprobado: `FlowConnector` propio y variante `size` de `FlowGroup` solo de Figma (§4.10). |
+| D25 | Variante `current` de `SidebarSection` en Figma (§4.2, §4.10). |
+| D26 | `SidebarSection` sin radio, como `SidebarItem` (§4.2). |

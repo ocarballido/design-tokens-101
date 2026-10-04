@@ -73,7 +73,7 @@ function SidebarSection({
         aria-controls={listId}
         onClick={() => setOpen((value) => !value)}
         className={cx(
-          'group flex w-full cursor-pointer items-center gap-200 rounded-control px-300 py-200 text-start type-label-default hover:bg-neutral-hover focus-ring-inset',
+          'group flex w-full cursor-pointer items-center gap-200 px-300 py-200 text-start type-label-default hover:bg-neutral-hover focus-ring-inset',
           current ? 'text-accent-default hover:text-accent-hover' : 'text-neutral-default',
         )}
       >
