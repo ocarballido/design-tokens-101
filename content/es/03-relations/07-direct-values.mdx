@@ -14,6 +14,7 @@ En DesignToken101, un semántico apunta siempre a un primitivo. Casi siempre: ha
 - [Sin escala a la que apuntar](#sin-escala-a-la-que-apuntar)
 - [Un alias no cambia la opacidad](#un-alias-no-cambia-la-opacidad)
 - [Cómo se controla una excepción](#cómo-se-controla-una-excepción)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## La regla
 
@@ -103,6 +104,12 @@ En el CSS generado sale como `#00000080`: el hex de ocho cifras lleva la opacida
 Falta comprobar cómo exporta Figma una variable de color con opacidad: es la primera vez que el sistema tiene una. Lo veremos en la próxima exportación.
 
 </Callout>
+
+## Lo que te llevas
+
+- La regla: un semántico es siempre un alias de un primitivo.
+- Las excepciones son tamaños sin escala y colores con opacidad, porque un alias de Figma no cambia la opacidad.
+- Cada excepción lleva su motivo registrado, lo dice en su descripción y tiene una salida prevista.
 
 ## Fuentes
 

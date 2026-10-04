@@ -16,6 +16,7 @@ Un control cambia de aspecto cuando pasas el ratón, cuando lo pulsas, cuando ti
 - [Por qué no hay disabled](#por-qué-no-hay-disabled)
 - [Mismo primitivo, distinto significado](#mismo-primitivo-distinto-significado)
 - [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## Un estado es otro token
 
@@ -102,6 +103,12 @@ En Light, `background/neutral/hover` (`neutral/100`) apenas se distingue de `bac
 En Figma, los estados son variantes del componente: una propiedad `state` con los valores `default`, `hover`, `focus`… Cada variante aplica el token de su estado. En el `SidebarItem` de DesignToken101, por ejemplo, la variante `hover` aplica `color/background/neutral/hover` al fondo y `color/text/neutral/default` al texto.
 
 Los tokens de estado se crean como cualquier semántico: una variable con un alias por modo, en la colección `Semantic color`.
+
+## Lo que te llevas
+
+- Cada estado que cambia un color es un token: hover, active, seleccionado y foco.
+- El hover no necesita 3:1; la marca de seleccionado y el foco, sí.
+- Si nada se desactiva, no hay tokens de disabled.
 
 ## Fuentes
 

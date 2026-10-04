@@ -17,6 +17,7 @@ Los colores de DesignToken101 no se eligieron uno a uno en el selector de Figma.
 - [Los límites de Figma](#los-límites-de-figma)
 - [El contraste se mide sobre lo que se guarda](#el-contraste-se-mide-sobre-lo-que-se-guarda)
 - [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## Cómo se crearon los colores de DesignToken101
 
@@ -187,6 +188,12 @@ s.contrast(s.hex_to_rgb("#1A7D5C"), [1, 1, 1])
 Las fórmulas de conversión son las de Ottosson. `oklch_to_rgb_gamut` busca el croma máximo que cabe en sRGB con la L y el tono que le das.
 
 </InCode>
+
+## Lo que te llevas
+
+- Las escalas se construyen en oklch, porque su L representa la luminosidad tal como la percibimos.
+- Los colores se guardan en sRGB, que es lo que Figma importa y exporta sin conversiones.
+- El contraste se mide sobre el hex guardado, no sobre los valores con los que se calculó.
 
 ## Fuentes
 

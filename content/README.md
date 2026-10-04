@@ -47,7 +47,8 @@ lastReviewed: 2026-09-30          # última verificación de las fuentes
 3. Contenido, con cada afirmación enlazada a su fuente.
 4. Apartado "En Figma" cuando la lección trata algo que se hace en Figma.
 5. Bloques `<InCode>` opcionales: el itinerario de código.
-6. Apartado final "Fuentes".
+6. "Lo que te llevas" (T10): tres viñetas de una frase con lo aprendido, sin enlaces. En los ejercicios, lo que el alumno tiene al terminar. También va en "En esta página".
+7. Apartado final "Fuentes".
 
 **Anclas.** Los enlaces de "En esta página" asumen `rehype-slug` (github-slugger): minúsculas, sin signos de puntuación, espacios convertidos en guiones y tildes conservadas. Por eso los títulos evitan `¿?`, comillas y dos puntos. *Verificado en el esqueleto (2026-10-03): las tildes se conservan y `npm run build && npm run check:content` comprueba que todas las anclas tienen destino.*
 

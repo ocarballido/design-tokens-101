@@ -19,6 +19,7 @@ Cada token tiene un tipo, y el tipo decide cómo lo trata cada herramienta. En e
 - [Duración y curva de animación](#duración-y-curva-de-animación)
 - [Opacidad](#opacidad)
 - [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## Los tipos simples de DTCG
 
@@ -187,6 +188,12 @@ Así quedan en el CSS de esta web algunos de los tipos de la lección:
 El CSS no conserva el tipo: una variable CSS es texto. Por eso el tipo tiene que estar bien definido **antes**, en el archivo DTCG, para que la herramienta sepa convertir `16` en `1rem` y no en `16`.
 
 </InCode>
+
+## Lo que te llevas
+
+- Un tipo simple guarda un solo valor: color, dimensión, familia, peso, duración, curva o número.
+- Los tipos de DTCG y las variables de Figma no coinciden uno a uno.
+- Por eso el peso es una variable Number, y el interlineado y el movimiento viven en código.
 
 ## Fuentes
 

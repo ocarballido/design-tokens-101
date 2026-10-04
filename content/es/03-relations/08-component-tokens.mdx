@@ -14,6 +14,7 @@ Ya conoces las dos capas que usa DesignToken101. La tercera, la de componente, a
 - [Lo que cuesta](#lo-que-cuesta)
 - [Por qué DesignToken101 no la tiene](#por-qué-designtoken101-no-la-tiene)
 - [Cómo se añadiría](#cómo-se-añadiría)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## Qué es un token de componente
 
@@ -82,6 +83,12 @@ Si un componente lo justifica, el cambio no rompe nada:
 La cadena queda en dos saltos, componente → semántico → primitivo, el máximo que permite DesignToken101 ([Las capas](/relations/layers#las-capas-de-designtoken101)). Un token de componente nunca apunta directamente a un primitivo: si lo hiciera, el componente dejaría de seguir los cambios de su semántico.
 
 En Figma, un token de componente es una variable más, con su alias. Cómo nombrarla lo verás en el módulo Nombrar: el curso de Figma propone un patrón con el componente al principio, pero DesignToken101 no ha fijado todavía el suyo, porque no lo ha necesitado.
+
+## Lo que te llevas
+
+- Un token de componente dice en qué componente se usa una decisión y apunta a un semántico.
+- Se justifica si el componente se aparta del semántico o tiene que cambiar por separado.
+- DesignToken101 no tiene ninguno: se añadirán cuando un componente los necesite.
 
 ## Fuentes
 

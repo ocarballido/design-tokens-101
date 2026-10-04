@@ -15,6 +15,7 @@ Una interfaz necesita colores para avisar: un mensaje informativo, un éxito, un
 - [Las tres escalas](#las-tres-escalas)
 - [Blanco y negro](#blanco-y-negro)
 - [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## Escalas por tono, no por rol
 
@@ -152,6 +153,12 @@ intensas = s.status_scales(1.0)  # croma original de Tailwind, ajustado a sRGB
 Para añadir otro tono (por ejemplo, `orange`), copia en `TW_STATUS` sus valores L, C y H del CSS de Tailwind CSS.
 
 </InCode>
+
+## Lo que te llevas
+
+- Los colores de estado son escalas por tono (`red`, `amber`, `blue`); el rol lo pone el semántico.
+- Se generan con el mismo método y la misma intensidad que la marca.
+- El color nunca va solo: los mensajes de estado llevan también icono y texto.
 
 ## Fuentes
 

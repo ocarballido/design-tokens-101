@@ -14,6 +14,7 @@ En el módulo 1 viste que un estilo de texto agrupa varias decisiones tipográfi
 - [De un estilo a sus primitivos](#de-un-estilo-a-sus-primitivos)
 - [Un texto sin estilo es un valor suelto](#un-texto-sin-estilo-es-un-valor-suelto)
 - [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
 
 ## El estilo es el semántico
 
@@ -98,6 +99,12 @@ Los semánticos de tamaño de texto están en la colección `Layout`, con los mo
 La exportación DTCG de Figma incluye las variables, pero no los estilos de texto. La combinación que forma cada estilo necesita su propia fuente en código. En DesignToken101 es la tabla de estilos de la especificación, y una comprobación automática vigila que el CSS coincida ([Tipos compuestos y estilos](/fundamentals/composite-types#lo-que-no-se-exporta)).
 
 </Callout>
+
+## Lo que te llevas
+
+- El estilo de texto es el semántico de la tipografía: se nombra por su rol.
+- Cada propiedad se resuelve por su camino; solo el tamaño, que cambia con el modo, tiene semántico propio.
+- Un texto sin estilo es un valor suelto: por eso existe `body/strong`.
 
 ## Fuentes
 
