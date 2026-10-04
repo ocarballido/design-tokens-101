@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: gráficos con `Flow` en el bloque 0).
+Última actualización: 2026-10-04 (sesión de desarrollo: comprobación de los gráficos `Flow` del bloque 0).
 
 ---
 
@@ -138,6 +138,12 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Foco: el borde `border/accent/default` se queda y el anillo `focus-ring` va por fuera; la caja mide lo mismo con y sin foco (152,9 × 64,4 px). Hover: borde `border/accent/strong`, título e icono `text/accent/hover`.
 - Comprobado en Chrome sin interfaz (`puppeteer-core`, `next start`) con una página temporal con el ejemplo de §3.7 y pasos sueltos (borrada): 320, 375 y 1440 px en Light, Dark y system, sin scroll horizontal de página; coincide con los marcos de Figma 64:843 y 64:1386. Teclado: solo los pasos con `href` reciben foco, en el orden del HTML. Árbol de accesibilidad: figura → lista de 5 → listas con el nombre de cada fase. Sin prueba manual ni con lector de pantalla.
 - No se encontraron diferencias entre el diseño y la anatomía. `npm run build && npm run check:content`: sin errores.
+
+**Gráficos `Flow` del bloque 0: comprobados (2026-10-04)**
+- Páginas de la sesión de contenido: `05-what-we-teach` (metodología, 5 grupos, 10 pasos, 1 con enlace) y `04-figma-dtcg-tailwind` (recorrido, 7 pasos sueltos, sin enlaces).
+- `npm run build && npm run check:content`: sin errores.
+- Chrome sin interfaz (`puppeteer-core`, `next start`), Light y Dark a 320, 375 y 1440 px: sin scroll horizontal de página; ningún paso ni grupo sale de la figura; conectores entre cada dos elementos (4 y 6); los pasos de un grupo apilados por debajo de 64rem y en fila desde 64rem; los pasos sueltos centrados y con el ancho de su texto, y los textos largos bajan de línea a 320 px. Teclado: en la metodología solo "Fundamentos" recibe foco (`/es/fundamentals/what-is-a-token`); en el recorrido, ninguno. Coincide con los marcos de Figma.
+- Sin nada que corregir en el MDX. Sin prueba manual ni con lector de pantalla.
 
 **Correcciones de Oscar (2026-10-03, V23–V27)**
 - `SidebarItem` sin radio (V23).
