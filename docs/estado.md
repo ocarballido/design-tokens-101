@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: cambios de Oscar al módulo 2 y cambios generales; falta implementar `ColorScale`).
+Última actualización: 2026-10-04 (sesión de desarrollo: `ColorScale` implementado y módulo 2 comprobado con los cambios de Oscar).
 
 ---
 
@@ -43,7 +43,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 - **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Build y comprobación hechos por la sesión de desarrollo (2026-10-04, ver Desarrollo → "Gráficos `Flow` del bloque 0"). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
 
-**`ColorScale` (C14): falta implementarlo.** `color-scales` y `status-colors` usan `<ColorScale>`, que todavía no existe: **el build fallará hasta que la sesión de desarrollo lo implemente** (anatomía en `componentes-v1.md` §3.8). Enlaces y anclas comprobados con el script aparte (22 páginas, 154 anclas, sin errores).
+**`ColorScale` (C14): implementado por la sesión de desarrollo (2026-10-04)** y comprobado en `color-scales` (2) y `status-colors` (3); ver Desarrollo → "`ColorScale` y módulo 2 con los cambios de Oscar". Pendiente de la revisión de Oscar en el navegador (C14 es provisional). Entre 1024 y ~1060 px el hex más largo baja su última letra de línea (V29). La descripción de `99-resources/01-sources` rompía el build al cambiar el guion largo por dos puntos (C15: en YAML, `: ` dentro de un valor sin comillas no es válido); se ha entrecomillado sin cambiar el texto. **Al usar dos puntos en el frontmatter, entrecomilla el valor.**
 
 **Comprobación del módulo 2 (2026-10-04): build hecho por la sesión de desarrollo, sin errores y sin cambios en el MDX** (ver Desarrollo → "Módulo 2: comprobado"). En la sesión de contenido npm volvió a dar 403 en la sesión de contenido, así que allí se comprobó con un script aparte (reglas de `rehype-slug`): 22 páginas en español, 148 anclas, todos los enlaces internos y anclas con destino, `href` de `Flow` existentes, etiquetas `Callout`/`InCode`/`Flow` equilibradas y sin `{`, `}` ni `<` sueltos fuera del código.
 
@@ -155,6 +155,14 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - `npm run build && npm run check:content`: sin errores.
 - Chrome sin interfaz (`puppeteer-core`, `next start`), Light y Dark a 320, 375 y 1440 px: sin scroll horizontal de página; ningún paso ni grupo sale de la figura; conectores entre cada dos elementos (4 y 6); los pasos de un grupo apilados por debajo de 64rem y en fila desde 64rem; los pasos sueltos centrados y con el ancho de su texto, y los textos largos bajan de línea a 320 px. Teclado: en la metodología solo "Fundamentos" recibe foco (`/es/fundamentals/what-is-a-token`); en el recorrido, ninguno. Coincide con los marcos de Figma.
 - Sin nada que corregir en el MDX. Sin prueba manual ni con lector de pantalla.
+
+**`ColorScale` y módulo 2 con los cambios de Oscar (2026-10-04)**
+- `src/components/ColorScale.tsx` (C14, anatomía de `componentes-v1.md` §3.8), registrado en `src/mdx-components.tsx`. El color de cada muestra es el code syntax Web del primitivo (`var(--t101-color-{palette}-{paso})`) y el hex sale de `tokens/dtcg/primitives/Value.tokens.json` al compilar; nada escrito a mano. Si falta un paso, el hex no tiene 6 cifras o hay `highlight` sin `highlightLabel`, el build falla.
+- `figure` + `figcaption`; `ol` de 11 pasos; muestra con `aria-hidden`, alto `space/1200`, `radius/control`, borde `border/neutral/default` de 1 px (`border/neutral/strong` de 2 px en el paso destacado). Número en `label/default`, hex en `caption/default` (`text/neutral/subtle`) y etiqueta en `caption/default`, todo sobre el fondo de la página. 4 por fila por debajo de 64rem y 11 desde 64rem (D11).
+- **Build:** fallaba por el frontmatter de `99-resources/01-sources` (dos puntos sin comillas tras C15); entrecomillado. `npm run build && npm run check:content`: sin errores, 22 lecciones × 2 idiomas, 310 anclas (108 no ASCII).
+- Chrome sin interfaz (`puppeteer-core`, `next start`), Light y Dark a 320, 375, 1024 y 1440 px, en `color-scales`, `status-colors`, `color-space` y `what-is-tokens101`: sin scroll horizontal de página. `ColorScale`: 11 pasos, 3 filas (4 + 4 + 3) a 320 y 375 px y 1 fila desde 1024 px; ningún paso sale de la figura; el texto cambia con el modo y las muestras no. A 1024 px el hex más ancho (60 px) no cabe en su paso (55 px) y baja una letra; cabe desde ~1060 px (V29). `Flow` de `color-scales`: 7 pasos y 6 conectores; `Flow` nuevo de `color-space`: 6 pasos y 5 conectores; ninguno se sale de la figura.
+- Árbol de accesibilidad: figura → lista → 11 elementos; cada uno se lee "500, #33CC99, Color de marca" (comas ocultas), sin la muestra. Chrome no da nombre a la figura a partir del `figcaption` (pasa también con `Flow`); el pie se lee igualmente como texto. Sin prueba con lector de pantalla.
+- Hex: los 55 de las 5 escalas coinciden con `tools/scales.json` (comprobados 50, 500 y 950 de cada una a mano, y todos con un script), y el color pintado en la muestra coincide con el hex mostrado.
 
 **Módulo 2: comprobado (2026-10-04)**
 - `npm run build`: compila sin errores; 22 lecciones × 2 idiomas. `npm run check:content`: sin errores, 302 anclas (104 con caracteres no ASCII), enlaces internos y orden del sidebar. No hizo falta tocar el MDX.

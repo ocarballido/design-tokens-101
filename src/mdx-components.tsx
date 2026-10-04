@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { isValidElement, type ComponentPropsWithoutRef, type ReactElement } from 'react';
 import { Callout } from '@/components/Callout';
 import { CodeBlock } from '@/components/CodeBlock';
+import { ColorScale } from '@/components/ColorScale';
 import { Flow, FlowGroup, FlowStep } from '@/components/Flow';
 import { InCode } from '@/components/InCode';
 import { TextLink } from '@/components/TextLink';
@@ -62,6 +63,7 @@ const components: MDXComponents = {
   Flow,
   FlowGroup,
   FlowStep,
+  ColorScale,
 };
 
 export function useMDXComponents(): MDXComponents {

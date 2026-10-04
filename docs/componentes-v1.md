@@ -508,7 +508,7 @@ ColorScale (figure)
 
 Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque usa tokens semánticos.
 
-**Disposición.** Desde 64rem (D11), los 11 pasos en una fila. Por debajo, una rejilla que baja de línea (p. ej. 4 por fila a 320 px), sin scroll horizontal de página (1.4.10). Sin anchos fijos.
+**Disposición.** Desde 64rem (D11), los 11 pasos en una fila. Por debajo, una rejilla que baja de línea (p. ej. 4 por fila a 320 px), sin scroll horizontal de página (1.4.10). Sin anchos fijos. Entre 1024 y ~1060 px el hex más largo baja su última letra de línea; se acepta (V29). **Implementado (2026-10-04):** 4 por fila por debajo de 64rem; alto de la muestra `space/1200`; hex en `caption/default`.
 
 **Accesibilidad.**
 - `figure` con `figcaption`; los pasos son una lista ordenada (`ol`).
