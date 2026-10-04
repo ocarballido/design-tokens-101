@@ -18,7 +18,7 @@ Algunas decisiones de diseño no son un valor, sino varios que van siempre junto
 
 ## Los tipos compuestos de DTCG
 
-La especificación llama **token compuesto** a un token cuyo valor tiene varias partes con nombre ([Format Module — Terminology](https://www.designtokens.org/TR/2025.10/format/#terminology)). Define seis tipos compuestos ([Format Module — Composite types](https://www.designtokens.org/TR/2025.10/format/#composite-types)):
+La especificación llama **token compuesto** a un token cuyo valor tiene varias partes con nombre ([Format Module: Terminology](https://www.designtokens.org/TR/2025.10/format/#terminology)). Define seis tipos compuestos ([Format Module: Composite types](https://www.designtokens.org/TR/2025.10/format/#composite-types)):
 
 | Tipo | Qué agrupa |
 |---|---|
@@ -29,7 +29,7 @@ La especificación llama **token compuesto** a un token cuyo valor tiene varias 
 | `transition` | Duración, retraso y curva de una transición |
 | `gradient` | Las paradas de un degradado: color y posición |
 
-Cada parte de un compuesto puede ser un valor o una referencia a otro token. Este es un estilo de título escrito como token `typography` ([Format Module — Typography](https://www.designtokens.org/TR/2025.10/format/#typography)):
+Cada parte de un compuesto puede ser un valor o una referencia a otro token. Este es un estilo de título escrito como token `typography` ([Format Module: Typography](https://www.designtokens.org/TR/2025.10/format/#typography)):
 
 ```json filename="typography.tokens.json"
 {
@@ -52,7 +52,7 @@ Las llaves `{…}` son referencias a otros tokens: el compuesto reúne decisione
 
 ## En Figma los compuestos son estilos
 
-Figma no tiene variables compuestas. Para agrupar varios valores usa **estilos**. Según su ayuda, un estilo sirve para crear una combinación de valores, pero no se puede usar dentro de otro estilo ni de una variable; las variables, en cambio, sí se pueden aplicar a estilos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+Figma no tiene variables compuestas. Para agrupar varios valores usa **estilos**. Según su ayuda, un estilo sirve para crear una combinación de valores, pero no se puede usar dentro de otro estilo ni de una variable; las variables, en cambio, sí se pueden aplicar a estilos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
 
 | Tipo DTCG | En Figma |
 |---|---|
@@ -61,7 +61,7 @@ Figma no tiene variables compuestas. Para agrupar varios valores usa **estilos**
 | `border` | Sin estilo propio: color y grosor del trazo, cada uno con su variable |
 | `gradient` | Relleno de degradado; cada parada puede llevar una variable de color |
 
-Puedes aplicar variables a las propiedades de un estilo de texto y de un estilo de efecto ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Así el estilo agrupa las decisiones, y cada decisión sigue siendo una variable.
+Puedes aplicar variables a las propiedades de un estilo de texto y de un estilo de efecto ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Así el estilo agrupa las decisiones, y cada decisión sigue siendo una variable.
 
 ## Los estilos de texto de Tokens101
 
@@ -85,7 +85,7 @@ Los estilos de texto son la capa semántica de la tipografía en Tokens101: se n
 
 ## Lo que no se exporta
 
-La exportación de variables de Figma trabaja con variables por modo ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Al exportar las variables de esta web comprobamos que ningún archivo trae tokens `typography`: los estilos de texto **no se exportan** en DTCG.
+La exportación de variables de Figma trabaja con variables por modo ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Al exportar las variables de esta web comprobamos que ningún archivo trae tokens `typography`: los estilos de texto **no se exportan** en DTCG.
 
 <Callout variant="warning">
 
@@ -101,7 +101,7 @@ En Tokens101, la fuente de los estilos compuestos en código es la tabla de esti
 
 ## Sombras
 
-Un token `shadow` de DTCG agrupa color, desplazamiento horizontal y vertical, desenfoque y extensión, y puede ser una lista de varias sombras ([Format Module — Shadow](https://www.designtokens.org/TR/2025.10/format/#shadow)). En Figma, una sombra es un estilo de efecto, y su color y sus medidas admiten variables ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+Un token `shadow` de DTCG agrupa color, desplazamiento horizontal y vertical, desenfoque y extensión, y puede ser una lista de varias sombras ([Format Module: Shadow](https://www.designtokens.org/TR/2025.10/format/#shadow)). En Figma, una sombra es un estilo de efecto, y su color y sus medidas admiten variables ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
 
 <Callout variant="recommendation">
 
@@ -111,7 +111,7 @@ La primera versión de Tokens101 no tiene sombras: ningún componente las necesi
 
 ## En Figma
 
-Para que un estilo de texto use variables ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
+Para que un estilo de texto use variables ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
 
 1. Crea un estilo de texto o abre uno existente para editarlo, y nómbralo por su rol, por ejemplo `heading/1`.
 2. Abre el desplegable de la familia tipográfica, elige *Apply variable* y selecciona la variable. Haz lo mismo con el peso.
@@ -122,7 +122,7 @@ Crearás los estilos de Tokens101 en el módulo Relaciones, cuando tengas las va
 
 <InCode title="Un estilo de texto en el CSS de esta web">
 
-Como el estilo no llega en la exportación, se escribe a mano en CSS a partir de la tabla de la especificación. Cada estilo es una utilidad de Tailwind CSS ([Tailwind CSS — Adding custom utilities](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities)):
+Como el estilo no llega en la exportación, se escribe a mano en CSS a partir de la tabla de la especificación. Cada estilo es una utilidad de Tailwind CSS ([Tailwind CSS: Adding custom utilities](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities)):
 
 ```css
 @utility type-heading-1 {
@@ -140,7 +140,7 @@ Cada propiedad apunta a un token. El estilo agrupa decisiones, no valores: igual
 ## Fuentes
 
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
-- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
-- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
-- [Tailwind CSS — Adding custom utilities](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Tailwind CSS: Adding custom utilities](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities)

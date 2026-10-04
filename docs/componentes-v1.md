@@ -1,4 +1,4 @@
-# Tokens101 — Componentes v1 (anatomía)
+# Tokens101: Componentes v1 (anatomía)
 
 Encargo para diseñar los componentes de la web en Figma. **Oscar diseña; este documento solo fija la estructura** (D05): para qué sirve cada componente, sus partes, sus props, sus estados y qué token lleva cada parte en cada estado. No decide el aspecto: tamaños, iconos, alineaciones y proporciones son libres, siempre con tokens.
 
@@ -26,7 +26,7 @@ Documentos relacionados: `docs/sistema-tokens-v1.md` (tokens y estilos de texto)
 
 Cada propiedad de un componente de Figma se llama igual que el prop de React, en camelCase (`variant`, `defaultOpen`). Los valores de las variantes son los mismos que los del tipo en TypeScript (`note`, `warning`).
 
-Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta una capa), intercambio de instancia, texto (sin texto enriquecido) y slot (un área libre donde se añade contenido) ([Figma — Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)).
+Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta una capa), intercambio de instancia, texto (sin texto enriquecido) y slot (un área libre donde se añade contenido) ([Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)).
 
 | En React | En Figma |
 |---|---|
@@ -79,7 +79,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 |---|---|---|---|---|
 | Fondo | Sin fondo | `background/neutral/hover` | `background/neutral/active` | Sin fondo |
 | Icono | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/default` | `text/neutral/subtle` |
-| Anillo de foco | — | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← | ← |
 
 **Accesibilidad.** Objetivo de al menos 24 × 24 px (diseñado a 40 × 40). El `label` es obligatorio: un icono sin nombre no lo puede anunciar un lector de pantalla.
@@ -97,7 +97,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | `variant` | `'primary' \| 'secondary'` | Variante |
 | `children` | texto de la etiqueta | Texto |
 | `icon` | icono opcional, al final | Intercambio de instancia + booleano `showIcon` |
-| `href` | `string` opcional | — (con `href` es un enlace `<a>`; sin él, un `<button>`) |
+| `href` | `string` opcional |: (con `href` es un enlace `<a>`; sin él, un `<button>`) |
 | `state` | solo Figma | Variante: `default`, `hover`, `active`, `focus` |
 
 **Variantes en Figma:** `variant` (2) × `state` (4) = 8.
@@ -108,7 +108,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 |---|---|---|---|---|
 | Fondo | `background/accent/strong/default` | `background/accent/strong/hover` | `background/accent/strong/active` | `background/accent/strong/default` |
 | Texto e icono | `text/on-accent` | `text/on-accent` | `text/on-accent` | `text/on-accent` |
-| Anillo de foco | — | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← | ← |
 
 **Tokens de `secondary`.**
@@ -118,7 +118,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | Fondo | Sin fondo | `background/neutral/hover` | `background/neutral/active` | Sin fondo |
 | Borde | `border/neutral/strong`, `border-width/100` | ← | ← | ← |
 | Texto e icono | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
-| Anillo de foco | — | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← | ← |
 
 **Texto.** `label/default`. Un solo tamaño en v1.
@@ -145,7 +145,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 
 | Prop | Tipo | En Figma |
 |---|---|---|
-| `href` | `string` | — |
+| `href` | `string` |: |
 | `children` | texto | Texto |
 | `external` | en React se deduce de `href`, no es prop | Variante `external` = `true` / `false` |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
@@ -158,7 +158,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 |---|---|---|---|
 | Texto y subrayado | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
 | Icono externo | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
-| Anillo de foco | — | — | `border/focus`, `border-width/200` |
+| Anillo de foco |: |: | `border/focus`, `border-width/200` |
 
 **Texto.** Hereda el estilo del texto en el que está (`body/default`, `body/small`…).
 
@@ -253,7 +253,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | Título | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
 | Chevron | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
 | Contenido | `text/neutral/default` | ← | ← |
-| Anillo de foco | — | — | `border/focus`, `border-width/200` (en Figma, dentro de la cabecera con `radius/container`) |
+| Anillo de foco |: |: | `border/focus`, `border-width/200` (en Figma, dentro de la cabecera con `radius/container`) |
 | Radio | `radius/container` | ← | ← |
 
 `open` solo gira el chevron y muestra u oculta el contenido; no cambia colores.
@@ -261,7 +261,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 **Texto.** Cabecera `label/default`; contenido `body/default`.
 
 **Accesibilidad.**
-- La cabecera es un `button` con `aria-expanded`: patrón Disclosure ([WAI-ARIA APG — Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)).
+- La cabecera es un `button` con `aria-expanded`: patrón Disclosure ([WAI-ARIA APG: Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)).
 - Se distingue de un `Callout` por la forma (el icono de código en la cabecera), no solo por el color.
 - En Light, el hover de la cabecera sobre el fondo `subtle` apenas se nota (1,04:1). WCAG no exige contraste en el hover; el chevron, que pasa a `text/neutral/default`, y el cursor refuerzan el estado.
 
@@ -340,7 +340,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 
 **Contraste** (≥ 4,5:1): cabecera 17,01 / 17,01; celdas 17,79 / 18,89.
 
-### 3.7 `Flow` (gráficos de proceso) — C13, aprobado por Oscar el 2026-10-04; diseño aprobado el 2026-10-04 (D24)
+### 3.7 `Flow` (gráficos de proceso): C13, aprobado por Oscar el 2026-10-04; diseño aprobado el 2026-10-04 (D24)
 
 **Para qué sirve.** Los gráficos del curso: una secuencia de pasos, que pueden estar agrupados en fases. Ejemplos:
 - La metodología de Tokens101 en "Lo que enseñamos": cuatro fases con sus módulos.
@@ -407,8 +407,8 @@ Un paso `pending` no tiene enlace: lo pendiente no tiene página todavía. El co
 | Borde | `border/accent/default` (decorativo) | `border/accent/strong` | `border/accent/default` | `border/neutral/default` (decorativo) |
 | Título | `text/neutral/default` | `text/accent/hover` | `text/neutral/default` | `text/neutral/subtle` |
 | Meta | `text/neutral/subtle` | `text/neutral/subtle` | `text/neutral/subtle` | `text/neutral/subtle` |
-| Icono de enlace (`li:arrow-right`) | `text/accent/default` | `text/accent/hover` | `text/accent/default` | — |
-| Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera | — |
+| Icono de enlace (`li:arrow-right`) | `text/accent/default` | `text/accent/hover` | `text/accent/default` |: |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |: |
 | Radio | `radius/control` | ← | ← | ← |
 
 Los espacios, el tamaño de las cajas y la alineación son libres, siempre con tokens de `space/*`. **Sin anchos fijos**: las cajas se adaptan al texto.
@@ -416,7 +416,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 **Texto.** Título del grupo `body/strong`; título del paso `label/default`; meta y pie `caption/default`.
 
 **Accesibilidad.**
-- `Flow` es un `<figure>` con su `<figcaption>` (`caption`). Los elementos de primer nivel forman una lista ordenada `<ol>`, y los pasos de un grupo, otra `<ol>` anidada. El lector de pantalla anuncia el orden y el número de pasos ([HTML — The figure element](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element)).
+- `Flow` es un `<figure>` con su `<figcaption>` (`caption`). Los elementos de primer nivel forman una lista ordenada `<ol>`, y los pasos de un grupo, otra `<ol>` anidada. El lector de pantalla anuncia el orden y el número de pasos ([HTML: The figure element](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element)).
 - **El orden lo da el HTML, no la posición en pantalla.** Al bajar de línea, el orden visual sigue siendo el del código.
 - Los conectores son decorativos: `aria-hidden="true"`.
 - Un paso con `href` es un único enlace (`<a>`, con el `Link` de next-intl) que ocupa toda la caja. Su nombre accesible es el título más la meta.
@@ -467,6 +467,63 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 
 ---
 
+### 3.8 `ColorScale` (escala de color visual): C14, propuesta de la sesión de contenido (2026-10-04), pendiente de revisión de Oscar
+
+**Para qué sirve.** Mostrar una escala primitiva de color como una fila de muestras, junto a la tabla con sus valores. Se usa en las lecciones Escalas de color y Escalas de estado del módulo 2.
+
+**Esquema.**
+
+```txt
+ColorScale (figure)
+├── lista ordenada de pasos (ol)
+│     └── paso (li): muestra · número del paso · hex · [etiqueta]   × 11
+└── pie (figcaption)
+```
+
+**Props.**
+
+| Prop | Tipo | Notas |
+|---|---|---|
+| `palette` | `'emerald' \| 'neutral' \| 'red' \| 'amber' \| 'blue'` | Obligatorio. Los pasos son siempre 50, 100… 900, 950 |
+| `caption` | `string` | Obligatorio: frase que explica la escala |
+| `highlight` | `string` opcional | Un paso que destacar, p. ej. `"500"` |
+| `highlightLabel` | `string` opcional | Texto que acompaña al paso destacado, p. ej. "Color de marca". Obligatorio si hay `highlight` (1.4.1) |
+
+**Datos.** El color de cada muestra es la variable del primitivo: `var(--t101-color-{palette}-{paso})`. El hex que se muestra se lee al compilar de los tokens generados (`tokens/dtcg/primitives`), en mayúsculas y con 6 cifras (`#33CC99`, no `#3c9`). Nada se escribe a mano: si la escala cambia en Figma y se regenera, el gráfico cambia.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Muestra: relleno | `var(--t101-color-{palette}-{paso})` (primitivo) |
+| Muestra: borde | `border/neutral/default`, `border-width/100` (para que los pasos claros se distingan del fondo) |
+| Muestra: radio | `radius/control` |
+| Muestra: alto | Un paso de `space/*` (p. ej. `space/1200`); ancho flexible |
+| Número del paso | `text/neutral/default`, `label/default` |
+| Hex | `text/neutral/subtle`, `code/default` o `caption/default` |
+| Etiqueta del paso destacado | `text/neutral/default`, `caption/default` |
+| Paso destacado: marca visual | Borde `border/neutral/strong`, `border-width/200` (≥ 3:1 con el fondo) |
+| Pie | `text/neutral/subtle`, `caption/default` |
+| Separación | `space/*` |
+
+Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque usa tokens semánticos.
+
+**Disposición.** Desde 64rem (D11), los 11 pasos en una fila. Por debajo, una rejilla que baja de línea (p. ej. 4 por fila a 320 px), sin scroll horizontal de página (1.4.10). Sin anchos fijos.
+
+**Accesibilidad.**
+- `figure` con `figcaption`; los pasos son una lista ordenada (`ol`).
+- La muestra es decorativa (`aria-hidden="true"`): la información está en el texto de cada paso (número y hex). Cada `li` se lee como "500, #33CC99, Color de marca".
+- El paso destacado se distingue por texto (`highlightLabel`) además del borde (1.4.1).
+- Todo el texto va sobre el fondo de la página, no sobre la muestra: el contraste es el de los tokens de texto (≥ 4,5:1), sea cual sea el color de la muestra.
+
+**En el MDX.**
+
+```mdx
+<ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de Tokens101, del paso 50 al 950." />
+```
+
+---
+
 ## 4. Componentes de la estructura de la página
 
 ### 4.1 `LessonHeader`
@@ -490,7 +547,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 | Título | `text/neutral/default` | `heading/1` |
 | Descripción | `text/neutral/subtle` | `body/default` |
 | Fecha | `text/neutral/subtle` | `caption/default` |
-| Contenedor (§4.10) | Borde `border/neutral/default`, `border-width/100`; radio `radius/container` | — |
+| Contenedor (§4.10) | Borde `border/neutral/default`, `border-width/100`; radio `radius/container` |: |
 
 **Accesibilidad.** `title` es el único `h1` de la página.
 
@@ -530,7 +587,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 | Fondo de la cabecera | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Título | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
 | Chevron | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
-| Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← |
 
 **Texto.** `label/default`.
@@ -540,7 +597,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 | Prop | Tipo | En Figma |
 |---|---|---|
 | `title` | `string` (frontmatter `nav_title`) | Texto |
-| `href` | `string` | — |
+| `href` | `string` |: |
 | `current` | `boolean`: es la lección abierta | Variante `current` = `true` / `false` |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
 
@@ -550,7 +607,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 |---|---|---|---|
 | Fondo | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Texto | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
-| Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | Sin radio (V23) | ← | ← |
 
 **Con `current = true`.**
@@ -560,7 +617,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 | Fondo | `background/accent/subtle` | ← | ← |
 | Texto | `text/accent/default` | ← | ← |
 | Marca lateral (trazo izquierdo) | `border/accent/strong`, `border-width/200` | ← | ← |
-| Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | Sin radio (V23) | ← | ← |
 
 **Texto.** `label/default`.
@@ -592,7 +649,7 @@ Si no hay lección anterior o siguiente, ese enlace no se muestra (no se desacti
 |---|---|---|
 | `direction` | `'previous' \| 'next'` | Variante |
 | `title` | `string` | Texto |
-| `href` | `string` | — |
+| `href` | `string` |: |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
 
 | Parte | `default` | `hover` | `focus` |
@@ -601,7 +658,7 @@ Si no hay lección anterior o siguiente, ese enlace no se muestra (no se desacti
 | Borde | `border/neutral/default` | `border/neutral/strong` | `border/neutral/default` |
 | "Anterior" / "Siguiente" y flecha | `text/neutral/subtle` | ← | ← |
 | Título de la lección | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
-| Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/container` | ← | ← |
 
 **Texto.** "Anterior" / "Siguiente" `caption/default`; título `label/default`.
@@ -763,4 +820,5 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | V26 | Selectores sin marca inferior en la opción actual. |
 | V27 | `size/content/max-width` = 960 px. |
 | C13 | Componente `Flow` (con `FlowGroup` y `FlowStep`) para los gráficos del curso (§3.7). |
+| C14 | Componente `ColorScale` para las escalas de color (§3.8). Propuesta, pendiente de revisión. |
 | D24 | Diseño de `Flow` aprobado: `FlowConnector` propio y variante `size` de `FlowGroup` solo de Figma (§4.10). |

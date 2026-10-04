@@ -1,4 +1,4 @@
-# Design System preparado para IA — Fase 1: Fundamentos de tokens y nomenclatura
+# Design System preparado para IA: Fase 1: Fundamentos de tokens y nomenclatura
 
 **Documento consolidado** · Versión corregida con fuentes · Cerrado el 30 de septiembre de 2026
 
@@ -104,9 +104,9 @@ Un alias es un token cuyo valor es **otro token**. DTCG trata "alias" y "referen
 **Las capas son una convención, no un estándar.** DTCG solo define tokens, grupos y alias, y establece que los grupos son arbitrarios: las herramientas no deben deducir significado de ellos.
 
 **Modelo de Figma (curso *Introduction to design systems*):**
-- **Primitivos — el qué.** Definen los valores que existen. Son solo de referencia y no se aplican directamente al diseño. Figma recomienda ocultarlos: seleccionar las variables → *Edit variables* → desmarcar *Show in all supported properties* → marcar *Hide from publishing*.
-- **Semánticos — el cómo.** Nombre con significado y propósito; se aplican al diseño. Ejemplo del curso: `surface/brand-contrast` → `pink/400`.
-- **De componente — el dónde.** Ejemplo: `button-primary-background-default` → `surface/brand-contrast`. El propio curso indica que son más habituales en sistemas enterprise y que no todos los sistemas los necesitan.
+- **Primitivos: el qué.** Definen los valores que existen. Son solo de referencia y no se aplican directamente al diseño. Figma recomienda ocultarlos: seleccionar las variables → *Edit variables* → desmarcar *Show in all supported properties* → marcar *Hide from publishing*.
+- **Semánticos: el cómo.** Nombre con significado y propósito; se aplican al diseño. Ejemplo del curso: `surface/brand-contrast` → `pink/400`.
+- **De componente: el dónde.** Ejemplo: `button-primary-background-default` → `surface/brand-contrast`. El propio curso indica que son más habituales en sistemas enterprise y que no todos los sistemas los necesitan.
 - La base siempre son los primitivos; el resto depende de las necesidades. Conviene planificarlo antes, porque reestructurar después es costoso.
 
 **Equivalencias entre sistemas**
@@ -115,7 +115,7 @@ Un alias es un token cuyo valor es **otro token**. DTCG trata "alias" y "referen
 |---|---|---|---|
 | Valor crudo | Primitive (global) | Reference (`md.ref`) | Reference |
 | Intención | Semantic | System (`md.sys`) | Semantic / System |
-| Componente | Component-specific | Component (`md.comp`) | — |
+| Componente | Component-specific | Component (`md.comp`) |: |
 
 **Las capas hacen posible el theming:** al añadir dark mode, cambia a qué primitivo apunta cada semántico, no el nombre del token.
 
@@ -239,9 +239,9 @@ La documentación de shadcn incluye secciones de `llms.txt`, Skills y un servido
 ## Tema 8. Escalas
 
 ### Color: tres filosofías
-- **Tailwind — el número es un orden:** 50, 100…900, 950 (11 pasos), en oklch. SDS usa 100–1000.
-- **Material 3 — el número es una medida:** tono (luminancia) de 0 a 100; la diferencia de tono determina el contraste.
-- **Radix — el número es una función:** 12 pasos con uso definido (1–2 fondos, 3–5 fondos de componente y estados, 6–8 bordes, 9–10 fondos sólidos, 11–12 texto). Los pasos 11 y 12 garantizan contraste APCA Lc 60 y Lc 90 sobre el paso 2.
+- **Tailwind: el número es un orden:** 50, 100…900, 950 (11 pasos), en oklch. SDS usa 100–1000.
+- **Material 3: el número es una medida:** tono (luminancia) de 0 a 100; la diferencia de tono determina el contraste.
+- **Radix: el número es una función:** 12 pasos con uso definido (1–2 fondos, 3–5 fondos de componente y estados, 6–8 bordes, 9–10 fondos sólidos, 11–12 texto). Los pasos 11 y 12 garantizan contraste APCA Lc 60 y Lc 90 sobre el paso 2.
 - **Dark mode:** los semánticos saltan al extremo opuesto de la escala (en SDS, el texto por defecto pasa de `gray-900` a `white-1000` y el fondo al revés).
 
 ### Espaciado
@@ -308,28 +308,28 @@ La documentación de shadcn incluye secciones de `llms.txt`, Skills y un servido
 - Responsive components (Figma Sites): https://help.figma.com/hc/en-us/articles/31242826664983-Create-a-responsive-component-that-automatically-adapts-to-each-breakpoint
 - Simple Design System (repo): https://github.com/figma/sds
 - SDS theme.css: https://raw.githubusercontent.com/figma/sds/main/src/theme.css
-- Foro — alias y modos entre colecciones (2023): https://forum.figma.com/archive-21/select-mode-when-creating-variable-aliases-across-libraries-collections-17243
-- Foro — caracteres en nombres de variables (2024): https://forum.figma.com/ask-the-community-7/style-variables-changed-from-lower-case-to-upper-case-18091
-- Foro — cambio automático de modo (2025): https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209
+- Foro: alias y modos entre colecciones (2023): https://forum.figma.com/archive-21/select-mode-when-creating-variable-aliases-across-libraries-collections-17243
+- Foro: caracteres en nombres de variables (2024): https://forum.figma.com/ask-the-community-7/style-variables-changed-from-lower-case-to-upper-case-18091
+- Foro: cambio automático de modo (2025): https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209
 
 **Herramientas de código**
-- Style Dictionary — DTCG: https://styledictionary.com/info/dtcg/
-- Style Dictionary — transforms: https://styledictionary.com/reference/hooks/transforms/predefined/
-- Style Dictionary — formats: https://styledictionary.com/reference/hooks/formats/predefined/
-- Terrazzo — Tailwind: https://terrazzo.app/docs/integrations/tailwind/
-- Tailwind — Theme variables: https://tailwindcss.com/docs/theme
-- Tailwind — Dark mode: https://tailwindcss.com/docs/dark-mode
-- Tailwind — Padding (spacing): https://tailwindcss.com/docs/padding
-- MDN — prefers-color-scheme: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+- Style Dictionary: DTCG: https://styledictionary.com/info/dtcg/
+- Style Dictionary: transforms: https://styledictionary.com/reference/hooks/transforms/predefined/
+- Style Dictionary: formats: https://styledictionary.com/reference/hooks/formats/predefined/
+- Terrazzo: Tailwind: https://terrazzo.app/docs/integrations/tailwind/
+- Tailwind: Theme variables: https://tailwindcss.com/docs/theme
+- Tailwind: Dark mode: https://tailwindcss.com/docs/dark-mode
+- Tailwind: Padding (spacing): https://tailwindcss.com/docs/padding
+- MDN: prefers-color-scheme: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
 
 **Sistemas de diseño de referencia**
-- shadcn/ui — Theming: https://ui.shadcn.com/docs/theming
-- Material Design 3 — Design tokens: https://m3.material.io/foundations/design-tokens/overview
-- Material Design 3 — How the color system works: https://m3.material.io/styles/color/system/how-the-system-works
-- Atlassian — Spacing: https://atlassian.design/foundations/spacing
-- Radix Colors — Understanding the scale: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
-- SAP Fiori (iOS) — Design tokens: https://www.sap.com/design-system/fiori-design-ios/v25-8/foundations/design-tokens
-- Serendie — Design tokens: https://serendie.design/en/foundations/design-tokens
+- shadcn/ui: Theming: https://ui.shadcn.com/docs/theming
+- Material Design 3: Design tokens: https://m3.material.io/foundations/design-tokens/overview
+- Material Design 3: How the color system works: https://m3.material.io/styles/color/system/how-the-system-works
+- Atlassian: Spacing: https://atlassian.design/foundations/spacing
+- Radix Colors: Understanding the scale: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+- SAP Fiori (iOS): Design tokens: https://www.sap.com/design-system/fiori-design-ios/v25-8/foundations/design-tokens
+- Serendie: Design tokens: https://serendie.design/en/foundations/design-tokens
 
 **Autores**
 - Nathan Curtis, *Naming Tokens in Design Systems* (EightShapes, 2020): https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676

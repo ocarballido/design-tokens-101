@@ -1,4 +1,4 @@
-# Tokens101 — Sistema de tokens v1 (especificación)
+# Tokens101: Sistema de tokens v1 (especificación)
 
 Especificación del sistema de tokens de Tokens101. Es el encargo para la sesión de diseño (variables en Figma) y el contenido del ejercicio final del curso (módulo 8). Se construyó en la sesión de contenido (paso 2 de `docs/estado.md`). Cualquier cambio sigue el protocolo de `docs/decisiones.md`.
 
@@ -26,7 +26,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 
 ---
 
-## 1. Marca — Cerrada (A1)
+## 1. Marca (cerrada, A1)
 
 - **Marca:** Tokens101, firmada por Oscar Carballido.
 - **Color de acento:** HSL(160, 60 %, 50 %) = `#33CC99` = oklch(0.755 0.145 165.4). Sustituye al valor inicial HSL(150, 50 %, 60 %) (corrección de Oscar, 2026-09-30). *Si vuelve a cambiar, se regeneran las escalas con el mismo método (sección 3).*
@@ -35,7 +35,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
   - Interfaz y texto: **Inter**. Licencia SIL Open Font License 1.1; fuente variable ([rsms/inter](https://github.com/rsms/inter)).
   - Código y nombres de tokens: **JetBrains Mono**. Licencia OFL-1.1, uso comercial y no comercial gratuito; tiene ligaduras que se pueden activar o desactivar ([JetBrains/JetBrainsMono](https://github.com/JetBrains/JetBrainsMono)).
 
-## 2. Espacio de color — Cerrada (A7): opción B
+## 2. Espacio de color (cerrada, A7): opción B
 
 **Decisión:** las escalas se *construyen* en oklch y se *guardan* en sRGB.
 
@@ -44,9 +44,9 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 - El CSS puede salir en hex u oklch; el color es el mismo. El formato de salida se decide en la sesión de desarrollo (A8).
 
 **Por qué:**
-- La importación DTCG de Figma solo acepta color en sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
-- oklch expresa la luminosidad tal como la percibimos y sirve para crear variaciones armónicas ([MDN — oklch()](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch)). Construir la escala en oklch da pasos regulares y hace más predecible el contraste entre pasos.
-- Figma admite archivos en sRGB (por defecto) o Display P3 en todos los planes. Al convertir el perfil, los valores de las variables de color no cambian ([Figma — Manage color profiles](https://help.figma.com/hc/en-us/articles/360039825114-Manage-color-profiles-in-design-files)). Un archivo en sRGB garantiza que el valor guardado es el que se ve.
+- La importación DTCG de Figma solo acepta color en sRGB y HSL ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- oklch expresa la luminosidad tal como la percibimos y sirve para crear variaciones armónicas ([MDN: oklch()](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch)). Construir la escala en oklch da pasos regulares y hace más predecible el contraste entre pasos.
+- Figma admite archivos en sRGB (por defecto) o Display P3 en todos los planes. Al convertir el perfil, los valores de las variables de color no cambian ([Figma: Manage color profiles](https://help.figma.com/hc/en-us/articles/360039825114-Manage-color-profiles-in-design-files)). Un archivo en sRGB garantiza que el valor guardado es el que se ve.
 - Se descarta Display P3 (opción C): la importación DTCG de Figma no lo admite, su exportación está sin verificar y añade complejidad al curso.
 
 **Consecuencia:** no hay colores fuera de la gama sRGB. Si la exportación diera problemas en el paso 7, el sistema pasa a la opción A (sRGB en todo) sin rehacer nada.
@@ -55,13 +55,13 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 
 **Pendiente de verificar (sesión de desarrollo, paso 7):** qué `colorSpace` escribe Figma al exportar y cómo lo convierten Style Dictionary y Terrazzo.
 
-## 3. Escalas de color — Cerrada (A5, aprobada 2026-09-30; regenerada con el acento corregido)
+## 3. Escalas de color (cerrada, A5, aprobada 2026-09-30; regenerada con el acento corregido)
 
 ### 3.1 Método
 
 Script reproducible: `tools/scales.py` (sin dependencias). Conversiones OKLab según [Björn Ottosson](https://bottosson.github.io/posts/oklab/); contraste según WCAG 2.2.
 
-1. **Pasos:** 50, 100, 200 … 900, 950 (11 pasos), como la paleta de Tailwind CSS v4 ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)).
+1. **Pasos:** 50, 100, 200 … 900, 950 (11 pasos), como la paleta de Tailwind CSS v4 ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)).
 2. **Acento:**
    - Se convierte el color de marca a oklch.
    - Se toma como referencia la curva de luminosidad (L) y croma (C) de `green` de Tailwind CSS v4, de tono cercano (≈150).
@@ -118,9 +118,9 @@ Umbrales de WCAG 2.2: 4.5:1 para texto normal y 3:1 para texto grande y componen
 - Un botón con fondo de acento y texto blanco necesita el paso 700 o superior (5.08:1).
 - neutral-500 (`#6C7671`) con fondo blanco da ≈4.7:1: es el paso más claro utilizable para texto secundario sobre blanco.
 
-### 3.5 Escalas de estado — Cerradas (S16, S18, S19)
+### 3.5 Escalas de estado (cerradas, S16, S18, S19)
 
-- **Tonos:** `red`, `amber` y `blue`, con las curvas de L, C y H por paso de Tailwind CSS v4 ([Tailwind — Colors](https://tailwindcss.com/docs/colors)).
+- **Tonos:** `red`, `amber` y `blue`, con las curvas de L, C y H por paso de Tailwind CSS v4 ([Tailwind: Colors](https://tailwindcss.com/docs/colors)).
 - **Croma armonizado:** × 0,66, la misma reducción que tiene el acento frente a su referencia. Ajuste a sRGB reduciendo solo el croma.
 - **No hay escala `green`:** `success` usa `emerald`, la escala del acento (S19). Por WCAG 1.4.1, los mensajes de éxito se distinguen también por icono y texto.
 - Script: `status_scales(0.66)` en `tools/scales.py` (sin `green` desde S30). Contraste calculado sobre el hex (S30).
@@ -173,7 +173,7 @@ Umbrales de WCAG 2.2: 4.5:1 para texto normal y 3:1 para texto grande y componen
 | 900 | 0.379 0.096 265.5 | `#293F75` | 10.18 |
 | 950 | 0.282 0.060 267.9 | `#1D2747` | 14.65 |
 
-## 4. Escalas de espaciado, tipografía, radio y borde — Cerrada (A5, aprobada 2026-09-30)
+## 4. Escalas de espaciado, tipografía, radio y borde (cerrada, A5, aprobada 2026-09-30)
 
 Criterios comunes (fase 1, tema 8):
 - Números en los primitivos y roles en los semánticos.
@@ -183,9 +183,9 @@ Criterios comunes (fase 1, tema 8):
 
 En Figma los valores van en **px** (la importación DTCG de Figma solo admite `px`); en CSS se convierten a **rem** con base 16.
 
-### 4.1 Espaciado — base 4 px, `100` = 4 px
+### 4.1 Espaciado: base 4 px, `100` = 4 px
 
-Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubusercontent.com/figma/sds/main/src/theme.css)), que usa exactamente esta escala. Coincide con Tailwind CSS v4, cuyo `--spacing` por defecto es 0.25rem = 4 px ([Tailwind CSS — Theme](https://tailwindcss.com/docs/theme)): `space/400` = `p-4`.
+Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubusercontent.com/figma/sds/main/src/theme.css)), que usa exactamente esta escala. Coincide con Tailwind CSS v4, cuyo `--spacing` por defecto es 0.25rem = 4 px ([Tailwind CSS: Theme](https://tailwindcss.com/docs/theme)): `space/400` = `p-4`.
 
 | Token | px (Figma) | rem (CSS) |
 |---|---|---|
@@ -202,7 +202,7 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 | space/1600 | 64 | 4 |
 | space/2400 | 96 | 6 |
 | space/4000 | 160 | 10 |
-| space/negative/100 · 200 · 300 · 400 · 600 | — (solo código, D02) | −0.25 · −0.5 · −0.75 · −1 · −1.5 |
+| space/negative/100 · 200 · 300 · 400 · 600 |: (solo código, D02) | −0.25 · −0.5 · −0.75 · −1 · −1.5 |
 
 **Espaciado negativo (D02): tokens solo de código.** No se crean en Figma. Se generan en código a partir de esta tabla. Motivo en §7.
 
@@ -249,7 +249,7 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 - El texto de lectura se mantiene en 16 px en móvil.
 - En Figma, un estilo de texto con el tamaño vinculado a una variable con modos cambia según el modo del marco (comprobado en el archivo el 2026-09-30: `heading/1` = 40 px en Desktop y 32 px en Mobile con el mismo estilo).
 
-**Breakpoint (D11): `breakpoint/desktop` = 64rem (1024 px), token solo de código.** En CSS, Mobile es el valor por defecto y Desktop se aplica con `@media (width >= 64rem)`. Coincide con `lg` de Tailwind CSS v4, cuyos breakpoints son *mobile-first* con `min-width` y se definen con `--breakpoint-*` ([Tailwind CSS — Responsive design](https://tailwindcss.com/docs/responsive-design)). Es también el ancho desde el que el sidebar deja de ser un panel (D09). En Figma no hay token: se diseña en dos marcos (1440 y 375 px) con el modo de Layout correspondiente.
+**Breakpoint (D11): `breakpoint/desktop` = 64rem (1024 px), token solo de código.** En CSS, Mobile es el valor por defecto y Desktop se aplica con `@media (width >= 64rem)`. Coincide con `lg` de Tailwind CSS v4, cuyos breakpoints son *mobile-first* con `min-width` y se definen con `--breakpoint-*` ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)). Es también el ancho desde el que el sidebar deja de ser un panel (D09). En Figma no hay token: se diseña en dos marcos (1440 y 375 px) con el modo de Layout correspondiente.
 
 **Pesos (D04, sustituye a la parte de S29 que usaba String):** variables **Number** con el peso numérico.
 
@@ -260,10 +260,10 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 | font-weight/600 | 600 | Semi Bold |
 | font-weight/700 | 700 | Bold |
 
-- **Fuente:** Figma admite variables Number en el peso tipográfico, solo con números como 400 o 700 ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Comprobado en el archivo: una variable Number con valor 600 en un estilo de texto de Inter lo convierte en Semi Bold.
-- **Fuente:** en Dev Mode, un peso aplicado con una variable String no se muestra como referencia a la variable, solo como número; con una variable Number sí aparece la referencia ([Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)).
+- **Fuente:** Figma admite variables Number en el peso tipográfico, solo con números como 400 o 700 ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Comprobado en el archivo: una variable Number con valor 600 en un estilo de texto de Inter lo convierte en Semi Bold.
+- **Fuente:** en Dev Mode, un peso aplicado con una variable String no se muestra como referencia a la variable, solo como número; con una variable Number sí aparece la referencia ([Figma: Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)).
 - **Recomendación aceptada:** con Number, el mismo número está en Figma, en DTCG (`fontWeight` admite números de 1 a 1000) y en CSS. Es la excepción a la regla "sin valores en el nombre": el peso numérico es el nombre estándar del paso en CSS.
-- La importación DTCG de Figma no incluye el tipo `fontWeight` entre sus tipos admitidos ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). **Comprobado en el paso 7 (2026-10-03):** Figma exporta estas variables como `"$type": "number"` con el scope `FONT_STYLE`. La normalización (`tools/figma-to-dtcg.mjs`, V06) las convierte en `fontWeight`.
+- La importación DTCG de Figma no incluye el tipo `fontWeight` entre sus tipos admitidos ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). **Comprobado en el paso 7 (2026-10-03):** Figma exporta estas variables como `"$type": "number"` con el scope `FONT_STYLE`. La normalización (`tools/figma-to-dtcg.mjs`, V06) las convierte en `fontWeight`.
 
 **Interlineado** (número sin unidad, multiplicador del tamaño de fuente, como define DTCG):
 
@@ -277,7 +277,7 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 
 El texto de lectura usa 1.5. Coincide con el mínimo de 1.4.8 Visual Presentation (AAA, "space-and-a-half") de [WCAG 2.2](https://www.w3.org/TR/WCAG22/). Además, 1.4.12 Text Spacing (AA) exige que el contenido no se rompa si el usuario fija el interlineado en 1.5: afecta al diseño de los componentes (alturas flexibles), no al token.
 
-**Tracking:** sin tokens en v1 (0 por defecto). Se añadirá si los títulos grandes lo necesitan. Nota: Figma interpreta una variable Number en el espaciado entre letras como píxeles, no como porcentaje ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+**Tracking:** sin tokens en v1 (0 por defecto). Se añadirá si los títulos grandes lo necesitan. Nota: Figma interpreta una variable Number en el espaciado entre letras como píxeles, no como porcentaje ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
 
 ### 4.3 Radio
 
@@ -323,17 +323,17 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 - Categoría nueva en el vocabulario: `size`.
 - `breakpoint/desktop` (D11) sigue siendo un token solo de código.
 
-### 4.7 Movimiento (V24) — tokens solo de código
+### 4.7 Movimiento (V24): tokens solo de código
 
 | Token | Valor | Tipo DTCG | Uso |
 |---|---|---|---|
 | duration/200 | 200 ms | `duration` | Panel de navegación móvil y acordeón del sidebar |
 | easing/standard | `cubic-bezier(0.2, 0, 0, 1)` | `cubicBezier` | Curva de todas las animaciones de la interfaz |
 
-- Viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11). **Precisión (2026-10-03):** Figma sí tiene variables **Timing** y **Easing** ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes); [Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Oscar decide mantener estos tokens solo en código. Sin verificar: si esas variables se exportan en DTCG y en qué unidad (la ayuda dice milisegundos; la API de plugins, segundos).
+- Viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11). **Precisión (2026-10-03):** Figma sí tiene variables **Timing** y **Easing** ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes); [Plugin API: Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Oscar decide mantener estos tokens solo en código. Sin verificar: si esas variables se exportan en DTCG y en qué unidad (la ayuda dice milisegundos; la API de plugins, segundos).
 - Con `prefers-reduced-motion: reduce` no hay animación (2.3.3 Animation from Interactions, AAA, [WCAG 2.2](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)).
 
-### 4.8 Desenfoque (V28) — token solo de código
+### 4.8 Desenfoque (V28): token solo de código
 
 | Token | px | rem (CSS) | Uso |
 |---|---|---|---|
@@ -344,14 +344,14 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 
 ## 5. Nomenclatura
 
-### 5.1 Escuela y orden — Cerradas (A2, A3)
+### 5.1 Escuela y orden (cerradas, A2, A3)
 
 - **Propiedad primero** (como el [SDS de Figma](https://raw.githubusercontent.com/figma/sds/main/src/theme.css) y [Atlassian](https://atlassian.design/foundations/tokens/design-tokens)), con matriz reducida y pares "on-" explícitos para texto sobre color.
 - **Orden:** categoría / propiedad / rol / énfasis / estado. Solo los niveles necesarios.
-- **Motivo principal:** encaja con los *scopes* de variables de Figma, que limitan cada variable a unas propiedades y solo la muestran en esos selectores ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). El público principal del curso son diseñadores.
-- **Coste conocido:** Tailwind usa un único espacio de nombres `--color-*` para fondo, texto y borde ([Tailwind — Theme](https://tailwindcss.com/docs/theme)), así que las clases quedan redundantes (`text-text-default`). Pendiente A12 (sesión de desarrollo).
+- **Motivo principal:** encaja con los *scopes* de variables de Figma, que limitan cada variable a unas propiedades y solo la muestran en esos selectores ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). El público principal del curso son diseñadores.
+- **Coste conocido:** Tailwind usa un único espacio de nombres `--color-*` para fondo, texto y borde ([Tailwind: Theme](https://tailwindcss.com/docs/theme)), así que las clases quedan redundantes (`text-text-default`). Pendiente A12 (sesión de desarrollo).
 
-### 5.2 Convención — Cerrada (A4)
+### 5.2 Convención (cerrada, A4)
 
 Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 
@@ -360,7 +360,7 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 1. Minúsculas y kebab-case dentro de cada segmento. Palabras completas (`background`, no `bg`). Sin valores ni temas en el nombre (S4). Excepción: los pesos tipográficos usan su número CSS (`font-weight/600`, D04).
 2. Separador `/` en Figma. Figma lo convierte en grupos anidados en DTCG y en `-` en CSS.
 3. Orden fijo: categoría / propiedad / rol / énfasis / estado. Un nivel que no aporta información no se escribe.
-4. **Hoja explícita:** si un nombre fuera a la vez token y grupo, el token lleva `/default`. DTCG prohíbe que un objeto sea token y grupo a la vez ([DTCG Format — Groups](https://www.designtokens.org/TR/2025.10/format/#group-structure)).
+4. **Hoja explícita:** si un nombre fuera a la vez token y grupo, el token lleva `/default`. DTCG prohíbe que un objeto sea token y grupo a la vez ([DTCG Format: Groups](https://www.designtokens.org/TR/2025.10/format/#group-structure)).
    - **Estado en el lugar del énfasis (D13).** Cuando un estado se añade a un token cuyo énfasis es el de por defecto y que ya es un token final, el estado ocupa el lugar del énfasis en vez de crear un nivel nuevo: `color/text/accent/default` → `color/text/accent/hover`; `color/background/neutral/hover`. Así no hay que renombrar tokens ni convertir un token en grupo. Es el patrón del SDS de Figma (`--sds-color-background-neutral-default` / `--sds-color-background-neutral-hover`, [SDS theme.css](https://raw.githubusercontent.com/figma/sds/main/src/theme.css)). Consecuencia: en ese nivel conviven palabras de énfasis (`default`, `subtle`, `strong`) y de estado (`hover`, `active`); se distinguen por el vocabulario. Cuando el énfasis no es el de por defecto, el estado va en su propio nivel, como ya ocurre en `color/background/accent/strong/{default,hover,active}`.
 5. **Primitivos:** categoría / paleta / paso (`color/red/500`, `space/400`, `radius/200`). Las paletas se nombran por su tono o por su naturaleza (neutral), **nunca por su rol**.
 6. **Semánticos:** siempre son alias de un primitivo, nunca valores directos. Máximo dos saltos (componente → semántico → primitivo). Excepciones: `size/content/max-width` (D20) y los colores con transparencia, `color/background/overlay` (V25) y `color/background/neutral/translucent` (V28), porque un alias no puede cambiar la opacidad.
@@ -399,14 +399,14 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 
 **Prefijo CSS (S27): `--t101-`.** Ejemplo: `color/text/neutral/default` → `--t101-color-text-neutral-default`. Motivo: con propiedad primero, sin prefijo la capa 1 y la capa 2 de `@theme inline` tendrían el mismo nombre (referencia circular).
 
-### 5.3 Colores de estado — Cerrado (ver §3.5)
+### 5.3 Colores de estado: Cerrado (ver §3.5)
 
 Idea de Oscar (S16): escalas primitivas por tono generadas con el mismo método que el acento. Los tokens de estado son alias de esas escalas.
 
 - `success` usa la escala `emerald` (S19), porque el acento está muy cerca de un verde de éxito.
 - WCAG 2.2, criterio 1.4.1 Use of Color (nivel A): el color no puede ser el único medio visual para transmitir información ([WCAG 2.2](https://www.w3.org/TR/WCAG22/#use-of-color)). Los estados necesitan también icono o texto.
 
-## 6. Tokens semánticos claro/oscuro — Cerrada (A6, D23)
+## 6. Tokens semánticos claro/oscuro (cerrada, A6, D23)
 
 Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en diseño). Todos los tokens son alias de primitivos (regla 6). Colección de Figma: **Semantic color**, con modos **Light** y **Dark** (S3).
 
@@ -518,7 +518,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | Seleccionado o actual (sidebar, selectores) | Marca con forma propia, no solo color (1.4.1) | `border/accent/strong` (trazo) + `background/accent/subtle` + `text/accent/default` |
 | Hover, active y foco del botón principal | Ya existían | `background/accent/strong/{default,hover,active}`, `text/on-accent`, `border/focus` |
 | Foco | Ya existía | `border/focus` + `border-width/200` |
-| Disabled | **No en v1** (D14): ningún control del inventario se desactiva | — |
+| Disabled | **No en v1** (D14): ningún control del inventario se desactiva |: |
 | Loading | No es un token: es comportamiento del componente (indicador de progreso y texto que lo anuncia) | Tokens existentes |
 
 **Fuente (WCAG 2.2, [Understanding 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)):**
@@ -536,7 +536,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 
 ## 7. Implementación en Figma: colecciones, visibilidad y scopes (S22, S26, S27, D01–D04)
 
-Scopes disponibles según [Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections): color (relleno de marco, relleno de forma, relleno de texto, trazo, efectos) y número (gap y padding de auto layout, radio, propiedades tipográficas, opacidad, efectos, trazo, contenido de texto, ancho y alto).
+Scopes disponibles según [Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections): color (relleno de marco, relleno de forma, relleno de texto, trazo, efectos) y número (gap y padding de auto layout, radio, propiedades tipográficas, opacidad, efectos, trazo, contenido de texto, ancho y alto).
 
 **Hallazgo (prueba en el archivo, 2026-09-30):** en la API de plugins de Figma solo existe un scope `GAP` para auto layout; no hay un scope de padding separado (los valores aceptados son, entre otros, `GAP`, `CORNER_RADIUS`, `WIDTH_HEIGHT`). Una variable con scope `GAP` sirve para gap y padding. Por eso no se puede limitar un token "solo al gap".
 
@@ -567,17 +567,17 @@ Scopes disponibles según [Figma — Create and manage variables](https://help.f
 Pruebas hechas con la API de plugins en el archivo TokensDS (plan Professional), en una colección temporal que después se eliminó.
 
 **Interlineado (S25 → D01).**
-- Fuente: la ayuda de Figma dice que las variables Number se pueden aplicar al interlineado, pero no dice en qué unidad ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Sí lo dice para el espaciado entre letras: píxeles.
+- Fuente: la ayuda de Figma dice que las variables Number se pueden aplicar al interlineado, pero no dice en qué unidad ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Sí lo dice para el espaciado entre letras: píxeles.
 - Prueba: al vincular una variable con valor `1.5` a un estilo de texto de 16 px, el interlineado pasa a `1.5 px`, aunque el estilo estuviera en porcentaje. Con valor `150`, pasa a `150 px`. La unidad cambia siempre a píxeles.
 - Conclusión: Figma no admite el interlineado como multiplicador. Se aplica la regla de respaldo de S25.
 
 **Gap negativo (S26 → D02).**
-- Fuente: la ayuda de Figma admite números negativos en las variables Number (ejemplo `-8`) ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+- Fuente: la ayuda de Figma admite números negativos en las variables Number (ejemplo `-8`) ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
 - Prueba: una variable con valor `−8` en el gap de un auto layout funciona (dos elementos de 40 px ocupan 72 px). Pero Figma también acepta esa variable en el padding (`paddingLeft = −8`), y el padding negativo no es válido en CSS.
 - Como el scope `GAP` cubre gap y padding (hallazgo de arriba), no se puede impedir ese uso. Decisión de Oscar: tokens solo de código.
 
 **Code syntax (S27 → D03).**
-- Fuente: el ejemplo de la ayuda de Figma escribe el code syntax Web con `var()`: `var(--extra-small)` ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+- Fuente: el ejemplo de la ayuda de Figma escribe el code syntax Web con `var()`: `var(--extra-small)` ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 - Prueba con el servidor MCP de Figma (`get_design_context`) sobre un auto layout con gap y padding vinculados a una variable:
 
 | Code syntax Web | Salida del MCP | Resultado |

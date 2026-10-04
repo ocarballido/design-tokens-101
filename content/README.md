@@ -38,7 +38,7 @@ lastReviewed: 2026-09-30          # última verificación de las fuentes
 ---
 ```
 
-`@next/mdx` no admite frontmatter por defecto, así que hay que añadir `remark-frontmatter` y `remark-mdx-frontmatter` ([Next.js — MDX, Frontmatter](https://nextjs.org/docs/app/guides/mdx#frontmatter)). Las tablas necesitan `remark-gfm`.
+`@next/mdx` no admite frontmatter por defecto, así que hay que añadir `remark-frontmatter` y `remark-mdx-frontmatter` ([Next.js: MDX, Frontmatter](https://nextjs.org/docs/app/guides/mdx#frontmatter)). Las tablas necesitan `remark-gfm`.
 
 ## Estructura de cada lección
 
@@ -63,10 +63,11 @@ Se diseñarán en Figma con el sistema de Tokens101 y se implementarán en `mdx-
 | `<Callout variant="pending">` | Algo que aún no hemos podido verificar |
 | `<InCode title="…">` | Itinerario de código; se puede plegar y el diseñador puede saltarlo |
 | `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
+| `<ColorScale palette="emerald" caption="…" />` | Una escala de color de forma visual, con paso y hex (C14). `highlight` marca un paso (p. ej. el color de marca) con `highlightLabel`. Anatomía en `docs/componentes-v1.md` §3.8 |
 
 ## Guía de redacción
 
-Adaptada de la guía de estilo de Next.js ([Docs Contribution Guide — Voice](https://nextjs.org/docs/community/contribution-guide#voice)):
+Adaptada de la guía de estilo de Next.js ([Docs Contribution Guide: Voice](https://nextjs.org/docs/community/contribution-guide#voice)):
 
 - Frases claras y cortas. Si una frase acumula comas, se divide o se convierte en lista.
 - Voz activa y segunda persona (tú).
@@ -76,6 +77,8 @@ Adaptada de la guía de estilo de Next.js ([Docs Contribution Guide — Voice](h
 - Separar siempre **lo que dice la fuente** de **la recomendación de Tokens101** (`<Callout variant="recommendation">`).
 - Los blogs y foros se marcan como tales.
 - **Nombres de los modos (C12):** cuando el texto habla de los modos del sistema de tokens, usa el nombre que tienen en Figma: Light y Dark, Desktop y Mobile. Para el concepto general ("un modo oscuro") o para el selector de tema de la web ("Modo claro"), se escribe en español.
+- **Sin guiones largos (—) (C15):** usa dos puntos, paréntesis o una frase nueva. En los títulos de enlace: `[Figma: Modes for variables](…)`.
+- **Vídeos (C16):** se enlazan, no se insertan. Indica idioma, autor y duración.
 - Lo que no está verificado se dice (`<Callout variant="pending">`).
 
 ## Nota técnica para MDX

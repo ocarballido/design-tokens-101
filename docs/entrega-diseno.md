@@ -1,4 +1,4 @@
-# Tokens101 — Entrega de diseño a desarrollo
+# Tokens101: Entrega de diseño a desarrollo
 
 Documento para la sesión de desarrollo (pasos 7 y 8 de `docs/estado.md`). Resume qué hay en Figma, cómo se corresponde con el código y qué no sale en la exportación de Figma. Fecha: 2026-10-02. **El diseño está cerrado** salvo A14 (nombre del logotipo), que no bloquea.
 
@@ -26,7 +26,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Lección, escritorio, Light / Dark | Pages | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
 | Lección, móvil, Light / Dark | Pages | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
 | Menú móvil abierto, Light / Dark | Pages | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
-| Muestra de estilos de texto | Foundations | — |
+| Muestra de estilos de texto | Foundations |: |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
 | Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark | Pages | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
 
@@ -43,7 +43,7 @@ Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-to
 
 - Todas tienen code syntax Web `var(--t101-…)` (D03). Ninguna con `ALL_SCOPES`.
 - **Si ya exportaste antes del 2026-10-02, vuelve a exportar:** desde entonces se añadieron la colección Layout, 5 colores semánticos (`border/accent/default`, `background/neutral/hover`, `background/neutral/active`, `text/accent/hover`, `border/accent/strong`) y `size/content/max-width`.
-- **Cómo exportar:** en la vista Variables, clic derecho sobre la colección → *Export modes* (todos sus modos) o sobre un modo → *Export mode* ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Los archivos se guardan en `tokens/figma/` del repositorio, sin editarlos a mano (C10).
+- **Cómo exportar:** en la vista Variables, clic derecho sobre la colección → *Export modes* (todos sus modos) o sobre un modo → *Export mode* ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Los archivos se guardan en `tokens/figma/` del repositorio, sin editarlos a mano (C10).
 - **Modos en CSS:**
   - Semantic color: Light por defecto; Dark con el selector de tema (`light`/`dark`/`system`, D07; `system` respeta `prefers-color-scheme`).
   - Layout: Mobile por defecto; Desktop con `@media (width >= 64rem)` (D11).
@@ -68,20 +68,20 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `Button` | `variant` (`primary`/`secondary`), `children`, `icon`, `href` | `showIcon`, `state` | Con `href`, `<a>`; sin él, `<button>`. |
 | `IconButton` | `icon`, `label` (nombre accesible) | `state` | 40 × 40 px, sin fondo en reposo. |
 | `Link` | `children`, `href` | `external` (se deduce de `href`), `size`, `state` | Subrayado obligatorio (1.4.1). Icono externo `li:external-link`. |
-| `Callout` | `variant` (`note`/`warning`/`recommendation`/`pending`), `children` | — | Etiqueta fija por variante: Nota, Aviso, Recomendación, Pendiente (D18), traducible. |
+| `Callout` | `variant` (`note`/`warning`/`recommendation`/`pending`), `children` |: | Etiqueta fija por variante: Nota, Aviso, Recomendación, Pendiente (D18), traducible. |
 | `InCode` | `title`, `children`, `defaultOpen` | `open`, `state` | Patrón Disclosure (`button` + `aria-expanded`). |
 | `CodeBlock` | `children`, `language`, `filename` | `showFilename`, `showCopied` | Tras copiar, texto "Copiado". Sin resaltado de colores (D08). |
-| `Code` | `children` | — | Código en línea. |
+| `Code` | `children` |: | Código en línea. |
 | `TableCell` | `children` | `header`, `ShowCode`, `ShowBody` | En MDX: `th` / `td` de `remark-gfm`. |
-| `LessonHeader` | `section`, `title`, `description`, `lastReviewed` | — | `title` es el único `h1`. |
+| `LessonHeader` | `section`, `title`, `description`, `lastReviewed` |: | `title` es el único `h1`. |
 | `SidebarSection` | `title`, `defaultOpen`, `children` | `open`, `state` | Disclosure. |
 | `SidebarItem` | `title` (frontmatter `nav_title`), `href`, `current` | `state` | `aria-current="page"`. |
 | `PageNavLink` | `direction` (`previous`/`next`), `title`, `href` | `state`, `LabelPrevious`, `LabelNext` (textos fijos) | Si no hay anterior o siguiente, no se muestra. |
 | `LanguageSwitcher` → `LanguageOption` | `locale`, `current` | `state` | `aria-current`, atributo `lang` en cada enlace (3.1.2). |
 | `ThemeToggle` → `ThemeOption` | `value` (`light`/`dark`/`system`), `current` | `state` | `button` con `aria-pressed`. |
-| `SkipLink` | — | — | Primer elemento enfocable; visible solo con el foco (2.4.1). |
-| `SiteHeader` | — | `size` (`large` escritorio / `small` móvil) | En móvil, los selectores van en el panel de navegación (D19, D21). |
-| `SiteFooter` | — | — | Incluye el aviso P7. |
+| `SkipLink` |: |: | Primer elemento enfocable; visible solo con el foco (2.4.1). |
+| `SiteHeader` |: | `size` (`large` escritorio / `small` móvil) | En móvil, los selectores van en el panel de navegación (D19, D21). |
+| `SiteFooter` |: |: | Incluye el aviso P7. |
 
 ### 3.1 Estados: cómo pasarlos a CSS
 
@@ -103,7 +103,7 @@ Sin disabled ni loading en v1 (D14).
 - Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel lateral desde la izquierda, con los selectores y el sidebar, y un overlay sobre el contenido (V25, sustituye a D21). El panel tiene su botón de cerrar (`li:x`).
 - Logotipos: SVG (D22), en `public/brand/` (C10).
 
-### 3.3 `Flow` (C13) — diseñado y aprobado el 2026-10-04 (D24)
+### 3.3 `Flow` (C13): diseñado y aprobado el 2026-10-04 (D24)
 
 Anatomía, props, tokens y accesibilidad en `componentes-v1.md` §3.7. Aquí, dónde está en Figma y lo que el dibujo añade.
 
@@ -125,10 +125,10 @@ El ejemplo es el MDX de §3.7 (cuatro fases y "Después"). Desktop mide `size/co
 
 | Componente | Props de React (en Figma) | Solo Figma |
 |---|---|---|
-| `Flow` | `caption` (texto), `children` (slot) | — |
+| `Flow` | `caption` (texto), `children` (slot) |: |
 | `FlowGroup` | `title`, `meta` (texto), `children` (slot) | `showMeta`, `size` (`large` / `small`) |
 | `FlowStep` | `title`, `meta` (texto), `status` (`default` / `pending`) | `showMeta`, `link` (`true` si hay `href`), `state` (`default` / `hover` / `focus`) |
-| `FlowConnector` | — (no es un prop: lo pone `Flow`) | — |
+| `FlowConnector` |: (no es un prop: lo pone `Flow`) |: |
 
 Variantes de `FlowStep` (5): `link=false` con `status` `default` y `pending`; `link=true` con `state` `default`, `hover` y `focus` (`status=default`). Variantes de `FlowGroup` (2): `size` `large` y `small` (D24).
 

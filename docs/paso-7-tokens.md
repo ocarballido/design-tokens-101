@@ -1,4 +1,4 @@
-# Paso 7 — De la exportación de Figma a CSS y Tailwind
+# Paso 7: De la exportación de Figma a CSS y Tailwind
 
 Informe de la sesión de desarrollo (2026-10-03). Material del módulo 6 ("De Figma al código"). Se separa siempre **lo que dicen las fuentes**, **lo que se comprobó por prueba** y **la recomendación**. Las pruebas se hicieron con copias de `tokens/figma/` fuera del repositorio.
 
@@ -17,13 +17,13 @@ Versiones probadas: Style Dictionary 5.5.5, Terrazzo 2.7.1 (`@terrazzo/cli`, `pl
 | `semantic-size/` | `Value.tokens.json` | 3 | `"Value"` |
 | `layout/` | `Desktop.tokens.json`, `Mobile.tokens.json` | 9 + 9 | `"Desktop"` / `"Mobile"` |
 
-Un archivo por modo, con el árbol completo de la colección y el nombre del modo solo en `$extensions` de la raíz. Coincide con la ayuda de Figma: "un modo por archivo" ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+Un archivo por modo, con el árbol completo de la colección y el nombre del modo solo en `$extensions` de la raíz. Coincide con la ayuda de Figma: "un modo por archivo" ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 
 ### 1.2 `$type` por grupo
 
 | Grupo | `$type` exportado | Scope de Figma | Tipo DTCG que le corresponde |
 |---|---|---|---|
-| `color/*` (primitivos y semánticos) | `color` | — / `FRAME_FILL`, `SHAPE_FILL`, `TEXT_FILL`, `STROKE` | `color` ✔ |
+| `color/*` (primitivos y semánticos) | `color` |: / `FRAME_FILL`, `SHAPE_FILL`, `TEXT_FILL`, `STROKE` | `color` ✔ |
 | `space/*` | `number` | `GAP` | `dimension` |
 | `border-width/*` | `number` | `STROKE_FLOAT` | `dimension` |
 | `radius/*` (primitivos y semánticos) | `number` | `CORNER_RADIUS` | `dimension` |
@@ -63,7 +63,7 @@ Coincide con S9 (valores sRGB como fuente de verdad). Todos los colores tienen `
 }
 ```
 
-- Fuente: la ayuda de Figma documenta que los alias **entre colecciones** se representan con `com.figma.aliasData` ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- Fuente: la ayuda de Figma documenta que los alias **entre colecciones** se representan con `com.figma.aliasData` ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 - Comprobado: los 82 alias de la exportación (31 × 2 de Semantic color, 9 × 2 de Layout, 2 radios de Semantic size) son entre colecciones. No hay alias dentro de una colección, así que no se ha visto cómo los exporta Figma.
 - Consecuencia: una herramienta que lea el archivo tal cual genera `--t101-color-text-on-accent: #050c09`, no `var(--t101-color-neutral-950)`. Se pierde la capa de alias.
 
@@ -105,13 +105,13 @@ Resultado comprobado: 82 alias, 55 `dimension`, 4 `fontWeight`, 2 `fontFamily` y
 
 | Criterio | Style Dictionary 5.5.5 | Terrazzo 2.7.1 |
 |---|---|---|
-| **DTCG 2025.10** | Fuente: "the latest format 2025.10 does not have full support yet in Style Dictionary. This is a work in progress in v5" ([SD — DTCG](https://styledictionary.com/info/dtcg/)). Prueba: lee el objeto de color y `dimension` sin problemas. | Fuente: soporta 2025.10, incluido el Resolver Module ([Terrazzo — Docs](https://terrazzo.app/docs/)). Prueba: lee todo, entrecomilla `fontFamily`. |
-| **Unión de modos (A9)** | Sin concepto de modo: una compilación por combinación, con `filter` por archivo y un selector por archivo de salida. El `@media` hay que montarlo aparte. Avisa de "filtered out token references" al generar solo el bloque oscuro (el CSS es correcto porque las variables existen en `:root`). | **Resolver DTCG 2025.10** (`tokens101.resolver.json`): un `set` base y dos `modifiers` (`theme`: light/dark; `layout`: mobile/desktop) ([Terrazzo — Resolvers](https://terrazzo.app/docs/guides/resolvers)). `plugin-css` → `permutations`, cada una con su selector o `@media`. Un solo archivo de salida. |
+| **DTCG 2025.10** | Fuente: "the latest format 2025.10 does not have full support yet in Style Dictionary. This is a work in progress in v5" ([SD: DTCG](https://styledictionary.com/info/dtcg/)). Prueba: lee el objeto de color y `dimension` sin problemas. | Fuente: soporta 2025.10, incluido el Resolver Module ([Terrazzo: Docs](https://terrazzo.app/docs/)). Prueba: lee todo, entrecomilla `fontFamily`. |
+| **Unión de modos (A9)** | Sin concepto de modo: una compilación por combinación, con `filter` por archivo y un selector por archivo de salida. El `@media` hay que montarlo aparte. Avisa de "filtered out token references" al generar solo el bloque oscuro (el CSS es correcto porque las variables existen en `:root`). | **Resolver DTCG 2025.10** (`tokens101.resolver.json`): un `set` base y dos `modifiers` (`theme`: light/dark; `layout`: mobile/desktop) ([Terrazzo: Resolvers](https://terrazzo.app/docs/guides/resolvers)). `plugin-css` → `permutations`, cada una con su selector o `@media`. Un solo archivo de salida. |
 | **Solo lo que cambia en cada modo** | Con `filter` por archivo: 31 tokens en oscuro, 9 en escritorio. | La opción `only` no lo consiguió en la prueba (repetía los 149). Con `include` por grupo: **149 / 31 / 9**. |
-| **Alias con `var()`** | `outputReferences: true` → `var(--t101-color-neutral-950)` ([SD — References](https://styledictionary.com/reference/utils/references/)). | Por defecto. Ojo: `variableName` tiene que devolver el nombre **con** `--`; sin ellos genera `var(t101-…)` (inválido). |
-| **px → rem** | `size/pxToRem` ([SD — Transforms](https://styledictionary.com/reference/hooks/transforms/predefined/)). **Fallo comprobado:** ignora la unidad y divide siempre entre 16: `breakpoint/desktop` `64rem` → **`4rem`** (`lib/common/transforms.js`, `sizePxToRem`). Hay que escribir un transform propio o expresar el breakpoint en px. | No convierte: conserva la unidad (`9999px`, `64rem`). Con la opción `transform` (5 líneas, solo valores directos, no alias) → `0.25rem`, `45rem`, `64rem` intacto. |
+| **Alias con `var()`** | `outputReferences: true` → `var(--t101-color-neutral-950)` ([SD: References](https://styledictionary.com/reference/utils/references/)). | Por defecto. Ojo: `variableName` tiene que devolver el nombre **con** `--`; sin ellos genera `var(t101-…)` (inválido). |
+| **px → rem** | `size/pxToRem` ([SD: Transforms](https://styledictionary.com/reference/hooks/transforms/predefined/)). **Fallo comprobado:** ignora la unidad y divide siempre entre 16: `breakpoint/desktop` `64rem` → **`4rem`** (`lib/common/transforms.js`, `sizePxToRem`). Hay que escribir un transform propio o expresar el breakpoint en px. | No convierte: conserva la unidad (`9999px`, `64rem`). Con la opción `transform` (5 líneas, solo valores directos, no alias) → `0.25rem`, `45rem`, `64rem` intacto. |
 | **Color (A8)** | `color/css`: hex (o `rgba` si hay transparencia). | Por defecto `rgb(… %)`; con `legacyHex: true`, hex (abreviado: `#3c9`). |
-| **Tailwind v4** | Sin plugin; se escribe el `@theme` a mano o con un formato propio. | `plugin-tailwind` genera un `@theme` para Tailwind v4 ([Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind)). Prueba: escribe **valores** en `@theme` (`--color-white: #fff`, `--spacing-s1: 4px`), no referencias a `--t101-*`, no aplica el `transform` a rem, y repite el tema en `@variant dark`. Los patrones con comodín no encontraron tokens. **No encaja con el patrón de dos capas de S7/S27.** |
+| **Tailwind v4** | Sin plugin; se escribe el `@theme` a mano o con un formato propio. | `plugin-tailwind` genera un `@theme` para Tailwind v4 ([Terrazzo: Tailwind](https://terrazzo.app/docs/integrations/tailwind)). Prueba: escribe **valores** en `@theme` (`--color-white: #fff`, `--spacing-s1: 4px`), no referencias a `--t101-*`, no aplica el `transform` a rem, y repite el tema en `@variant dark`. Los patrones con comodín no encontraron tokens. **No encaja con el patrón de dos capas de S7/S27.** |
 | **Comentarios** | `$description` como comentario `/** … */` al final de la línea. | `$description` como comentario `/* … */` encima. |
 | **Configuración** | JS con API programática. | `terrazzo.config.mjs` + resolver JSON (formato estándar, reutilizable por otras herramientas). |
 
@@ -135,8 +135,8 @@ En contra de Terrazzo: el plugin de Tailwind no nos sirve; la opción `only` no 
 ### 6.1 Dos capas (S7, S27)
 
 - **Capa 1, generada:** `--t101-*` (CSS de Terrazzo). Light/Mobile en `:root`; Dark y Desktop en sus bloques.
-- **Capa 2, `@theme inline`:** variables de Tailwind que apuntan a la capa 1. `inline` hace que la utilidad use `var(--t101-…)` directamente, para que el cambio de modo funcione donde se redefinen las variables ([Tailwind — Theme](https://tailwindcss.com/docs/theme)).
-- `--color-*: initial` (y los demás espacios de nombres que sustituimos) quita la paleta por defecto de Tailwind: así solo existen utilidades que salen de los tokens ([Tailwind — Theme](https://tailwindcss.com/docs/theme)).
+- **Capa 2, `@theme inline`:** variables de Tailwind que apuntan a la capa 1. `inline` hace que la utilidad use `var(--t101-…)` directamente, para que el cambio de modo funcione donde se redefinen las variables ([Tailwind: Theme](https://tailwindcss.com/docs/theme)).
+- `--color-*: initial` (y los demás espacios de nombres que sustituimos) quita la paleta por defecto de Tailwind: así solo existen utilidades que salen de los tokens ([Tailwind: Theme](https://tailwindcss.com/docs/theme)).
 
 ### 6.2 A12: `text-text-default`
 
@@ -161,7 +161,7 @@ Mapeo propuesto (capa 2):
 | `color/border/*` | `--border-color-*` (y `--outline-color-focus`, `--ring-color-focus` para el foco) | `border-neutral-default`, `outline-focus` |
 | `space/*` | `--spacing-*` | `p-400`, `gap-200` |
 | `radius/control`, `radius/container` | `--radius-*` | `rounded-control` |
-| `border-width/*` | — (Tailwind no tiene espacio de nombres; `border-(length:--t101-border-width-100)` ) | Resuelto en el paso 8 (V14) |
+| `border-width/*` |: (Tailwind no tiene espacio de nombres; `border-(length:--t101-border-width-100)` ) | Resuelto en el paso 8 (V14) |
 | `font-size/{estilo}` (Layout) | `--text-*` | `text-body-default` |
 | `font-weight/*` | `--font-weight-*` | `font-600` |
 | `font-family/*` | `--font-*` | `font-sans`, `font-mono` |

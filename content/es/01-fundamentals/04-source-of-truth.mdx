@@ -19,7 +19,7 @@ Un token pierde su valor si existe en dos sitios que pueden contradecirse. En es
 
 En [Qué es un token](/fundamentals/what-is-a-token) viste que un mismo token tiene varias representaciones: la variable de Figma, el JSON, la variable CSS, la clase de Tailwind CSS. La **fuente de verdad** es la representación donde se toma la decisión. Las demás se generan a partir de ella y nadie las edita a mano.
 
-La especificación DTCG nace de ese problema: muchas herramientas exportan tokens, pero cada una a su manera, y los equipos acaban manteniendo código propio para conectarlas ([Format Module — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)). Un formato común permite generar cada representación desde la misma fuente.
+La especificación DTCG nace de ese problema: muchas herramientas exportan tokens, pero cada una a su manera, y los equipos acaban manteniendo código propio para conectarlas ([Format Module: Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)). Un formato común permite generar cada representación desde la misma fuente.
 
 <Callout variant="warning">
 
@@ -55,8 +55,8 @@ Estos tokens se definen en código y no existen como variables de Figma:
 | Token | Por qué no está en Figma |
 |---|---|
 | **Interlineado** (`line-height/tight`, `snug`, `normal`) | Figma lee una variable de interlineado como píxeles, no como multiplicador. Lo comprobamos en Figma ([Tipos simples](/fundamentals/simple-types#interlineado)) |
-| **Espaciado negativo** (`space/negative/*`) | Lo comprobamos en la API de plugins de Figma: el mismo scope (`GAP`) cubre el gap y el padding, y Figma acepta padding negativo. Un padding negativo no es válido en CSS ([MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)), así que no podemos limitar el token al gap |
-| **Punto de corte** (`breakpoint/desktop`, 64rem) | En Figma Design, el modo se asigna a capas y marcos ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)) y no cambia con el ancho; en el foro de Figma se pide como mejora ([hilo del foro, 2025](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209)). En CSS, el punto de corte va en una media query, y las media queries no admiten variables CSS ([MDN — Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)) |
+| **Espaciado negativo** (`space/negative/*`) | Lo comprobamos en la API de plugins de Figma: el mismo scope (`GAP`) cubre el gap y el padding, y Figma acepta padding negativo. Un padding negativo no es válido en CSS ([MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)), así que no podemos limitar el token al gap |
+| **Punto de corte** (`breakpoint/desktop`, 64rem) | En Figma Design, el modo se asigna a capas y marcos ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)) y no cambia con el ancho; en el foro de Figma se pide como mejora ([hilo del foro, 2025](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209)). En CSS, el punto de corte va en una media query, y las media queries no admiten variables CSS ([MDN: Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)) |
 | **Duración y curva** (`duration/200`, `easing/standard`) | Figma tiene variables Timing y Easing, pero se aplican a animaciones de Figma Motion, y esta web no diseña animaciones en Figma ([Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación)) |
 
 <Callout variant="recommendation">
@@ -73,7 +73,7 @@ Que un token viva en código no significa que viva en el CSS escrito a mano. En 
 
 ## Cómo se mantiene un solo nombre
 
-Una sola fuente no basta si cada representación se llama de una manera. Figma permite dar a cada variable un **code syntax**: el nombre que tendrá en código, uno por plataforma (Web, Android o iOS). Ese nombre aparece en los fragmentos de código de Dev Mode al inspeccionar un elemento que usa la variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+Una sola fuente no basta si cada representación se llama de una manera. Figma permite dar a cada variable un **code syntax**: el nombre que tendrá en código, uno por plataforma (Web, Android o iOS). Ese nombre aparece en los fragmentos de código de Dev Mode al inspeccionar un elemento que usa la variable ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 
 | Representación | Nombre |
 |---|---|
@@ -91,7 +91,7 @@ En Tokens101 todas las variables tienen code syntax Web, también las ocultas. E
 
 ## En Figma
 
-Para añadir el code syntax a una variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+Para añadir el code syntax a una variable ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
 
 1. Abre la edición de la variable (*Edit variable*).
 2. En la sección *Code syntax*, pulsa *Add code syntax*.
@@ -117,8 +117,8 @@ Cómo se automatiza cada paso lo verás en el módulo De Figma al código.
 ## Fuentes
 
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
 - Foro de Figma: [Automatic variable mode switching for true responsive previews](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209) (2025, hilo de la comunidad)
-- [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
-- [MDN — Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- [MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+- [MDN: Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

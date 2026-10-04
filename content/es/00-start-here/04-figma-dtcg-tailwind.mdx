@@ -39,19 +39,19 @@ En Tokens101, la fuente de verdad de los tokens visuales (color, espaciado, tipo
 
 ## 1 Figma define las decisiones
 
-En Figma, cada token es una **variable**. Las variables se organizan en **colecciones**, y cada colección puede tener varios **modos**, por ejemplo Light y Dark. Cada modo guarda un valor por variable ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+En Figma, cada token es una **variable**. Las variables se organizan en **colecciones**, y cada colección puede tener varios **modos**, por ejemplo Light y Dark. Cada modo guarda un valor por variable ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 
-Cada variable puede tener además un **code syntax**: el nombre que tendrá en código para cada plataforma (Web, Android, iOS). Ese nombre aparece en Dev Mode ([Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)). Lo usaremos para que el nombre en Figma y el nombre en CSS coincidan.
+Cada variable puede tener además un **code syntax**: el nombre que tendrá en código para cada plataforma (Web, Android, iOS). Ese nombre aparece en Dev Mode ([Figma: Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)). Lo usaremos para que el nombre en Figma y el nombre en CSS coincidan.
 
 <Callout variant="warning">
 
-Los modos de variables requieren un plan Education, Professional, Organization o Enterprise. El número de modos por colección depende del plan ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Más detalles en [Requisitos](/start-here/requirements).
+Los modos de variables requieren un plan Education, Professional, Organization o Enterprise. El número de modos por colección depende del plan ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Más detalles en [Requisitos](/start-here/requirements).
 
 </Callout>
 
 ## 2 Figma exporta casi DTCG
 
-Figma exporta cada modo como un archivo JSON: clic derecho sobre un modo → *Export mode*, o sobre la colección → *Export modes*. Según su ayuda, el archivo sigue el formato DTCG ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Qué contiene un archivo DTCG lo explicamos en [Qué es DTCG](/start-here/what-is-dtcg).
+Figma exporta cada modo como un archivo JSON: clic derecho sobre un modo → *Export mode*, o sobre la colección → *Export modes*. Según su ayuda, el archivo sigue el formato DTCG ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Qué contiene un archivo DTCG lo explicamos en [Qué es DTCG](/start-here/what-is-dtcg).
 
 Al exportar las variables de esta web comprobamos que el archivo de Figma no es DTCG completo. Tiene cuatro diferencias:
 
@@ -64,7 +64,7 @@ Al exportar las variables de esta web comprobamos que el archivo de Figma no es 
 
 Lo que dicen las fuentes:
 
-- La propia ayuda de Figma reconoce que `string` no es un tipo DTCG oficial, y documenta la extensión `com.figma.aliasData` para los alias entre colecciones ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+- La propia ayuda de Figma reconoce que `string` no es un tipo DTCG oficial, y documenta la extensión `com.figma.aliasData` para los alias entre colecciones ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 - La especificación DTCG prohíbe que una herramienta adivine el tipo de un token a partir de su valor ([Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)). Por eso una herramienta no puede saber que `4` son píxeles.
 
 <Callout variant="warning">
@@ -81,10 +81,10 @@ En Tokens101 añadimos un paso de **normalización**: un script que recupera los
 
 ## 3 Una herramienta de traducción las convierte
 
-Una herramienta de traducción lee los archivos DTCG y genera código. La especificación cita como ejemplos Style Dictionary y Terrazzo ([DTCG Format Module — Translation tool](https://www.designtokens.org/TR/2025.10/format/#translation-tool)).
+Una herramienta de traducción lee los archivos DTCG y genera código. La especificación cita como ejemplos Style Dictionary y Terrazzo ([DTCG Format Module: Translation tool](https://www.designtokens.org/TR/2025.10/format/#translation-tool)).
 
-- **Style Dictionary** soporta DTCG, pero su documentación advierte que el soporte de la versión 2025.10 todavía no es completo ([Style Dictionary — DTCG](https://styledictionary.com/info/dtcg/)).
-- **Terrazzo** es una cadena de herramientas nativa de DTCG. Une los modos con el Resolver Module de DTCG ([Terrazzo — Resolvers](https://terrazzo.app/docs/guides/resolvers)) y tiene un plugin oficial para Tailwind CSS v4 ([Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)).
+- **Style Dictionary** soporta DTCG, pero su documentación advierte que el soporte de la versión 2025.10 todavía no es completo ([Style Dictionary: DTCG](https://styledictionary.com/info/dtcg/)).
+- **Terrazzo** es una cadena de herramientas nativa de DTCG. Une los modos con el Resolver Module de DTCG ([Terrazzo: Resolvers](https://terrazzo.app/docs/guides/resolvers)) y tiene un plugin oficial para Tailwind CSS v4 ([Terrazzo: Tailwind](https://terrazzo.app/docs/integrations/tailwind/)).
 
 <Callout variant="recommendation">
 
@@ -115,9 +115,9 @@ Hasta aquí no hace falta Tailwind CSS. Cualquier proyecto web puede usar estas 
 
 ## 4 Tailwind CSS las convierte en clases
 
-Tailwind CSS v4 se configura en CSS con la directiva `@theme`. Las variables definidas dentro de `@theme` generan clases de utilidad; las definidas en `:root` son variables normales. Para que una variable del tema apunte a otra variable hay que usar `@theme inline` ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)).
+Tailwind CSS v4 se configura en CSS con la directiva `@theme`. Las variables definidas dentro de `@theme` generan clases de utilidad; las definidas en `:root` son variables normales. Para que una variable del tema apunte a otra variable hay que usar `@theme inline` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)).
 
-El patrón habitual tiene dos capas y es el que documenta shadcn/ui ([shadcn/ui — Theming](https://ui.shadcn.com/docs/theming)):
+El patrón habitual tiene dos capas y es el que documenta shadcn/ui ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)):
 
 <InCode title="Las dos capas en CSS">
 
@@ -189,12 +189,12 @@ La ayuda de Figma documenta cómo exporta los alias **entre** colecciones, pero 
 
 ## Fuentes
 
-- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
-- [Figma — Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma: Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471-Variables-in-Dev-Mode)
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
 - [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
-- [Style Dictionary — DTCG](https://styledictionary.com/info/dtcg/)
-- [Terrazzo — Resolvers](https://terrazzo.app/docs/guides/resolvers)
-- [Terrazzo — Tailwind](https://terrazzo.app/docs/integrations/tailwind/)
-- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
-- [shadcn/ui — Theming](https://ui.shadcn.com/docs/theming)
+- [Style Dictionary: DTCG](https://styledictionary.com/info/dtcg/)
+- [Terrazzo: Resolvers](https://terrazzo.app/docs/guides/resolvers)
+- [Terrazzo: Tailwind](https://terrazzo.app/docs/integrations/tailwind/)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)

@@ -22,7 +22,7 @@ Cada token tiene un tipo, y el tipo decide cómo lo trata cada herramienta. En e
 
 ## Los tipos simples de DTCG
 
-La especificación DTCG define siete tipos de un solo valor ([Format Module — Types](https://www.designtokens.org/TR/2025.10/format/#types)):
+La especificación DTCG define siete tipos de un solo valor ([Format Module: Types](https://www.designtokens.org/TR/2025.10/format/#types)):
 
 | Tipo | Qué guarda | Ejemplo de `$value` |
 |---|---|---|
@@ -38,7 +38,7 @@ Cada tipo tiene su apartado en la especificación: [color](https://www.designtok
 
 ## Los tipos de variable de Figma
 
-Figma tiene seis tipos de variable ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Cada uno se aplica a unas propiedades concretas ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
+Figma tiene seis tipos de variable ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Cada uno se aplica a unas propiedades concretas ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
 
 | Tipo | Se aplica a (selección) |
 |---|---|
@@ -82,7 +82,7 @@ Decisiones de Tokens101 en esta tabla: el peso como Number, el interlineado en c
 
 Un token de color en DTCG es un objeto con dos propiedades obligatorias, `colorSpace` y `components`, y dos opcionales: `alpha` (si falta, vale 1, totalmente opaco) y `hex`, un valor de reserva ([Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)). El Color Module admite catorce espacios de color, entre ellos sRGB, Display P3 y oklch.
 
-Figma, al importar, admite color en sRGB y HSL ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Al exportar, escribe sRGB con el `hex` añadido.
+Figma, al importar, admite color en sRGB y HSL ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Al exportar, escribe sRGB con el `hex` añadido.
 
 <Callout variant="recommendation">
 
@@ -92,11 +92,11 @@ En Tokens101 los colores se guardan en sRGB, que es lo que Figma importa y expor
 
 ## Dimensiones px y rem
 
-DTCG admite dos unidades en `dimension`: `px` y `rem`. Un `rem` equivale al tamaño de fuente por defecto del sistema ([Format Module — Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)). Figma importa dimensiones en `px` y las guarda como Number sin unidad ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+DTCG admite dos unidades en `dimension`: `px` y `rem`. Un `rem` equivale al tamaño de fuente por defecto del sistema ([Format Module: Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)). Figma importa dimensiones en `px` y las guarda como Number sin unidad ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 
 Lo que dicen las fuentes de accesibilidad:
 
-- MDN explica que muchas personas aumentan el tamaño de letra por defecto del navegador, que las medidas absolutas como `px` no se adaptan a ese ajuste y recomienda medidas relativas como `rem` para el tamaño de fuente ([MDN — length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)).
+- MDN explica que muchas personas aumentan el tamaño de letra por defecto del navegador, que las medidas absolutas como `px` no se adaptan a ese ajuste y recomienda medidas relativas como `rem` para el tamaño de fuente ([MDN: length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)).
 - WCAG 2.2 pide que el texto se pueda ampliar al 200 % sin perder contenido (criterio 1.4.4). Se puede cumplir con el zoom del navegador, así que el criterio no obliga a usar una unidad concreta. Entre sus técnicas suficientes están los tamaños de fuente en porcentaje y en `em` ([Understanding 1.4.4 Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)).
 
 <Callout variant="recommendation">
@@ -107,10 +107,10 @@ En Figma diseñamos en píxeles, porque es lo que Figma admite. En el CSS conver
 
 ## Peso y familia tipográfica
 
-**Peso.** DTCG acepta un número de 1 a 1000 o un nombre predefinido, como `"bold"` (700) ([Format Module — Font weight](https://www.designtokens.org/TR/2025.10/format/#font-weight)). CSS trabaja con números. En Figma, el peso admite dos tipos de variable:
+**Peso.** DTCG acepta un número de 1 a 1000 o un nombre predefinido, como `"bold"` (700) ([Format Module: Font weight](https://www.designtokens.org/TR/2025.10/format/#font-weight)). CSS trabaja con números. En Figma, el peso admite dos tipos de variable:
 
-- **String**, con el nombre del estilo de la fuente, por ejemplo `Semi Bold` ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
-- **Number**: el peso aparece entre los scopes de las variables Number ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+- **String**, con el nombre del estilo de la fuente, por ejemplo `Semi Bold` ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+- **Number**: el peso aparece entre los scopes de las variables Number ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 
 Lo probamos: una variable Number con el valor `600` aplicada al peso da Inter Semi Bold. Además, en Dev Mode un peso con variable String aparece sin referencia a la variable.
 
@@ -120,11 +120,11 @@ En Tokens101 los pesos son variables Number: `font-weight/400`, `500`, `600` y `
 
 </Callout>
 
-**Familia.** DTCG admite un nombre o una lista de nombres de fuente ([Format Module — Font family](https://www.designtokens.org/TR/2025.10/format/#font-family)). Figma importa un único nombre ([Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Por eso en Figma guardamos `Inter`, y las fuentes de reserva (`system-ui`, `sans-serif`…) se añaden en el CSS.
+**Familia.** DTCG admite un nombre o una lista de nombres de fuente ([Format Module: Font family](https://www.designtokens.org/TR/2025.10/format/#font-family)). Figma importa un único nombre ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Por eso en Figma guardamos `Inter`, y las fuentes de reserva (`system-ui`, `sans-serif`…) se añaden en el CSS.
 
 ## Interlineado
 
-DTCG trata el interlineado como un `number`: un multiplicador del tamaño de fuente, sin unidad ([Format Module — Number](https://www.designtokens.org/TR/2025.10/format/#number)). `1.5` significa 1,5 veces el tamaño de la letra. Figma permite aplicar una variable Number al interlineado ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+DTCG trata el interlineado como un `number`: un multiplicador del tamaño de fuente, sin unidad ([Format Module: Number](https://www.designtokens.org/TR/2025.10/format/#number)). `1.5` significa 1,5 veces el tamaño de la letra. Figma permite aplicar una variable Number al interlineado ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
 
 <Callout variant="warning">
 
@@ -140,7 +140,7 @@ En Tokens101 los tokens de interlineado (`line-height/tight` 1.2, `snug` 1.4 y `
 
 ## Duración y curva de animación
 
-DTCG define `duration`, en `ms` o `s`, y `cubicBezier`, cuatro números que describen una curva ([Format Module — Duration](https://www.designtokens.org/TR/2025.10/format/#duration), [Cubic Bézier](https://www.designtokens.org/TR/2025.10/format/#cubic-bezier)). Figma tiene variables Timing y Easing, que se aplican a animaciones de Figma Motion ([Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+DTCG define `duration`, en `ms` o `s`, y `cubicBezier`, cuatro números que describen una curva ([Format Module: Duration](https://www.designtokens.org/TR/2025.10/format/#duration), [Cubic Bézier](https://www.designtokens.org/TR/2025.10/format/#cubic-bezier)). Figma tiene variables Timing y Easing, que se aplican a animaciones de Figma Motion ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
 
 <Callout variant="recommendation">
 
@@ -150,7 +150,7 @@ Tokens101 no diseña animaciones en Figma, así que los tokens `duration/200` (2
 
 <Callout variant="pending">
 
-No hemos comprobado si Figma exporta las variables Timing y Easing en DTCG. Tampoco su unidad: la ayuda de Figma habla de milisegundos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)).
+No hemos comprobado si Figma exporta las variables Timing y Easing en DTCG. Tampoco su unidad: la ayuda de Figma habla de milisegundos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API: Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)).
 
 </Callout>
 
@@ -166,7 +166,7 @@ Tokens101 no tiene tokens de opacidad. Cuando hace falta transparencia, el token
 
 ## En Figma
 
-El tipo se elige al crear la variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Al crear cada variable, piensa ya en dos cosas:
+El tipo se elige al crear la variable ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Al crear cada variable, piensa ya en dos cosas:
 
 - **El tipo**, según la tabla de [Cómo se corresponden](#cómo-se-corresponden).
 - **Dónde se podrá aplicar** (su *scope*). Una variable Number puede servir para el radio, el padding o el tamaño de letra; el scope limita las propiedades a las que se puede aplicar (misma fuente). Lo configuraremos en el [módulo Primitivos](/primitives/primitives-collection#para-qué-sirve-el-scope).
@@ -192,10 +192,10 @@ El CSS no conserva el tipo: una variable CSS es texto. Por eso el tipo tiene que
 
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
 - [Design Tokens Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)
-- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Figma — Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Figma — Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
-- [Figma Plugin API — Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
-- [MDN — length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
-- [WCAG 2.2 — Understanding 1.4.4 Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma Plugin API: Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
+- [MDN: length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
+- [WCAG 2.2: Understanding 1.4.4 Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)

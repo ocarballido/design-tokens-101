@@ -27,7 +27,7 @@ El tercer problema es el más importante: **un valor suelto pierde la intención
 
 ## Un token es una decisión con nombre
 
-La especificación DTCG define un token de diseño como información asociada a un nombre legible por personas; como mínimo, un par nombre/valor ([Format Module — Design token](https://www.designtokens.org/TR/2025.10/format/#design-token)). La misma especificación presenta los tokens como una forma de expresar decisiones de diseño independiente de la plataforma, para compartirlas entre disciplinas, herramientas y tecnologías ([Format Module — Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)).
+La especificación DTCG define un token de diseño como información asociada a un nombre legible por personas; como mínimo, un par nombre/valor ([Format Module: Design token](https://www.designtokens.org/TR/2025.10/format/#design-token)). La misma especificación presenta los tokens como una forma de expresar decisiones de diseño independiente de la plataforma, para compartirlas entre disciplinas, herramientas y tecnologías ([Format Module: Introduction](https://www.designtokens.org/TR/2025.10/format/#introduction)).
 
 Dicho de forma más corta: **un token es una decisión de diseño con nombre**.
 
@@ -45,16 +45,16 @@ Los tokens que nombran **qué valor es** (`color/emerald/500`) y los que nombran
 
 ## Las partes de un token
 
-En la especificación DTCG, un token es un objeto JSON. Las propiedades que define la especificación empiezan por `$` ([Format Module — Design token](https://www.designtokens.org/TR/2025.10/format/#design-token)):
+En la especificación DTCG, un token es un objeto JSON. Las propiedades que define la especificación empiezan por `$` ([Format Module: Design token](https://www.designtokens.org/TR/2025.10/format/#design-token)):
 
 | Propiedad | Obligatoria | Qué es |
 |---|---|---|
 | Nombre | Sí | La clave del objeto, por ejemplo `500` dentro del grupo `color` → `emerald` |
 | `$value` | Sí | El valor del token |
-| `$type` | Tiene que poder determinarse | La categoría del valor: `color`, `dimension`… Puede estar en el token, heredarse de su grupo o venir del token al que apunta ([Format Module — Type](https://www.designtokens.org/TR/2025.10/format/#type-0)) |
-| `$description` | No | Un texto que explica el propósito del token ([Format Module — Description](https://www.designtokens.org/TR/2025.10/format/#description)) |
-| `$extensions` | No | Datos propios de una herramienta. Figma, por ejemplo, guarda ahí el code syntax ([Format Module — Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)) |
-| `$deprecated` | No | Marca un token como obsoleto, con o sin explicación ([Format Module — Deprecated](https://www.designtokens.org/TR/2025.10/format/#deprecated)) |
+| `$type` | Tiene que poder determinarse | La categoría del valor: `color`, `dimension`… Puede estar en el token, heredarse de su grupo o venir del token al que apunta ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)) |
+| `$description` | No | Un texto que explica el propósito del token ([Format Module: Description](https://www.designtokens.org/TR/2025.10/format/#description)) |
+| `$extensions` | No | Datos propios de una herramienta. Figma, por ejemplo, guarda ahí el code syntax ([Format Module: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)) |
+| `$deprecated` | No | Marca un token como obsoleto, con o sin explicación ([Format Module: Deprecated](https://www.designtokens.org/TR/2025.10/format/#deprecated)) |
 
 Este es el color de marca de Tokens101 escrito en DTCG:
 
@@ -77,7 +77,7 @@ Este es el color de marca de Tokens101 escrito en DTCG:
 ```
 
 - El nombre completo del token es `color.emerald.500`: los grupos y el nombre, unidos por puntos.
-- El tipo es lo que permite a una herramienta saber cómo tratar el valor. La especificación prohíbe que una herramienta adivine el tipo mirando el valor ([Format Module — Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
+- El tipo es lo que permite a una herramienta saber cómo tratar el valor. La especificación prohíbe que una herramienta adivine el tipo mirando el valor ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
 
 ## Token variable y clase no son lo mismo
 
@@ -95,13 +95,13 @@ Son cinco representaciones de **una misma decisión**. En un sistema bien montad
 
 <Callout variant="note">
 
-La ayuda de Figma lo explica desde el otro lado: las variables guardan valores reutilizables, y cuando una variable apunta a otra (un alias) puedes implementar tokens de diseño ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). La variable es la herramienta; el token es la decisión.
+La ayuda de Figma lo explica desde el otro lado: las variables guardan valores reutilizables, y cuando una variable apunta a otra (un alias) puedes implementar tokens de diseño ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). La variable es la herramienta; el token es la decisión.
 
 </Callout>
 
 ## En Figma
 
-En Figma, cada token es una **variable**. Las variables se crean en la vista Variables, dentro de una **colección**. Cada variable tiene un nombre, un tipo y un valor por cada **modo** de la colección ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+En Figma, cada token es una **variable**. Las variables se crean en la vista Variables, dentro de una **colección**. Cada variable tiene un nombre, un tipo y un valor por cada **modo** de la colección ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
 
 El nombre de la variable usa `/` para agruparla: `space/400` aparece dentro del grupo `space`. Al exportar a DTCG, cada `/` se convierte en un nivel de grupo del JSON.
 
@@ -119,7 +119,7 @@ Esta web genera las variables CSS a partir de la exportación de Figma. El espac
 
 Figma guarda `16` (en píxeles) y el CSS lo escribe en `rem`: 16 px entre 16 = 1rem. Por qué usamos `rem` lo explicamos en [Tipos simples](/fundamentals/simple-types).
 
-Tailwind CSS lo expone como utilidad dentro de `@theme inline`, y la clase `p-400` aplica ese padding ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)):
+Tailwind CSS lo expone como utilidad dentro de `@theme inline`, y la clase `p-400` aplica ese padding ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)):
 
 ```css
 @theme inline {
@@ -132,5 +132,5 @@ Tailwind CSS lo expone como utilidad dentro de `@theme inline`, y la clase `p-40
 ## Fuentes
 
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
-- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
