@@ -4,7 +4,8 @@
 //   3. Los bloques de modo contienen exactamente los tokens de su colección:
 //      los dos bloques Dark = Semantic color; el bloque Desktop = Layout.
 //   4. Los colores primitivos conservan el hex exportado por Figma (S9, A8).
-//   5. Los tokens solo de código tienen los valores de sistema-tokens-v1.md §4.
+//   5. Los tokens solo de código tienen los valores de sistema-tokens-v1.md §4, y los que salieron
+//      de código a Figma (sidebar, overlay, translucent) conservan su valor (§4.6, §6.1).
 //   6. Los estilos de texto de src/styles/text-styles.css coinciden con la tabla §8 (V15).
 //   7. Tailwind CSS genera las clases de los tokens y no genera las del tema por defecto (V09).
 //      Vigila los espacios de nombres por propiedad, que Tailwind no documenta.
@@ -68,9 +69,7 @@ for (const [file, css] of [['tokens.css', tokensCss], ['theme.css', themeCss]]) 
 
 // 3. Bloques de modo
 const sameSet = (a, b) => a.length === b.length && a.every((x) => b.includes(x));
-// Más los tokens solo de código que cambian con el tema (V28), hasta que existan en Figma.
-const THEME_CODE_ONLY = ['--t101-color-background-neutral-translucent'];
-const darkNames = [...figmaFiles.dark.map(varName), ...THEME_CODE_ONLY].sort();
+const darkNames = figmaFiles.dark.map(varName).sort();
 const desktopNames = figmaFiles.desktop.map(varName).sort();
 for (const block of ['darkAttr', 'darkMedia']) {
   if (!sameSet([...blocks[block].keys()].sort(), darkNames)) errors.push(`El bloque ${block} no coincide con Semantic color`);
@@ -90,17 +89,27 @@ const codeOnly = {
   '--t101-line-height-tight': '1.2', '--t101-line-height-snug': '1.4', '--t101-line-height-normal': '1.5',
   '--t101-space-negative-100': '-0.25rem', '--t101-space-negative-200': '-0.5rem', '--t101-space-negative-300': '-0.75rem',
   '--t101-space-negative-400': '-1rem', '--t101-space-negative-600': '-1.5rem', '--t101-breakpoint-desktop': '64rem',
-  '--t101-size-sidebar-width': '19rem',
   '--t101-duration-200': '200ms', '--t101-easing-standard': 'cubic-bezier(0.2, 0, 0, 1)',
-  '--t101-color-background-overlay': '#00000080',
-  '--t101-blur-300': '0.75rem', '--t101-color-background-neutral-translucent': '#ffffffe6',
+  '--t101-blur-300': '0.75rem',
 };
 for (const [name, value] of Object.entries(codeOnly)) {
   if (blocks.root.get(name) !== value) errors.push(`${name}: ${blocks.root.get(name)} ≠ ${value} (§4)`);
 }
-for (const block of ['darkAttr', 'darkMedia']) {
-  const value = blocks[block].get('--t101-color-background-neutral-translucent');
-  if (value !== '#050c09e6') errors.push(`${block}: --t101-color-background-neutral-translucent: ${value} ≠ #050c09e6 (§6.1)`);
+
+// 5b. Tokens que vivían solo en código y ahora salen de Figma (V16, V25, V28; creados el 2026-10-04).
+//     Tienen que venir en la exportación y dar el mismo CSS que cuando eran solo de código.
+const fromFigma = [
+  ['semanticSize', 'size/sidebar/width', { root: '19rem' }],
+  ['light', 'color/background/overlay', { root: '#00000080', darkAttr: '#00000080', darkMedia: '#00000080' }],
+  ['light', 'color/background/neutral/translucent', { root: '#ffffffe6', darkAttr: '#050c09e6', darkMedia: '#050c09e6' }],
+];
+for (const [file, name, expected] of fromFigma) {
+  const css = `--t101-${name.replace(/\//g, '-')}`;
+  if (!figmaFiles[file].some((token) => varName(token) === css)) errors.push(`${name} no está en la exportación de Figma`);
+  if (name.startsWith('color/') && !figmaFiles.dark.some((token) => varName(token) === css)) errors.push(`${name} no está en Dark`);
+  for (const [block, value] of Object.entries(expected)) {
+    if (blocks[block].get(css) !== value) errors.push(`${block}: ${css}: ${blocks[block].get(css)} ≠ ${value} (§4.6, §6.1)`);
+  }
 }
 
 // 6. Estilos de texto (V15): src/styles/text-styles.css frente a la tabla §8 de la especificación.

@@ -39,9 +39,9 @@
   --t101-color-background-neutral-strong: var(--t101-color-neutral-100);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-50);
-  /* Fondo de la cabecera sticky (V28): color/white al 90 %, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. Va en Semantic color (modo Light); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
+  /* Fondo de la cabecera sticky (V28): color/white al 90 % en Light y neutral/950 al 90 % en Dark, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. */
   --t101-color-background-neutral-translucent: #ffffffe6;
-  /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Va en Semantic color; está aquí hasta que exista la variable en Figma. Valor directo: un alias de Figma no puede cambiar la opacidad. Fuente: docs/sistema-tokens-v1.md §6.1. */
+  /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
   --t101-color-background-overlay: #00000080;
   --t101-color-background-success-subtle: var(--t101-color-emerald-50);
   --t101-color-background-warning-subtle: var(--t101-color-amber-50);
@@ -160,9 +160,9 @@
   --t101-radius-container: var(--t101-radius-400);
   --t101-radius-control: var(--t101-radius-200);
   --t101-radius-full: 624.9375rem;
-  /* Ancho máximo del contenido de la lección: 720 px = 45rem. Con el padding horizontal (space/400) deja ≈ 688 px de texto, unas 70 letras por línea con body/default (D20). */
+  /* Ancho máximo del contenido de la lección: 960 px = 60rem (V27; antes 720 px). Incluye el padding horizontal (space/400) a cada lado: ≈ 928 px de texto (D20). Valor directo (excepción a la regla 6): no hay escala de tamaños. */
   --t101-size-content-max-width: 60rem;
-  /* Ancho del sidebar en escritorio (V16). Va en Semantic size; está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §4.6. */
+  /* Ancho del sidebar en escritorio y del panel de navegación móvil: 304 px = 19rem (V16, V25). Valor directo (excepción a la regla 6): no hay escala de tamaños. */
   --t101-size-sidebar-width: 19rem;
   --t101-space-0: 0rem;
   --t101-space-050: 0.125rem;
@@ -204,8 +204,10 @@
   --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
-  /* Fondo de la cabecera sticky (V28): neutral/950 al 90 %, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. Va en Semantic color (modo Dark); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
+  /* Fondo de la cabecera sticky (V28): color/white al 90 % en Light y neutral/950 al 90 % en Dark, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. */
   --t101-color-background-neutral-translucent: #050c09e6;
+  /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
+  --t101-color-background-overlay: #00000080;
   --t101-color-background-success-subtle: var(--t101-color-emerald-950);
   --t101-color-background-warning-subtle: var(--t101-color-amber-950);
   /* Borde del Callout recommendation (decorativo; D06). */
@@ -259,8 +261,10 @@
     --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
     /* Fondo de tarjetas y bloques de código */
     --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
-    /* Fondo de la cabecera sticky (V28): neutral/950 al 90 %, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. Va en Semantic color (modo Dark); está aquí hasta que exista la variable en Figma. Fuente: docs/sistema-tokens-v1.md §6.1. */
+    /* Fondo de la cabecera sticky (V28): color/white al 90 % en Light y neutral/950 al 90 % en Dark, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. */
     --t101-color-background-neutral-translucent: #050c09e6;
+    /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
+    --t101-color-background-overlay: #00000080;
     --t101-color-background-success-subtle: var(--t101-color-emerald-950);
     --t101-color-background-warning-subtle: var(--t101-color-amber-950);
     /* Borde del Callout recommendation (decorativo; D06). */

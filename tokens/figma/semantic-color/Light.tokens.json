@@ -1,6 +1,30 @@
 {
   "color": {
     "background": {
+      "overlay": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.5,
+          "hex": "#000000"
+        },
+        "$description": "Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:75:303",
+          "com.figma.scopes": [
+            "FRAME_FILL",
+            "SHAPE_FILL"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--t101-color-background-overlay)"
+          }
+        }
+      },
       "neutral": {
         "default": {
           "$type": "color",
@@ -148,6 +172,30 @@
               "targetVariableName": "color/neutral/200",
               "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
               "targetVariableSetName": "Primitives"
+            }
+          }
+        },
+        "translucent": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              1,
+              1,
+              1
+            ],
+            "alpha": 0.8999999761581421,
+            "hex": "#FFFFFF"
+          },
+          "$description": "Fondo de la cabecera sticky (V28): color/white al 90 % en Light y neutral/950 al 90 % en Dark, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad.",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:75:304",
+            "com.figma.scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ],
+            "com.figma.codeSyntax": {
+              "WEB": "var(--t101-color-background-neutral-translucent)"
             }
           }
         }

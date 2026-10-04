@@ -18,8 +18,6 @@ const variableName = (token) => `--t101-${token.id.replace(/\./g, '-')}`;
 
 // Tokens que cambian con cada modo (el resto se escribe una sola vez en :root).
 const THEME_TOKENS = ['color.background.**', 'color.text.**', 'color.border.**'];
-// Tokens de color solo de código, iguales en Light y Dark: solo en :root (V25).
-const THEME_INVARIANT = ['color.background.overlay'];
 const LAYOUT_TOKENS = ['font-size.heading.**', 'font-size.body.**', 'font-size.label.**', 'font-size.caption.**', 'font-size.code.**'];
 
 export default defineConfig({
@@ -44,14 +42,12 @@ export default defineConfig({
         {
           input: { theme: 'dark', layout: 'mobile' },
           include: THEME_TOKENS,
-          exclude: THEME_INVARIANT,
           prepare: (contents) => `[data-theme="dark"] {\n  color-scheme: dark;\n  ${contents}\n}`,
         },
         // …o "system" con el sistema en oscuro (todo lo que no sea "light" explícito).
         {
           input: { theme: 'dark', layout: 'mobile' },
           include: THEME_TOKENS,
-          exclude: THEME_INVARIANT,
           prepare: (contents) =>
             `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n    color-scheme: dark;\n    ${contents}\n  }\n}`,
         },
