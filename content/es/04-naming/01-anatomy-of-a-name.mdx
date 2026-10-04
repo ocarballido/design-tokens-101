@@ -1,0 +1,105 @@
+---
+title: Anatomía de un nombre
+description: De qué partes se compone el nombre de un token, qué dice cada nivel, qué taxonomía de referencia existe y por qué cada sistema tiene que fijar su propia convención.
+nav_title: Anatomía de un nombre
+lastReviewed: 2026-10-04
+---
+
+En el ejercicio del módulo 3 describiste cada función de tu diseño en palabras: su propiedad, su rol y su énfasis. En este módulo conviertes esas palabras en nombres de token y creas las variables semánticas en Figma. Esta primera lección explica de qué partes se compone un nombre y qué dice cada una.
+
+**En esta página**
+
+- [Un nombre se lee por niveles](#un-nombre-se-lee-por-niveles)
+- [Una taxonomía de referencia](#una-taxonomía-de-referencia)
+- [Los niveles necesarios y ninguno más](#los-niveles-necesarios-y-ninguno-más)
+- [Lo que no va en el nombre](#lo-que-no-va-en-el-nombre)
+- [DTCG no fija una convención](#dtcg-no-fija-una-convención)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Un nombre se lee por niveles
+
+El nombre de un token semántico de DesignToken101 se lee de izquierda a derecha, de lo general a lo particular. Cada segmento, separado por `/`, es un **nivel** y responde a una pregunta:
+
+| Nivel | Segmento | Pregunta que responde |
+|---|---|---|
+| Categoría | `color` | ¿Qué tipo de decisión es? |
+| Propiedad | `text` | ¿A qué se aplica? |
+| Rol | `accent` | ¿Qué papel tiene en la interfaz? |
+| Énfasis | `default` | ¿Con cuánta fuerza? |
+
+Juntos forman `color/text/accent/default`: el texto con el color de acento, con el énfasis normal. Es el color de los enlaces de esta web.
+
+En Figma, cada `/` crea un grupo en la vista Variables ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Al exportar a DTCG, cada nivel es un grupo del JSON, como viste en [Qué es un token](/fundamentals/what-is-a-token). El orden de los niveles decide, por tanto, cómo se agrupan las variables en Figma y en el archivo.
+
+Los primitivos siguen otro patrón, que ya conoces del módulo 2: categoría / paleta / paso ([El nombre dice qué valor es](/primitives/what-is-a-primitive#el-nombre-dice-qué-valor-es)). Este módulo trata sobre todo de los semánticos, que son los que llevan la función en el nombre.
+
+## Una taxonomía de referencia
+
+No hay una especificación que diga qué niveles debe tener un nombre. La referencia más citada es un artículo de Nathan Curtis, que ordena las partes de un nombre en cuatro grupos ([Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676), EightShapes, 2020; artículo de autor, no una norma):
+
+| Grupo | Niveles que propone | Ejemplos del artículo |
+|---|---|---|
+| **Base** | Categoría, propiedad y concepto | `color`, `space`; `text`, `background`; `feedback`, `action` |
+| **Modificadores** | Variante, estado, escala y modo | `primary`, `success`; `hover`, `disabled`; tallas o números; claro y oscuro |
+| **Objeto** | Componente, elemento y grupo de componentes | Un botón, el icono de un botón, los campos de formulario |
+| **Espacio de nombres** | Sistema, tema y dominio | Un prefijo con el nombre del sistema |
+
+Así encajan los niveles de DesignToken101 en esa taxonomía:
+
+| Nivel de DesignToken101 | Equivalente en el artículo |
+|---|---|
+| Categoría (`color`, `space`, `size`) | Categoría |
+| Propiedad (`background`, `text`, `border`) | Propiedad |
+| Rol (`neutral`, `accent`, `danger`) | Variante |
+| Énfasis (`default`, `subtle`, `strong`) | No tiene un nivel propio: es un modificador que ordena la intensidad |
+| Estado (`hover`, `active`) | Estado |
+
+DesignToken101 no usa el concepto ni el objeto: no tiene tokens de componente (lo viste en [La capa de componente](/relations/component-tokens)). El espacio de nombres existe, pero no en Figma: es el prefijo `--t101-` que lleva cada variable en CSS. Lo verás en la lección [Un nombre en Figma, DTCG y CSS](/naming/name-constraints).
+
+## Los niveles necesarios y ninguno más
+
+El artículo de Curtis aconseja usar los niveles necesarios para que el nombre diga su propósito, y ninguno más. DesignToken101 sigue ese criterio. Un nivel que no aporta información no se escribe:
+
+| Token | Niveles | Por qué |
+|---|---|---|
+| `color/text/neutral/default` | Categoría, propiedad, rol, énfasis | Hay otros textos neutros con otro énfasis (`subtle`) |
+| `color/text/on-accent` | Categoría, propiedad, rol | Hay un único texto sobre el acento: el énfasis no distingue nada |
+| `color/border/focus` | Categoría, propiedad, rol | El anillo de foco no tiene variantes |
+| `radius/control` | Categoría, rol | El radio no necesita propiedad: siempre se aplica a las esquinas |
+| `size/content/max-width` | Categoría, elemento, medida | Es una medida de maquetación, no un color |
+
+Que un nivel no haga falta hoy no significa que no vaya a hacer falta mañana. Si apareciera un segundo texto sobre el acento, el nombre tendría que crecer. Cómo crece un nombre sin romperse lo verás en [Estados en el nombre](/naming/states-in-names).
+
+La consecuencia es que los nombres no tienen todos la misma longitud. No es un defecto: un nombre largo es un nombre que necesita más niveles para distinguirse de sus vecinos.
+
+## Lo que no va en el nombre
+
+Hay tres cosas que un nombre semántico de DesignToken101 no lleva:
+
+- **El valor.** `color/text/accent/default` no dice `emerald-700` ni `#1A7D5C`. Si el valor cambia, el nombre sigue siendo cierto. La excepción son los pesos tipográficos (`font-weight/600`), porque el número es el nombre estándar del peso en CSS y en DTCG ([Tipografía](/primitives/typography)).
+- **El tema.** El artículo de Curtis incluye el modo (claro u oscuro) entre los modificadores, pero es de 2020, anterior a los modos de variables de Figma. Hoy el tema va en los **modos** de la colección: el mismo token apunta a un primitivo en Light y a otro en Dark. Lo verás en el módulo Modos y temas.
+- **El componente**, en los semánticos. `color/background/neutral/hover` lo usan el sidebar, los selectores y la cabecera de `InCode`. Si el nombre dijera `sidebar`, no serviría para los demás.
+
+## DTCG no fija una convención
+
+La especificación DTCG regula la sintaxis de los nombres, no su significado. Dice que los grupos son arbitrarios y que las herramientas no deben usarlos para deducir el tipo ni el propósito de un token ([Format Module: Group](https://www.designtokens.org/TR/2025.10/format/#group)).
+
+Para DTCG, `color/text/accent/default` y `cosa/azul/7` son nombres igual de válidos. Que el primero se entienda depende de una **convención**: un conjunto de reglas que el equipo escribe y cumple. El artículo de Curtis lo resume así: no hay un orden universal; lo importante es que haya una convención y que se respete.
+
+<Callout variant="recommendation">
+
+Escribe tu convención antes de crear las variables, no después. En DesignToken101 está en la especificación del sistema, con sus reglas y su vocabulario. La verás en [La convención de DesignToken101](/naming/naming-convention), y en el ejercicio del módulo escribirás la tuya.
+
+</Callout>
+
+## Lo que te llevas
+
+- Un nombre semántico se lee por niveles, de lo general a lo particular, y cada nivel responde a una pregunta.
+- Se escriben los niveles necesarios y ninguno más, sin el valor, sin el tema y sin el componente.
+- DTCG no da significado a los nombres: lo da una convención escrita.
+
+## Fuentes
+
+- Nathan Curtis, [Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676) (EightShapes, 2020; artículo de autor)
+- [Design Tokens Format Module 2025.10: Group](https://www.designtokens.org/TR/2025.10/format/#group)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)

@@ -1,0 +1,102 @@
+---
+title: Dos escuelas
+description: Las dos formas más extendidas de nombrar los tokens semánticos, propiedad primero y pares de rol, con ejemplos del SDS de Figma, Atlassian y shadcn/ui, y por qué DesignToken101 elige la primera.
+nav_title: Dos escuelas
+lastReviewed: 2026-10-04
+---
+
+Los sistemas de diseño publicados nombran sus tokens semánticos de dos maneras. Una pone la propiedad al principio del nombre; la otra nombra un rol y le añade una pareja para lo que va encima. En esta lección verás las dos con ejemplos reales y por qué DesignToken101 eligió la primera.
+
+**En esta página**
+
+- [Propiedad primero](#propiedad-primero)
+- [Pares de rol](#pares-de-rol)
+- [Las dos escuelas frente a frente](#las-dos-escuelas-frente-a-frente)
+- [Por qué DesignToken101 pone la propiedad primero](#por-qué-designtoken101-pone-la-propiedad-primero)
+- [Los pares on](#los-pares-on)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Propiedad primero
+
+En esta escuela, el nombre dice primero **a qué se aplica** el token: fondo, texto o borde. Después vienen el rol y el resto de niveles.
+
+**El Simple Design System (SDS) de Figma** nombra así sus tokens de color. Algunos ejemplos de su archivo de tokens ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)):
+
+| Token del SDS | Propiedad | Rol | Resto |
+|---|---|---|---|
+| `--sds-color-background-brand-default` | background | brand | default |
+| `--sds-color-text-danger-default` | text | danger | default |
+| `--sds-color-border-neutral-secondary` | border | neutral | secondary |
+
+**Atlassian** describe la misma estructura en su documentación: primero la base (`color`, `space`), después la propiedad (`background`, `text`, `border`) y al final los modificadores, como el rol, el énfasis o el estado. Uno de sus ejemplos es `color.icon.success` ([Atlassian: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)).
+
+**El curso de Figma** sobre sistemas de diseño da el mismo consejo de forma general: que los prefijos sean coherentes, y que los tokens de fondo empiecen todos por `background` en vez de tenerlo en otra parte del nombre ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)).
+
+## Pares de rol
+
+En esta escuela, el nombre dice primero **el rol**, y la propiedad se deduce de una convención de parejas.
+
+**shadcn/ui** es el ejemplo más conocido. Su documentación explica que usa pares de fondo y primer plano: el token base controla el color de la superficie y el token con `-foreground` controla el texto y los iconos que van encima ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)):
+
+| Token base (superficie) | Token `-foreground` (lo que va encima) |
+|---|---|
+| `--background` | `--foreground` |
+| `--primary` | `--primary-foreground` |
+| `--muted` | `--muted-foreground` |
+| `--card` | `--card-foreground` |
+
+Algunos tokens no tienen pareja, como `--border` o `--ring`. En Tailwind CSS, los pares dan clases cortas: `bg-primary text-primary-foreground`.
+
+## Las dos escuelas frente a frente
+
+| | Propiedad primero | Pares de rol |
+|---|---|---|
+| Ejemplo de texto principal | `color/text/neutral/default` | `--foreground` |
+| Ejemplo de botón principal | `color/background/accent/strong/default` | `--primary` |
+| Qué dice el nombre | A qué se aplica, qué rol tiene y con cuánto énfasis | El rol; la propiedad sale de la pareja |
+| Longitud | Nombres largos | Nombres cortos |
+| En Figma | Cada propiedad puede tener su scope | La propiedad no está en el nombre |
+| Clases de Tailwind CSS | Redundantes si se exponen tal cual (`text-text-…`) | Cortas (`bg-primary`) |
+| Quién la usa | SDS de Figma, Atlassian | shadcn/ui |
+
+Ninguna de las dos es "la correcta". Son dos equilibrios distintos entre lo explícito y lo breve.
+
+## Por qué DesignToken101 pone la propiedad primero
+
+<Callout variant="recommendation">
+
+DesignToken101 usa **propiedad primero**, como el SDS de Figma y Atlassian. Es una decisión nuestra, por tres motivos:
+
+1. **El nombre y el scope dicen lo mismo.** En Figma, el scope limita las propiedades en las que se ofrece una variable ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Todos los `color/text/*` llevan el scope de texto, todos los `color/background/*` el de relleno. Al elegir el color de un texto, ves únicamente tokens de texto. Lo viste en [Un scope por propiedad](/relations/semantic-collections#un-scope-por-propiedad).
+2. **El contraste se comprueba por pares legibles.** `text/neutral/default` sobre `background/neutral/default` se lee en el propio nombre.
+3. **El público principal son diseñadores**, que trabajan en Figma. La ventaja del scope se nota en Figma; la desventaja, en el código.
+
+</Callout>
+
+El coste está en Tailwind CSS: con nombres de propiedad primero, una clase de color de texto repetiría la palabra (`text-text-neutral-default`). DesignToken101 lo resuelve en código, sin cambiar los nombres de Figma. Cómo lo verás en el módulo De Figma al código; tienes un adelanto en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind).
+
+## Los pares on
+
+Hay un caso en el que la escuela de pares tiene razón: el texto que va sobre un fondo de color fuerte. El texto del botón principal no es un texto cualquiera; depende del fondo del botón. Si cambia uno, hay que revisar el otro.
+
+DesignToken101 toma esa idea y la escribe con su propia estructura: un texto sobre un fondo de rol se llama `on-{rol}` (regla 7 de la convención).
+
+| Fondo | Texto que va encima |
+|---|---|
+| `color/background/accent/strong/default` | `color/text/on-accent` |
+
+El SDS de Figma hace algo parecido, con el `on-` dentro del rol: `--sds-color-text-brand-on-brand`, `--sds-color-text-danger-on-danger` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). Cada par `on-` se comprueba con WCAG 2.2: el de DesignToken101 da 9,63:1 en Light y en Dark.
+
+## Lo que te llevas
+
+- Propiedad primero dice a qué se aplica el token; los pares de rol dicen el rol y deducen la propiedad de la pareja.
+- DesignToken101 pone la propiedad primero porque encaja con los scopes de Figma, y lo paga con clases redundantes en Tailwind CSS.
+- De la escuela de pares toma los tokens `on-`, para el texto sobre un fondo de color fuerte.
+
+## Fuentes
+
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Atlassian Design System: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)
+- [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)
