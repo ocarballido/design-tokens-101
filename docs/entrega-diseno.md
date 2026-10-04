@@ -1,4 +1,4 @@
-# Tokens101: Entrega de diseño a desarrollo
+# DesignToken101: Entrega de diseño a desarrollo
 
 Documento para la sesión de desarrollo (pasos 7 y 8 de `docs/estado.md`). Resume qué hay en Figma, cómo se corresponde con el código y qué no sale en la exportación de Figma. Fecha: 2026-10-02. **El diseño está cerrado** salvo A14 (nombre del logotipo), que no bloquea.
 
@@ -31,7 +31,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
 | Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark | Pages | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
 
-Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-tokens101.mdx`.
+Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
 
 ## 2. Variables (paso 7)
 
@@ -173,5 +173,5 @@ Lo que solo se puede comprobar en código: orden de foco, `aria-*`, lector de pa
 
 ## 5. Abierto
 
-- **A14:** nombre del logotipo ("design-tokens 101" frente a "Tokens101"). Decide Oscar; no bloquea.
+- **A14:** nombre del logotipo ("design-tokens 101" frente a "DesignToken101"). Decide Oscar; no bloquea.
 - `tools/semantic.py` no incluye los tokens de D06, D12 y D20 (el contraste se comprobó en Figma).

@@ -17,7 +17,7 @@ En el módulo 2 creaste los primitivos: los valores que existen en tu sistema. A
 
 ## Un token que apunta a otro
 
-El botón principal de Tokens101 tiene el color de la marca, `#33CC99`. En la web, ese fondo no se escribe como hex ni como primitivo. Se escribe con un token que dice para qué sirve, `color/background/accent/strong/default`, y ese token apunta al primitivo `color/emerald/500`.
+El botón principal de DesignToken101 tiene el color de la marca, `#33CC99`. En la web, ese fondo no se escribe como hex ni como primitivo. Se escribe con un token que dice para qué sirve, `color/background/accent/strong/default`, y ese token apunta al primitivo `color/emerald/500`.
 
 | Token | Valor |
 |---|---|
@@ -83,7 +83,7 @@ La especificación no pone límite a la longitud de una cadena. Cada salto, en c
 
 <Callout variant="recommendation">
 
-En Tokens101, una cadena tiene **como máximo dos saltos**: componente → semántico → primitivo. Es un límite nuestro, no de DTCG ni de Figma. Por qué hay tres capas y por qué Tokens101 usa dos lo verás en [Las capas](/relations/layers).
+En DesignToken101, una cadena tiene **como máximo dos saltos**: componente → semántico → primitivo. Es un límite nuestro, no de DTCG ni de Figma. Por qué hay tres capas y por qué DesignToken101 usa dos lo verás en [Las capas](/relations/layers).
 
 </Callout>
 
@@ -119,9 +119,9 @@ Para quitar el alias, pasa el cursor por el valor y pulsa *Detach alias*. La var
 Dos reglas que conviene saber:
 
 - **Mismo tipo.** Una variable puede apuntar únicamente a otra del mismo tipo: un color, a un color; un número, a un número (misma fuente).
-- **Entre colecciones.** La ayuda no lo dice con estas palabras; describe que el destino se elige en la pestaña *Libraries* del selector. En Tokens101 todos los semánticos apuntan a variables de otra colección, `Primitives`, y la exportación lo registra (`"targetVariableSetName": "Primitives"`).
+- **Entre colecciones.** La ayuda no lo dice con estas palabras; describe que el destino se elige en la pestaña *Libraries* del selector. En DesignToken101 todos los semánticos apuntan a variables de otra colección, `Primitives`, y la exportación lo registra (`"targetVariableSetName": "Primitives"`).
 
-Cuando una colección tiene varios modos, cada modo puede apuntar a una variable distinta. En Tokens101, el valor Light y el Dark de un mismo semántico apuntan a primitivos distintos. Lo verás en el módulo Modos y temas; en este módulo basta con saber que el alias se decide modo a modo.
+Cuando una colección tiene varios modos, cada modo puede apuntar a una variable distinta. En DesignToken101, el valor Light y el Dark de un mismo semántico apuntan a primitivos distintos. Lo verás en el módulo Modos y temas; en este módulo basta con saber que el alias se decide modo a modo.
 
 <InCode title="El mismo alias en la exportación de Figma y después de normalizar">
 

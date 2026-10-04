@@ -1,4 +1,4 @@
-# Tokens101: Componentes v1 (anatomía)
+# DesignToken101: Componentes v1 (anatomía)
 
 Encargo para diseñar los componentes de la web en Figma. **Oscar diseña; este documento solo fija la estructura** (D05): para qué sirve cada componente, sus partes, sus props, sus estados y qué token lleva cada parte en cada estado. No decide el aspecto: tamaños, iconos, alineaciones y proporciones son libres, siempre con tokens.
 
@@ -195,7 +195,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 
 ### 3.2 `Callout`
 
-**Para qué sirve.** Un aviso dentro de la lección: una nota, una advertencia, una recomendación de Tokens101 o algo pendiente de verificar.
+**Para qué sirve.** Un aviso dentro de la lección: una nota, una advertencia, una recomendación de DesignToken101 o algo pendiente de verificar.
 
 **Props.**
 
@@ -343,7 +343,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 ### 3.7 `Flow` (gráficos de proceso): C13, aprobado por Oscar el 2026-10-04; diseño aprobado el 2026-10-04 (D24)
 
 **Para qué sirve.** Los gráficos del curso: una secuencia de pasos, que pueden estar agrupados en fases. Ejemplos:
-- La metodología de Tokens101 en "Lo que enseñamos": cuatro fases con sus módulos.
+- La metodología de DesignToken101 en "Lo que enseñamos": cuatro fases con sus módulos.
 - El recorrido de un token en "Cómo encajan Figma, DTCG y Tailwind": pasos sin agrupar.
 - Más adelante, las capas (módulo 3) y los modos (módulo 5).
 
@@ -441,7 +441,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 **En el MDX** (ejemplo: el gráfico general de la metodología):
 
 ```mdx
-<Flow caption="Las cuatro fases de Tokens101 y lo que obtienes en cada una.">
+<Flow caption="Las cuatro fases de DesignToken101 y lo que obtienes en cada una.">
   <FlowGroup title="Planificar" meta="Resultado: inventario de valores">
     <FlowStep title="Fundamentos" meta="Módulo 1" href="/fundamentals/what-is-a-token" />
   </FlowGroup>
@@ -519,7 +519,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 **En el MDX.**
 
 ```mdx
-<ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de Tokens101, del paso 50 al 950." />
+<ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de DesignToken101, del paso 50 al 950." />
 ```
 
 ---
@@ -739,7 +739,7 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 |---|---|
 | Fondo | `background/neutral/translucent` con `blur/300` detrás (V28); `background/neutral/default` con `prefers-reduced-transparency: reduce` |
 | Borde inferior | `border/neutral/default`, `border-width/100` |
-| Logotipo | SVG (D22), enlace con nombre accesible "Tokens101, inicio" |
+| Logotipo | SVG (D22), enlace con nombre accesible "DesignToken101, inicio" |
 
 **Comportamiento (V28).** Sticky arriba en móvil y en escritorio; el contenido pasa por debajo. El sidebar de escritorio queda sticky justo debajo.
 

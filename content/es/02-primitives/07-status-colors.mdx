@@ -5,7 +5,7 @@ nav_title: Escalas de estado
 lastReviewed: 2026-10-04
 ---
 
-Una interfaz necesita colores para avisar: un mensaje informativo, un éxito, un aviso, un error. En esta lección verás cómo construye Tokens101 esas escalas con el mismo método que el acento, por qué se nombran por su tono y por qué no hay escala verde.
+Una interfaz necesita colores para avisar: un mensaje informativo, un éxito, un aviso, un error. En esta lección verás cómo construye DesignToken101 esas escalas con el mismo método que el acento, por qué se nombran por su tono y por qué no hay escala verde.
 
 **En esta página**
 
@@ -46,19 +46,19 @@ Después, igual que el acento: ajuste a sRGB reduciendo el croma (ninguno de los
 
 <Callout variant="recommendation">
 
-El factor 0,66 es una decisión estética de Tokens101. Con el croma original de Tailwind, los colores de estado serían más intensos que el de la marca, y además 16 de los 33 pasos no cabrían en sRGB (comprobado con el script), porque la paleta de Tailwind aprovecha la gama más ancha de las pantallas actuales ([Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)).
+El factor 0,66 es una decisión estética de DesignToken101. Con el croma original de Tailwind, los colores de estado serían más intensos que el de la marca, y además 16 de los 33 pasos no cabrían en sRGB (comprobado con el script), porque la paleta de Tailwind aprovecha la gama más ancha de las pantallas actuales ([Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)).
 
 </Callout>
 
 ## Por qué no hay escala verde
 
-El acento de Tokens101 ya es verde: tono 165,4. Una escala `green` para el éxito sería casi idéntica a `emerald`. Por eso `success` usa `emerald`.
+El acento de DesignToken101 ya es verde: tono 165,4. Una escala `green` para el éxito sería casi idéntica a `emerald`. Por eso `success` usa `emerald`.
 
 La consecuencia: el éxito y el acento comparten color. El color no basta para distinguir un mensaje de éxito de un elemento de marca, y no debe bastar. El criterio 1.4.1 Use of Color (nivel A) de WCAG 2.2 dice que el color no puede ser el único medio visual para transmitir información o distinguir un elemento ([Understanding 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)).
 
 <Callout variant="recommendation">
 
-En Tokens101, los mensajes de estado llevan siempre icono y texto además del color. Un `Callout` de aviso, por ejemplo, tiene su icono y su etiqueta, "Aviso". Así se cumple 1.4.1, y que `success` comparta color con el acento no causa confusión.
+En DesignToken101, los mensajes de estado llevan siempre icono y texto además del color. Un `Callout` de aviso, por ejemplo, tiene su icono y su etiqueta, "Aviso". Así se cumple 1.4.1, y que `success` comparta color con el acento no causa confusión.
 
 </Callout>
 
@@ -129,7 +129,7 @@ Dos primitivos más, sueltos, fuera de las escalas:
 | Token | Valor | Por qué existe |
 |---|---|---|
 | `color/white` | `#FFFFFF` | Fondo de la página en Light. Ningún paso de `neutral` es blanco puro: `neutral/50` es `#F9FAFA` |
-| `color/black` | `#000000` | Reservado para sombras y capas sobre el contenido. Tokens101 no tiene sombras en su primera versión |
+| `color/black` | `#000000` | Reservado para sombras y capas sobre el contenido. DesignToken101 no tiene sombras en su primera versión |
 
 ## En Figma
 
@@ -143,7 +143,7 @@ Igual que en [Escalas de color](/primitives/color-scales#en-figma): una variable
 import sys; sys.path.insert(0, "tools")
 import scales as s
 
-estado = s.status_scales(0.66)   # el factor de Tokens101
+estado = s.status_scales(0.66)   # el factor de DesignToken101
 estado["red"][7]["hex"]          # paso 700 → '#A63D35'
 
 intensas = s.status_scales(1.0)  # croma original de Tailwind, ajustado a sRGB

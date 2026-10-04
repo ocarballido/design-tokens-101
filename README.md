@@ -1,4 +1,4 @@
-# Tokens101
+# DesignToken101
 
 Curso web para aprender a trabajar con tokens de diseño: desde decidir qué valores existen en un sistema hasta verlos funcionando en código, con Figma, el formato DTCG y Tailwind CSS.
 

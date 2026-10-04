@@ -1,18 +1,18 @@
 ---
 title: Semánticos de color
-description: Cómo pasar de la lista de usos a tokens semánticos de color, los de Tokens101 con su primitivo en Light y en Dark, por qué varios semánticos pueden apuntar al mismo primitivo y cuándo se añade uno nuevo.
+description: Cómo pasar de la lista de usos a tokens semánticos de color, los de DesignToken101 con su primitivo en Light y en Dark, por qué varios semánticos pueden apuntar al mismo primitivo y cuándo se añade uno nuevo.
 nav_title: Semánticos de color
 lastReviewed: 2026-10-04
 ---
 
-El color es la capa semántica más grande de Tokens101 y la que mejor muestra para qué sirven los alias. En esta lección verás cómo se pasa de una lista de usos a tokens semánticos, cuáles tiene esta web y a qué primitivo apunta cada uno, y qué decide ese primitivo.
+El color es la capa semántica más grande de DesignToken101 y la que mejor muestra para qué sirven los alias. En esta lección verás cómo se pasa de una lista de usos a tokens semánticos, cuáles tiene esta web y a qué primitivo apunta cada uno, y qué decide ese primitivo.
 
 **En esta página**
 
 - [Del uso al token](#del-uso-al-token)
 - [Fondo, texto y borde](#fondo-texto-y-borde)
 - [Light y Dark, lo justo](#light-y-dark-lo-justo)
-- [Los semánticos de color de Tokens101](#los-semánticos-de-color-de-tokens101)
+- [Los semánticos de color de DesignToken101](#los-semánticos-de-color-de-designtoken101)
 - [El contraste decide el paso](#el-contraste-decide-el-paso)
 - [Varios semánticos, un primitivo](#varios-semánticos-un-primitivo)
 - [Un token nuevo cuando hace falta](#un-token-nuevo-cuando-hace-falta)
@@ -20,7 +20,7 @@ El color es la capa semántica más grande de Tokens101 y la que mejor muestra p
 
 ## Del uso al token
 
-En el [ejercicio del módulo 2](/primitives/exercise-scales#paso-5-anota-qué-primitivo-usa-cada-elemento) anotaste qué primitivo usa cada elemento de tu diseño. Esa lista es el punto de partida. Así sería un fragmento de la de Tokens101:
+En el [ejercicio del módulo 2](/primitives/exercise-scales#paso-5-anota-qué-primitivo-usa-cada-elemento) anotaste qué primitivo usa cada elemento de tu diseño. Esa lista es el punto de partida. Así sería un fragmento de la de DesignToken101:
 
 | Dónde aparece | Primitivo |
 |---|---|
@@ -34,7 +34,7 @@ Un token semántico no nombra un elemento, sino una **función**. Los bloques de
 
 <Callout variant="note">
 
-En esta lección usamos los nombres de Tokens101 sin explicar cómo se construyen. Por qué empiezan por la propiedad y qué significa cada nivel lo verás en el módulo Nombrar.
+En esta lección usamos los nombres de DesignToken101 sin explicar cómo se construyen. Por qué empiezan por la propiedad y qué significa cada nivel lo verás en el módulo Nombrar.
 
 </Callout>
 
@@ -57,7 +57,7 @@ La colección de los semánticos de color tiene dos modos, Light y Dark. Cada mo
 
 El nombre que aplicas al diseño es el mismo en los dos modos. Lo que cambia es el destino del alias. Es la razón de ser de la capa semántica: sin ella, cambiar de tema sería cambiar cada elemento del diseño. Cómo se crean y se aplican los modos lo verás en el módulo Modos y temas. En este módulo, basta con leer las dos columnas de las tablas.
 
-## Los semánticos de color de Tokens101
+## Los semánticos de color de DesignToken101
 
 Son 33 tokens en la colección `Semantic color` de Figma. En esta lección están los de base. Los de estado (hover, active, seleccionado y foco) los verás en [Estados](/relations/states), y dos tokens con transparencia, en [Cuando un semántico no es alias](/relations/direct-values).
 
@@ -122,7 +122,7 @@ El botón principal hace lo contrario: mantiene el color de marca de fondo y cam
 
 <Callout variant="recommendation">
 
-En Tokens101, **cada alias de texto se elige comprobando su contraste** con el fondo con el que se usa, en Light y en Dark. Si cambias un alias, vuelves a comprobar el par. Es una regla nuestra; los umbrales son de WCAG 2.2. Cómo se comprueba con detalle lo verás en el módulo Accesibilidad.
+En DesignToken101, **cada alias de texto se elige comprobando su contraste** con el fondo con el que se usa, en Light y en Dark. Si cambias un alias, vuelves a comprobar el par. Es una regla nuestra; los umbrales son de WCAG 2.2. Cómo se comprueba con detalle lo verás en el módulo Accesibilidad.
 
 </Callout>
 
@@ -149,18 +149,18 @@ Hay una excepción, decidida a sabiendas. Hoy, los tokens de `danger` y el fondo
 
 <Callout variant="recommendation">
 
-Crea un semántico cuando un uso real lo necesita, como viste con el espaciado en el módulo 2 ([un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve)). Una matriz completa (todas las propiedades por todos los roles y todos los énfasis) da tokens que nadie usa y que alguien tiene que mantener.
+Crea un semántico cuando un uso real lo necesita, como viste con el espaciado en el módulo 2 ([un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve)). Una matriz completa (todas las propiedades por todos los roles y todos los énfasis) da tokens que nadie usa y que alguien tiene que mantener.
 
 </Callout>
 
 ## En Figma
 
-En Tokens101, los semánticos de color están en su propia colección, `Semantic color`, con los modos Light y Dark. Cada variable se crea así ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+En DesignToken101, los semánticos de color están en su propia colección, `Semantic color`, con los modos Light y Dark. Cada variable se crea así ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
 
 1. Crea una variable Color con el nombre completo, por ejemplo `color/text/accent/default`.
 2. En la columna Light, haz clic derecho sobre el valor, elige *Create alias* y busca `color/emerald/700`.
 3. Repite en la columna Dark con `color/emerald/400`.
-4. Escribe en la descripción para qué se usa. En Tokens101, "Enlaces y texto de acento". La descripción llega a la exportación como `$description`.
+4. Escribe en la descripción para qué se usa. En DesignToken101, "Enlaces y texto de acento". La descripción llega a la exportación como `$description`.
 
 El scope y la visibilidad de estas variables los verás en [Las colecciones semánticas](/relations/semantic-collections). Las crearás para tu sistema en el módulo Nombrar, ya con su nombre definitivo.
 

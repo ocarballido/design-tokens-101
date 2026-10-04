@@ -1,4 +1,4 @@
-# Tokens101
+# DesignToken101
 
 Web-curso que enseña a planificar, crear e implementar tokens de diseño con Figma + DTCG + Tailwind CSS. La web usa su propio sistema de tokens, el mismo que enseña. Autor: Oscar Carballido.
 

@@ -19,7 +19,7 @@ Esta página es el mapa del curso. Muestra el recorrido completo de un token, de
 
 ## El recorrido de un token
 
-<Flow caption="El recorrido de un token en Tokens101, desde la variable de Figma hasta la clase de Tailwind CSS.">
+<Flow caption="El recorrido de un token en DesignToken101, desde la variable de Figma hasta la clase de Tailwind CSS.">
   <FlowStep title="Variables de Figma" meta="Colecciones y modos" />
   <FlowStep title="JSON de Figma" meta="Export modes: casi DTCG, un archivo por modo" />
   <FlowStep title="Normalización" meta="Tipos, unidades y alias" />
@@ -33,7 +33,7 @@ La idea central es tener **una sola fuente de verdad**. Los tokens se definen un
 
 <Callout variant="recommendation">
 
-En Tokens101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens viven en código y no en Figma, porque Figma no los guarda como necesitamos: el interlineado, el espaciado negativo y el punto de corte entre móvil y escritorio. Lo verás en el módulo De Figma al código. Cada token tiene una única fuente.
+En DesignToken101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens viven en código y no en Figma, porque Figma no los guarda como necesitamos: el interlineado, el espaciado negativo y el punto de corte entre móvil y escritorio. Lo verás en el módulo De Figma al código. Cada token tiene una única fuente.
 
 </Callout>
 
@@ -75,7 +75,7 @@ Si pasas la exportación tal cual a una herramienta de traducción, obtienes CSS
 
 <Callout variant="recommendation">
 
-En Tokens101 añadimos un paso de **normalización**: un script que recupera los alias, añade las unidades y pone el tipo DTCG correcto. El tipo se deduce del **scope** de cada variable en Figma (dónde se puede aplicar), que es una decisión de diseño, y no del valor. Lo construimos paso a paso en el módulo De Figma al código.
+En DesignToken101 añadimos un paso de **normalización**: un script que recupera los alias, añade las unidades y pone el tipo DTCG correcto. El tipo se deduce del **scope** de cada variable en Figma (dónde se puede aplicar), que es una decisión de diseño, y no del valor. Lo construimos paso a paso en el módulo De Figma al código.
 
 </Callout>
 
@@ -88,7 +88,7 @@ Una herramienta de traducción lee los archivos DTCG y genera código. La especi
 
 <Callout variant="recommendation">
 
-Tokens101 usa **Terrazzo** para generar las variables CSS. Probamos su plugin de Tailwind y no encaja con el patrón de dos capas del apartado 4, así que esa capa la generamos aparte.
+DesignToken101 usa **Terrazzo** para generar las variables CSS. Probamos su plugin de Tailwind y no encaja con el patrón de dos capas del apartado 4, así que esa capa la generamos aparte.
 
 </Callout>
 
@@ -134,7 +134,7 @@ El patrón habitual tiene dos capas y es el que documenta shadcn/ui ([shadcn/ui:
 
 Con esto, la clase `bg-warning` usa el token y cambia sola al activar el modo oscuro. Ejemplo tomado de la documentación de shadcn/ui.
 
-En Tokens101, la capa 2 de nuestro token queda así:
+En DesignToken101, la capa 2 de nuestro token queda así:
 
 ```css
 @theme inline {

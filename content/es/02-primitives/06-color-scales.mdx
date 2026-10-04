@@ -1,11 +1,11 @@
 ---
 title: Escalas de color
-description: El método con el que Tokens101 construye la escala del acento y la de los neutros a partir del color de marca, el resultado con su contraste y cómo crear las variables en Figma.
+description: El método con el que DesignToken101 construye la escala del acento y la de los neutros a partir del color de marca, el resultado con su contraste y cómo crear las variables en Figma.
 nav_title: Escalas de color
 lastReviewed: 2026-10-04
 ---
 
-Con el espacio de color decidido, puedes construir las escalas. Tokens101 parte de un único color de marca, `#33CC99`, y genera dos escalas de once pasos: la del acento y la de los neutros. En esta lección verás el método paso a paso, el resultado y lo que dice sobre el uso de cada color.
+Con el espacio de color decidido, puedes construir las escalas. DesignToken101 parte de un único color de marca, `#33CC99`, y genera dos escalas de once pasos: la del acento y la de los neutros. En esta lección verás el método paso a paso, el resultado y lo que dice sobre el uso de cada color.
 
 **En esta página**
 
@@ -34,7 +34,7 @@ Con el espacio de color decidido, puedes construir las escalas. Tokens101 parte 
 
 "Curva" significa cómo cambian L y C a lo largo de los pasos. En una escala como las de Tailwind CSS, la L baja del `50` (casi blanco) al `950` (casi negro), y el C sube hacia los pasos centrales y vuelve a bajar en los extremos, porque los colores muy claros o muy oscuros admiten menos croma (puedes verlo en [oklch.com](https://oklch.com/): la gama se estrecha arriba y abajo).
 
-Tokens101 toma la curva de `green` de Tailwind CSS v4, porque su tono (≈150) es cercano al de la marca (165,4) ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). De `green` se toman dos columnas, L y C; el tono es el de la marca. Así queda la referencia y lo que sale de ella:
+DesignToken101 toma la curva de `green` de Tailwind CSS v4, porque su tono (≈150) es cercano al de la marca (165,4) ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). De `green` se toman dos columnas, L y C; el tono es el de la marca. Así queda la referencia y lo que sale de ella:
 
 | Paso | L de `green` | C de `green` | L de `emerald` | C de `emerald` |
 |---|---|---|---|---|
@@ -70,7 +70,7 @@ El método es nuestro, no una norma. Lo elegimos porque se puede reproducir con 
 
 ## La escala del acento
 
-<ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de Tokens101, del paso 50 al 950." />
+<ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de DesignToken101, del paso 50 al 950." />
 
 | Paso | oklch | Hex | Contraste con blanco | Contraste con `neutral/950` |
 |---|---|---|---|---|
@@ -163,7 +163,7 @@ El script imprime cada escala con su oklch, su hex y su contraste con blanco y c
 Para generar las escalas de otra marca, cambia los valores de entrada al final del script. El color va en HSL (grados, porcentaje, porcentaje):
 
 ```python filename="tools/scales.py"
-ACCENT_HSL = (160, 60, 50)  # color de marca de Tokens101: #33CC99 (S8)
+ACCENT_HSL = (160, 60, 50)  # color de marca de DesignToken101: #33CC99 (S8)
 TINT = 0.5                  # croma de los neutros: gray × 0,5 (S11); 0 = gris puro
 out = build(ACCENT_HSL, TINT)
 ```

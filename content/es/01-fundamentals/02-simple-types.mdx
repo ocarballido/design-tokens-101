@@ -1,6 +1,6 @@
 ---
 title: Tipos simples
-description: Los tipos de token de un solo valor que define DTCG, los tipos de variable de Figma y cómo se corresponden en Tokens101, con sus excepciones.
+description: Los tipos de token de un solo valor que define DTCG, los tipos de variable de Figma y cómo se corresponden en DesignToken101, con sus excepciones.
 nav_title: Tipos simples
 lastReviewed: 2026-10-03
 ---
@@ -57,9 +57,9 @@ Los tipos no coinciden uno a uno. DTCG no tiene `string` ni `boolean`, y Figma n
 
 ## Cómo se corresponden
 
-Esta tabla resume qué tipo DTCG le corresponde a cada clase de valor, cómo se guarda en Figma y qué hacemos en Tokens101:
+Esta tabla resume qué tipo DTCG le corresponde a cada clase de valor, cómo se guarda en Figma y qué hacemos en DesignToken101:
 
-| Qué guarda | Tipo DTCG | En Figma | En Tokens101 |
+| Qué guarda | Tipo DTCG | En Figma | En DesignToken101 |
 |---|---|---|---|
 | Color | `color` | Variable Color | Variable Color, con valores en sRGB |
 | Espaciado, radio, grosor de borde, tamaño de fuente, anchos | `dimension` | Variable Number, sin unidad (Figma trabaja en píxeles) | Variable Number; en código se convierte a `rem` |
@@ -74,7 +74,7 @@ Las filas en negrita son decisiones del sistema de esta web. Los apartados sigui
 
 <Callout variant="recommendation">
 
-Decisiones de Tokens101 en esta tabla: el peso como Number, el interlineado en código, y la duración y la curva en código. Las dos primeras salen de pruebas en Figma; la tercera es una elección para mantener el movimiento junto al código que lo usa. Las explicamos abajo.
+Decisiones de DesignToken101 en esta tabla: el peso como Number, el interlineado en código, y la duración y la curva en código. Las dos primeras salen de pruebas en Figma; la tercera es una elección para mantener el movimiento junto al código que lo usa. Las explicamos abajo.
 
 </Callout>
 
@@ -86,7 +86,7 @@ Figma, al importar, admite color en sRGB y HSL ([Figma: Modes for variables](htt
 
 <Callout variant="recommendation">
 
-En Tokens101 los colores se guardan en sRGB, que es lo que Figma importa y exporta sin conversiones. Las escalas se construyen en oklch y se guardan en sRGB. Por qué, y cómo, lo explicamos en [Espacio de color](/primitives/color-space).
+En DesignToken101 los colores se guardan en sRGB, que es lo que Figma importa y exporta sin conversiones. Las escalas se construyen en oklch y se guardan en sRGB. Por qué, y cómo, lo explicamos en [Espacio de color](/primitives/color-space).
 
 </Callout>
 
@@ -116,7 +116,7 @@ Lo probamos: una variable Number con el valor `600` aplicada al peso da Inter Se
 
 <Callout variant="recommendation">
 
-En Tokens101 los pesos son variables Number: `font-weight/400`, `500`, `600` y `700`. Así el valor en Figma es el mismo número que necesita el CSS.
+En DesignToken101 los pesos son variables Number: `font-weight/400`, `500`, `600` y `700`. Así el valor en Figma es el mismo número que necesita el CSS.
 
 </Callout>
 
@@ -134,7 +134,7 @@ Lo probamos en Figma: una variable con valor `1.5` aplicada al interlineado da 1
 
 <Callout variant="recommendation">
 
-En Tokens101 los tokens de interlineado (`line-height/tight` 1.2, `snug` 1.4 y `normal` 1.5) viven en código. En Figma, los estilos de texto usan 120 %, 140 % y 150 % escritos a mano, sin variable.
+En DesignToken101 los tokens de interlineado (`line-height/tight` 1.2, `snug` 1.4 y `normal` 1.5) viven en código. En Figma, los estilos de texto usan 120 %, 140 % y 150 % escritos a mano, sin variable.
 
 </Callout>
 
@@ -144,7 +144,7 @@ DTCG define `duration`, en `ms` o `s`, y `cubicBezier`, cuatro números que desc
 
 <Callout variant="recommendation">
 
-Tokens101 no diseña animaciones en Figma, así que los tokens `duration/200` (200 ms) y `easing/standard` viven en código, junto a las transiciones que los usan.
+DesignToken101 no diseña animaciones en Figma, así que los tokens `duration/200` (200 ms) y `easing/standard` viven en código, junto a las transiciones que los usan.
 
 </Callout>
 
@@ -160,7 +160,7 @@ DTCG no define un tipo para la opacidad. La transparencia de un color va en su p
 
 <Callout variant="recommendation">
 
-Tokens101 no tiene tokens de opacidad. Cuando hace falta transparencia, el token es un color con `alpha`: por ejemplo, la capa que oscurece la página al abrir el menú en móvil es negro con `alpha` 0,5.
+DesignToken101 no tiene tokens de opacidad. Cuando hace falta transparencia, el token es un color con `alpha`: por ejemplo, la capa que oscurece la página al abrir el menú en móvil es negro con `alpha` 0,5.
 
 </Callout>
 

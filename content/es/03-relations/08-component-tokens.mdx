@@ -1,18 +1,18 @@
 ---
 title: La capa de componente
-description: Qué es un token de componente, cuándo se justifica, cuánto cuesta y por qué Tokens101 no tiene ninguno en su primera versión. Cómo añadir uno sin romper lo que ya existe.
+description: Qué es un token de componente, cuándo se justifica, cuánto cuesta y por qué DesignToken101 no tiene ninguno en su primera versión. Cómo añadir uno sin romper lo que ya existe.
 nav_title: La capa de componente
 lastReviewed: 2026-10-04
 ---
 
-Ya conoces las dos capas que usa Tokens101. La tercera, la de componente, aparece en muchos sistemas y en el curso de Figma, pero esta web no la tiene. En esta lección verás qué es un token de componente, qué criterio usamos para decidir si hace falta y cómo se añadiría uno si un día se justifica.
+Ya conoces las dos capas que usa DesignToken101. La tercera, la de componente, aparece en muchos sistemas y en el curso de Figma, pero esta web no la tiene. En esta lección verás qué es un token de componente, qué criterio usamos para decidir si hace falta y cómo se añadiría uno si un día se justifica.
 
 **En esta página**
 
 - [Qué es un token de componente](#qué-es-un-token-de-componente)
 - [Cuándo se justifica](#cuándo-se-justifica)
 - [Lo que cuesta](#lo-que-cuesta)
-- [Por qué Tokens101 no la tiene](#por-qué-tokens101-no-la-tiene)
+- [Por qué DesignToken101 no la tiene](#por-qué-designtoken101-no-la-tiene)
 - [Cómo se añadiría](#cómo-se-añadiría)
 
 ## Qué es un token de componente
@@ -34,7 +34,7 @@ La especificación DTCG no habla de capas, y el curso de Figma no da un criterio
 
 <Callout variant="recommendation">
 
-En Tokens101, un token de componente se justifica en dos casos:
+En DesignToken101, un token de componente se justifica en dos casos:
 
 1. **El componente se aparta del semántico.** Su valor no es el de ningún semántico existente, y tampoco es un uso general que merezca un semántico nuevo.
 2. **El componente tiene que poder cambiar por separado.** Hay una razón previsible para cambiarlo sin tocar el resto de usos del semántico.
@@ -57,7 +57,7 @@ Hay un argumento más, todavía sin comprobar: un vocabulario pequeño y con sig
 
 </Callout>
 
-## Por qué Tokens101 no la tiene
+## Por qué DesignToken101 no la tiene
 
 Ningún componente de la primera versión cumple los dos casos:
 
@@ -67,7 +67,7 @@ Ningún componente de la primera versión cumple los dos casos:
 
 <Callout variant="recommendation">
 
-Tokens101 añadirá la capa de componente cuando un componente lo justifique, no antes. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve). Añadir tokens por adelantado lleva a errores difíciles de deshacer; añadirlos cuando hacen falta cuesta poco, como verás ahora.
+DesignToken101 añadirá la capa de componente cuando un componente lo justifique, no antes. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve). Añadir tokens por adelantado lleva a errores difíciles de deshacer; añadirlos cuando hacen falta cuesta poco, como verás ahora.
 
 </Callout>
 
@@ -79,9 +79,9 @@ Si un componente lo justifica, el cambio no rompe nada:
 2. Cambias el componente para que aplique el token nuevo.
 3. A partir de ahí, puedes cambiar el alias del token de componente sin tocar el semántico.
 
-La cadena queda en dos saltos, componente → semántico → primitivo, el máximo que permite Tokens101 ([Las capas](/relations/layers#las-capas-de-tokens101)). Un token de componente nunca apunta directamente a un primitivo: si lo hiciera, el componente dejaría de seguir los cambios de su semántico.
+La cadena queda en dos saltos, componente → semántico → primitivo, el máximo que permite DesignToken101 ([Las capas](/relations/layers#las-capas-de-designtoken101)). Un token de componente nunca apunta directamente a un primitivo: si lo hiciera, el componente dejaría de seguir los cambios de su semántico.
 
-En Figma, un token de componente es una variable más, con su alias. Cómo nombrarla lo verás en el módulo Nombrar: el curso de Figma propone un patrón con el componente al principio, pero Tokens101 no ha fijado todavía el suyo, porque no lo ha necesitado.
+En Figma, un token de componente es una variable más, con su alias. Cómo nombrarla lo verás en el módulo Nombrar: el curso de Figma propone un patrón con el componente al principio, pero DesignToken101 no ha fijado todavía el suyo, porque no lo ha necesitado.
 
 ## Fuentes
 

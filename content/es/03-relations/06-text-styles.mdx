@@ -1,11 +1,11 @@
 ---
 title: Estilos de texto como capa
-description: Por qué los estilos de texto son la capa semántica de la tipografía en Tokens101, cómo se resuelve un estilo hasta sus primitivos y qué pasa con el texto que queda sin estilo.
+description: Por qué los estilos de texto son la capa semántica de la tipografía en DesignToken101, cómo se resuelve un estilo hasta sus primitivos y qué pasa con el texto que queda sin estilo.
 nav_title: Estilos de texto
 lastReviewed: 2026-10-04
 ---
 
-En el módulo 1 viste que un estilo de texto agrupa varias decisiones tipográficas, y en el módulo 2 creaste los primitivos de tipografía, ocultos al publicar. Falta la pieza que los une: en Tokens101, **los estilos de texto son la capa semántica de la tipografía**. En esta lección verás qué capa ocupa cada parte de un estilo, cómo se resuelve hasta sus primitivos y por qué ningún texto debería quedar sin estilo.
+En el módulo 1 viste que un estilo de texto agrupa varias decisiones tipográficas, y en el módulo 2 creaste los primitivos de tipografía, ocultos al publicar. Falta la pieza que los une: en DesignToken101, **los estilos de texto son la capa semántica de la tipografía**. En esta lección verás qué capa ocupa cada parte de un estilo, cómo se resuelve hasta sus primitivos y por qué ningún texto debería quedar sin estilo.
 
 **En esta página**
 
@@ -60,12 +60,12 @@ Cada propiedad del estilo se resuelve por un camino distinto. Así queda `headin
 Tres cosas que mirar en la tabla:
 
 - **El tamaño tiene su propio semántico.** `font-size/heading/1` existe porque el tamaño del título cambia con el ancho de pantalla, y un semántico puede apuntar a un primitivo distinto en cada modo. La familia y el peso no cambian, así que el estilo aplica el primitivo directamente.
-- **La cadena más larga tiene dos saltos:** estilo → `font-size/heading/1` → `font-size/07`. Cumple el límite de [Las capas](/relations/layers#las-capas-de-tokens101).
+- **La cadena más larga tiene dos saltos:** estilo → `font-size/heading/1` → `font-size/07`. Cumple el límite de [Las capas](/relations/layers#las-capas-de-designtoken101).
 - **El interlineado no es una variable.** Figma lee una variable de interlineado como píxeles, así que el estilo usa un porcentaje escrito a mano y el token vive en código ([Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras)).
 
 <Callout variant="recommendation">
 
-En Tokens101, **un estilo aplica un primitivo directamente cuando la propiedad no cambia nunca, y un semántico cuando cambia con un modo.** Es la misma regla de todo el módulo, aplicada propiedad a propiedad: la capa semántica existe donde hay una decisión que puede cambiar.
+En DesignToken101, **un estilo aplica un primitivo directamente cuando la propiedad no cambia nunca, y un semántico cuando cambia con un modo.** Es la misma regla de todo el módulo, aplicada propiedad a propiedad: la capa semántica existe donde hay una decisión que puede cambiar.
 
 </Callout>
 
@@ -73,7 +73,7 @@ En Tokens101, **un estilo aplica un primitivo directamente cuando la propiedad n
 
 Si un texto del diseño tiene su tamaño y su peso aplicados a mano, sin estilo, es el equivalente de un hex escrito a mano: funciona, pero no responde a ningún cambio del sistema.
 
-El caso más frecuente es la negrita. En Figma, poner en negrita una parte de un párrafo separa ese fragmento de su estilo de texto: queda sin estilo, aunque el resto del párrafo lo tenga. Lo comprobamos en el archivo de Tokens101. Por eso existe `body/strong`: el texto destacado tiene su propio estilo y sigue ligado al sistema.
+El caso más frecuente es la negrita. En Figma, poner en negrita una parte de un párrafo separa ese fragmento de su estilo de texto: queda sin estilo, aunque el resto del párrafo lo tenga. Lo comprobamos en el archivo de DesignToken101. Por eso existe `body/strong`: el texto destacado tiene su propio estilo y sigue ligado al sistema.
 
 <Callout variant="note">
 
@@ -83,7 +83,7 @@ En código no cambia nada: `<strong>` hereda el tamaño y el interlineado del p�
 
 ## En Figma
 
-Los estilos de texto no son variables, así que puedes crearlos ya con tus primitivos tipográficos del módulo 2. En Tokens101, cada estilo vincula sus propiedades a variables ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
+Los estilos de texto no son variables, así que puedes crearlos ya con tus primitivos tipográficos del módulo 2. En DesignToken101, cada estilo vincula sus propiedades a variables ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)):
 
 1. Crea el estilo de texto con su nombre, por ejemplo `heading/1`.
 2. En la familia, aplica la variable `font-family/sans`.
@@ -95,7 +95,7 @@ Los semánticos de tamaño de texto están en la colección `Layout`, con los mo
 
 <Callout variant="warning">
 
-La exportación DTCG de Figma incluye las variables, pero no los estilos de texto. La combinación que forma cada estilo necesita su propia fuente en código. En Tokens101 es la tabla de estilos de la especificación, y una comprobación automática vigila que el CSS coincida ([Tipos compuestos y estilos](/fundamentals/composite-types#lo-que-no-se-exporta)).
+La exportación DTCG de Figma incluye las variables, pero no los estilos de texto. La combinación que forma cada estilo necesita su propia fuente en código. En DesignToken101 es la tabla de estilos de la especificación, y una comprobación automática vigila que el CSS coincida ([Tipos compuestos y estilos](/fundamentals/composite-types#lo-que-no-se-exporta)).
 
 </Callout>
 

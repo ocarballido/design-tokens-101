@@ -1,21 +1,21 @@
 ---
 title: Espaciado
-description: La escala de espaciado de Tokens101, con base de 4 px, de dónde sale, cómo encajar en ella los valores de tu inventario y por qué los espaciados negativos viven en código.
+description: La escala de espaciado de DesignToken101, con base de 4 px, de dónde sale, cómo encajar en ella los valores de tu inventario y por qué los espaciados negativos viven en código.
 nav_title: Espaciado
 lastReviewed: 2026-10-04
 ---
 
-El espaciado es la escala más usada de un sistema: padding, gap y separación entre bloques. También es la que más casi duplicados acumula en un inventario. En esta lección verás la escala de Tokens101, de dónde sale y cómo encajar en ella tus propios valores.
+El espaciado es la escala más usada de un sistema: padding, gap y separación entre bloques. También es la que más casi duplicados acumula en un inventario. En esta lección verás la escala de DesignToken101, de dónde sale y cómo encajar en ella tus propios valores.
 
 **En esta página**
 
-- [La escala de Tokens101](#la-escala-de-tokens101)
+- [La escala de DesignToken101](#la-escala-de-designtoken101)
 - [De dónde sale la base de 4 px](#de-dónde-sale-la-base-de-4-px)
 - [Encajar tu inventario en la escala](#encajar-tu-inventario-en-la-escala)
 - [Espaciado negativo](#espaciado-negativo)
 - [En Figma](#en-figma)
 
-## La escala de Tokens101
+## La escala de DesignToken101
 
 Trece pasos. El número del nombre es proporcional al valor: `100` = 4 px.
 
@@ -49,7 +49,7 @@ Otros sistemas usan otra base. Atlassian parte de 8 px y su número es un porcen
 
 <Callout variant="recommendation">
 
-Tokens101 usa la base de 4 px del SDS porque permite pasos finos en los componentes (2, 4, 6 px) y coincide con la de Tailwind CSS. Si tu equipo ya trabaja con una base de 8 px, mantenla: lo importante es que el número del nombre sea proporcional al valor.
+DesignToken101 usa la base de 4 px del SDS porque permite pasos finos en los componentes (2, 4, 6 px) y coincide con la de Tailwind CSS. Si tu equipo ya trabaja con una base de 8 px, mantenla: lo importante es que el número del nombre sea proporcional al valor.
 
 </Callout>
 
@@ -80,7 +80,7 @@ Un espaciado negativo superpone elementos: dos avatares que se solapan, por ejem
 
 En CSS, la superposición se hace con márgenes negativos, que son válidos ([MDN: margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)). El `gap` y el padding no admiten negativos ([MDN: gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap), [MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)).
 
-Figma acepta variables con valores negativos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Lo probamos en el archivo de Tokens101:
+Figma acepta variables con valores negativos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Lo probamos en el archivo de DesignToken101:
 
 - Una variable de −8 en el gap de un auto layout funciona: los elementos se solapan.
 - La misma variable se puede aplicar al padding, y Figma acepta un padding de −8.
@@ -94,7 +94,7 @@ En Figma, un espaciado negativo se aplica al gap o al padding. En CSS, ninguna d
 
 <Callout variant="recommendation">
 
-En Tokens101 los espaciados negativos (`space/negative/100`, `200`, `300`, `400` y `600`) son tokens de código. No existen en Figma. Es el mismo criterio que viste en [Una sola fuente de verdad](/fundamentals/source-of-truth#los-tokens-que-viven-en-código).
+En DesignToken101 los espaciados negativos (`space/negative/100`, `200`, `300`, `400` y `600`) son tokens de código. No existen en Figma. Es el mismo criterio que viste en [Una sola fuente de verdad](/fundamentals/source-of-truth#los-tokens-que-viven-en-código).
 
 </Callout>
 
@@ -110,7 +110,7 @@ En la colección `Primitives`, crea una variable Number por paso ([Figma: Create
 
 <Callout variant="recommendation">
 
-Los espaciados se publican porque el diseñador los aplica directamente: Tokens101 no tiene tokens semánticos de espaciado. Los colores, en cambio, se ocultan, porque al diseñar se usan sus semánticos. El criterio completo está en [La colección completa](/primitives/primitives-collection).
+Los espaciados se publican porque el diseñador los aplica directamente: DesignToken101 no tiene tokens semánticos de espaciado. Los colores, en cambio, se ocultan, porque al diseñar se usan sus semánticos. El criterio completo está en [La colección completa](/primitives/primitives-collection).
 
 </Callout>
 

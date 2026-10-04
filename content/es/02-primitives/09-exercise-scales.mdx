@@ -27,7 +27,7 @@ En este ejercicio conviertes el inventario del módulo 1 en tu colección de pri
 
 ## Paso 1 Espaciado radio y borde
 
-1. Elige la base del espaciado: 4 px, como Tokens101, u 8 px si tu equipo ya trabaja así ([Espaciado](/primitives/spacing#de-dónde-sale-la-base-de-4-px)).
+1. Elige la base del espaciado: 4 px, como DesignToken101, u 8 px si tu equipo ya trabaja así ([Espaciado](/primitives/spacing#de-dónde-sale-la-base-de-4-px)).
 2. Lleva cada espaciado del inventario al paso más cercano. Los casi duplicados se funden; los valores entre dos pasos obligan a decidir ([Encajar tu inventario en la escala](/primitives/spacing#encajar-tu-inventario-en-la-escala)).
 3. Haz lo mismo con los radios y los grosores de borde. Si usas píldoras o círculos, añade un radio `full` ([Radio y grosor de borde](/primitives/radius-and-border)).
 
@@ -43,8 +43,8 @@ Nombra cada paso con su número proporcional: con base 4, `space/400` = 16 px.
 ## Paso 3 Color
 
 1. Convierte tu color de marca a oklch y genera su escala de once pasos con el método de [Escalas de color](/primitives/color-scales#el-método): en `tools/scales.py`, cambia `ACCENT_HSL` y ejecuta el script.
-2. Genera los neutros con el tono de tu marca. Elige el tinte: 0,5 como Tokens101, o 0 para un gris puro.
-3. Si tu diseño tiene mensajes de información, éxito, aviso o error, genera sus escalas por tono ([Escalas de estado](/primitives/status-colors)). Si tu marca ya es de uno de esos tonos, reutiliza su escala, como hace Tokens101 con `emerald`.
+2. Genera los neutros con el tono de tu marca. Elige el tinte: 0,5 como DesignToken101, o 0 para un gris puro.
+3. Si tu diseño tiene mensajes de información, éxito, aviso o error, genera sus escalas por tono ([Escalas de estado](/primitives/status-colors)). Si tu marca ya es de uno de esos tonos, reutiliza su escala, como hace DesignToken101 con `emerald`.
 4. Nombra cada paleta por su tono, no por su rol.
 5. Revisa el contraste de las tablas: qué paso admite texto blanco y cuál es el gris más claro que sirve para texto sobre blanco.
 

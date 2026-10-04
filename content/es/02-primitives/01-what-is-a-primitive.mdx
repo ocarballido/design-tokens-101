@@ -13,7 +13,7 @@ En el ejercicio del módulo 1 hiciste inventario de los valores de tu diseño. E
 - [El nombre dice qué valor es](#el-nombre-dice-qué-valor-es)
 - [Qué es una escala](#qué-es-una-escala)
 - [Dos formas de numerar el color](#dos-formas-de-numerar-el-color)
-- [Los primitivos de Tokens101](#los-primitivos-de-tokens101)
+- [Los primitivos de DesignToken101](#los-primitivos-de-designtoken101)
 - [En Figma](#en-figma)
 
 ## Primitivos y semánticos
@@ -25,7 +25,7 @@ Los sistemas de diseño más usados sí separan dos capas. En el Simple Design S
 | | Primitivo | Semántico |
 |---|---|---|
 | Qué nombra | **Qué valor es** | **Para qué se usa** |
-| Ejemplo en Tokens101 | `color/emerald/500` | `color/background/accent/strong/default` |
+| Ejemplo en DesignToken101 | `color/emerald/500` | `color/background/accent/strong/default` |
 | Valor | Un valor directo: `#33CC99` | Una referencia a un primitivo |
 | Cuándo cambia | Cuando cambia la paleta | Cuando cambia una decisión de uso, por ejemplo en el modo Dark |
 
@@ -50,11 +50,11 @@ Las escalas que no son de color tienen una sola paleta, así que ese nivel no se
 
 <Callout variant="recommendation">
 
-En Tokens101, **las paletas se nombran por su tono o por su naturaleza, nunca por su rol.** La paleta del acento se llama `emerald` y no `brand`, y la de error se llama `red` y no `danger`.
+En DesignToken101, **las paletas se nombran por su tono o por su naturaleza, nunca por su rol.** La paleta del acento se llama `emerald` y no `brand`, y la de error se llama `red` y no `danger`.
 
 </Callout>
 
-El motivo: un mismo primitivo puede servir para varios roles. En Tokens101, `emerald` es a la vez el color de marca y el color de éxito. Si la paleta se llamara `brand`, el token de éxito apuntaría a `brand/700`, y el nombre no diría lo que es.
+El motivo: un mismo primitivo puede servir para varios roles. En DesignToken101, `emerald` es a la vez el color de marca y el color de éxito. Si la paleta se llamara `brand`, el token de éxito apuntaría a `brand/700`, y el nombre no diría lo que es.
 
 Otros sistemas lo hacen de otra manera. El SDS de Figma tiene una paleta primitiva llamada `brand` junto a otras nombradas por su tono, como `green` o `red` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). Las dos opciones funcionan; la nuestra tiene un coste: si la marca cambiara a un azul, habría que renombrar la paleta. Los tokens semánticos conservarían su nombre; cambiaría el primitivo al que apuntan.
 
@@ -62,14 +62,14 @@ Otros sistemas lo hacen de otra manera. El SDS de Figma tiene una paleta primiti
 
 Una escala es un conjunto ordenado de pasos de una misma categoría. Los sistemas que hemos consultado comparten cuatro principios:
 
-1. **Pocas opciones, bien elegidas.** Una escala corta obliga a decidir. Tailwind CSS es la excepción: `p-17` es válido, porque cada utilidad multiplica la variable `--spacing` por el número que escribas ([Tailwind CSS: Padding](https://tailwindcss.com/docs/padding)). Con Tailwind, la disciplina tiene que venir de tus tokens. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve).
+1. **Pocas opciones, bien elegidas.** Una escala corta obliga a decidir. Tailwind CSS es la excepción: `p-17` es válido, porque cada utilidad multiplica la variable `--spacing` por el número que escribas ([Tailwind CSS: Padding](https://tailwindcss.com/docs/padding)). Con Tailwind, la disciplina tiene que venir de tus tokens. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve).
 2. **El número dice algo.** En el SDS, `space-100` mide 4 px y `space-400` mide 16 px: el número es proporcional al valor ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). En Atlassian, el número es un porcentaje de su base de 8 px: `space.200` mide 16 px ([Atlassian: Spacing](https://atlassian.design/foundations/spacing)).
 3. **Múltiplos de 100, con cero inicial para las fracciones.** Así caben pasos intermedios sin decimales: `050` es la mitad de `100` y `150` está entre `100` y `200`. Lo usan el SDS y Atlassian (mismas fuentes).
 4. **Los negativos van en su propio nivel.** `space/negative/100` en vez de `space/-100`. Lo hacen el SDS y Atlassian (mismas fuentes).
 
 <Callout variant="recommendation">
 
-En Tokens101 seguimos los cuatro principios en todas las escalas que no son de color. Los verás aplicados en [Espaciado](/primitives/spacing), [Radio y grosor de borde](/primitives/radius-and-border) y [Tipografía](/primitives/typography).
+En DesignToken101 seguimos los cuatro principios en todas las escalas que no son de color. Los verás aplicados en [Espaciado](/primitives/spacing), [Radio y grosor de borde](/primitives/radius-and-border) y [Tipografía](/primitives/typography).
 
 </Callout>
 
@@ -86,11 +86,11 @@ Radix garantiza que sus pasos de texto contrasten con su fondo, pero lo mide con
 
 <Callout variant="recommendation">
 
-Tokens101 numera el color como Tailwind CSS: once pasos, del `50` al `950`. El uso de cada color no está en el número del primitivo, sino en el token semántico que lo usa. Así, si un fondo necesita otro paso, cambias el alias y no el primitivo.
+DesignToken101 numera el color como Tailwind CSS: once pasos, del `50` al `950`. El uso de cada color no está en el número del primitivo, sino en el token semántico que lo usa. Así, si un fondo necesita otro paso, cambias el alias y no el primitivo.
 
 </Callout>
 
-## Los primitivos de Tokens101
+## Los primitivos de DesignToken101
 
 | Categoría | Pasos | Lección |
 |---|---|---|
@@ -111,13 +111,13 @@ Para crear la colección ([Figma: Create and manage variables](https://help.figm
 
 1. Abre la vista de variables.
 2. Crea una colección nueva (*More options* → *Create collection*) y llámala `Primitives`.
-3. Cambia el nombre de su modo. En Tokens101 se llama `Value`.
+3. Cambia el nombre de su modo. En DesignToken101 se llama `Value`.
 
 Las variables las crearás en las lecciones siguientes, una escala cada vez. Al crear cada una, decidirás también si se publica y a qué propiedades se puede aplicar.
 
 <Callout variant="note">
 
-Figma permite ocultar una colección entera al publicar si su nombre empieza por `_` o por `.` ([Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)). En Tokens101 no lo hacemos: unos primitivos se ocultan y otros no, así que se ocultan variable por variable.
+Figma permite ocultar una colección entera al publicar si su nombre empieza por `_` o por `.` ([Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)). En DesignToken101 no lo hacemos: unos primitivos se ocultan y otros no, así que se ocultan variable por variable.
 
 </Callout>
 

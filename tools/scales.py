@@ -1,4 +1,4 @@
-"""Tokens101 — generación de las escalas primitivas de color (S9, S10, S11, S18).
+"""DesignToken101 — generación de las escalas primitivas de color (S9, S10, S11, S18).
 Se construyen en oklch y se guardan en sRGB (hex). Sin dependencias externas.
 
 Uso:  python3 tools/scales.py
@@ -124,7 +124,7 @@ def status_scales(chroma_factor=0.66):
 # --- Salida -------------------------------------------------------------------
 
 if __name__ == '__main__':
-    ACCENT_HSL = (160, 60, 50)  # color de marca de Tokens101: #33CC99 (S8)
+    ACCENT_HSL = (160, 60, 50)  # color de marca de DesignToken101: #33CC99 (S8)
     TINT = 0.5                  # croma de los neutros: gray × 0,5 (S11); 0 = gris puro
     out = build(ACCENT_HSL, TINT)
     out['status'] = status_scales(0.66)

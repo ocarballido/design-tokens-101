@@ -11,7 +11,7 @@ Algunas decisiones de diseño no son un valor, sino varios que van siempre junto
 
 - [Los tipos compuestos de DTCG](#los-tipos-compuestos-de-dtcg)
 - [En Figma los compuestos son estilos](#en-figma-los-compuestos-son-estilos)
-- [Los estilos de texto de Tokens101](#los-estilos-de-texto-de-tokens101)
+- [Los estilos de texto de DesignToken101](#los-estilos-de-texto-de-designtoken101)
 - [Lo que no se exporta](#lo-que-no-se-exporta)
 - [Sombras](#sombras)
 - [En Figma](#en-figma)
@@ -63,7 +63,7 @@ Figma no tiene variables compuestas. Para agrupar varios valores usa **estilos**
 
 Puedes aplicar variables a las propiedades de un estilo de texto y de un estilo de efecto ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Así el estilo agrupa las decisiones, y cada decisión sigue siendo una variable.
 
-## Los estilos de texto de Tokens101
+## Los estilos de texto de DesignToken101
 
 Esta web tiene diez estilos de texto, uno por rol: `heading/1` a `heading/4`, `body/default`, `body/strong`, `body/small`, `label/default`, `caption/default` y `code/default`. Tres ejemplos:
 
@@ -79,7 +79,7 @@ Esta web tiene diez estilos de texto, uno por rol: `heading/1` a `heading/4`, `b
 
 <Callout variant="recommendation">
 
-Los estilos de texto son la capa semántica de la tipografía en Tokens101: se nombran por el **rol** (`heading`, `body`, `label`), no por el tamaño. Existe `body/strong` porque en Figma, al poner en negrita un fragmento de texto, ese fragmento se separa de su estilo. Con un estilo propio, todo el texto sigue ligado a un estilo.
+Los estilos de texto son la capa semántica de la tipografía en DesignToken101: se nombran por el **rol** (`heading`, `body`, `label`), no por el tamaño. Existe `body/strong` porque en Figma, al poner en negrita un fragmento de texto, ese fragmento se separa de su estilo. Con un estilo propio, todo el texto sigue ligado a un estilo.
 
 </Callout>
 
@@ -95,7 +95,7 @@ Si tu sistema depende de estilos de texto, la exportación de Figma te da las pi
 
 <Callout variant="recommendation">
 
-En Tokens101, la fuente de los estilos compuestos en código es la tabla de estilos de la especificación del sistema. Una comprobación automática compara el CSS con esa tabla, para que no se desincronicen.
+En DesignToken101, la fuente de los estilos compuestos en código es la tabla de estilos de la especificación del sistema. Una comprobación automática compara el CSS con esa tabla, para que no se desincronicen.
 
 </Callout>
 
@@ -105,7 +105,7 @@ Un token `shadow` de DTCG agrupa color, desplazamiento horizontal y vertical, de
 
 <Callout variant="recommendation">
 
-La primera versión de Tokens101 no tiene sombras: ningún componente las necesita. Cuando haga falta una, se creará como estilo de efecto con variables, y el primitivo `color/black` ya está reservado para su color.
+La primera versión de DesignToken101 no tiene sombras: ningún componente las necesita. Cuando haga falta una, se creará como estilo de efecto con variables, y el primitivo `color/black` ya está reservado para su color.
 
 </Callout>
 
@@ -118,7 +118,7 @@ Para que un estilo de texto use variables ([Figma: Apply variables to designs](h
 3. Aplica también una variable al tamaño de fuente, que admite variables Number (misma fuente).
 4. Comprueba que cada propiedad del estilo muestra el nombre de la variable y no un valor suelto.
 
-Crearás los estilos de Tokens101 en el [módulo Relaciones](/relations/text-styles#en-figma), cuando tengas las variables tipográficas.
+Crearás los estilos de DesignToken101 en el [módulo Relaciones](/relations/text-styles#en-figma), cuando tengas las variables tipográficas.
 
 <InCode title="Un estilo de texto en el CSS de esta web">
 

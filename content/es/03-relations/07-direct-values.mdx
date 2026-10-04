@@ -1,11 +1,11 @@
 ---
 title: Cuando un semántico no es alias
-description: La regla de Tokens101 de que los semánticos son siempre alias, sus cuatro excepciones y por qué existe cada una, y cómo se controla una excepción para que no se convierta en un valor suelto.
+description: La regla de DesignToken101 de que los semánticos son siempre alias, sus cuatro excepciones y por qué existe cada una, y cómo se controla una excepción para que no se convierta en un valor suelto.
 nav_title: Valores directos
 lastReviewed: 2026-10-04
 ---
 
-En Tokens101, un semántico apunta siempre a un primitivo. Casi siempre: hay cuatro tokens semánticos con un valor propio. En esta lección verás cuáles son, por qué cada uno es una excepción y cómo se controla una excepción para que no acabe siendo un valor suelto con nombre de token.
+En DesignToken101, un semántico apunta siempre a un primitivo. Casi siempre: hay cuatro tokens semánticos con un valor propio. En esta lección verás cuáles son, por qué cada uno es una excepción y cómo se controla una excepción para que no acabe siendo un valor suelto con nombre de token.
 
 **En esta página**
 
@@ -19,7 +19,7 @@ En Tokens101, un semántico apunta siempre a un primitivo. Casi siempre: hay cua
 
 <Callout variant="recommendation">
 
-En Tokens101, **los semánticos son siempre alias de un primitivo, nunca valores directos.** Así, todo valor del sistema está en la colección de primitivos, y para saber de dónde sale un color o una medida basta con seguir el alias.
+En DesignToken101, **los semánticos son siempre alias de un primitivo, nunca valores directos.** Así, todo valor del sistema está en la colección de primitivos, y para saber de dónde sale un color o una medida basta con seguir el alias.
 
 </Callout>
 
@@ -51,7 +51,7 @@ La capa que oscurece la página al abrir el menú en móvil es negra, con un 50 
 - **En Figma**, un alias apunta a otra variable, y la ayuda no describe ninguna forma de modificar el valor de destino ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). No hay forma de decir "este primitivo, pero al 50 %".
 - **En DTCG**, la sintaxis de llaves tampoco: apunta al valor completo de un token ([Format Module: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)).
 
-Así que el token lleva el color completo, con su opacidad, como valor propio. Tokens101 no tiene tokens de opacidad: la transparencia va dentro del color, en su propiedad `alpha` ([Tipos simples](/fundamentals/simple-types)).
+Así que el token lleva el color completo, con su opacidad, como valor propio. DesignToken101 no tiene tokens de opacidad: la transparencia va dentro del color, en su propiedad `alpha` ([Tipos simples](/fundamentals/simple-types)).
 
 <Callout variant="note">
 
@@ -63,7 +63,7 @@ Lo probamos con la herramienta que genera el CSS de esta web, Terrazzo 2.7.1. Re
 
 <Callout variant="recommendation">
 
-Tokens101 mantiene estos colores como valores directos. Figma no exporta `$ref`, así que habría que escribirlos a mano fuera de Figma; la herramienta lo admite sin documentarlo, y el CSS final sería el mismo.
+DesignToken101 mantiene estos colores como valores directos. Figma no exporta `$ref`, así que habría que escribirlos a mano fuera de Figma; la herramienta lo admite sin documentarlo, y el CSS final sería el mismo.
 
 </Callout>
 
@@ -71,7 +71,7 @@ El fondo de la cabecera añade una dificultad: es blanco al 90 % en Light y `neu
 
 ## Cómo se controla una excepción
 
-Una excepción sin control acaba siendo un valor suelto con nombre de token. En Tokens101, cada valor directo cumple tres condiciones:
+Una excepción sin control acaba siendo un valor suelto con nombre de token. En DesignToken101, cada valor directo cumple tres condiciones:
 
 1. **Tiene un motivo registrado.** Cada una está en el registro de decisiones del proyecto, con la fecha y el porqué.
 2. **Lo dice su descripción.** La descripción del token explica que es un valor directo y por qué, para quien lo encuentre en Figma o en el JSON.

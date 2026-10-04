@@ -1,6 +1,6 @@
-# Tokens101: Sistema de tokens v1 (especificación)
+# DesignToken101: Sistema de tokens v1 (especificación)
 
-Especificación del sistema de tokens de Tokens101. Es el encargo para la sesión de diseño (variables en Figma) y el contenido del ejercicio final del curso (módulo 8). Se construyó en la sesión de contenido (paso 2 de `docs/estado.md`). Cualquier cambio sigue el protocolo de `docs/decisiones.md`.
+Especificación del sistema de tokens de DesignToken101. Es el encargo para la sesión de diseño (variables en Figma) y el contenido del ejercicio final del curso (módulo 8). Se construyó en la sesión de contenido (paso 2 de `docs/estado.md`). Cualquier cambio sigue el protocolo de `docs/decisiones.md`.
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
@@ -30,7 +30,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 
 ## 1. Marca (cerrada, A1)
 
-- **Marca:** Tokens101, firmada por Oscar Carballido.
+- **Marca:** DesignToken101, firmada por Oscar Carballido.
 - **Color de acento:** HSL(160, 60 %, 50 %) = `#33CC99` = oklch(0.755 0.145 165.4). Sustituye al valor inicial HSL(150, 50 %, 60 %) (corrección de Oscar, 2026-09-30). *Si vuelve a cambiar, se regeneran las escalas con el mismo método (sección 3).*
 - **Neutros:** tintados con el tono del acento, **tinte suave** (croma de Tailwind `gray` × 0,5).
 - **Tipografías:**

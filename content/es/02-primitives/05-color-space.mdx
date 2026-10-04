@@ -1,15 +1,15 @@
 ---
 title: Espacio de color
-description: Por qué Tokens101 construye sus escalas de color en oklch y las guarda en sRGB, qué pasa con los colores fuera de gama, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
+description: Por qué DesignToken101 construye sus escalas de color en oklch y las guarda en sRGB, qué pasa con los colores fuera de gama, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
 nav_title: Espacio de color
 lastReviewed: 2026-10-04
 ---
 
-Los colores de Tokens101 no se eligieron uno a uno en el selector de Figma. Se generaron a partir de un único color de marca, con un método que trabaja en un espacio de color (oklch) y guarda el resultado en otro (sRGB). En esta lección verás cómo se hizo, qué significa cada espacio, por qué los separamos, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
+Los colores de DesignToken101 no se eligieron uno a uno en el selector de Figma. Se generaron a partir de un único color de marca, con un método que trabaja en un espacio de color (oklch) y guarda el resultado en otro (sRGB). En esta lección verás cómo se hizo, qué significa cada espacio, por qué los separamos, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
 
 **En esta página**
 
-- [Cómo se crearon los colores de Tokens101](#cómo-se-crearon-los-colores-de-tokens101)
+- [Cómo se crearon los colores de DesignToken101](#cómo-se-crearon-los-colores-de-designtoken101)
 - [Espacio de color y gama](#espacio-de-color-y-gama)
 - [Por qué construir en oklch](#por-qué-construir-en-oklch)
 - [Por qué guardar en sRGB](#por-qué-guardar-en-srgb)
@@ -18,9 +18,9 @@ Los colores de Tokens101 no se eligieron uno a uno en el selector de Figma. Se g
 - [El contraste se mide sobre lo que se guarda](#el-contraste-se-mide-sobre-lo-que-se-guarda)
 - [En Figma](#en-figma)
 
-## Cómo se crearon los colores de Tokens101
+## Cómo se crearon los colores de DesignToken101
 
-<Flow caption="Cómo se crearon los colores de Tokens101, desde el color de marca hasta el CSS.">
+<Flow caption="Cómo se crearon los colores de DesignToken101, desde el color de marca hasta el CSS.">
   <FlowStep title="Elegir el color de marca" meta="Un único color: #33CC99" />
   <FlowStep title="Generar las escalas" meta="Script, en oklch: 11 pasos por escala" />
   <FlowStep title="Ajustar a sRGB" meta="El script reduce el croma si no cabe" />
@@ -93,7 +93,7 @@ Para una escala, eso importa por dos motivos:
 
 <Callout variant="recommendation">
 
-Tokens101 construye las escalas en oklch: decide la L y el croma de cada paso y mantiene el tono. Es lo mismo que hace Tailwind CSS, cuya paleta por defecto se define en oklch desde la versión 4 ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)).
+DesignToken101 construye las escalas en oklch: decide la L y el croma de cada paso y mantiene el tono. Es lo mismo que hace Tailwind CSS, cuya paleta por defecto se define en oklch desde la versión 4 ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)).
 
 </Callout>
 
@@ -108,7 +108,7 @@ Lo que dicen las fuentes:
 
 <Callout variant="recommendation">
 
-Tokens101 guarda los colores en sRGB. Los valores sRGB son la fuente de verdad en Figma, el archivo trabaja con el perfil sRGB y el CSS escribe el mismo valor en hexadecimal, sin conversiones. Así, el color que ves en Figma es el que se exporta y el que llega a la web.
+DesignToken101 guarda los colores en sRGB. Los valores sRGB son la fuente de verdad en Figma, el archivo trabaja con el perfil sRGB y el CSS escribe el mismo valor en hexadecimal, sin conversiones. Así, el color que ves en Figma es el que se exporta y el que llega a la web.
 
 </Callout>
 
@@ -120,7 +120,7 @@ Construir en oklch y guardar en sRGB tiene una consecuencia: algunas combinacion
 
 La propia paleta de Tailwind CSS lo muestra. Desde la versión 4 aprovecha la gama más ancha de las pantallas modernas para que los colores sean más intensos ([Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)). Con el script del repositorio comprobamos que `green-500`, `green-600` y `green-700` de Tailwind quedan fuera de sRGB: `green-500` tiene un croma de 0,219, y en sRGB su máximo con esa L y ese tono es 0,201.
 
-El método de Tokens101 para llevar un color a sRGB:
+El método de DesignToken101 para llevar un color a sRGB:
 
 - **Se conservan L y H.** El color sigue siendo igual de claro y del mismo tono.
 - **Se reduce el croma** hasta que el color cabe.
@@ -129,7 +129,7 @@ El módulo CSS Color 4 del W3C sigue la misma idea: su algoritmo de mapeo de gam
 
 <Callout variant="note">
 
-En las escalas de Tokens101 el ajuste no llega a actuar: al multiplicar el croma de Tailwind por 0,66 (lo verás en [Escalas de color](/primitives/color-scales)), todos los pasos caben en sRGB. El ajuste está en el método para que funcione con cualquier color de marca.
+En las escalas de DesignToken101 el ajuste no llega a actuar: al multiplicar el croma de Tailwind por 0,66 (lo verás en [Escalas de color](/primitives/color-scales)), todos los pasos caben en sRGB. El ajuste está en el método para que funcione con cualquier color de marca.
 
 </Callout>
 
@@ -151,7 +151,7 @@ WCAG 2.2 calcula el contraste a partir de la luminancia relativa de cada color e
 
 <Callout variant="recommendation">
 
-En Tokens101 el contraste se calcula siempre sobre el hex guardado, no sobre la L de oklch ni sobre el valor antes de redondear al hex. La L sirve para construir la escala; la cifra que vale para accesibilidad es la de WCAG sobre el color final.
+En DesignToken101 el contraste se calcula siempre sobre el hex guardado, no sobre la L de oklch ni sobre el valor antes de redondear al hex. La L sirve para construir la escala; la cifra que vale para accesibilidad es la de WCAG sobre el color final.
 
 </Callout>
 

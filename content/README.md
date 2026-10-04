@@ -1,4 +1,4 @@
-# Contenido de Tokens101
+# Contenido de DesignToken101
 
 Convenciones para escribir y mantener las lecciones. Última revisión: 30/09/2026.
 
@@ -9,7 +9,7 @@ content/
 ├── es/                      ← idioma de trabajo (se cierra primero)
 │   ├── 00-start-here/
 │   │   ├── meta.json            ← nombre de la sección en el sidebar
-│   │   ├── 01-what-is-tokens101.mdx
+│   │   ├── 01-what-is-designtoken101.mdx
 │   │   ├── 02-why-this-site.mdx
 │   │   ├── 03-what-is-dtcg.mdx
 │   │   ├── 04-figma-dtcg-tailwind.mdx
@@ -53,13 +53,13 @@ lastReviewed: 2026-09-30          # última verificación de las fuentes
 
 ## Componentes que usa el contenido
 
-Se diseñarán en Figma con el sistema de Tokens101 y se implementarán en `mdx-components.tsx`.
+Se diseñarán en Figma con el sistema de DesignToken101 y se implementarán en `mdx-components.tsx`.
 
 | Componente | Uso |
 |---|---|
 | `<Callout variant="note">` | Información útil pero no imprescindible |
 | `<Callout variant="warning">` | Algo que puede provocar errores |
-| `<Callout variant="recommendation">` | Decisión propia de Tokens101, no una norma |
+| `<Callout variant="recommendation">` | Decisión propia de DesignToken101, no una norma |
 | `<Callout variant="pending">` | Algo que aún no hemos podido verificar |
 | `<InCode title="…">` | Itinerario de código; se puede plegar y el diseñador puede saltarlo |
 | `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
@@ -74,7 +74,7 @@ Adaptada de la guía de estilo de Next.js ([Docs Contribution Guide: Voice](http
 - Evitar *fácil*, *rápido*, *sencillo*, *simplemente* y *solo*: son subjetivas y pueden desanimar.
 - Repetir el sujeto antes que usar un "esto" ambiguo.
 - Cada afirmación sobre una herramienta o especificación lleva enlace a su fuente oficial.
-- Separar siempre **lo que dice la fuente** de **la recomendación de Tokens101** (`<Callout variant="recommendation">`).
+- Separar siempre **lo que dice la fuente** de **la recomendación de DesignToken101** (`<Callout variant="recommendation">`).
 - Los blogs y foros se marcan como tales.
 - **Nombres de los modos (C12):** cuando el texto habla de los modos del sistema de tokens, usa el nombre que tienen en Figma: Light y Dark, Desktop y Mobile. Para el concepto general ("un modo oscuro") o para el selector de tema de la web ("Modo claro"), se escribe en español.
 - **Sin guiones largos (—) (C15):** usa dos puntos, paréntesis o una frase nueva. En los títulos de enlace: `[Figma: Modes for variables](…)`.

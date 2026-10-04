@@ -1,16 +1,16 @@
 ---
 title: Estados
-description: Los tokens semánticos de los estados de los controles en Tokens101 (hover, active, seleccionado y foco), qué pide WCAG 2.2 a cada uno, por qué no hay disabled y por qué dos tokens pueden apuntar al mismo primitivo.
+description: Los tokens semánticos de los estados de los controles en DesignToken101 (hover, active, seleccionado y foco), qué pide WCAG 2.2 a cada uno, por qué no hay disabled y por qué dos tokens pueden apuntar al mismo primitivo.
 nav_title: Estados
 lastReviewed: 2026-10-04
 ---
 
-Un control cambia de aspecto cuando pasas el ratón, cuando lo pulsas, cuando tiene el foco o cuando es la opción actual. Cada uno de esos cambios es una decisión de color, y en Tokens101 cada decisión es un token semántico. En esta lección verás qué tokens de estado tiene la web, qué pide WCAG 2.2 a cada estado y por qué no hay tokens para los controles desactivados.
+Un control cambia de aspecto cuando pasas el ratón, cuando lo pulsas, cuando tiene el foco o cuando es la opción actual. Cada uno de esos cambios es una decisión de color, y en DesignToken101 cada decisión es un token semántico. En esta lección verás qué tokens de estado tiene la web, qué pide WCAG 2.2 a cada estado y por qué no hay tokens para los controles desactivados.
 
 **En esta página**
 
 - [Un estado es otro token](#un-estado-es-otro-token)
-- [Los estados de Tokens101](#los-estados-de-tokens101)
+- [Los estados de DesignToken101](#los-estados-de-designtoken101)
 - [Qué pide WCAG a cada estado](#qué-pide-wcag-a-cada-estado)
 - [El texto en hover y active](#el-texto-en-hover-y-active)
 - [Por qué no hay disabled](#por-qué-no-hay-disabled)
@@ -37,7 +37,7 @@ Dónde va el estado dentro del nombre (`…/strong/hover`, pero `text/accent/hov
 
 </Callout>
 
-## Los estados de Tokens101
+## Los estados de DesignToken101
 
 | Estado | Cómo se resuelve | Tokens |
 |---|---|---|
@@ -73,13 +73,13 @@ Los controles neutros usan a veces texto secundario (`color/text/neutral/subtle`
 
 <Callout variant="recommendation">
 
-En Tokens101, **en hover y active, el texto de los controles neutros pasa a `color/text/neutral/default`**. Con esa regla, el par que no cumple no se usa nunca. Es una decisión nuestra, tomada al comprobar el contraste de cada par de estado.
+En DesignToken101, **en hover y active, el texto de los controles neutros pasa a `color/text/neutral/default`**. Con esa regla, el par que no cumple no se usa nunca. Es una decisión nuestra, tomada al comprobar el contraste de cada par de estado.
 
 </Callout>
 
 ## Por qué no hay disabled
 
-Ningún control de esta web se desactiva: no hay formularios ni botones que dependan de una condición. Por eso Tokens101 no tiene tokens de disabled.
+Ningún control de esta web se desactiva: no hay formularios ni botones que dependan de una condición. Por eso DesignToken101 no tiene tokens de disabled.
 
 La guía de 1.4.11 exime de contraste a los componentes que no están disponibles para interactuar, como un control desactivado en HTML (misma fuente). Si un día hace falta, el plan es añadirlo como **rol**, no como un estado de cada rol: `color/background/disabled/default`, `color/text/disabled/default` y `color/border/disabled/default`. Es el patrón del SDS, que tiene `--sds-color-background-disabled-default` y equivalentes de texto, borde e icono ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
 
@@ -99,7 +99,7 @@ En Light, `background/neutral/hover` (`neutral/100`) apenas se distingue de `bac
 
 ## En Figma
 
-En Figma, los estados son variantes del componente: una propiedad `state` con los valores `default`, `hover`, `focus`… Cada variante aplica el token de su estado. En el `SidebarItem` de Tokens101, por ejemplo, la variante `hover` aplica `color/background/neutral/hover` al fondo y `color/text/neutral/default` al texto.
+En Figma, los estados son variantes del componente: una propiedad `state` con los valores `default`, `hover`, `focus`… Cada variante aplica el token de su estado. En el `SidebarItem` de DesignToken101, por ejemplo, la variante `hover` aplica `color/background/neutral/hover` al fondo y `color/text/neutral/default` al texto.
 
 Los tokens de estado se crean como cualquier semántico: una variable con un alias por modo, en la colección `Semantic color`.
 

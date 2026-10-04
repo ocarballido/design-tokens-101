@@ -1,11 +1,11 @@
 ---
 title: Semánticos de tamaño
-description: Los semánticos de radio y de maquetación de Tokens101, por qué no hay semánticos de espaciado ni de grosor de borde, y cómo un valor suelto del diseño se convierte en token al llevarlo a código.
+description: Los semánticos de radio y de maquetación de DesignToken101, por qué no hay semánticos de espaciado ni de grosor de borde, y cómo un valor suelto del diseño se convierte en token al llevarlo a código.
 nav_title: Semánticos de tamaño
 lastReviewed: 2026-10-04
 ---
 
-El color no es la única categoría con capa semántica. En Tokens101 también la tienen el radio de las esquinas y dos medidas de la maquetación. En esta lección verás esos cuatro tokens, por qué el espaciado no tiene semánticos y cómo apareció uno de ellos al pasar el diseño a código.
+El color no es la única categoría con capa semántica. En DesignToken101 también la tienen el radio de las esquinas y dos medidas de la maquetación. En esta lección verás esos cuatro tokens, por qué el espaciado no tiene semánticos y cómo apareció uno de ellos al pasar el diseño a código.
 
 **En esta página**
 
@@ -17,7 +17,7 @@ El color no es la única categoría con capa semántica. En Tokens101 también l
 
 ## Dos radios con nombre
 
-Tokens101 tiene nueve radios primitivos, del `radius/0` al `radius/full` ([Radio y grosor de borde](/primitives/radius-and-border#la-escala-de-radio)). Los componentes usan dos semánticos:
+DesignToken101 tiene nueve radios primitivos, del `radius/0` al `radius/full` ([Radio y grosor de borde](/primitives/radius-and-border#la-escala-de-radio)). Los componentes usan dos semánticos:
 
 | Token | Alias | Valor | Uso |
 |---|---|---|---|
@@ -28,19 +28,19 @@ Los dos nombres dicen a qué tipo de elemento se aplican, no cuánto miden. Si u
 
 <Callout variant="recommendation">
 
-En Tokens101, **los componentes usan los semánticos de radio**. Los primitivos siguen visibles al publicar para los casos que no encajan en las dos categorías, como el grupo de los selectores de la cabecera. Si un radio primitivo empieza a repetirse en varios componentes con la misma función, es el momento de darle un semántico.
+En DesignToken101, **los componentes usan los semánticos de radio**. Los primitivos siguen visibles al publicar para los casos que no encajan en las dos categorías, como el grupo de los selectores de la cabecera. Si un radio primitivo empieza a repetirse en varios componentes con la misma función, es el momento de darle un semántico.
 
 </Callout>
 
 ## Por qué el espaciado no tiene semánticos
 
-El espaciado y el grosor de borde no tienen capa semántica en Tokens101: los componentes aplican `space/400` o `border-width/100` directamente. Lo viste en el módulo 2, donde por eso se publican esos primitivos ([Espaciado](/primitives/spacing#en-figma)).
+El espaciado y el grosor de borde no tienen capa semántica en DesignToken101: los componentes aplican `space/400` o `border-width/100` directamente. Lo viste en el módulo 2, donde por eso se publican esos primitivos ([Espaciado](/primitives/spacing#en-figma)).
 
 Los sistemas que hemos consultado también nombran el espaciado por su paso: `space.200` en Atlassian ([Atlassian: Spacing](https://atlassian.design/foundations/spacing)) y `--sds-size-space-400` en el SDS ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
 
 <Callout variant="recommendation">
 
-El motivo de Tokens101: un nombre como `space/inset/card` aporta cuando varias tarjetas tienen que cambiar de padding a la vez y por separado del resto. En esta web no pasa. Con la escala basta para mantener la coherencia, y añadir una capa costaría nombres que nadie consulta. Si aparece ese caso, se añade el semántico ([un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve)).
+El motivo de DesignToken101: un nombre como `space/inset/card` aporta cuando varias tarjetas tienen que cambiar de padding a la vez y por separado del resto. En esta web no pasa. Con la escala basta para mantener la coherencia, y añadir una capa costaría nombres que nadie consulta. Si aparece ese caso, se añade el semántico ([un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve)).
 
 </Callout>
 
@@ -71,7 +71,7 @@ Es un caso habitual: el diseño parece completo hasta que alguien tiene que escr
 
 ## En Figma
 
-En Tokens101, los semánticos de tamaño están en la colección `Semantic size`, con un solo modo, `Value`: no cambian con el tema ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+En DesignToken101, los semánticos de tamaño están en la colección `Semantic size`, con un solo modo, `Value`: no cambian con el tema ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 
 - `radius/control` y `radius/container` son variables Number con alias a `radius/200` y `radius/400`, y scope *Corner radius*.
 - `size/content/max-width` y `size/sidebar/width` son variables Number con su valor (960 y 304) y scope *Width and height*.

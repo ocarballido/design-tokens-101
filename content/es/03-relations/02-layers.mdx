@@ -1,11 +1,11 @@
 ---
 title: Las capas
-description: Primitivos, semánticos y tokens de componente. Qué dice la especificación, cómo los presenta Figma, cómo se resuelve un token de capa en capa y qué capas usa Tokens101.
+description: Primitivos, semánticos y tokens de componente. Qué dice la especificación, cómo los presenta Figma, cómo se resuelve un token de capa en capa y qué capas usa DesignToken101.
 nav_title: Las capas
 lastReviewed: 2026-10-04
 ---
 
-Con los alias puedes encadenar tokens. La pregunta siguiente es cómo ordenarlos: qué tokens apuntan a cuáles. La respuesta habitual son las **capas**: primitivos, semánticos y, a veces, tokens de componente. En esta lección verás de dónde sale ese modelo, cómo se resuelve un token de una capa a otra y qué capas usa Tokens101.
+Con los alias puedes encadenar tokens. La pregunta siguiente es cómo ordenarlos: qué tokens apuntan a cuáles. La respuesta habitual son las **capas**: primitivos, semánticos y, a veces, tokens de componente. En esta lección verás de dónde sale ese modelo, cómo se resuelve un token de una capa a otra y qué capas usa DesignToken101.
 
 **En esta página**
 
@@ -13,7 +13,7 @@ Con los alias puedes encadenar tokens. La pregunta siguiente es cómo ordenarlos
 - [Tres capas](#tres-capas)
 - [Cómo se resuelve un token](#cómo-se-resuelve-un-token)
 - [Por qué no aplicar los primitivos](#por-qué-no-aplicar-los-primitivos)
-- [Las capas de Tokens101](#las-capas-de-tokens101)
+- [Las capas de DesignToken101](#las-capas-de-designtoken101)
 
 ## Las capas son una convención
 
@@ -41,16 +41,16 @@ No todos los sistemas usan las tres. El Simple Design System (SDS) de Figma tien
 
 ## Cómo se resuelve un token
 
-Cuando diseñas, aplicas el token de la capa más alta que tenga tu sistema. La herramienta sigue los alias hacia abajo hasta llegar a un valor. Este es el recorrido del color de los enlaces de Tokens101, con una capa de componente de ejemplo encima:
+Cuando diseñas, aplicas el token de la capa más alta que tenga tu sistema. La herramienta sigue los alias hacia abajo hasta llegar a un valor. Este es el recorrido del color de los enlaces de DesignToken101, con una capa de componente de ejemplo encima:
 
-<Flow caption="Cómo se resuelve el color de los enlaces, de la capa de componente al valor. La capa de componente es un ejemplo: Tokens101 no la tiene.">
-  <FlowStep title="Componente" meta="link/text · Ejemplo, no existe en Tokens101" />
+<Flow caption="Cómo se resuelve el color de los enlaces, de la capa de componente al valor. La capa de componente es un ejemplo: DesignToken101 no la tiene.">
+  <FlowStep title="Componente" meta="link/text · Ejemplo, no existe en DesignToken101" />
   <FlowStep title="Semántico" meta="color/text/accent/default" />
   <FlowStep title="Primitivo" meta="color/emerald/700 · Oculto al publicar" />
   <FlowStep title="Valor" meta="#1A7D5C en el modo Light" />
 </Flow>
 
-1. **Componente.** Un token como `link/text` diría "el texto del componente enlace". Tokens101 no lo tiene: el enlace usa directamente el semántico. Cuándo tendría sentido lo verás en [La capa de componente](/relations/component-tokens).
+1. **Componente.** Un token como `link/text` diría "el texto del componente enlace". DesignToken101 no lo tiene: el enlace usa directamente el semántico. Cuándo tendría sentido lo verás en [La capa de componente](/relations/component-tokens).
 2. **Semántico.** `color/text/accent/default` es el texto con el color de acento. Lo usan los enlaces, y también el icono y la etiqueta del `Callout` de recomendación.
 3. **Primitivo.** `color/emerald/700`, un paso de la escala del acento. Está oculto al publicar, así que nadie lo aplica directamente ([La colección completa](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)).
 4. **Valor.** `#1A7D5C`. En el modo Dark, el mismo semántico apunta a otro primitivo, `color/emerald/400`: el nombre que aplicas no cambia, cambia el destino del alias.
@@ -65,15 +65,15 @@ Podrías aplicar `color/emerald/700` directamente al texto de los enlaces. Funci
 
 <Callout variant="note">
 
-En Tokens101 hay primitivos que sí se aplican directamente: el espaciado y el grosor de borde, porque no tienen tokens semánticos. Lo viste en [Espaciado](/primitives/spacing#en-figma). La regla de esta lección vale para las categorías que tienen capa semántica: color, tamaños y tipografía. El radio está a medio camino: los componentes usan sus semánticos, pero los primitivos siguen visibles por si un diseño necesita otro paso de la escala ([La colección completa](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)).
+En DesignToken101 hay primitivos que sí se aplican directamente: el espaciado y el grosor de borde, porque no tienen tokens semánticos. Lo viste en [Espaciado](/primitives/spacing#en-figma). La regla de esta lección vale para las categorías que tienen capa semántica: color, tamaños y tipografía. El radio está a medio camino: los componentes usan sus semánticos, pero los primitivos siguen visibles por si un diseño necesita otro paso de la escala ([La colección completa](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)).
 
 </Callout>
 
-## Las capas de Tokens101
+## Las capas de DesignToken101
 
 <Callout variant="recommendation">
 
-Tokens101 usa **dos capas, primitivos y semánticos**, y añadiría tokens de componente **solo cuando un componente los justifique**. En la primera versión, ningún componente los necesita. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve).
+DesignToken101 usa **dos capas, primitivos y semánticos**, y añadiría tokens de componente **solo cuando un componente los justifique**. En la primera versión, ningún componente los necesita. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve).
 
 </Callout>
 

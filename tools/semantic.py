@@ -1,4 +1,4 @@
-"""Tokens101 — tabla semántica v0 (A6) y comprobación de contraste WCAG 2.2.
+"""DesignToken101 — tabla semántica v0 (A6) y comprobación de contraste WCAG 2.2.
 Lee los primitivos generados por scales.py y calcula el contraste de cada par en claro y oscuro."""
 import scales as s
 
