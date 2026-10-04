@@ -74,6 +74,7 @@ Adaptada de la guía de estilo de Next.js ([Docs Contribution Guide — Voice](h
 - Cada afirmación sobre una herramienta o especificación lleva enlace a su fuente oficial.
 - Separar siempre **lo que dice la fuente** de **la recomendación de Tokens101** (`<Callout variant="recommendation">`).
 - Los blogs y foros se marcan como tales.
+- **Nombres de los modos (C12):** cuando el texto habla de los modos del sistema de tokens, usa el nombre que tienen en Figma: Light y Dark, Desktop y Mobile. Para el concepto general ("un modo oscuro") o para el selector de tema de la web ("Modo claro"), se escribe en español.
 - Lo que no está verificado se dice (`<Callout variant="pending">`).
 
 ## Nota técnica para MDX

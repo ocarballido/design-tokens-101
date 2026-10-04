@@ -106,7 +106,7 @@ El resultado son **variables CSS** (custom properties), una por token, con un se
 ```
 
 - El alias se conserva como `var()`: el token semántico sigue apuntando a un primitivo.
-- En modo oscuro cambia el primitivo al que apunta, no el nombre del token.
+- En el modo Dark cambia el primitivo al que apunta, no el nombre del token.
 - El prefijo `--t101-` evita choques de nombres; lo explicamos en el módulo De Figma al código.
 
 <Callout variant="note">
@@ -177,7 +177,7 @@ Cuando escribimos esta página por primera vez, estas cuestiones estaban abierta
 <Callout variant="recommendation">
 
 - **Herramienta:** Terrazzo, con el paso de normalización delante.
-- **Cómo unir los archivos de cada modo:** con un archivo del Resolver Module de DTCG ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)), que describe un conjunto fijo de tokens y dos ejes de modo: tema (claro y oscuro) y layout (móvil y escritorio).
+- **Cómo unir los archivos de cada modo:** con un archivo del Resolver Module de DTCG ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)), que describe un conjunto fijo de tokens y dos ejes de modo: tema (Light y Dark) y layout (Mobile y Desktop).
 - **Clases de Tailwind CSS:** un espacio de nombres por propiedad (`bg-`, `text-`, `border-`), con el riesgo explicado en el apartado 4.
 - **Color:** los valores se guardan en sRGB en Figma y se escriben en hexadecimal en el CSS, sin conversiones. Por qué no usamos oklch para guardarlos lo explicamos en el módulo Primitivos.
 
