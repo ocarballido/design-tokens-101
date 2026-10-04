@@ -50,8 +50,10 @@ const components: MDXComponents = {
   ol: (props) => <ol className="list-decimal ps-400 marker:text-neutral-subtle" {...props} />,
   a: TextLink,
   // Code (§3.5): código en línea. Dentro de <pre> lo sustituye CodeBlock.
+  // wrap-break-word: un nombre largo se parte si no cabe en la línea (1.4.10), sin cambiar
+  // el ancho mínimo de las celdas de tabla.
   code: (props) => (
-    <code className="rounded-100 bg-neutral-strong px-050 type-code-default text-neutral-default" {...props} />
+    <code className="rounded-100 bg-neutral-strong px-050 type-code-default text-neutral-default wrap-break-word" {...props} />
   ),
   pre: Pre,
   table: Table,
