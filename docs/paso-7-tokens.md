@@ -44,7 +44,15 @@ Objeto de color de DTCG 2025.10, siempre en sRGB, con `hex` añadido:
 "$value": { "colorSpace": "srgb", "components": [0.2, 0.8, 0.6], "alpha": 1, "hex": "#33CC99" }
 ```
 
-Coincide con S9 (valores sRGB como fuente de verdad). Todos los colores tienen `alpha: 1`.
+Coincide con S9 (valores sRGB como fuente de verdad). Todos los colores tenían `alpha: 1` hasta el 2026-10-04.
+
+**Color con opacidad (exportación del 2026-10-04).** `color/background/neutral/translucent` (90 %, V28) sale así en Light:
+
+```json
+"$value": { "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.8999999761581421, "hex": "#FFFFFF" }
+```
+
+El `alpha` va en su propio campo, en float32 (0,9 no es exacto en float32), y `hex` tiene seis cifras, sin la opacidad. Con 0,8999999761581421, el hex de ocho cifras sale `e5` (229/255) en vez de `e6`. El 50 % de `overlay` es exacto en float32 (`"alpha": 0.5`). El normalizador recupera el valor escrito (V31).
 
 ### 1.4 Alias
 
@@ -93,11 +101,12 @@ Un script propio (prototipo probado; propuesta: `tools/figma-to-dtcg.mjs`) convi
 3. `number` con scope `FONT_STYLE` → `fontWeight`.
 4. `string` con scope `FONT_FAMILY` → `fontFamily`.
 5. Quita `$extensions` de la raíz (el modo se sabe por el archivo).
-6. **Se detiene con error** ante cualquier `$type` o scope no previsto, en vez de adivinar. Así se detectó que el peso usa `FONT_STYLE`.
+6. `alpha` en float32 → el decimal más corto con el mismo float32 (`0.8999999761581421` → `0.9`, V31).
+7. **Se detiene con error** ante cualquier `$type` o scope no previsto, en vez de adivinar. Así se detectó que el peso usa `FONT_STYLE`.
 
 El tipo se deduce del **scope**, que es una decisión de diseño registrada en Figma (S22), no del valor (que el Format Module prohíbe).
 
-Resultado comprobado: 82 alias, 55 `dimension`, 4 `fontWeight`, 2 `fontFamily` y 119 `color`.
+Resultado comprobado: 82 alias, 55 `dimension`, 4 `fontWeight`, 2 `fontFamily` y 119 `color`. Desde la exportación del 2026-10-04: 56 `dimension` y 123 `color` (2 con `alpha` recuperado).
 
 **Tokens solo de código** (`sistema-tokens-v1.md` §4): un archivo DTCG escrito a mano desde la especificación: `line-height/*` (`number`, D01), `space/negative/*` (`dimension` en px, D02) y `breakpoint/desktop` (`dimension` `64rem`, D11).
 
@@ -184,8 +193,7 @@ tokens/figma/*/*.tokens.json        exportación de Figma, sin tocar (C10)
         │  tools/figma-to-dtcg.mjs  (alias, tipos, unidades)
         ▼
 tokens/dtcg/*/*.tokens.json         DTCG 2025.10 estricto (generado)
-tokens/code-only.tokens.json        line-height, space/negative, breakpoint, duration, easing (a mano, §4)
-                                    + size/sidebar/width y color/background/overlay hasta que existan en Figma
+tokens/code-only.tokens.json        line-height, space/negative, breakpoint, duration, easing, blur (a mano, §4)
         │  tokens/tokens101.resolver.json  (base + theme + layout)
         │  terrazzo.config.mjs
         ▼

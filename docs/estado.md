@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de desarrollo: P12 en la interfaz y build de P12 y T10; la reexportación de Figma de las tres variables no llegó al repositorio. Antes, sesión de contenido: variables `size/sidebar/width`, `overlay` y `translucent` creadas en Figma; P12, el curso pasa a llamarse DesignToken101; T10, "Lo que te llevas" en todas las lecciones).
+Última actualización: 2026-10-04 (sesión de desarrollo: `size/sidebar/width`, `overlay` y `translucent` salen de la exportación de Figma, V31; P12 en la interfaz y build de P12 y T10. Antes, sesión de contenido: variables creadas en Figma; P12, el curso pasa a llamarse DesignToken101; T10, "Lo que te llevas" en todas las lecciones).
 
 ---
 
@@ -73,6 +73,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
 
 **Pendiente de reflejar en el contenido**
+- **Color con opacidad exportado de Figma (módulo 3, `direct-values`; módulo 6):** el `pending` de `direct-values` ("Falta comprobar cómo exporta Figma una variable de color con opacidad") ya se puede resolver con el JSON real de Hallazgos: `alpha` aparte y en float32 (`0.8999999761581421`), `hex` sin opacidad. Para el módulo 6 y "errores frecuentes": sin corregir, el 90 % sale `e5` en el CSS; por eso el normalizador recupera el valor escrito (V31).
+- **Ya no hay tokens de Figma en los archivos solo de código (módulo 6):** `size/sidebar/width`, `overlay` y `translucent` salen de la exportación desde el 2026-10-04; `code-only.{light,dark}.tokens.json` ya no existen. Si alguna lección los cita como solo de código o habla de esos archivos, hay que cambiarla.
 - S14, S15, S17: nomenclatura propiedad primero y convención (módulo 4).
 - S21: tabla semántica y contraste (módulos 5 y 7; el módulo 3 ya la refleja).
 - S25, S26: tokens solo de código cuando Figma no los admite (módulo 6).
@@ -158,7 +160,15 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Sin cambios en tokens: sidebar de 304 px (303 + 1 px de borde), cabecera sticky con `rgba(255,255,255,.9)` / `rgba(5,12,9,.9)` y `blur(12px)`, panel móvil de 304 px con `::backdrop` `rgba(0,0,0,.5)` en Light y Dark.
 - Sin prueba manual ni con lector de pantalla.
 
-**Variables de Figma que vivían en código (2026-10-04): bloqueado.** La exportación de `tokens/figma/semantic-color/` y `tokens/figma/semantic-size/` del repositorio es la del 2026-10-03: no trae `size/sidebar/width`, `color/background/overlay` ni `color/background/neutral/translucent`, y la descripción de `size/content/max-width` sigue diciendo 720 px. La copia de `~/Desktop/temp/var-export/` (incluidos los `.zip`) es la misma exportación antigua. No se ha tocado `tokens/code-only*.tokens.json` ni el Resolver. Falta que Oscar reexporte Semantic color y Semantic size desde Figma.
+**Variables de Figma que vivían en código (2026-10-04): hecho** (V31)
+- La primera copia de la exportación era la del 2026-10-03 y no traía las variables; Oscar volvió a exportar Semantic color y Semantic size. Primitives y Layout no cambian.
+- La exportación trae `size/sidebar/width` (`number` 304, `WIDTH_HEIGHT`), `color/background/overlay` y `color/background/neutral/translucent` (`FRAME_FILL`, `SHAPE_FILL`), las tres con code syntax `var(--t101-…)` y la descripción de S32. También la descripción nueva de `size/content/max-width` (960 px).
+- Formato del color con opacidad: ver Hallazgos. El normalizador lo acepta; el `alpha` del 90 % llega en float32 y se recupera como `0.9` (V31).
+- Quitados `size` y `color` de `tokens/code-only.tokens.json`; borrados `code-only.light.tokens.json` y `code-only.dark.tokens.json`, sus `$ref` del Resolver y la mención de su `description`. En `terrazzo.config.mjs` se quita `THEME_INVARIANT` (excluía `overlay` de los bloques Dark).
+- `npm run check:tokens`: la comprobación de V28 (`THEME_CODE_ONLY`) se quita, porque los bloques Dark ya coinciden con Semantic color. Una nueva (5b) exige los tres tokens en la exportación de Figma (y los dos colores también en Dark) y sus valores en el CSS. Probada en negativo: es la que detectó el `e5`.
+- `npm run tokens && npm run check:tokens`: sin errores. 155 tokens en `:root`, 33 en cada bloque Dark (antes 32) y 9 en Desktop.
+- CSS antes y después: mismos valores (`19rem`, `#00000080`, `#ffffffe6` / `#050c09e6`). Única diferencia que no es de comentarios: `--t101-color-background-overlay` aparece también en los dos bloques Dark, con el mismo valor, porque ahora es de Semantic color (cada bloque de modo lleva los tokens de su colección, V08).
+- `npm run build && npm run check:content`: sin errores. Chrome sin interfaz, Light y Dark a 320, 375 y 1440 px (las 32 lecciones): sin cambios en la cabecera (`rgba(255,255,255,.9)` / `rgba(5,12,9,.9)`, `blur(12px)`), el panel móvil (304 px, `::backdrop` `rgba(0,0,0,.5)`) ni el sidebar (304 px).
 
 **Paso 8 (2026-10-03): hecho** (V13–V22)
 - **Bloque A, base:** Inter y JetBrains Mono con `next/font` (V13), estilos de texto de §8 como utilidades `type-*` (V15, `src/styles/text-styles.css`), grosor de borde con `border-(length:--t101-border-width-*)` (V14), estilos base, anillo de foco (`focus-ring`, `focus-ring-inset`) y flujo del texto (`flow`) en `src/styles/base.css`. Token `size/sidebar/width` (V16).
@@ -260,7 +270,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Hueco entre el texto del enlace y el icono externo: `space/100` (Figma: `space/200` en `size=default`, `space/150` en `small`).
 
 **Pendiente o sin verificar**
-- **Bloqueado (2026-10-04, ver "Variables de Figma que vivían en código"). Variables creadas en Figma (2026-10-04, sesión de contenido, a petición de Oscar):** `size/sidebar/width` (Semantic size, 304, `WIDTH_HEIGHT`), `color/background/overlay` (Semantic color, negro al 50 % en Light y Dark) y `color/background/neutral/translucent` (Semantic color, `white` / `neutral/950` al 90 %), las dos con `FRAME_FILL` y `SHAPE_FILL`; las tres con code syntax `var(--t101-…)`, visibles al publicar y con la descripción de S32. Descripción de `size/content/max-width` actualizada a 960 px. **Falta:** Oscar reexporta Semantic color y Semantic size en `tokens/figma/` (C10); después, quitar los tres tokens de `tokens/code-only.tokens.json` y de `code-only.{light,dark}.tokens.json` (y la entrada de estos del Resolver), `npm run tokens` y `npm run check:tokens`. Comprobar cómo exporta Figma el `alpha` (primera variable con opacidad) y que el normalizador (`tools/figma-to-dtcg.mjs`) lo acepta.
 - **Diseño:** logotipo con el nombre DesignToken101 (A14, P12).
 - **Diseño:** dibujar el panel lateral (V25) y la cabecera translúcida (V28), y quitar la capa `Marker` de los selectores (V26).
 - **Filas del sidebar:** la diferencia de radio con Figma queda resuelta por V23.
@@ -272,7 +281,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 **Paso 7 (2026-10-03): hecho** (V06–V12, detalle en `docs/paso-7-tokens.md` §8)
 - `npm run tokens`: `tools/figma-to-dtcg.mjs` normaliza `tokens/figma/` en `tokens/dtcg/`. Después, Terrazzo genera `src/styles/tokens.css` (capa 1, `--t101-*`: 153 en `:root` tras V16, V24 y V25, 31 en cada bloque Dark y 9 en Desktop) y `src/styles/theme.css` (capa 2, `@theme inline` con 87 variables y sin tema por defecto).
-- Tokens solo de código en `tokens/code-only.tokens.json`: line-height, space negativo, breakpoint, `duration/200` y `easing/standard` (V24), y, hasta que existan en Figma, `size/sidebar/width` (V16) y `color/background/overlay` (V25).
+- Tokens solo de código en `tokens/code-only.tokens.json`: line-height, space negativo, breakpoint, `duration/200` y `easing/standard` (V24) y `blur/300` (V28). Desde el 2026-10-04 ya no hay tokens de Figma en los archivos de código: `size/sidebar/width`, `overlay` y `translucent` salen de la exportación, y `code-only.{light,dark}.tokens.json` ya no existen.
 - `npm run check:tokens`: code syntax de Figma, referencias, bloques de modo, hex, tokens solo de código y clases de Tailwind. Probado también en negativo.
 - `globals.css` importa las dos capas (y, desde el paso 8, los estilos de texto y los estilos base).
 - Al cambiar las variables en Figma: reexportar en `tokens/figma/` (C10), `npm run tokens`, `npm run check:tokens` y commit de todo lo generado.
@@ -298,6 +307,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 ## Hallazgos que afectan a otros frentes
 
+- **2026-10-04: Color con opacidad en la exportación DTCG de Figma (sesión de desarrollo).** Primera variable con transparencia del sistema. Light: `{ "colorSpace": "srgb", "components": [1, 1, 1], "alpha": 0.8999999761581421, "hex": "#FFFFFF" }`; Dark: `components` `[0.0196…, 0.0470…, 0.0352…]`, mismo `alpha`, `"hex": "#050C09"`; `overlay`: `components` `[0, 0, 0]`, `"alpha": 0.5`, `"hex": "#000000"`. (1) El `alpha` va en su campo y en float32: un 90 % no es exacto (0,9 → 0,8999999761581421). (2) `hex` tiene seis cifras, sin la opacidad. (3) Sin corregir, el CSS sale `#ffffffe5` (89,8 %) en vez de `#ffffffe6`; el normalizador recupera `0.9` (V31). (4) El tipo sigue siendo `color` y se normaliza sin cambios en el resto.
 - **2026-09-30: Color en Figma.** La importación DTCG de Figma solo admite color en sRGB y HSL, dimensiones en `px`, duraciones en `s` y la familia tipográfica como un único nombre (Figma: Modes for variables).
 - **2026-09-30: DTCG.** La versión 2025.10 (Format, Color y Resolver) es un *Final Community Group Report* del 28/10/2025. No es un estándar del W3C, pero se declara estable.
 - **2026-09-30: npm.** En el entorno de la sesión de contenido, el registro de npm devuelve 403. Si pasa lo mismo en desarrollo, el build habrá que hacerlo en local o en Vercel.
