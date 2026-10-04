@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: C12, propuesta de gráficos).
+Última actualización: 2026-10-04 (sesión de contenido: C13, componente `Flow` para los gráficos).
 
 ---
 
@@ -43,7 +43,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
 - Módulos 2 a 8. Módulo 1 escrito; falta la revisión de Oscar.
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
-- **Gráficos (petición de Oscar, 2026-10-04):** un gráfico general de la metodología del curso y, donde haga falta, uno por módulo (el primero: el recorrido Figma → código de `04-figma-dtcg-tailwind`). Boceto del contenido presentado en la sesión de contenido; falta que Oscar elija cómo se implementa (componente nuevo con anatomía y diseño, o imagen) y valide los nombres de las fases.
+- **Gráficos (C13, 2026-10-04):** componente `Flow` aprobado por Oscar; anatomía en `componentes-v1.md` §3.7. Orden: **1)** Oscar lo diseña en Figma (D05); **2)** desarrollo lo implementa; **3)** contenido añade el gráfico de la metodología en `05-what-we-teach` (el MDX ya está en §3.7) y sustituye el bloque de texto del recorrido en `04-figma-dtcg-tailwind`.
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
@@ -101,6 +101,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Auditoría final (2026-10-02):** sin valores sueltos (salvo logotipos, D22), todo el texto con estilo, todos los `focus` con anillo `border/focus`, contraste de textos ≥ 4,5:1 e iconos ≥ 3:1 en Light y Dark, objetivos ≥ 24 × 24 px.
 
 **Pendiente**
+- **`Flow` (C13):** diseñar `Flow`, `FlowGroup` y `FlowStep` según `componentes-v1.md` §3.7 (5 variantes de paso, Desktop y Mobile, Light y Dark).
 - A14: nombre del logotipo ("design-tokens 101" frente a "Tokens101"). No bloquea.
 - Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).
 - `tools/semantic.py` no incluye todavía los tokens de D06, D12 y D20 (el contraste se comprobó en Figma y con un cálculo aparte).

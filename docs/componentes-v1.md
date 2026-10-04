@@ -340,6 +340,131 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 
 **Contraste** (≥ 4,5:1): cabecera 17,01 / 17,01; celdas 17,79 / 18,89.
 
+### 3.7 `Flow` (gráficos de proceso) — C13, aprobado por Oscar el 2026-10-04
+
+**Para qué sirve.** Los gráficos del curso: una secuencia de pasos, que pueden estar agrupados en fases. Ejemplos:
+- La metodología de Tokens101 en "Lo que enseñamos": cuatro fases con sus módulos.
+- El recorrido de un token en "Cómo encajan Figma, DTCG y Tailwind": pasos sin agrupar.
+- Más adelante, las capas (módulo 3) y los modos (módulo 5).
+
+El gráfico es HTML con tokens, no una imagen. Así cambia con Light y Dark, se adapta al ancho, se traduce con el MDX y lo lee un lector de pantalla.
+
+**Esquema.**
+
+```txt
+Flow (figure)
+├── FlowGroup ─ título · meta              ← opcional: una fase
+│     └── FlowStep · FlowStep · FlowStep   ← en fila; bajan de línea si no caben
+├── conector (flecha hacia abajo)
+├── FlowStep ─ título · meta · [icono de enlace]
+└── pie (caption)
+```
+
+Tres componentes:
+- **`Flow`**: el contenedor. Los elementos de primer nivel van **en vertical**, con un conector entre cada dos.
+- **`FlowGroup`**: una fase que agrupa pasos. Sus pasos van en fila y pasan a la línea siguiente cuando no caben.
+- **`FlowStep`**: un paso. Puede ir dentro de un grupo o directamente en `Flow`.
+
+**Props.**
+
+| Componente | Prop | Tipo | En Figma |
+|---|---|---|---|
+| `Flow` | `caption` | `string`, obligatorio: frase que explica el gráfico | Texto |
+| `Flow` | `children` | `FlowGroup` o `FlowStep` | Slot |
+| `FlowGroup` | `title` | `string` | Texto |
+| `FlowGroup` | `meta` | `string` opcional (p. ej. "Resultado: inventario de valores") | Texto + booleano `showMeta` |
+| `FlowGroup` | `children` | `FlowStep` | Slot |
+| `FlowStep` | `title` | `string` | Texto |
+| `FlowStep` | `meta` | `string` opcional (p. ej. "Módulo 2") | Texto + booleano `showMeta` |
+| `FlowStep` | `href` | `string` opcional: ruta interna sin idioma (`/fundamentals/what-is-a-token`) | Variante `link` = `true` / `false` (cambia el aspecto: añade el icono) |
+| `FlowStep` | `status` | `'default' \| 'pending'`, por defecto `default` | Variante |
+| `FlowStep` | `state` | solo Figma, solo con `link = true` | Variante: `default`, `hover`, `focus` |
+
+**Variantes en Figma.** `Flow` 1 · `FlowGroup` 1 · `FlowStep` 4:
+- `link = false`: `status` `default` y `pending`.
+- `link = true`: `status = default` con `state` `default`, `hover` y `focus`.
+
+Un paso `pending` no tiene enlace: lo pendiente no tiene página todavía. El conector puede ser un componente propio (`FlowConnector`) o una capa dentro de `Flow`; lo decide el diseño.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| `Flow`: fondo | Sin fondo (el de la página) |
+| Conector (`li:arrow-down`) | `text/neutral/subtle` |
+| Pie (`caption`) | `text/neutral/subtle` |
+| `FlowGroup`: fondo | Sin fondo |
+| `FlowGroup`: borde | `border/neutral/default`, `border-width/100` (decorativo; el estilo de línea lo decide el diseño) |
+| `FlowGroup`: radio | `radius/container` |
+| `FlowGroup`: título | `text/neutral/default` |
+| `FlowGroup`: meta | `text/neutral/subtle` |
+
+`FlowStep`:
+
+| Parte | `default` | `hover` (con enlace) | `focus` (con enlace) | `pending` |
+|---|---|---|---|---|
+| Fondo | `background/accent/subtle` | `background/accent/subtle` | `background/accent/subtle` | `background/neutral/subtle` |
+| Borde | `border/accent/default` (decorativo) | `border/accent/strong` | `border/accent/default` | `border/neutral/default` (decorativo) |
+| Título | `text/neutral/default` | `text/accent/hover` | `text/neutral/default` | `text/neutral/subtle` |
+| Meta | `text/neutral/subtle` | `text/neutral/subtle` | `text/neutral/subtle` | `text/neutral/subtle` |
+| Icono de enlace (`li:arrow-right`) | `text/accent/default` | `text/accent/hover` | `text/accent/default` | — |
+| Anillo de foco | — | — | `border/focus`, `border-width/200`, por fuera | — |
+| Radio | `radius/control` | ← | ← | ← |
+
+Los espacios, el tamaño de las cajas y la alineación son libres, siempre con tokens de `space/*`. **Sin anchos fijos**: las cajas se adaptan al texto.
+
+**Texto.** Título del grupo `body/strong`; título del paso `label/default`; meta y pie `caption/default`.
+
+**Accesibilidad.**
+- `Flow` es un `<figure>` con su `<figcaption>` (`caption`). Los elementos de primer nivel forman una lista ordenada `<ol>`, y los pasos de un grupo, otra `<ol>` anidada. El lector de pantalla anuncia el orden y el número de pasos ([HTML — The figure element](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element)).
+- **El orden lo da el HTML, no la posición en pantalla.** Al bajar de línea, el orden visual sigue siendo el del código.
+- Los conectores son decorativos: `aria-hidden="true"`.
+- Un paso con `href` es un único enlace (`<a>`, con el `Link` de next-intl) que ocupa toda la caja. Su nombre accesible es el título más la meta.
+- Lo que el color indica también se dice de otra forma (1.4.1): el enlace lleva icono, y el paso `pending` lo indica en el texto de `meta` ("En estudio", "Próximamente"). **El MDX tiene que escribir esa meta.**
+- El texto es texto real, no una imagen: se puede ampliar y traducir (1.4.4 y 1.4.5, [WCAG 2.2](https://www.w3.org/TR/WCAG22/#images-of-text)).
+- A 320 px los pasos de un grupo se apilan y no hay scroll horizontal (1.4.10).
+- Los pasos con enlace miden al menos 24 × 24 px (2.5.8).
+
+**Contraste.** Texto ≥ 4,5:1 y bordes con función ≥ 3:1 (Light / Dark):
+
+| Combinación | Light / Dark |
+|---|---|
+| Título del paso sobre `background/accent/subtle` | 16,98 / 14,36 |
+| Título en hover (`text/accent/hover`) sobre `background/accent/subtle` | 6,90 / 10,60 |
+| Meta (`text/neutral/subtle`) sobre `background/accent/subtle` | 7,38 / 5,82 |
+| Icono de enlace (`text/accent/default`) sobre `background/accent/subtle` | 4,85 / 8,30 |
+| Borde en hover (`border/accent/strong`) sobre `background/accent/subtle` | 3,18 / 8,30 |
+| Título y meta `pending` (`text/neutral/subtle`) sobre `background/neutral/subtle` | 7,40 / 6,89 |
+| Título del grupo, meta del grupo, pie y conector sobre `background/neutral/default` | 17,79 / 18,89 · 7,74 / 7,65 |
+| Anillo de foco sobre `background/neutral/default` | 3,33 / 10,92 |
+
+**En el MDX** (ejemplo: el gráfico general de la metodología):
+
+```mdx
+<Flow caption="Las cuatro fases de Tokens101 y lo que obtienes en cada una.">
+  <FlowGroup title="Planificar" meta="Resultado: inventario de valores">
+    <FlowStep title="Fundamentos" meta="Módulo 1" href="/fundamentals/what-is-a-token" />
+  </FlowGroup>
+  <FlowGroup title="Crear en Figma" meta="Resultado: variables y estilos">
+    <FlowStep title="Primitivos" meta="Módulo 2" />
+    <FlowStep title="Relaciones" meta="Módulo 3" />
+    <FlowStep title="Nombrar" meta="Módulo 4" />
+    <FlowStep title="Modos y temas" meta="Módulo 5" />
+  </FlowGroup>
+  <FlowGroup title="Llevar al código" meta="Resultado: CSS y Tailwind CSS">
+    <FlowStep title="De Figma al código" meta="Módulo 6" />
+  </FlowGroup>
+  <FlowGroup title="Revisar y cerrar" meta="Resultado: el sistema completo">
+    <FlowStep title="Accesibilidad" meta="Módulo 7" />
+    <FlowStep title="Ejercicio final" meta="Módulo 8" />
+  </FlowGroup>
+  <FlowGroup title="Después">
+    <FlowStep title="Componentes y código" meta="Módulo 9 · En estudio" status="pending" />
+    <FlowStep title="Preparado para IA" meta="Módulo 10 · En estudio" status="pending" />
+  </FlowGroup>
+</Flow>
+```
+
 ---
 
 ## 4. Componentes de la estructura de la página
@@ -636,3 +761,4 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | V25 | Panel móvil lateral con overlay `color/background/overlay`. |
 | V26 | Selectores sin marca inferior en la opción actual. |
 | V27 | `size/content/max-width` = 960 px. |
+| C13 | Componente `Flow` (con `FlowGroup` y `FlowStep`) para los gráficos del curso (§3.7). |
