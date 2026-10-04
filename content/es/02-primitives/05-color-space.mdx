@@ -33,7 +33,7 @@ Los colores de Tokens101 no se eligieron uno a uno en el selector de Figma. Se g
 2. **Generar las escalas.** El script `tools/scales.py` convierte el color de marca a oklch y calcula once pasos para el acento, once para los neutros y once para cada color de estado. Cómo calcula cada paso lo verás en [Escalas de color](/primitives/color-scales#el-método).
 3. **Ajustar a sRGB.** Si algún paso calculado no existe en sRGB, el script lo convierte en el más parecido que sí existe. Da como resultado un hex por paso.
 4. **Copiar los hex a Figma.** Cada hex se escribe en una variable Color de la colección `Primitives`: `color/emerald/500` = `#33CC99`. Figma no genera escalas; recibe los valores ya calculados.
-5. **Diseñar con tokens semánticos.** Al diseñar, nadie aplica un hex ni un primitivo: se aplican tokens semánticos como `color/text/neutral/default`, que apuntan a los primitivos. Los verás en el módulo Relaciones.
+5. **Diseñar con tokens semánticos.** Al diseñar, nadie aplica un hex ni un primitivo: se aplican tokens semánticos como `color/text/neutral/default`, que apuntan a los primitivos. Los verás en el [módulo Relaciones](/relations/layers).
 6. **Exportar y generar el CSS.** La exportación de Figma lleva los mismos hex al código, sin conversiones. Lo verás en el módulo De Figma al código.
 
 **Y el contraste.** El contraste no se usó para generar las escalas. Se calcula **después**, sobre cada hex, para saber qué pasos sirven para texto, para bordes o para fondos. Con esas cifras se decide a qué paso apunta cada token semántico: por ejemplo, que el texto de los enlaces en Light use `emerald/700` y no el color de marca, que no llega a 4,5:1 sobre blanco.

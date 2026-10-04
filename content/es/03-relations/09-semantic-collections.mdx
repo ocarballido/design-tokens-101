@@ -1,0 +1,124 @@
+---
+title: Las colecciones semánticas
+description: Repaso de las colecciones semánticas de Tokens101 en Figma. Qué contiene cada una, por qué se publican, qué scope lleva cada propiedad y cómo se recorre la cadena completa de un token.
+nav_title: Las colecciones semánticas
+lastReviewed: 2026-10-04
+---
+
+Ya has visto todos los semánticos de Tokens101. En esta lección los ves como quedan en Figma: repartidos en tres colecciones, publicados y con un scope por propiedad. Es la contraparte de [La colección completa](/primitives/primitives-collection) del módulo 2, y termina con una lista para revisar tus colecciones.
+
+**En esta página**
+
+- [Las colecciones de un vistazo](#las-colecciones-de-un-vistazo)
+- [Los semánticos se publican](#los-semánticos-se-publican)
+- [Un scope por propiedad](#un-scope-por-propiedad)
+- [La cadena completa](#la-cadena-completa)
+- [Lo que falta comprobar](#lo-que-falta-comprobar)
+- [Revisa tus colecciones](#revisa-tus-colecciones)
+
+## Las colecciones de un vistazo
+
+| Colección | Modos | Contenido | Variables |
+|---|---|---|---|
+| `Primitives` | `Value` | Escalas de color, espaciado, radio, borde y tipografía | 97 |
+| `Semantic color` | Light, Dark | Fondo, texto y borde por rol, y sus estados | 31 |
+| `Semantic size` | `Value` | `radius/control`, `radius/container` y `size/content/max-width` | 3 |
+| `Layout` | Desktop, Mobile | Un tamaño de texto por estilo, `font-size/{estilo}` | 9 |
+
+Hay tres variables más pendientes de crear en Figma, que de momento viven en código: `size/sidebar/width` en `Semantic size`, y `color/background/overlay` y `color/background/neutral/translucent` en `Semantic color` ([Cuando un semántico no es alias](/relations/direct-values)).
+
+Las colecciones se separan por **eje de cambio**: una colección tiene los modos que necesitan sus variables, y solo esos. El color cambia con el tema; los tamaños de texto, con el ancho de pantalla; los radios no cambian. Por qué es mejor una colección por eje que una sola colección con todos los modos lo verás en el módulo Modos y temas.
+
+## Los semánticos se publican
+
+En el módulo 2 ocultaste los primitivos de color y de tipografía al publicar ([Qué se publica y qué se oculta](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)). Con los semánticos se hace lo contrario: **todos se publican**, porque son lo que quien diseña aplica.
+
+El resultado es que el selector de color de quien usa la biblioteca no muestra 57 colores sueltos, sino 31 tokens con su función en el nombre. El curso de Figma propone lo mismo: ocultar los primitivos al publicar para que no se abuse de ellos ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)).
+
+## Un scope por propiedad
+
+El scope limita las propiedades a las que se puede aplicar una variable, y Figma solo la muestra en esos selectores ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). En los semánticos, el scope sigue a la propiedad del nombre:
+
+| Variables | Scope en Figma | En la exportación |
+|---|---|---|
+| `color/background/*` | *Frame fill* y *Shape fill* | `FRAME_FILL`, `SHAPE_FILL` |
+| `color/text/*` | *Text fill* y *Shape fill* | `TEXT_FILL`, `SHAPE_FILL` |
+| `color/border/*` | *Stroke* | `STROKE` |
+| `radius/control`, `radius/container` | *Corner radius* | `CORNER_RADIUS` |
+| `size/content/max-width` | *Width and height* | `WIDTH_HEIGHT` |
+| `font-size/{estilo}` (Layout) | *Font size* | `FONT_SIZE` |
+
+Los tokens de texto incluyen *Shape fill* porque los iconos son formas: un icono de aviso se colorea con `color/text/warning/default`, como su etiqueta. Por eso no hace falta una propiedad `icon`.
+
+<Callout variant="recommendation">
+
+El scope es la razón principal por la que Tokens101 pone la propiedad al principio del nombre: el nombre y el scope dicen lo mismo. Al elegir el color de un texto, Figma solo te ofrece tokens `color/text/*`. Lo retomarás en el módulo Nombrar.
+
+</Callout>
+
+## La cadena completa
+
+Con los dos módulos, cada decisión de diseño se recorre así:
+
+| Lo que aplicas | Colección | Apunta a | Colección |
+|---|---|---|---|
+| `color/text/neutral/default` | `Semantic color` | `color/neutral/900` (Light) o `color/neutral/50` (Dark) | `Primitives` |
+| `radius/container` | `Semantic size` | `radius/400` | `Primitives` |
+| El estilo `body/default` | Estilos de texto | `font-size/body/default` → `font-size/03`, y `font-family/sans` y `font-weight/400` | `Layout` y `Primitives` |
+| `space/400` | `Primitives` | No apunta a nada: es el primitivo | No aplica |
+
+Todos los alias apuntan a la colección `Primitives`, y ningún semántico apunta a otro semántico. Las cadenas más largas, las de los estilos de texto, tienen dos saltos.
+
+## Lo que falta comprobar
+
+<Callout variant="pending">
+
+**Alias a variables ocultas desde otro archivo.** Los semánticos apuntan a primitivos ocultos al publicar. En el archivo de Tokens101 funciona, pero todo está en el mismo archivo. No hemos comprobado qué ve otro archivo que usa la biblioteca. Es el mismo pendiente del módulo 2.
+
+</Callout>
+
+<Callout variant="pending">
+
+**El modo del destino cuando el alias cruza colecciones.** Si una variable apunta a otra de una colección con varios modos, la ayuda de Figma no dice qué modo del destino se usa. En Tokens101 no ocurre: todos los alias apuntan a `Primitives`, que tiene un solo modo. Si tu sistema encadena dos colecciones con modos, compruébalo antes de confiar en el resultado.
+
+</Callout>
+
+## Revisa tus colecciones
+
+Cuando crees tus colecciones semánticas en el módulo Nombrar, comprueba:
+
+- Cada colección tiene los modos de su eje de cambio, y ninguno más.
+- Cada semántico es un alias de un primitivo, salvo las excepciones que hayas registrado con su motivo.
+- Ningún semántico apunta a otro semántico, y ninguna cadena pasa de dos saltos.
+- Los semánticos se publican; los primitivos de color y de tipografía, no.
+- Cada semántico tiene el scope de su propiedad: fondo, texto, borde, radio o tamaño.
+- Cada semántico tiene descripción (para qué se usa) y code syntax Web.
+- Cada par de texto y fondo que se usa junto cumple el contraste, en cada modo.
+
+<InCode title="Scope y alias en la exportación">
+
+Un token de texto en la exportación de Figma lleva su scope y su alias en `$extensions`:
+
+```json filename="tokens/figma/semantic-color/Light.tokens.json (abreviado)"
+"default": {
+  "$type": "color",
+  "$description": "Texto principal",
+  "$extensions": {
+    "com.figma.scopes": ["SHAPE_FILL", "TEXT_FILL"],
+    "com.figma.codeSyntax": { "WEB": "var(--t101-color-text-neutral-default)" },
+    "com.figma.aliasData": {
+      "targetVariableName": "color/neutral/900",
+      "targetVariableSetName": "Primitives"
+    }
+  }
+}
+```
+
+El `$value` se ha omitido: es el color ya resuelto. Los semánticos no llevan `com.figma.hiddenFromPublishing`, porque son visibles.
+
+</InCode>
+
+## Fuentes
+
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)

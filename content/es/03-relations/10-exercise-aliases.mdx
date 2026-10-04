@@ -1,0 +1,107 @@
+---
+title: "Ejercicio: tu mapa de alias"
+description: Convierte la lista de usos del módulo 2 en un mapa de tokens semánticos, con su primitivo en cada modo, sus estados, su contraste y sus excepciones. Es la materia prima del módulo Nombrar.
+nav_title: Ejercicio
+lastReviewed: 2026-10-04
+---
+
+En este ejercicio conviertes la lista de usos del módulo 2 en tu capa semántica, aplicando lo visto en el módulo: alias, capas, estados y excepciones. Lo haces en una tabla, todavía sin Figma: los nombres de los tokens llegan en el módulo Nombrar, y allí crearás las variables ya con su nombre definitivo.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Agrupa los usos por función](#paso-1-agrupa-los-usos-por-función)
+- [Paso 2 Describe cada función](#paso-2-describe-cada-función)
+- [Paso 3 Elige el primitivo de cada modo](#paso-3-elige-el-primitivo-de-cada-modo)
+- [Paso 4 Añade los estados](#paso-4-añade-los-estados)
+- [Paso 5 Marca las excepciones](#paso-5-marca-las-excepciones)
+- [Paso 6 Decide sobre la capa de componente](#paso-6-decide-sobre-la-capa-de-componente)
+- [Comprueba tu mapa](#comprueba-tu-mapa)
+
+## Qué necesitas
+
+- La lista del [paso 5 del ejercicio del módulo 2](/primitives/exercise-scales#paso-5-anota-qué-primitivo-usa-cada-elemento): cada uso de tu diseño con su primitivo.
+- Tu colección `Primitives` y las tablas de contraste de tus escalas de color.
+- Un comprobador de contraste que calcule la fórmula de WCAG 2.2.
+- Una hoja de cálculo o una tabla en cualquier editor.
+- Entre 45 y 90 minutos.
+
+## Paso 1 Agrupa los usos por función
+
+Junta los usos que tienen la misma función, aunque estén en elementos distintos: el fondo de las tarjetas y el de los bloques de código, por ejemplo. Cada grupo será un token semántico.
+
+Separa los usos que comparten primitivo pero no función. Si el texto de los enlaces y el de los mensajes de éxito usan el mismo verde, son dos grupos ([Varios semánticos, un primitivo](/relations/semantic-color#varios-semánticos-un-primitivo)).
+
+## Paso 2 Describe cada función
+
+Para cada grupo, anota en palabras tres cosas:
+
+- **Propiedad:** fondo, texto, borde, radio o tamaño.
+- **Rol:** neutro, acento, información, éxito, aviso o error. Usa los roles que tenga tu diseño, no más.
+- **Énfasis:** normal, más suave o más fuerte.
+
+| Función | Propiedad | Rol | Énfasis |
+|---|---|---|---|
+| Fondo de la página | Fondo | Neutro | Normal |
+| Fondo de tarjetas y bloques de código | Fondo | Neutro | Más suave |
+| Texto de los enlaces | Texto | Acento | Normal |
+| Fondo del botón principal | Fondo | Acento | Más fuerte |
+| Texto sobre el botón principal | Texto | Sobre el acento | No aplica |
+
+No escribas todavía el nombre del token. Estas tres columnas son lo que el módulo Nombrar convertirá en nombres.
+
+## Paso 3 Elige el primitivo de cada modo
+
+Añade una columna por modo. Si tu diseño solo tiene un tema, rellena una; si va a tener modo oscuro, rellena las dos, aunque los modos se creen en el módulo Modos y temas.
+
+| Función | Light | Dark | Contraste |
+|---|---|---|---|
+| Texto de los enlaces | `emerald/700` | `emerald/400` | 5,08 / 10,92 sobre el fondo de la página |
+
+Para cada texto, comprueba el contraste con el fondo sobre el que va, en cada modo: 4,5:1 para el texto normal ([Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)). Si no llega, cambia de paso ([El contraste decide el paso](/relations/semantic-color#el-contraste-decide-el-paso)).
+
+## Paso 4 Añade los estados
+
+Repasa los controles de tu diseño: botones, enlaces, elementos de menú, pestañas. Para cada estado que cambie un color (hover, active, seleccionado, foco), añade una fila con su propio primitivo.
+
+- La marca de "seleccionado" y el anillo de foco necesitan 3:1 con lo que los rodea; el hover, no ([Qué pide WCAG a cada estado](/relations/states#qué-pide-wcag-a-cada-estado)).
+- Si un estado cambia el fondo, comprueba también el texto que va encima.
+- Si ningún control de tu diseño se desactiva, no añadas disabled.
+
+## Paso 5 Marca las excepciones
+
+Busca los usos que no pueden apuntar a un primitivo: un ancho sin escala, un color con transparencia. Para cada uno, anota el valor y el motivo en una columna aparte ([Cuando un semántico no es alias](/relations/direct-values)).
+
+Antes de aceptar una excepción, pregúntate si el valor encaja en una escala que ya tienes. Una excepción tiene que tener un motivo, no ser un atajo.
+
+## Paso 6 Decide sobre la capa de componente
+
+Para cada componente de tu diseño, aplica los dos casos de [La capa de componente](/relations/component-tokens#cuándo-se-justifica): ¿se aparta de los semánticos?, ¿tiene que poder cambiar por separado? Si la respuesta es no a las dos, no añadas tokens de componente. Si es sí, anota el componente, la propiedad y el semántico al que apuntaría.
+
+Lo más probable es que, como en Tokens101, no necesites ninguno.
+
+## Comprueba tu mapa
+
+Tu mapa está listo si puedes responder que sí a estas preguntas:
+
+- ¿Cada uso de la lista del módulo 2 pertenece a una función?
+- ¿Cada función tiene propiedad, rol y énfasis descritos en palabras?
+- ¿Cada función apunta a un primitivo en cada modo, o es una excepción con su motivo?
+- ¿Cada texto cumple 4,5:1 con su fondo en cada modo, y cada marca de estado o de foco, 3:1?
+- ¿Ninguna función apunta a otra función, y ninguna cadena pasa de dos saltos?
+- ¿Has decidido, con un motivo, si necesitas tokens de componente?
+
+<Callout variant="recommendation">
+
+Guarda el mapa. En el módulo Nombrar convertirás las columnas de propiedad, rol y énfasis en nombres de token, y crearás las colecciones semánticas en Figma con un alias por fila.
+
+</Callout>
+
+## Fuentes
+
+Las de las lecciones del módulo. En especial:
+
+- [Design Tokens Format Module 2025.10: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+- [Understanding 1.4.11 Non-text Contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
