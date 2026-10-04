@@ -34,8 +34,6 @@ La regla es nuestra. DTCG permite que cualquier token tenga un valor propio o un
 | `color/background/overlay` | `color/black` al 50 % | Semantic color | Necesita una opacidad que el primitivo no tiene |
 | `color/background/neutral/translucent` | `white` al 90 % en Light, `neutral/950` al 90 % en Dark | Semantic color | Igual que el anterior, y además cambia con el modo |
 
-Las dos últimas, y `size/sidebar/width`, todavía no existen en Figma: viven en archivos de tokens de código hasta que se creen las variables.
-
 ## Sin escala a la que apuntar
 
 Los dos tamaños de maquetación podrían ser alias si existiera una escala `size/*` de primitivos. No existe porque hay dos valores y ninguno se repite: crear una escala para ellos sería crear primitivos que usaría un único token cada uno.
@@ -61,13 +59,15 @@ DTCG 2025.10 tiene una segunda sintaxis, `$ref`, que apunta a una parte de un va
 
 </Callout>
 
-<Callout variant="pending">
+Lo probamos con la herramienta que genera el CSS de esta web, Terrazzo 2.7.1. Resuelve `$ref`: el overlay sale como `#00000080`, y si `color/black` cambia, el overlay cambia con él. Pero sus páginas sobre los tokens no mencionan `$ref` dentro de un valor ([Terrazzo: DTCG Tokens](https://terrazzo.app/docs/guides/dtcg/), [Token Types](https://terrazzo.app/docs/reference/tokens/)), y el CSS lleva el valor ya calculado, no una referencia a `color/black`.
 
-No hemos probado `$ref` con las herramientas de esta web. Figma no lo exporta (sus alias son de variable completa), y no sabemos si la herramienta que genera el CSS lo admite. Hasta comprobarlo, Tokens101 mantiene estos colores como valores directos.
+<Callout variant="recommendation">
+
+Tokens101 mantiene estos colores como valores directos. Figma no exporta `$ref`, así que habría que escribirlos a mano fuera de Figma; la herramienta lo admite sin documentarlo, y el CSS final sería el mismo.
 
 </Callout>
 
-El fondo de la cabecera añade una dificultad: es blanco al 90 % en Light y `neutral/950` al 90 % en Dark. Un valor directo distinto por modo. En Figma eso es una variable de la colección `Semantic color` con un valor en cada columna. En código, mientras no exista en Figma, son dos archivos de tokens, uno por modo. Cómo se unen los modos en código lo verás en el módulo De Figma al código.
+El fondo de la cabecera añade una dificultad: es blanco al 90 % en Light y `neutral/950` al 90 % en Dark. Un valor directo distinto por modo. En Figma es una variable de la colección `Semantic color` con un valor propio en cada columna, Light y Dark. Cómo se unen los modos en código lo verás en el módulo De Figma al código.
 
 ## Cómo se controla una excepción
 
@@ -79,9 +79,9 @@ Una excepción sin control acaba siendo un valor suelto con nombre de token. En 
 
 <InCode title="Un valor directo en DTCG">
 
-Así está el overlay en el archivo de tokens de código. El `$value` es un color completo, con `alpha`, y la `$description` explica la excepción:
+Así se escribe el overlay en DTCG. El `$value` es un color completo, con `alpha`, y la `$description` explica la excepción:
 
-```json filename="tokens/code-only.tokens.json (abreviado)"
+```json filename="color/background/overlay en DTCG (abreviado)"
 "overlay": {
   "$type": "color",
   "$value": {
@@ -100,7 +100,7 @@ En el CSS generado sale como `#00000080`: el hex de ocho cifras lleva la opacida
 
 <Callout variant="pending">
 
-Cuando estos colores se creen en Figma, falta comprobar cómo exporta Figma una variable de color con opacidad. Todas las variables de color exportadas hasta ahora tienen `alpha` 1.
+Falta comprobar cómo exporta Figma una variable de color con opacidad: es la primera vez que el sistema tiene una. Lo veremos en la próxima exportación.
 
 </Callout>
 
@@ -110,3 +110,5 @@ Cuando estos colores se creen en Figma, falta comprobar cómo exporta Figma una 
 - [Design Tokens Format Module 2025.10: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)
 - [Design Tokens Format Module 2025.10: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Terrazzo: DTCG Tokens](https://terrazzo.app/docs/guides/dtcg/)
+- [Terrazzo: Token Types](https://terrazzo.app/docs/reference/tokens/)

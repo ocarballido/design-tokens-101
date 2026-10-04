@@ -21,11 +21,11 @@ Ya has visto todos los semánticos de Tokens101. En esta lección los ves como q
 | Colección | Modos | Contenido | Variables |
 |---|---|---|---|
 | `Primitives` | `Value` | Escalas de color, espaciado, radio, borde y tipografía | 97 |
-| `Semantic color` | Light, Dark | Fondo, texto y borde por rol, y sus estados | 31 |
-| `Semantic size` | `Value` | `radius/control`, `radius/container` y `size/content/max-width` | 3 |
+| `Semantic color` | Light, Dark | Fondo, texto y borde por rol, sus estados y dos fondos con transparencia | 33 |
+| `Semantic size` | `Value` | `radius/control`, `radius/container`, `size/content/max-width` y `size/sidebar/width` | 4 |
 | `Layout` | Desktop, Mobile | Un tamaño de texto por estilo, `font-size/{estilo}` | 9 |
 
-Hay tres variables más pendientes de crear en Figma, que de momento viven en código: `size/sidebar/width` en `Semantic size`, y `color/background/overlay` y `color/background/neutral/translucent` en `Semantic color` ([Cuando un semántico no es alias](/relations/direct-values)).
+Cuatro de esos semánticos son valores directos, no alias: los dos tamaños de maquetación y los dos fondos con transparencia ([Cuando un semántico no es alias](/relations/direct-values)).
 
 Las colecciones se separan por **eje de cambio**: una colección tiene los modos que necesitan sus variables, y solo esos. El color cambia con el tema; los tamaños de texto, con el ancho de pantalla; los radios no cambian. Por qué es mejor una colección por eje que una sola colección con todos los modos lo verás en el módulo Modos y temas.
 
@@ -33,7 +33,7 @@ Las colecciones se separan por **eje de cambio**: una colección tiene los modos
 
 En el módulo 2 ocultaste los primitivos de color y de tipografía al publicar ([Qué se publica y qué se oculta](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)). Con los semánticos se hace lo contrario: **todos se publican**, porque son lo que quien diseña aplica.
 
-El resultado es que el selector de color de quien usa la biblioteca no muestra 57 colores sueltos, sino 31 tokens con su función en el nombre. El curso de Figma propone lo mismo: ocultar los primitivos al publicar para que no se abuse de ellos ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)).
+El resultado es que el selector de color de quien usa la biblioteca no muestra 57 colores sueltos, sino 33 tokens con su función en el nombre. El curso de Figma propone lo mismo: ocultar los primitivos al publicar para que no se abuse de ellos ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)).
 
 ## Un scope por propiedad
 
@@ -45,7 +45,7 @@ El scope limita las propiedades a las que se puede aplicar una variable, y Figma
 | `color/text/*` | *Text fill* y *Shape fill* | `TEXT_FILL`, `SHAPE_FILL` |
 | `color/border/*` | *Stroke* | `STROKE` |
 | `radius/control`, `radius/container` | *Corner radius* | `CORNER_RADIUS` |
-| `size/content/max-width` | *Width and height* | `WIDTH_HEIGHT` |
+| `size/content/max-width`, `size/sidebar/width` | *Width and height* | `WIDTH_HEIGHT` |
 | `font-size/{estilo}` (Layout) | *Font size* | `FONT_SIZE` |
 
 Los tokens de texto incluyen *Shape fill* porque los iconos son formas: un icono de aviso se colorea con `color/text/warning/default`, como su etiqueta. Por eso no hace falta una propiedad `icon`.

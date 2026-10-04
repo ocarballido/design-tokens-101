@@ -61,7 +61,7 @@ El ancho del contenido también muestra que un token es una decisión revisable:
 
 El sidebar no tenía token. En Figma estaba dibujado con un ancho de 305 px, escrito a mano y sin variable. Al llevarlo a código, ese valor suelto no tenía de dónde salir: o se copiaba como número (contra la regla de que todo valor sale de un token) o se creaba un token.
 
-Se creó `size/sidebar/width`, con 304 px (19rem). Mientras la variable no exista en Figma, el token vive en un archivo de tokens de código. Cuando se cree en Figma y se vuelva a exportar, se quitará de ese archivo.
+Se creó `size/sidebar/width`, con 304 px (19rem). Primero vivió en un archivo de tokens de código, para no bloquear el desarrollo. Después se creó la variable en Figma, que es la fuente de los tokens, y el token salió de ese archivo. Un token puede nacer en código, pero no debe quedarse allí si su sitio es Figma.
 
 <Callout variant="note">
 
@@ -74,7 +74,7 @@ Es un caso habitual: el diseño parece completo hasta que alguien tiene que escr
 En Tokens101, los semánticos de tamaño están en la colección `Semantic size`, con un solo modo, `Value`: no cambian con el tema ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 
 - `radius/control` y `radius/container` son variables Number con alias a `radius/200` y `radius/400`, y scope *Corner radius*.
-- `size/content/max-width` es una variable Number con el valor 960 y scope *Width and height*.
+- `size/content/max-width` y `size/sidebar/width` son variables Number con su valor (960 y 304) y scope *Width and height*.
 
 Los tamaños de texto, que también son semánticos y sí cambian entre Desktop y Mobile, van en otra colección. Los verás en [Estilos de texto como capa](/relations/text-styles).
 

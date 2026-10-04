@@ -22,6 +22,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 | 2026-10-03 | Desarrollo | Paso 8: carga de fuentes con `next/font` (V13, §4.2), estilos de texto como utilidades (V15, §8) y token `size/sidebar/width` (V16, §4.6). |
 | 2026-10-03 | Desarrollo | Tokens de movimiento solo de código (V24, §4.7), `color/background/overlay` (V25, §6.1) y ancho máximo del contenido a 960 px (V27, §4.6). |
 | 2026-10-03 | Desarrollo | Cabecera sticky (V28): `color/background/neutral/translucent` (§6.1), `blur/300` solo de código (§4.8) y énfasis `translucent` en el vocabulario (§5.2). |
+| 2026-10-04 | Contenido | §4.6, §6.1 y §7: `size/sidebar/width`, `color/background/overlay` y `color/background/neutral/translucent` creadas en Figma (Semantic size pasa a 4 variables y Semantic color a 33); descripción de `size/content/max-width` actualizada a 960 px. |
 | 2026-10-04 | Contenido | §5.2 regla 6 y §6.1: precisión sobre la opacidad y `$ref` (S32). §6.1: los semánticos de mensaje sin uso se mantienen (S31). |
 | 2026-10-04 | Contenido | §3.1: referencias de Tailwind verificadas contra el CSS fuente 4.3.3. §3.5: contraste de las escalas de estado recalculado sobre el hex guardado (S30); cambios de 0,01 a 0,06, ninguno cruza un umbral. |
 
@@ -317,8 +318,8 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 
 | Token | px (Figma) | rem (CSS) | Uso |
 |---|---|---|---|
-| size/content/max-width | 960 | 60 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 928 px de texto). **V27:** antes 720 px. La descripción de la variable en Figma todavía dice 720 px. |
-| size/sidebar/width | 304 | 19 | Ancho del sidebar en escritorio (V16) y del panel de navegación móvil (V25). En Figma se dibujó a 305 px sin variable. **Pendiente de crear en Figma**; hasta entonces vive en `tokens/code-only.tokens.json`. |
+| size/content/max-width | 960 | 60 | Ancho máximo de la columna de la lección (incluye el padding `space/400` a cada lado: ≈ 928 px de texto). **V27:** antes 720 px. Descripción de la variable en Figma actualizada a 960 px (2026-10-04). |
+| size/sidebar/width | 304 | 19 | Ancho del sidebar en escritorio (V16) y del panel de navegación móvil (V25). En Figma se dibujó a 305 px sin variable. **Variable creada en Figma el 2026-10-04**; sale de `tokens/code-only.tokens.json` en la próxima exportación. |
 
 - Colección **Semantic size**, scope "ancho y alto". Es un valor directo, **excepción a la regla 6** (§5.2): no hay escala primitiva de tamaños y un solo valor no la justifica. Si aparecen más tamaños de maquetación, se crea la escala y este token pasa a ser alias.
 - Categoría nueva en el vocabulario: `size`.
@@ -451,7 +452,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/border/danger/default` | `red/300` (#EDADAD) | `red/700` (#A63D35) |
 | `color/text/danger/default` | `red/700` (#A63D35) | `red/300` (#EDADAD) |
 
-31 tokens de Figma (los de `danger` y el fondo y el borde de `success` aún no los usa ningún componente; se mantienen, S31) y dos solo de código por ahora, pendientes de crear en Figma: `color/background/overlay` (V25), capa sobre el contenido cuando el panel móvil está abierto, y `color/background/neutral/translucent` (V28), fondo de la cabecera sticky. Los dos son valores directos porque un alias de Figma o con llaves no puede cambiar la opacidad (S32). El segundo cambia con el modo, así que vive en `tokens/code-only.light.tokens.json` y `tokens/code-only.dark.tokens.json`, enganchados al modificador `theme` del Resolver. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
+33 tokens en Figma (los de `danger` y el fondo y el borde de `success` aún no los usa ningún componente; se mantienen, S31). Dos de ellos son valores directos: `color/background/overlay` (V25), capa sobre el contenido cuando el panel móvil está abierto, y `color/background/neutral/translucent` (V28), fondo de la cabecera sticky, porque un alias de Figma o con llaves no puede cambiar la opacidad (S32). **Creados en Figma el 2026-10-04**; hasta la próxima exportación siguen en `tokens/code-only.tokens.json` y en `tokens/code-only.light.tokens.json` / `code-only.dark.tokens.json` (enganchados al modificador `theme` del Resolver), y después salen de ahí. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
 
 **Por qué así:**
 - **Botón principal con el color de marca.** `emerald/500` y texto oscuro (`on-accent` = `neutral/950`), en vez de un verde oscuro con texto blanco. El color de marca se ve tal cual y el texto cumple 9,63:1.
@@ -554,12 +555,12 @@ Scopes disponibles según [Figma: Create and manage variables](https://help.figm
 | | | `color/text/*` | No | Relleno de texto y relleno de forma (los iconos usan tokens de texto) |
 | | | `color/border/*` | No | Trazo |
 | **Semantic size** | 1 (`Value`) | `radius/control`, `radius/container` | No | Radio |
-| | | `size/content/max-width` (D20, V27) y `size/sidebar/width` (V16, pendiente) | No | Ancho y alto |
+| | | `size/content/max-width` (D20, V27) y `size/sidebar/width` (V16) | No | Ancho y alto |
 | **Layout** (D10) | Desktop, Mobile | `font-size/{estilo}` (9 tokens, §4.2) | No | Tamaño de fuente. Se usan desde los estilos de texto (§8) |
 
 **No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/desktop` (D11), `duration/200` y `easing/standard` (V24), `blur/300` (V28). Su fuente única es esta especificación.
 
-**Pendientes de crear en Figma** (mientras tanto, en `tokens/code-only.tokens.json`): `size/sidebar/width` en Semantic size (V16), y `color/background/overlay` (V25) y `color/background/neutral/translucent` (V28) en Semantic color. Al reexportar, se quitan de ese archivo.
+**Creadas en Figma el 2026-10-04** (antes vivían solo en código): `size/sidebar/width` en Semantic size (V16), y `color/background/overlay` (V25) y `color/background/neutral/translucent` (V28) en Semantic color, con scope, code syntax Web y descripción. Al reexportar, se quitan de `tokens/code-only.tokens.json`, de `code-only.{light,dark}.tokens.json` y de la entrada correspondiente del Resolver.
 
 **Code syntax Web (S6, S27, D03):** `var(--t101-` + ruta con `/` sustituida por `-` + `)`. Ejemplo: `color/background/accent/strong/hover` → `var(--t101-color-background-accent-strong-hover)`. Se aplica a todas las variables, también a las ocultas.
 
