@@ -62,7 +62,7 @@ Se diseñarán en Figma con el sistema de Tokens101 y se implementarán en `mdx-
 | `<Callout variant="recommendation">` | Decisión propia de Tokens101, no una norma |
 | `<Callout variant="pending">` | Algo que aún no hemos podido verificar |
 | `<InCode title="…">` | Itinerario de código; se puede plegar y el diseñador puede saltarlo |
-| `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). **Todavía no existe en código:** no usarlo en el MDX hasta que desarrollo lo implemente. Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
+| `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
 
 ## Guía de redacción
 

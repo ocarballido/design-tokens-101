@@ -2,7 +2,7 @@
 title: Cómo encajan Figma, DTCG y Tailwind
 description: Vista general del recorrido de un token, desde una variable de Figma hasta una clase de Tailwind CSS, pasando por la exportación de Figma y el formato DTCG.
 nav_title: Figma + DTCG + Tailwind
-lastReviewed: 2026-10-03
+lastReviewed: 2026-10-04
 ---
 
 Esta página es el mapa del curso. Muestra el recorrido completo de un token, desde Figma hasta el código, sin entrar todavía en detalle. Cada paso tiene su módulo, y al final del curso volverás aquí con todas las piezas encajadas.
@@ -19,17 +19,15 @@ Esta página es el mapa del curso. Muestra el recorrido completo de un token, de
 
 ## El recorrido de un token
 
-```txt
-Figma: variables, colecciones y modos
-   ↓  Export modes
-JSON de Figma: casi DTCG, un archivo por modo
-   ↓  normalización: tipos, unidades y alias
-DTCG estricto
-   ↓  herramienta de traducción (en Tokens101, Terrazzo)
-Variables CSS
-   ↓  @theme inline
-Clases de Tailwind CSS
-```
+<Flow caption="El recorrido de un token en Tokens101, desde la variable de Figma hasta la clase de Tailwind CSS.">
+  <FlowStep title="Variables de Figma" meta="Colecciones y modos" />
+  <FlowStep title="JSON de Figma" meta="Export modes: casi DTCG, un archivo por modo" />
+  <FlowStep title="Normalización" meta="Tipos, unidades y alias" />
+  <FlowStep title="DTCG estricto" meta="Archivos .tokens.json" />
+  <FlowStep title="Terrazzo" meta="Herramienta de traducción" />
+  <FlowStep title="Variables CSS" meta="Una por token, con un bloque por modo" />
+  <FlowStep title="Clases de Tailwind CSS" meta="Con @theme inline" />
+</Flow>
 
 La idea central es tener **una sola fuente de verdad**. Los tokens se definen una vez y todo lo demás se genera a partir de ahí, sin copiar valores a mano.
 

@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de desarrollo: componente `Flow` implementado, C13 y D24).
+Última actualización: 2026-10-04 (sesión de contenido: gráficos con `Flow` en el bloque 0).
 
 ---
 
@@ -36,6 +36,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 
 - **Módulo 1, Fundamentos, en español (2026-10-03, borrador pendiente de revisión de Oscar):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
 
+- **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Enlaces y anclas comprobados con script; **falta `npm run build && npm run check:content`** (npm da 403 en la sesión de contenido). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
+
 **Comprobación (2026-10-03):** en el entorno de la sesión de contenido npm vuelve a dar 403 en algunos paquetes, así que no se ha podido ejecutar `npm run build && npm run check:content`. Se comprobaron los enlaces internos y las anclas del español con las reglas de `rehype-slug` (script aparte): sin errores. **Build ejecutado en local por la sesión de desarrollo (2026-10-03): sin errores** (ver Desarrollo → "Comprobación del contenido").
 
 **Pendiente**
@@ -43,7 +45,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
 - Módulos 2 a 8. Módulo 1 escrito; falta la revisión de Oscar.
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
-- **Gráficos (C13, 2026-10-04):** componente `Flow` aprobado por Oscar; anatomía en `componentes-v1.md` §3.7. Orden: **1)** la sesión de diseño lo diseña en Figma y Oscar lo aprueba (excepción a D05, C13); **2)** desarrollo lo implementa; **3)** contenido añade el gráfico de la metodología en `05-what-we-teach` (el MDX ya está en §3.7) y sustituye el bloque de texto del recorrido en `04-figma-dtcg-tailwind`.
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
@@ -81,7 +82,6 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
 - **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
 - **V28 (módulos 3, 5 y 6):** otro semántico con transparencia que no puede ser alias, y además cambia con el modo: un token solo de código por modo, enganchado al modificador del Resolver. `blur/300` como token solo de código. Para el módulo 7: cabecera sticky y 2.4.11 (foco no tapado), `prefers-reduced-transparency`.
-- **`Flow` ya se puede usar en el MDX (C13, D24; sesión de desarrollo, 2026-10-04):** `<Flow caption>`, `<FlowGroup title meta>` y `<FlowStep title meta href status>`, como el ejemplo de `componentes-v1.md` §3.7. El conector no se escribe: lo pone `Flow`. `href` es una ruta interna sin idioma; un paso `pending` no lleva enlace y su `meta` tiene que decirlo ("En estudio"). Siguiente: el gráfico de la metodología en `05-what-we-teach` y el recorrido de `04-figma-dtcg-tailwind` (paso 3 de C13).
 - **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
 - **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.
 
