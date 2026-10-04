@@ -66,7 +66,7 @@ Lo que dice la especificación sobre este ejemplo:
 
 - **El alias apunta a un token completo.** Las llaves llevan al `$value` de un token, no a un grupo ni a una parte del valor (misma fuente). Para apuntar a una parte, DTCG tiene otra sintaxis, `$ref` con JSON Pointer ([Format Module: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). En este curso no la usamos.
 - **El alias hereda el tipo.** El token semántico no lleva `$type`: si el valor es una referencia, el tipo es el del token al que apunta ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
-- **Los puntos y las llaves están reservados.** Un nombre de token o de grupo no puede contener `.`, `{` ni `}`, ni empezar por `$`, porque son los caracteres de las referencias ([Format Module: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)). Lo retomarás en el módulo Nombrar.
+- **Los puntos y las llaves están reservados.** Un nombre de token o de grupo no puede contener `.`, `{` ni `}`, ni empezar por `$`, porque son los caracteres de las referencias ([Format Module: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)). Lo retomarás en el módulo Nombrar ([Un nombre en Figma, DTCG y CSS](/naming/name-constraints#los-caracteres-que-admite-cada-formato)).
 
 En Figma, el mismo token se llama `color/background/accent/strong/default`. Cada `/` se convierte en un nivel de grupo al exportar, y en la referencia esos niveles se separan con puntos.
 

@@ -1,0 +1,139 @@
+---
+title: "Ejercicio: nombra tu mapa y crea las colecciones"
+description: Escribe tu convención de nombres, nombra cada función de tu mapa de alias y crea las colecciones semánticas en Figma, con alias, scope, descripción y code syntax. Termina preparando los modos del módulo 5.
+nav_title: Ejercicio
+lastReviewed: 2026-10-04
+---
+
+En este ejercicio conviertes tu mapa de alias del módulo 3 en variables de Figma. Primero escribes tu convención y nombras cada función; después creas las colecciones semánticas con todo lo que necesita cada variable. Al terminar, tu sistema tiene por fin sus dos capas en Figma: primitivos y semánticos.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Escribe tu convención](#paso-1-escribe-tu-convención)
+- [Paso 2 Nombra cada función](#paso-2-nombra-cada-función)
+- [Paso 3 Nombra los estados](#paso-3-nombra-los-estados)
+- [Paso 4 Revisa la lista de nombres](#paso-4-revisa-la-lista-de-nombres)
+- [Paso 5 Crea las colecciones](#paso-5-crea-las-colecciones)
+- [Paso 6 Pruébalas en tu diseño](#paso-6-pruébalas-en-tu-diseño)
+- [Paso 7 Prepara los modos](#paso-7-prepara-los-modos)
+- [Comprueba tus colecciones](#comprueba-tus-colecciones)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué necesitas
+
+- Tu mapa de alias del [ejercicio del módulo 3](/relations/exercise-aliases), con cada función descrita en palabras y su primitivo en cada modo.
+- Tu archivo de Figma con la colección `Primitives` del módulo 2.
+- Una hoja de cálculo o una tabla en cualquier editor.
+- Entre 60 y 120 minutos.
+
+## Paso 1 Escribe tu convención
+
+Antes de nombrar nada, escribe en un documento corto las reglas que vas a seguir:
+
+- **El orden de los niveles.** Por ejemplo, el de DesignToken101: categoría / propiedad / rol / énfasis / estado.
+- **El vocabulario de cada nivel:** qué palabras usas para las propiedades, los roles, los énfasis y los estados. Usa las que necesita tu diseño, no más.
+- **Dónde va el estado** cuando un token lo necesita ([Dónde va el estado](/naming/states-in-names#dónde-va-el-estado)).
+- **Cómo se escribe cada nivel:** minúsculas, palabras completas y guiones dentro de un nivel.
+- **El prefijo CSS**, el espacio de nombres que llevará cada variable en código. DesignToken101 usa `--t101-`. Elige uno corto y propio de tu sistema.
+
+Si sigues el curso al pie de la letra, copia la convención de [La convención de DesignToken101](/naming/naming-convention). Si la cambias, anota el motivo de cada cambio.
+
+## Paso 2 Nombra cada función
+
+Añade a tu mapa una columna "Token" y escribe el nombre de cada función a partir de sus columnas de propiedad, rol y énfasis:
+
+| Función | Propiedad | Rol | Énfasis | Token |
+|---|---|---|---|---|
+| Fondo de la página | Fondo | Neutro | Normal | `color/background/neutral/default` |
+| Fondo de tarjetas y bloques de código | Fondo | Neutro | Más suave | `color/background/neutral/subtle` |
+| Texto de los enlaces | Texto | Acento | Normal | `color/text/accent/default` |
+| Fondo del botón principal | Fondo | Acento | Más fuerte | `color/background/accent/strong/default` |
+| Texto sobre el botón principal | Texto | Sobre el acento | No aplica | `color/text/on-accent` |
+
+Haz lo mismo con los tokens de tamaño (radios y medidas de maquetación) y con las excepciones que marcaste en el módulo 3.
+
+Si tu mapa tiene tokens de componente, nómbralos componente / variante / propiedad / estado ([Los tokens de componente](/naming/naming-convention#los-tokens-de-componente)).
+
+## Paso 3 Nombra los estados
+
+Para cada fila de estado de tu mapa (hover, active, seleccionado, foco), aplica las dos reglas de [Estados en el nombre](/naming/states-in-names):
+
+- Si el token tiene el énfasis por defecto, el estado ocupa su lugar: `color/text/accent/hover`.
+- Si tiene otro énfasis, el estado va en su propio nivel, y el token en reposo lleva `/default`: `color/background/accent/strong/hover`.
+
+## Paso 4 Revisa la lista de nombres
+
+Ordena la columna "Token" alfabéticamente y revísala con estas preguntas:
+
+- ¿Algún nombre es el principio de otro, seguido de `/`? Por ejemplo, `…/strong` y `…/strong/hover`. Si pasa, el primero sería a la vez token y grupo: añádele `/default`. Al ordenar la lista, quedan uno debajo del otro.
+- ¿Todos los niveles usan palabras de tu vocabulario?
+- ¿Hay mayúsculas, espacios, puntos, llaves o un `$` al principio de un nivel?
+- ¿Algún nivel no distingue nada? Si en un rol todos los tokens tienen el mismo énfasis, plantéate si ese nivel hace falta.
+
+## Paso 5 Crea las colecciones
+
+En tu archivo de Figma, crea las dos colecciones semánticas, cada una con un modo ([Crear las variables en Figma](/naming/create-variables)):
+
+| Colección | Modo | Qué va dentro |
+|---|---|---|
+| `Semantic color` | Light | Los tokens de color de tu tabla |
+| `Semantic size` | `Value` | Los radios semánticos y las medidas de maquetación |
+
+Para cada fila de tu tabla, crea una variable con:
+
+1. El nombre de la columna "Token".
+2. El alias al primitivo de la columna Light (o de la única columna, si tu diseño tiene un único tema). Las excepciones llevan su valor directo.
+3. Una descripción con la función. En las excepciones, añade el motivo: "Valor directo: un alias de Figma no puede cambiar la opacidad".
+4. El scope de su propiedad.
+5. El code syntax Web, con tu prefijo: `var(--t101-color-text-accent-default)`.
+6. Visible al publicar.
+
+No crees todavía el modo Dark ni la colección `Layout`: llegan en el módulo siguiente.
+
+## Paso 6 Pruébalas en tu diseño
+
+Elige una pantalla de tu diseño y cambia sus valores sueltos por las variables semánticas: el fondo, los textos, los bordes y algún botón.
+
+Mientras lo haces, fíjate en el selector de variables. Al elegir el color de un texto, deberías ver los tokens `color/text/*` y no los de fondo ni los de borde. Si aparece un token donde no toca, revisa su scope. Si no encuentras el token que necesitas, puede que falte una función en tu mapa: añádela con su nombre y su alias.
+
+## Paso 7 Prepara los modos
+
+El módulo Modos y temas añade los modos a tus colecciones. Prepara tu mapa para ese momento:
+
+- **Tema.** Comprueba que cada fila de color tiene su primitivo en la columna Dark, con el contraste comprobado. Si tu diseño no va a tener tema oscuro, anótalo: el módulo te servirá igual para el siguiente eje.
+- **Ancho de pantalla.** Revisa los estilos de texto de tu diseño en escritorio y en móvil. Anota qué tamaños cambian de uno a otro, y a qué primitivo `font-size/*` apunta cada uno en cada ancho.
+- **Lo que no cambia.** Marca las colecciones y los tokens que tienen el mismo valor en todos los casos. En DesignToken101, `Semantic size` no cambia con el tema ni con el ancho.
+
+## Comprueba tus colecciones
+
+Tus colecciones están listas si puedes responder que sí a estas preguntas:
+
+- ¿Tienes tu convención escrita, con orden, vocabulario, regla de estados y prefijo CSS?
+- ¿Cada fila de tu mapa tiene su variable, con el nombre de la tabla?
+- ¿Ningún nombre es a la vez token y grupo?
+- ¿Cada semántico es un alias de un primitivo, salvo las excepciones con su motivo en la descripción?
+- ¿Cada variable tiene descripción, scope de su propiedad y un code syntax que coincide con su nombre?
+- ¿Al aplicar las variables a una pantalla, cada selector muestra únicamente los tokens de su propiedad?
+- ¿Tu mapa tiene la columna Dark y los tamaños de texto de escritorio y móvil anotados?
+
+<Callout variant="recommendation">
+
+Guarda la convención donde la encuentre quien trabaje con el sistema: en una página del archivo de Figma o en la documentación del sistema. Quien añada un token dentro de un año tendrá que seguirla, y es más probable que lo haga si la encuentra.
+
+</Callout>
+
+## Lo que te llevas
+
+- Tienes tu convención de nombres escrita, con su orden, su vocabulario y su regla de estados.
+- Tienes las colecciones semánticas en Figma, con cada variable nombrada, con su alias, su scope y su code syntax.
+- Tu mapa está listo para añadir los modos en el módulo Modos y temas.
+
+## Fuentes
+
+Las de las lecciones del módulo. En especial:
+
+- [Design Tokens Format Module 2025.10: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)
+- [Design Tokens Format Module 2025.10: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)
