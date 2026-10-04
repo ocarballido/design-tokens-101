@@ -23,7 +23,7 @@ La tipografía tiene varias escalas a la vez: familias, tamaños, pesos e interl
 | Familia | `font-family/sans`, `font-family/mono` | String | Figma |
 | Tamaño | `font-size/01` … `font-size/10` | Number | Figma |
 | Peso | `font-weight/400` … `font-weight/700` | Number | Figma |
-| Interlineado | `line-height/tight`, `snug`, `normal` | — | Código |
+| Interlineado | `line-height/tight`, `snug`, `normal` | No se crea | Código |
 
 Por qué cada tipo de variable es el que es lo viste en [Tipos simples](/fundamentals/simple-types#peso-y-familia-tipográfica). Aquí nos centramos en los valores.
 
@@ -40,7 +40,7 @@ En Figma, la variable guarda un único nombre de fuente. Las fuentes de reserva 
 
 ## Tamaños
 
-Diez pasos, tomados de la escala del Simple Design System (SDS) de Figma, que va de `--sds-typography-scale-01` (0.75rem) a `--sds-typography-scale-10` (4.5rem) ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)):
+Diez pasos, tomados de la escala del Simple Design System (SDS) de Figma, que va de `--sds-typography-scale-01` (0.75rem) a `--sds-typography-scale-10` (4.5rem) ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)):
 
 | Token | px (Figma) | rem (CSS) |
 |---|---|---|
@@ -57,7 +57,7 @@ Diez pasos, tomados de la escala del Simple Design System (SDS) de Figma, que va
 
 Aquí el número es un **orden**, no una proporción: `font-size/02` no mide el doble que `font-size/01`. Los tamaños de letra no crecen a partir de una base fija, así que un número proporcional dejaría huecos sin sentido. El cero inicial (`01`, `02`) mantiene el orden al ordenar los nombres como texto.
 
-**El texto de lectura mide 16 px** (`font-size/03`). Es el tamaño que el navegador usa por defecto: con el valor por defecto, `1rem` equivale a 16 px, y `rem` se calcula a partir del tamaño de letra del elemento raíz ([MDN — font-size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)).
+**El texto de lectura mide 16 px** (`font-size/03`). Es el tamaño que el navegador usa por defecto: con el valor por defecto, `1rem` equivale a 16 px, y `rem` se calcula a partir del tamaño de letra del elemento raíz ([MDN: font-size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)).
 
 <Callout variant="recommendation">
 
@@ -68,6 +68,24 @@ Tokens101 no añade un tamaño de 18 px para el texto de lectura. Con 16 px, el 
 <Callout variant="note">
 
 Los títulos son más pequeños en móvil. Eso no se resuelve en los primitivos, sino con una colección semántica con dos modos, Desktop y Mobile, que apunta a pasos distintos de esta escala. Lo verás en el módulo Modos y temas.
+
+</Callout>
+
+### Tu escala puede ser otra
+
+Tokens101 usa la escala del SDS porque está probada en un sistema real y encaja con la base de 4 px del espaciado. No es la única válida: puedes usar la de otro sistema o crear la tuya.
+
+Una forma habitual de crear una escala propia es la **escala modular**: partes de un tamaño base y multiplicas cada paso por la misma proporción. [Typescale](https://typescale.com/), una herramienta web gratuita (con funciones de pago), lo hace por ti: eliges el tamaño base y una proporción entre varias predefinidas, desde 1,067 (*Minor Second*) hasta 1,618 (*Golden Ratio*), pasando por 1,2 (*Minor Third*) o 1,25 (*Major Third*), y ves el resultado con tus fuentes. También exporta el CSS.
+
+<Callout variant="note">
+
+La escala del SDS no es modular: de 12 a 14 px el salto es de ×1,17, y de 24 a 32 px, de ×1,33. Sus pasos están elegidos uno a uno. Las dos opciones funcionan; lo importante es que el sistema tenga pocos tamaños y que cada uno tenga un uso.
+
+</Callout>
+
+<Callout variant="recommendation">
+
+Si generas tu escala con una herramienta, redondea cada tamaño a un número entero de píxeles y, si puedes, a un múltiplo de 2 o de 4. Así los tamaños encajan con el espaciado y se leen mejor en las tablas de tokens.
 
 </Callout>
 
@@ -102,13 +120,13 @@ El texto de lectura usa 1.5 por accesibilidad. El criterio 1.4.12 Text Spacing (
 
 <Callout variant="recommendation">
 
-Tokens101 no tiene tokens de espaciado entre letras: todos los estilos usan 0. Si los títulos grandes lo necesitan, se añadirán. Ten en cuenta que Figma también lee una variable de espaciado entre letras como píxeles, no como porcentaje ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+Tokens101 no tiene tokens de espaciado entre letras: todos los estilos usan 0. Si los títulos grandes lo necesitan, se añadirán. Ten en cuenta que Figma también lee una variable de espaciado entre letras como píxeles, no como porcentaje ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
 
 </Callout>
 
 ## En Figma
 
-Crea las variables tipográficas en la colección `Primitives` ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+Crea las variables tipográficas en la colección `Primitives` ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
 
 | Variables | Tipo | Scope | Al publicar |
 |---|---|---|---|
@@ -147,10 +165,11 @@ El token de familia no se usa tal cual en el CSS: la web carga Inter con `next/f
 
 ## Fuentes
 
-- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
-- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
 - [Inter (rsms/inter)](https://github.com/rsms/inter)
 - [JetBrains Mono (JetBrains/JetBrainsMono)](https://github.com/JetBrains/JetBrainsMono)
-- [MDN — font-size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
-- [WCAG 2.2 — Understanding 1.4.12 Text Spacing](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)
+- [Typescale](https://typescale.com/) (herramienta web)
+- [MDN: font-size](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
+- [WCAG 2.2: Understanding 1.4.12 Text Spacing](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)

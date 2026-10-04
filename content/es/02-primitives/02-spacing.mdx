@@ -41,11 +41,11 @@ Figma guarda el valor en píxeles y el CSS lo escribe en `rem`. Por qué, lo vis
 
 ## De dónde sale la base de 4 px
 
-La escala es la del Simple Design System (SDS) de Figma, paso por paso: `--sds-size-space-100` mide 0.25rem (4 px) y `--sds-size-space-4000`, 10rem (160 px) ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+La escala es la del Simple Design System (SDS) de Figma, paso por paso: `--sds-size-space-100` mide 0.25rem (4 px) y `--sds-size-space-4000`, 10rem (160 px) ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
 
-Coincide con Tailwind CSS. Su variable `--spacing` vale `0.25rem` por defecto, y las utilidades de espaciado la multiplican: `p-4` es `calc(var(--spacing) * 4)`, 16 px ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme), [Padding](https://tailwindcss.com/docs/padding)). Así, `space/400` mide lo mismo que `p-4`.
+Coincide con Tailwind CSS. Su variable `--spacing` vale `0.25rem` por defecto, y las utilidades de espaciado la multiplican: `p-4` es `calc(var(--spacing) * 4)`, 16 px ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme), [Padding](https://tailwindcss.com/docs/padding)). Así, `space/400` mide lo mismo que `p-4`.
 
-Otros sistemas usan otra base. Atlassian parte de 8 px y su número es un porcentaje de esa base: `space.100` mide 8 px y `space.200`, 16 px ([Atlassian — Spacing](https://atlassian.design/foundations/spacing)).
+Otros sistemas usan otra base. Atlassian parte de 8 px y su número es un porcentaje de esa base: `space.100` mide 8 px y `space.200`, 16 px ([Atlassian: Spacing](https://atlassian.design/foundations/spacing)).
 
 <Callout variant="recommendation">
 
@@ -76,11 +76,11 @@ Añade un paso a la escala cuando un valor se repite en varios componentes y nin
 
 ## Espaciado negativo
 
-Un espaciado negativo superpone elementos: dos avatares que se solapan, por ejemplo. Los sistemas lo nombran en un nivel propio: `--sds-size-space-negative-100` en el SDS ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)) y `space.negative.100` en Atlassian ([Atlassian — Spacing](https://atlassian.design/foundations/spacing)).
+Un espaciado negativo superpone elementos: dos avatares que se solapan, por ejemplo. Los sistemas lo nombran en un nivel propio: `--sds-size-space-negative-100` en el SDS ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)) y `space.negative.100` en Atlassian ([Atlassian: Spacing](https://atlassian.design/foundations/spacing)).
 
-En CSS, la superposición se hace con márgenes negativos, que son válidos ([MDN — margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)). El `gap` y el padding no admiten negativos ([MDN — gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap), [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)).
+En CSS, la superposición se hace con márgenes negativos, que son válidos ([MDN: margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)). El `gap` y el padding no admiten negativos ([MDN: gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap), [MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)).
 
-Figma acepta variables con valores negativos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Lo probamos en el archivo de Tokens101:
+Figma acepta variables con valores negativos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Lo probamos en el archivo de Tokens101:
 
 - Una variable de −8 en el gap de un auto layout funciona: los elementos se solapan.
 - La misma variable se puede aplicar al padding, y Figma acepta un padding de −8.
@@ -100,7 +100,7 @@ En Tokens101 los espaciados negativos (`space/negative/100`, `200`, `300`, `400`
 
 ## En Figma
 
-En la colección `Primitives`, crea una variable Number por paso ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+En la colección `Primitives`, crea una variable Number por paso ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
 
 1. Nómbrala con la ruta completa, por ejemplo `space/400`. Figma crea el grupo `space` al escribir la barra.
 2. Escribe el valor en píxeles, sin unidad: `16`.
@@ -137,12 +137,12 @@ En el tema de Tailwind CSS, cada paso tiene su utilidad con el mismo número: `p
 
 ## Fuentes
 
-- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
-- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
-- [Tailwind CSS — Padding](https://tailwindcss.com/docs/padding)
-- [Atlassian Design System — Spacing](https://atlassian.design/foundations/spacing)
-- [MDN — margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)
-- [MDN — gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)
-- [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [Tailwind CSS: Padding](https://tailwindcss.com/docs/padding)
+- [Atlassian Design System: Spacing](https://atlassian.design/foundations/spacing)
+- [MDN: margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)
+- [MDN: gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)
+- [MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)

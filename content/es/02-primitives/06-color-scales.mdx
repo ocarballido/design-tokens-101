@@ -30,7 +30,27 @@ Con el espacio de color decidido, puedes construir las escalas. Tokens101 parte 
 
 **1. Convertir la marca a oklch.** `#33CC99` es oklch(0.755 0.145 165.4). Por qué oklch lo viste en [Espacio de color](/primitives/color-space).
 
-**2. Elegir una curva de referencia.** Para no repartir los once pasos a ojo, el método toma la luminosidad (L) y el croma (C) de cada paso de una escala probada: `green` de Tailwind CSS v4, cuyo tono (≈150) es cercano al de la marca ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)).
+**2. Elegir una curva de referencia.** Una escala de once pasos necesita once luminosidades (L) y once cromas (C). Se pueden decidir a ojo, pero es difícil que los saltos queden regulares. El método copia esas cifras de una escala ya probada: la **curva de referencia**.
+
+"Curva" significa cómo cambian L y C a lo largo de los pasos. En una escala como las de Tailwind CSS, la L baja del `50` (casi blanco) al `950` (casi negro), y el C sube hacia los pasos centrales y vuelve a bajar en los extremos, porque los colores muy claros o muy oscuros admiten menos croma (puedes verlo en [oklch.com](https://oklch.com/): la gama se estrecha arriba y abajo).
+
+Tokens101 toma la curva de `green` de Tailwind CSS v4, porque su tono (≈150) es cercano al de la marca (165,4) ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). De `green` se toman dos columnas, L y C; el tono es el de la marca. Así queda la referencia y lo que sale de ella:
+
+| Paso | L de `green` | C de `green` | L de `emerald` | C de `emerald` |
+|---|---|---|---|---|
+| 50 | 0,982 | 0,018 | 0,982 | 0,012 |
+| 100 | 0,962 | 0,044 | 0,962 | 0,029 |
+| 200 | 0,925 | 0,084 | 0,925 | 0,056 |
+| 300 | 0,871 | 0,150 | 0,871 | 0,099 |
+| 400 | 0,792 | 0,209 | 0,792 | 0,139 |
+| 500 | 0,723 | 0,219 | 0,755 | 0,145 (marca) |
+| 600 | 0,627 | 0,194 | 0,627 | 0,129 |
+| 700 | 0,527 | 0,154 | 0,527 | 0,102 |
+| 800 | 0,448 | 0,119 | 0,448 | 0,079 |
+| 900 | 0,393 | 0,095 | 0,393 | 0,063 |
+| 950 | 0,266 | 0,065 | 0,266 | 0,043 |
+
+La L de `emerald` es la de `green` en todos los pasos menos en el `500`, que es la de la marca. El C de `emerald` es el de `green` multiplicado por 0,66 (paso 4).
 
 **3. Colocar la marca en su paso.** La marca va exacta, sin retocar, en el paso cuya L se parece más a la suya. Su L es 0,755; en la curva de `green`, el `400` tiene 0,792 y el `500`, 0,723. El más cercano es el `500`.
 
@@ -49,6 +69,8 @@ El método es nuestro, no una norma. Lo elegimos porque se puede reproducir con 
 </Callout>
 
 ## La escala del acento
+
+<ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de Tokens101, del paso 50 al 950." />
 
 | Paso | oklch | Hex | Contraste con blanco | Contraste con `neutral/950` |
 |---|---|---|---|---|
@@ -73,6 +95,8 @@ Los neutros son los grises de la interfaz: fondos, texto y bordes. Tailwind CSS 
 - **L** de `neutral`.
 - **C** de `gray` multiplicado por 0,5: un tinte suave.
 - **H** de la marca, 165,4.
+
+<ColorScale palette="neutral" caption="Escala neutral: grises con un tinte suave del tono de la marca." />
 
 | Paso | oklch | Hex | Contraste con blanco | Contraste con `neutral/950` |
 |---|---|---|---|---|
@@ -113,11 +137,11 @@ La de los neutros se llama **`neutral`**, como la escala gris de Tailwind CSS: s
 
 ## En Figma
 
-En la colección `Primitives`, crea una variable Color por paso: `color/emerald/50` … `color/emerald/950` y `color/neutral/50` … `color/neutral/950` ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+En la colección `Primitives`, crea una variable Color por paso: `color/emerald/50` … `color/emerald/950` y `color/neutral/50` … `color/neutral/950` ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 
 1. Escribe el valor en hex, el de la tabla o el que te dé el script.
 2. En el scope, desmarca todas las propiedades.
-3. Marca *Hide from publishing* ([Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)).
+3. Marca *Hide from publishing* ([Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)).
 4. Añade el code syntax Web: `var(--t101-color-emerald-500)`.
 
 <Callout variant="recommendation">
@@ -150,9 +174,9 @@ out = build(ACCENT_HSL, TINT)
 
 ## Fuentes
 
-- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
-- [Tailwind CSS — theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
-- [WCAG 2.2 — Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
-- [Björn Ottosson — A perceptual color space for image processing](https://bottosson.github.io/posts/oklab/) (blog del autor de Oklab)
+- [Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS: theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
+- [WCAG 2.2: Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
+- [Björn Ottosson: A perceptual color space for image processing](https://bottosson.github.io/posts/oklab/) (blog del autor de Oklab)

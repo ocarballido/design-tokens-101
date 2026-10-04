@@ -34,7 +34,7 @@ Todas llevan code syntax Web con el formato `var(--t101-…)`, también las ocul
 
 ## Qué se publica y qué se oculta
 
-Cuando publicas un archivo como biblioteca, puedes ocultar variables concretas con *Hide from publishing* ([Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)).
+Cuando publicas un archivo como biblioteca, puedes ocultar variables concretas con *Hide from publishing* ([Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)).
 
 <Callout variant="recommendation">
 
@@ -55,7 +55,7 @@ La ayuda de Figma no explica qué pasa con los alias a variables ocultas cuando 
 
 ## Para qué sirve el scope
 
-El scope limita las propiedades a las que se puede aplicar una variable ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Una variable con scope *Corner radius* se ofrece al elegir el radio de una esquina, y no en el padding ni en el tamaño de letra.
+El scope limita las propiedades a las que se puede aplicar una variable ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Una variable con scope *Corner radius* se ofrece al elegir el radio de una esquina, y no en el padding ni en el tamaño de letra.
 
 - **Las escalas con un uso** llevan ese scope: espaciado, radio, grosor y cada propiedad tipográfica.
 - **Los colores primitivos no tienen ningún scope**, así que no se ofrecen para ninguna propiedad. Su única función es ser el destino de los alias.
@@ -77,7 +77,7 @@ Al exportar la colección, cada variable lleva en `$extensions` los datos propio
 | `com.figma.hiddenFromPublishing` | `true` si está oculta. Si es visible, el dato no aparece | `true` |
 | `com.figma.codeSyntax` | El code syntax de cada plataforma | `{ "WEB": "var(--t101-space-400)" }` |
 
-Además, el archivo lleva el nombre del modo en su raíz: `"com.figma.modeName": "Value"`. DTCG permite que cada herramienta guarde sus datos en `$extensions` ([Format Module — Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)).
+Además, el archivo lleva el nombre del modo en su raíz: `"com.figma.modeName": "Value"`. DTCG permite que cada herramienta guarde sus datos en `$extensions` ([Format Module: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)).
 
 Qué hace esta web con esos datos al generar el CSS lo verás en el módulo De Figma al código.
 
@@ -95,7 +95,7 @@ Los valores de movimiento: `duration/200` = 200 ms y `easing/standard` = `cubic-
 
 <Callout variant="pending">
 
-Sigue sin comprobar si Figma exporta las variables Timing y Easing en DTCG, y en qué unidad: la ayuda de Figma habla de milisegundos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API — Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Si algún día pasan a Figma, se mueven, no se copian.
+Sigue sin comprobar si Figma exporta las variables Timing y Easing en DTCG, y en qué unidad: la ayuda de Figma habla de milisegundos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API: Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Si algún día pasan a Figma, se mueven, no se copian.
 
 </Callout>
 
@@ -138,8 +138,8 @@ El ejemplo está abreviado: en el archivo real cada token lleva una `$descriptio
 
 ## Fuentes
 
-- [Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Figma Plugin API — Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
-- [Design Tokens Format Module 2025.10 — Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)
+- [Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma Plugin API: Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
+- [Design Tokens Format Module 2025.10: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)

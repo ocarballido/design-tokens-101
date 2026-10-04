@@ -30,7 +30,7 @@ El radio de las esquinas y el grosor de los bordes son medidas, como el espaciad
 
 El número sigue la regla del espaciado: `100` = 4 px. Así, `radius/400` y `space/400` miden lo mismo.
 
-La base es la del Simple Design System (SDS) de Figma, que tiene cuatro radios: 4, 8 y 16 px y `full` ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+La base es la del Simple Design System (SDS) de Figma, que tiene cuatro radios: 4, 8 y 16 px y `full` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
 
 <Callout variant="recommendation">
 
@@ -48,7 +48,7 @@ Los componentes no usan estos primitivos directamente. Usan dos tokens semántic
 
 `radius/full` sirve para las formas de píldora y los círculos. No mide la mitad de un elemento concreto, sino un número muy grande: 9999 px.
 
-Funciona por una regla de CSS: si los radios de dos esquinas vecinas suman más que el lado de la caja, el navegador los reduce en proporción hasta que dejan de solaparse ([CSS Backgrounds and Borders 3 — Overlapping curves](https://www.w3.org/TR/css-backgrounds-3/#corner-overlap)). Un radio de 9999 px en un botón de 40 px de alto queda reducido a 20 px: la mitad de la altura. Así, el mismo token da una píldora en un botón y un círculo en un avatar cuadrado.
+Funciona por una regla de CSS: si los radios de dos esquinas vecinas suman más que el lado de la caja, el navegador los reduce en proporción hasta que dejan de solaparse ([CSS Backgrounds and Borders 3: Overlapping curves](https://www.w3.org/TR/css-backgrounds-3/#corner-overlap)). Un radio de 9999 px en un botón de 40 px de alto queda reducido a 20 px: la mitad de la altura. Así, el mismo token da una píldora en un botón y un círculo en un avatar cuadrado.
 
 En CSS, 9999 px son 624.9375rem (9999 ÷ 16). Es el mismo valor que usa el SDS en `--sds-size-radius-full` (misma fuente).
 
@@ -59,7 +59,7 @@ En CSS, 9999 px son 624.9375rem (9999 ÷ 16). Es el mismo valor que usa el SDS e
 | `border-width/100` | 1 | 0.0625 | Bordes y separadores |
 | `border-width/200` | 2 | 0.125 | Anillo de foco, marca de seleccionado |
 
-Los dos valores son los del SDS: `--sds-size-stroke-border` mide 1 px y `--sds-size-stroke-focus-ring`, 2 px ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+Los dos valores son los del SDS: `--sds-size-stroke-border` mide 1 px y `--sds-size-stroke-focus-ring`, 2 px ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
 
 En esta escala, `100` = 1 px. El número sigue siendo proporcional al valor, pero con otra base: un borde de 4 px sería un trazo muy grueso, y la escala no lo necesita.
 
@@ -73,7 +73,7 @@ Tokens101 apunta al nivel AA de WCAG 2.2, pero su anillo de foco usa 2 px (`bord
 
 ## En Figma
 
-Crea las variables Number de las dos escalas en la colección `Primitives` ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+Crea las variables Number de las dos escalas en la colección `Primitives` ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
 
 | Variables | Scope | Al publicar |
 |---|---|---|
@@ -98,7 +98,7 @@ En la exportación de Figma, los scopes aparecen con el nombre de la API de plug
 }
 ```
 
-El radio tiene utilidades de Tailwind CSS con el mismo número (`rounded-200`), porque Tailwind tiene un espacio de nombres `--radius-*` ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)). El grosor de borde no tiene espacio de nombres propio, así que esta web usa la sintaxis de valor con variable ([Tailwind CSS — border-width](https://tailwindcss.com/docs/border-width)):
+El radio tiene utilidades de Tailwind CSS con el mismo número (`rounded-200`), porque Tailwind tiene un espacio de nombres `--radius-*` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). El grosor de borde no tiene espacio de nombres propio, así que esta web usa la sintaxis de valor con variable ([Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)):
 
 ```html
 <div class="border-(length:--t101-border-width-100)">…</div>
@@ -108,9 +108,9 @@ El radio tiene utilidades de Tailwind CSS con el mismo número (`rounded-200`), 
 
 ## Fuentes
 
-- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [CSS Backgrounds and Borders Module Level 3 — Overlapping curves](https://www.w3.org/TR/css-backgrounds-3/#corner-overlap)
-- [WCAG 2.2 — Understanding 2.4.13 Focus Appearance](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)
-- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
-- [Tailwind CSS — border-width](https://tailwindcss.com/docs/border-width)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [CSS Backgrounds and Borders Module Level 3: Overlapping curves](https://www.w3.org/TR/css-backgrounds-3/#corner-overlap)
+- [WCAG 2.2: Understanding 2.4.13 Focus Appearance](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)

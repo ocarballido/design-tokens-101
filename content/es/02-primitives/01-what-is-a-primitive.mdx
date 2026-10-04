@@ -18,9 +18,9 @@ En el ejercicio del módulo 1 hiciste inventario de los valores de tu diseño. E
 
 ## Primitivos y semánticos
 
-La especificación DTCG no habla de capas. Define tokens, grupos y referencias, y dice que los grupos sirven para organizar: cada sistema los estructura según su propio modelo ([Format Module — Groups](https://www.designtokens.org/TR/2025.10/format/#groups)).
+La especificación DTCG no habla de capas. Define tokens, grupos y referencias, y dice que los grupos sirven para organizar: cada sistema los estructura según su propio modelo ([Format Module: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)).
 
-Los sistemas de diseño más usados sí separan dos capas. En el Simple Design System (SDS) de Figma, por ejemplo, `--sds-color-green-500` es un color de la paleta, y `--sds-color-background-positive-default` es el fondo de un mensaje de éxito, que apunta a ese color ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+Los sistemas de diseño más usados sí separan dos capas. En el Simple Design System (SDS) de Figma, por ejemplo, `--sds-color-green-500` es un color de la paleta, y `--sds-color-background-positive-default` es el fondo de un mensaje de éxito, que apunta a ese color ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
 
 | | Primitivo | Semántico |
 |---|---|---|
@@ -43,8 +43,8 @@ Un primitivo se nombra con tres niveles: **categoría / paleta / paso**.
 |---|---|---|---|
 | `color/emerald/500` | `color` | `emerald` | `500` |
 | `color/neutral/900` | `color` | `neutral` | `900` |
-| `space/400` | `space` | — | `400` |
-| `radius/200` | `radius` | — | `200` |
+| `space/400` | `space` | No tiene | `400` |
+| `radius/200` | `radius` | No tiene | `200` |
 
 Las escalas que no son de color tienen una sola paleta, así que ese nivel no se escribe.
 
@@ -56,14 +56,14 @@ En Tokens101, **las paletas se nombran por su tono o por su naturaleza, nunca po
 
 El motivo: un mismo primitivo puede servir para varios roles. En Tokens101, `emerald` es a la vez el color de marca y el color de éxito. Si la paleta se llamara `brand`, el token de éxito apuntaría a `brand/700`, y el nombre no diría lo que es.
 
-Otros sistemas lo hacen de otra manera. El SDS de Figma tiene una paleta primitiva llamada `brand` junto a otras nombradas por su tono, como `green` o `red` ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). Las dos opciones funcionan; la nuestra tiene un coste: si la marca cambiara a un azul, habría que renombrar la paleta. Los tokens semánticos conservarían su nombre; cambiaría el primitivo al que apuntan.
+Otros sistemas lo hacen de otra manera. El SDS de Figma tiene una paleta primitiva llamada `brand` junto a otras nombradas por su tono, como `green` o `red` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). Las dos opciones funcionan; la nuestra tiene un coste: si la marca cambiara a un azul, habría que renombrar la paleta. Los tokens semánticos conservarían su nombre; cambiaría el primitivo al que apuntan.
 
 ## Qué es una escala
 
 Una escala es un conjunto ordenado de pasos de una misma categoría. Los sistemas que hemos consultado comparten cuatro principios:
 
-1. **Pocas opciones, bien elegidas.** Una escala corta obliga a decidir. Tailwind CSS es la excepción: `p-17` es válido, porque cada utilidad multiplica la variable `--spacing` por el número que escribas ([Tailwind CSS — Padding](https://tailwindcss.com/docs/padding)). Con Tailwind, la disciplina tiene que venir de tus tokens.
-2. **El número dice algo.** En el SDS, `space-100` mide 4 px y `space-400` mide 16 px: el número es proporcional al valor ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). En Atlassian, el número es un porcentaje de su base de 8 px: `space.200` mide 16 px ([Atlassian — Spacing](https://atlassian.design/foundations/spacing)).
+1. **Pocas opciones, bien elegidas.** Una escala corta obliga a decidir. Tailwind CSS es la excepción: `p-17` es válido, porque cada utilidad multiplica la variable `--spacing` por el número que escribas ([Tailwind CSS: Padding](https://tailwindcss.com/docs/padding)). Con Tailwind, la disciplina tiene que venir de tus tokens. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve).
+2. **El número dice algo.** En el SDS, `space-100` mide 4 px y `space-400` mide 16 px: el número es proporcional al valor ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). En Atlassian, el número es un porcentaje de su base de 8 px: `space.200` mide 16 px ([Atlassian: Spacing](https://atlassian.design/foundations/spacing)).
 3. **Múltiplos de 100, con cero inicial para las fracciones.** Así caben pasos intermedios sin decimales: `050` es la mitad de `100` y `150` está entre `100` y `200`. Lo usan el SDS y Atlassian (mismas fuentes).
 4. **Los negativos van en su propio nivel.** `space/negative/100` en vez de `space/-100`. Lo hacen el SDS y Atlassian (mismas fuentes).
 
@@ -79,8 +79,8 @@ En el color, el número del paso puede significar cosas distintas:
 
 | Sistema | Pasos | Qué dice el número |
 |---|---|---|
-| Tailwind CSS | 11: `50`, `100`… `900`, `950` | **Un orden.** Del más claro al más oscuro. Los colores se definen en oklch ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)) |
-| Radix Colors | 12: `1` a `12` | **Una función.** Cada paso tiene un uso: `1` y `2` fondos, `3` a `5` fondos de componentes, `6` a `8` bordes, `9` y `10` fondos sólidos, `11` y `12` texto ([Radix — Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)) |
+| Tailwind CSS | 11: `50`, `100`… `900`, `950` | **Un orden.** Del más claro al más oscuro. Los colores se definen en oklch ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)) |
+| Radix Colors | 12: `1` a `12` | **Una función.** Cada paso tiene un uso: `1` y `2` fondos, `3` a `5` fondos de componentes, `6` a `8` bordes, `9` y `10` fondos sólidos, `11` y `12` texto ([Radix: Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)) |
 
 Radix garantiza que sus pasos de texto contrasten con su fondo, pero lo mide con APCA, no con la fórmula de contraste de WCAG 2.2 que usa este curso (misma fuente). La fórmula de WCAG la verás en [Escalas de color](/primitives/color-scales) y en el módulo Accesibilidad.
 
@@ -107,7 +107,7 @@ En total, 97 variables en la colección Primitives de Figma. Otros primitivos vi
 
 Los primitivos van en su propia colección, con **un solo modo**: un primitivo no cambia con el tema ni con el ancho de pantalla. Los modos van en las colecciones semánticas, que verás en el módulo Modos y temas.
 
-Para crear la colección ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+Para crear la colección ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
 
 1. Abre la vista de variables.
 2. Crea una colección nueva (*More options* → *Create collection*) y llámala `Primitives`.
@@ -117,7 +117,7 @@ Las variables las crearás en las lecciones siguientes, una escala cada vez. Al 
 
 <Callout variant="note">
 
-Figma permite ocultar una colección entera al publicar si su nombre empieza por `_` o por `.` ([Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)). En Tokens101 no lo hacemos: unos primitivos se ocultan y otros no, así que se ocultan variable por variable.
+Figma permite ocultar una colección entera al publicar si su nombre empieza por `_` o por `.` ([Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)). En Tokens101 no lo hacemos: unos primitivos se ocultan y otros no, así que se ocultan variable por variable.
 
 </Callout>
 
@@ -153,11 +153,11 @@ El ejemplo está abreviado: los `components` reales tienen más decimales (`0.20
 
 ## Fuentes
 
-- [Design Tokens Format Module 2025.10 — Groups](https://www.designtokens.org/TR/2025.10/format/#groups)
-- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
-- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
-- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
-- [Tailwind CSS — Padding](https://tailwindcss.com/docs/padding)
-- [Radix Colors — Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)
-- [Atlassian Design System — Spacing](https://atlassian.design/foundations/spacing)
+- [Design Tokens Format Module 2025.10: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
+- [Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS: Padding](https://tailwindcss.com/docs/padding)
+- [Radix Colors: Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)
+- [Atlassian Design System: Spacing](https://atlassian.design/foundations/spacing)

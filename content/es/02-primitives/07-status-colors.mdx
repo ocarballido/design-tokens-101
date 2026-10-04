@@ -39,7 +39,7 @@ Separar tono y rol permite cambiar de opinión sin renombrar nada. Si mañana `w
 
 Las tres escalas siguen el método del acento ([Escalas de color](/primitives/color-scales#el-método)), con dos diferencias:
 
-- **La referencia es la escala de Tailwind CSS del mismo tono:** `red`, `amber` y `blue` de Tailwind CSS v4 ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)). No hay color de marca que colocar, así que se toman L, C y también H de cada paso. El tono de Tailwind varía un poco de un paso a otro: en `red`, de 17,4 en el `50` a 27,5 en el `700`.
+- **La referencia es la escala de Tailwind CSS del mismo tono:** `red`, `amber` y `blue` de Tailwind CSS v4 ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)). No hay color de marca que colocar, así que se toman L, C y también H de cada paso. El tono de Tailwind varía un poco de un paso a otro: en `red`, de 17,4 en el `50` a 27,5 en el `700`.
 - **El croma se multiplica por 0,66**, la misma reducción que tiene el acento frente a su referencia. Así las escalas de estado tienen la misma intensidad que la marca y no compiten con ella.
 
 Después, igual que el acento: ajuste a sRGB reduciendo el croma (ninguno de los 33 pasos lo necesita) y contraste calculado sobre el hex.
@@ -64,9 +64,11 @@ En Tokens101, los mensajes de estado llevan siempre icono y texto además del co
 
 ## Las tres escalas
 
-Contraste con blanco calculado con la fórmula de WCAG 2.2 sobre el hex.
+Cada escala, primero de forma visual y después con sus valores. El contraste con blanco se calcula con la fórmula de WCAG 2.2 sobre el hex.
 
 **red**
+
+<ColorScale palette="red" caption="Escala red: la del rol danger." />
 
 | Paso | oklch | Hex | Contraste con blanco |
 |---|---|---|---|
@@ -84,6 +86,8 @@ Contraste con blanco calculado con la fórmula de WCAG 2.2 sobre el hex.
 
 **amber**
 
+<ColorScale palette="amber" caption="Escala amber: la del rol warning." />
+
 | Paso | oklch | Hex | Contraste con blanco |
 |---|---|---|---|
 | 50 | 0.987 0.015 95.3 | `#FEFBF0` | 1,04 |
@@ -99,6 +103,8 @@ Contraste con blanco calculado con la fórmula de WCAG 2.2 sobre el hex.
 | 950 | 0.279 0.051 45.6 | `#3D2012` | 14,85 |
 
 **blue**
+
+<ColorScale palette="blue" caption="Escala blue: la del rol info." />
 
 | Paso | oklch | Hex | Contraste con blanco |
 |---|---|---|---|
@@ -149,8 +155,8 @@ Para añadir otro tono (por ejemplo, `orange`), copia en `TW_STATUS` sus valores
 
 ## Fuentes
 
-- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
-- [Tailwind CSS — theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
+- [Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS: theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
 - [Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4) (blog oficial)
-- [WCAG 2.2 — Understanding 1.4.1 Use of Color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
-- [WCAG 2.2 — Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+- [WCAG 2.2: Understanding 1.4.1 Use of Color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+- [WCAG 2.2: Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
