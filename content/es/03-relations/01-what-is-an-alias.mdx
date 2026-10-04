@@ -1,0 +1,164 @@
+---
+title: Qué es un alias
+description: Un alias es un token cuyo valor es otro token. Cómo se escribe en DTCG, qué reglas siguen las cadenas de alias, por qué conviene conservar la referencia y cómo se crea un alias en Figma.
+nav_title: Qué es un alias
+lastReviewed: 2026-10-04
+---
+
+En el módulo 2 creaste los primitivos: los valores que existen en tu sistema. Ahora los vas a relacionar. La herramienta para hacerlo es el **alias**, un token cuyo valor no es un valor, sino otro token. En esta lección verás cómo se escribe un alias en DTCG, qué reglas sigue y cómo se crea en Figma.
+
+**En esta página**
+
+- [Un token que apunta a otro](#un-token-que-apunta-a-otro)
+- [Cómo se escribe en DTCG](#cómo-se-escribe-en-dtcg)
+- [Cadenas y referencias circulares](#cadenas-y-referencias-circulares)
+- [Por qué conservar la referencia](#por-qué-conservar-la-referencia)
+- [En Figma](#en-figma)
+
+## Un token que apunta a otro
+
+El botón principal de Tokens101 tiene el color de la marca, `#33CC99`. En la web, ese fondo no se escribe como hex ni como primitivo. Se escribe con un token que dice para qué sirve, `color/background/accent/strong/default`, y ese token apunta al primitivo `color/emerald/500`.
+
+| Token | Valor |
+|---|---|
+| `color/emerald/500` | `#33CC99` (un valor directo) |
+| `color/background/accent/strong/default` | `color/emerald/500` (un alias) |
+
+La especificación DTCG usa "alias" y "referencia" como sinónimos: un token puede tomar su valor de otro token ([Format Module: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)). Figma también los llama así: aplicar una variable a otra variable es crear un alias, y es lo que permite implementar tokens de diseño ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)).
+
+El alias aporta dos cosas:
+
+- **Un cambio, un solo lugar.** Si varios tokens apuntan a `color/emerald/500` y cambias ese primitivo, todos cambian. La ayuda de Figma pone este mismo ejemplo para explicar los alias ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+- **Una decisión con nombre.** `color/background/accent/strong/default` dice dónde se usa el color. `#33CC99` y `color/emerald/500` no lo dicen.
+
+## Cómo se escribe en DTCG
+
+En un archivo DTCG, un alias es el nombre completo del token de destino entre llaves, con los niveles separados por puntos ([Format Module: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)):
+
+```json filename="Un primitivo y un alias en DTCG"
+{
+  "color": {
+    "emerald": {
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.2, 0.8, 0.6],
+          "hex": "#33CC99"
+        }
+      }
+    },
+    "background": {
+      "accent": {
+        "strong": {
+          "default": {
+            "$value": "{color.emerald.500}"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Lo que dice la especificación sobre este ejemplo:
+
+- **El alias apunta a un token completo.** Las llaves llevan al `$value` de un token, no a un grupo ni a una parte del valor (misma fuente). Para apuntar a una parte, DTCG tiene otra sintaxis, `$ref` con JSON Pointer ([Format Module: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). En este curso no la usamos.
+- **El alias hereda el tipo.** El token semántico no lleva `$type`: si el valor es una referencia, el tipo es el del token al que apunta ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
+- **Los puntos y las llaves están reservados.** Un nombre de token o de grupo no puede contener `.`, `{` ni `}`, ni empezar por `$`, porque son los caracteres de las referencias ([Format Module: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)). Lo retomarás en el módulo Nombrar.
+
+En Figma, el mismo token se llama `color/background/accent/strong/default`. Cada `/` se convierte en un nivel de grupo al exportar, y en la referencia esos niveles se separan con puntos.
+
+## Cadenas y referencias circulares
+
+Un alias puede apuntar a otro alias. La herramienta sigue la cadena hasta encontrar un valor explícito ([Format Module: Chained references](https://www.designtokens.org/TR/2025.10/format/#chained-references)):
+
+```txt
+token de componente  →  token semántico  →  primitivo  →  #33CC99
+```
+
+Lo que la especificación prohíbe son las **referencias circulares**: que `a` apunte a `b` y `b` apunte a `a`, directamente o a través de otros tokens. Una herramienta tiene que detectarlas e informar del error ([Format Module: Circular references](https://www.designtokens.org/TR/2025.10/format/#circular-references)).
+
+La especificación no pone límite a la longitud de una cadena. Cada salto, en cambio, es un paso más que hay que seguir para saber de dónde sale un valor.
+
+<Callout variant="recommendation">
+
+En Tokens101, una cadena tiene **como máximo dos saltos**: componente → semántico → primitivo. Es un límite nuestro, no de DTCG ni de Figma. Por qué hay tres capas y por qué Tokens101 usa dos lo verás en [Las capas](/relations/layers).
+
+</Callout>
+
+## Por qué conservar la referencia
+
+DTCG pide a las herramientas que conserven las referencias y que las resuelvan solo cuando necesiten el valor. Así, un cambio en el token de destino llega a todos los que apuntan a él ([Format Module: Reference resolution](https://www.designtokens.org/TR/2025.10/format/#reference-resolution)).
+
+En CSS se ve la ventaja. La web genera cada alias como una variable que apunta a otra:
+
+```css filename="src/styles/tokens.css (fragmento)"
+--t101-color-emerald-500: #3c9;
+--t101-color-background-accent-strong-default: var(--t101-color-emerald-500);
+```
+
+Si el primitivo cambia, el semántico lo sigue sin regenerar nada más. Si la referencia se hubiera perdido por el camino, el CSS diría `#3c9` en los dos sitios y habría que cambiarlos uno a uno.
+
+<Callout variant="warning">
+
+La exportación de Figma **no conserva el alias como referencia DTCG**. Escribe el valor ya resuelto y guarda el destino en un dato propio, `com.figma.aliasData`. Esta web recupera la referencia antes de generar el CSS. Lo viste por encima en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg), y lo harás paso a paso en el módulo De Figma al código.
+
+</Callout>
+
+## En Figma
+
+Un alias de Figma es una variable cuyo valor es otra variable. Para crearlo ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+1. Abre la vista de variables.
+2. Haz clic derecho sobre el valor de la variable y elige *Create alias*.
+3. Elige la variable de destino. Puedes buscarla por su nombre.
+
+Para quitar el alias, pasa el cursor por el valor y pulsa *Detach alias*. La variable recupera un valor propio.
+
+Dos reglas que conviene saber:
+
+- **Mismo tipo.** Una variable solo puede apuntar a otra del mismo tipo: un color, a un color; un número, a un número (misma fuente).
+- **Entre colecciones.** La ayuda no lo dice con estas palabras; describe que el destino se elige en la pestaña *Libraries* del selector. En Tokens101 todos los semánticos apuntan a variables de otra colección, `Primitives`, y la exportación lo registra (`"targetVariableSetName": "Primitives"`).
+
+Cuando una colección tiene varios modos, cada modo puede apuntar a una variable distinta. En Tokens101, el valor Light y el Dark de un mismo semántico apuntan a primitivos distintos. Lo verás en el módulo Modos y temas; en este módulo basta con saber que el alias se decide modo a modo.
+
+<InCode title="El mismo alias en la exportación de Figma y después de normalizar">
+
+Así exporta Figma el token del botón principal. El `$value` es el color resuelto; la referencia está en `$extensions`:
+
+```json filename="tokens/figma/semantic-color/Light.tokens.json (abreviado)"
+"default": {
+  "$type": "color",
+  "$value": { "colorSpace": "srgb", "components": [0.2, 0.8, 0.6], "alpha": 1, "hex": "#33CC99" },
+  "$description": "Botón principal",
+  "$extensions": {
+    "com.figma.aliasData": {
+      "targetVariableName": "color/emerald/500",
+      "targetVariableSetName": "Primitives"
+    }
+  }
+}
+```
+
+Y así queda después del paso de normalización de esta web, con la referencia DTCG en el `$value`:
+
+```json filename="tokens/dtcg/semantic-color/Light.tokens.json (abreviado)"
+"default": {
+  "$type": "color",
+  "$value": "{color.emerald.500}",
+  "$description": "Botón principal"
+}
+```
+
+Fíjate en la `$description`: es la descripción que escribiste en la variable de Figma, y llega intacta al DTCG.
+
+</InCode>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)
+- [Design Tokens Format Module 2025.10: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)
+- [Design Tokens Format Module 2025.10: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)

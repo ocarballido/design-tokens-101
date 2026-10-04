@@ -1,0 +1,92 @@
+---
+title: Las capas
+description: Primitivos, semánticos y tokens de componente. Qué dice la especificación, cómo los presenta Figma, cómo se resuelve un token de capa en capa y qué capas usa Tokens101.
+nav_title: Las capas
+lastReviewed: 2026-10-04
+---
+
+Con los alias puedes encadenar tokens. La pregunta siguiente es cómo ordenarlos: qué tokens apuntan a cuáles. La respuesta habitual son las **capas**: primitivos, semánticos y, a veces, tokens de componente. En esta lección verás de dónde sale ese modelo, cómo se resuelve un token de una capa a otra y qué capas usa Tokens101.
+
+**En esta página**
+
+- [Las capas son una convención](#las-capas-son-una-convención)
+- [Tres capas](#tres-capas)
+- [Cómo se resuelve un token](#cómo-se-resuelve-un-token)
+- [Por qué no aplicar los primitivos](#por-qué-no-aplicar-los-primitivos)
+- [Las capas de Tokens101](#las-capas-de-tokens101)
+
+## Las capas son una convención
+
+La especificación DTCG no define capas. Define tokens, grupos y referencias, y dice que los grupos son arbitrarios: las herramientas no deben deducir de ellos el tipo ni el propósito de un token ([Format Module: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)).
+
+Para DTCG, un primitivo y un semántico son lo mismo: un token. Uno tiene un valor y el otro, una referencia. La diferencia de capa la pone el sistema de diseño, con la forma de nombrar y con quién apunta a quién.
+
+## Tres capas
+
+Figma presenta el modelo en tres capas en su curso sobre sistemas de diseño ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)):
+
+| Capa | Qué dice | Ejemplo del curso de Figma |
+|---|---|---|
+| **Primitivo** | Qué valores existen | Un color de la paleta, como `pink/400` |
+| **Semántico** | Cómo y dónde se aplica una decisión | `surface/brand-contrast`, que apunta a un primitivo |
+| **De componente** | En qué componente concreto se usa | `button-primary-background-default`, que apunta a un semántico |
+
+Lo que dice el curso de cada capa:
+
+- **Los primitivos son solo de referencia.** Existen para que otros tokens apunten a ellos, no para aplicarlos al diseño.
+- **Los semánticos añaden el contexto.** En `surface/brand-contrast`, cada palabra dice algo: es una superficie, es de la marca y busca contraste.
+- **Los tokens de componente no son para todos.** El curso dice que no todos los equipos los necesitan y que son más habituales en sistemas grandes, de empresa.
+
+No todos los sistemas usan las tres. El Simple Design System (SDS) de Figma tiene dos: su archivo de tokens solo contiene primitivos y semánticos. Por ejemplo, `--sds-color-text-danger-default` apunta a `--sds-color-red-700` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+## Cómo se resuelve un token
+
+Cuando diseñas, aplicas el token de la capa más alta que tenga tu sistema. La herramienta sigue los alias hacia abajo hasta llegar a un valor. Este es el recorrido del color de los enlaces de Tokens101, con una capa de componente de ejemplo encima:
+
+<Flow caption="Cómo se resuelve el color de los enlaces, de la capa de componente al valor. La capa de componente es un ejemplo: Tokens101 no la tiene.">
+  <FlowStep title="Componente" meta="link/text · Ejemplo, no existe en Tokens101" />
+  <FlowStep title="Semántico" meta="color/text/accent/default" />
+  <FlowStep title="Primitivo" meta="color/emerald/700 · Oculto al publicar" />
+  <FlowStep title="Valor" meta="#1A7D5C en el modo Light" />
+</Flow>
+
+1. **Componente.** Un token como `link/text` diría "el texto del componente enlace". Tokens101 no lo tiene: el enlace usa directamente el semántico. Cuándo tendría sentido lo verás en [La capa de componente](/relations/component-tokens).
+2. **Semántico.** `color/text/accent/default` es el texto con el color de acento. Lo usan los enlaces, y también el icono y la etiqueta del `Callout` de recomendación.
+3. **Primitivo.** `color/emerald/700`, un paso de la escala del acento. Está oculto al publicar, así que nadie lo aplica directamente ([La colección completa](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)).
+4. **Valor.** `#1A7D5C`. En el modo Dark, el mismo semántico apunta a otro primitivo, `color/emerald/400`: el nombre que aplicas no cambia, cambia el destino del alias.
+
+## Por qué no aplicar los primitivos
+
+Podrías aplicar `color/emerald/700` directamente al texto de los enlaces. Funcionaría hasta el primer cambio:
+
+- **Al cambiar de tema.** En el modo Dark, el enlace necesita `emerald/400`. Si el diseño usa el primitivo, tienes que cambiar cada enlace. Si usa el semántico, cambias un alias.
+- **Al cambiar una decisión.** Si decides que los enlaces sean más oscuros, cambias el destino de `color/text/accent/default`. Los demás usos de `emerald/700`, como el texto de un mensaje de éxito, no se mueven.
+- **Al leer el diseño.** `color/text/accent/default` dice dónde se usa. `color/emerald/700` solo dice qué color es.
+
+<Callout variant="note">
+
+En Tokens101 hay primitivos que sí se aplican directamente: el espaciado y el grosor de borde, porque no tienen tokens semánticos. Lo viste en [Espaciado](/primitives/spacing#en-figma). La regla de esta lección vale para las categorías que tienen capa semántica: color, tamaños y tipografía. El radio está a medio camino: los componentes usan sus semánticos, pero los primitivos siguen visibles por si un diseño necesita otro paso de la escala ([La colección completa](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)).
+
+</Callout>
+
+## Las capas de Tokens101
+
+<Callout variant="recommendation">
+
+Tokens101 usa **dos capas, primitivos y semánticos**, y añadiría tokens de componente **solo cuando un componente los justifique**. En la primera versión, ningún componente los necesita. Es el criterio de toda la web: [un sistema tan grande como lo que resuelve](/start-here/what-is-tokens101#un-sistema-tan-grande-como-lo-que-resuelve).
+
+</Callout>
+
+Tres reglas acompañan a esa decisión. Son nuestras, no de DTCG ni de Figma:
+
+1. **Los semánticos son siempre alias de un primitivo**, nunca un valor directo. Hay cuatro excepciones, y cada una tiene un motivo: las verás en [Cuando un semántico no es alias](/relations/direct-values).
+2. **Como máximo, dos saltos:** componente → semántico → primitivo. Si algún día hay tokens de componente, apuntarán a un semántico, no a un primitivo.
+3. **Los primitivos de color se ocultan al publicar.** Quien diseña con la biblioteca solo ve los semánticos.
+
+En las lecciones siguientes verás la capa semántica completa: [color](/relations/semantic-color), [estados](/relations/states), [tamaño y radio](/relations/semantic-size) y [estilos de texto](/relations/text-styles).
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Groups](https://www.designtokens.org/TR/2025.10/format/#groups)
+- [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
