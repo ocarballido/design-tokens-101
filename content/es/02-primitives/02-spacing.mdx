@@ -1,0 +1,148 @@
+---
+title: Espaciado
+description: La escala de espaciado de Tokens101, con base de 4 px, de dónde sale, cómo encajar en ella los valores de tu inventario y por qué los espaciados negativos viven en código.
+nav_title: Espaciado
+lastReviewed: 2026-10-04
+---
+
+El espaciado es la escala más usada de un sistema: padding, gap y separación entre bloques. También es la que más casi duplicados acumula en un inventario. En esta lección verás la escala de Tokens101, de dónde sale y cómo encajar en ella tus propios valores.
+
+**En esta página**
+
+- [La escala de Tokens101](#la-escala-de-tokens101)
+- [De dónde sale la base de 4 px](#de-dónde-sale-la-base-de-4-px)
+- [Encajar tu inventario en la escala](#encajar-tu-inventario-en-la-escala)
+- [Espaciado negativo](#espaciado-negativo)
+- [En Figma](#en-figma)
+
+## La escala de Tokens101
+
+Trece pasos. El número del nombre es proporcional al valor: `100` = 4 px.
+
+| Token | px (Figma) | rem (CSS) |
+|---|---|---|
+| `space/0` | 0 | 0 |
+| `space/050` | 2 | 0.125 |
+| `space/100` | 4 | 0.25 |
+| `space/150` | 6 | 0.375 |
+| `space/200` | 8 | 0.5 |
+| `space/300` | 12 | 0.75 |
+| `space/400` | 16 | 1 |
+| `space/600` | 24 | 1.5 |
+| `space/800` | 32 | 2 |
+| `space/1200` | 48 | 3 |
+| `space/1600` | 64 | 4 |
+| `space/2400` | 96 | 6 |
+| `space/4000` | 160 | 10 |
+
+Fíjate en cómo crecen los saltos: de 2 en 2 px al principio y de 32, 48 o 64 px al final. Entre dos elementos pequeños, 2 px se notan; entre dos secciones de una página, no. Por eso la escala tiene más pasos abajo que arriba.
+
+Figma guarda el valor en píxeles y el CSS lo escribe en `rem`. Por qué, lo viste en [Tipos simples](/fundamentals/simple-types#dimensiones-px-y-rem).
+
+## De dónde sale la base de 4 px
+
+La escala es la del Simple Design System (SDS) de Figma, paso por paso: `--sds-size-space-100` mide 0.25rem (4 px) y `--sds-size-space-4000`, 10rem (160 px) ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+Coincide con Tailwind CSS. Su variable `--spacing` vale `0.25rem` por defecto, y las utilidades de espaciado la multiplican: `p-4` es `calc(var(--spacing) * 4)`, 16 px ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme), [Padding](https://tailwindcss.com/docs/padding)). Así, `space/400` mide lo mismo que `p-4`.
+
+Otros sistemas usan otra base. Atlassian parte de 8 px y su número es un porcentaje de esa base: `space.100` mide 8 px y `space.200`, 16 px ([Atlassian — Spacing](https://atlassian.design/foundations/spacing)).
+
+<Callout variant="recommendation">
+
+Tokens101 usa la base de 4 px del SDS porque permite pasos finos en los componentes (2, 4, 6 px) y coincide con la de Tailwind CSS. Si tu equipo ya trabaja con una base de 8 px, mantenla: lo importante es que el número del nombre sea proporcional al valor.
+
+</Callout>
+
+## Encajar tu inventario en la escala
+
+Toma los espaciados de tu inventario del [módulo 1](/fundamentals/exercise-inventory), ordenados de menor a mayor, y lleva cada uno al paso más cercano:
+
+| Valor del inventario | Veces | Paso de la escala | Qué cambia |
+|---|---|---|---|
+| 15 px | 3 | `space/400` (16 px) | +1 px, imperceptible |
+| 16 px | 22 | `space/400` (16 px) | Nada |
+| 20 px | 4 | `space/400` o `space/600` | Hay que decidir |
+| 40 px | 1 | `space/1200` (48 px) | Revisar el diseño |
+
+- **Los casi duplicados se funden** en un paso. Es el caso de 15 y 16 px.
+- **Un valor entre dos pasos** obliga a decidir. Mira dónde aparece y qué paso tienen sus vecinos.
+- **Un valor que aparece una vez** rara vez justifica un paso nuevo. Es más probable que sea un error del diseño.
+
+<Callout variant="recommendation">
+
+Añade un paso a la escala cuando un valor se repite en varios componentes y ningún paso existente funciona. Si añades uno, sigue la regla del número: 20 px sería `space/500`.
+
+</Callout>
+
+## Espaciado negativo
+
+Un espaciado negativo superpone elementos: dos avatares que se solapan, por ejemplo. Los sistemas lo nombran en un nivel propio: `--sds-size-space-negative-100` en el SDS ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)) y `space.negative.100` en Atlassian ([Atlassian — Spacing](https://atlassian.design/foundations/spacing)).
+
+En CSS, la superposición se hace con márgenes negativos, que son válidos ([MDN — margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)). El `gap` y el padding no admiten negativos ([MDN — gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap), [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)).
+
+Figma acepta variables con valores negativos ([Figma — Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). Lo probamos en el archivo de Tokens101:
+
+- Una variable de −8 en el gap de un auto layout funciona: los elementos se solapan.
+- La misma variable se puede aplicar al padding, y Figma acepta un padding de −8.
+- En la API de plugins hay un único scope, `GAP`, para gap y padding. No se puede limitar la variable a un uso.
+
+<Callout variant="warning">
+
+En Figma, un espaciado negativo se aplica al gap o al padding. En CSS, ninguna de las dos propiedades lo admite: hay que traducirlo a un margen negativo. Un token negativo en Figma invita a dibujar algo que el código no puede copiar tal cual.
+
+</Callout>
+
+<Callout variant="recommendation">
+
+En Tokens101 los espaciados negativos (`space/negative/100`, `200`, `300`, `400` y `600`) son tokens de código. No existen en Figma. Es el mismo criterio que viste en [Una sola fuente de verdad](/fundamentals/source-of-truth#los-tokens-que-viven-en-código).
+
+</Callout>
+
+## En Figma
+
+En la colección `Primitives`, crea una variable Number por paso ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+1. Nómbrala con la ruta completa, por ejemplo `space/400`. Figma crea el grupo `space` al escribir la barra.
+2. Escribe el valor en píxeles, sin unidad: `16`.
+3. En *Edit variable*, abre el scope y deja marcado el espaciado de auto layout. La ayuda de Figma lo lista como *Gap* y *Padding*; en la exportación aparece como un único scope, `GAP`.
+4. Añade el code syntax Web: `var(--t101-space-400)`.
+5. **No** la ocultes al publicar.
+
+<Callout variant="recommendation">
+
+Los espaciados se publican porque el diseñador los aplica directamente: Tokens101 no tiene tokens semánticos de espaciado. Los colores, en cambio, se ocultan, porque al diseñar se usan sus semánticos. El criterio completo está en [La colección completa](/primitives/primitives-collection).
+
+</Callout>
+
+<InCode title="El espaciado en el CSS de esta web">
+
+Los trece pasos salen de Figma; los negativos, del archivo de tokens de código. Al generar el CSS, quedan juntos:
+
+```css
+:root {
+  --t101-space-400: 1rem;            /* Figma: space/400 = 16 */
+  --t101-space-negative-200: -0.5rem; /* código: space/negative/200 */
+}
+```
+
+En el tema de Tailwind CSS, cada paso tiene su utilidad con el mismo número: `p-400`, `gap-400`.
+
+```css
+@theme inline {
+  --spacing-400: var(--t101-space-400);
+}
+```
+
+</InCode>
+
+## Fuentes
+
+- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma — Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
+- [Tailwind CSS — Padding](https://tailwindcss.com/docs/padding)
+- [Atlassian Design System — Spacing](https://atlassian.design/foundations/spacing)
+- [MDN — margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)
+- [MDN — gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)
+- [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)

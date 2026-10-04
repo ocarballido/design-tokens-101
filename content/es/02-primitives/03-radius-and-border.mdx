@@ -1,0 +1,116 @@
+---
+title: Radio y grosor de borde
+description: Las escalas de radio de esquina y de grosor de borde de Tokens101, de dónde salen, cómo funciona el radio "full" y por qué el anillo de foco usa 2 px.
+nav_title: Radio y borde
+lastReviewed: 2026-10-04
+---
+
+El radio de las esquinas y el grosor de los bordes son medidas, como el espaciado, y siguen las mismas reglas de nombre. Son escalas más cortas, porque una interfaz usa pocos radios y pocos grosores. En esta lección verás las dos escalas de Tokens101 y dos detalles que conviene entender: el radio `full` y el grosor del anillo de foco.
+
+**En esta página**
+
+- [La escala de radio](#la-escala-de-radio)
+- [El radio full](#el-radio-full)
+- [La escala de grosor de borde](#la-escala-de-grosor-de-borde)
+- [En Figma](#en-figma)
+
+## La escala de radio
+
+| Token | px (Figma) | rem (CSS) |
+|---|---|---|
+| `radius/0` | 0 | 0 |
+| `radius/100` | 4 | 0.25 |
+| `radius/200` | 8 | 0.5 |
+| `radius/300` | 12 | 0.75 |
+| `radius/400` | 16 | 1 |
+| `radius/600` | 24 | 1.5 |
+| `radius/800` | 32 | 2 |
+| `radius/1200` | 48 | 3 |
+| `radius/full` | 9999 | 624.9375 |
+
+El número sigue la regla del espaciado: `100` = 4 px. Así, `radius/400` y `space/400` miden lo mismo.
+
+La base es la del Simple Design System (SDS) de Figma, que tiene cuatro radios: 4, 8 y 16 px y `full` ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+<Callout variant="recommendation">
+
+Tokens101 añade pasos intermedios al SDS para tener más opciones en tarjetas y bloques grandes. Todos son múltiplos de 4: la propuesta inicial incluía un radio de 30 px, y lo cambiamos por 32 px para no romper la regla del número.
+
+</Callout>
+
+<Callout variant="note">
+
+Los componentes no usan estos primitivos directamente. Usan dos tokens semánticos: `radius/control` (8 px, para botones y campos) y `radius/container` (16 px, para tarjetas y bloques de código). Los verás en el módulo Relaciones.
+
+</Callout>
+
+## El radio full
+
+`radius/full` sirve para las formas de píldora y los círculos. No mide la mitad de un elemento concreto, sino un número muy grande: 9999 px.
+
+Funciona por una regla de CSS: si los radios de dos esquinas vecinas suman más que el lado de la caja, el navegador los reduce en proporción hasta que dejan de solaparse ([CSS Backgrounds and Borders 3 — Overlapping curves](https://www.w3.org/TR/css-backgrounds-3/#corner-overlap)). Un radio de 9999 px en un botón de 40 px de alto queda reducido a 20 px: la mitad de la altura. Así, el mismo token da una píldora en un botón y un círculo en un avatar cuadrado.
+
+En CSS, 9999 px son 624.9375rem (9999 ÷ 16). Es el mismo valor que usa el SDS en `--sds-size-radius-full` (misma fuente).
+
+## La escala de grosor de borde
+
+| Token | px (Figma) | rem (CSS) | Uso |
+|---|---|---|---|
+| `border-width/100` | 1 | 0.0625 | Bordes y separadores |
+| `border-width/200` | 2 | 0.125 | Anillo de foco, marca de seleccionado |
+
+Los dos valores son los del SDS: `--sds-size-stroke-border` mide 1 px y `--sds-size-stroke-focus-ring`, 2 px ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+En esta escala, `100` = 1 px. El número sigue siendo proporcional al valor, pero con otra base: un borde de 4 px sería un trazo muy grueso, y la escala no lo necesita.
+
+**Por qué el foco usa 2 px.** El criterio 2.4.13 Focus Appearance de WCAG 2.2 pide que el indicador de foco tenga, como mínimo, el área de un perímetro de 2 px CSS alrededor del componente, y un contraste de 3:1 entre el estado con foco y sin foco ([Understanding 2.4.13](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)). Es un criterio de nivel AAA: no lo exige el nivel AA.
+
+<Callout variant="recommendation">
+
+Tokens101 apunta al nivel AA de WCAG 2.2, pero su anillo de foco usa 2 px (`border-width/200`) para cumplir también el tamaño de 2.4.13. El color del anillo y su contraste los verás en el módulo Accesibilidad.
+
+</Callout>
+
+## En Figma
+
+Crea las variables Number de las dos escalas en la colección `Primitives` ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+| Variables | Scope | Al publicar |
+|---|---|---|
+| `radius/*` | *Corner radius* | Visibles |
+| `border-width/*` | *Stroke* | Visibles |
+
+Añade a cada una su code syntax Web, por ejemplo `var(--t101-radius-200)`.
+
+<Callout variant="note">
+
+En la exportación de Figma, los scopes aparecen con el nombre de la API de plugins: `CORNER_RADIUS` para el radio y `STROKE_FLOAT` para el grosor de trazo (comprobado en la exportación de esta web).
+
+</Callout>
+
+<InCode title="Radio y borde en el CSS de esta web">
+
+```css
+:root {
+  --t101-radius-200: 0.5rem;
+  --t101-radius-full: 624.9375rem;
+  --t101-border-width-100: 0.0625rem;
+}
+```
+
+El radio tiene utilidades de Tailwind CSS con el mismo número (`rounded-200`), porque Tailwind tiene un espacio de nombres `--radius-*` ([Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)). El grosor de borde no tiene espacio de nombres propio, así que esta web usa la sintaxis de valor con variable ([Tailwind CSS — border-width](https://tailwindcss.com/docs/border-width)):
+
+```html
+<div class="border-(length:--t101-border-width-100)">…</div>
+```
+
+</InCode>
+
+## Fuentes
+
+- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [CSS Backgrounds and Borders Module Level 3 — Overlapping curves](https://www.w3.org/TR/css-backgrounds-3/#corner-overlap)
+- [WCAG 2.2 — Understanding 2.4.13 Focus Appearance](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)
+- [Tailwind CSS — Theme variables](https://tailwindcss.com/docs/theme)
+- [Tailwind CSS — border-width](https://tailwindcss.com/docs/border-width)

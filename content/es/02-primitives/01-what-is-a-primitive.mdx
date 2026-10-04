@@ -1,0 +1,163 @@
+---
+title: Qué es un primitivo
+description: Los primitivos son los valores que existen en el sistema, ordenados en escalas. Qué los distingue de los semánticos, cómo se nombran y qué principios siguen las escalas.
+nav_title: Qué es un primitivo
+lastReviewed: 2026-10-04
+---
+
+En el ejercicio del módulo 1 hiciste inventario de los valores de tu diseño. Ese inventario está desordenado: tiene casi duplicados y valores que aparecen una única vez. En este módulo lo conviertes en **primitivos**: un conjunto pequeño de valores, ordenados en escalas. En esta lección verás qué es un primitivo, cómo se nombra y qué principios siguen las escalas.
+
+**En esta página**
+
+- [Primitivos y semánticos](#primitivos-y-semánticos)
+- [El nombre dice qué valor es](#el-nombre-dice-qué-valor-es)
+- [Qué es una escala](#qué-es-una-escala)
+- [Dos formas de numerar el color](#dos-formas-de-numerar-el-color)
+- [Los primitivos de Tokens101](#los-primitivos-de-tokens101)
+- [En Figma](#en-figma)
+
+## Primitivos y semánticos
+
+La especificación DTCG no habla de capas. Define tokens, grupos y referencias, y dice que los grupos sirven para organizar: cada sistema los estructura según su propio modelo ([Format Module — Groups](https://www.designtokens.org/TR/2025.10/format/#groups)).
+
+Los sistemas de diseño más usados sí separan dos capas. En el Simple Design System (SDS) de Figma, por ejemplo, `--sds-color-green-500` es un color de la paleta, y `--sds-color-background-positive-default` es el fondo de un mensaje de éxito, que apunta a ese color ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+| | Primitivo | Semántico |
+|---|---|---|
+| Qué nombra | **Qué valor es** | **Para qué se usa** |
+| Ejemplo en Tokens101 | `color/emerald/500` | `color/background/accent/strong/default` |
+| Valor | Un valor directo: `#33CC99` | Una referencia a un primitivo |
+| Cuándo cambia | Cuando cambia la paleta | Cuando cambia una decisión de uso, por ejemplo en el modo Dark |
+
+<Callout variant="note">
+
+Las referencias entre tokens (los alias) y la capa semántica son el tema del módulo Relaciones. En este módulo construyes la capa de abajo: los valores a los que apuntarán los semánticos.
+
+</Callout>
+
+## El nombre dice qué valor es
+
+Un primitivo se nombra con tres niveles: **categoría / paleta / paso**.
+
+| Token | Categoría | Paleta | Paso |
+|---|---|---|---|
+| `color/emerald/500` | `color` | `emerald` | `500` |
+| `color/neutral/900` | `color` | `neutral` | `900` |
+| `space/400` | `space` | — | `400` |
+| `radius/200` | `radius` | — | `200` |
+
+Las escalas que no son de color tienen una sola paleta, así que ese nivel no se escribe.
+
+<Callout variant="recommendation">
+
+En Tokens101, **las paletas se nombran por su tono o por su naturaleza, nunca por su rol.** La paleta del acento se llama `emerald` y no `brand`, y la de error se llama `red` y no `danger`.
+
+</Callout>
+
+El motivo: un mismo primitivo puede servir para varios roles. En Tokens101, `emerald` es a la vez el color de marca y el color de éxito. Si la paleta se llamara `brand`, el token de éxito apuntaría a `brand/700`, y el nombre no diría lo que es.
+
+Otros sistemas lo hacen de otra manera. El SDS de Figma tiene una paleta primitiva llamada `brand` junto a otras nombradas por su tono, como `green` o `red` ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). Las dos opciones funcionan; la nuestra tiene un coste: si la marca cambiara a un azul, habría que renombrar la paleta. Los tokens semánticos conservarían su nombre; cambiaría el primitivo al que apuntan.
+
+## Qué es una escala
+
+Una escala es un conjunto ordenado de pasos de una misma categoría. Los sistemas que hemos consultado comparten cuatro principios:
+
+1. **Pocas opciones, bien elegidas.** Una escala corta obliga a decidir. Tailwind CSS es la excepción: `p-17` es válido, porque cada utilidad multiplica la variable `--spacing` por el número que escribas ([Tailwind CSS — Padding](https://tailwindcss.com/docs/padding)). Con Tailwind, la disciplina tiene que venir de tus tokens.
+2. **El número dice algo.** En el SDS, `space-100` mide 4 px y `space-400` mide 16 px: el número es proporcional al valor ([SDS — theme.css](https://github.com/figma/sds/blob/main/src/theme.css)). En Atlassian, el número es un porcentaje de su base de 8 px: `space.200` mide 16 px ([Atlassian — Spacing](https://atlassian.design/foundations/spacing)).
+3. **Múltiplos de 100, con cero inicial para las fracciones.** Así caben pasos intermedios sin decimales: `050` es la mitad de `100` y `150` está entre `100` y `200`. Lo usan el SDS y Atlassian (mismas fuentes).
+4. **Los negativos van en su propio nivel.** `space/negative/100` en vez de `space/-100`. Lo hacen el SDS y Atlassian (mismas fuentes).
+
+<Callout variant="recommendation">
+
+En Tokens101 seguimos los cuatro principios en todas las escalas que no son de color. Los verás aplicados en [Espaciado](/primitives/spacing), [Radio y grosor de borde](/primitives/radius-and-border) y [Tipografía](/primitives/typography).
+
+</Callout>
+
+## Dos formas de numerar el color
+
+En el color, el número del paso puede significar cosas distintas:
+
+| Sistema | Pasos | Qué dice el número |
+|---|---|---|
+| Tailwind CSS | 11: `50`, `100`… `900`, `950` | **Un orden.** Del más claro al más oscuro. Los colores se definen en oklch ([Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)) |
+| Radix Colors | 12: `1` a `12` | **Una función.** Cada paso tiene un uso: `1` y `2` fondos, `3` a `5` fondos de componentes, `6` a `8` bordes, `9` y `10` fondos sólidos, `11` y `12` texto ([Radix — Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)) |
+
+Radix garantiza que sus pasos de texto contrasten con su fondo, pero lo mide con APCA, no con la fórmula de contraste de WCAG 2.2 que usa este curso (misma fuente). La fórmula de WCAG la verás en [Escalas de color](/primitives/color-scales) y en el módulo Accesibilidad.
+
+<Callout variant="recommendation">
+
+Tokens101 numera el color como Tailwind CSS: once pasos, del `50` al `950`. El uso de cada color no está en el número del primitivo, sino en el token semántico que lo usa. Así, si un fondo necesita otro paso, cambias el alias y no el primitivo.
+
+</Callout>
+
+## Los primitivos de Tokens101
+
+| Categoría | Pasos | Lección |
+|---|---|---|
+| `space` | 13 | [Espaciado](/primitives/spacing) |
+| `radius` | 9 | [Radio y grosor de borde](/primitives/radius-and-border) |
+| `border-width` | 2 | [Radio y grosor de borde](/primitives/radius-and-border) |
+| `font-family`, `font-size`, `font-weight` | 2, 10 y 4 | [Tipografía](/primitives/typography) |
+| `color`: `emerald` y `neutral` | 11 cada una | [Escalas de color](/primitives/color-scales) |
+| `color`: `red`, `amber`, `blue`, `white` y `black` | 11 cada una, más dos sueltos | [Escalas de estado](/primitives/status-colors) |
+
+En total, 97 variables en la colección Primitives de Figma. Otros primitivos viven en código, porque Figma no puede guardarlos como necesitamos; los repasamos en [La colección completa](/primitives/primitives-collection).
+
+## En Figma
+
+Los primitivos van en su propia colección, con **un solo modo**: un primitivo no cambia con el tema ni con el ancho de pantalla. Los modos van en las colecciones semánticas, que verás en el módulo Modos y temas.
+
+Para crear la colección ([Figma — Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)):
+
+1. Abre la vista de variables.
+2. Crea una colección nueva (*More options* → *Create collection*) y llámala `Primitives`.
+3. Cambia el nombre de su modo. En Tokens101 se llama `Value`.
+
+Las variables las crearás en las lecciones siguientes, una escala cada vez. Al crear cada una, decidirás también si se publica y a qué propiedades se puede aplicar.
+
+<Callout variant="note">
+
+Figma permite ocultar una colección entera al publicar si su nombre empieza por `_` o por `.` ([Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)). En Tokens101 no lo hacemos: unos primitivos se ocultan y otros no, así que se ocultan variable por variable.
+
+</Callout>
+
+<InCode title="Los primitivos en la exportación de Figma">
+
+Al exportar la colección, Figma escribe un archivo por modo, `Value.tokens.json`. Cada `/` del nombre de la variable es un nivel de grupo, y Figma guarda sus datos propios en `$extensions`:
+
+```json filename="tokens/figma/primitives/Value.tokens.json"
+{
+  "color": {
+    "emerald": {
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.2, 0.8, 0.6],
+          "alpha": 1,
+          "hex": "#33CC99"
+        },
+        "$extensions": {
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": { "WEB": "var(--t101-color-emerald-500)" }
+        }
+      }
+    }
+  }
+}
+```
+
+El ejemplo está abreviado: los `components` reales tienen más decimales (`0.20000000298023224`) y hay un `com.figma.variableId`. Qué hace cada dato de `$extensions` lo verás en [La colección completa](/primitives/primitives-collection).
+
+</InCode>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10 — Groups](https://www.designtokens.org/TR/2025.10/format/#groups)
+- [Figma — Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Figma — Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma — Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
+- [Tailwind CSS — Colors](https://tailwindcss.com/docs/colors)
+- [Tailwind CSS — Padding](https://tailwindcss.com/docs/padding)
+- [Radix Colors — Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale)
+- [Atlassian Design System — Spacing](https://atlassian.design/foundations/spacing)

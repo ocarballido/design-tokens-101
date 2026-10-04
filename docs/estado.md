@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de contenido: módulo 1 aprobado por Oscar).
+Última actualización: 2026-10-04 (sesión de contenido: módulo 2, bloque de lecciones 1–4).
 
 ---
 
@@ -35,6 +35,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V24 corregido** (sesión de contenido, decisión de Oscar): Figma sí tiene variables Timing y Easing; los tokens de movimiento siguen solo en código.
 
 - **Módulo 1, Fundamentos, en español (2026-10-03; aprobado por Oscar el 2026-10-04):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
+
+- **Módulo 2, Primitivos, en español (en redacción desde el 2026-10-04, T7):** `content/es/02-primitives/` con `meta.json`. Hechas: `what-is-a-primitive`, `spacing`, `radius-and-border` y `typography`. Faltan: `color-space`, `color-scales`, `status-colors`, `primitives-collection` y `exercise-scales` (las ya escritas enlazan a ellas).
 
 - **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Build y comprobación hechos por la sesión de desarrollo (2026-10-04, ver Desarrollo → "Gráficos `Flow` del bloque 0"). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
 
@@ -221,6 +223,8 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **2026-10-03 — `next/font` y el token de familia (sesión de desarrollo).** `next/font` renombra la fuente; el nombre que guarda Figma (`Inter`) no la encuentra. Se resuelve en la capa de Tailwind (V13), sin tocar el token.
 - **2026-10-03 — Timing y Easing en Figma (sesión de contenido).** Figma tiene variables Timing y Easing, aplicables a animaciones de Figma Motion. V24 está corregido; El `$description` de `duration/200` en `tokens/code-only.tokens.json` decía "Figma no tiene variables de duración"; **corregido por la sesión de desarrollo (2026-10-03)**, con el CSS regenerado.
 - **2026-10-03 — Peso en Figma (sesión de contenido).** La ayuda de Figma lista el peso entre los scopes de las variables Number ([Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)): D04 tiene ahora fuente oficial además de la prueba.
+- **2026-10-04 — Espaciado negativo y CSS (sesión de contenido).** En CSS, `gap` y `padding` no admiten valores negativos ([MDN — gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap), [MDN — padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)); la superposición se hace con márgenes negativos ([MDN — margin](https://developer.mozilla.org/en-US/docs/Web/CSS/margin)). Un gap negativo de Figma tampoco se copia tal cual en CSS: refuerza D02. Reflejado en la lección Espaciado.
+- **2026-10-04 — `$root` en DTCG 2025.10 (sesión de contenido, para el módulo 4).** Los grupos pueden contener un token con el nombre reservado `$root` ([Format Module — Groups](https://www.designtokens.org/TR/2025.10/format/#groups)). No cambia la regla 4 de `sistema-tokens-v1.md` §5.2 (hoja explícita con `/default`, que además es la que Figma puede representar), pero el módulo Nombrar debe mencionarlo para no decir que DTCG no tiene alternativa.
 - **2026-10-04 — Figma acepta oklch en el selector de color (sesión de contenido).** El modelo CSS del selector admite `oklch()`, `oklab()` y `color(display-p3 …)`, y Figma guarda el valor en el espacio de color en que se escribe, sin convertirlo ([Figma — Color models](https://help.figma.com/hc/en-us/articles/360043042113)). No cambia S9 (guardamos sRGB): la importación DTCG sigue admitiendo solo sRGB y HSL. **Sin verificar:** qué `colorSpace` exporta una variable cuyo valor se escribió en oklch, y cómo se ve un oklch fuera de sRGB en un archivo sRGB. Reflejado en la lección Espacio de color del módulo 2.
 - **2026-10-04 — Referencias de `tools/scales.py` (sesión de contenido).** Coinciden con el CSS fuente de Tailwind CSS 4.3.3. El script calculaba el contraste sin redondear; corregido (S30).
 - **2026-10-03 — Diferencias entre el dibujo y la anatomía (sesión de desarrollo).** Etiqueta del `Callout`, viñetas de "En esta página", radio del sidebar, color del pie y primera línea de `LessonHeader`. Las dos primeras las decidió Oscar (V18, V19); las demás están en Desarrollo → "diferencias con Figma". Para diseño: crear `size/sidebar/width` (V16).
