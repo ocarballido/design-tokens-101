@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de desarrollo: comprobación de los gráficos `Flow` del bloque 0).
+Última actualización: 2026-10-04 (sesión de contenido: módulo 1 aprobado por Oscar).
 
 ---
 
@@ -15,7 +15,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 | 3 | Oscar | Crear el repositorio en GitHub | Hecho (2026-10-03): `ocarballido/design-tokens-101`. Documentos trasladados aquí (P9) |
 | 4 | Desarrollo A | Esqueleto: Next.js + next-intl + `@next/mdx`, renderizando el bloque 0 sin diseño | Hecho (2026-10-03): compila, anclas y sidebar comprobados (V01–V05) |
 | 5 | Diseño | Variables en Figma → componentes → plantillas | Hecho (2026-10-02). Entrega en `docs/entrega-diseno.md`. Solo queda A14 (nombre del logotipo), que no bloquea |
-| 6 | Contenido | Redactar los módulos 1 a 7 | Pendiente (en paralelo con 4, 7 y 8) |
+| 6 | Contenido | Redactar los módulos 1 a 7 | En curso: módulo 1 aprobado (2026-10-04); módulo 2 en preparación |
 | 7 | Desarrollo B | Exportar DTCG desde Figma → Style Dictionary vs Terrazzo → CSS y `@theme` | Hecho (2026-10-03): Terrazzo + Resolver DTCG, dos capas y Tailwind (V06–V12) |
 | 8 | Desarrollo C | Componentes y páginas con el diseño | Hecho (2026-10-03): todo el inventario, plantilla y modos (V13–V22). Quedan detalles para Oscar (ver Desarrollo) |
 | 9 | Contenido | Versión en inglés del contenido cerrado | Cuando el español esté cerrado |
@@ -34,7 +34,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
   - `05-what-we-teach`: módulo 6 con la normalización. `06-requirements`: versiones probadas. `99-resources/01-sources`: Terrazzo Resolvers y API de plugins (Timing y Easing).
 - **V24 corregido** (sesión de contenido, decisión de Oscar): Figma sí tiene variables Timing y Easing; los tokens de movimiento siguen solo en código.
 
-- **Módulo 1, Fundamentos, en español (2026-10-03, borrador pendiente de revisión de Oscar):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
+- **Módulo 1, Fundamentos, en español (2026-10-03; aprobado por Oscar el 2026-10-04):** `content/es/01-fundamentals/` con `meta.json` (V05) y cinco páginas (T6): `what-is-a-token`, `simple-types`, `composite-types`, `source-of-truth` y `exercise-inventory`. La tabla de tipos refleja D01 (interlineado en código), D04 (peso como Number) y V24 (duración y curva en código). Fuentes nuevas añadidas a `99-resources/01-sources`.
 
 - **Gráficos con `Flow` (C13, 2026-10-04):** metodología en `05-what-we-teach` (apartado "Cómo está organizado", con enlace al módulo 1 y los módulos 9 y 10 como `pending`); el recorrido de `04-figma-dtcg-tailwind` pasa de bloque de texto a `Flow` con siete pasos; enlace desde `01-what-is-tokens101`. Build y comprobación hechos por la sesión de desarrollo (2026-10-04, ver Desarrollo → "Gráficos `Flow` del bloque 0"). Más gráficos, solo donde aporten: capas (módulo 3) y modos (módulo 5).
 
@@ -43,7 +43,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 **Pendiente**
 - Lección del módulo 8 (Ejercicio final) a partir del ejercicio de cierre (S8–S29).
 - **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
-- Módulos 2 a 8. Módulo 1 escrito; falta la revisión de Oscar.
+- Módulos 2 a 8 (módulo 1 aprobado el 2026-10-04).
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
