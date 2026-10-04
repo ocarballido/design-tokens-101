@@ -48,11 +48,7 @@ El criterio de DesignToken101: **se publica lo que el diseñador aplica directam
 
 Así, en el selector de quien usa la biblioteca no aparecen 57 colores sueltos, sino los tokens semánticos con su propósito en el nombre.
 
-<Callout variant="pending">
-
-La ayuda de Figma no explica qué pasa con los alias a variables ocultas cuando otro archivo usa la biblioteca. En el archivo de DesignToken101, los tokens semánticos apuntan a primitivos ocultos y funcionan, pero todo está en el mismo archivo. No lo hemos comprobado desde un archivo distinto.
-
-</Callout>
+Ocultar un primitivo no impide que los semánticos apunten a él. El curso de Figma lo propone así: ocultar los primitivos al publicar para que no se apliquen directamente, y aplicar los semánticos que apuntan a ellos ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)).
 
 ## Para qué sirve el scope
 
@@ -94,9 +90,9 @@ Tres grupos de primitivos no están en Figma. Los explicamos al tratar cada esca
 
 Los valores de movimiento: `duration/200` = 200 ms y `easing/standard` = `cubic-bezier(0.2, 0, 0, 1)`, la curva de todas las animaciones de la interfaz. Cuando la persona pide movimiento reducido (`prefers-reduced-motion`), la web no anima; lo verás en el módulo Accesibilidad.
 
-<Callout variant="pending">
+<Callout variant="recommendation">
 
-Sigue sin comprobar si Figma exporta las variables Timing y Easing en DTCG, y en qué unidad: la ayuda de Figma habla de milisegundos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API: Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Si algún día pasan a Figma, se mueven, no se copian.
+Si algún día estos tokens pasan a Figma, se mueven, no se copian: un token no puede tener dos fuentes de verdad ([Una sola fuente de verdad](/fundamentals/source-of-truth)).
 
 </Callout>
 
@@ -147,6 +143,5 @@ El ejemplo está abreviado: en el archivo real cada token lleva una `$descriptio
 
 - [Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
-- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
-- [Figma Plugin API: Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
+- [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)
 - [Design Tokens Format Module 2025.10: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)

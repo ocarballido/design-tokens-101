@@ -61,7 +61,7 @@ Se diseñarán en Figma con el sistema de DesignToken101 y se implementarán en 
 | `<Callout variant="note">` | Información útil pero no imprescindible |
 | `<Callout variant="warning">` | Algo que puede provocar errores |
 | `<Callout variant="recommendation">` | Decisión propia de DesignToken101, no una norma |
-| `<Callout variant="pending">` | Algo que aún no hemos podido verificar |
+| `<Callout variant="pending">` | Contenido en preparación (un módulo, un canal de contacto). Nunca para una afirmación técnica sin comprobar (P14) |
 | `<InCode title="…">` | Itinerario de código; se puede plegar y el diseñador puede saltarlo |
 | `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
 | `<ColorScale palette="emerald" caption="…" />` | Una escala de color de forma visual, con paso y hex (C14). `highlight` marca un paso (p. ej. el color de marca) con `highlightLabel`. Anatomía en `docs/componentes-v1.md` §3.8 |
@@ -80,7 +80,7 @@ Adaptada de la guía de estilo de Next.js ([Docs Contribution Guide: Voice](http
 - **Nombres de los modos (C12):** cuando el texto habla de los modos del sistema de tokens, usa el nombre que tienen en Figma: Light y Dark, Desktop y Mobile. Para el concepto general ("un modo oscuro") o para el selector de tema de la web ("Modo claro"), se escribe en español.
 - **Sin guiones largos (—) (C15):** usa dos puntos, paréntesis o una frase nueva. En los títulos de enlace: `[Figma: Modes for variables](…)`.
 - **Vídeos (C16):** se enlazan, no se insertan. Indica idioma, autor y duración.
-- Lo que no está verificado se dice (`<Callout variant="pending">`).
+- **Lo que no se puede comprobar no se afirma (P14).** Si ni una fuente oficial ni una prueba lo respaldan, no se publica. Las pruebas propias dicen con qué se hicieron (por ejemplo, "con la API de plugins de Figma") y su fecha.
 
 ## Nota técnica para MDX
 

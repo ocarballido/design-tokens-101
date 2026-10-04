@@ -149,12 +149,6 @@ DesignToken101 no diseña animaciones en Figma, así que los tokens `duration/20
 
 </Callout>
 
-<Callout variant="pending">
-
-No hemos comprobado si Figma exporta las variables Timing y Easing en DTCG. Tampoco su unidad: la ayuda de Figma habla de milisegundos ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)) y la API de plugins, de segundos ([Plugin API: Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)).
-
-</Callout>
-
 ## Opacidad
 
 DTCG no define un tipo para la opacidad. La transparencia de un color va en su propiedad `alpha` ([Color Module 2025.10](https://www.designtokens.org/tr/2025.10/color)). Figma permite aplicar una variable Number a la opacidad de una capa, y la muestra en porcentaje (40 %), mientras que CSS la espera como decimal (`0.4`).
@@ -203,6 +197,5 @@ El CSS no conserva el tipo: una variable CSS es texto. Por eso el tipo tiene que
 - [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
 - [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
-- [Figma Plugin API: Version 1, Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)
 - [MDN: length](https://developer.mozilla.org/en-US/docs/Web/CSS/length)
 - [WCAG 2.2: Understanding 1.4.4 Resize Text](https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html)

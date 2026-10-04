@@ -80,9 +80,9 @@ Una excepción sin control acaba siendo un valor suelto con nombre de token. En 
 
 <InCode title="Un valor directo en DTCG">
 
-Así se escribe el overlay en DTCG. El `$value` es un color completo, con `alpha`, y la `$description` explica la excepción:
+Así exporta Figma el overlay en DTCG (comprobado en la exportación de esta web, `tokens/figma/semantic-color/`). El `$value` es un color completo: la opacidad va en `alpha`, y el `hex` tiene seis cifras, sin ella. La `$description` explica la excepción:
 
-```json filename="color/background/overlay en DTCG (abreviado)"
+```json filename="color/background/overlay en la exportación de Figma (abreviado)"
 "overlay": {
   "$type": "color",
   "$value": {
@@ -91,19 +91,15 @@ Así se escribe el overlay en DTCG. El `$value` es un color completo, con `alpha
     "alpha": 0.5,
     "hex": "#000000"
   },
-  "$description": "color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad."
+  "$description": "… color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad."
 }
 ```
 
 En el CSS generado sale como `#00000080`: el hex de ocho cifras lleva la opacidad en las dos últimas.
 
+El fondo de la cabecera muestra un detalle de la exportación. Figma escribe la opacidad como un número de coma flotante de 32 bits, y el 90 % no es exacto en ese formato: llega como `"alpha": 0.8999999761581421`. Convertido tal cual, daría `#ffffffe5` (89,8 %) en vez de `#ffffffe6` (90 %). El paso que prepara la exportación para el CSS de esta web recupera el valor escrito en Figma, `0.9`. Lo verás en el módulo De Figma al código.
+
 </InCode>
-
-<Callout variant="pending">
-
-Falta comprobar cómo exporta Figma una variable de color con opacidad: es la primera vez que el sistema tiene una. Lo veremos en la próxima exportación.
-
-</Callout>
 
 ## Lo que te llevas
 

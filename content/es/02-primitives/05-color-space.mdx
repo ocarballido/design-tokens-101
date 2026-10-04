@@ -90,7 +90,7 @@ Para HSL los tres son "igual de claros". A la vista, y para el contraste, no se 
 Para una escala, eso importa por dos motivos:
 
 - **Pasos regulares.** Si fijas la L de cada paso, el salto visual entre dos pasos es parecido en cualquier tono.
-- **Contraste más predecible.** Dos colores con L muy distinta suelen contrastar bien, aunque la cifra exacta hay que calcularla siempre (lo verás abajo).
+- **Claridad comparable.** Dos pasos con L muy distinta se ven muy distintos en claridad. El contraste de WCAG, en cambio, se calcula con otra fórmula, así que la cifra hay que calcularla siempre (lo verás abajo).
 
 <Callout variant="recommendation">
 
@@ -113,7 +113,7 @@ DesignToken101 guarda los colores en sRGB. Los valores sRGB son la fuente de ver
 
 </Callout>
 
-**Por qué no Display P3.** Daría verdes más intensos en las pantallas que lo admiten. Lo descartamos porque la importación DTCG de Figma no lo admite, porque no hemos verificado cómo lo exporta Figma y porque añade una capa de complejidad al curso. Es una decisión nuestra; no es una norma.
+**Por qué no Display P3.** Daría verdes más intensos en las pantallas que lo admiten. Lo descartamos porque la importación DTCG de Figma no lo admite y porque añade una capa de complejidad al curso. Es una decisión nuestra; no es una norma.
 
 ## Colores fuera de gama
 
@@ -140,9 +140,9 @@ En las escalas de DesignToken101 el ajuste no llega a actuar: al multiplicar el 
 - **La importación DTCG no acepta oklch.** Admite sRGB y HSL ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 - **Figma no genera escalas.** Puedes escribir un color, pero el método (L por paso, croma, ajuste de gama) lo tienes que aplicar tú o un script.
 
-<Callout variant="pending">
+<Callout variant="recommendation">
 
-No hemos comprobado qué exporta Figma en DTCG cuando el valor de una variable se escribió en oklch, ni cómo muestra un color oklch fuera de sRGB en un archivo con perfil sRGB. Mientras no lo verifiquemos, escribimos en Figma el hex en sRGB que da el script.
+En DesignToken101 escribimos en Figma el hex en sRGB que da el script, no el valor en oklch. Es el espacio que admite la importación DTCG de Figma y el del perfil de color del archivo, así que lo que guarda Figma es lo que llega al CSS.
 
 </Callout>
 

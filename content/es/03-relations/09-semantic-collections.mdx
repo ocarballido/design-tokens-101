@@ -13,7 +13,7 @@ Ya has visto todos los semánticos de DesignToken101. En esta lección los ves c
 - [Los semánticos se publican](#los-semánticos-se-publican)
 - [Un scope por propiedad](#un-scope-por-propiedad)
 - [La cadena completa](#la-cadena-completa)
-- [Lo que falta comprobar](#lo-que-falta-comprobar)
+- [Alias que cruzan colecciones](#alias-que-cruzan-colecciones)
 - [Revisa tus colecciones](#revisa-tus-colecciones)
 - [Lo que te llevas](#lo-que-te-llevas)
 
@@ -70,19 +70,18 @@ Con los dos módulos, cada decisión de diseño se recorre así:
 
 Todos los alias apuntan a la colección `Primitives`, y ningún semántico apunta a otro semántico. Las cadenas más largas, las de los estilos de texto, tienen dos saltos.
 
-## Lo que falta comprobar
+## Alias que cruzan colecciones
 
-<Callout variant="pending">
+Todos los semánticos de DesignToken101 apuntan a otra colección, `Primitives`. Dos preguntas aparecen al hacerlo:
 
-**Alias a variables ocultas desde otro archivo.** Los semánticos apuntan a primitivos ocultos al publicar. En el archivo de DesignToken101 funciona, pero todo está en el mismo archivo. No hemos comprobado qué ve otro archivo que usa la biblioteca. Es el mismo pendiente del módulo 2.
+**¿Qué modo del destino se usa?** `Primitives` tiene un solo modo, así que en DesignToken101 la pregunta no se plantea. Pero si tu sistema encadena dos colecciones con varios modos, conviene saberlo. La ayuda de Figma no lo dice ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Lo comprobamos el 2026-10-04 con la API de plugins de Figma, con una variable que apuntaba a otra de una colección con dos modos:
 
-</Callout>
+- Sin ningún modo elegido, el alias usó el **modo por defecto** de la colección de destino.
+- Al elegir el segundo modo de la colección de destino en el marco que contenía el elemento, o en el propio elemento, el alias pasó a usar **ese modo**.
 
-<Callout variant="pending">
+Es decir: el modo del destino lo decide el elemento donde se aplica la variable, igual que con cualquier otra variable de esa colección.
 
-**El modo del destino cuando el alias cruza colecciones.** Si una variable apunta a otra de una colección con varios modos, la ayuda de Figma no dice qué modo del destino se usa. En DesignToken101 no ocurre: todos los alias apuntan a `Primitives`, que tiene un solo modo. Si tu sistema encadena dos colecciones con modos, compruébalo antes de confiar en el resultado.
-
-</Callout>
+**¿Se pueden ocultar los primitivos a los que apuntan los semánticos?** Sí, y es lo que recomienda el curso de Figma: ocultar los primitivos al publicar para que no se apliquen directamente, y dejar visibles los semánticos que apuntan a ellos ([Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)). Es lo que hace DesignToken101.
 
 ## Revisa tus colecciones
 
@@ -129,3 +128,4 @@ El `$value` se ha omitido: es el color ya resuelto. Los semánticos no llevan `c
 
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
 - [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
