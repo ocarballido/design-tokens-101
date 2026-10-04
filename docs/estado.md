@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de diseño: diseño de `Flow` aprobado, D24; pasa a desarrollo).
+Última actualización: 2026-10-04 (sesión de desarrollo: componente `Flow` implementado, C13 y D24).
 
 ---
 
@@ -81,6 +81,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V24 (módulos 2 y 6):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
 - **V25 (módulo 3):** un token semántico con transparencia no puede ser alias (un alias no cambia la opacidad): otra excepción a "semánticos siempre alias", como D20.
 - **V28 (módulos 3, 5 y 6):** otro semántico con transparencia que no puede ser alias, y además cambia con el modo: un token solo de código por modo, enganchado al modificador del Resolver. `blur/300` como token solo de código. Para el módulo 7: cabecera sticky y 2.4.11 (foco no tapado), `prefers-reduced-transparency`.
+- **`Flow` ya se puede usar en el MDX (C13, D24; sesión de desarrollo, 2026-10-04):** `<Flow caption>`, `<FlowGroup title meta>` y `<FlowStep title meta href status>`, como el ejemplo de `componentes-v1.md` §3.7. El conector no se escribe: lo pone `Flow`. `href` es una ruta interna sin idioma; un paso `pending` no lleva enlace y su `meta` tiene que decirlo ("En estudio"). Siguiente: el gráfico de la metodología en `05-what-we-teach` y el recorrido de `04-figma-dtcg-tailwind` (paso 3 de C13).
 - **V26 (módulo 7):** ejemplo de decisión con un riesgo de accesibilidad aceptado y registrado (indicador de opción actual sin forma propia).
 - **V10, V21 (módulo 5, itinerario de código):** cómo funciona el selector de tema: `data-theme`, `prefers-color-scheme`, `localStorage` y el script que evita el parpadeo.
 
@@ -129,6 +130,14 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Hecho con Chrome sin interfaz (`puppeteer-core`) sobre `next start`. Sin prueba manual ni con lector de pantalla.
 - **`$description` de `duration/200` corregido** (V24): ahora dice que Figma tiene variables Timing, pero se aplican a Figma Motion. El de `easing/standard` no hablaba de Figma y no cambia. `npm run tokens` y `npm run check:tokens`: sin errores; solo cambia el comentario en `src/styles/tokens.css`.
 - Detalle visual menor, sin cambiar: a 375 px, un `Code` en línea que salta de renglón deja un trozo de su fondo al final de la línea anterior (pasa en cualquier párrafo, no solo en el `Callout`).
+
+**`Flow` (C13, D24): hecho (2026-10-04)**
+- `src/components/Flow.tsx`: `Flow`, `FlowGroup`, `FlowStep` y `FlowConnector` (interno), registrados en `src/mdx-components.tsx`. Anatomía de `componentes-v1.md` §3.7 y medidas de `entrega-diseno.md` §3.3, solo con tokens y sin anchos fijos.
+- HTML: `figure` + `figcaption`; `ol` de primer nivel y `ol` anidada por grupo (con `aria-labelledby` al título del grupo). `Flow` y `FlowGroup` ponen los `li`; el conector (`li:arrow-down`, `aria-hidden`) va dentro del `li` del elemento siguiente, sin `li` propio. `FlowStep` con `href` es un único `Link` de next-intl; su nombre accesible es "título, meta" (coma oculta, para que se separen en cualquier navegador). Un paso `pending` no lleva enlace aunque tenga `href`.
+- Sin prop `size` (D24): pasos apilados a todo el ancho por debajo de 64rem y en fila con `flex-wrap` desde 64rem (`desktop:`, D11).
+- Foco: el borde `border/accent/default` se queda y el anillo `focus-ring` va por fuera; la caja mide lo mismo con y sin foco (152,9 × 64,4 px). Hover: borde `border/accent/strong`, título e icono `text/accent/hover`.
+- Comprobado en Chrome sin interfaz (`puppeteer-core`, `next start`) con una página temporal con el ejemplo de §3.7 y pasos sueltos (borrada): 320, 375 y 1440 px en Light, Dark y system, sin scroll horizontal de página; coincide con los marcos de Figma 64:843 y 64:1386. Teclado: solo los pasos con `href` reciben foco, en el orden del HTML. Árbol de accesibilidad: figura → lista de 5 → listas con el nombre de cada fase. Sin prueba manual ni con lector de pantalla.
+- No se encontraron diferencias entre el diseño y la anatomía. `npm run build && npm run check:content`: sin errores.
 
 **Correcciones de Oscar (2026-10-03, V23–V27)**
 - `SidebarItem` sin radio (V23).

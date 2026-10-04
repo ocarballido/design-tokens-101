@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { isValidElement, type ComponentPropsWithoutRef, type ReactElement } from 'react';
 import { Callout } from '@/components/Callout';
 import { CodeBlock } from '@/components/CodeBlock';
+import { Flow, FlowGroup, FlowStep } from '@/components/Flow';
 import { InCode } from '@/components/InCode';
 import { TextLink } from '@/components/TextLink';
 
@@ -58,6 +59,9 @@ const components: MDXComponents = {
   td: (props) => <td className={`${cell} type-body-small`} {...props} />,
   Callout,
   InCode,
+  Flow,
+  FlowGroup,
+  FlowStep,
 };
 
 export function useMDXComponents(): MDXComponents {
