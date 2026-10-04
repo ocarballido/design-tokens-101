@@ -4,7 +4,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-10-03.
+Última actualización: 2026-10-04.
 
 **Registro de cambios**
 
@@ -22,6 +22,7 @@ Especificación del sistema de tokens de Tokens101. Es el encargo para la sesió
 | 2026-10-03 | Desarrollo | Paso 8: carga de fuentes con `next/font` (V13, §4.2), estilos de texto como utilidades (V15, §8) y token `size/sidebar/width` (V16, §4.6). |
 | 2026-10-03 | Desarrollo | Tokens de movimiento solo de código (V24, §4.7), `color/background/overlay` (V25, §6.1) y ancho máximo del contenido a 960 px (V27, §4.6). |
 | 2026-10-03 | Desarrollo | Cabecera sticky (V28): `color/background/neutral/translucent` (§6.1), `blur/300` solo de código (§4.8) y énfasis `translucent` en el vocabulario (§5.2). |
+| 2026-10-04 | Contenido | §3.1: referencias de Tailwind verificadas contra el CSS fuente 4.3.3. §3.5: contraste de las escalas de estado recalculado sobre el hex guardado (S30); cambios de 0,01 a 0,06, ninguno cruza un umbral. |
 
 ---
 
@@ -73,7 +74,9 @@ Script reproducible: `tools/scales.py` (sin dependencias). Conversiones OKLab se
    - H del acento.
 4. **Ajuste a la gama sRGB:** si un color queda fuera, se reduce solo el croma, conservando L y H.
 
-Nota: los valores L/C de Tailwind se obtuvieron de tailwindcss.com/docs/colors el 2026-09-30; conviene contrastarlos con el CSS fuente de Tailwind en la sesión de desarrollo.
+Nota: los valores L/C de Tailwind se obtuvieron de tailwindcss.com/docs/colors el 2026-09-30. **Verificado el 2026-10-04 (sesión de contenido):** coinciden sin ninguna diferencia con el CSS fuente de Tailwind CSS 4.3.3 ([`packages/tailwindcss/theme.css`](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)): `green`, `neutral`, `gray`, `red`, `amber` y `blue`.
+
+**Contraste de las tablas (S30):** se calcula sobre el hex guardado, que es el valor de Figma (§2). `python3 tools/scales.py` imprime las cuatro escalas y las de estado con ese cálculo.
 
 ### 3.2 Acento
 
@@ -120,23 +123,23 @@ Umbrales de WCAG 2.2: 4.5:1 para texto normal y 3:1 para texto grande y componen
 - **Tonos:** `red`, `amber` y `blue`, con las curvas de L, C y H por paso de Tailwind CSS v4 ([Tailwind — Colors](https://tailwindcss.com/docs/colors)).
 - **Croma armonizado:** × 0,66, la misma reducción que tiene el acento frente a su referencia. Ajuste a sRGB reduciendo solo el croma.
 - **No hay escala `green`:** `success` usa `emerald`, la escala del acento (S19). Por WCAG 1.4.1, los mensajes de éxito se distinguen también por icono y texto.
-- Script: `status_scales(0.66)` en `tools/scales.py`.
+- Script: `status_scales(0.66)` en `tools/scales.py` (sin `green` desde S30). Contraste calculado sobre el hex (S30).
 
 **red**
 
 | Paso | oklch | Hex | Contraste con blanco |
 |---|---|---|---|
 | 50 | 0.971 0.009 17.4 | `#FBF3F3` | 1.09 |
-| 100 | 0.936 0.021 17.7 | `#F8E5E5` | 1.22 |
+| 100 | 0.936 0.021 17.7 | `#F8E5E5` | 1.21 |
 | 200 | 0.885 0.041 18.3 | `#F3CFCF` | 1.43 |
-| 300 | 0.808 0.075 19.6 | `#EDADAD` | 1.87 |
-| 400 | 0.704 0.126 22.2 | `#E37E7B` | 2.78 |
-| 500 | 0.637 0.156 25.3 | `#DA5E58` | 3.66 |
-| 600 | 0.577 0.162 27.3 | `#C74A41` | 4.69 |
-| 700 | 0.505 0.141 27.5 | `#A63D35` | 6.30 |
-| 800 | 0.444 0.117 26.9 | `#89342E` | 8.10 |
-| 900 | 0.396 0.093 25.7 | `#702F2B` | 9.80 |
-| 950 | 0.258 0.061 26.0 | `#3C1613` | 15.96 |
+| 300 | 0.808 0.075 19.6 | `#EDADAD` | 1.88 |
+| 400 | 0.704 0.126 22.2 | `#E37E7B` | 2.79 |
+| 500 | 0.637 0.156 25.3 | `#DA5E58` | 3.67 |
+| 600 | 0.577 0.162 27.3 | `#C74A41` | 4.68 |
+| 700 | 0.505 0.141 27.5 | `#A63D35` | 6.29 |
+| 800 | 0.444 0.117 26.9 | `#89342E` | 8.09 |
+| 900 | 0.396 0.093 25.7 | `#702F2B` | 9.86 |
+| 950 | 0.258 0.061 26.0 | `#3C1613` | 15.95 |
 
 **amber**
 
@@ -147,12 +150,12 @@ Umbrales de WCAG 2.2: 4.5:1 para texto normal y 3:1 para texto grande y componen
 | 200 | 0.924 0.079 95.7 | `#F6E6AA` | 1.25 |
 | 300 | 0.879 0.112 91.6 | `#F2D57E` | 1.44 |
 | 400 | 0.828 0.125 84.4 | `#ECC060` | 1.71 |
-| 500 | 0.769 0.124 70.1 | `#E6A554` | 2.12 |
-| 600 | 0.666 0.118 58.3 | `#C98044` | 3.14 |
+| 500 | 0.769 0.124 70.1 | `#E6A554` | 2.13 |
+| 600 | 0.666 0.118 58.3 | `#C98044` | 3.16 |
 | 700 | 0.555 0.108 49.0 | `#A55E35` | 4.94 |
-| 800 | 0.473 0.090 46.2 | `#854A2D` | 6.98 |
-| 900 | 0.414 0.074 45.9 | `#6C3E27` | 8.93 |
-| 950 | 0.279 0.051 45.6 | `#3D2012` | 14.86 |
+| 800 | 0.473 0.090 46.2 | `#854A2D` | 6.97 |
+| 900 | 0.414 0.074 45.9 | `#6C3E27` | 8.91 |
+| 950 | 0.279 0.051 45.6 | `#3D2012` | 14.85 |
 
 **blue**
 
@@ -161,14 +164,14 @@ Umbrales de WCAG 2.2: 4.5:1 para texto normal y 3:1 para texto grande y componen
 | 50 | 0.970 0.009 254.6 | `#F1F6FB` | 1.09 |
 | 100 | 0.932 0.021 255.6 | `#DFEAF7` | 1.22 |
 | 200 | 0.882 0.039 254.1 | `#C7DAF2` | 1.42 |
-| 300 | 0.809 0.069 251.8 | `#A0C4ED` | 1.80 |
-| 400 | 0.707 0.109 254.6 | `#71A3E3` | 2.60 |
-| 500 | 0.623 0.141 259.8 | `#5286DB` | 3.64 |
-| 600 | 0.546 0.162 262.9 | `#3B6ACD` | 5.06 |
+| 300 | 0.809 0.069 251.8 | `#A0C4ED` | 1.81 |
+| 400 | 0.707 0.109 254.6 | `#71A3E3` | 2.61 |
+| 500 | 0.623 0.141 259.8 | `#5286DB` | 3.63 |
+| 600 | 0.546 0.162 262.9 | `#3B6ACD` | 5.09 |
 | 700 | 0.488 0.160 264.4 | `#3058B9` | 6.52 |
-| 800 | 0.424 0.131 265.6 | `#2B4895` | 8.53 |
-| 900 | 0.379 0.096 265.5 | `#293F75` | 10.20 |
-| 950 | 0.282 0.060 267.9 | `#1D2747` | 14.60 |
+| 800 | 0.424 0.131 265.6 | `#2B4895` | 8.52 |
+| 900 | 0.379 0.096 265.5 | `#293F75` | 10.18 |
+| 950 | 0.282 0.060 267.9 | `#1D2747` | 14.65 |
 
 ## 4. Escalas de espaciado, tipografía, radio y borde — Cerrada (A5, aprobada 2026-09-30)
 

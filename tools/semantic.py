@@ -7,7 +7,6 @@ b=s.build((160,60,50))
 for r in b['accent']: prim[f"emerald/{r['step']}"]=r['hex']
 for r in b['neutral']: prim[f"neutral/{r['step']}"]=r['hex']
 for hue,rows in s.status_scales(0.66).items():
-    if hue=='green': continue  # success usa emerald (decisión S19)
     for r in rows: prim[f"{hue}/{r['step']}"]=r['hex']
 
 # token: (light, dark)
