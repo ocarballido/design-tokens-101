@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-03 (sesión de desarrollo: build y comprobación del módulo 1 y del bloque 0).
+Última actualización: 2026-10-04 (sesión de contenido: C12, propuesta de gráficos).
 
 ---
 
@@ -43,6 +43,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Lección sobre espacio de color (módulo 2, Primitivos):** documentar la decisión B con detalle (por qué oklch para construir, por qué sRGB para guardar, límites de Figma, cómo reproducir el método con el script). Oscar lo pidió expresamente.
 - Módulos 2 a 8. Módulo 1 escrito; falta la revisión de Oscar.
 - **Pendientes de verificar del módulo 1:** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; si al crear un estilo de texto desde un texto con variables se conservan las variables (la lección sigue el orden de la ayuda de Figma: crear el estilo y aplicar las variables dentro).
+- **Gráficos (petición de Oscar, 2026-10-04):** un gráfico general de la metodología del curso y, donde haga falta, uno por módulo (el primero: el recorrido Figma → código de `04-figma-dtcg-tailwind`). Boceto del contenido presentado en la sesión de contenido; falta que Oscar elija cómo se implementa (componente nuevo con anatomía y diseño, o imagen) y valide los nombres de las fases.
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
@@ -65,6 +66,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **D17:** en Figma la negrita de un fragmento rompe el estilo de texto; por eso existe `body/strong` (módulo 3). Candidato a "errores frecuentes".
 - **D20:** token de ancho máximo de la columna de lectura y por qué es una excepción a "semánticos siempre alias" (módulos 3 y 4).
 - **P9:** cómo se comparte una fuente de verdad entre sesiones y herramientas (material para el módulo 10).
+- **C12:** al hablar de los modos del sistema, se usan los nombres de Figma (Light, Dark, Desktop, Mobile). Aplicado ya en el bloque 0 y en el módulo 1.
 - **V05:** cada sección nueva necesita su `meta.json` con `title` (ya añadido en `content/README.md`). Al traducir al inglés, crear también `content/en/NN-seccion/meta.json`.
 - **V02:** mientras falte el inglés, `/en/…` muestra el español con un aviso. Puede citarse en "Cómo se hizo esta web".
 - **V06–V12 (módulo 6, itinerario de código):** la cadena Figma → normalización → Resolver DTCG → Terrazzo → dos capas → Tailwind (`docs/paso-7-tokens.md` §8). V09 es buen ejemplo de "separar la fuente de la recomendación": funciona, pero no está documentado, y por eso hay una prueba que lo vigila. V10 completa D07 (cómo se aplica el modo oscuro en CSS).
