@@ -340,7 +340,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 
 **Contraste** (≥ 4,5:1): cabecera 17,01 / 17,01; celdas 17,79 / 18,89.
 
-### 3.7 `Flow` (gráficos de proceso) — C13, aprobado por Oscar el 2026-10-04
+### 3.7 `Flow` (gráficos de proceso) — C13, aprobado por Oscar el 2026-10-04; diseño aprobado el 2026-10-04 (D24)
 
 **Para qué sirve.** Los gráficos del curso: una secuencia de pasos, que pueden estar agrupados en fases. Ejemplos:
 - La metodología de Tokens101 en "Lo que enseñamos": cuatro fases con sus módulos.
@@ -380,11 +380,11 @@ Tres componentes:
 | `FlowStep` | `status` | `'default' \| 'pending'`, por defecto `default` | Variante |
 | `FlowStep` | `state` | solo Figma, solo con `link = true` | Variante: `default`, `hover`, `focus` |
 
-**Variantes en Figma.** `Flow` 1 · `FlowGroup` 1 · `FlowStep` 4:
+**Variantes en Figma.** `Flow` 1 · `FlowGroup` 2 (`size`, solo de Figma, §4.10) · `FlowStep` 5:
 - `link = false`: `status` `default` y `pending`.
 - `link = true`: `status = default` con `state` `default`, `hover` y `focus`.
 
-Un paso `pending` no tiene enlace: lo pendiente no tiene página todavía. El conector puede ser un componente propio (`FlowConnector`) o una capa dentro de `Flow`; lo decide el diseño.
+Un paso `pending` no tiene enlace: lo pendiente no tiene página todavía. El conector es un componente propio, `FlowConnector` (decidido en el diseño, D24).
 
 **Tokens.**
 
@@ -727,6 +727,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | Navegación móvil | En Figma, panel a pantalla completa (D21). **En código, panel lateral con overlay (V25):** ancho `size/sidebar/width`, selectores arriba, sidebar debajo, botón de cerrar `li:x`. |
 | `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
 | "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
+| `Flow` (D24) | `FlowGroup` tiene una variante `size` solo de Figma: `large` (Desktop, pasos en fila que bajan de línea) y `small` (Mobile, pasos apilados a todo el ancho). Motivo: Figma no deja cambiar la dirección de un slot en una instancia. En código no es un prop: `flex-wrap` desde 64rem y apilados por debajo (D11). Conector como componente propio, `FlowConnector`. Foco de `FlowStep` dibujado como en `PageNavLink` (el anillo ocupa el lugar del borde); en código el borde se mantiene y el anillo va por fuera. Medidas en `entrega-diseno.md` §3.3. |
 
 ---
 
@@ -762,3 +763,4 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | V26 | Selectores sin marca inferior en la opción actual. |
 | V27 | `size/content/max-width` = 960 px. |
 | C13 | Componente `Flow` (con `FlowGroup` y `FlowStep`) para los gráficos del curso (§3.7). |
+| D24 | Diseño de `Flow` aprobado: `FlowConnector` propio y variante `size` de `FlowGroup` solo de Figma (§4.10). |
