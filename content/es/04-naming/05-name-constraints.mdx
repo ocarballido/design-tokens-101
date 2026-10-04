@@ -52,13 +52,13 @@ Trata el nombre de Figma como el original y el de CSS como una traducción. Por 
 
 ## Los caracteres que admite cada formato
 
-| Carácter | DTCG | Figma | CSS |
+| Carácter | DTCG | Figma (API de plugins) | CSS |
 |---|---|---|---|
 | `.` | Prohibido | Rechazado | Escapado |
 | `{` y `}` | Prohibidos | Rechazados | Escapados |
 | `$` al principio de un nivel | Prohibido | Rechazado | Escapado |
 | Espacio | Permitido | Aceptado | Escapado |
-| `/` | No es un separador: el nivel es el grupo | Separa los niveles | Se convierte en `-` |
+| `/` | Permitido, pero no separa grupos: los grupos son objetos anidados | Separa los niveles | Escapado; DesignToken101 lo convierte en `-` |
 | Letras, números, `-` y `_` | Permitidos | Aceptados | Permitidos |
 
 De dónde sale cada columna:
@@ -77,22 +77,16 @@ Si un nombre pasa a un formato o a un lenguaje que no distingue mayúsculas, dos
 
 ## Lo que Figma deja pasar
 
-Figma no comprueba la convención, y hay dos errores que acepta sin avisar:
+Figma no comprueba tu convención. En la prueba del 2026-10-04 con la API de plugins, aceptó sin ningún error dos cosas que causan problemas fuera de Figma:
 
-- **Un token que también es grupo.** Figma te deja tener `…/accent/default` y `…/accent/default/hover` en la misma colección (comprobado el 2026-10-04 con la API de plugins). En DTCG, esa estructura no es válida ([Format Module: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)). Lo viste en [Estados en el nombre](/naming/states-in-names#un-token-no-puede-ser-también-un-grupo).
-- **Mayúsculas y espacios.** Figma los acepta, pero en CSS no funcionan tal cual.
+- **Un token que también es grupo**: `…/accent/default` y `…/accent/default/hover` en la misma colección. En DTCG, esa estructura no es válida ([Format Module: Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)). Lo viste en [Estados en el nombre](/naming/states-in-names#un-token-no-puede-ser-también-un-grupo).
+- **Mayúsculas y espacios.** En CSS, un espacio tiene que ir escapado, y una mayúscula da otro nombre de variable.
 
 Lo que Figma sí impide es repetir un nombre dentro de una colección: al intentarlo con la API, da el error "duplicate variable name". Al importar un archivo DTCG, Figma convierte los puntos en barras y, si dos nombres coinciden, importa el primero e ignora el resto ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
 
-<Callout variant="pending">
-
-**Qué exporta Figma cuando un token es también un grupo.** No lo hemos comprobado: en el archivo de DesignToken101 no ocurre, porque la convención lo evita. Si te pasa, revisa el archivo exportado antes de usarlo.
-
-</Callout>
-
 ## Los nombres largos
 
-Propiedad primero da nombres largos. El más largo de DesignToken101 es `color/background/accent/strong/default`, con 38 caracteres. En el selector de variables de Figma se lee sin problema, porque cada nivel es un grupo. En un texto, en cambio, ocupa mucho: en esta web, a 320 px de ancho, no cabe en una línea, y la web lo parte para que no aparezca scroll horizontal (WCAG 2.2, [Understanding 1.4.10 Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html)).
+Propiedad primero da nombres largos. El más largo de DesignToken101 es `color/background/accent/strong/default`, con 38 caracteres. En un texto ocupa mucho: en esta web, a 320 px de ancho, no cabe en una línea, y la web lo parte para que no aparezca scroll horizontal (WCAG 2.2, [Understanding 1.4.10 Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html)).
 
 Un nombre largo no se arregla abreviando: `bg` en vez de `background` ahorra caracteres y pierde claridad ([La convención de DesignToken101](/naming/naming-convention#las-reglas)). Se arregla con la regla 3: escribir los niveles necesarios y ninguno más. Si un nombre te parece largo, revisa si algún nivel no distingue nada.
 

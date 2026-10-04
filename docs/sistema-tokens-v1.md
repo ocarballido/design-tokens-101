@@ -375,9 +375,10 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 |---|---|
 | Categoría | `color`, `space`, `radius`, `border-width`, `font-family`, `font-size`, `font-weight`, `line-height`, `size` (D20) |
 | Propiedad (color) | `background`, `text`, `border` |
-| Rol | `neutral`, `accent`, `info`, `success`, `warning`, `danger` (no `error`; como el SDS y Atlassian). |
+| Rol | `neutral`, `accent`, `info`, `success`, `warning`, `danger` (no `error`; como el SDS y Atlassian). Roles que no dependen de un color de rol (S34): `focus` (anillo de foco, `color/border/focus`) y `overlay` (capa sobre el contenido, `color/background/overlay`); `disabled` seguiría el mismo patrón (D14). Los pares `on-{rol}` ocupan también este nivel (regla 7). |
 | Énfasis | `default`, `subtle` (menos énfasis: fondos tintados, texto secundario), `strong` (más énfasis: fondos sólidos). Aprobado por Oscar (2026-09-30). `translucent` (fondo con transparencia, V28). |
-| Estado | `default`, `hover`, `active`, `disabled` (solo en elementos interactivos) |
+| Estado | `default`, `hover`, `active` (solo en elementos interactivos). `disabled` no es un estado: se añadiría como rol (D14, §6.4). |
+| Elemento y medida (tamaño, S34) | Los semánticos de `Semantic size` siguen categoría / elemento / medida. Elemento: `control`, `container` (radio), `content`, `sidebar` (maquetación). Medida: `max-width`, `width`, con el nombre de la propiedad CSS en la que se aplican. |
 
 **Ejemplos**
 

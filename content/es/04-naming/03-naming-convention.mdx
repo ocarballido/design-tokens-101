@@ -1,6 +1,6 @@
 ---
 title: La convención de DesignToken101
-description: El orden de niveles, las reglas y el vocabulario con los que DesignToken101 nombra sus tokens, por qué las paletas se nombran por su tono y cómo se nombraría un token de componente.
+description: El orden de niveles, las reglas y el vocabulario con los que DesignToken101 nombra sus tokens, por qué las paletas se nombran por su tono, cómo se nombran los tamaños y cómo se nombraría un token de componente.
 nav_title: La convención
 lastReviewed: 2026-10-04
 ---
@@ -13,14 +13,14 @@ Una convención de nombres es un documento corto: un orden de niveles, unas regl
 - [Las reglas](#las-reglas)
 - [El vocabulario](#el-vocabulario)
 - [Las paletas se nombran por su tono](#las-paletas-se-nombran-por-su-tono)
-- [Las medidas de maquetación](#las-medidas-de-maquetación)
+- [Los semánticos de tamaño](#los-semánticos-de-tamaño)
 - [Los tokens de componente](#los-tokens-de-componente)
-- [En Figma](#en-figma)
+- [Cómo queda en el archivo](#cómo-queda-en-el-archivo)
 - [Lo que te llevas](#lo-que-te-llevas)
 
 ## El orden de los niveles
 
-Los semánticos de DesignToken101 siguen siempre este orden:
+Los semánticos de color de DesignToken101 siguen siempre este orden (los de tamaño tienen el suyo, que verás [más abajo](#los-semánticos-de-tamaño)):
 
 **categoría / propiedad / rol / énfasis / estado**
 
@@ -54,14 +54,19 @@ Cada nivel admite una lista cerrada de palabras. Si una palabra no está en la l
 |---|---|---|
 | Categoría | `color`, `space`, `radius`, `border-width`, `font-family`, `font-size`, `font-weight`, `line-height`, `size` | `size` es para las medidas de maquetación |
 | Propiedad (color) | `background`, `text`, `border` | Sin `icon`: los iconos usan los tokens de texto |
-| Rol | `neutral`, `accent`, `info`, `success`, `warning`, `danger` | `danger` y no `error`. En el lugar del rol van también `on-accent` (regla 7) y `focus`, el anillo de foco |
+| Rol | `neutral`, `accent`, `info`, `success`, `warning`, `danger` | `danger` y no `error` |
+| Rol que no depende de un color de rol | `focus`, `overlay` | El anillo de foco y la capa sobre el contenido son iguales en toda la interfaz |
+| Par sobre un rol | `on-accent` | Ocupa el lugar del rol (regla 7) |
 | Énfasis | `default`, `subtle`, `strong`, `translucent` | `subtle`, menos énfasis; `strong`, más; `translucent`, un fondo con transparencia |
 | Estado | `default`, `hover`, `active` | `disabled` se añadiría como rol, no como estado |
+| Elemento (tamaño) | `control`, `container`, `content`, `sidebar` | Lo verás [más abajo](#los-semánticos-de-tamaño) |
+| Medida (tamaño) | `max-width`, `width` | El nombre de la propiedad CSS en la que se aplican |
 
-Tres de esas elecciones merecen una explicación:
+Cuatro de esas elecciones merecen una explicación:
 
-- **`danger` y no `error`.** Es la palabra que usan el SDS de Figma (`--sds-color-text-danger-default`, [SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)) y Atlassian, que la usa para el botón de una acción peligrosa ([Atlassian: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)). Un botón de "Eliminar" no es un error, pero sí un peligro.
-- **Sin propiedad `icon`.** Atlassian sí la tiene (`color.icon.success`). DesignToken101 la descartó porque, en esta web, un icono siempre tiene el color del texto que acompaña. Los tokens de texto llevan el scope de forma para poder colorear iconos ([Un scope por propiedad](/relations/semantic-collections#un-scope-por-propiedad)). Si un día hace falta separarlos, se añade `icon` sin romper nada.
+- **`danger` y no `error`.** Es la palabra que usa el SDS de Figma (`--sds-color-text-danger-default`, [SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)), y la que usa Atlassian al hablar del botón de una acción peligrosa ([Atlassian: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)).
+- **`focus` y `overlay` en el lugar del rol.** El anillo de foco y la capa que oscurece la página tras el panel móvil no cambian con el rol: son los mismos en toda la interfaz. Por eso no llevan un rol de color delante, sino que ocupan su lugar. Es el mismo criterio que seguiría `disabled` (lo verás en [Estados en el nombre](/naming/states-in-names#dónde-va-el-estado)). Atlassian pone su token de foco en la misma posición, justo después de la propiedad: `color.border.focused` ([Atlassian: Design tokens, lista completa](https://atlassian.design/components/tokens/all-tokens)).
+- **Sin propiedad `icon`.** Atlassian sí la tiene (`color.icon.success`). DesignToken101 la descartó: en esta web, los iconos usan el token de texto de su contexto. Los tokens de texto llevan el scope de forma para poder colorear iconos ([Un scope por propiedad](/relations/semantic-collections#un-scope-por-propiedad)). Si un día hace falta separarlos, se añade `icon` sin romper nada.
 - **`active` es "pulsado".** Es el estado mientras se pulsa un control, como la pseudoclase `:active` de CSS ([MDN: :active](https://developer.mozilla.org/en-US/docs/Web/CSS/:active)). Por eso la variante que marca la sección actual del sidebar se llama `current` y no `active`: con `active`, el mismo nombre significaría dos cosas.
 
 <Callout variant="recommendation">
@@ -82,16 +87,20 @@ En el módulo 2 viste que las paletas primitivas se nombran por su tono (`emeral
 
 Si la paleta del acento se llamara `brand`, el token de éxito apuntaría a `brand/700`. El nombre diría que el éxito es "de marca", que no es lo que significa. Con los nombres por tono, cada capa dice una cosa: el primitivo, qué color es; el semántico, para qué se usa.
 
-## Las medidas de maquetación
+## Los semánticos de tamaño
 
-La categoría `size` agrupa las medidas de la maquetación que no son espaciado ni radio. DesignToken101 tiene dos:
+Los semánticos de la colección `Semantic size` no tienen propiedad, rol ni énfasis: se aplican siempre a la misma propiedad y no tienen variantes de color. Siguen otro orden, **categoría / elemento / medida**, con los niveles necesarios:
 
-| Token | Valor | Uso |
-|---|---|---|
-| `size/content/max-width` | 960 px | Ancho máximo de la columna de la lección |
-| `size/sidebar/width` | 304 px | Ancho del sidebar y del panel de navegación móvil |
+| Token | Categoría | Elemento | Medida | Valor |
+|---|---|---|---|---|
+| `radius/control` | radius | control | No tiene | 8 px |
+| `radius/container` | radius | container | No tiene | 16 px |
+| `size/content/max-width` | size | content | max-width | 960 px |
+| `size/sidebar/width` | size | sidebar | width | 304 px |
 
-En estos tokens, el segundo nivel nombra la zona de la página (`content`, `sidebar`) y el tercero, la medida (`max-width`, `width`). Las dos medidas coinciden con el nombre de la propiedad CSS en la que se aplican, así que quien las lea en código sabe dónde van.
+El elemento dice a qué se aplica: a un control o a un contenedor, en el radio; a una zona de la página, en las medidas de maquetación. La medida usa el nombre de la propiedad CSS en la que se aplica. El radio no la necesita: siempre es el de las esquinas.
+
+La categoría `size` agrupa las medidas de maquetación que no son espaciado ni radio.
 
 `size/sidebar/width` es un buen ejemplo de cómo aparece un token: el sidebar se dibujó en Figma a 305 px sin variable, y el hueco se vio al llevarlo a código. Se decidió un valor, 304 px, y se creó el token con un nombre que encajaba en la categoría que ya existía.
 
@@ -103,31 +112,38 @@ El curso de Figma propone este orden: componente, tipo, propiedad y estado. Su e
 
 <Callout variant="recommendation">
 
-En DesignToken101, un token de componente se nombraría **componente / variante / propiedad / estado**, con los niveles necesarios y el estado explícito si lo hay: `button/primary/background/default`, `link/text`. Es el formato del curso de Figma con `/` en vez de guiones, para que Figma lo agrupe por componente. Es una decisión provisional: se revisará cuando un componente necesite el primero.
+En DesignToken101, un token de componente se nombraría **componente / variante / propiedad / estado**, con los niveles necesarios y el estado explícito si lo hay: `button/primary/background/default`, `link/text`. Es el formato del curso de Figma con `/` en vez de guiones, así que los tokens de un componente quedan en el mismo grupo. Es una decisión provisional: se revisará cuando un componente necesite el primero.
 
 </Callout>
 
-Un token de componente empieza por el componente y no por la categoría porque así se agrupa en Figma: todos los tokens del botón quedan juntos. Apunta siempre a un semántico, nunca a un primitivo.
+Un token de componente apunta siempre a un semántico, nunca a un primitivo ([La capa de componente](/relations/component-tokens#cómo-se-añadiría)).
 
-## En Figma
+## Cómo queda en el archivo
 
-En la vista Variables, el orden de los niveles es el orden de los grupos. Con la convención de DesignToken101, la colección `Semantic color` se ve así:
+Como cada nivel es un grupo, el orden de los niveles es el orden de los grupos. Esta es la estructura de la colección `Semantic color` en el archivo que exporta Figma (`tokens/figma/semantic-color/Light.tokens.json`), con los tokens de cada grupo entre paréntesis:
 
 ```txt
 color
-├── background
-│   ├── neutral   (default, subtle, strong, hover, active, translucent)
-│   ├── accent    (subtle, strong/default, strong/hover, strong/active)
-│   └── …
-├── text
-└── border
+├── background   (overlay)
+│   ├── neutral  (default, subtle, strong, hover, active, translucent)
+│   ├── accent   (subtle)
+│   │   └── strong  (default, hover, active)
+│   └── info, success, warning, danger  (subtle)
+├── text         (on-accent)
+│   ├── neutral  (default, subtle)
+│   ├── accent   (default, hover)
+│   └── info, success, warning, danger  (default)
+└── border       (focus)
+    ├── neutral  (default, strong)
+    ├── accent   (default, strong)
+    └── info, success, warning, danger  (default)
 ```
 
-Quien busca un fondo abre `background`; quien busca un texto, `text`. El orden del nombre ordena también el trabajo de quien diseña.
+Todos los fondos quedan bajo `background`; todos los textos, bajo `text`. El orden del nombre ordena también el archivo.
 
 ## Lo que te llevas
 
-- DesignToken101 ordena los niveles como categoría / propiedad / rol / énfasis / estado, siempre en ese orden.
+- Los semánticos de color siguen categoría / propiedad / rol / énfasis / estado; los de tamaño, categoría / elemento / medida.
 - Cada nivel tiene una lista cerrada de palabras, y el rol vive en el semántico, nunca en el nombre de una paleta.
 - Si algún día hay tokens de componente, se nombrarán componente / variante / propiedad / estado.
 
@@ -135,5 +151,5 @@ Quien busca un fondo abre `background`; quien busca un texto, `text`. El orden d
 
 - [Figma: Update 1, Tokens, variables, and styles](https://help.figma.com/hc/en-us/articles/18490793776023-Update-1-Tokens-variables-and-styles)
 - [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
-- [Atlassian Design System: Design tokens](https://atlassian.design/foundations/tokens/design-tokens)
+- [Atlassian Design System: Design tokens](https://atlassian.design/foundations/tokens/design-tokens) y su [lista completa de tokens](https://atlassian.design/components/tokens/all-tokens)
 - [MDN: :active](https://developer.mozilla.org/en-US/docs/Web/CSS/:active)

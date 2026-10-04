@@ -1,11 +1,11 @@
 ---
 title: Dos escuelas
-description: Las dos formas más extendidas de nombrar los tokens semánticos, propiedad primero y pares de rol, con ejemplos del SDS de Figma, Atlassian y shadcn/ui, y por qué DesignToken101 elige la primera.
+description: Dos formas de nombrar los tokens semánticos, propiedad primero y pares de rol, con ejemplos del SDS de Figma, Atlassian y shadcn/ui, y por qué DesignToken101 elige la primera.
 nav_title: Dos escuelas
 lastReviewed: 2026-10-04
 ---
 
-Los sistemas de diseño publicados nombran sus tokens semánticos de dos maneras. Una pone la propiedad al principio del nombre; la otra nombra un rol y le añade una pareja para lo que va encima. En esta lección verás las dos con ejemplos reales y por qué DesignToken101 eligió la primera.
+En esta lección comparas dos formas de nombrar los tokens semánticos, cada una con ejemplos de sistemas de diseño publicados. Una pone la propiedad al principio del nombre; la otra nombra un rol y le añade una pareja para lo que va encima. Al final verás por qué DesignToken101 eligió la primera.
 
 **En esta página**
 
@@ -36,7 +36,7 @@ En esta escuela, el nombre dice primero **a qué se aplica** el token: fondo, te
 
 En esta escuela, el nombre dice primero **el rol**, y la propiedad se deduce de una convención de parejas.
 
-**shadcn/ui** es el ejemplo más conocido. Su documentación explica que usa pares de fondo y primer plano: el token base controla el color de la superficie y el token con `-foreground` controla el texto y los iconos que van encima ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)):
+**shadcn/ui** nombra así sus variables. Su documentación explica que usa pares de fondo y primer plano: el token base controla el color de la superficie y el token con `-foreground` controla el texto y los iconos que van encima ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)):
 
 | Token base (superficie) | Token `-foreground` (lo que va encima) |
 |---|---|
@@ -77,7 +77,7 @@ El coste está en Tailwind CSS: con nombres de propiedad primero, una clase de c
 
 ## Los pares on
 
-Hay un caso en el que la escuela de pares tiene razón: el texto que va sobre un fondo de color fuerte. El texto del botón principal no es un texto cualquiera; depende del fondo del botón. Si cambia uno, hay que revisar el otro.
+Hay un caso en el que la escuela de pares acierta: el texto que va sobre un fondo de color fuerte. El texto del botón principal no es un texto cualquiera; depende del fondo del botón. Si cambia uno, hay que revisar el otro.
 
 DesignToken101 toma esa idea y la escribe con su propia estructura: un texto sobre un fondo de rol se llama `on-{rol}` (regla 7 de la convención).
 

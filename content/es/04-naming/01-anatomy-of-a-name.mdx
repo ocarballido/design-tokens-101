@@ -29,13 +29,13 @@ El nombre de un token semántico de DesignToken101 se lee de izquierda a derecha
 
 Juntos forman `color/text/accent/default`: el texto con el color de acento, con el énfasis normal. Es el color de los enlaces de esta web.
 
-En Figma, cada `/` crea un grupo en la vista Variables ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). Al exportar a DTCG, cada nivel es un grupo del JSON, como viste en [Qué es un token](/fundamentals/what-is-a-token). El orden de los niveles decide, por tanto, cómo se agrupan las variables en Figma y en el archivo.
+En Figma, los niveles se separan con `/`. Al exportar a DTCG, cada nivel es un grupo del JSON, como viste en [Qué es un token](/fundamentals/what-is-a-token). Y al importar un archivo DTCG, Figma hace lo contrario: convierte los puntos de los nombres en `/` ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). El orden de los niveles decide, por tanto, cómo se agrupan los tokens en el archivo.
 
 Los primitivos siguen otro patrón, que ya conoces del módulo 2: categoría / paleta / paso ([El nombre dice qué valor es](/primitives/what-is-a-primitive#el-nombre-dice-qué-valor-es)). Este módulo trata sobre todo de los semánticos, que son los que llevan la función en el nombre.
 
 ## Una taxonomía de referencia
 
-No hay una especificación que diga qué niveles debe tener un nombre. La referencia más citada es un artículo de Nathan Curtis, que ordena las partes de un nombre en cuatro grupos ([Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676), EightShapes, 2020; artículo de autor, no una norma):
+No hay una especificación que diga qué niveles debe tener un nombre. Una referencia de autor es un artículo de Nathan Curtis, que ordena las partes de un nombre en cuatro grupos ([Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676), EightShapes, 2020; artículo de autor, no una norma):
 
 | Grupo | Niveles que propone | Ejemplos del artículo |
 |---|---|---|
@@ -65,8 +65,8 @@ El artículo de Curtis aconseja usar los niveles necesarios para que el nombre d
 | `color/text/neutral/default` | Categoría, propiedad, rol, énfasis | Hay otros textos neutros con otro énfasis (`subtle`) |
 | `color/text/on-accent` | Categoría, propiedad, rol | Hay un único texto sobre el acento: el énfasis no distingue nada |
 | `color/border/focus` | Categoría, propiedad, rol | El anillo de foco no tiene variantes |
-| `radius/control` | Categoría, rol | El radio no necesita propiedad: siempre se aplica a las esquinas |
-| `size/content/max-width` | Categoría, elemento, medida | Es una medida de maquetación, no un color |
+| `radius/control` | Categoría, elemento | El radio no necesita propiedad: siempre se aplica a las esquinas |
+| `size/content/max-width` | Categoría, elemento, medida | Hay varias medidas posibles de una zona: el nombre dice cuál |
 
 Que un nivel no haga falta hoy no significa que no vaya a hacer falta mañana. Si apareciera un segundo texto sobre el acento, el nombre tendría que crecer. Cómo crece un nombre sin romperse lo verás en [Estados en el nombre](/naming/states-in-names).
 
@@ -77,14 +77,14 @@ La consecuencia es que los nombres no tienen todos la misma longitud. No es un d
 Hay tres cosas que un nombre semántico de DesignToken101 no lleva:
 
 - **El valor.** `color/text/accent/default` no dice `emerald-700` ni `#1A7D5C`. Si el valor cambia, el nombre sigue siendo cierto. La excepción son los pesos tipográficos (`font-weight/600`), porque el número es el nombre estándar del peso en CSS y en DTCG ([Tipografía](/primitives/typography)).
-- **El tema.** El artículo de Curtis incluye el modo (claro u oscuro) entre los modificadores, pero es de 2020, anterior a los modos de variables de Figma. Hoy el tema va en los **modos** de la colección: el mismo token apunta a un primitivo en Light y a otro en Dark. Lo verás en el módulo Modos y temas.
+- **El tema.** El artículo de Curtis, de 2020, incluye el modo (claro u oscuro) entre los modificadores del nombre. En Figma, el tema va en los **modos** de la colección ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)): el mismo token apunta a un primitivo en Light y a otro en Dark. Lo verás en el módulo Modos y temas.
 - **El componente**, en los semánticos. `color/background/neutral/hover` lo usan el sidebar, los selectores y la cabecera de `InCode`. Si el nombre dijera `sidebar`, no serviría para los demás.
 
 ## DTCG no fija una convención
 
 La especificación DTCG regula la sintaxis de los nombres, no su significado. Dice que los grupos son arbitrarios y que las herramientas no deben usarlos para deducir el tipo ni el propósito de un token ([Format Module: Group](https://www.designtokens.org/TR/2025.10/format/#group)).
 
-Para DTCG, `color/text/accent/default` y `cosa/azul/7` son nombres igual de válidos. Que el primero se entienda depende de una **convención**: un conjunto de reglas que el equipo escribe y cumple. El artículo de Curtis lo resume así: no hay un orden universal; lo importante es que haya una convención y que se respete.
+Para DTCG, `color/text/accent/default` y `cosa/azul/7` son nombres igual de válidos. Que el primero se entienda depende de una **convención**: un conjunto de reglas que el equipo escribe y cumple. El artículo de Curtis lo confirma desde la práctica: los sistemas que analiza no siguen todos el mismo orden de niveles.
 
 <Callout variant="recommendation">
 
@@ -102,4 +102,4 @@ Escribe tu convención antes de crear las variables, no después. En DesignToken
 
 - Nathan Curtis, [Naming Tokens in Design Systems](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676) (EightShapes, 2020; artículo de autor)
 - [Design Tokens Format Module 2025.10: Group](https://www.designtokens.org/TR/2025.10/format/#group)
-- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)

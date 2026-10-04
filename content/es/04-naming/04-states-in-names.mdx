@@ -45,7 +45,7 @@ La especificación lo prohíbe: un objeto con `$value` es un token, y si además
 
 <Callout variant="warning">
 
-**Figma sí te deja crearlo.** Lo comprobamos el 2026-10-04 con la API de plugins: Figma acepta una variable `…/default` y otra `…/default/hover` en la misma colección. No te avisa de que el resultado no se podrá expresar en DTCG. La convención tiene que evitarlo por ti.
+**Figma no lo impide.** Lo comprobamos el 2026-10-04 con la API de plugins de Figma: acepta una variable `…/default` y otra `…/default/hover` en la misma colección, sin ningún error. La convención tiene que evitarlo por ti.
 
 </Callout>
 
@@ -102,7 +102,7 @@ Para apuntar al token raíz se escribe `{color.background.accent.strong.$root}`.
 
 <Callout variant="recommendation">
 
-DesignToken101 no usa `$root`, por un motivo práctico: **Figma no admite nombres que empiecen por `$`**. Lo comprobamos el 2026-10-04 con la API de plugins: Figma rechaza `$root` y cualquier nivel que empiece por `$`. Como las variables nacen en Figma, la única forma de que el mismo nombre funcione en Figma y en DTCG es `/default`.
+DesignToken101 no usa `$root`, por un motivo práctico: **Figma no admite un nivel que empiece por `$`**. Lo comprobamos el 2026-10-04 con la API de plugins de Figma: al crear una variable llamada `$root`, o con un nivel que empieza por `$`, da el error "invalid variable name". Como las variables nacen en Figma, DesignToken101 usa `/default`, que funciona igual en Figma y en DTCG.
 
 </Callout>
 

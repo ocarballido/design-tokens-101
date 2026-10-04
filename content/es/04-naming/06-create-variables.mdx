@@ -63,37 +63,28 @@ Una colección semántica tiene decenas de variables. Figma permite trabajar con
 | Renombrar un grupo | Doble clic en el nombre del grupo, en el panel lateral de la vista Variables |
 | Duplicar, desagrupar o borrar un grupo | Clic derecho en el nombre del grupo |
 
-Una forma de avanzar con orden es crear primero una variable completa de cada propiedad (un fondo, un texto, un borde) y duplicarla para las demás de esa propiedad. Después, en cada copia, cambia el nombre, el alias, la descripción y el code syntax.
-
-<Callout variant="warning">
-
-**Al duplicar, revisa todo lo que lleva la copia.** No hemos comprobado qué datos copia Figma al duplicar una variable. Antes de seguir, abre la copia y revisa los seis puntos de la lista anterior. Un code syntax repetido daría a dos variables distintas el mismo nombre en CSS.
-
-</Callout>
+Si creas una variable duplicando otra, abre la copia y repasa los seis puntos de [Crear una variable completa](#crear-una-variable-completa). Cada variable tiene que acabar con su propio nombre, alias, descripción y code syntax: un code syntax repetido daría a dos variables el mismo nombre en CSS.
 
 ## Si tienes que renombrar
 
 En el ejercicio no hace falta renombrar: creas cada variable con su nombre definitivo. Pero en un archivo real se renombra, por ejemplo cuando un token pasa a tener estados y necesita `/default` ([La hoja explícita](/naming/states-in-names#la-hoja-explícita)), o cuando un equipo cambia de convención.
 
-Lo que pasa al renombrar una variable, comprobado el 2026-10-04 con la API de plugins de Figma:
+Lo que dice la documentación de la API de plugins de Figma:
 
-- **Los alias se conservan.** Si renombras el primitivo al que apunta un semántico, el semántico sigue apuntando a él con el nombre nuevo. Si renombras el semántico, su alias no cambia.
-- **Los vínculos del diseño se conservan.** Un elemento que usa la variable la sigue usando después del cambio de nombre.
-- **El code syntax no cambia.** Una variable renombrada de `color/text/accent` a `color/text/accent/default` sigue con el code syntax `var(--t101-color-text-accent)`. Tienes que actualizarlo a mano, o en código seguirá el nombre viejo.
+- **Un alias apunta al identificador de la variable, no a su nombre.** Un alias es un objeto con dos datos, `type` e `id`, y el `id` es el de la variable de destino ([Figma Plugin API: VariableAlias](https://developers.figma.com/docs/plugins/api/VariableAlias/)). Lo mismo vale para las variables aplicadas a un elemento del diseño.
+- **El code syntax es un dato aparte del nombre** ([Figma Plugin API: Variable](https://developers.figma.com/docs/plugins/api/Variable/)).
 
-Los alias y los vínculos se conservan porque Figma los guarda por el identificador interno de la variable, no por su nombre.
+Lo que comprobamos el 2026-10-04, renombrando variables con esa API:
 
-<Callout variant="pending">
-
-**Renombrar desde la interfaz.** Lo comprobado es el cambio de nombre con la API de plugins. No lo hemos probado a mano desde la vista Variables, ni al renombrar un grupo entero. Lo esperable es el mismo resultado, porque los datos de la variable son los mismos, pero no lo hemos visto.
-
-</Callout>
+- **Los alias se conservan.** Al renombrar el primitivo al que apunta un semántico, el semántico siguió apuntando a él, ya con el nombre nuevo. Al renombrar el semántico, su alias no cambió.
+- **Los vínculos del diseño se conservan.** Un rectángulo con la variable en el relleno la siguió usando después del cambio de nombre.
+- **El code syntax no cambia.** Una variable renombrada de `color/text/accent` a `color/text/accent/default` siguió con el code syntax `var(--t101-color-text-accent)`. Al renombrar, actualiza también el code syntax, o en código seguirá el nombre viejo.
 
 <InCode title="Qué cambia en la exportación al renombrar">
 
-En el archivo DTCG que exporta Figma, el nombre son los grupos del JSON, y el code syntax va aparte, en `$extensions`. Tras renombrar sin actualizar el code syntax, la exportación tiene este aspecto:
+En el archivo DTCG que exporta Figma, el nombre son los grupos del JSON, y el code syntax va aparte, en `$extensions` (lo viste en [Las colecciones semánticas](/relations/semantic-collections)). Este fragmento, escrito a mano para el ejemplo, muestra una variable renombrada sin actualizar su code syntax:
 
-```json filename="Semantic color, Light (fragmento)"
+```json filename="Ejemplo: ruta y code syntax distintos"
 "accent": {
   "default": {
     "$type": "color",
@@ -117,3 +108,5 @@ La ruta del JSON dice `color.text.accent.default`, y el code syntax dice otra co
 ## Fuentes
 
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma Plugin API: VariableAlias](https://developers.figma.com/docs/plugins/api/VariableAlias/)
+- [Figma Plugin API: Variable](https://developers.figma.com/docs/plugins/api/Variable/)
