@@ -13,6 +13,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 > - **V25 (sustituye a D21):** el panel móvil es lateral, entra desde la izquierda con el ancho `size/sidebar/width` y un overlay `color/background/overlay` (negro al 50 %). Pendiente de crear el token y de dibujar el panel en Figma.
 > - **V26:** los selectores de idioma y tema no llevan marca inferior (`Marker`). Pendiente de quitarla en Figma.
 > - **V27:** `size/content/max-width` = 960 px (ya cambiado en Figma; falta actualizar la descripción de la variable, que dice 720 px).
+> - **V30 (2026-10-04):** `SidebarSection` con variante `current` = `true` / `false`: título y chevron en `text/accent/default` (hover `text/accent/hover`), combinable con `open`. Pendiente de añadir en Figma (Oscar, D05). Tokens por estado en `componentes-v1.md` §4.2.
 
 ---
 
@@ -74,7 +75,7 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `Code` | `children` |: | Código en línea. |
 | `TableCell` | `children` | `header`, `ShowCode`, `ShowBody` | En MDX: `th` / `td` de `remark-gfm`. |
 | `LessonHeader` | `section`, `title`, `description`, `lastReviewed` |: | `title` es el único `h1`. |
-| `SidebarSection` | `title`, `defaultOpen`, `children` | `open`, `state` | Disclosure. |
+| `SidebarSection` | `title`, `current`, `defaultOpen`, `children` | `current`, `open`, `state` | Disclosure. `current` (V30): título y chevron en `text/accent/default` (hover `text/accent/hover`); pendiente de añadir en Figma. |
 | `SidebarItem` | `title` (frontmatter `nav_title`), `href`, `current` | `state` | `aria-current="page"`. |
 | `PageNavLink` | `direction` (`previous`/`next`), `title`, `href` | `state`, `LabelPrevious`, `LabelNext` (textos fijos) | Si no hay anterior o siguiente, no se muestra. |
 | `LanguageSwitcher` → `LanguageOption` | `locale`, `current` | `state` | `aria-current`, atributo `lang` en cada enlace (3.1.2). |

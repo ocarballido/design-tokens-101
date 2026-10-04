@@ -2,7 +2,7 @@
 
 Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesión lo actualiza al terminar** (fecha + qué cambió). Las decisiones van en `docs/decisiones.md`, no aquí.
 
-Última actualización: 2026-10-04 (sesión de desarrollo: build y comprobación del módulo 3, `Code` que parte nombres largos, S32 en los tokens y prueba de `$ref` con Terrazzo).
+Última actualización: 2026-10-04 (sesión de desarrollo: módulo 3 comprobado, `Code` que parte nombres largos, S32 en los tokens, prueba de `$ref` con Terrazzo y `SidebarSection` con `current`, V30).
 
 ---
 
@@ -97,6 +97,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **V13 (módulo 6):** `next/font` sirve la fuente con un nombre propio, así que el nombre del token (`Inter`) no basta en CSS; la capa de Tailwind pone la variable de `next/font` delante. Candidato a "errores frecuentes": esperar que `font-family: Inter` use la fuente cargada con `next/font`.
 - **V14, V15 (módulo 6):** Tailwind no tiene espacio de nombres para el grosor de borde (`border-(length:--t101-border-width-100)`) y los estilos de texto compuestos se escriben como utilidades propias, comprobadas contra la tabla §8.
 - **V16 (módulo 4; reflejado en el módulo 3):** el ancho del sidebar salió en Figma como un valor suelto (305 px) y pasó a token (`size/sidebar/width`): ejemplo de hueco que aparece al llevar el diseño a código.
+- **V30 (módulos 4 y 9):** la variante se llama `current` y no `active`, porque en el sistema `active` ya es "pulsado" (D12). Ejemplo de que el vocabulario de estados vale también para los nombres de los componentes.
 - **V18, V19 (módulo 9):** cuando el dibujo y la anatomía no coinciden, se decide cuál manda y se registra. Ejemplo para "Componentes y código".
 - **V20 (módulo 5):** un logotipo SVG con colores fijos necesita una versión por modo; los tokens no lo cambian solos.
 - **V24 (módulo 6; reflejado en el módulo 2):** tokens de movimiento (`duration`, `cubicBezier` de DTCG) que mantenemos solo en código, aunque Figma tiene variables Timing y Easing (precisión del 2026-10-03), y `prefers-reduced-motion`. Candidato para el módulo 7 (accesibilidad).
@@ -174,6 +175,10 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Árbol de accesibilidad: figura → lista → 11 elementos; cada uno se lee "500, #33CC99, Color de marca" (comas ocultas), sin la muestra. Chrome no da nombre a la figura a partir del `figcaption` (pasa también con `Flow`); el pie se lee igualmente como texto. Sin prueba con lector de pantalla.
 - Hex: los 55 de las 5 escalas coinciden con `tools/scales.json` (comprobados 50, 500 y 950 de cada una a mano, y todos con un script), y el color pintado en la muestra coincide con el hex mostrado.
 
+**`SidebarSection` con `current` (V30, 2026-10-04)**
+- `src/components/Sidebar.tsx`: prop `current` (la sección contiene la lección actual, el mismo cálculo que `defaultOpen`, C11). Título y chevron en `text-accent-default` y, en hover, `text-accent-hover`; el resto no cambia. Sin ARIA propio.
+- `npm run build`: sin errores. Chrome sin interfaz a 1440 px, Light y Dark, en `/es/relations/layers`: solo "Relaciones" lleva el acento (Light `#1A7D5C`, Dark `#4FD7A6`); en hover, `#1F624A` / `#93EAC5` sobre `background/neutral/hover`; al cerrar la sección conserva el acento. Las demás secciones no cambian.
+
 **Módulo 3: comprobado (2026-10-04)**
 - `npm run build`: compila sin errores; 32 lecciones × 2 idiomas. `npm run check:content`: sin errores, 450 anclas (156 con caracteres no ASCII), enlaces internos y orden del sidebar. No hizo falta tocar el MDX.
 - Sidebar: sección "Relaciones" con sus 10 lecciones en orden; en sus lecciones solo está abierta esa sección, en escritorio y en el panel móvil (C11), y la lección actual lleva `aria-current`. Anterior/siguiente: "Ejercicio" del módulo 2 → "Qué es un alias" y "Ejercicio" del módulo 3 → "Fuentes consultadas" (y al revés).
@@ -223,6 +228,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - Hueco entre el texto del enlace y el icono externo: `space/100` (Figma: `space/200` en `size=default`, `space/150` en `small`).
 
 **Pendiente o sin verificar**
+- **Figma (Oscar, D05):** añadir a `SidebarSection` la variante `current` = `true` / `false` (V30): título y chevron en `text/accent/default`; en hover, `text/accent/hover` sobre `background/neutral/hover`; combinable con `open` y con `state`. Ya está en código y en `componentes-v1.md` §4.2.
 - **Diseño:** crear la variable `size/sidebar/width` (304 px) en Semantic size de Figma; al reexportar, quitarla de `tokens/code-only.tokens.json` (V16).
 - **Diseño:** crear `color/background/overlay` (negro al 50 %, Light y Dark) en Semantic color y quitarlo de `tokens/code-only.tokens.json` al reexportar (V25). Dibujar el panel lateral (V25) y quitar la capa `Marker` de los selectores (V26).
 - **Diseño:** crear `color/background/neutral/translucent` (Light `white` y Dark `neutral/950`, al 90 %) en Semantic color y quitar `tokens/code-only.{light,dark}.tokens.json` al reexportar (y su entrada del Resolver) (V28). Dibujar la cabecera translúcida.

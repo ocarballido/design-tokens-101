@@ -578,15 +578,28 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Prop | Tipo | En Figma |
 |---|---|---|
 | `title` | `string` | Texto |
-| `defaultOpen` | `boolean`: `true` solo si la sección contiene la lección actual (C11) | Variante `open` = `true` / `false` |
+| `current` | `boolean`: la sección contiene la lección actual (V30) | Variante `current` = `true` / `false` |
+| `defaultOpen` | `boolean`: `true` solo si la sección contiene la lección actual (C11); en código, igual que `current` | Variante `open` = `true` / `false` |
 | `children` | los `SidebarItem` | Slot (visible solo con `open = true`) |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
+
+**Con `current = false`.**
 
 | Parte | `default` | `hover` | `focus` |
 |---|---|---|---|
 | Fondo de la cabecera | Sin fondo | `background/neutral/hover` | Sin fondo |
 | Título | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
 | Chevron | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
+| Radio | `radius/control` | ← | ← |
+
+**Con `current = true`** (V30). Se combina con `open = true` y con `open = false` (el alumno puede cerrar la sección de la lección actual).
+
+| Parte | `default` | `hover` | `focus` |
+|---|---|---|---|
+| Fondo de la cabecera | Sin fondo | `background/neutral/hover` | Sin fondo |
+| Título | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
+| Chevron | `text/accent/default` | `text/accent/hover` | `text/accent/default` |
 | Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← |
 
@@ -625,10 +638,10 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 #### Accesibilidad y contraste del `Sidebar`
 
 - `Sidebar` es un `nav` con `aria-label` (p. ej. "Lecciones").
-- `SidebarSection` es un `button` con `aria-expanded`: patrón Disclosure.
+- `SidebarSection` es un `button` con `aria-expanded`: patrón Disclosure. Con `current = true` no lleva ARIA propio (V30): la lección actual ya se anuncia con el `aria-current` del `SidebarItem`, y `LessonHeader` dice la sección. Por eso el color no es el único medio de saberlo (1.4.1), aunque la sección esté cerrada.
 - El `SidebarItem` actual lleva `aria-current="page"` y se distingue por la marca lateral además del color (1.4.1).
 - Filas de al menos 24 px de alto (diseñadas a 36 / 40 px).
-- Contraste: título de sección 17,79 / 18,89; ítem `default` 7,74 / 7,65; ítem `hover` 16,28 / 14,34; ítem `current` 4,85 / 8,30 (≥ 4,5:1); marca lateral frente a `background/accent/subtle` 3,18 / 8,30 (≥ 3:1).
+- Contraste: título de sección 17,79 / 18,89; título y chevron de la sección `current` 5,08 / 10,92 (`text/accent/default` sobre `background/neutral/default`) y en hover 6,62 / 10,58 (`text/accent/hover` sobre `background/neutral/hover`); ítem `default` 7,74 / 7,65; ítem `hover` 16,28 / 14,34; ítem `current` 4,85 / 8,30 (≥ 4,5:1); marca lateral frente a `background/accent/subtle` 3,18 / 8,30 (≥ 3:1).
 
 ### 4.3 `PageNav`
 
