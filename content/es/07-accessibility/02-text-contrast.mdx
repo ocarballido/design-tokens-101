@@ -82,7 +82,7 @@ DesignToken101 **no usa la excepción de texto grande**: todos sus pares de text
 
 ## Cómo cumple DesignToken101
 
-`tools/semantic.py` calcula cada par de la especificación en Light y en Dark (comprobado el 2026-10-05). Todos los pares de texto llegan a 4,5:1, así que **DesignToken101 cumple 1.4.3 (AA)**. Estos son los más justos, y su resultado frente a 1.4.6 (AAA):
+`tools/semantic.py` calcula cada par de la especificación en Light y en Dark (comprobado el 2026-10-06). Todos los pares de texto llegan a 4,5:1, así que **DesignToken101 cumple 1.4.3 (AA)**. Estos son los pares que no llegan a 7:1, el umbral de 1.4.6 (AAA), en algún modo, ordenados de menos a más margen en Light:
 
 | Texto | Fondo | Light | Dark | 7:1 (AAA) |
 |---|---|---|---|---|
@@ -91,12 +91,14 @@ DesignToken101 **no usa la excepción de texto grande**: todos sus pares de text
 | `text/accent/default` | `background/accent/subtle` | 4,85 | 8,30 | En Dark |
 | `text/accent/default` | `background/neutral/subtle` | 4,86 | 9,83 | En Dark |
 | `text/accent/default` | `background/neutral/default` | 5,08 | 10,92 | En Dark |
+| `text/danger/default` (aún sin uso) | `background/danger/subtle` | 5,75 | 8,49 | En Dark |
 | `text/on-accent` | `background/accent/strong/active` | 5,93 | 5,93 | No |
+| `text/info/default` | `background/info/subtle` | 5,99 | 8,10 | En Dark |
+| `text/accent/hover` | `background/neutral/hover` | 6,62 | 10,58 | En Dark |
+| `text/accent/hover` | `background/accent/subtle` | 6,90 | 10,60 | En Dark |
 | `text/neutral/subtle` | `background/neutral/subtle` | 7,40 | 6,89 | En Light |
-| `text/neutral/subtle` | `background/neutral/default` | 7,74 | 7,65 | Sí |
-| `text/neutral/default` | `background/neutral/default` | 17,79 | 18,89 | Sí |
 
-El texto principal y el secundario sobre la página llegan también a AAA. Los colores de acento y de mensaje en Light, no: sus pasos se eligieron para llegar a 4,5:1, que es el objetivo. Light es el modo que más se aleja de AAA.
+Los demás pares llegan a 7:1 en los dos modos. Entre ellos están el texto principal y el secundario sobre la página: `text/neutral/default` sobre `background/neutral/default` da 17,79 en Light y 18,89 en Dark, y `text/neutral/subtle`, 7,74 y 7,65. Los colores de acento y de mensaje en Light no llegan: sus pasos se eligieron para llegar a 4,5:1, que es el objetivo. Light es el modo que más se aleja de AAA.
 
 Hay un par que no llega a 4,5:1: `text/neutral/subtle` sobre `background/neutral/active` en Dark, con 3,99:1. No se usa nunca, por una regla de [Estados](/relations/states#el-texto-en-hover-y-active): en hover y active, el texto de los controles neutros pasa a `text/neutral/default`. Una regla de uso también es una forma de cumplir, si está escrita.
 

@@ -89,8 +89,10 @@ Respetar esta preferencia es una mejora, no un requisito, y no llega a todos los
 La cabecera lleva las dos clases de fondo. La segunda usa una variante arbitraria de Tailwind CSS que se compila a `@media (prefers-reduced-transparency: reduce)` (comprobado con Tailwind CSS 4.3.3, 2026-10-06):
 
 ```tsx filename="src/components/SiteHeader.tsx (extracto)"
-'bg-neutral-translucent backdrop-blur-300 [@media(prefers-reduced-transparency:reduce)]:bg-neutral-default'
+className="sticky top-0 z-10 flex items-center justify-between gap-400 border-b-(length:--t101-border-width-100) border-neutral-default bg-neutral-translucent p-400 backdrop-blur-300 [@media(prefers-reduced-transparency:reduce)]:bg-neutral-default"
 ```
+
+Las clases que importan aquí son tres: `bg-neutral-translucent` (el fondo translúcido), `backdrop-blur-300` (el desenfoque) y la última, que cambia el fondo a `bg-neutral-default` con la preferencia.
 
 </InCode>
 
