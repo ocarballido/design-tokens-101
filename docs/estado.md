@@ -309,7 +309,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - **Diseño:** logotipo con el nombre DesignToken101 (A14, P12).
 - **Diseño:** dibujar el panel lateral (V25) y la cabecera translúcida (V28), y quitar la capa `Marker` de los selectores (V26).
 - **Filas del sidebar:** la diferencia de radio con Figma queda resuelta por V23.
-- `/favicon.ico` da 404: no hay favicon en el diseño.
+- ~~`/favicon.ico` da 404~~: resuelto con V34 (2026-10-05). `icon.svg`, `favicon.ico` y `apple-icon.png` en `src/app/`; el build los enlaza en el `<head>` y las tres rutas dan 200. Sin probar en Safari ni en un iPhone.
 - `next/font/google` descarga las fuentes al compilar: el build necesita red (en local funciona; en Vercel, sin probar).
 - Lector de pantalla y prueba manual en Safari y Firefox: sin hacer.
 - `npm` bloquea el `postinstall` de `@swc/core`, que llega como dependencia de next-intl. No hace falta para el enrutado, y el build funciona sin él.
