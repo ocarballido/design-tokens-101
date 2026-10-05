@@ -2,7 +2,7 @@
 title: Crear las variables en Figma
 description: Cómo crear las colecciones semánticas en Figma con sus nombres definitivos, cómo trabajar con muchas variables a la vez y qué pasa si después tienes que renombrar una.
 nav_title: Crear las variables
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-05
 ---
 
 Con la convención escrita y los nombres decididos, toca crear las variables semánticas en Figma. En esta lección verás cómo crear las colecciones, cómo crear cada variable con todo lo que necesita y cómo trabajar con muchas a la vez. Al final, qué pasa si un día tienes que renombrar una.
@@ -95,7 +95,7 @@ En el archivo DTCG que exporta Figma, el nombre son los grupos del JSON, y el co
 }
 ```
 
-La ruta del JSON dice `color.text.accent.default`, y el code syntax dice otra cosa. En DesignToken101, `npm run check:tokens` comprueba que cada code syntax tenga su variable en el CSS, que se genera a partir de la ruta. Un code syntax viejo da error, así que se detecta antes de publicar.
+La ruta del JSON dice `color.text.accent.default`, y el code syntax dice otra cosa. En DesignToken101, `npm run check:tokens` comprueba que el code syntax de cada variable sea exactamente su ruta: `var(--t101-` + la ruta con guiones + `)`. Detecta tanto un code syntax viejo, tras renombrar, como uno copiado de otra variable, tras duplicar (comprobado el 2026-10-04 con una copia de la exportación). El error aparece antes de publicar.
 
 </InCode>
 
