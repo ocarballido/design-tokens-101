@@ -579,7 +579,7 @@ Sin tokens nuevos. Es el mismo lenguaje que el `SidebarItem` actual (marca later
 </Takeaways>
 ```
 
-**A comprobar en desarrollo:** que el `##` dentro del componente recibe su `id` de `rehype-slug` y que el enlace de "En esta página" llega. En Figma, la sesión de diseño lo pasa después, como en C14.
+**Comprobado en desarrollo (2026-10-05):** el `##` dentro del componente recibe su `id` de `rehype-slug` y el enlace de "En esta página" llega. Diferencias de la implementación con esta anatomía, pendientes de Oscar, en `estado.md` → Desarrollo → "C17 y C18: implementados". En Figma, la sesión de diseño lo pasa después, como en C14.
 
 ---
 
