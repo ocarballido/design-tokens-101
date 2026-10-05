@@ -56,6 +56,7 @@
   },
   "SiteFooter": {
     "createdBy": "A website by:",
-    "notice": "This website was made with help from Claude (Anthropic) and reviewed by a person."
+    "notice": "This website was made with help from Claude (Anthropic) and reviewed by a person.",
+    "authorSite": "Oscar Carballido, personal website"
   }
 }

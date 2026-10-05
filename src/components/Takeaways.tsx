@@ -20,7 +20,7 @@ export function Takeaways({ children }: { children: ReactNode }) {
       titleId = element.props.id;
       // §3.9: el título en text/neutral/default (los demás h2 van en text/neutral/subtle, §4.10).
       return cloneElement(element, {
-        className: 'type-heading-2 flex items-center gap-200 text-neutral-default',
+        className: 'type-heading-2 flex items-center gap-300 text-neutral-default',
         children: (
           <>
             <GraduationCap aria-hidden className="size-600 shrink-0 text-accent-default" />
@@ -66,7 +66,9 @@ export function Takeaways({ children }: { children: ReactNode }) {
     <section
       data-component="Takeaways"
       aria-labelledby={titleId}
-      className="flow rounded-container border-(length:--t101-border-width-100) border-s-(length:--t101-border-width-200) border-neutral-default border-s-accent-strong bg-neutral-subtle p-400 type-body-default text-neutral-default desktop:p-600"
+      // V35: fondo de acento y sin borde. flex y gap en vez de flow, que daría al h2 el margen
+      // superior de los títulos del texto.
+      className="flex flex-col gap-400 rounded-container bg-accent-subtle p-400 type-body-default text-neutral-default desktop:p-600"
     >
       {content}
     </section>

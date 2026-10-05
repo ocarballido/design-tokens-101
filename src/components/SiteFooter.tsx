@@ -3,6 +3,8 @@ import { Logo } from '@/components/Logo';
 
 // Anatomía: docs/componentes-v1.md §4.8. Región footer: logotipo, autor (P8) y aviso de P7.
 
+const AUTHOR_URL = 'https://www.oscarballido.com';
+
 export function SiteFooter() {
   const t = useTranslations('SiteFooter');
 
@@ -16,8 +18,11 @@ export function SiteFooter() {
             <br />
             Oscar Carballido
           </p>
-          {/* D22: logotipo del autor, decorativo (el nombre ya está escrito). */}
-          <img src="/brand/logo-oc.svg" alt="" width={39} height={24} />
+          {/* V36: el logotipo del autor enlaza a su web. D22: la imagen no lleva texto alternativo;
+              el nombre accesible lo da aria-label. 39 × 24 px (≥ 24 × 24, 2.5.8). */}
+          <a href={AUTHOR_URL} aria-label={t('authorSite')} className="self-start focus-ring">
+            <img src="/brand/logo-oc.svg" alt="" width={39} height={24} className="block" />
+          </a>
         </div>
         <p>{t('notice')}</p>
       </div>
