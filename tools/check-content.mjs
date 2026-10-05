@@ -6,6 +6,8 @@
 //   3. Los enlaces internos de las lecciones llevan a una página generada.
 //   4. Grupos del sidebar (C17): uno por separador "---Texto---" de content/{locale}/meta.json,
 //      con role="group" y aria-labelledby a su etiqueta.
+//   5. Números de sección (C19, V40): cada cabecera muestra el prefijo de su carpeta (01- → 1),
+//      salvo las de referencia (prefijo de 90 o más), que van sin número.
 // Uso: npm run build && npm run check:content
 
 import fs from 'node:fs';
@@ -38,6 +40,15 @@ const expected = byPrefix(fs.readdirSync(CONTENT_DIR)).flatMap((section) =>
 const groupLabels = (locale) => {
   const file = [locale, 'es'].map((l) => path.join(ROOT, 'content', l, 'meta.json')).find((f) => fs.existsSync(f));
   return JSON.parse(fs.readFileSync(file, 'utf8')).pages.map((p) => /^---(.+)---$/.exec(p)?.[1].trim()).filter(Boolean);
+};
+
+// C19, V40: número de cada sección en el orden de meta.json, sacado del prefijo de su carpeta
+// ("-" = sin número: prefijo de 90 o más, secciones de referencia).
+const sectionNumbers = (locale) => {
+  const file = [locale, 'es'].map((l) => path.join(ROOT, 'content', l, 'meta.json')).find((f) => fs.existsSync(f));
+  return JSON.parse(fs.readFileSync(file, 'utf8'))
+    .pages.filter((p) => !/^---(.+)---$/.test(p))
+    .map((p) => (Number(p.slice(0, 2)) >= 90 ? '-' : String(Number(p.slice(0, 2)))));
 };
 
 let anchorCount = 0;
@@ -85,6 +96,13 @@ for (const locale of LOCALES) {
         errors.push(`${page}: grupos del sidebar inesperados: ${labels.join(', ') || 'ninguno'}`);
       }
       if (groups.some((m) => m[1] !== m[2])) errors.push(`${page}: un grupo del sidebar no apunta a su etiqueta`);
+      // 5. Números de sección (C19, V40)
+      const numbers = [...nav[1].matchAll(/<button[^>]*aria-expanded[^>]*>([\s\S]*?)<\/button>/g)].map(
+        (m) => /<span[^>]*data-section-number[^>]*>([^<]*)<\/span>/.exec(m[1])?.[1] ?? '-',
+      );
+      if (numbers.join() !== sectionNumbers(locale).join()) {
+        errors.push(`${page}: números de sección inesperados: ${numbers.join(', ')} (se esperaba ${sectionNumbers(locale).join(', ')})`);
+      }
     }
 
     // 3. Enlaces internos del contenido
@@ -98,6 +116,7 @@ for (const locale of LOCALES) {
 console.log(`Páginas: ${expected.length} × ${LOCALES.length} idiomas`);
 console.log(`Anclas comprobadas: ${anchorCount} (${accentedCount} con tildes u otros caracteres no ASCII)`);
 console.log(`Grupos del sidebar (es): ${groupLabels('es').join(', ')}`);
+console.log(`Números de sección (es, "-" sin número): ${sectionNumbers('es').join(', ')}`);
 console.log(`Orden esperado del sidebar:\n  ${expected.join('\n  ')}`);
 
 if (errors.length) {

@@ -636,6 +636,7 @@ Sin tokens nuevos.
 | Prop | Tipo | En Figma |
 |---|---|---|
 | `title` | `string` | Texto |
+| `number` | `number \| null`: número del módulo (C19, V40). Sale del prefijo de la carpeta (`01-fundamentals` → 1); `null` en las secciones de referencia (prefijo de 90 o más: Recursos y, más adelante, Herramientas) | Texto (pendiente en Figma) |
 | `current` | `boolean`: la sección contiene la lección actual (V30) | Variante `current` = `true` / `false` |
 | `defaultOpen` | `boolean`: `true` solo si la sección contiene la lección actual (C11); en código, igual que `current` | Variante `open` = `true` / `false` |
 | `children` | los `SidebarItem` | Slot (visible solo con `open = true`) |
@@ -662,6 +663,8 @@ Sin tokens nuevos.
 | Radio | Sin radio (D26) | ← | ← |
 
 **Texto.** `label/default`.
+
+**Número del módulo** (C19, V40). Va delante del título, con el mismo estilo (`label/default`) y el mismo color que el título en cada estado de las dos tablas (también con `current`: `text/accent/default` y, en hover, `text/accent/hover`). Hueco entre número y título: `space/200`. Cifras tabulares (`font-variant-numeric: tabular-nums`), para que todos los números de una cifra midan lo mismo (9 px) y los títulos queden alineados sin ancho fijo. Forma parte del nombre accesible del botón ("1 Fundamentos", 2.5.3 Label in Name), con un espacio oculto entre número y título; no lleva `aria-hidden`. Las secciones sin número (referencia) empiezan donde empiezan los números. **Dos cifras (módulo 10):** "10" mide 18 px y desalinearía los títulos 9 px; se decide cuando exista (opciones en V40).
 
 #### `SidebarItem` (una lección: un enlace)
 
@@ -946,3 +949,4 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D32 | Panel de navegación móvil lateral en Figma (V25, §4.10). |
 | D33 | Componentes al día con el código: V18, V26, V28 (sin desenfoque), pie, `Link` y `Button` (§4.10). |
 | D34 | `ColorScale` en Figma (§3.8, §4.10). |
+| C19, V40 | Número del módulo en la cabecera de `SidebarSection`, del prefijo de la carpeta; sin número con prefijo de 90 o más (§4.2). |

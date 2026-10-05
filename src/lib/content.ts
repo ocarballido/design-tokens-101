@@ -32,6 +32,8 @@ export type Lesson = {
 export type Section = {
   slug: string;
   title: string;
+  /** C19: número del módulo, del prefijo de la carpeta (01- → 1); null en las de referencia (prefijo ≥ 90, V40). */
+  number: number | null;
   /** Grupo del sidebar (C17): texto del separador "---Texto---" anterior; null antes del primero. */
   group: string | null;
   lessons: Lesson[];
@@ -65,6 +67,15 @@ function readSectionTitle(locale: string, dir: string): string {
     }
   }
   throw new Error(`Falta content/${SOURCE_LOCALE}/${dir}/meta.json con "title"`);
+}
+
+// C19, V40: el número del módulo es el prefijo de la carpeta (00- → 0, 07- → 7). Las secciones de
+// referencia (Recursos, Herramientas, T8) llevan un prefijo de 90 o más y van sin número.
+const REFERENCE_PREFIX = 90;
+
+function sectionNumber(dir: string): number | null {
+  const prefix = Number(PREFIX.exec(dir)![1]);
+  return prefix >= REFERENCE_PREFIX ? null : prefix;
 }
 
 const SEPARATOR = /^---(.+)---$/;
@@ -102,6 +113,7 @@ export const getSections = cache((locale: string): Section[] => {
   return readSectionOrder(locale, [...dirs.keys()]).map(({ dir, group }) => ({
     slug: dirs.get(dir)!,
     title: readSectionTitle(locale, dir),
+    number: sectionNumber(dir),
     group,
     lessons: numbered(path.join(sourceRoot, dir), true).map((lessonFile) => {
       const file = `${dir}/${lessonFile.name}`;

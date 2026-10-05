@@ -12,6 +12,8 @@ import { cx } from '@/lib/cx';
 type SectionData = {
   slug: string;
   title: string;
+  /** C19: número del módulo (prefijo de la carpeta); null en las secciones de referencia. */
+  number: number | null;
   /** C17: grupo del sidebar (separador de content/{locale}/meta.json); null, sin grupo. */
   group: string | null;
   lessons: { title: string; href: string }[];
@@ -38,7 +40,7 @@ export function Sidebar({ label, sections }: SidebarData) {
     // está abierta esa sección. La key con la ruta vuelve a aplicar defaultOpen al navegar.
     const current = section.lessons.some((lesson) => lesson.href === pathname);
     return (
-      <SidebarSection key={`${section.slug}:${pathname}`} title={section.title} current={current} defaultOpen={current}>
+      <SidebarSection key={`${section.slug}:${pathname}`} title={section.title} number={section.number} current={current} defaultOpen={current}>
         {section.lessons.map((lesson) => (
           <SidebarItem key={lesson.href} title={lesson.title} href={lesson.href} current={pathname === lesson.href} />
         ))}
@@ -83,11 +85,14 @@ function SidebarGroup({ label, children }: { label: string; children: ReactNode 
 
 function SidebarSection({
   title,
+  number,
   current = false,
   defaultOpen = false,
   children,
 }: {
   title: string;
+  /** C19: número del módulo; null en las secciones de referencia. */
+  number: number | null;
   /** V30: contiene la lección actual. Título y chevron en el acento; sin ARIA propio (lo anuncia el SidebarItem). */
   current?: boolean;
   defaultOpen?: boolean;
@@ -109,7 +114,21 @@ function SidebarSection({
           current ? 'text-accent-default hover:text-accent-hover' : 'text-neutral-default',
         )}
       >
-        <span className="flex-1">{title}</span>
+        {/* C19, V40: el número del módulo forma parte del nombre accesible ("1 Fundamentos", 2.5.3);
+            el espacio oculto lo separa del título también en el árbol de accesibilidad. Mismo
+            estilo y color que el título (los hereda). Cifras tabulares: con números de una cifra
+            los títulos quedan alineados sin ancho fijo (V40). */}
+        <span className="flex flex-1 gap-200">
+          {number !== null && (
+            <>
+              <span data-section-number className="shrink-0 tabular-nums">
+                {number}
+              </span>
+              <span className="sr-only"> </span>
+            </>
+          )}
+          <span className="flex-1">{title}</span>
+        </span>
         <Chevron
           aria-hidden
           className={cx(
