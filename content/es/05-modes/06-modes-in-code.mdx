@@ -1,0 +1,210 @@
+---
+title: Los modos en código
+description: Qué pasa con los modos de Figma al llegar al código. DTCG no tiene modos y los une el Resolver; en CSS, cada modo es un bloque que redefine las mismas variables. Cómo elige la web el tema y el ancho de pantalla.
+nav_title: Los modos en código
+lastReviewed: 2026-10-05
+---
+
+En Figma, eliges el modo de cada pantalla a mano. En la web, alguien tiene que elegirlo por ti: la preferencia del sistema, un selector de tema o el ancho de la ventana. En esta lección verás el recorrido de un modo desde Figma hasta el CSS, en lo justo para entender los modos. Cómo se exporta y se convierte todo el sistema lo verás en el módulo De Figma al código.
+
+**En esta página**
+
+- [De la colección al CSS](#de-la-colección-al-css)
+- [DTCG no tiene modos](#dtcg-no-tiene-modos)
+- [Un bloque por modo](#un-bloque-por-modo)
+- [El tema](#el-tema)
+- [El ancho de pantalla](#el-ancho-de-pantalla)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## De la colección al CSS
+
+<Flow caption="El recorrido de los modos de una colección, de Figma al CSS de DesignToken101.">
+  <FlowStep title="Colección con modos" meta="Semantic color: Light y Dark" />
+  <FlowStep title="Un archivo por modo" meta="Light.tokens.json y Dark.tokens.json" />
+  <FlowStep title="Un modificador del Resolver" meta="theme: light y dark" />
+  <FlowStep title="Un bloque de CSS por modo" meta=':root y [data-theme="dark"]' />
+</Flow>
+
+1. **Colección con modos.** Lo que has creado en este módulo.
+2. **Un archivo por modo.** La exportación de Figma da un archivo DTCG por modo, con todas las variables de la colección ([Exportar los modos](/modes/create-modes#exportar-los-modos)).
+3. **Un modificador del Resolver.** Un archivo que dice qué archivos forman cada modo y cómo se combinan.
+4. **Un bloque de CSS por modo.** El CSS final, con las mismas variables redefinidas en cada modo.
+
+## DTCG no tiene modos
+
+Un archivo DTCG da un valor a cada token. No tiene una columna por modo, como Figma. Para los valores alternativos, como claro y oscuro, existe un módulo aparte, el **Resolver** ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)):
+
+- Un **conjunto** (*set*) reúne archivos de tokens que se cargan siempre ([Sets](https://www.designtokens.org/TR/2025.10/resolver/#sets)).
+- Un **modificador** (*modifier*) es un eje: carga unos archivos u otros según el **contexto** elegido, y puede declarar uno por defecto ([Modifiers](https://www.designtokens.org/TR/2025.10/resolver/#modifiers)).
+- El **orden de resolución** dice en qué orden se combinan; si un token aparece dos veces, gana el último ([Resolution order](https://www.designtokens.org/TR/2025.10/resolver/#resolution-order)).
+
+La equivalencia con Figma es directa: **una colección con modos es un modificador, y cada modo es un contexto**. Las colecciones de un modo van en un conjunto.
+
+| Figma | Resolver de DesignToken101 |
+|---|---|
+| `Primitives` y `Semantic size` (un modo) | Conjunto `base`, que se carga siempre |
+| `Semantic color` (Light, Dark) | Modificador `theme`: `light` (por defecto) y `dark` |
+| `Layout` (Desktop, Mobile) | Modificador `layout`: `mobile` (por defecto) y `desktop` |
+
+<InCode title="El Resolver de DesignToken101">
+
+```json filename="tokens/tokens101.resolver.json (abreviado)"
+{
+  "version": "2025.10",
+  "sets": {
+    "base": {
+      "sources": [
+        { "$ref": "dtcg/primitives/Value.tokens.json" },
+        { "$ref": "dtcg/semantic-size/Value.tokens.json" },
+        { "$ref": "code-only.tokens.json" }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "default": "light",
+      "contexts": {
+        "light": [{ "$ref": "dtcg/semantic-color/Light.tokens.json" }],
+        "dark": [{ "$ref": "dtcg/semantic-color/Dark.tokens.json" }]
+      }
+    },
+    "layout": {
+      "default": "mobile",
+      "contexts": {
+        "mobile": [{ "$ref": "dtcg/layout/Mobile.tokens.json" }],
+        "desktop": [{ "$ref": "dtcg/layout/Desktop.tokens.json" }]
+      }
+    }
+  },
+  "resolutionOrder": [
+    { "$ref": "#/sets/base" },
+    { "$ref": "#/modifiers/theme" },
+    { "$ref": "#/modifiers/layout" }
+  ]
+}
+```
+
+Los archivos de `dtcg/` son los de Figma después de un paso de normalización, y `code-only.tokens.json` tiene los tokens que no existen en Figma. Los dos los verás en el módulo De Figma al código.
+
+</InCode>
+
+## Un bloque por modo
+
+En CSS, cada modo es un **selector que redefine las mismas variables**. El nombre de la variable es igual en todos los modos; cambia el valor:
+
+```css filename="src/styles/tokens.css (abreviado)"
+:root {
+  --t101-color-text-neutral-default: var(--t101-color-neutral-900);
+}
+
+[data-theme="dark"] {
+  --t101-color-text-neutral-default: var(--t101-color-neutral-50);
+}
+```
+
+Un componente usa `--t101-color-text-neutral-default` y no sabe nada del tema. Es la misma idea que en Figma: el nombre que aplicas no cambia con el modo. shadcn/ui lo hace igual: define las variables en `:root` y las vuelve a definir, con otros valores, en un selector `.dark` ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)).
+
+**Cada bloque lleva todos los tokens de su colección.** El bloque de Dark de DesignToken101 tiene los 33 tokens de `Semantic color`, también los que valen lo mismo en los dos modos, como `color/background/overlay`. Es la regla del modo de Figma llevada al CSS ([Tokens que no cambian](/modes/light-and-dark#tokens-que-no-cambian)).
+
+<Callout variant="recommendation">
+
+En DesignToken101 preferimos repetir esas pocas declaraciones antes que quitarlas. Con todos los tokens en cada bloque, el CSS es un reflejo exacto de la colección de Figma, y la comprobación automática se reduce a una condición: el bloque de Dark tiene los mismos tokens que `Semantic color`. Si un día un token cambia en Dark, no hay que tocar la configuración.
+
+</Callout>
+
+## El tema
+
+La web de DesignToken101 tiene un selector de tema con tres opciones: claro, oscuro y sistema. Por defecto está en sistema.
+
+- **Sistema** sigue la preferencia del sistema operativo, con la consulta `prefers-color-scheme`. Su valor `light` indica una preferencia por el tema claro **o ninguna preferencia**; `dark`, una preferencia por el oscuro ([MDN: prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)).
+- **Claro** y **oscuro** ganan a la preferencia del sistema. El selector lo indica con un atributo en `<html>`: `data-theme="dark"` o `data-theme="light"`.
+
+Las referencias lo resuelven igual, con un atributo o una clase en `<html>` y una opción que sigue al sistema: Atlassian, con los atributos `data-color-mode` y `data-theme` y el valor `auto` ([Atlassian: Design tokens, Code](https://atlassian.design/components/tokens/code)); shadcn/ui, con la clase `dark` y el tema `system` ([shadcn/ui: Dark mode, Next.js](https://ui.shadcn.com/docs/dark-mode/next)).
+
+Cada bloque de tema declara también la propiedad `color-scheme`. Con ella, el navegador adapta lo que no sale de los tokens, como las barras de desplazamiento y los controles de formulario por defecto ([MDN: color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme)).
+
+<InCode title="Los selectores del tema y el script que evita el parpadeo">
+
+El bloque de Dark aparece dos veces en `tokens.css`, con los mismos tokens:
+
+```css filename="src/styles/tokens.css (abreviado)"
+:root {
+  color-scheme: light;
+  /* Light: todos los tokens */
+}
+
+/* Oscuro, elegido en el selector */
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* Dark: los 33 tokens de Semantic color */
+}
+
+/* Sistema: el sistema operativo prefiere el oscuro y no se ha elegido claro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    /* Dark: los 33 tokens de Semantic color */
+  }
+}
+```
+
+El selector de tema pone o quita `data-theme` en `<html>`. Con "sistema" lo quita, y manda la consulta `prefers-color-scheme`.
+
+La elección se guarda en el navegador con `localStorage` ([MDN: Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)), con la clave `t101-theme` y el valor `light` o `dark`. "Sistema" la borra. Para que la página no se pinte un instante con el tema equivocado antes de leer esa clave, un script en `<head>` la lee y pone `data-theme` antes de pintar:
+
+```js filename="src/lib/theme.ts"
+try {
+  var t = localStorage.getItem('t101-theme');
+  if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+} catch (e) {}
+```
+
+El `try` cubre los navegadores que no dejan usar `localStorage`: en ellos, la elección vale para esa página.
+
+</InCode>
+
+## El ancho de pantalla
+
+En Figma, el modo de `Layout` lo eliges en cada marco. En la web lo decide el ancho de la ventana, y el orden es el contrario:
+
+- **Mobile es el valor por defecto**, en `:root`.
+- **Desktop se aplica desde 64rem** (1024 px), con la consulta `@media (width >= 64rem)`.
+
+Es el enfoque *mobile-first* de Tailwind CSS: los estilos sin prefijo valen para todos los anchos y los breakpoints añaden cambios a partir de un ancho mínimo. 64rem es el breakpoint `lg` de Tailwind CSS v4 ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)).
+
+El corte de 64rem es un token, `breakpoint/desktop`, pero **existe únicamente en código**. En Figma no hay nada que lo use: el modo se elige a mano, no por el ancho del marco. Por eso no es una variable de Figma, y su fuente es la especificación del sistema.
+
+```css filename="src/styles/tokens.css (abreviado)"
+:root {
+  --t101-font-size-heading-1: var(--t101-font-size-06); /* Mobile: 32 px */
+}
+
+@media (width >= 64rem) {
+  :root {
+    --t101-font-size-heading-1: var(--t101-font-size-07); /* Desktop: 40 px */
+  }
+}
+```
+
+<Callout variant="note">
+
+Por eso el modo por defecto de Figma y el del código no coinciden en `Layout`: en Figma es Desktop (la primera columna) y en el Resolver, `mobile`. El de Figma decide qué ves en un marco sin modo; el del código, qué valor tienen las variables antes de cualquier consulta. Son decisiones distintas.
+
+</Callout>
+
+## Lo que te llevas
+
+- Una colección con modos es un modificador del Resolver de DTCG, y cada modo, un contexto.
+- En CSS, cada modo es un bloque que redefine las mismas variables, con todos los tokens de su colección.
+- El tema lo eligen el sistema o el selector de la web; el ancho de pantalla, una consulta desde 64rem, un token que no existe en Figma.
+
+## Fuentes
+
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
+- [MDN: prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)
+- [MDN: color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme)
+- [MDN: Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+- [Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)
+- [shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)
+- [shadcn/ui: Dark mode, Next.js](https://ui.shadcn.com/docs/dark-mode/next)
+- [Atlassian: Design tokens, Code](https://atlassian.design/components/tokens/code)

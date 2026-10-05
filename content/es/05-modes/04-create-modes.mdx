@@ -1,0 +1,170 @@
+---
+title: Crear los modos en Figma
+description: Cómo añadir el modo Dark a Semantic color y qué valores trae al crearse, cómo cambiar el modo por defecto, cómo crear la colección Layout con Desktop y Mobile, vincular los estilos de texto y exportar cada modo.
+nav_title: Crear los modos
+lastReviewed: 2026-10-05
+---
+
+Ya sabes qué es un modo y por qué cada eje tiene su colección. En esta lección los creas en Figma: el modo Dark de `Semantic color` y la colección `Layout` con Desktop y Mobile. También verás qué es el modo por defecto, qué pasa si borras un modo y qué sale al exportar cada uno.
+
+**En esta página**
+
+- [Añadir el modo Dark](#añadir-el-modo-dark)
+- [Cambiar los alias de Dark](#cambiar-los-alias-de-dark)
+- [Cambiar el modo por defecto](#cambiar-el-modo-por-defecto)
+- [Crear la colección Layout](#crear-la-colección-layout)
+- [Vincular los estilos de texto](#vincular-los-estilos-de-texto)
+- [Borrar un modo](#borrar-un-modo)
+- [Exportar los modos](#exportar-los-modos)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Añadir el modo Dark
+
+Según la ayuda de Figma ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)):
+
+1. Abre la vista **Variables** y elige la colección `Semantic color`.
+2. Haz clic en **New variable mode**, a la derecha de los nombres de las columnas.
+3. Cambia el nombre del modo nuevo a Dark.
+
+También puedes hacer clic derecho en el nombre de un modo y elegir **Duplicate mode**.
+
+**Qué valores trae el modo nuevo.** Figma copia en él los valores de la primera columna. Lo comprobamos el 2026-10-05 con la API de plugins de Figma, en una colección temporal: un alias se copió como alias al mismo primitivo, y un valor directo, tal cual. Es decir, recién creado, el modo Dark es una copia exacta de Light: tu diseño en Dark se ve igual que en Light hasta que cambies los alias.
+
+## Cambiar los alias de Dark
+
+Con tu mapa de alias delante, recorre la columna Dark y cambia el alias de cada celda por el primitivo de tu mapa, como hiciste en Light en el módulo 4 ([Crear una variable completa](/naming/create-variables#crear-una-variable-completa)).
+
+| Token | Light | Dark |
+|---|---|---|
+| `color/background/neutral/default` | `color/white` | `color/neutral/950` |
+| `color/text/neutral/default` | `color/neutral/900` | `color/neutral/50` |
+| `color/text/accent/default` | `color/emerald/700` | `color/emerald/400` |
+
+Los tokens que tienen el mismo valor en los dos modos, como `color/text/on-accent`, se quedan con la copia ([Tokens que no cambian](/modes/light-and-dark#tokens-que-no-cambian)). Los valores directos se escriben a mano en la columna Dark: en DesignToken101, `color/background/neutral/translucent` pasa a `#050C09` al 90 %.
+
+<Callout variant="warning">
+
+Como el modo nuevo es una copia de Light, una celda que olvides cambiar no da ningún error: se queda con el valor de Light. Compara la columna Dark con tu mapa fila a fila antes de darla por terminada.
+
+</Callout>
+
+## Cambiar el modo por defecto
+
+El modo por defecto es la **columna de la izquierda**. Para cambiarlo, en la vista Variables, haz clic derecho en un modo y elige **Set as default**, o arrástralo a la primera columna ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+
+Lo que dice la ayuda sobre el cambio:
+
+- Los elementos en **Auto** o con el modo por defecto pasan a usar el nuevo modo por defecto.
+- Los elementos con un modo elegido siguen con ese modo, aunque ya no sea el de por defecto.
+
+En DesignToken101, Light es el modo por defecto de `Semantic color` y Desktop, el de `Layout`. No hace falta cambiarlos.
+
+## Crear la colección Layout
+
+`Layout` guarda un tamaño de texto por estilo, con un valor para Desktop y otro para Mobile. Créala como las demás ([Crear las variables en Figma](/naming/create-variables)):
+
+1. Crea la colección `Layout` y cambia el nombre de su primer modo a Desktop.
+2. Añade un modo con **New variable mode** y llámalo Mobile.
+3. Crea una variable Number por estilo de texto, con el nombre `font-size/{estilo}`.
+4. Pon en cada modo el alias al primitivo `font-size/*` de la tabla.
+5. Añade la descripción, el scope *Font size* y el code syntax Web: `var(--t101-font-size-heading-1)`.
+
+| Token | Desktop | Mobile |
+|---|---|---|
+| `font-size/heading/1` | `font-size/07` (40) | `font-size/06` (32) |
+| `font-size/heading/2` | `font-size/06` (32) | `font-size/05` (24) |
+| `font-size/heading/3` | `font-size/05` (24) | `font-size/04` (20) |
+| `font-size/heading/4` | `font-size/04` (20) | `font-size/04` (20) |
+| `font-size/body/default` | `font-size/03` (16) | `font-size/03` (16) |
+| `font-size/body/small` | `font-size/02` (14) | `font-size/02` (14) |
+| `font-size/label/default` | `font-size/02` (14) | `font-size/02` (14) |
+| `font-size/caption/default` | `font-size/01` (12) | `font-size/01` (12) |
+| `font-size/code/default` | `font-size/02` (14) | `font-size/02` (14) |
+
+En Mobile, los títulos bajan un paso de la escala, salvo `heading/4`, y el resto no cambia. El texto de lectura se queda en 16 px.
+
+<Callout variant="recommendation">
+
+En DesignToken101, **todos los estilos de texto tienen su token en `Layout`**, aunque cinco valgan lo mismo en los dos modos. Así todos los estilos se vinculan a la misma capa, y si un día el texto de lectura tuviera que cambiar en móvil, cambiarías un alias de `Layout`, no el estilo.
+
+</Callout>
+
+`body/strong` no tiene token propio: usa `font-size/body/default`, porque tiene el mismo tamaño que `body/default`.
+
+## Vincular los estilos de texto
+
+En [Estilos de texto como capa](/relations/text-styles#en-figma) vinculaste el tamaño de cada estilo a un primitivo, `font-size/07` por ejemplo, porque aún no tenías `Layout`. Ahora cámbialo: edita cada estilo de texto y aplica en el tamaño su variable de `Layout` (`font-size/heading/1` en `heading/1`) ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)).
+
+Con el tamaño vinculado a `Layout`, el estilo cambia con el modo del marco donde está el texto. Lo comprobamos dos veces en el archivo de DesignToken101:
+
+- El 2026-09-30, con el estilo `heading/1`: 40 px en Desktop y 32 px en Mobile.
+- El 2026-10-05, con la API de plugins y un texto temporal con el tamaño vinculado a `font-size/heading/1`: 40 px sin modo elegido (Desktop es el modo por defecto), 32 px en Mobile y 40 px en Desktop.
+
+Cómo se elige el modo de un marco lo verás en [Aplicar los modos al diseño](/modes/apply-modes).
+
+## Borrar un modo
+
+Si borras un modo que usa algún marco, ese marco no se queda sin valores. Lo comprobamos el 2026-10-05 con la API de plugins de Figma: borramos el modo que tenía elegido un marco, y sus elementos pasaron a mostrar el modo por defecto.
+
+Antes de borrar un modo, busca qué pantallas lo usan: después del borrado, se verán con otro modo sin avisar.
+
+## Exportar los modos
+
+La ayuda de Figma documenta dos formas de exportar ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)):
+
+- **Un modo:** clic derecho en el modo y **Export mode**.
+- **Todos los modos de una colección:** clic derecho en la colección y **Export modes**.
+
+Al exportar los modos de una colección, Figma entrega un archivo por modo, con el nombre del modo: `Light.tokens.json` y `Dark.tokens.json` para `Semantic color` (comprobado con la exportación de DesignToken101, el 2026-10-03). Lo que hay dentro de cada archivo lo comprobamos en esa misma exportación:
+
+- **Todas las variables de la colección**, también las que tienen el mismo valor en los dos modos.
+- **El valor de ese modo**, ya resuelto: el color, no el alias. El alias va aparte, en `$extensions`.
+- **El nombre del modo**, en `$extensions` del archivo.
+
+`Primitives` y `Semantic size` tienen el mismo nombre de modo, `Value`, así que sus archivos se llamarían igual. En DesignToken101, cada colección se guarda en su propia carpeta.
+
+<InCode title="Un token en el archivo de Dark">
+
+El mismo token en `Dark.tokens.json` lleva el valor de Dark y el alias de Dark:
+
+```json filename="tokens/figma/semantic-color/Dark.tokens.json (abreviado)"
+{
+  "color": {
+    "text": {
+      "neutral": {
+        "default": {
+          "$type": "color",
+          "$value": { "colorSpace": "srgb", "hex": "#F9FAFA" },
+          "$description": "Texto principal",
+          "$extensions": {
+            "com.figma.codeSyntax": { "WEB": "var(--t101-color-text-neutral-default)" },
+            "com.figma.aliasData": { "targetVariableName": "color/neutral/50" }
+          }
+        }
+      }
+    }
+  },
+  "$extensions": { "com.figma.modeName": "Dark" }
+}
+```
+
+En `Light.tokens.json`, el mismo token tiene `#101A15` y apunta a `color/neutral/900`. Qué falta en esta exportación para usarla en código, y cómo se completa, lo verás en el módulo De Figma al código.
+
+</InCode>
+
+<Callout variant="note">
+
+Figma también permite importar un archivo DTCG en un modo (**Import mode**): actualiza las variables que coinciden en nombre y tipo ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). En este curso no lo usamos: creas los modos a mano desde tu mapa.
+
+</Callout>
+
+## Lo que te llevas
+
+- Un modo nuevo copia los valores de la primera columna, alias incluidos: hasta que cambias sus alias, Dark es igual que Light.
+- `Layout` tiene un tamaño de texto por estilo, y cada estilo de texto vincula su tamaño a esa colección.
+- Al exportar, cada modo es un archivo con todas las variables de la colección y su valor en ese modo.
+
+## Fuentes
+
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)

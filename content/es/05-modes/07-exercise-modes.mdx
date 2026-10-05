@@ -1,0 +1,117 @@
+---
+title: "Ejercicio: añade los modos"
+description: Añade el modo Dark a Semantic color, crea la colección Layout con Desktop y Mobile, vincula los estilos de texto y aplica los modos a tus pantallas. Termina exportando tus colecciones para el módulo 6.
+nav_title: Ejercicio
+lastReviewed: 2026-10-05
+---
+
+En este ejercicio completas tus colecciones semánticas con sus modos y las pruebas en tus pantallas. Partes de lo que preparaste en el ejercicio del módulo 4: la columna Dark de tu mapa y los tamaños de texto de escritorio y móvil. Al terminar, cambiar una pantalla de tema o de ancho será elegir otro modo en su marco, y tendrás los archivos que usarás en el módulo De Figma al código.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Añade el modo Dark](#paso-1-añade-el-modo-dark)
+- [Paso 2 Cambia los alias de Dark](#paso-2-cambia-los-alias-de-dark)
+- [Paso 3 Crea la colección Layout](#paso-3-crea-la-colección-layout)
+- [Paso 4 Vincula los estilos de texto](#paso-4-vincula-los-estilos-de-texto)
+- [Paso 5 Aplica los modos a tus pantallas](#paso-5-aplica-los-modos-a-tus-pantallas)
+- [Paso 6 Revisa las cuatro pantallas](#paso-6-revisa-las-cuatro-pantallas)
+- [Paso 7 Exporta tus colecciones](#paso-7-exporta-tus-colecciones)
+- [Comprueba tus modos](#comprueba-tus-modos)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué necesitas
+
+- Tu mapa de alias con la columna Dark rellena y los tamaños de texto de escritorio y móvil anotados ([paso 7 del ejercicio del módulo 4](/naming/exercise-naming#paso-7-prepara-los-modos)).
+- Tu archivo de Figma con `Primitives`, `Semantic color` (modo Light), `Semantic size` y tus estilos de texto.
+- Una pantalla de tu diseño en escritorio y la misma en móvil, con las variables semánticas aplicadas.
+- Entre 60 y 90 minutos.
+
+Si tu diseño no va a tener tema oscuro, salta los pasos 1 y 2 y haz el resto con `Layout`: el método es el mismo para cualquier eje.
+
+## Paso 1 Añade el modo Dark
+
+En la vista Variables, abre `Semantic color`, haz clic en **New variable mode** y llama Dark al modo nuevo ([Añadir el modo Dark](/modes/create-modes#añadir-el-modo-dark)).
+
+Comprueba que Light sigue siendo la primera columna: es el modo por defecto.
+
+## Paso 2 Cambia los alias de Dark
+
+Recorre la columna Dark con tu mapa al lado:
+
+1. Cambia el alias de cada variable por el primitivo de la columna Dark de tu mapa.
+2. Deja la copia en los tokens que valen lo mismo en los dos modos.
+3. Escribe a mano los valores directos, como los fondos con transparencia.
+
+Al terminar, compara las dos columnas fila a fila con tu mapa. Una celda olvidada no da error: se queda con el valor de Light.
+
+## Paso 3 Crea la colección Layout
+
+Crea la colección `Layout` con los modos Desktop y Mobile, en ese orden ([Crear la colección Layout](/modes/create-modes#crear-la-colección-layout)). Después, crea una variable Number por estilo de texto:
+
+1. El nombre: `font-size/{estilo}`, con el nombre de tu estilo de texto.
+2. En cada modo, el alias al primitivo `font-size/*` que anotaste para escritorio y para móvil.
+3. La descripción, el scope *Font size* y el code syntax Web con tu prefijo.
+
+Crea un token por estilo, también para los estilos cuyo tamaño no cambia entre los dos anchos.
+
+## Paso 4 Vincula los estilos de texto
+
+Edita cada estilo de texto y cambia la variable de su tamaño: del primitivo `font-size/*` a su token de `Layout` ([Vincular los estilos de texto](/modes/create-modes#vincular-los-estilos-de-texto)).
+
+## Paso 5 Aplica los modos a tus pantallas
+
+Duplica tus pantallas hasta tener las cuatro combinaciones. En el marco de cada una, elige un modo de cada colección con **Apply variable mode** ([Elegir el modo de un marco](/modes/apply-modes#elegir-el-modo-de-un-marco)):
+
+| Pantalla | `Semantic color` | `Layout` |
+|---|---|---|
+| Escritorio, tema claro | Light | Desktop |
+| Escritorio, tema oscuro | Dark | Desktop |
+| Móvil, tema claro | Light | Mobile |
+| Móvil, tema oscuro | Dark | Mobile |
+
+Elige los modos en el marco de la pantalla, no en los elementos de dentro.
+
+## Paso 6 Revisa las cuatro pantallas
+
+Compara las pantallas de dos en dos y busca lo que no cambia cuando debería:
+
+- **En Dark, algo se ve igual que en Light.** Si no es un token que vale lo mismo en los dos modos, es un valor suelto, sin variable, o una celda de Dark sin cambiar. Vincúlalo o corrige el alias.
+- **Un texto se lee mal en Dark.** Comprueba en tu mapa el contraste de ese par en Dark. Si el mapa dice que cumple, revisa qué token tiene aplicado el texto y cuál el fondo.
+- **En Mobile, un título no cambia de tamaño.** Revisa que su estilo tenga el tamaño vinculado a `Layout`, y que el texto use el estilo.
+- **Una instancia no cambia de tema.** Revisa si su componente principal tiene un modo elegido ([Instancias y componentes](/modes/apply-modes#instancias-y-componentes)).
+- **Un logotipo o una imagen no cambian.** Si están exportados o pegados como imagen, necesitan una versión por modo ([Lo que los tokens no cambian](/modes/light-and-dark#lo-que-los-tokens-no-cambian)).
+
+## Paso 7 Exporta tus colecciones
+
+Este paso prepara el módulo De Figma al código.
+
+1. En la vista Variables, haz clic derecho en cada colección y elige **Export modes** ([Exportar los modos](/modes/create-modes#exportar-los-modos)).
+2. Guarda los archivos de cada colección en una carpeta con el nombre de la colección: `primitives/`, `semantic-color/`, `semantic-size/` y `layout/`. Así no se pisan los archivos de las colecciones con el mismo nombre de modo.
+3. Abre `Light.tokens.json` y `Dark.tokens.json`, busca el token del texto principal y compara los dos: el valor y el primitivo al que apunta.
+4. Anota lo que te sorprenda del archivo. Por ejemplo: el valor ya viene resuelto, y el alias está en `$extensions`. En el módulo 6 verás qué hay que completar para usar estos archivos en código.
+
+## Comprueba tus modos
+
+Tus modos están listos si puedes responder que sí a estas preguntas:
+
+- ¿`Semantic color` tiene Light y Dark, con Light en la primera columna?
+- ¿Cada variable de Dark apunta al primitivo de tu mapa, o lleva su valor directo con su motivo en la descripción?
+- ¿`Layout` tiene Desktop y Mobile, y un token por estilo de texto con su alias en cada modo?
+- ¿Cada estilo de texto vincula su tamaño a su token de `Layout`?
+- ¿Tus cuatro pantallas eligen los modos en su marco, y cambian de tema y de tamaño de texto sin valores sueltos?
+- ¿Tienes los archivos exportados de cada colección, en su carpeta?
+
+## Lo que te llevas
+
+- Tu colección `Semantic color` tiene los modos Light y Dark, con cada alias decidido desde tu mapa.
+- Tu colección `Layout` tiene Desktop y Mobile, y tus estilos de texto cambian de tamaño con el modo.
+- Tienes tus pantallas en las cuatro combinaciones y los archivos exportados para el módulo De Figma al código.
+
+## Fuentes
+
+Las de las lecciones del módulo. En especial:
+
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
