@@ -30,6 +30,9 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Muestra de estilos de texto | Foundations |: |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
 | Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark | Pages | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
+| `Takeaways` (C18 + V35, D28; §3.4 de este documento) | Components | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364) |
+| `SidebarGroup` (C17, D29) | Components (Molecules) | [89:1418](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1418) |
+| `AuthorLink`, logotipo del autor del pie (V36, D30) | Components (Atoms) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663) |
 
 Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
 
@@ -82,7 +85,10 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `ThemeToggle` → `ThemeOption` | `value` (`light`/`dark`/`system`), `current` | `state` | `button` con `aria-pressed`. |
 | `SkipLink` |: |: | Primer elemento enfocable; visible solo con el foco (2.4.1). |
 | `SiteHeader` |: | `size` (`large` escritorio / `small` móvil) | En móvil, los selectores van en el panel de navegación (D19, D21). |
-| `SiteFooter` |: |: | Incluye el aviso P7. |
+| `SiteFooter` |: |: | Incluye el aviso P7. El logotipo del autor es la instancia de `AuthorLink` (V36, D30). |
+| `AuthorLink` |: (en código, el `<a>` de `SiteFooter`) | `state` (`default` / `focus`) | 39 × 24 px; anillo por fuera. |
+| `Takeaways` | `children` (título y lista del MDX) | `size` (`large` / `small`) | Ver §3.4. |
+| `SidebarGroup` | `label` (texto del separador de `meta.json`) |: | Las secciones del grupo van después, como hermanas (D29). |
 
 ### 3.1 Estados: cómo pasarlos a CSS
 
@@ -158,6 +164,38 @@ Variantes de `FlowStep` (5): `link=false` con `status` `default` y `pending`; `l
 - Contraste igual que la tabla de §3.7, calculado con las variables en Light / Dark: título 16,98 / 14,36; título en hover 6,90 / 10,60; meta 7,38 / 5,82; icono 4,85 / 8,30; borde en hover 3,18 / 8,30; `pending` 7,40 / 6,89; título del grupo 17,79 / 18,89; meta del grupo, pie y conector 7,74 / 7,65; anillo sobre la página 3,33 / 10,92 y sobre el paso 3,18 / 8,30.
 - Pasos con enlace: 154 × 65 px en Desktop y 309 × 65 px en Mobile (≥ 24 × 24).
 - Sin desbordamiento horizontal en el marco de 375 px.
+
+### 3.4 `Takeaways`, grupos del sidebar y enlace del autor (C18 + V35, C17, V36): en Figma el 2026-10-05 (D28–D30)
+
+Figma refleja lo implementado y comprobado en código. Anatomía en `componentes-v1.md` §3.9, §4.2 y §4.8; diferencias en §4.10.
+
+**Nodos**
+
+| Qué | Nodo |
+|---|---|
+| Marco `Takeaways` (Components) | [89:365](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-365) |
+| `Takeaways` (conjunto `size=large` / `size=small`) | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364): [89:306](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-306) / [89:335](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-335) |
+| `SidebarGroup` | [89:1418](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1418) |
+| `AuthorLink` (conjunto `state=default` / `state=focus`) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663): [89:1658](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1658) / [89:1662](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1662) |
+| `Takeaways` en las plantillas (antes de "Fuentes") | 89:1268 (35:843), 89:1293 (35:1479), 89:1318 (52:487), 89:1343 (52:688), 89:1368 (55:699), 89:1393 (55:833) |
+
+**Medidas** (todo con variables)
+
+| Parte | Tokens |
+|---|---|
+| `Takeaways` | fondo `background/accent/subtle`; sin borde; `radius/container`; relleno `space/600` (`large`) o `space/400` (`small`); gap título–lista `space/400` |
+| Título | `heading/2`, `text/neutral/default`; icono `li:graduation-cap` 24 px en `text/accent/default`; gap `space/300`; centrados en vertical |
+| Lista | gap `space/200` entre elementos; en cada uno, marca `li:check` 16 px en `text/accent/default` dentro de un marco con `space/100` arriba y abajo, gap `space/200` hasta el texto (`body/default`, `text/neutral/default`) |
+| `SidebarGroup` | `space/600` encima; separador `border/neutral/default` de `border-width/100`; `space/200` hasta la etiqueta y `space/200` hasta la primera sección; relleno lateral `space/300`; etiqueta `caption/default`, `text/neutral/subtle` |
+| `AuthorLink` `focus` | anillo `border/focus` de `border-width/200`, por fuera |
+
+**Plantillas.** Las seis tienen el sidebar con los tres grupos: "Empezar aquí" (sin grupo, abierta y `current`), "Diseñar los tokens" (Fundamentos, Primitivos, Relaciones, Nombrar, Modos y temas), "Tokens en código" (De Figma al código) y "Referencia" (Recursos). Todas las secciones salvo la actual, cerradas; la lección de Recursos, oculta (C11). En las plantillas móviles el sidebar está oculto, como antes (solo se ve en el menú abierto).
+
+**Auditoría (2026-10-05)**
+- Sin valores sueltos en los 39 nodos de los tres componentes (colores, espacios, radios y grosores con variables). Fuera de la regla, como en el resto del archivo: el tamaño de los iconos (24 y 16 px) y el logotipo del autor (D22).
+- Todo el texto con estilo (`heading/2`, `body/default`, `caption/default`).
+- `AuthorLink` `focus` con el anillo por fuera; 39 × 24 px (≥ 24 × 24).
+- Contraste calculado con las variables, Light / Dark: texto de `Takeaways` 16,98 / 14,36; icono y marcas 4,85 / 8,30; etiqueta de grupo 7,74 / 7,65; anillo de foco sobre el pie 3,33 / 10,92. Coincide con lo medido en código.
 
 ## 4. Accesibilidad comprobada en el diseño
 

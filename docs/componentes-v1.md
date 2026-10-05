@@ -577,7 +577,7 @@ Sin tokens nuevos.
 </Takeaways>
 ```
 
-**Comprobado en desarrollo (2026-10-05):** el `##` dentro del componente recibe su `id` de `rehype-slug` y el enlace de "En esta página" llega. Cambios de diseño de Oscar en V35. En Figma, la sesión de diseño lo pasa después, como en C14.
+**Comprobado en desarrollo (2026-10-05):** el `##` dentro del componente recibe su `id` de `rehype-slug` y el enlace de "En esta página" llega. Cambios de diseño de Oscar en V35. **En Figma desde el 2026-10-05 (D28),** con las diferencias de §4.10.
 
 ---
 
@@ -891,6 +891,9 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
 | "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
 | `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Anillo de foco por dentro, como `SidebarItem` (D27). Sin radio (D26), como `SidebarItem` (V23). Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
+| `Takeaways` (D28) | Variante `size` solo de Figma: `large` (relleno `space/600`, Desktop) y `small` (`space/400`, Mobile), porque Layout no tiene tokens de espaciado. En código no es un prop: `p-400` y `desktop:p-600`. La marca `li:check` va en un marco `Marker` con `space/100` arriba y abajo (24 px, una línea de `body/default`); en código, `h-[1lh]`. Los 24 px del icono del título y los 16 de las marcas son tamaño de icono, sin variable, como en el resto del archivo. El `space/600` encima es el hueco de la columna de la lección (el mismo que antes de un `h2`). |
+| Grupos del `Sidebar` (D29) | Componente `SidebarGroup` con el separador y la etiqueta (texto `label`); las secciones del grupo son hermanas, como los `SidebarItem`. En código, el grupo envuelve a sus secciones (`div role="group"`). **Relleno lateral de la etiqueta `space/300`**, como en código (`px-300`); §4.2 no lo dice. El separador cuenta en el auto layout (1 px + `space/200` hasta la etiqueta). En las plantillas, la lección de Recursos está oculta porque su sección está cerrada (C11). En el menú móvil abierto (812 px de alto), el grupo "Referencia" queda por debajo del borde del marco, como quedaría en la pantalla antes de hacer scroll. |
+| `SiteFooter`, logotipo del autor (D30) | Conjunto `AuthorLink` con `state` `default` / `focus` (solo de Figma); el anillo va por fuera, como en `Link`. En código no es un componente propio: es el `<a>` de `SiteFooter`. |
 | `Flow` (D24) | `FlowGroup` tiene una variante `size` solo de Figma: `large` (Desktop, pasos en fila que bajan de línea) y `small` (Mobile, pasos apilados a todo el ancho). Motivo: Figma no deja cambiar la dirección de un slot en una instancia. En código no es un prop: `flex-wrap` desde 64rem y apilados por debajo (D11). Conector como componente propio, `FlowConnector`. Foco de `FlowStep` dibujado como en `PageNavLink` (el anillo ocupa el lugar del borde); en código el borde se mantiene y el anillo va por fuera. Medidas en `entrega-diseno.md` §3.3. |
 
 ---
@@ -932,3 +935,6 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D25 | Variante `current` de `SidebarSection` en Figma (§4.2, §4.10). |
 | D26 | `SidebarSection` sin radio, como `SidebarItem` (§4.2). |
 | D27 | Anillo de foco por dentro en `SidebarSection` y `SidebarItem` (§4.2). |
+| D28 | `Takeaways` en Figma con `size` solo de Figma (§3.9, §4.10). |
+| D29 | Grupos del `Sidebar` en Figma: `SidebarGroup` con separador y etiqueta (§4.2, §4.10). |
+| D30 | Logotipo del autor del pie como `AuthorLink` con estado `focus` (§4.8, §4.10). |
