@@ -13,8 +13,8 @@ Versiones probadas: Style Dictionary 5.5.5, Terrazzo 2.7.1 (`@terrazzo/cli`, `pl
 | Carpeta (C10) | Archivo | Tokens | `$extensions` en la raíz |
 |---|---|---|---|
 | `primitives/` | `Value.tokens.json` | 97 | `com.figma.modeName: "Value"` |
-| `semantic-color/` | `Light.tokens.json`, `Dark.tokens.json` | 31 + 31 | `"Light"` / `"Dark"` |
-| `semantic-size/` | `Value.tokens.json` | 3 | `"Value"` |
+| `semantic-color/` | `Light.tokens.json`, `Dark.tokens.json` | 33 + 33 (31 en el paso 7) | `"Light"` / `"Dark"` |
+| `semantic-size/` | `Value.tokens.json` | 4 (3 en el paso 7) | `"Value"` |
 | `layout/` | `Desktop.tokens.json`, `Mobile.tokens.json` | 9 + 9 | `"Desktop"` / `"Mobile"` |
 
 Un archivo por modo, con el árbol completo de la colección y el nombre del modo solo en `$extensions` de la raíz. Coincide con la ayuda de Figma: "un modo por archivo" ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
@@ -210,9 +210,9 @@ Tailwind CSS v4 → bg-neutral-default, text-body-default, p-400, desktop:…
 
 | Bloque | Tokens | Qué contiene |
 |---|---|---|
-| `:root` | 153 | Todo, con Light y Mobile. `color-scheme: light` (149 en el paso 7; 153 tras V16, V24 y V25) |
-| `[data-theme="dark"]` | 31 | Semantic color, Dark. `color-scheme: dark` |
-| `@media (prefers-color-scheme: dark)` → `:root:not([data-theme="light"])` | 31 | Igual (modo `system`, D07) |
+| `:root` | 155 | Todo, con Light y Mobile. `color-scheme: light` (149 en el paso 7; 153 tras V16, V24 y V25; 155 tras V28 y la salida a Figma de `overlay` y `translucent`, V31) |
+| `[data-theme="dark"]` | 33 | Semantic color, Dark. `color-scheme: dark` (31 en el paso 7; todos los tokens de la colección, V32) |
+| `@media (prefers-color-scheme: dark)` → `:root:not([data-theme="light"])` | 33 | Igual (modo `system`, D07) |
 | `@media (width >= 64rem)` → `:root` | 9 | Layout, Desktop (D10, D11) |
 
 Ejemplos: `--t101-space-100: 0.25rem;` · `--t101-color-emerald-500: #3c9;` · `--t101-color-text-on-accent: var(--t101-color-neutral-950);` · `--t101-font-size-heading-1: var(--t101-font-size-06);` y, en Desktop, `var(--t101-font-size-07)`.

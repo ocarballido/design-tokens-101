@@ -86,7 +86,7 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
   - Mientras no exista, el módulo 2 enseña el script y oklch.com.
 - Investigación del módulo 7 (accesibilidad): WCAG 2.2, foco, `prefers-reduced-motion`, `forced-colors`, tamaño de objetivos táctiles. Recordar que APCA no es norma.
 - Glosario y página de errores frecuentes (a partir de la lista de la fase 1).
-- **Desajustes en documentos de desarrollo** (vistos al preparar el módulo 6, sin cambiar): `CLAUDE.md` cita `tokens/code-only.{light,dark}.tokens.json`, que ya no existen; `docs/paso-7-tokens.md` §1.1 dice 31 tokens en `Semantic color` y 3 en `Semantic size` (hoy 33 y 4), y §8, 153 en `:root` y 31 por bloque Dark (hoy 155 y 33). Las lecciones usan las cifras actuales.
+- **Desajustes en documentos de desarrollo: corregidos (2026-10-05, a petición de Oscar).** `CLAUDE.md` ya no cita `tokens/code-only.{light,dark}.tokens.json`; `docs/paso-7-tokens.md` §1.1 y §8 tienen las cifras actuales (33 y 4 variables; 155 en `:root` y 33 por bloque Dark), con las del paso 7 entre paréntesis. Las cifras de la comparación de herramientas (§4, §6.2) se dejan como estaban: son las de la prueba.
 - **Textos que no coinciden con el diseño** (aviso de la sesión de diseño, 2026-10-02): el sidebar del diseño decía "Comenzar aquí" (el contenido dice "Empezar aquí"; ya unificado en diseño a "Empezar aquí"). "En esta página" es un párrafo en negrita en el MDX y en el diseño (`body/strong`, D17); si se quisiera como título, sería un cambio de T3.
 
 **Pendiente de reflejar en el contenido**

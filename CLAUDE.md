@@ -33,7 +33,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 - `tools/`: scripts de escalas y contraste (`python3 tools/scales.py`, `python3 tools/semantic.py`) y comprobación del contenido compilado (`npm run build && npm run check:content`).
 - `src/`: la aplicación Next.js. `app/[locale]/[section]/[lesson]/page.tsx` carga las lecciones; `lib/content.ts` lee `content/`; `components/`, los componentes; `i18n/`, next-intl; `mdx-components.tsx`, los componentes del MDX.
 - `messages/{locale}.json`: textos de la interfaz (next-intl).
-- `tokens/figma/`: exportación de Figma, sin editar (C10). `tokens/dtcg/`: DTCG normalizado (generado). `tokens/code-only.tokens.json`: tokens solo de código (los que cambian con el tema, en `code-only.{light,dark}.tokens.json`, V28). `tokens/tokens101.resolver.json`: une los modos (V08).
+- `tokens/figma/`: exportación de Figma, sin editar (C10). `tokens/dtcg/`: DTCG normalizado (generado). `tokens/code-only.tokens.json`: tokens solo de código, iguales en todos los modos (desde el 2026-10-04 no hay tokens de código por tema: `overlay` y `translucent` salen de Figma, V31). `tokens/tokens101.resolver.json`: une los modos (V08).
 - `src/styles/tokens.css` y `src/styles/theme.css`: capas 1 y 2 de tokens, **generadas**. No se editan a mano: `npm run tokens` y después `npm run check:tokens` (V12).
 
 ## Stack
