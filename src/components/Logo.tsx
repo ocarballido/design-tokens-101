@@ -4,8 +4,8 @@
 // Las medidas son las del SVG exportado (la habilidad de Figma pide no cambiarlas).
 
 const LOGOS = {
-  colored: { light: '/brand/logo-colored.svg', dark: '/brand/logo-colored-dark.svg', width: 208, height: 44 },
-  gray: { light: '/brand/logo-gray.svg', dark: '/brand/logo-gray-dark.svg', width: 160, height: 34 },
+  colored: { light: '/brand/logo-colored.svg', dark: '/brand/logo-colored-dark.svg', width: 184, height: 44 },
+  gray: { light: '/brand/logo-gray.svg', dark: '/brand/logo-gray-dark.svg', width: 143, height: 34 },
 };
 
 /** Imagen decorativa: el nombre accesible lo pone el enlace que la contiene. */
