@@ -1,0 +1,103 @@
+---
+title: Un eje por colección
+description: Por qué DesignToken101 separa las colecciones por eje de cambio, qué pasa si mezclas el tema y el ancho de pantalla en una sola colección y cuándo dos variaciones son en realidad el mismo eje.
+nav_title: Un eje por colección
+lastReviewed: 2026-10-05
+---
+
+En el módulo 3 viste que las colecciones semánticas de DesignToken101 se separan por **eje de cambio**: el color cambia con el tema; los tamaños de texto, con el ancho de pantalla. En esta lección verás por qué es mejor una colección por eje que una sola colección con todos los modos, y cómo saber si dos variaciones forman un eje o dos.
+
+**En esta página**
+
+- [Qué es un eje](#qué-es-un-eje)
+- [Dos ejes en una sola colección](#dos-ejes-en-una-sola-colección)
+- [Una colección por eje](#una-colección-por-eje)
+- [Cuándo dos variaciones son un solo eje](#cuándo-dos-variaciones-son-un-solo-eje)
+- [Las colecciones de DesignToken101](#las-colecciones-de-designtoken101)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué es un eje
+
+Un **eje** es una razón por la que cambian unos tokens, con sus posibles valores. DesignToken101 tiene dos:
+
+| Eje | Valores | Qué tokens cambia |
+|---|---|---|
+| Tema | Light, Dark | Los colores semánticos |
+| Ancho de pantalla | Desktop, Mobile | Los tamaños de texto |
+
+Los dos ejes son **independientes**: cualquier tema se puede combinar con cualquier ancho. Una pantalla puede estar en Dark y en Mobile, o en Light y en Desktop. Y cada eje cambia tokens distintos: el tema no toca los tamaños de texto, y el ancho no toca los colores.
+
+## Dos ejes en una sola colección
+
+Imagina que pones todos los semánticos de DesignToken101 en una sola colección. Cada modo tendría que ser una combinación de los dos ejes:
+
+| Modo | Tema | Ancho |
+|---|---|---|
+| Light Desktop | Light | Desktop |
+| Light Mobile | Light | Mobile |
+| Dark Desktop | Dark | Desktop |
+| Dark Mobile | Dark | Mobile |
+
+Cuenta las celdas. Con 33 colores y 9 tamaños de texto, son 42 variables por 4 modos: **168 valores**. Y la mitad están repetidos:
+
+- Cada color tiene el mismo valor en Light Desktop y en Light Mobile, y en Dark Desktop y Dark Mobile: el ancho no lo cambia.
+- Cada tamaño de texto tiene el mismo valor en Light Desktop y en Dark Desktop, y en Light Mobile y Dark Mobile: el tema no lo cambia.
+
+Un valor repetido es un valor que alguien tiene que mantener igual a mano. Si cambias el fondo de Dark, tienes que cambiarlo en dos columnas. Si te olvidas de una, la pantalla en Dark Mobile tendrá otro fondo que la de Dark Desktop, y nada te avisará.
+
+El problema crece con cada eje. Los modos de una colección con varios ejes son el **producto** de sus valores: añadir un tema de alto contraste convertiría 4 modos en 6, y un tercer ancho (tablet), en 9.
+
+## Una colección por eje
+
+Con una colección por eje, cada variable está en la colección del eje que la cambia:
+
+| Colección | Modos | Variables | Valores |
+|---|---|---|---|
+| `Semantic color` | Light, Dark | 33 | 66 |
+| `Layout` | Desktop, Mobile | 9 | 18 |
+
+Son **84 valores**, ninguno repetido. Los modos ya no se multiplican, se suman: un tema de alto contraste añadiría un modo a `Semantic color`, y un ancho de tablet, uno a `Layout`.
+
+Un elemento del diseño elige un modo de cada colección por separado. Una pantalla en Dark y en Mobile elige Dark en `Semantic color` y Mobile en `Layout`. Lo verás en [Aplicar los modos al diseño](/modes/apply-modes).
+
+<Callout variant="recommendation">
+
+En DesignToken101, **cada token cambia como mucho en un eje, y cada eje tiene su colección**. Las cuentas de esta lección son nuestras: es la razón por la que preferimos colecciones separadas, no una norma de Figma ni de DTCG.
+
+</Callout>
+
+## Cuándo dos variaciones son un solo eje
+
+La regla no dice "una colección por cada cosa que varía", sino "un token cambia en un solo eje". Si dos variaciones cambian **los mismos tokens**, son un solo eje con más valores.
+
+Un ejemplo: el alto contraste. Cambia los colores, igual que el tema. Si lo separaras en otra colección, cada color tendría que cambiar en dos colecciones a la vez, y eso no lo puede hacer una variable. Por eso el alto contraste va en el mismo eje que el tema, como valores nuevos: claro, oscuro, claro con alto contraste y oscuro con alto contraste.
+
+Es lo que hacen las referencias:
+
+- **DTCG.** El ejemplo de tema del Resolver tiene un solo modificador con cuatro contextos: `light`, `lightHighContrast`, `dark` y `darkHighContrast` ([Resolver Module: ejemplo de modificador de tema](https://www.designtokens.org/TR/2025.10/resolver/#example-color-theme-modifier)). Otros ejes, como el tamaño, van en otros modificadores ([Resolver Module: Inputs](https://www.designtokens.org/TR/2025.10/resolver/#inputs)).
+- **SDS de Figma.** En el archivo de tokens de su repositorio, la colección de color tiene tres modos: claro, oscuro y un claro de una segunda marca (`sds_light`, `sds_dark` y `brand_b_light`). El tamaño de dispositivo va en otra colección, con desktop, tablet y mobile, y el resto de colecciones tienen un único modo ([figma/sds: tokens.json](https://github.com/figma/sds/blob/main/scripts/tokens/tokens.json), consultado el 2026-10-05).
+
+El SDS pone en la misma colección dos variaciones del color, el tema y la marca, y crea únicamente la combinación que necesita (no hay `brand_b_dark`). Es el mismo criterio: todas cambian los mismos tokens, los colores.
+
+## Las colecciones de DesignToken101
+
+| Colección | Eje | Modos |
+|---|---|---|
+| `Primitives` | Ninguno | `Value` |
+| `Semantic color` | Tema | Light, Dark |
+| `Semantic size` | Ninguno | `Value` |
+| `Layout` | Ancho de pantalla | Desktop, Mobile |
+
+`Primitives` y `Semantic size` tienen un único modo porque no cambian con nada: un primitivo es un valor fijo, y los radios y las medidas de maquetación de DesignToken101 son iguales en todos los contextos. No tienen un modo Dark "por si acaso": si un día un radio cambiara con el ancho, pasaría a la colección de ese eje.
+
+## Lo que te llevas
+
+- Un eje es una razón de cambio con sus valores; DesignToken101 tiene dos, el tema y el ancho de pantalla.
+- Mezclar ejes en una colección multiplica los modos y repite valores; separarlos los suma.
+- Si dos variaciones cambian los mismos tokens, como el tema y el alto contraste, son un solo eje.
+
+## Fuentes
+
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
+- [figma/sds: scripts/tokens/tokens.json](https://github.com/figma/sds/blob/main/scripts/tokens/tokens.json)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)

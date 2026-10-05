@@ -1,0 +1,89 @@
+---
+title: Qué es un modo
+description: Un modo es una columna de valores dentro de una colección de variables. Qué diferencia hay entre un tema y un modo, para qué se usan los modos y qué es el modo por defecto.
+nav_title: Qué es un modo
+lastReviewed: 2026-10-05
+---
+
+En el módulo 3 viste que el valor Light y el Dark de un semántico pueden apuntar a primitivos distintos. Ese mecanismo tiene nombre en Figma: el **modo**. En esta lección verás qué es un modo, en qué se diferencia de un tema, para qué se usa y qué pasa cuando un diseño no elige ninguno.
+
+**En esta página**
+
+- [Una columna de valores](#una-columna-de-valores)
+- [Tema y modo](#tema-y-modo)
+- [Para qué se usan los modos](#para-qué-se-usan-los-modos)
+- [El modo por defecto](#el-modo-por-defecto)
+- [Lo que ya sabes](#lo-que-ya-sabes)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Una columna de valores
+
+Figma define un modo como una lista de valores para las variables de una colección: **cada modo guarda un valor por variable** ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). En la vista Variables, cada modo es una columna:
+
+| Variable | Light | Dark |
+|---|---|---|
+| `color/background/neutral/default` | `color/white` | `color/neutral/950` |
+| `color/text/neutral/default` | `color/neutral/900` | `color/neutral/50` |
+
+Tres ideas salen de la tabla:
+
+- **El modo es de la colección, no de la variable.** Todas las variables de `Semantic color` tienen un valor en Light y otro en Dark. No puede haber una variable con modo Dark y otra sin él en la misma colección.
+- **El nombre no cambia.** Lo que aplicas al diseño es `color/text/neutral/default` en los dos modos. Cambia el valor.
+- **El valor de cada modo puede ser un alias.** En DesignToken101, cada celda apunta a un primitivo, y el primitivo es distinto en cada modo.
+
+## Tema y modo
+
+Las dos palabras se usan a menudo como sinónimos, pero no son lo mismo:
+
+- Un **tema** es el concepto: el aspecto de la interfaz en un contexto. "El tema oscuro" o "un tema de alto contraste".
+- Un **modo** es el mecanismo de Figma con el que se implementa: una columna de valores en una colección.
+
+Un tema puede necesitar modos de más de una colección. Una pantalla de DesignToken101 en móvil y con el tema oscuro usa el modo Dark de `Semantic color` y el modo Mobile de `Layout`. Cómo se combinan lo verás en [Un eje por colección](/modes/one-axis-per-collection).
+
+En código pasa algo parecido. El formato DTCG no tiene modos: un archivo de tokens da un valor a cada token. Los valores alternativos (claro, oscuro, alto contraste) se resuelven con un módulo aparte, el Resolver ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)). Lo verás en [Los modos en código](/modes/modes-in-code).
+
+## Para qué se usan los modos
+
+La ayuda de Figma da tres ejemplos de uso ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)):
+
+| Uso | Qué cambia | Tipo de variable |
+|---|---|---|
+| Temas de color, como claro y oscuro | Los colores | Color |
+| Idiomas, para ver cómo fluye el texto | Los textos | String |
+| Tamaños de dispositivo | Espaciados, tamaños | Number |
+
+DesignToken101 usa dos de ellos: el tema (Light y Dark, en `Semantic color`) y el tamaño de pantalla (Desktop y Mobile, en `Layout`). El idioma de la web no se resuelve con modos: los textos de las lecciones están en archivos MDX por idioma.
+
+## El modo por defecto
+
+Cada colección tiene un **modo por defecto: la columna de la izquierda** ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Un elemento que usa variables muestra los valores del modo por defecto mientras no elijas otro modo para él o para la página.
+
+En DesignToken101, el modo por defecto de `Semantic color` es Light, y el de `Layout`, Desktop.
+
+<Callout variant="note">
+
+El modo por defecto de Figma no decide el del código. En la web, la colección `Layout` funciona al revés: Mobile es el valor por defecto y Desktop se aplica desde un ancho de pantalla. Lo verás en [Los modos en código](/modes/modes-in-code#el-ancho-de-pantalla).
+
+</Callout>
+
+## Lo que ya sabes
+
+Este módulo parte de lo que hiciste en los anteriores:
+
+- En el [módulo 3](/relations/semantic-color#light-y-dark-lo-justo) viste que cada modo puede apuntar a un primitivo distinto, y en tu [mapa de alias](/relations/exercise-aliases) elegiste el primitivo de cada función en Light y en Dark.
+- En el [módulo 3](/relations/semantic-collections#alias-que-cruzan-colecciones) viste también qué modo usa un alias que apunta a otra colección: el del elemento donde se aplica.
+- En el [módulo 4](/naming/exercise-naming) creaste `Semantic color` con el modo Light y `Semantic size` con el modo `Value`, y anotaste los tamaños de texto de escritorio y móvil.
+
+En este módulo añades el modo Dark, creas la colección `Layout` con sus dos modos y los aplicas a tus pantallas.
+
+## Lo que te llevas
+
+- Un modo es una columna de valores: cada variable de la colección tiene un valor en cada modo.
+- El tema es el concepto; el modo, el mecanismo de Figma con el que se implementa.
+- Sin modo elegido, un elemento usa el modo por defecto, la columna de la izquierda.
+
+## Fuentes
+
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)

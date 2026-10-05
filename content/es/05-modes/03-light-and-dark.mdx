@@ -1,0 +1,119 @@
+---
+title: Light y Dark
+description: Cómo se construye el modo Dark de los semánticos de color de DesignToken101, por qué no es un espejo del modo Light, qué fondos se eligieron, qué tokens no cambian y qué se queda fuera de los tokens, como los logotipos.
+nav_title: Light y Dark
+lastReviewed: 2026-10-05
+---
+
+En el módulo 3 leíste las dos columnas de las tablas de semánticos de color. En esta lección verás cómo se decidió la columna Dark: qué patrones sigue, por qué no es el modo Light dado la vuelta, qué fondos se eligieron y qué se queda fuera de los tokens.
+
+**En esta página**
+
+- [Los patrones de la columna Dark](#los-patrones-de-la-columna-dark)
+- [No es un espejo](#no-es-un-espejo)
+- [Los fondos de cada modo](#los-fondos-de-cada-modo)
+- [Tokens que no cambian](#tokens-que-no-cambian)
+- [Valores directos por modo](#valores-directos-por-modo)
+- [Lo que los tokens no cambian](#lo-que-los-tokens-no-cambian)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Los patrones de la columna Dark
+
+Las tablas completas, con el uso de cada token, están en [Semánticos de color](/relations/semantic-color#los-semánticos-de-color-de-designtoken101). Agrupadas por función, siguen estos patrones:
+
+| Función | Light | Dark |
+|---|---|---|
+| Fondo de la página | `white` | `neutral/950` |
+| Superficies y estados neutros (`subtle`, `strong`, `hover`, `active`) | `neutral/50` a `neutral/200` | `neutral/900` a `neutral/700` |
+| Texto neutro (`default`, `subtle`) | `neutral/900`, `neutral/600` | `neutral/50`, `neutral/400` |
+| Borde decorativo | `neutral/200` | `neutral/800` |
+| Texto de acento (`default`, `hover`) | `emerald/700`, `emerald/800` | `emerald/400`, `emerald/300` |
+| Fondo tintado de los mensajes | Paso 50 de su escala | Paso 950 |
+| Borde de los mensajes | Paso 300 | Paso 700 |
+| Texto de los mensajes | Paso 700 | Paso 300 |
+
+La idea general es la esperable: lo que en Light está en la parte clara de la escala pasa a la parte oscura en Dark, y al revés. Los fondos son casi blancos en Light y casi negros en Dark; el texto, lo contrario.
+
+## No es un espejo
+
+Si la columna Dark fuera un espejo exacto de la escala (50 ↔ 950, 100 ↔ 900, 300 ↔ 700…), bastaría con una regla para generarla. No lo es. Tres ejemplos:
+
+- **El texto de acento.** En Light apunta a `emerald/700`. El espejo sería `emerald/300`, pero Dark usa `emerald/400`: es el paso que el contraste elige. Sobre `neutral/950`, `emerald/700` se queda en 3,89:1, y `emerald/400` llega a 10,92:1 ([El contraste decide el paso](/relations/semantic-color#el-contraste-decide-el-paso)).
+- **Las superficies.** En Light, `strong` apunta a `neutral/100`; en Dark, a `neutral/800`, no a `neutral/900`, que en Dark ya usa `subtle`.
+- **El botón principal.** No cambia. Lo verás en [Tokens que no cambian](#tokens-que-no-cambian).
+
+Cada alias de la columna Dark se eligió como los de Light: pensando en su función y comprobando el contraste con el fondo con el que se usa ([Semánticos de color](/relations/semantic-color#el-contraste-decide-el-paso)). El contraste a fondo lo verás en el módulo Accesibilidad.
+
+<Callout variant="recommendation">
+
+No generes el modo Dark invirtiendo la escala. Úsalo como punto de partida si quieres, pero decide cada alias por su función y comprueba cada par de texto y fondo en Dark, igual que hiciste en Light.
+
+</Callout>
+
+## Los fondos de cada modo
+
+El fondo de la página es la decisión que más se ve en cada modo. En DesignToken101 se compararon dos opciones por modo, viendo el diseño:
+
+| Modo | Opciones | Elegida | Texto principal sobre el fondo |
+|---|---|---|---|
+| Light | `white` o `neutral/50` | `white` (`#FFFFFF`) | 17,79:1 |
+| Dark | `neutral/950` o `neutral/900` | `neutral/950` (`#050C09`) | 18,89:1 |
+
+Con la otra opción, el texto principal daba 17,01:1 en los dos modos. Las dos cumplían de sobra los 4,5:1 de WCAG 2.2 ([Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)). La elección fue visual, y se puede reabrir: basta con cambiar el alias de `color/background/neutral/default` y volver a comprobar los pares que lo usan.
+
+<ColorScale palette="neutral" highlight="950" highlightLabel="Fondo de la página en Dark" caption="Escala neutral: en Dark, el fondo de la página apunta al paso 950, el más oscuro de la escala." />
+
+El fondo de la página decide el resto de superficies. Las superficies `subtle` están un paso más allá del fondo: `neutral/50` en Light (junto a `white`) y `neutral/900` en Dark (junto a `neutral/950`). Si el fondo de Light fuera `neutral/50`, `subtle` tendría que pasar a otro paso.
+
+<Callout variant="note">
+
+`neutral/950` es un casi negro con un tinte del tono de la marca, no `color/black`. Viene de la escala de neutros del módulo 2, que tiene un tinte suave del acento ([Escalas de color](/primitives/color-scales)). `color/black` está reservado para la capa con transparencia que oscurece el contenido.
+
+</Callout>
+
+## Tokens que no cambian
+
+Algunos semánticos de `Semantic color` apuntan al mismo primitivo en Light y en Dark:
+
+| Token | Light y Dark | Por qué |
+|---|---|---|
+| `color/background/accent/strong/default` | `emerald/500` | El botón principal muestra el color de marca en los dos modos |
+| `color/background/accent/strong/hover` y `…/active` | `emerald/400` y `emerald/600` | Los estados del mismo botón |
+| `color/text/on-accent` | `neutral/950` | El texto oscuro sobre el color de marca da 9,63:1 en los dos modos |
+| `color/border/neutral/strong` | `neutral/500` | Cumple 3:1 sobre el fondo de los dos modos (4,70:1 y 4,20:1) |
+
+Que el valor no cambie no saca al token de la colección. Un modo guarda un valor para cada variable de la colección ([Qué es un modo](/modes/what-is-a-mode#una-columna-de-valores)), así que estos tokens tienen un valor en Light y otro en Dark, aunque coincidan. Si un día el botón tuviera que cambiar en Dark, cambiarías un alias, no la estructura.
+
+En código pasa lo mismo: cada bloque de modo lleva todos los tokens de su colección, también los que no cambian ([Los modos en código](/modes/modes-in-code#un-bloque-por-modo)).
+
+## Valores directos por modo
+
+Dos semánticos de DesignToken101 no son alias, porque necesitan transparencia y un alias de Figma no puede cambiar la opacidad ([Cuando un semántico no es alias](/relations/direct-values)). Con los modos, cada uno lleva su valor escrito en cada columna:
+
+| Token | Light | Dark |
+|---|---|---|
+| `color/background/overlay` | Negro al 50 % | Negro al 50 % |
+| `color/background/neutral/translucent` | Blanco al 90 % | `#050C09` al 90 % |
+
+`translucent` es el fondo de la cabecera fija. Tiene que ser el fondo de la página con transparencia, así que su valor cambia con el modo como el fondo. `overlay` es la capa que oscurece la página cuando el panel de navegación móvil está abierto, y es igual en los dos modos.
+
+Un valor directo no sigue a su primitivo: si cambiaras `neutral/950`, tendrías que cambiar a mano el valor de `translucent` en Dark. Por eso la descripción de esas variables dice que son valores directos y por qué.
+
+## Lo que los tokens no cambian
+
+Los modos cambian lo que está vinculado a variables. Lo que no lo está se queda igual en los dos modos:
+
+- **Imágenes y capturas.** Una captura de una interfaz clara se ve igual sobre un fondo oscuro.
+- **Logotipos exportados.** En el archivo de Figma de DesignToken101, el logotipo usa variables y cambia con el modo. Exportado como SVG, el color queda escrito en el archivo. Por eso la web tiene **una versión del logotipo por modo**: el texto pasa de `#101A15` en Light a `#F9FAFA` en Dark, y muestra una u otra según el tema.
+- **Valores sueltos.** Un color escrito a mano en el diseño, sin variable, no responde al modo. Al aplicar Dark a una pantalla, es la forma más directa de encontrarlos: son lo que no cambia.
+
+## Lo que te llevas
+
+- La columna Dark sigue la idea de la escala invertida, pero cada alias se decide por su función y su contraste.
+- Los tokens que no cambian siguen en la colección, con su valor en cada modo; los valores directos se escriben en cada modo.
+- Lo que no está vinculado a variables, como un SVG exportado, necesita su propia versión por modo.
+
+## Fuentes
+
+- [WCAG 2.2: Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
