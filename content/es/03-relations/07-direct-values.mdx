@@ -68,7 +68,7 @@ DesignToken101 mantiene estos colores como valores directos. Figma no exporta `$
 
 </Callout>
 
-El fondo de la cabecera añade una dificultad: es blanco al 90 % en Light y `neutral/950` al 90 % en Dark. Un valor directo distinto por modo. En Figma es una variable de la colección `Semantic color` con un valor propio en cada columna, Light y Dark. Cómo se unen los modos en código lo verás en el módulo De Figma al código.
+El fondo de la cabecera añade una dificultad: es blanco al 90 % en Light y `neutral/950` al 90 % en Dark. Un valor directo distinto por modo. En Figma es una variable de la colección `Semantic color` con un valor propio en cada columna, Light y Dark. Cómo se unen los modos en código lo verás en [el módulo De Figma al código](/figma-to-code/css-variables#los-modos).
 
 ## Cómo se controla una excepción
 
@@ -97,7 +97,7 @@ Así exporta Figma el overlay en DTCG (comprobado en la exportación de esta web
 
 En el CSS generado sale como `#00000080`: el hex de ocho cifras lleva la opacidad en las dos últimas.
 
-El fondo de la cabecera muestra un detalle de la exportación. Figma escribe la opacidad como un número de coma flotante de 32 bits, y el 90 % no es exacto en ese formato: llega como `"alpha": 0.8999999761581421`. Convertido tal cual, daría `#ffffffe5` (89,8 %) en vez de `#ffffffe6` (90 %). El paso que prepara la exportación para el CSS de esta web recupera el valor escrito en Figma, `0.9`. Lo verás en el módulo De Figma al código.
+El fondo de la cabecera muestra un detalle de la exportación. Figma escribe la opacidad como un número de coma flotante de 32 bits, y el 90 % no es exacto en ese formato: llega como `"alpha": 0.8999999761581421`. Convertido tal cual, daría `#ffffffe5` (89,8 %) en vez de `#ffffffe6` (90 %). El paso que prepara la exportación para el CSS de esta web recupera el valor escrito en Figma, `0.9`. Lo verás en [el módulo De Figma al código](/figma-to-code/normalize-the-export#la-opacidad-en-float32).
 
 </InCode>
 

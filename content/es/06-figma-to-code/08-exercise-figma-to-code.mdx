@@ -1,0 +1,208 @@
+---
+title: "Ejercicio: traduce tus tokens"
+description: "Con las colecciones que exportaste en el módulo 5, revisa scopes y code syntax, traduce cinco tokens a variables CSS y a un tema de Tailwind CSS, lista tus tokens de código y prepara la tabla de pares de color del módulo 7."
+nav_title: Ejercicio
+lastReviewed: 2026-10-05
+---
+
+En este ejercicio llevas tus propios tokens al código. Lo haces a mano, con cinco tokens: así ves qué hace cada paso de la cadena antes de dejarlo en manos de una herramienta. Al terminar tendrás un archivo con las dos capas, variables CSS y tema de Tailwind CSS, y la tabla de pares de color con la que empezarás el módulo Accesibilidad.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Revisa tus archivos](#paso-1-revisa-tus-archivos)
+- [Paso 2 Revisa scopes y code syntax](#paso-2-revisa-scopes-y-code-syntax)
+- [Paso 3 Traduce cinco tokens](#paso-3-traduce-cinco-tokens)
+- [Paso 4 Escribe la capa 1](#paso-4-escribe-la-capa-1)
+- [Paso 5 Escribe la capa 2](#paso-5-escribe-la-capa-2)
+- [Paso 6 Lista tus tokens de código](#paso-6-lista-tus-tokens-de-código)
+- [Paso 7 Prepara los pares de color](#paso-7-prepara-los-pares-de-color)
+- [Comprueba tu traducción](#comprueba-tu-traducción)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué necesitas
+
+- Los archivos que exportaste en el ejercicio del módulo 5, una carpeta por colección ([Paso 7 Exporta tus colecciones](/modes/exercise-modes#paso-7-exporta-tus-colecciones)).
+- Tu archivo de Figma, por si tienes que corregir algo y volver a exportar.
+- Un editor de texto para abrir los archivos `.tokens.json` y escribir un archivo `.css`.
+- Entre 60 y 90 minutos.
+
+No necesitas instalar nada. El itinerario de código, al final del paso 3, es opcional.
+
+## Paso 1 Revisa tus archivos
+
+Abre cada carpeta y comprueba:
+
+1. Hay un archivo por modo: `Light.tokens.json` y `Dark.tokens.json` en `semantic-color/`, por ejemplo.
+2. Cada archivo tiene todas las variables de su colección, y el nombre del modo en el `$extensions` de la raíz ([Los archivos](/figma-to-code/what-figma-exports#los-archivos)).
+3. Los semánticos llevan el valor resuelto en `$value` y el destino en `com.figma.aliasData`.
+
+Si un alias tuyo apunta a una variable de su misma colección, mira cómo lo ha escrito Figma y anótalo: DesignToken101 no tiene ninguno, y la normalización de esta web no lo ha probado.
+
+## Paso 2 Revisa scopes y code syntax
+
+Son los dos datos de diseño que deciden el código ([Para qué sirve cada dato](/figma-to-code/what-figma-exports#para-qué-sirve-cada-dato)). Recorre tus archivos y busca:
+
+- **Números o textos sin `com.figma.scopes`, o con `ALL_SCOPES`.** Sin un scope concreto no se puede deducir el tipo ([El tipo sale del scope](/figma-to-code/normalize-the-export#el-tipo-sale-del-scope)).
+- **Un code syntax que no sea la ruta.** `var(--` más tu prefijo, la ruta con guiones y `)`. Busca sobre todo las variables que renombraste o duplicaste ([Los errores de diseño que detecta](/figma-to-code/check-and-update#los-errores-de-diseño-que-detecta)).
+
+Corrige en Figma lo que encuentres, vuelve a exportar la colección y sustituye su carpeta entera.
+
+## Paso 3 Traduce cinco tokens
+
+Elige cinco tokens de tus archivos:
+
+1. Un espacio.
+2. Un peso tipográfico.
+3. El tamaño de un título de `Layout`.
+4. El texto principal de `Semantic color`.
+5. Uno que tú elijas: un radio semántico, un fondo, un borde.
+
+Para cada uno, rellena esta tabla con lo que has visto en el módulo:
+
+| Token | `$type` exportado | Scope | Tipo DTCG | Valor en CSS | Variable CSS |
+|---|---|---|---|---|---|
+
+- **Tipo DTCG:** el que sale del scope ([El tipo sale del scope](/figma-to-code/normalize-the-export#el-tipo-sale-del-scope)).
+- **Valor en CSS:** el hexadecimal en minúsculas para un color; los píxeles entre 16, en `rem`, para un tamaño; `var()` con la variable del destino si es un alias ([Los valores](/figma-to-code/css-variables#los-valores)).
+- **Variable CSS:** tu code syntax sin `var()`.
+
+Así quedan los cuatro primeros con los tokens de DesignToken101:
+
+| Token | `$type` exportado | Scope | Tipo DTCG | Valor en CSS | Variable CSS |
+|---|---|---|---|---|---|
+| `space/400` | `number` | `GAP` | `dimension` | `1rem` | `--t101-space-400` |
+| `font-weight/600` | `number` | `FONT_STYLE` | `fontWeight` | `600` | `--t101-font-weight-600` |
+| `font-size/heading/1` | `number` | `FONT_SIZE` | `dimension` | Mobile: `var(--t101-font-size-06)`; Desktop: `var(--t101-font-size-07)` | `--t101-font-size-heading-1` |
+| `color/text/neutral/default` | `color` | `SHAPE_FILL`, `TEXT_FILL` | `color` | Light: `var(--t101-color-neutral-900)`; Dark: `var(--t101-color-neutral-50)` | `--t101-color-text-neutral-default` |
+
+<InCode title="Normaliza tu exportación con el script">
+
+Si tienes Node.js instalado, puedes pasar tu exportación por la misma normalización que esta web:
+
+1. Crea una carpeta de trabajo con dos carpetas dentro: `tools/` y `tokens/figma/`.
+2. Copia en `tokens/figma/` las carpetas de tus colecciones, sin cambiarlas.
+3. Copia en `tools/` el archivo [figma-to-dtcg.mjs](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs) del repositorio de DesignToken101. No tiene dependencias.
+4. Desde la carpeta de trabajo, ejecuta:
+
+```bash
+node tools/figma-to-dtcg.mjs
+```
+
+El script escribe tus archivos normalizados en `tokens/dtcg/`, con la misma estructura de carpetas. **Borra esa carpeta antes de escribirla**, así que no guardes nada tuyo en ella.
+
+Lo probamos así el 2026-10-05, con Node.js 22.22.0, en una carpeta nueva con la exportación de DesignToken101: escribe los 6 archivos, y el texto principal de Light queda con `"$value": "{color.neutral.900}"`.
+
+Si el script se detiene, el mensaje nombra el token y su scope. El script conoce los scopes de DesignToken101; si tu sistema usa otro, como `OPACITY` o `FONT_WEIGHT`, decide qué tipo DTCG le corresponde y añádelo al script, o corrige el scope en Figma. Esa decisión es tuya: el script no la toma por ti.
+
+Compara tu tabla con los archivos normalizados: el `$type` y el `$value` de tus cinco tokens deberían coincidir con lo que escribiste.
+
+</InCode>
+
+## Paso 4 Escribe la capa 1
+
+Crea un archivo `tokens.css` y escribe las variables de tus cinco tokens, con un bloque por modo ([Las variables CSS](/figma-to-code/css-variables)):
+
+1. En `:root`, todos con el valor de Light y Mobile.
+2. Si tu token es un alias, escribe también el primitivo al que apunta, con su valor. Sin él, el `var()` apuntaría a una variable que no existe.
+3. En `[data-theme="dark"]`, los que cambian con el tema, con su valor de Dark.
+4. En `@media (width >= 64rem)`, o el corte de tu sistema, los de `Layout` con su valor de Desktop.
+
+Con los cuatro tokens de la tabla de DesignToken101, el archivo queda así. Cada línea es igual a la del CSS generado de esta web:
+
+```css filename="tokens.css (ejercicio)"
+:root {
+  --t101-color-neutral-50: #f9fafa;
+  --t101-color-neutral-900: #101a15;
+  --t101-font-size-06: 2rem;
+  --t101-font-size-07: 2.5rem;
+  --t101-space-400: 1rem;
+  --t101-font-weight-600: 600;
+  --t101-font-size-heading-1: var(--t101-font-size-06);
+  --t101-color-text-neutral-default: var(--t101-color-neutral-900);
+}
+
+[data-theme="dark"] {
+  --t101-color-text-neutral-default: var(--t101-color-neutral-50);
+}
+
+@media (width >= 64rem) {
+  :root {
+    --t101-font-size-heading-1: var(--t101-font-size-07);
+  }
+}
+```
+
+## Paso 5 Escribe la capa 2
+
+En el mismo archivo, añade el tema de Tailwind CSS para tus cinco tokens ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme)):
+
+1. Empieza con `@theme inline` y `--*: initial`.
+2. Cada token, en el espacio de nombres de su propiedad, apuntando a su variable de la capa 1.
+3. No expongas los primitivos de color.
+4. Al lado de cada línea, escribe la clase que daría.
+
+Con los mismos cuatro tokens:
+
+```css filename="tokens.css (ejercicio, continuación)"
+@theme inline {
+  --*: initial;
+  --spacing-400: var(--t101-space-400);              /* p-400, gap-400… */
+  --font-weight-600: var(--t101-font-weight-600);    /* font-600 */
+  --text-heading-1: var(--t101-font-size-heading-1); /* text-heading-1 (tamaño) */
+  --text-color-neutral-default: var(--t101-color-text-neutral-default); /* text-neutral-default */
+}
+```
+
+Revisa tus nombres: ¿alguno de la capa 2 coincide con uno de la capa 1? Si es así, falta el prefijo ([Por qué el prefijo](/figma-to-code/tailwind-theme#por-qué-el-prefijo)).
+
+## Paso 6 Lista tus tokens de código
+
+Repasa tu sistema y anota los tokens que necesita el código y que no tienes en Figma ([Los tokens de código](/figma-to-code/code-only-tokens#la-lista-completa)):
+
+- El interlineado de tus estilos de texto, como multiplicador: 150 % es `1.5`.
+- El corte entre tus modos de `Layout`, si los tienes.
+- Lo que tu diseño use y Figma no guarde como el código lo necesita: espaciado negativo, duraciones, desenfoque.
+
+Para cada uno, anota su nombre, su valor y por qué vive en código. Si alguno podría ser una variable de Figma, créala y sácalo de la lista.
+
+## Paso 7 Prepara los pares de color
+
+Este paso prepara el módulo Accesibilidad. Allí comprobarás el contraste de cada texto sobre su fondo, y para eso necesitas el color final de cada par en cada modo.
+
+1. Haz una lista de los pares de texto y fondo que usa tu diseño: el texto principal sobre el fondo de la página, el texto sobre el botón principal, el texto de un aviso sobre su fondo…
+2. Busca cada token en `Light.tokens.json` y en `Dark.tokens.json` y copia el `hex` de su `$value`. Es el color final: en la exportación de DesignToken101, el `hex` de cada semántico es el de su primitivo.
+3. Si un fondo tiene transparencia, anota también su `alpha`: su color final depende de lo que haya debajo.
+
+| Texto | Fondo | Light (texto / fondo) | Dark (texto / fondo) |
+|---|---|---|---|
+| `color/text/neutral/default` | `color/background/neutral/default` | `#101A15` / `#FFFFFF` | `#F9FAFA` / `#050C09` |
+
+La primera fila es la de DesignToken101. Añade las tuyas.
+
+## Comprueba tu traducción
+
+Tu traducción está lista si puedes responder que sí a estas preguntas:
+
+- ¿Cada número y cada texto de tu exportación tiene un scope concreto?
+- ¿Cada code syntax es la ruta de su variable, con tu prefijo?
+- ¿Cada tamaño de tu `tokens.css` está en `rem`, y cada alias es un `var()` a una variable que existe en el archivo?
+- ¿El bloque de Dark tiene los tokens que cambian con el tema, y el de Desktop, los de `Layout`?
+- ¿Ningún nombre de la capa 2 coincide con uno de la capa 1?
+- ¿Tienes la lista de tus tokens de código, cada uno con su motivo?
+- ¿Tienes la tabla de pares con el color de cada modo?
+
+## Lo que te llevas
+
+- Tienes cinco de tus tokens traducidos a variables CSS, con un bloque por modo, y a un tema de Tailwind CSS.
+- Has revisado que los scopes y los code syntax de tu exportación permiten generar el código sin adivinar.
+- Tienes la lista de tus tokens de código y la tabla de pares de color para el módulo Accesibilidad.
+
+## Fuentes
+
+Las de las lecciones del módulo. En especial:
+
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [Repositorio de DesignToken101: tools/figma-to-dtcg.mjs](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs)

@@ -34,7 +34,7 @@ La idea central es tener **una sola fuente de verdad**. Los tokens se definen un
 
 <Callout variant="recommendation">
 
-En DesignToken101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens viven en código y no en Figma, porque Figma no los guarda como necesitamos: el interlineado, el espaciado negativo y el punto de corte entre móvil y escritorio. Lo verás en el módulo De Figma al código. Cada token tiene una única fuente.
+En DesignToken101, la fuente de verdad de los tokens visuales (color, espaciado, tipografía, radios) son las **variables de Figma**. Algunos tokens viven en código y no en Figma, porque Figma no los guarda como necesitamos: el interlineado, el espaciado negativo y el punto de corte entre móvil y escritorio. Lo verás en [el módulo De Figma al código](/figma-to-code/code-only-tokens). Cada token tiene una única fuente.
 
 </Callout>
 
@@ -76,7 +76,7 @@ Si pasas la exportación tal cual a una herramienta de traducción, obtienes CSS
 
 <Callout variant="recommendation">
 
-En DesignToken101 añadimos un paso de **normalización**: un script que recupera los alias, añade las unidades y pone el tipo DTCG correcto. El tipo se deduce del **scope** de cada variable en Figma (dónde se puede aplicar), que es una decisión de diseño, y no del valor. Lo construimos paso a paso en el módulo De Figma al código.
+En DesignToken101 añadimos un paso de **normalización**: un script que recupera los alias, añade las unidades y pone el tipo DTCG correcto. El tipo se deduce del **scope** de cada variable en Figma (dónde se puede aplicar), que es una decisión de diseño, y no del valor. Lo construimos paso a paso en [el módulo De Figma al código](/figma-to-code/normalize-the-export).
 
 </Callout>
 
@@ -106,7 +106,7 @@ El resultado son **variables CSS** (custom properties), una por token, con un se
 
 - El alias se conserva como `var()`: el token semántico sigue apuntando a un primitivo.
 - En el modo Dark cambia el primitivo al que apunta, no el nombre del token.
-- El prefijo `--t101-` evita choques de nombres; lo explicamos en el módulo De Figma al código.
+- El prefijo `--t101-` evita choques de nombres; lo explicamos en [el módulo De Figma al código](/figma-to-code/tailwind-theme#por-qué-el-prefijo).
 
 <Callout variant="note">
 
