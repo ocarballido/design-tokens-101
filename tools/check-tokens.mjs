@@ -107,11 +107,12 @@ for (const [name, value] of Object.entries(codeOnly)) {
 }
 
 // 5b. Tokens que vivían solo en código y ahora salen de Figma (V16, V25, V28; creados el 2026-10-04).
-//     Tienen que venir en la exportación y dar el mismo CSS que cuando eran solo de código.
+//     Tienen que venir en la exportación y dar el CSS de la especificación (§6.1). translucent pasó
+//     al 96 % en Light con S35 (antes #ffffffe6); Dark sigue al 90 %.
 const fromFigma = [
   ['semanticSize', 'size/sidebar/width', { root: '19rem' }],
   ['light', 'color/background/overlay', { root: '#00000080', darkAttr: '#00000080', darkMedia: '#00000080' }],
-  ['light', 'color/background/neutral/translucent', { root: '#ffffffe6', darkAttr: '#050c09e6', darkMedia: '#050c09e6' }],
+  ['light', 'color/background/neutral/translucent', { root: '#fffffff5', darkAttr: '#050c09e6', darkMedia: '#050c09e6' }],
 ];
 for (const [file, name, expected] of fromFigma) {
   const css = `--t101-${name.replace(/\//g, '-')}`;

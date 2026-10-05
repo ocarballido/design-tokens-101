@@ -40,7 +40,7 @@
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-50);
   /* Fondo de la cabecera sticky (V28): color/white al 90 % en Light y neutral/950 al 90 % en Dark, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad. */
-  --t101-color-background-neutral-translucent: #ffffffe6;
+  --t101-color-background-neutral-translucent: #fffffff5;
   /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
   --t101-color-background-overlay: #00000080;
   --t101-color-background-success-subtle: var(--t101-color-emerald-50);
