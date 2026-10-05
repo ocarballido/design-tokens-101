@@ -177,7 +177,7 @@ DesignToken101 cumple 1.4.3 (AA) y no 1.4.6 (AAA). Light es el modo que más se 
 - **Nivel A.** El color no puede ser el único medio visual para transmitir información, indicar una acción, pedir una respuesta o distinguir un elemento.
 - No prohíbe el color: pide otro medio además (texto, icono, forma, patrón).
 - Si dos colores se diferencian también en luminosidad y su contraste llega a 3:1, esa diferencia cuenta como una distinción adicional.
-- Enlaces en el texto: la técnica G183 acepta distinguirlos del texto por color si contrastan 3:1 con él y tienen otra señal al pasar el ratón o recibir el foco; F73 es el fallo de un enlace que solo se distingue por el color. Los enlaces visitados que solo cambian de color no son un fallo.
+- Enlaces en el texto: la técnica G183 (suficiente para 1.4.1) acepta distinguirlos del texto por color si contrastan 3:1 con él. **Corregido el 2026-10-05:** la versión actual de G183 no exige otra señal al pasar el ratón o recibir el foco; su procedimiento solo comprueba el 3:1, y el subrayado o la negrita quedan como sugerencia ([G183](https://www.w3.org/WAI/WCAG22/Techniques/general/G183)). F73 es el fallo de un enlace que no se distingue sin percibir el color. Los enlaces visitados que solo cambian de color no son un fallo.
 
 **Qué token o decisión afecta**
 

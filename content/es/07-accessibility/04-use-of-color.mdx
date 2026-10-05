@@ -1,0 +1,109 @@
+---
+title: El color no basta
+description: "Qué pide el criterio 1.4.1 (A), cuándo una diferencia de luminosidad cuenta como segunda señal, cómo se distinguen los enlaces y los estados de DesignToken101 y un riesgo aceptado y registrado: los selectores de la cabecera."
+nav_title: El color no basta
+lastReviewed: 2026-10-05
+---
+
+Un token de color puede cumplir todos los contrastes y aun así dejar fuera a quien no distingue ese color. Si la única diferencia entre un enlace y el texto, o entre la opción elegida y las demás, es el tono, esa información no le llega. En esta lección verás qué pide WCAG, cuándo la luminosidad cuenta como segunda señal y cómo lo resuelve DesignToken101, incluido un caso en el que no lo resuelve.
+
+**En esta página**
+
+- [Qué pide 1.4.1](#qué-pide-141)
+- [Cuándo la luminosidad cuenta](#cuándo-la-luminosidad-cuenta)
+- [Los enlaces](#los-enlaces)
+- [Estados y mensajes](#estados-y-mensajes)
+- [Un riesgo aceptado](#un-riesgo-aceptado)
+- [Revisa tus estados](#revisa-tus-estados)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué pide 1.4.1
+
+El criterio 1.4.1 Use of Color es de **nivel A**, el mínimo. Pide que el color no sea el único medio visual para transmitir información, indicar una acción, pedir una respuesta o distinguir un elemento ([Understanding 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)).
+
+No prohíbe usar el color: pide que haya **otra señal además** del color. Un icono, un texto, un subrayado, un trazo con forma propia.
+
+## Cuándo la luminosidad cuenta
+
+La guía de 1.4.1 precisa un caso importante para los tokens. Si dos colores se diferencian en el tono y también en la luminosidad, y esa diferencia da una razón de contraste de **3:1 o más** entre ellos, cuenta como una distinción visual adicional (misma fuente).
+
+Por eso, en este criterio no comparas cada color con el fondo: comparas **los dos colores entre sí**. El color de un enlace frente al del texto que lo rodea, el de la opción actual frente al de las otras.
+
+## Los enlaces
+
+La técnica G183 es una forma suficiente de cumplir 1.4.1 con los enlaces dentro del texto: si el enlace se distingue del texto por el color, los dos colores tienen que contrastar 3:1 entre sí ([G183](https://www.w3.org/WAI/WCAG22/Techniques/general/G183)). La técnica sugiere además un subrayado o la negrita, pero no los exige. Lo contrario, un enlace que no se ve sin percibir el color, es el fallo F73 ([F73](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73)).
+
+En DesignToken101, el enlace (`text/accent/default`) frente al texto (`text/neutral/default`) da (cálculo propio con la fórmula de WCAG 2.2, 2026-10-05):
+
+| Modo | Enlace | Texto | Razón entre los dos |
+|---|---|---|---|
+| Light | `#1A7D5C` | `#101A15` | 3,50 |
+| Dark | `#4FD7A6` | `#F9FAFA` | 1,73 |
+
+En Light, el color bastaría según G183. En Dark, no: el verde claro y el blanco roto tienen una luminosidad parecida.
+
+<Callout variant="recommendation">
+
+En DesignToken101, **los enlaces del texto van siempre subrayados**, en los dos modos. Un modo que cumple y otro que no es una regla difícil de mantener: si cambias un alias, el modo que cumplía puede dejar de cumplir sin que nadie lo note. Con el subrayado, el enlace se distingue sin depender del color.
+
+</Callout>
+
+## Estados y mensajes
+
+Así se distinguen el resto de estados y mensajes de DesignToken101:
+
+| Elemento | Color | Otra señal |
+|---|---|---|
+| Lección actual del sidebar | Fondo y texto de acento | Marca lateral de 2 px (`border-width/200`, `border/accent/strong`) |
+| Foco | `border/focus` | Un anillo de 2 px, que es una forma |
+| `Callout` | Fondo, borde e icono de su rol | Una etiqueta fija (Nota, Aviso, Recomendación, Pendiente) y un icono distinto por variante |
+| Mensaje "Copiado" del bloque de código | `text/success/default` | El texto del mensaje |
+
+El rol `success` usa la misma escala que el acento (`emerald`). No pasa nada, porque el éxito nunca se comunica únicamente con su color: lleva siempre un texto o un icono.
+
+## Un riesgo aceptado
+
+Los selectores de idioma y de tema de la cabecera marcan la opción actual con un recuadro de fondo (`background/neutral/default`) y el texto o el icono de acento (`text/accent/default`). Las demás opciones no tienen recuadro y usan `text/neutral/subtle`. ¿Llega alguna de esas diferencias a 3:1?
+
+| Diferencia | Light | Dark |
+|---|---|---|
+| Recuadro de la opción actual frente al fondo del grupo (`background/neutral/strong`) | 1,09 | 1,32 |
+| Texto de la opción actual frente al de las otras | 1,52 | 1,43 |
+
+Cálculo propio con la fórmula de WCAG 2.2, 2026-10-05.
+
+Ninguna llega. Según la guía de 1.4.1, la opción actual se distingue únicamente por el color, y por eso **ese control no cumple 1.4.1**, que es un criterio de nivel A. Para un lector de pantalla no hay problema (el código anuncia la opción actual con `aria-current` y `aria-pressed`), pero 1.4.1 trata de lo que se ve.
+
+Es una decisión tomada y registrada, no un descuido: el diseño sin marca inferior se eligió aceptando el riesgo, y la decisión quedó escrita con sus cifras. El registro incluye también la alternativa, por si se revisa: un borde de 1 px con `border/accent/strong` alrededor del recuadro, que es una forma y no un color. La decisión se volvió a revisar con los datos de este módulo, y se mantiene.
+
+<Callout variant="note">
+
+Contamos este caso porque enseña algo que un curso suele callar: **un sistema real tiene decisiones con un coste conocido**. Lo importante es que el coste esté medido, escrito y con su alternativa al lado, para que quien lo herede pueda cambiarlo con datos. Mientras se mantenga, DesignToken101 no cumple por completo el nivel AA que se propone.
+
+</Callout>
+
+## Revisa tus estados
+
+Con tu tabla de pares delante, busca cada estado y cada mensaje de tu diseño que cambie de color y pregúntate:
+
+1. ¿Hay otra señal además del color (icono, texto, subrayado, trazo)?
+2. Si no la hay, ¿los dos colores contrastan 3:1 entre sí, en cada modo?
+3. Si tampoco, ¿lo corriges (otro alias, una forma) o lo aceptas como riesgo, con su alternativa escrita?
+
+Las respuestas irán al registro de decisiones del ejercicio del módulo.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- El color puede comunicar, pero siempre necesita otra señal: una forma, un texto, un icono o una diferencia de luminosidad de 3:1.
+- En 1.4.1 se comparan los dos colores entre sí, no cada uno con el fondo.
+- Un incumplimiento aceptado se mide, se registra y se acompaña de su alternativa.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 1.4.1 Use of Color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+- [G183: Using a contrast ratio of 3:1 with surrounding text](https://www.w3.org/WAI/WCAG22/Techniques/general/G183)
+- [F73: Failure due to creating links that are not visually evident without color vision](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73)

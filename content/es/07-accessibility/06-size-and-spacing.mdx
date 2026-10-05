@@ -1,0 +1,113 @@
+---
+title: Tamaño y espaciado
+description: "Qué piden los criterios 2.5.8 (AA), sobre el tamaño de los objetivos, y 1.4.12 (AA), sobre el espaciado del texto, por qué el tamaño de un control es una suma de tokens y por qué las alturas tienen que poder crecer."
+nav_title: Tamaño y espaciado
+lastReviewed: 2026-10-05
+---
+
+El color no es lo único de los tokens que afecta a la accesibilidad. Los espaciados, los tamaños de los iconos y los interlineados deciden cuánto mide un control y si un texto cabe en su caja. En esta lección verás dos criterios que dependen de esas medidas: el tamaño de los objetivos y el espaciado del texto.
+
+**En esta página**
+
+- [El tamaño de un objetivo](#el-tamaño-de-un-objetivo)
+- [Un tamaño es una suma de tokens](#un-tamaño-es-una-suma-de-tokens)
+- [Espaciado de texto](#espaciado-de-texto)
+- [Alturas que pueden crecer](#alturas-que-pueden-crecer)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## El tamaño de un objetivo
+
+Un objetivo es lo que se pulsa: un botón, un enlace, una fila del menú. El criterio 2.5.8 Target Size (Minimum) es de **nivel AA** y pide que mida al menos **24 × 24 px CSS**, con cinco excepciones ([Understanding 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)):
+
+- **Espaciado.** Un objetivo más pequeño vale si un círculo de 24 px de diámetro, centrado en él, no toca otro objetivo ni el círculo de otro objetivo pequeño.
+- **Equivalente.** Otro control de la página, que cumple, hace lo mismo.
+- **En línea.** El objetivo está dentro de una frase, como un enlace en un párrafo, o su tamaño lo limita el interlineado del texto.
+- **Control del navegador.** El tamaño lo decide el navegador y el autor no lo ha cambiado.
+- **Esencial.** Esa presentación es imprescindible o la exige la ley.
+
+La medida es en píxeles CSS y no depende del zoom: cuando la persona amplía la página, el tamaño en píxeles CSS de cada elemento no cambia (misma fuente). Hay un criterio de nivel AAA, 2.5.5 Target Size (Enhanced), que pide 44 × 44 px.
+
+## Un tamaño es una suma de tokens
+
+DesignToken101 no tiene un token de tamaño mínimo. El tamaño de cada control sale de sumar los tokens que lo forman: el relleno por cada lado y su contenido (un icono, o una línea de texto con su interlineado).
+
+| Control | Suma | Alto |
+|---|---|---|
+| `IconButton` (botón de menú) | `space/200` + icono de `space/600` + `space/200` = 8 + 24 + 8 | 40 px |
+| Opción del selector de tema | `space/150` + icono de `space/600` + `space/150` = 6 + 24 + 6 | 36 px |
+| Opción del selector de idioma | `space/200` + una línea de `label/default` (14 × 1,4) + `space/200` = 8 + 19,6 + 8 | 35,6 px |
+| Fila de lección del sidebar | `space/200` + una línea de `label/default` + `space/200` | 35,6 px |
+
+Todos pasan de 24 px. Los enlaces del texto se acogen a la excepción "en línea".
+
+<Callout variant="recommendation">
+
+No crees un token de tamaño mínimo si ningún componente lo necesita: el sistema crece con los casos de uso. Comprueba en su lugar **la suma** de cada control al diseñarlo. Así, si un día cambias `space/150` o el tamaño de los iconos, sabes qué controles revisar.
+
+</Callout>
+
+## Espaciado de texto
+
+Algunas personas leen mejor con más espacio entre líneas, letras o palabras, y lo imponen con una hoja de estilos propia, una extensión o un marcador del navegador. El criterio 1.4.12 Text Spacing es de **nivel AA** y pide que no se pierda contenido ni función cuando la persona cambia, a la vez ([Understanding 1.4.12](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)):
+
+| Propiedad | Valor mínimo que puede imponer la persona |
+|---|---|
+| Interlineado | 1,5 veces el tamaño de la letra |
+| Espacio después de cada párrafo | 2 veces el tamaño de la letra |
+| Espaciado entre letras | 0,12 veces el tamaño de la letra |
+| Espaciado entre palabras | 0,16 veces el tamaño de la letra |
+
+**El criterio no te pide usar esos valores.** Pide que tu interfaz aguante cuando la persona los impone (misma fuente). Los fallos típicos son tres: texto cortado por el borde de su caja, palabras recortadas y texto que se monta sobre otro elemento.
+
+En [Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras) viste que el texto de lectura de DesignToken101 usa un interlineado de 1.5. Es una buena decisión de lectura, pero no es lo que cumple el criterio. Lo que lo cumple es la sección siguiente.
+
+## Alturas que pueden crecer
+
+Con más interlineado y más espacio entre letras, el texto ocupa más. Si la caja que lo contiene tiene una altura fija, el texto se corta o se sale.
+
+Por eso, en DesignToken101, **ningún componente que lleve texto tiene una altura fija que lo recorte**. La altura sale de la suma de la sección anterior: relleno más contenido. Si el contenido crece, la caja crece con él. Los dos paneles que miden lo que la pantalla, el sidebar de escritorio y el panel de navegación móvil, tienen su propio scroll, así que su contenido tampoco se pierde. Es una de las reglas que comparten todos los elementos interactivos del sistema.
+
+Los tokens ayudan a cumplir esa regla, pero no la garantizan: un componente puede usar tokens y fijar igualmente su alto. 1.4.12 se comprueba en el navegador, imponiendo los cuatro valores y recorriendo las páginas.
+
+<InCode title="Imponer los valores de 1.4.12 en el navegador">
+
+Aplica estas reglas con una hoja de estilos de usuario, una extensión o las herramientas para desarrolladores de tu navegador, y recorre tus páginas a varios anchos. Son los cuatro valores del criterio, con `!important` para que ganen a los estilos de la web (probado en Chromium 141 el 2026-10-05):
+
+```css
+* {
+  line-height: 1.5 !important;
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+}
+
+p {
+  margin-block-end: 2em !important;
+}
+```
+
+`em` es relativo al tamaño de la letra de cada elemento, así que `0.12em` es 0,12 veces su tamaño, como pide el criterio. Busca texto cortado, texto montado sobre otro elemento y controles que dejen de funcionar.
+
+</InCode>
+
+## En Figma
+
+En Figma, un marco con auto layout y la opción *Hug contents* mide lo justo para su contenido más el relleno. Si el texto crece, el marco crece con él ([Figma: Guide to auto layout](https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout)). Es el equivalente de la altura flexible del código.
+
+Por eso un componente bien hecho en Figma ya te da su tamaño como suma de tokens: el relleno es una variable de espaciado y el contenido, un icono o un estilo de texto. Mira el alto y el ancho del marco en el panel de propiedades y comprueba que pasan de 24 px.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Los objetivos miden al menos 24 × 24 px CSS en el nivel AA, y su tamaño es la suma de sus tokens de relleno y contenido.
+- 1.4.12 no te pide un interlineado concreto: te pide que nada se rompa cuando la persona aumenta el espaciado.
+- Sin alturas fijas en lo que lleva texto, en Figma con *Hug contents* y en código con relleno y contenido.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 2.5.8 Target Size (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
+- [Understanding 1.4.12 Text Spacing](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)
+- [Figma: Guide to auto layout](https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout)

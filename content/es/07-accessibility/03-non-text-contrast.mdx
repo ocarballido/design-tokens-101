@@ -1,0 +1,109 @@
+---
+title: Contraste de lo que no es texto
+description: "Qué pide el criterio 1.4.11 (AA) a los bordes, iconos, marcas de estado y al anillo de foco, qué queda exento y por qué un par de no texto se comprueba contra todos los fondos donde aparece."
+nav_title: Contraste de no texto
+lastReviewed: 2026-10-05
+---
+
+No todo lo que identifica un control es texto. A veces es un borde, un icono o una marca, y el estado en que está lo indica un trazo o un anillo. Todo eso también tiene un mínimo de contraste, más bajo que el del texto. En esta lección verás qué lo necesita, qué no y contra qué fondos se comprueba.
+
+**En esta página**
+
+- [Qué pide 1.4.11](#qué-pide-1411)
+- [Qué no necesita 3:1](#qué-no-necesita-31)
+- [Los pares de no texto de DesignToken101](#los-pares-de-no-texto-de-designtoken101)
+- [Contra todos los fondos](#contra-todos-los-fondos)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué pide 1.4.11
+
+El criterio 1.4.11 Non-text Contrast (AA) pide una razón de 3:1 frente a los colores adyacentes para dos cosas ([Understanding 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)):
+
+- **Los componentes de interfaz:** lo que hace falta para identificar un control y su estado.
+- **Los objetos gráficos:** las partes de un gráfico necesarias para entender el contenido.
+
+La razón se calcula con la misma fórmula que el texto ([Contraste de texto](/accessibility/text-contrast#la-fórmula)). Lo que cambia es el umbral y la pregunta: no "¿se lee?", sino "¿se ve que está ahí, y en qué estado?".
+
+En DesignToken101 afecta a estos tokens:
+
+| Token | Para qué |
+|---|---|
+| `color/border/focus` | El anillo de foco |
+| `color/border/accent/strong` | La marca de la lección actual del sidebar (seleccionado) |
+| `color/border/neutral/strong` | El borde de un control que se reconoce por su borde |
+| Los tokens de texto, cuando colorean un icono | Los iconos que identifican un control (los iconos usan tokens de texto) |
+
+## Qué no necesita 3:1
+
+La guía de 1.4.11 es precisa sobre lo que queda fuera (misma fuente):
+
+- **El borde de un control que ya tiene texto o un icono visible.** Si el contenido del control lo identifica, no hace falta un borde que marque su área. Por eso el fondo del botón principal (`background/accent/strong/default`) puede quedarse en 2,05:1 frente a la página blanca: lo que identifica el botón es su texto, que contrasta 9,63:1 con ese fondo.
+- **El hover.** El tratamiento que se añade al pasar el ratón no es lo que permite identificar el estado. Lo viste en [Estados](/relations/states#qué-pide-wcag-a-cada-estado).
+- **Los componentes inactivos**, como un control desactivado en HTML.
+
+<Callout variant="recommendation">
+
+Hay bordes que no identifican ningún control ni transmiten información. En DesignToken101, el borde del `Callout` de recomendación (`border/accent/default`) es **decorativo**: el `Callout` no es un control, y lo distinguen su etiqueta y su icono. Por eso no lo comprobamos contra 3:1 (1,35:1 en Light). Si un borde tuyo fuera la única forma de ver dónde está un control, como el de un campo de texto, sí lo necesitaría.
+
+</Callout>
+
+## Los pares de no texto de DesignToken101
+
+`tools/semantic.py` (comprobado el 2026-10-05):
+
+| Elemento | Primer plano | Fondo | Light | Dark |
+|---|---|---|---|---|
+| Anillo de foco | `border/focus` | `background/neutral/default` | 3,33 | 10,92 |
+| Anillo de foco | `border/focus` | `background/neutral/subtle` | 3,19 | 9,83 |
+| Marca de la lección actual | `border/accent/strong` | `background/accent/subtle` | 3,18 | 8,30 |
+| Borde que identifica un control | `border/neutral/strong` | `background/neutral/default` | 4,70 | 4,20 |
+| Icono y marcas de "Lo que te llevas" | `text/accent/default` | `background/accent/subtle` | 4,85 | 8,30 |
+| Icono del botón de menú, peor caso | `text/neutral/subtle` | `background/neutral/translucent` | 6,17 | 6,10 |
+
+Todos llegan a 3:1. La última fila es la de la cabecera translúcida: su fondo es blanco o `neutral/950` al 90 %, así que el script lo calcula mezclado con negro y con blanco, el peor caso posible ([Fondos con transparencia](/accessibility/text-contrast#fondos-con-transparencia)).
+
+Fíjate en el margen de Light: el anillo y la marca de seleccionado se quedan entre 3,18 y 3,33. Es el mismo efecto que en el texto: en Light, el acento está más cerca del umbral.
+
+## Contra todos los fondos
+
+"Colores adyacentes" son los que tocan al elemento. El anillo de foco aparece en cada control que se alcanza con el teclado, y cada control está sobre un fondo. Así que el par no es "el anillo y la página": es **el anillo y cada fondo donde haya un control**.
+
+Estos son los fondos de DesignToken101 donde hay controles, con el contraste del anillo en cada uno (cálculo propio con la fórmula de `semantic.py`, 2026-10-05):
+
+| Fondo junto al anillo | Dónde | Light | Dark |
+|---|---|---|---|
+| `background/neutral/default` | La página | 3,33 | 10,92 |
+| `background/neutral/subtle` | `InCode` y bloques de código | 3,19 | 9,83 |
+| `background/neutral/strong` | Grupo de los selectores de idioma y tema | 3,05 | 8,28 |
+| `background/info/subtle` | Un enlace dentro de un `Callout` de nota | 3,06 | 8,09 |
+| `background/warning/subtle` | Un enlace dentro de un `Callout` de aviso | 3,22 | 8,21 |
+| `background/accent/subtle` | Un enlace dentro de un `Callout` de recomendación | 3,18 | 8,30 |
+
+Todos llegan a 3:1, pero en Light el más justo se queda en 3,05. Si mañana cambiaras el alias de `border/focus` o de uno de esos fondos claros, el anillo podría dejar de verse en un sitio que nadie mira al revisar la página.
+
+<Callout variant="recommendation">
+
+Para cada token de no texto, haz la lista de **todos los fondos donde aparece** y comprueba cada par en cada modo. En DesignToken101, el anillo de foco tiene seis fondos posibles; en un sistema con fondos de marca saturados o con imágenes, tendrá más. Es la misma idea que el texto: un color no tiene contraste, lo tiene un par.
+
+</Callout>
+
+## En Figma
+
+El comprobador de contraste del selector de color tiene un tipo de contenido **Gráficos**, que usa el umbral de lo que no es texto ([Figma: Update fills using the color picker](https://help.figma.com/hc/en-us/articles/360041003774)). Como con el texto, comprueba la capa seleccionada en el modo que tiene aplicado: úsalo mientras diseñas y deja la comprobación del sistema a tu tabla de pares.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Lo que identifica un control o su estado necesita 3:1 frente a lo que lo rodea; el hover y los bordes que no identifican nada, no.
+- El anillo de foco y la marca de seleccionado son los pares de no texto que más dependen de los tokens.
+- Un token de no texto se comprueba contra cada fondo donde aparece, no contra el fondo de la página.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 1.4.11 Non-text Contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
+- [Figma: Update fills using the color picker](https://help.figma.com/hc/en-us/articles/360041003774)
+- [Repositorio de DesignToken101: tools/semantic.py](https://github.com/ocarballido/design-tokens-101/blob/main/tools/semantic.py)

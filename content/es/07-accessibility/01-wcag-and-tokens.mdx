@@ -1,0 +1,96 @@
+---
+title: Qué pide WCAG a los tokens
+description: "Qué es WCAG 2.2, qué significan sus niveles A, AA y AAA, qué criterios dependen de los tokens y cuáles de los componentes, y por qué APCA no es norma."
+nav_title: Qué pide WCAG
+lastReviewed: 2026-10-05
+---
+
+Un sistema de tokens decide colores, grosores, tamaños y duraciones para toda la interfaz. Muchas de esas decisiones tienen un mínimo de accesibilidad, y conviene comprobarlo en el token, una vez, y no en cada pantalla. En esta lección verás qué norma usa el curso, qué significan sus niveles y qué criterios dependen de los tokens.
+
+**En esta página**
+
+- [WCAG 2.2](#wcag-22)
+- [Tres niveles](#tres-niveles)
+- [Qué depende de los tokens](#qué-depende-de-los-tokens)
+- [Las preferencias de la persona](#las-preferencias-de-la-persona)
+- [APCA y WCAG 3](#apca-y-wcag-3)
+- [Lo que necesitas para este módulo](#lo-que-necesitas-para-este-módulo)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## WCAG 2.2
+
+Las Web Content Accessibility Guidelines (WCAG) son las pautas de accesibilidad del W3C. La versión vigente es WCAG 2.2, una Recomendación del W3C publicada el 12 de diciembre de 2024 ([WCAG 2.2](https://www.w3.org/TR/WCAG22/)).
+
+Las pautas se organizan en **criterios de conformidad**, cada uno con un número (1.4.3, 2.4.7…) y una frase que se puede comprobar. Cada criterio tiene una guía oficial, *Understanding*, que explica su intención y sus casos dudosos, y unas **técnicas**: formas concretas de cumplirlo (técnicas suficientes) y errores conocidos (fallos). En este módulo citarás las tres.
+
+## Tres niveles
+
+Cada criterio tiene un nivel: A, AA o AAA. El nivel A es el mínimo. Para cumplir el nivel AA, una página cumple todos los criterios A y AA; para el AAA, todos los A, AA y AAA ([Understanding Conformance](https://www.w3.org/WAI/WCAG22/Understanding/conformance)).
+
+El W3C asigna el nivel según varios factores: si la tecnología de apoyo puede compensar el problema, si el criterio se puede cumplir en cualquier tipo de contenido, o si exige cambios grandes en el diseño. Por eso la misma guía **no recomienda exigir el nivel AAA a un sitio entero**: para algunos contenidos no es posible cumplir todos sus criterios (misma fuente).
+
+<Callout variant="recommendation">
+
+DesignToken101 apunta al **nivel AA de WCAG 2.2**. En cada lección verás el nivel de cada criterio. Cuando el sistema cumple un criterio AAA, lo contamos como un extra, no como la meta. Te recomendamos lo mismo para tu sistema: decide el nivel antes de comprobar nada, porque cambia los umbrales.
+
+</Callout>
+
+## Qué depende de los tokens
+
+La mayoría de los criterios de WCAG tratan del contenido y del comportamiento: textos alternativos, orden del teclado, mensajes de error. Los tokens no los resuelven. Estos sí dependen de valores que viven en los tokens:
+
+| Criterio | Nivel | Qué token o decisión afecta | Lección |
+|---|---|---|---|
+| 1.4.3 Contrast (Minimum) | AA | Cada par de texto y fondo | [Contraste de texto](/accessibility/text-contrast) |
+| 1.4.6 Contrast (Enhanced) | AAA | Los mismos pares, con un umbral más alto | [Contraste de texto](/accessibility/text-contrast) |
+| 1.4.11 Non-text Contrast | AA | Bordes que identifican un control, marcas de estado, anillo de foco | [Contraste de lo que no es texto](/accessibility/non-text-contrast) |
+| 1.4.1 Use of Color | A | Estados y enlaces que se distinguen únicamente por el color | [El color no basta](/accessibility/use-of-color) |
+| 2.4.7 Focus Visible | AA | `color/border/focus` y `border-width/200` | El foco |
+| 2.4.11 Focus Not Obscured (Minimum) | AA | La cabecera sticky y su altura | El foco |
+| 2.4.13 Focus Appearance | AAA | Grosor y color del anillo | El foco |
+| 2.5.8 Target Size (Minimum) | AA | Rellenos e iconos que suman el tamaño de un control | [Tamaño y espaciado](/accessibility/size-and-spacing) |
+| 1.4.12 Text Spacing | AA | Interlineados y alturas de los componentes | [Tamaño y espaciado](/accessibility/size-and-spacing) |
+| 2.3.3 Animation from Interactions | AAA | `duration/200` y `easing/standard` | Movimiento y transparencia |
+
+Los nombres y los niveles son los de [WCAG 2.2](https://www.w3.org/TR/WCAG22/).
+
+Lo que queda fuera de los tokens (los atributos ARIA, el orden del foco, lo que anuncia un lector de pantalla) es trabajo de los componentes, y lo verás en el módulo 9.
+
+## Las preferencias de la persona
+
+Además de WCAG, el navegador informa de algunos ajustes de la persona: que prefiere menos movimiento, menos transparencias, más contraste, o que ha impuesto su propia paleta de colores. En CSS se leen con *media features* como `prefers-reduced-motion` o `forced-colors`.
+
+Una de ellas está ligada a un criterio de WCAG: `prefers-reduced-motion` es una forma de cumplir 2.3.3. Las demás no son criterios, pero cambian cómo se ven los tokens, y las verás al final del módulo.
+
+## APCA y WCAG 3
+
+En [Qué es un primitivo](/primitives/what-is-a-primitive) viste que Radix mide el contraste con APCA, un método distinto del de WCAG 2.2. Conviene saber qué estado tiene:
+
+- **APCA no es una norma.** WCAG 2.2 no lo usa: su fórmula de contraste es la que verás en la lección siguiente.
+- **WCAG 3 es un borrador.** El último borrador es del 10 de septiembre de 2026 y el propio documento dice que es un trabajo en curso. Su requisito de contraste de texto dice que el algoritmo **está por determinar**, y que probablemente tendrá en cuenta el tamaño y el peso de la letra. No menciona APCA ([WCAG 3.0](https://www.w3.org/TR/wcag-3.0/)).
+
+<Callout variant="recommendation">
+
+Comprueba tus tokens con la fórmula de WCAG 2.2, que es la norma. Si usas una herramienta que da cifras de APCA (o "Lc"), no las compares con los umbrales de WCAG: son escalas distintas.
+
+</Callout>
+
+## Lo que necesitas para este módulo
+
+En el [ejercicio del módulo 6](/figma-to-code/exercise-figma-to-code#paso-7-prepara-los-pares-de-color) preparaste una tabla con los pares de texto y fondo de tu diseño y el hex de cada uno en Light y en Dark. Es la base de este módulo: la completarás lección a lección y, en el ejercicio final del módulo, la convertirás en un registro de decisiones.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- WCAG 2.2 es la norma, y DesignToken101 apunta a su nivel AA.
+- Diez criterios dependen de valores que viven en los tokens: contraste, color, foco, tamaño, espaciado y movimiento.
+- APCA no es norma, y WCAG 3 aún no ha elegido su algoritmo de contraste.
+
+</Takeaways>
+
+## Fuentes
+
+- [WCAG 2.2](https://www.w3.org/TR/WCAG22/)
+- [Understanding Conformance](https://www.w3.org/WAI/WCAG22/Understanding/conformance)
+- [WCAG 3.0 (Working Draft)](https://www.w3.org/TR/wcag-3.0/)
