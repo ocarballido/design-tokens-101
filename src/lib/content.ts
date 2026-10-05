@@ -32,6 +32,8 @@ export type Lesson = {
 export type Section = {
   slug: string;
   title: string;
+  /** Grupo del sidebar (C17): texto del separador "---Texto---" anterior; null antes del primero. */
+  group: string | null;
   lessons: Lesson[];
 };
 
@@ -65,19 +67,49 @@ function readSectionTitle(locale: string, dir: string): string {
   throw new Error(`Falta content/${SOURCE_LOCALE}/${dir}/meta.json con "title"`);
 }
 
+const SEPARATOR = /^---(.+)---$/;
+
+// C17: content/{locale}/meta.json (o el del español) lista las carpetas de sección en orden, con
+// separadores "---Texto---" (convención de Fumadocs, https://fumadocs.dev/docs/page-conventions).
+// Toda carpeta de content/es tiene que estar una vez, para que ninguna sección desaparezca.
+function readSectionOrder(locale: string, dirs: string[]): { dir: string; group: string | null }[] {
+  const candidate = [locale, SOURCE_LOCALE].find((item) => fs.existsSync(path.join(CONTENT_DIR, item, 'meta.json')));
+  if (!candidate) throw new Error(`Falta content/${SOURCE_LOCALE}/meta.json con "pages"`);
+  const file = `content/${candidate}/meta.json`;
+  const { pages } = JSON.parse(fs.readFileSync(path.join(CONTENT_DIR, candidate, 'meta.json'), 'utf8')) as { pages?: unknown };
+  if (!Array.isArray(pages) || pages.some((page) => typeof page !== 'string')) {
+    throw new Error(`${file}: "pages" tiene que ser una lista de textos`);
+  }
+
+  const order: { dir: string; group: string | null }[] = [];
+  let group: string | null = null;
+  for (const page of pages as string[]) {
+    const separator = SEPARATOR.exec(page);
+    if (separator) group = separator[1].trim();
+    else if (!dirs.includes(page)) throw new Error(`${file}: "${page}" no es una carpeta de content/${SOURCE_LOCALE}`);
+    else if (order.some((item) => item.dir === page)) throw new Error(`${file}: "${page}" está repetida`);
+    else order.push({ dir: page, group });
+  }
+  const missing = dirs.filter((dir) => !order.some((item) => item.dir === dir));
+  if (missing.length) throw new Error(`${file}: faltan en "pages" ${missing.join(', ')}`);
+  return order;
+}
+
 export const getSections = cache((locale: string): Section[] => {
   const sourceRoot = path.join(CONTENT_DIR, SOURCE_LOCALE);
+  const dirs = new Map(numbered(sourceRoot, false).map((dir) => [dir.name, dir.slug]));
 
-  return numbered(sourceRoot, false).map((sectionDir) => ({
-    slug: sectionDir.slug,
-    title: readSectionTitle(locale, sectionDir.name),
-    lessons: numbered(path.join(sourceRoot, sectionDir.name), true).map((lessonFile) => {
-      const file = `${sectionDir.name}/${lessonFile.name}`;
+  return readSectionOrder(locale, [...dirs.keys()]).map(({ dir, group }) => ({
+    slug: dirs.get(dir)!,
+    title: readSectionTitle(locale, dir),
+    group,
+    lessons: numbered(path.join(sourceRoot, dir), true).map((lessonFile) => {
+      const file = `${dir}/${lessonFile.name}`;
       const translated = fs.existsSync(path.join(CONTENT_DIR, locale, `${file}.mdx`));
       const contentLocale = translated ? locale : SOURCE_LOCALE;
       return {
         slug: lessonFile.slug,
-        section: sectionDir.slug,
+        section: dirs.get(dir)!,
         file,
         contentLocale,
         frontmatter: readFrontmatter(path.join(CONTENT_DIR, contentLocale, `${file}.mdx`)),

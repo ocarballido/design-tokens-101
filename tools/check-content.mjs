@@ -4,6 +4,8 @@
 //      (https://html.spec.whatwg.org/multipage/browsing-the-web.html#find-a-potential-indicated-element).
 //   2. El sidebar sigue el orden de los prefijos NN- de content/es y no muestra los prefijos.
 //   3. Los enlaces internos de las lecciones llevan a una página generada.
+//   4. Grupos del sidebar (C17): uno por separador "---Texto---" de content/{locale}/meta.json,
+//      con role="group" y aria-labelledby a su etiqueta.
 // Uso: npm run build && npm run check:content
 
 import fs from 'node:fs';
@@ -31,6 +33,12 @@ const expected = byPrefix(fs.readdirSync(CONTENT_DIR)).flatMap((section) =>
     (file) => `/${section.slice(3)}/${file.slice(3, -'.mdx'.length)}`,
   ),
 );
+
+// Separadores de meta.json raíz por idioma (sin el del idioma, el del español).
+const groupLabels = (locale) => {
+  const file = [locale, 'es'].map((l) => path.join(ROOT, 'content', l, 'meta.json')).find((f) => fs.existsSync(f));
+  return JSON.parse(fs.readFileSync(file, 'utf8')).pages.map((p) => /^---(.+)---$/.exec(p)?.[1].trim()).filter(Boolean);
+};
 
 let anchorCount = 0;
 let accentedCount = 0;
@@ -70,6 +78,13 @@ for (const locale of LOCALES) {
       if (current.length !== 1 || (current[0][1] ?? current[0][2]) !== page) {
         errors.push(`${page}: aria-current="page" no marca solo la lección actual`);
       }
+      // 4. Grupos
+      const groups = [...nav[1].matchAll(/<div role="group" aria-labelledby="([^"]+)"[^>]*>\s*<p id="([^"]+)"[^>]*>([^<]*)<\/p>/g)];
+      const labels = groups.map((m) => decodeEntities(m[3]));
+      if (labels.join() !== groupLabels(locale).join()) {
+        errors.push(`${page}: grupos del sidebar inesperados: ${labels.join(', ') || 'ninguno'}`);
+      }
+      if (groups.some((m) => m[1] !== m[2])) errors.push(`${page}: un grupo del sidebar no apunta a su etiqueta`);
     }
 
     // 3. Enlaces internos del contenido
@@ -82,6 +97,7 @@ for (const locale of LOCALES) {
 
 console.log(`Páginas: ${expected.length} × ${LOCALES.length} idiomas`);
 console.log(`Anclas comprobadas: ${anchorCount} (${accentedCount} con tildes u otros caracteres no ASCII)`);
+console.log(`Grupos del sidebar (es): ${groupLabels('es').join(', ')}`);
 console.log(`Orden esperado del sidebar:\n  ${expected.join('\n  ')}`);
 
 if (errors.length) {

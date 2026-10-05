@@ -39,6 +39,7 @@ export default async function LocaleLayout({
     sections: getSections(locale).map((section) => ({
       slug: section.slug,
       title: section.title,
+      group: section.group,
       lessons: section.lessons.map((lesson) => ({
         title: lesson.frontmatter.nav_title ?? lesson.frontmatter.title,
         href: lessonHref(lesson),
