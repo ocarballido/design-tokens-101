@@ -20,7 +20,9 @@ export function LessonHeader({ title, description, lastReviewed, section }: Less
       className="flex flex-col gap-100 rounded-container border-(length:--t101-border-width-100) border-neutral-default p-400"
     >
       {section ? <p className="type-caption-default text-neutral-subtle">{section}</p> : null}
-      <h1 className="type-heading-1 text-neutral-default">{title}</h1>
+      {/* V38: una palabra más ancha que la columna ("DesignToken101" a 320 px con el espaciado de
+          1.4.12) se parte en vez de salirse del recuadro y dar scroll horizontal (1.4.10, 1.4.12). */}
+      <h1 className="type-heading-1 text-neutral-default wrap-break-word">{title}</h1>
       {description ? <p className="type-body-default text-neutral-subtle">{description}</p> : null}
       {lastReviewed ? (
         // La fecha va en el idioma de la interfaz, aunque la lección se muestre sin traducir (3.1.2).

@@ -298,6 +298,7 @@ En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="
 
 **Accesibilidad.**
 - El área de código tiene scroll horizontal propio y se puede enfocar con el teclado para desplazarse (1.4.10).
+- El nombre de archivo baja de línea si no cabe, y parte una ruta larga; nunca se corta con puntos suspensivos (V39, 1.4.10 y 1.4.12). El botón de copiar no se encoge.
 - Tras copiar, aparece el texto "Copiado", no solo un cambio de icono (1.4.1).
 
 **Contraste** (≥ 4,5:1): código 17,01 / 17,01; nombre de archivo 7,40 / 6,89; "Copiado" 4,86 / 12,55.
@@ -606,7 +607,7 @@ Sin tokens nuevos.
 | Fecha | `text/neutral/subtle` | `caption/default` |
 | Contenedor (§4.10) | Borde `border/neutral/default`, `border-width/100`; radio `radius/container` |: |
 
-**Accesibilidad.** `title` es el único `h1` de la página.
+**Accesibilidad.** `title` es el único `h1` de la página. Si una palabra del título no cabe en la línea, se parte (`overflow-wrap: break-word`), para que no haya scroll horizontal a 320 px ni con el espaciado de 1.4.12 (V38).
 
 **Contraste** (≥ 4,5:1): título 17,79 / 18,89; el resto 7,74 / 7,65.
 

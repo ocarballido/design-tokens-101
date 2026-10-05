@@ -7,6 +7,8 @@ import { IconButton } from '@/components/IconButton';
 
 // Anatomía: docs/componentes-v1.md §3.4. Sin resaltado de colores en v1 (D08).
 // - El área de código tiene scroll horizontal propio y se enfoca con el teclado (1.4.10).
+// - V39: el nombre de archivo baja de línea si no cabe (y parte una ruta larga), sin puntos
+//   suspensivos: con el espaciado de 1.4.12, o a 320 px, no se pierde texto.
 // - Tras copiar aparece el texto "Copiado", no solo un cambio de icono (1.4.1); se anuncia con aria-live.
 
 type CodeBlockProps = {
@@ -40,8 +42,8 @@ export function CodeBlock({ children, language, filename }: CodeBlockProps) {
       className="overflow-hidden rounded-container border-(length:--t101-border-width-100) border-neutral-default bg-neutral-subtle"
     >
       <div className="flex items-center justify-between gap-200 border-b-(length:--t101-border-width-100) border-neutral-default py-100 ps-400 pe-100">
-        <p className="min-w-0 truncate type-caption-default text-neutral-subtle">{filename}</p>
-        <div className="flex items-center gap-200">
+        <p className="min-w-0 type-caption-default text-neutral-subtle wrap-break-word">{filename}</p>
+        <div className="flex shrink-0 items-center gap-200">
           <p aria-live="polite" className="type-caption-default text-success-default">
             {copied ? t('copied') : ''}
           </p>

@@ -41,7 +41,7 @@ for role,hue in (('info','blue'),('success','emerald'),('warning','amber'),('dan
 
 # Valores directos con opacidad (§6.1): token: ((primitivo, alpha) light, (primitivo, alpha) dark)
 A={
- 'color/background/neutral/translucent':(('white',0.9),('neutral/950',0.9)),  # V28
+ 'color/background/neutral/translucent':(('white',0.96),('neutral/950',0.9)),  # V28; S35: 96 % en Light
 }
 
 # pares a comprobar: (primer plano, fondo, umbral, criterio, uso, referencia light/dark)
@@ -61,6 +61,13 @@ P=[
  ('color/background/accent/strong/default','color/background/neutral/default',None,'exento','Button primary frente a la página (§2.2)',None),
  ('color/border/focus','color/background/neutral/default',3,'1.4.11','',None),
  ('color/border/focus','color/background/neutral/subtle',3,'1.4.11','',None),
+ # Anillo de foco frente a los demás fondos donde hay controles (investigacion-modulo-7.md §5)
+ ('color/border/focus','color/background/neutral/strong',3,'1.4.11','selectores de idioma y tema (§4.4, §4.5)',(3.05,8.28)),
+ ('color/border/focus','color/background/info/subtle',3,'1.4.11','enlace dentro de un Callout note',(3.06,8.09)),
+ ('color/border/focus','color/background/warning/subtle',3,'1.4.11','enlace dentro de un Callout warning',(3.22,8.21)),
+ ('color/border/focus','color/background/accent/subtle',3,'1.4.11','enlace dentro de un Callout recommendation',(3.18,8.30)),
+ # S35: anillo del logotipo y del botón de menú sobre la cabecera translúcida, en el peor caso
+ ('color/border/focus','color/background/neutral/translucent',3,'1.4.11','foco en SiteHeader (peor fondo)',(3.06,8.72)),
 ]
 for role in ('info','success','warning','danger'):
     P.append((f'color/text/{role}/default',f'color/background/{role}/subtle',4.5,'1.4.3','',None))
@@ -93,8 +100,9 @@ def rgb(h): return [int(h[i:i+2],16)/255 for i in (1,3,5)]
 def colors(tok,mode):
     """Colores posibles de un token: uno si es opaco; si tiene opacidad, mezclado sobre negro y sobre blanco."""
     if tok in A:
+        # La mezcla se redondea a 8 bits por canal, como la pinta el navegador.
         p,a=A[tok][mode]; c=rgb(prim[p])
-        return [[a*x+(1-a)*bk for x in c] for bk in (0,1)]
+        return [[round((a*x+(1-a)*bk)*255)/255 for x in c] for bk in (0,1)]
     return [rgb(prim[T[tok][mode]])]
 
 def ratio(fg,bg,mode):
