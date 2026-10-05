@@ -467,7 +467,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
 
 ---
 
-### 3.8 `ColorScale` (escala de color visual): C14, propuesta de la sesión de contenido (2026-10-04), pendiente de revisión de Oscar
+### 3.8 `ColorScale` (escala de color visual): C14, aprobado por Oscar el 2026-10-05; en Figma (D34)
 
 **Para qué sirve.** Mostrar una escala primitiva de color como una fila de muestras, junto a la tabla con sus valores. Se usa en las lecciones Escalas de color y Escalas de estado del módulo 2.
 
@@ -879,17 +879,20 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `Link` | Propiedad `size` (`default`/`small`) solo de Figma: el enlace hereda el tamaño del texto que lo rodea. Icono externo: `li:external-link`. |
 | `Callout` | Etiqueta fija por variante (D18). Borde de `pending`: `border/neutral/default` (decorativo). |
 | `IconButton` | 40 × 40 px, sin fondo en `default`. |
+| `Link` (icono externo) | Hueco `space/100` entre el texto y `li:external-link` en los dos tamaños (D33; antes `space/200` y `space/150`), como `ms-100` en código. |
+| `Button` | Sin alto ni ancho mínimos (D33): sin icono mide 36 px de alto, con icono 40. |
+| `ColorScale` (D34) | `ColorScaleStep` con `highlighted` y `ColorScale` con `palette` × `size`. `size` solo de Figma: `large` 11 columnas, `small` 4 (rejilla con huecos `space/200` y `space/400`). El hex es texto escrito desde el valor de la variable (en código se lee de los tokens al compilar): si la escala cambia, hay que actualizarlo. |
 | `SidebarItem` / `SidebarSection` | Filas de 36 / 40 px (padding `space/200` vertical y `space/300` horizontal). En `focus` + `current`, la marca lateral es un rectángulo `Marker` porque el trazo lo ocupa el anillo de foco. |
-| `LanguageSwitcher` / `ThemeToggle` | Grupo con fondo `background/neutral/strong`; la opción actual es un recuadro `background/neutral/default` con texto o icono `text/accent/default`. **Sin marca inferior desde V26** (en Figma sigue la capa `Marker`; riesgo de 1.4.1 y 1.4.11 aceptado). Opciones no actuales: texto o icono `text/neutral/subtle`; en hover, `text/neutral/default` y fondo `background/neutral/hover`. |
+| `LanguageSwitcher` / `ThemeToggle` | Grupo con fondo `background/neutral/strong`; la opción actual es un recuadro `background/neutral/default` con texto o icono `text/accent/default`. **Sin marca inferior desde V26** (capa `Marker` quitada de Figma el 2026-10-05, D33; riesgo de 1.4.1 y 1.4.11 aceptado). Opciones no actuales: texto o icono `text/neutral/subtle`; en hover, `text/neutral/default` y fondo `background/neutral/hover`. |
 | `CodeBlock` | Props: `children`, `filename`; solo de Figma: `showFilename`, `showCopied`. Botón copiar: `IconButton` con `li:copy`. |
 | `SkipLink` | Se dibuja en estado de foco. En las plantillas está oculto. |
-| `SiteHeader` | `size=large` (escritorio) y `size=small` (móvil, sin selectores: D19). |
-| `SiteFooter` | Logotipo, autor y aviso P7. |
+| `SiteHeader` | `size=large` (escritorio) y `size=small` (móvil, sin selectores: D19). Fondo `background/neutral/translucent` (V28, D33). **Sin desenfoque en Figma:** `blur/300` es un token solo de código (pendiente de Oscar). |
+| `SiteFooter` | Logotipo, autor y aviso P7. Todo el texto en `text/neutral/subtle` desde el 2026-10-05 (D33; antes, el autor en `default`). |
 | `Callout`, `InCode`, `LessonHeader`, `PageNavLink` | Borde de 1 px en los cuatro lados (`border-width/100`). |
-| Plantilla | Columna con ancho máximo `size/content/max-width` (720 px en Figma, D20; 960 px desde V27), centrada. Sidebar con dos secciones: "Empezar aquí" y "Recursos". |
-| Navegación móvil | En Figma, panel a pantalla completa (D21). **En código, panel lateral con overlay (V25):** ancho `size/sidebar/width`, selectores arriba, sidebar debajo, botón de cerrar `li:x`. |
-| `Callout` (etiqueta) | En Figma, la etiqueta está en `text/neutral/default`. **No se sigue (V18):** en código, icono y etiqueta usan `text/{rol}/default`, como la tabla de §3.2. |
-| "En esta página" | En Figma, la lista va sin viñetas. **No se sigue (V19):** en código lleva viñetas, como el resto de listas (§3.1). |
+| Plantilla | Columna con ancho máximo `size/content/max-width` (960 px, V27), centrada. Sidebar con las ocho secciones y los tres grupos (D29). Contenido de `what-is-designtoken101` al día (D31). **Listas del texto:** en Figma son listas nativas, y la viñeta toma el color del texto (`text/neutral/default`); en código, `marker:text-neutral-subtle`. Visto en el archivo: la viñeta sale del color del primer carácter de la línea; no se ha buscado otra forma de cambiarla. "En esta página" sí lleva la viñeta en `subtle`, porque sus elementos son instancias de `Link` con un marco `Marker`. |
+| Navegación móvil | Panel lateral con overlay (V25), en Figma desde el 2026-10-05 (D32): ancho `size/sidebar/width`, logotipo y botón de cerrar `li:x` arriba, selectores debajo y el sidebar; `Overlay` en `color/background/overlay` sobre la página y la cabecera. |
+| `Callout` (etiqueta) | Icono y etiqueta en `text/{rol}/default` (V18), en Figma desde el 2026-10-05 (D33). |
+| "En esta página" | Con viñetas (V19), en Figma desde el 2026-10-05 (D31): marco `Marker` de ancho `space/400` con "•" en `text/neutral/subtle` y la instancia de `Link`. |
 | `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Anillo de foco por dentro, como `SidebarItem` (D27). Sin radio (D26), como `SidebarItem` (V23). Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
 | `Takeaways` (D28) | Variante `size` solo de Figma: `large` (relleno `space/600`, Desktop) y `small` (`space/400`, Mobile), porque Layout no tiene tokens de espaciado. En código no es un prop: `p-400` y `desktop:p-600`. La marca `li:check` va en un marco `Marker` con `space/100` arriba y abajo (24 px, una línea de `body/default`); en código, `h-[1lh]`. Los 24 px del icono del título y los 16 de las marcas son tamaño de icono, sin variable, como en el resto del archivo. El `space/600` encima es el hueco de la columna de la lección (el mismo que antes de un `h2`). |
 | Grupos del `Sidebar` (D29) | Componente `SidebarGroup` con el separador y la etiqueta (texto `label`); las secciones del grupo son hermanas, como los `SidebarItem`. En código, el grupo envuelve a sus secciones (`div role="group"`). **Relleno lateral de la etiqueta `space/300`**, como en código (`px-300`); §4.2 no lo dice. El separador cuenta en el auto layout (1 px + `space/200` hasta la etiqueta). En las plantillas, la lección de Recursos está oculta porque su sección está cerrada (C11). En el menú móvil abierto (812 px de alto), el grupo "Referencia" queda por debajo del borde del marco, como quedaría en la pantalla antes de hacer scroll. |
@@ -938,3 +941,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D28 | `Takeaways` en Figma con `size` solo de Figma (§3.9, §4.10). |
 | D29 | Grupos del `Sidebar` en Figma: `SidebarGroup` con separador y etiqueta (§4.2, §4.10). |
 | D30 | Logotipo del autor del pie como `AuthorLink` con estado `focus` (§4.8, §4.10). |
+| D31 | Plantillas al día con el código y la lección: texto en `text/neutral/default`, viñetas en "En esta página", sección en `LessonHeader` (§4.10). |
+| D32 | Panel de navegación móvil lateral en Figma (V25, §4.10). |
+| D33 | Componentes al día con el código: V18, V26, V28 (sin desenfoque), pie, `Link` y `Button` (§4.10). |
+| D34 | `ColorScale` en Figma (§3.8, §4.10). |

@@ -7,12 +7,13 @@ Archivo: [TokensDS](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS
 Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad), `docs/componentes-v1.md` (anatomía y props), `docs/decisiones.md`.
 
 > **Cambios posteriores a la entrega (sesión de desarrollo, 2026-10-03, decididos por Oscar).** Mandan sobre lo que dice este documento y sobre el archivo de Figma hasta que diseño los incorpore:
-> - **V16:** token `size/sidebar/width` = 304 px (Semantic size). Pendiente de crear en Figma.
+> - **V16:** token `size/sidebar/width` = 304 px (Semantic size). Creado en Figma (V31).
 > - **V23:** `SidebarItem` sin radio.
 > - **V24:** tokens solo de código `duration/200` y `easing/standard` para las animaciones.
-> - **V25 (sustituye a D21):** el panel móvil es lateral, entra desde la izquierda con el ancho `size/sidebar/width` y un overlay `color/background/overlay` (negro al 50 %). Pendiente de crear el token y de dibujar el panel en Figma.
-> - **V26:** los selectores de idioma y tema no llevan marca inferior (`Marker`). Pendiente de quitarla en Figma.
-> - **V27:** `size/content/max-width` = 960 px (ya cambiado en Figma; falta actualizar la descripción de la variable, que dice 720 px).
+> - **V25 (sustituye a D21):** el panel móvil es lateral, entra desde la izquierda con el ancho `size/sidebar/width` y un overlay `color/background/overlay` (negro al 50 %). Token creado (V31); panel dibujado en Figma el 2026-10-05 (D32).
+> - **V26:** los selectores de idioma y tema no llevan marca inferior (`Marker`). Quitada en Figma el 2026-10-05 (D33).
+> - **V27:** `size/content/max-width` = 960 px (cambiado en Figma, con la descripción al día desde la reexportación del 2026-10-04).
+> - **V18, V19, V28 y diferencias del paso 8:** en Figma desde el 2026-10-05 (D31, D33), salvo el desenfoque de la cabecera (`blur/300`, solo de código; pendiente de Oscar).
 > - **V30 (2026-10-04):** `SidebarSection` con variante `current` = `true` / `false`: título y chevron en `text/accent/default` (hover `text/accent/hover`), combinable con `open`. Tokens por estado en `componentes-v1.md` §4.2. **Hecho en Figma (2026-10-04, D25):** `SidebarSection` ([27:910](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=27-910)), 12 variantes; en las plantillas, "Empezar aquí" con `current = true`.
 
 ---
@@ -26,13 +27,14 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Organismos (`SiteHeader`, `SiteFooter`) | Components | [35:242](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-242) |
 | Lección, escritorio, Light / Dark | Pages | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
 | Lección, móvil, Light / Dark | Pages | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
-| Menú móvil abierto, Light / Dark | Pages | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
+| Menú móvil abierto (panel lateral, V25), Light / Dark | Pages | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
 | Muestra de estilos de texto | Foundations |: |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
 | Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark | Pages | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
 | `Takeaways` (C18 + V35, D28; §3.4 de este documento) | Components | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364) |
 | `SidebarGroup` (C17, D29) | Components (Molecules) | [89:1418](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1418) |
 | `AuthorLink`, logotipo del autor del pie (V36, D30) | Components (Atoms) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663) |
+| `ColorScaleStep` y `ColorScale` (C14, D34; §3.5 de este documento) | Components | [93:1020](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1020) |
 
 Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
 
@@ -41,8 +43,8 @@ Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-de
 | Colección | Modos | Variables | Exportar |
 |---|---|---|---|
 | Primitives | Value | 97 | Sí |
-| Semantic color | Light, Dark | 31 | Sí (un archivo por modo) |
-| Semantic size | Value | 3 (`radius/control`, `radius/container`, `size/content/max-width`); falta `size/sidebar/width` (V16) | Sí |
+| Semantic color | Light, Dark | 33 (con `overlay` y `translucent`, V31) | Sí (un archivo por modo) |
+| Semantic size | Value | 4 (`radius/control`, `radius/container`, `size/content/max-width`, `size/sidebar/width`) | Sí |
 | Layout | Desktop, Mobile | 9 (`font-size/{estilo}`) | Sí (un archivo por modo) |
 
 - Todas tienen code syntax Web `var(--t101-…)` (D03). Ninguna con `ALL_SCOPES`.
@@ -89,6 +91,7 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `AuthorLink` |: (en código, el `<a>` de `SiteFooter`) | `state` (`default` / `focus`) | 39 × 24 px; anillo por fuera. |
 | `Takeaways` | `children` (título y lista del MDX) | `size` (`large` / `small`) | Ver §3.4. |
 | `SidebarGroup` | `label` (texto del separador de `meta.json`) |: | Las secciones del grupo van después, como hermanas (D29). |
+| `ColorScale` → `ColorScaleStep` | `palette`, `caption`; en cada paso, `highlight` (variante `highlighted`) y `highlightLabel` | `size` (`large` / `small`); textos `name` y `hex` | Ver §3.5. |
 
 ### 3.1 Estados: cómo pasarlos a CSS
 
@@ -106,7 +109,7 @@ Sin disabled ni loading en v1 (D14).
 
 - Regiones: `header`, `nav` (sidebar), `main`, `footer`.
 - Columna de la lección: `max-width: var(--t101-size-content-max-width)` (960 px desde V27; 720 px en D20), centrada, con padding `space/400`.
-- Sidebar: secciones "Empezar aquí" y "Recursos".
+- Sidebar: las ocho secciones, con los grupos "Diseñar los tokens", "Tokens en código" y "Referencia" (C17, D29).
 - Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel lateral desde la izquierda, con los selectores y el sidebar, y un overlay sobre el contenido (V25, sustituye a D21). El panel tiene su botón de cerrar (`li:x`).
 - Logotipos: SVG (D22), en `public/brand/` (C10).
 
@@ -177,7 +180,7 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 | `Takeaways` (conjunto `size=large` / `size=small`) | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364): [89:306](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-306) / [89:335](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-335) |
 | `SidebarGroup` | [89:1418](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1418) |
 | `AuthorLink` (conjunto `state=default` / `state=focus`) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663): [89:1658](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1658) / [89:1662](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1662) |
-| `Takeaways` en las plantillas (antes de "Fuentes") | 89:1268 (35:843), 89:1293 (35:1479), 89:1318 (52:487), 89:1343 (52:688), 89:1368 (55:699), 89:1393 (55:833) |
+| `Takeaways` en las plantillas (antes de "Fuentes") | 89:1268 (35:843), 92:1604 (35:1479), 92:1705 (52:487), 92:1830 (52:688), 92:1955 (55:699), 92:2056 (55:833); las cinco últimas se rehicieron con el cuerpo de la lección (D31) |
 
 **Medidas** (todo con variables)
 
@@ -197,6 +200,33 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 - `AuthorLink` `focus` con el anillo por fuera; 39 × 24 px (≥ 24 × 24).
 - Contraste calculado con las variables, Light / Dark: texto de `Takeaways` 16,98 / 14,36; icono y marcas 4,85 / 8,30; etiqueta de grupo 7,74 / 7,65; anillo de foco sobre el pie 3,33 / 10,92. Coincide con lo medido en código.
 
+### 3.5 Al día con el código (2026-10-05, D31–D34)
+
+**Plantillas (D31).** El cuerpo de las seis plantillas es el MDX actual de `what-is-designtoken101`: nueve apartados, tres `Callout` `recommendation`, `InCode`, `Takeaways` y "Fuentes". Párrafos y listas en `text/neutral/default` (§3.1), negritas con `body/strong`, enlaces del texto en `text/accent/default` subrayados. "En esta página" con viñetas (V19). `LessonHeader` con la sección ("Empezar aquí") y `PageNavLink` con el `nav_title` ("Por qué existe").
+
+**Panel móvil (D32).** Marcos 55:699 y 55:833: `MobileNav` (304 px, `size/sidebar/width`; logotipo y `li:x`, selectores, sidebar) sobre la página, con `Overlay` en `color/background/overlay`. Nodos: panel 55:702 / 55:836, barra superior 92:2238 / 92:2267, overlay 92:2239 / 92:2268.
+
+**Componentes (D33).** `Callout` con la etiqueta del color de su rol; selectores sin `Marker`; `SiteHeader` con `background/neutral/translucent` (sin desenfoque en Figma); pie todo en `text/neutral/subtle`; `Link` con hueco `space/100` hasta el icono externo; `Button` sin mínimos.
+
+**`ColorScale` (D34)**
+
+| Qué | Nodo |
+|---|---|
+| Marco | [93:1020](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1020) |
+| `ColorScaleStep` (`highlighted=false` / `true`) | [93:328](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-328): 93:316 / 93:322 |
+| `ColorScale` (`palette` × `size`, 10 variantes) | [93:1019](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1019) |
+
+| Parte | Tokens |
+|---|---|
+| `ColorScale` | gap `space/300` entre la rejilla y el pie; rejilla de 11 columnas (`large`) o 4 (`small`), huecos `space/200` (columnas) y `space/400` (filas) |
+| Paso | gap `space/100`; muestra de alto `space/1200`, `radius/control`, relleno del primitivo `color/{paleta}/{paso}`, borde `border/neutral/default` de `border-width/100` (destacado: `border/neutral/strong` de `border-width/200`) |
+| Texto | número `label/default` en `text/neutral/default`; hex `caption/default` en `text/neutral/subtle`; etiqueta del destacado `caption/default` en `text/neutral/default`; pie `caption/default` en `text/neutral/subtle` |
+
+**Auditoría (2026-10-05)**
+- Sin valores sueltos en los componentes cambiados (`Callout`, `Link`, `Button`, `SiteHeader`, `SiteFooter`, selectores, `ColorScale`: 580 nodos) ni en los nodos propios de las seis plantillas. Se pusieron a 0 seis `itemSpacing` sin efecto (marcos con `SPACE_BETWEEN` o con un hijo) que la auditoría señalaba. Fuera de la regla, como siempre: tamaño de los iconos, logotipos (D22) y tamaño de pantalla (375 × 812 px).
+- Todo el texto con estilo.
+- Contraste, Light / Dark: etiquetas de `Callout` 5,99 / 8,10 (`note`), 4,77 / 10,32 (`warning`), 4,85 / 8,30 (`recommendation`), 7,40 / 6,89 (`pending`); texto 17,79 / 18,89; texto `subtle` y viñetas 7,74 / 7,65; enlaces 5,08 / 10,92; borde del paso destacado de `ColorScale` 4,70 / 4,20 (≥ 3:1).
+
 ## 4. Accesibilidad comprobada en el diseño
 
 Comprobado con scripts sobre el archivo el 2026-10-02 (contraste con la fórmula de WCAG 2.2, resolviendo cada variable en Light y Dark):
@@ -212,4 +242,5 @@ Lo que solo se puede comprobar en código: orden de foco, `aria-*`, lector de pa
 ## 5. Abierto
 
 - **A14:** nombre del logotipo ("design-tokens 101" frente a "DesignToken101"). Decide Oscar; no bloquea.
+- **Desenfoque de la cabecera (V28):** `blur/300` es un token solo de código; en Figma la cabecera tiene el fondo translúcido, sin desenfoque. Decide Oscar (opciones en `estado.md` → Diseño).
 - `tools/semantic.py` no incluye los tokens de D06, D12 y D20 (el contraste se comprobó en Figma).
