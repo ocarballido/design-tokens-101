@@ -1,0 +1,120 @@
+---
+title: Movimiento y transparencia
+description: "Qué pide el criterio 2.3.3 (AAA) a las animaciones, cómo responde DesignToken101 a las preferencias prefers-reduced-motion y prefers-reduced-transparency, y por qué una preferencia no es un modo."
+nav_title: Movimiento y transparencia
+lastReviewed: 2026-10-06
+---
+
+Algunas personas piden a su sistema que reduzca las animaciones o las transparencias, y el navegador se lo dice a la web. Los tokens de movimiento y los fondos translúcidos de DesignToken101 tienen que responder a esas preferencias. En esta lección verás qué pide WCAG, qué hace la web y por qué una preferencia no se diseña como un modo de Figma.
+
+**En esta página**
+
+- [El movimiento y 2.3.3](#el-movimiento-y-233)
+- [prefers-reduced-motion](#prefers-reduced-motion)
+- [El token no cambia, cambia si se aplica](#el-token-no-cambia-cambia-si-se-aplica)
+- [prefers-reduced-transparency](#prefers-reduced-transparency)
+- [Un respaldo opaco para cada transparencia](#un-respaldo-opaco-para-cada-transparencia)
+- [Cómo probarlo](#cómo-probarlo)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## El movimiento y 2.3.3
+
+El criterio 2.3.3 Animation from Interactions es de **nivel AAA**: la animación de movimiento que provoca una interacción se puede desactivar, salvo que sea esencial para la función o para la información ([Understanding 2.3.3](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)).
+
+La guía precisa qué es movimiento: lo que cambia la posición, el tamaño o la forma que percibes. Los cambios de color, de opacidad y el desenfoque no cuentan, salvo que cambien esa percepción. El motivo son los trastornos vestibulares: el movimiento que no es esencial puede provocar mareo, náuseas y dolor de cabeza (misma fuente).
+
+En DesignToken101 hay tres animaciones, las tres con los tokens `duration/200` (200 ms) y `easing/standard`:
+
+| Animación | Qué cambia | Es movimiento |
+|---|---|---|
+| Panel de navegación móvil | La posición: entra desde la izquierda | Sí |
+| Secciones del sidebar | El tamaño: se abren y se cierran | Sí |
+| Bloques "En código" (`InCode`) | El tamaño: se abren y se cierran | Sí |
+
+La capa que oscurece la página al abrir el panel cambia la opacidad, así que no es movimiento.
+
+## prefers-reduced-motion
+
+`prefers-reduced-motion` es la preferencia con la que el navegador informa de que la persona prefiere una interfaz que quite, reduzca o sustituya las animaciones de movimiento. Se activa desde los ajustes de accesibilidad de Windows, macOS, iOS, Android y GNOME, y funciona en todos los navegadores principales desde enero de 2020 ([MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)).
+
+La técnica C39 la convierte en una forma suficiente de cumplir 2.3.3, de dos maneras: quitar las animaciones cuando la preferencia vale `reduce`, o animar únicamente cuando vale `no-preference` ([C39](https://www.w3.org/WAI/WCAG22/Techniques/css/C39)).
+
+DesignToken101 usa la segunda: **sin preferencia, la web anima; con `reduce`, no**. Comprobado en la web (Chrome 154 sin interfaz, 2026-10-05): con `reduce`, el panel, las secciones del sidebar y los bloques "En código" no tienen transición y llegan a su estado final al instante, al abrir y al cerrar. DesignToken101 cumple 2.3.3, un criterio AAA: un extra sobre el objetivo AA.
+
+<InCode title="Animar únicamente sin preferencia">
+
+En Tailwind CSS, la variante `motion-safe:` aplica la clase únicamente dentro de `@media (prefers-reduced-motion: no-preference)` (comprobado compilando con Tailwind CSS 4.3.3, 2026-10-06). Así anima DesignToken101 sus secciones, con los dos tokens de movimiento:
+
+```tsx filename="src/components/Sidebar.tsx (extracto)"
+'grid motion-safe:transition-[grid-template-rows,visibility] motion-safe:duration-(--t101-duration-200) motion-safe:ease-standard'
+```
+
+Sin la preferencia, la transición dura `duration/200`. Con `reduce`, la clase no se aplica y el cambio es inmediato. El panel móvil hace lo mismo y, además, cuando la preferencia vale `reduce`, se cierra sin esperar a que termine una animación que no va a ocurrir.
+
+</InCode>
+
+## El token no cambia, cambia si se aplica
+
+Con `reduce`, `duration/200` sigue valiendo 200 ms. Lo que cambia es que la regla que lo usa no se aplica. Es una diferencia importante con los modos que viste en el [módulo 5](/modes/what-is-a-mode):
+
+- **Un modo cambia el valor del token.** En Dark, `color/text/neutral/default` apunta a otro primitivo.
+- **Una preferencia como esta cambia si el token se usa.** El token de duración es el mismo; la animación existe o no existe.
+
+<Callout variant="recommendation">
+
+No crees un modo "movimiento reducido" en Figma ni un token `duration/0`. La duración es la misma, y la decisión de animar o no la toma el CSS con la preferencia de la persona. En DesignToken101, además, los tokens de movimiento son tokens de código, porque esta web no diseña animaciones en Figma ([La colección completa](/primitives/primitives-collection)).
+
+</Callout>
+
+## prefers-reduced-transparency
+
+`prefers-reduced-transparency` informa de que la persona pidió reducir los efectos translúcidos. **No es un criterio de WCAG.** MDN la marca como experimental y no disponible en todos los navegadores principales ([MDN: prefers-reduced-transparency](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-transparency)). Según los datos de compatibilidad de MDN (consultados el 2026-10-05), funciona en Chrome y Edge desde la versión 118, en Firefox desde la 113 si se activa una preferencia, y **no funciona en Safari** ([MDN: datos de compatibilidad](https://bcd.developer.mozilla.org/bcd/api/v0/current/css.at-rules.media.prefers-reduced-transparency.json)).
+
+En DesignToken101 la usa la cabecera fija, cuyo fondo es translúcido (`background/neutral/translucent`, con un desenfoque `blur/300` detrás). Con `reduce`, el fondo pasa a ser opaco. Comprobado en la web (Chrome 154 sin interfaz, 2026-10-05): con la preferencia, el fondo de la cabecera es blanco opaco en Light y `neutral/950` opaco en Dark; sin ella, con la transparencia de su token. En Safari, la cabecera sigue siendo translúcida aunque la persona lo pida, porque el navegador no informa de la preferencia.
+
+## Un respaldo opaco para cada transparencia
+
+Cuando la cabecera deja de ser translúcida, no inventa un color: usa `color/background/neutral/default`, el fondo de la página. Es un semántico que ya existe.
+
+<Callout variant="recommendation">
+
+Para cada token con transparencia, decide **qué semántico opaco lo sustituye** cuando la persona pide menos transparencias. En DesignToken101, `background/neutral/translucent` se sustituye por `background/neutral/default`. Así la preferencia no necesita tokens nuevos, y el contraste del respaldo ya está comprobado: es el fondo de la página.
+
+</Callout>
+
+Respetar esta preferencia es una mejora, no un requisito, y no llega a todos los navegadores. Por eso no puede ser lo único que asegure el contraste de lo que va sobre un fondo translúcido. En DesignToken101, el anillo de foco cumple 3:1 sobre la cabecera también sin la preferencia, gracias al ajuste de su opacidad ([Un fondo que depende de lo que hay debajo](/accessibility/non-text-contrast#un-fondo-que-depende-de-lo-que-hay-debajo)).
+
+<InCode title="El fondo opaco con la preferencia">
+
+La cabecera lleva las dos clases de fondo. La segunda usa una variante arbitraria de Tailwind CSS que se compila a `@media (prefers-reduced-transparency: reduce)` (comprobado con Tailwind CSS 4.3.3, 2026-10-06):
+
+```tsx filename="src/components/SiteHeader.tsx (extracto)"
+'bg-neutral-translucent backdrop-blur-300 [@media(prefers-reduced-transparency:reduce)]:bg-neutral-default'
+```
+
+</InCode>
+
+## Cómo probarlo
+
+No hace falta cambiar los ajustes de tu sistema. Las herramientas para desarrolladores de Chrome emulan estas preferencias en el panel **Rendering**: `prefers-reduced-motion` y `prefers-reduced-transparency`, y también `prefers-color-scheme`, `prefers-contrast` y `forced-colors` ([Chrome DevTools: Emulate CSS media features](https://developer.chrome.com/docs/devtools/rendering/emulate-css)).
+
+Prueba cada animación de tu interfaz con `reduce` y comprueba que llega a su estado final sin transición. Prueba cada fondo translúcido con la transparencia reducida y comprueba que pasa a su respaldo opaco.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Con `prefers-reduced-motion`, DesignToken101 no anima, y así cumple 2.3.3, un criterio AAA.
+- Una preferencia no cambia el valor del token, sino si se aplica: no es un modo de Figma.
+- Cada token con transparencia tiene un semántico opaco que lo sustituye cuando la persona pide menos transparencias.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 2.3.3 Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
+- [C39: Using the CSS prefers-reduced-motion query to prevent motion](https://www.w3.org/WAI/WCAG22/Techniques/css/C39)
+- [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
+- [MDN: prefers-reduced-transparency](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-transparency)
+- [MDN: datos de compatibilidad de prefers-reduced-transparency](https://bcd.developer.mozilla.org/bcd/api/v0/current/css.at-rules.media.prefers-reduced-transparency.json)
+- [Chrome DevTools: Emulate CSS media features](https://developer.chrome.com/docs/devtools/rendering/emulate-css)

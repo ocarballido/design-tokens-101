@@ -1,0 +1,120 @@
+---
+title: "Ejercicio: revisa tus tokens"
+description: "Con la tabla de pares de color del módulo 6, comprueba el contraste de tu sistema en cada modo, revisa los estados, el foco, los tamaños y las preferencias de la persona, y escribe un registro de decisiones de accesibilidad."
+nav_title: Ejercicio
+lastReviewed: 2026-10-06
+---
+
+En este ejercicio revisas tu sistema de tokens con los criterios del módulo. Partes de la tabla de pares que preparaste en el módulo 6 y terminas con un registro de decisiones: qué cumple, qué has corregido y qué aceptas, con su motivo. Ese registro es la base del ejercicio final del curso.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Completa la tabla de texto](#paso-1-completa-la-tabla-de-texto)
+- [Paso 2 Añade los pares de no texto](#paso-2-añade-los-pares-de-no-texto)
+- [Paso 3 Revisa los estados sin color](#paso-3-revisa-los-estados-sin-color)
+- [Paso 4 Revisa el foco](#paso-4-revisa-el-foco)
+- [Paso 5 Suma el tamaño de dos controles](#paso-5-suma-el-tamaño-de-dos-controles)
+- [Paso 6 Revisa las preferencias](#paso-6-revisa-las-preferencias)
+- [Paso 7 Escribe el registro de decisiones](#paso-7-escribe-el-registro-de-decisiones)
+- [Comprueba tu revisión](#comprueba-tu-revisión)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué necesitas
+
+- La tabla de pares de texto y fondo del [paso 7 del ejercicio del módulo 6](/figma-to-code/exercise-figma-to-code#paso-7-prepara-los-pares-de-color), con el hex de cada modo.
+- Tu archivo de Figma, con las colecciones y los componentes.
+- Un comprobador de contraste que use la fórmula de WCAG 2.2: el del selector de color de Figma, o un script como el de [Contraste de texto](/accessibility/text-contrast#en-figma).
+- Si tienes tu interfaz en código, Chrome y su panel Rendering ([Movimiento y transparencia](/accessibility/motion-and-transparency#cómo-probarlo)).
+
+Decide antes de empezar a qué nivel apuntas. En este ejercicio usamos el nivel AA de WCAG 2.2, como DesignToken101.
+
+## Paso 1 Completa la tabla de texto
+
+Añade a tu tabla una columna de razón de contraste y otra de resultado por cada modo:
+
+| Texto | Fondo | Light | Dark | Resultado |
+|---|---|---|---|---|
+| `color/text/neutral/default` | `color/background/neutral/default` | 17,79 | 18,89 | AA y AAA en los dos modos |
+
+La fila es la de DesignToken101. Para cada par tuyo:
+
+1. Calcula la razón con el hex de cada modo, sin redondear.
+2. Compárala con 4,5:1. Si usas la excepción de texto grande, anota a qué tamaño se usa el par y comprueba que ese tamaño no cambia con tus modos.
+3. Si un par no llega, apúntalo: lo decidirás en el paso 7.
+
+Si un fondo tiene transparencia, calcula el par con lo más claro y lo más oscuro que pueda pasar por debajo ([Fondos con transparencia](/accessibility/text-contrast#fondos-con-transparencia)).
+
+## Paso 2 Añade los pares de no texto
+
+Haz una segunda tabla con lo que no es texto y tiene que contrastar 3:1:
+
+- **El anillo de foco**, frente a **cada fondo donde haya un control**: la página, las superficies, los avisos con enlaces, la cabecera.
+- **La marca de seleccionado o de opción actual**, frente al fondo que la rodea.
+- **Los bordes que identifican un control**, como el de un campo de texto.
+- **Los iconos que identifican un control.**
+
+Deja fuera el hover, los bordes decorativos y el fondo de un control que ya se identifica por su texto ([Qué no necesita 3:1](/accessibility/non-text-contrast#qué-no-necesita-31)).
+
+## Paso 3 Revisa los estados sin color
+
+Para cada estado y cada mensaje de tu diseño que cambie de color (opción actual, seleccionado, enlace, error, éxito), responde a las tres preguntas de [Revisa tus estados](/accessibility/use-of-color#revisa-tus-estados):
+
+1. ¿Hay otra señal además del color?
+2. Si no, ¿los dos colores contrastan 3:1 entre sí, en cada modo?
+3. Si tampoco, ¿lo corriges o lo aceptas?
+
+## Paso 4 Revisa el foco
+
+Elige dos componentes que se manejen con el teclado, uno con fondo y otro sin él, y responde a las tres preguntas de [El foco](/accessibility/focus#tres-preguntas):
+
+1. **¿Se ve?** Su variante `focus` tiene un anillo con un token de color y un token de grosor.
+2. **¿Se ve entero?** Si tu interfaz tiene una cabecera o un pie fijos, ¿puede quedar el componente debajo?
+3. **¿Se ve bastante?** Si el anillo mide 2 px y va por fuera o pegado al borde por dentro, cumple el tamaño de 2.4.13. Comprueba que no coincide en color con otro trazo del componente.
+
+## Paso 5 Suma el tamaño de dos controles
+
+Elige tus dos controles más pequeños y suma sus tokens: relleno por cada lado más el contenido (un icono, o una línea de texto con su interlineado). Comprueba que los dos pasan de 24 × 24 px. Si uno no llega, anota qué token cambiarías ([Un tamaño es una suma de tokens](/accessibility/size-and-spacing#un-tamaño-es-una-suma-de-tokens)).
+
+## Paso 6 Revisa las preferencias
+
+- **Movimiento.** Lista tus tokens de duración y dónde se usan. Para cada animación, anota si es movimiento y si se quita con `prefers-reduced-motion`.
+- **Transparencia.** Para cada token con transparencia, escribe qué semántico opaco lo sustituye con `prefers-reduced-transparency`.
+- **Colores forzados.** Si tienes la interfaz en código, emula `forced-colors: active` y recorre la página con el tabulador ([Cómo probarlo](/accessibility/forced-colors-and-contrast#cómo-probarlo)). Si la tienes únicamente en Figma, revisa en cada estado qué lo distinguiría sin color: un grosor, un subrayado, un icono, un borde.
+
+## Paso 7 Escribe el registro de decisiones
+
+Para cada cosa que no cumpla, toma una decisión y escríbela. Hay dos salidas:
+
+- **Corregir:** cambias un alias o un valor, y vuelves a comprobar los pares afectados en todos los modos.
+- **Aceptar el riesgo:** lo dejas como está, con el motivo y la alternativa escritos, para que quien lo herede pueda cambiarlo.
+
+Usa una tabla como esta. Las dos filas son decisiones reales de DesignToken101:
+
+| Qué falla | Criterio y nivel | Decisión | Motivo | Alternativa | Fecha |
+|---|---|---|---|---|---|
+| Anillo de foco sobre la cabecera translúcida en Light: 2,74:1 | 1.4.11, AA | Corregido: `translucent` al 96 % en Light | El arreglo está en un token y no cambia el diseño | Cabecera opaca; anillo de dos colores | 2026-10-05 |
+| Opción actual de los selectores sin señal además del color: 1,09:1 | 1.4.1, A | Riesgo aceptado | Diseño elegido para la cabecera; el lector de pantalla sí anuncia la opción actual | Borde de 1 px con `border/accent/strong` | 2026-10-03, revisada el 2026-10-05 |
+
+Anota también lo que cumple por encima de tu nivel (un criterio AAA), para no perderlo en un cambio futuro.
+
+## Comprueba tu revisión
+
+Tu revisión está lista si puedes responder que sí a estas preguntas:
+
+- ¿Cada par de texto tiene su razón en cada modo, sin redondear?
+- ¿El anillo de foco está comprobado frente a cada fondo donde hay un control?
+- ¿Cada estado tiene una señal además del color, o una decisión escrita?
+- ¿Tus controles más pequeños pasan de 24 × 24 px como suma de tokens?
+- ¿Cada token con transparencia tiene su respaldo opaco?
+- ¿Cada cosa que no cumple tiene una decisión, un motivo y una fecha?
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Tienes el contraste de tu sistema comprobado par a par y modo a modo, para el texto y para lo que no es texto.
+- Has revisado tus estados, tu foco, tus tamaños y tus preferencias con los criterios del módulo.
+- Tienes un registro de decisiones de accesibilidad, la base del ejercicio final del curso.
+
+</Takeaways>

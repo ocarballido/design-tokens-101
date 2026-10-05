@@ -98,7 +98,7 @@ La diferencia parece despreciable, pero cae justo en un redondeo. En un color he
 - 0,9 × 255 = 229,5, que se redondea a 230: `e6`.
 - 0,8999999761581421 × 255 = 229,49999…, que se redondea a 229: `e5`, un 89,8 %.
 
-Sin corregir, el fondo de la cabecera saldría `#ffffffe5` en vez de `#ffffffe6`.
+Sin corregir, el fondo de la cabecera en Dark saldría `#050c09e5` en vez de `#050c09e6`. El de Light, al 96 %, no tiene el problema: 0,96 × 255 = 244,8, lejos del medio, y da `f5` con float32 o sin él.
 
 <Callout variant="recommendation">
 

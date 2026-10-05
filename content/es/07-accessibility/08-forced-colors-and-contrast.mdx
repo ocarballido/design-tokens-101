@@ -1,0 +1,119 @@
+---
+title: Colores forzados y más contraste
+description: "Qué pasa con un sistema de tokens cuando la persona impone su propia paleta (forced-colors), qué queda de DesignToken101 en ese modo, qué es prefers-contrast y por qué DesignToken101 no tiene un modo de contraste aumentado."
+nav_title: Colores forzados
+lastReviewed: 2026-10-06
+---
+
+Hay personas que no usan los colores de la web: el sistema los sustituye por una paleta que eligen ellas, con el contraste que necesitan. En ese caso, casi todos tus tokens de color dejan de verse. En esta lección verás qué queda de un sistema de tokens cuando el navegador quita sus colores, qué queda de DesignToken101 y qué es la preferencia de más contraste.
+
+**En esta página**
+
+- [Qué son los colores forzados](#qué-son-los-colores-forzados)
+- [Qué queda de los tokens](#qué-queda-de-los-tokens)
+- [DesignToken101 con colores forzados](#designtoken101-con-colores-forzados)
+- [Qué hacer con los tokens](#qué-hacer-con-los-tokens)
+- [prefers-contrast](#prefers-contrast)
+- [Un modo de más contraste](#un-modo-de-más-contraste)
+- [Cómo probarlo](#cómo-probarlo)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué son los colores forzados
+
+`forced-colors: active` indica que el navegador está imponiendo una paleta limitada que eligió la persona, como los temas de contraste de Windows. La paleta llega a la web como colores del sistema de CSS (`CanvasText` para el texto, `ButtonText` para los botones…). Funciona en todos los navegadores principales desde septiembre de 2022 ([MDN: forced-colors](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors)).
+
+No es un criterio de WCAG. Es una forma de ver la web que algunas personas necesitan, y tu sistema de tokens tiene que seguir funcionando con ella.
+
+## Qué queda de los tokens
+
+La especificación CSS Color Adjustment Module Level 1 dice qué hace el navegador en ese modo ([CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)):
+
+- **Sustituye los colores del autor** en `color`, `background-color`, `border-color`, `outline-color`, `text-decoration-color`, `fill` y `stroke`, entre otras propiedades.
+- **Quita las sombras:** `box-shadow` y `text-shadow` pasan a `none`.
+- **Conserva la transparencia del fondo:** un fondo transparente sigue siendo transparente.
+
+Lo que no sustituye son los grosores, los subrayados, los radios y las formas. Dicho con tokens: **los tokens de color desaparecen, los de forma se quedan.** Un `border-width/200` sigue midiendo 2 px; su color lo pone el sistema.
+
+Por eso los colores forzados son la prueba práctica de [El color no basta](/accessibility/use-of-color): todo lo que se distinguía únicamente por el color deja de distinguirse.
+
+<Callout variant="note">
+
+MDN aconseja no usar `forced-colors` para hacer otro diseño, sino para pequeños ajustes donde el resultado automático no funciona ([MDN: forced-colors](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors)). La especificación reserva `forced-color-adjust: none`, que devuelve los colores al autor, para cuando el autor adapta él mismo los colores a las necesidades de la persona.
+
+</Callout>
+
+## DesignToken101 con colores forzados
+
+Lo comprobamos en la web con la emulación de colores forzados de Chrome, con esquema claro y oscuro, en cinco lecciones (Chrome 154 sin interfaz, 2026-10-05). DesignToken101 no tiene ninguna regla propia para este modo, así que esto es lo que hace el navegador con sus tokens:
+
+| Elemento | Qué se ve | Por qué |
+|---|---|---|
+| Anillo de foco | Se ve en todas las paradas del tabulador, en un color del sistema | Es un `outline` de `border-width/200`: el grosor se queda ([El foco](/accessibility/focus#outline-no-box-shadow)) |
+| Lección actual del sidebar | Se distingue | Su marca lateral de 2 px es forma |
+| Opción actual de los selectores de idioma y tema | **No se distingue** de las demás | Únicamente cambiaba el color del fondo y del texto ([Un riesgo aceptado](/accessibility/use-of-color#un-riesgo-aceptado)) |
+| Pasos de los gráficos de proceso | Se distinguen | Sus bordes de 1 px se quedan |
+| Muestras de las escalas de color | Pierden el color; el número y el hex se siguen leyendo | La muestra es un fondo, y el navegador lo sustituye |
+| `Callout` | Pierde el fondo; conserva el borde, la etiqueta y el icono | La etiqueta fija lo identifica |
+| Logotipos | No cambian | Son imágenes |
+
+Los iconos del `Callout` y las flechas de los pasos con enlace conservan el color de su token en Chrome. Es un detalle de cómo se pintan los iconos, no de los tokens; lo verás en el módulo de componentes.
+
+En una prueba aparte con el CSS de la web (Chromium 141, 2026-10-05), los enlaces del texto conservaron el subrayado, en el color de enlace del sistema: el subrayado es forma. En la misma prueba, el botón principal, que se reconoce por su fondo de color y no tiene borde, se vio como texto suelto. Hoy no se usa en ninguna página.
+
+## Qué hacer con los tokens
+
+<Callout variant="recommendation">
+
+- **Dibuja el foco con `outline`**, no con `box-shadow`, para que no desaparezca ([El foco](/accessibility/focus#outline-no-box-shadow)).
+- **Da forma a los estados, además del color:** un trazo, un subrayado, un icono. Es la misma regla de 1.4.1, y con colores forzados se ve si la cumples.
+- **Da un borde a los controles que se reconocen por su fondo**, aunque sea del mismo color que el fondo o transparente. Con colores forzados, el navegador lo pinta con un color del sistema. Comprobado en Chromium 141 (2026-10-06): un botón con fondo de color y un borde transparente de 2 px muestra un borde negro de 2 px con colores forzados; sin borde, no muestra ninguno.
+- **No crees tokens para este modo.** Los colores los elige la persona; tu sistema tiene que dejarle sitio.
+
+</Callout>
+
+## prefers-contrast
+
+`prefers-contrast` informa de que la persona pidió más (`more`) o menos (`less`) contraste. El valor `custom` corresponde a una paleta propia de la persona, la misma que activa `forced-colors`. Funciona en todos los navegadores principales desde mayo de 2022 ([MDN: prefers-contrast](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast)). Tampoco es un criterio de WCAG.
+
+DesignToken101 no responde a esta preferencia: comprobado en la web (Chrome 154 sin interfaz, 2026-10-05), con `prefers-contrast: more` no cambia ningún estilo ni ningún píxel. La persona que pide más contraste recibe lo mismo, que ya cumple el nivel AA ([Contraste de texto](/accessibility/text-contrast#cómo-cumple-designtoken101)).
+
+## Un modo de más contraste
+
+Si un sistema quisiera responder a `prefers-contrast: more`, el sitio natural sería un modo, como Light y Dark: los mismos tokens semánticos apuntando a pasos de la escala más extremos. Pero el coste es alto:
+
+- **Más columnas.** Light y Dark pasarían a ser cuatro: Light, Dark, Light con más contraste y Dark con más contraste.
+- **Más comprobaciones.** Cada par de la tabla, en cada columna nueva.
+- **Más decisiones.** Qué paso sube cada token, y qué hacer con los que ya están en el extremo de la escala.
+
+<Callout variant="recommendation">
+
+DesignToken101 no tiene un modo de más contraste: ningún caso de uso real lo pide, y el sistema crece con los casos que existen ([Un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve)). Si tu sistema lo necesita, plantéalo como un modo más de tu colección de color y comprueba todos los pares de nuevo.
+
+</Callout>
+
+## Cómo probarlo
+
+En Chrome, el panel **Rendering** de las herramientas para desarrolladores emula `forced-colors` y `prefers-contrast`, además de las preferencias de la lección anterior ([Chrome DevTools: Emulate CSS media features](https://developer.chrome.com/docs/devtools/rendering/emulate-css)). Activa `forced-colors: active` y recorre tu interfaz con el tabulador:
+
+1. ¿Se ve el foco en cada control?
+2. ¿Se distingue cada estado (seleccionado, actual) sin su color?
+3. ¿Se reconoce cada control como control, o alguno se ha quedado en texto suelto?
+
+La emulación es una aproximación. Un tema de contraste real de Windows usa la paleta que elige la persona; si tu público lo usa, pruébalo también así.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Con colores forzados, los tokens de color desaparecen y los de forma se quedan: grosores, subrayados, bordes.
+- Todo lo que se distinguía únicamente por el color deja de distinguirse; es la prueba práctica de 1.4.1.
+- Un modo de más contraste sería otra columna de cada semántico y otra ronda de comprobaciones: créalo si tu sistema lo necesita.
+
+</Takeaways>
+
+## Fuentes
+
+- [MDN: forced-colors](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors)
+- [MDN: prefers-contrast](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast)
+- [CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)
+- [Chrome DevTools: Emulate CSS media features](https://developer.chrome.com/docs/devtools/rendering/emulate-css)

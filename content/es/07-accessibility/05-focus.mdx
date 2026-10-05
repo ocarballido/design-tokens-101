@@ -1,0 +1,148 @@
+---
+title: El foco
+description: "Qué piden los criterios 2.4.7 (AA), 2.4.11 (AA) y 2.4.13 (AAA) al indicador de foco, qué tokens lo forman en DesignToken101, por qué se dibuja con outline y cuándo conviene un anillo de dos colores."
+nav_title: El foco
+lastReviewed: 2026-10-06
+---
+
+Quien usa el teclado necesita saber en todo momento dónde está. El indicador de foco se lo dice, y en DesignToken101 lo forman dos tokens: un color y un grosor. En esta lección verás qué pide WCAG al foco con tres preguntas, cómo responde cada una DesignToken101 y dónde no llega.
+
+**En esta página**
+
+- [Tres preguntas](#tres-preguntas)
+- [Se ve](#se-ve)
+- [Se ve entero](#se-ve-entero)
+- [Se ve bastante](#se-ve-bastante)
+- [El anillo de DesignToken101](#el-anillo-de-designtoken101)
+- [Outline, no box-shadow](#outline-no-box-shadow)
+- [Un color o dos](#un-color-o-dos)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Tres preguntas
+
+WCAG 2.2 trata el foco en tres criterios. Cada uno responde a una pregunta distinta:
+
+<Flow caption="Las tres preguntas del indicador de foco, con su criterio y su nivel.">
+  <FlowStep title="¿Se ve?" meta="2.4.7 Focus Visible · AA" />
+  <FlowStep title="¿Se ve entero?" meta="2.4.11 Focus Not Obscured · AA" />
+  <FlowStep title="¿Se ve bastante?" meta="2.4.13 Focus Appearance · AAA" />
+</Flow>
+
+Los tokens responden sobre todo a la primera y a la tercera: el color y el grosor del anillo. La segunda depende de la maquetación, aunque en DesignToken101 la provoca un componente que usa tokens: la cabecera fija.
+
+## Se ve
+
+El criterio 2.4.7 Focus Visible es de **nivel AA**: todo lo que se maneja con el teclado tiene un modo en el que el indicador de foco se ve ([Understanding 2.4.7](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html)).
+
+El criterio no fija un tamaño ni un contraste. El contraste lo pone 1.4.11, que viste en [Contraste de lo que no es texto](/accessibility/non-text-contrast#contra-todos-los-fondos): el indicador tiene que contrastar 3:1 con lo que lo rodea. La guía cita también:
+
+- **Un fallo, F78:** quitar o hacer invisible el contorno del foco sin poner otro indicador ([F78](https://www.w3.org/WAI/WCAG22/Techniques/failures/F78)).
+- **Una técnica suficiente, C45:** dibujar el foco con `:focus-visible`. Los navegadores muestran esos estilos siempre que se navega con el teclado y, en general, no al hacer clic con el ratón, salvo en los campos que admiten texto ([C45](https://www.w3.org/WAI/WCAG22/Techniques/css/C45)).
+
+## Se ve entero
+
+El criterio 2.4.11 Focus Not Obscured (Minimum) es de **nivel AA**: cuando un componente recibe el foco, no puede quedar **entero** oculto por contenido del propio autor. Tapado en parte, sí. La guía cita como casos típicos las cabeceras y los pies fijos. El criterio de nivel AAA, 2.4.12, pide que no quede tapada ninguna parte ([Understanding 2.4.11](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)).
+
+La técnica suficiente es C43: `scroll-padding` en CSS, que deja libre una franja al desplazar la página hasta el elemento con foco ([C43](https://www.w3.org/WAI/WCAG22/Techniques/css/C43)).
+
+En DesignToken101, la cabecera es fija, así que la página reserva su altura con `scroll-padding`. Esa altura no es un token: la mide el código, porque cambia con el ancho de la pantalla. Comprobado en la web (Chrome 154 sin interfaz, 2026-10-05) con un zoom del 200 %, en tres lecciones largas y en el panel de navegación móvil: ningún elemento con foco queda entero tapado.
+
+## Se ve bastante
+
+El criterio 2.4.13 Focus Appearance es de **nivel AAA** y pide dos cosas al indicador ([Understanding 2.4.13](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)):
+
+- **Tamaño:** al menos el área de un perímetro de 2 px CSS alrededor del componente.
+- **Contraste:** 3:1 entre los mismos píxeles con foco y sin foco.
+
+La guía precisa dónde puede ir el indicador. Un contorno de 2 px por fuera cumple el tamaño. Uno por dentro, pegado al borde exterior, también. Uno metido más hacia dentro necesita ser más grueso.
+
+## El anillo de DesignToken101
+
+El anillo de foco son dos tokens:
+
+| Token | Valor | Para qué |
+|---|---|---|
+| `color/border/focus` | `emerald/600` en Light, `emerald/400` en Dark | El color, 3:1 o más frente a todos los fondos donde hay controles |
+| `border-width/200` | 2 px | El grosor, el del perímetro de 2.4.13 |
+
+Por eso, en [Radio y grosor de borde](/primitives/radius-and-border#la-escala-de-grosor-de-borde), el anillo usa 2 px aunque el nivel AA no lo exija.
+
+El anillo va **por fuera** del control, salvo en el sidebar. El sidebar tiene su propio scroll y sus secciones se pliegan recortando lo que sale de ellas, así que un anillo por fuera quedaría cortado: allí va **por dentro**, pegado al borde.
+
+**Dónde no llega a 2.4.13.** La lección actual del sidebar lleva una marca lateral de 2 px con `border/accent/strong`, que tiene el mismo color que `border/focus` en los dos modos. El anillo por dentro se pinta encima de esa marca, así que esa franja no cambia al recibir el foco: el contraste entre los mismos píxeles con y sin foco es 1:1. El resto del anillo sí cambia, pero no llega al área del perímetro. Es un criterio AAA, y 2.4.7 se cumple, así que la decisión se mantiene. La contamos para que veas que dos tokens del mismo color pueden anularse cuando se superponen.
+
+<InCode title="El anillo en CSS">
+
+DesignToken101 dibuja el anillo con dos utilidades propias, una por fuera y otra por dentro, las dos con `:focus-visible` y con los dos tokens:
+
+```css filename="src/styles/base.css (extracto)"
+@utility focus-ring {
+  &:focus-visible {
+    outline: var(--t101-border-width-200) solid var(--t101-color-border-focus);
+    outline-offset: 0;
+  }
+}
+
+@utility focus-ring-inset {
+  &:focus-visible {
+    outline: var(--t101-border-width-200) solid var(--t101-color-border-focus);
+    outline-offset: calc(var(--t101-border-width-200) * -1);
+  }
+}
+```
+
+`outline-offset` negativo, del mismo grosor que el anillo, lo mete justo dentro del borde: sigue pegado al borde exterior, como pide 2.4.13 para un indicador por dentro.
+
+</InCode>
+
+## Outline, no box-shadow
+
+Hay dos formas habituales de dibujar un anillo en CSS: `outline` y `box-shadow`. En pantalla pueden verse iguales. La diferencia aparece cuando la persona activa los colores forzados de su sistema (los temas de contraste de Windows, por ejemplo): el navegador sustituye los colores del autor y **`box-shadow` pasa a `none`** ([CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)). Un foco dibujado únicamente con sombra desaparece.
+
+`outline` se mantiene: el navegador le pone un color del sistema, pero conserva su grosor. En DesignToken101 lo comprobamos con colores forzados en cinco lecciones (Chrome 154, 2026-10-05): el anillo se ve en todas las paradas del tabulador, en el color del sistema.
+
+<Callout variant="warning">
+
+En Tailwind CSS, las utilidades `ring-*` dibujan con `box-shadow` (comprobado compilando `ring-2` con Tailwind CSS 4.3.3, 2026-10-06). Si las usas para el foco, añade un `outline` transparente, que el navegador vuelve visible con colores forzados. Es lo que hace `outline-hidden` de Tailwind ([Tailwind CSS: outline-style](https://tailwindcss.com/docs/outline-style)).
+
+</Callout>
+
+Verás qué más cambia con los colores forzados en [Colores forzados y más contraste](/accessibility/forced-colors-and-contrast).
+
+## Un color o dos
+
+Un anillo de un color tiene que contrastar con cada fondo donde aparece. La técnica C40 propone otra salida: un indicador de **dos colores**. Si los dos contrastan 9:1 entre sí, al menos uno de los dos llega a 3:1 con cualquier fondo sólido ([C40](https://www.w3.org/WAI/WCAG22/Techniques/css/C40)). La misma técnica avisa de que los navegadores suelen quitar `box-shadow` con colores forzados, y propone acompañarlo de un `outline` transparente.
+
+<Callout variant="recommendation">
+
+DesignToken101 usa **un color** porque llega a 3:1 en todos sus fondos, también en la cabecera translúcida desde que se ajustó su opacidad ([Un fondo que depende de lo que hay debajo](/accessibility/non-text-contrast#un-fondo-que-depende-de-lo-que-hay-debajo)). Si tu sistema pone controles sobre fondos muy distintos (fotos, colores de marca saturados, claros y oscuros a la vez), considera el anillo de dos colores: serían dos tokens de color en lugar de uno.
+
+</Callout>
+
+## En Figma
+
+En el archivo de DesignToken101, cada componente que se maneja con el teclado tiene una variante `focus`. En ella, el anillo es un trazo con el grosor `border-width/200` y el color `color/border/focus`, por fuera del componente; en el sidebar, por dentro. Así el foco se diseña y se revisa como cualquier otro estado, con sus tokens, y el contraste del anillo se puede comprobar con el tipo **Gráficos** del comprobador de contraste de Figma ([Figma: Update fills using the color picker](https://help.figma.com/hc/en-us/articles/360041003774)).
+
+<Takeaways>
+
+## Lo que te llevas
+
+- El foco responde a tres preguntas: se ve (2.4.7, AA), se ve entero (2.4.11, AA) y se ve bastante (2.4.13, AAA).
+- En DesignToken101 el anillo son dos tokens, un color de 3:1 o más y un grosor de 2 px, dibujados con `outline` y `:focus-visible`.
+- Un foco hecho con `box-shadow` desaparece con colores forzados; uno hecho con `outline`, no.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 2.4.7 Focus Visible](https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html)
+- [Understanding 2.4.11 Focus Not Obscured (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
+- [Understanding 2.4.13 Focus Appearance](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)
+- [F78: Styling outlines and borders that remove the focus indicator](https://www.w3.org/WAI/WCAG22/Techniques/failures/F78)
+- [C45: Using CSS :focus-visible](https://www.w3.org/WAI/WCAG22/Techniques/css/C45)
+- [C43: Using CSS scroll-padding to un-obscure content](https://www.w3.org/WAI/WCAG22/Techniques/css/C43)
+- [C40: Creating a two-color focus indicator](https://www.w3.org/WAI/WCAG22/Techniques/css/C40)
+- [CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)
+- [Tailwind CSS: outline-style](https://tailwindcss.com/docs/outline-style)
+- [Figma: Update fills using the color picker](https://help.figma.com/hc/en-us/articles/360041003774)

@@ -45,12 +45,12 @@ La mayoría de los criterios de WCAG tratan del contenido y del comportamiento: 
 | 1.4.6 Contrast (Enhanced) | AAA | Los mismos pares, con un umbral más alto | [Contraste de texto](/accessibility/text-contrast) |
 | 1.4.11 Non-text Contrast | AA | Bordes que identifican un control, marcas de estado, anillo de foco | [Contraste de lo que no es texto](/accessibility/non-text-contrast) |
 | 1.4.1 Use of Color | A | Estados y enlaces que se distinguen únicamente por el color | [El color no basta](/accessibility/use-of-color) |
-| 2.4.7 Focus Visible | AA | `color/border/focus` y `border-width/200` | El foco |
-| 2.4.11 Focus Not Obscured (Minimum) | AA | La cabecera sticky y su altura | El foco |
-| 2.4.13 Focus Appearance | AAA | Grosor y color del anillo | El foco |
+| 2.4.7 Focus Visible | AA | `color/border/focus` y `border-width/200` | [El foco](/accessibility/focus#se-ve) |
+| 2.4.11 Focus Not Obscured (Minimum) | AA | La cabecera sticky y su altura | [El foco](/accessibility/focus#se-ve-entero) |
+| 2.4.13 Focus Appearance | AAA | Grosor y color del anillo | [El foco](/accessibility/focus#se-ve-bastante) |
 | 2.5.8 Target Size (Minimum) | AA | Rellenos e iconos que suman el tamaño de un control | [Tamaño y espaciado](/accessibility/size-and-spacing) |
 | 1.4.12 Text Spacing | AA | Interlineados y alturas de los componentes | [Tamaño y espaciado](/accessibility/size-and-spacing) |
-| 2.3.3 Animation from Interactions | AAA | `duration/200` y `easing/standard` | Movimiento y transparencia |
+| 2.3.3 Animation from Interactions | AAA | `duration/200` y `easing/standard` | [Movimiento y transparencia](/accessibility/motion-and-transparency) |
 
 Los nombres y los niveles son los de [WCAG 2.2](https://www.w3.org/TR/WCAG22/).
 
@@ -60,7 +60,7 @@ Lo que queda fuera de los tokens (los atributos ARIA, el orden del foco, lo que 
 
 Además de WCAG, el navegador informa de algunos ajustes de la persona: que prefiere menos movimiento, menos transparencias, más contraste, o que ha impuesto su propia paleta de colores. En CSS se leen con *media features* como `prefers-reduced-motion` o `forced-colors`.
 
-Una de ellas está ligada a un criterio de WCAG: `prefers-reduced-motion` es una forma de cumplir 2.3.3. Las demás no son criterios, pero cambian cómo se ven los tokens, y las verás al final del módulo.
+Una de ellas está ligada a un criterio de WCAG: `prefers-reduced-motion` es una forma de cumplir 2.3.3. Las demás no son criterios, pero cambian cómo se ven los tokens, y las verás al final del módulo: [Movimiento y transparencia](/accessibility/motion-and-transparency) y [Colores forzados y más contraste](/accessibility/forced-colors-and-contrast).
 
 ## APCA y WCAG 3
 

@@ -13,6 +13,7 @@ No todo lo que identifica un control es texto. A veces es un borde, un icono o u
 - [Qué no necesita 3:1](#qué-no-necesita-31)
 - [Los pares de no texto de DesignToken101](#los-pares-de-no-texto-de-designtoken101)
 - [Contra todos los fondos](#contra-todos-los-fondos)
+- [Un fondo que depende de lo que hay debajo](#un-fondo-que-depende-de-lo-que-hay-debajo)
 - [En Figma](#en-figma)
 - [Lo que te llevas](#lo-que-te-llevas)
 
@@ -59,9 +60,9 @@ Hay bordes que no identifican ningún control ni transmiten información. En Des
 | Marca de la lección actual | `border/accent/strong` | `background/accent/subtle` | 3,18 | 8,30 |
 | Borde que identifica un control | `border/neutral/strong` | `background/neutral/default` | 4,70 | 4,20 |
 | Icono y marcas de "Lo que te llevas" | `text/accent/default` | `background/accent/subtle` | 4,85 | 8,30 |
-| Icono del botón de menú, peor caso | `text/neutral/subtle` | `background/neutral/translucent` | 6,17 | 6,10 |
+| Icono del botón de menú, peor caso | `text/neutral/subtle` | `background/neutral/translucent` | 7,10 | 6,11 |
 
-Todos llegan a 3:1. La última fila es la de la cabecera translúcida: su fondo es blanco o `neutral/950` al 90 %, así que el script lo calcula mezclado con negro y con blanco, el peor caso posible ([Fondos con transparencia](/accessibility/text-contrast#fondos-con-transparencia)).
+Todos llegan a 3:1. La última fila es la de la cabecera translúcida: su fondo es blanco al 96 % en Light y `neutral/950` al 90 % en Dark, así que el script lo calcula mezclado con negro y con blanco, el peor caso posible ([Fondos con transparencia](/accessibility/text-contrast#fondos-con-transparencia)).
 
 Fíjate en el margen de Light: el anillo y la marca de seleccionado se quedan entre 3,18 y 3,33. Es el mismo efecto que en el texto: en Light, el acento está más cerca del umbral.
 
@@ -69,7 +70,7 @@ Fíjate en el margen de Light: el anillo y la marca de seleccionado se quedan en
 
 "Colores adyacentes" son los que tocan al elemento. El anillo de foco aparece en cada control que se alcanza con el teclado, y cada control está sobre un fondo. Así que el par no es "el anillo y la página": es **el anillo y cada fondo donde haya un control**.
 
-Estos son los fondos de DesignToken101 donde hay controles, con el contraste del anillo en cada uno (cálculo propio con la fórmula de `semantic.py`, 2026-10-05):
+Estos son los fondos de DesignToken101 donde hay controles, con el contraste del anillo en cada uno (`tools/semantic.py`, 2026-10-06):
 
 | Fondo junto al anillo | Dónde | Light | Dark |
 |---|---|---|---|
@@ -79,12 +80,36 @@ Estos son los fondos de DesignToken101 donde hay controles, con el contraste del
 | `background/info/subtle` | Un enlace dentro de un `Callout` de nota | 3,06 | 8,09 |
 | `background/warning/subtle` | Un enlace dentro de un `Callout` de aviso | 3,22 | 8,21 |
 | `background/accent/subtle` | Un enlace dentro de un `Callout` de recomendación | 3,18 | 8,30 |
+| `background/neutral/translucent`, peor caso | El logotipo y el botón de menú, en la cabecera | 3,06 | 8,72 |
 
 Todos llegan a 3:1, pero en Light el más justo se queda en 3,05. Si mañana cambiaras el alias de `border/focus` o de uno de esos fondos claros, el anillo podría dejar de verse en un sitio que nadie mira al revisar la página.
 
 <Callout variant="recommendation">
 
-Para cada token de no texto, haz la lista de **todos los fondos donde aparece** y comprueba cada par en cada modo. En DesignToken101, el anillo de foco tiene seis fondos posibles; en un sistema con fondos de marca saturados o con imágenes, tendrá más. Es la misma idea que el texto: un color no tiene contraste, lo tiene un par.
+Para cada token de no texto, haz la lista de **todos los fondos donde aparece** y comprueba cada par en cada modo. En DesignToken101, el anillo de foco tiene siete fondos posibles; en un sistema con fondos de marca saturados o con imágenes, tendrá más. Es la misma idea que el texto: un color no tiene contraste, lo tiene un par.
+
+</Callout>
+
+## Un fondo que depende de lo que hay debajo
+
+La última fila de la tabla tiene una historia. La cabecera de DesignToken101 es fija y translúcida: el contenido pasa por debajo al hacer scroll. Su fondo, `background/neutral/translucent`, era blanco al 90 % en Light. Al preparar este módulo medimos el anillo de foco del logotipo y del botón de menú sobre esa cabecera mientras pasaba contenido oscuro por debajo (Chrome 154 sin interfaz, 2026-10-05, a 320 y 375 px). El peor caso fue **2,74:1**: no llegaba a 3:1. Con negro debajo, el cálculo daba 2,67.
+
+Era un fallo de 1.4.11 que aparecía en muy pocas posiciones del scroll y únicamente en móvil, pero aparecía. El arreglo está en el token, no en el componente: subir la opacidad del fondo **en el modo que fallaba**. Esta es la razón del anillo (`#0EA075`) frente al blanco mezclado con negro, según la opacidad (cálculo con la fórmula de WCAG 2.2, mezcla redondeada a 8 bits):
+
+| Opacidad del blanco en Light | Con negro debajo |
+|---|---|
+| 90 % | 2,67 |
+| 95 % | 2,98 |
+| 96 % | 3,06 |
+| 100 % (opaco) | 3,33 |
+
+`translucent` pasó a **96 % en Light**. En Dark se quedó en 90 %, porque allí el anillo es claro sobre fondo oscuro y su peor caso da 8,72. Medido de nuevo en la web después del cambio, en las mismas condiciones, el peor caso es 3,08:1.
+
+Se descartaron otras salidas: hacer la cabecera opaca (perdía el efecto translúcido), un anillo de dos colores (cambiaba el diseño del foco en toda la web) y aceptar el fallo (tenía un arreglo barato).
+
+<Callout variant="recommendation">
+
+Para cada token con transparencia, calcula el par con lo más claro y lo más oscuro que pueda pasar por debajo, **en cada modo**. Si un modo falla, corrige el valor del token en ese modo. Es la ventaja de que la transparencia viva en un token: el arreglo está en un sitio y llega a todos los componentes que lo usan.
 
 </Callout>
 

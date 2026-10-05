@@ -91,7 +91,7 @@ La conversión a `rem` se aplica a los valores, no a los alias: `radius/control`
 
 <Callout variant="note">
 
-Los dos fondos con transparencia no son alias, así que llegan al CSS con su valor: `#00000080` y `#ffffffe6`. DTCG permitiría derivarlos de `color/black` y `color/white` con `$ref`, una referencia a una parte del valor de otro token ([Format Module: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). Lo probamos con Terrazzo 2.7.1 (2026-10-04): funciona, pero no está documentado, y el CSS sale con el valor escrito, no con `var()`. El resultado es el mismo que el valor directo, así que no lo usamos ([Cuando un semántico no es alias](/relations/direct-values)).
+Los dos fondos con transparencia no son alias, así que llegan al CSS con su valor: `#00000080`, y `#fffffff5` en Light y `#050c09e6` en Dark. DTCG permitiría derivarlos de `color/black` y `color/white` con `$ref`, una referencia a una parte del valor de otro token ([Format Module: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). Lo probamos con Terrazzo 2.7.1 (2026-10-04): funciona, pero no está documentado, y el CSS sale con el valor escrito, no con `var()`. El resultado es el mismo que el valor directo, así que no lo usamos ([Cuando un semántico no es alias](/relations/direct-values)).
 
 </Callout>
 
