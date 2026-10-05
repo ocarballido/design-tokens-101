@@ -26,6 +26,7 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 | 2026-10-04 | Contenido | §5.2 regla 6 y §6.1: precisión sobre la opacidad y `$ref` (S32). §6.1: los semánticos de mensaje sin uso se mantienen (S31). |
 | 2026-10-04 | Contenido | §3.1: referencias de Tailwind verificadas contra el CSS fuente 4.3.3. §3.5: contraste de las escalas de estado recalculado sobre el hex guardado (S30); cambios de 0,01 a 0,06, ninguno cruza un umbral. |
 | 2026-10-04 | Desarrollo | `size/sidebar/width`, `color/background/overlay` y `color/background/neutral/translucent` salen de la exportación de Figma, no de los tokens solo de código (§4.6, §6.1, §7). Opacidad en float32 recuperada por el normalizador (V31). Sin cambios de valor. |
+| 2026-10-05 | Contenido | §6.1: `color/background/neutral/translucent` pasa al 96 % en Light (S35), para que el anillo de foco llegue a 3:1 sobre la cabecera en el peor caso (1.4.11). Dark sigue al 90 %. |
 
 ---
 
@@ -442,7 +443,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/text/on-accent` | `neutral/950` (#050C09) | `neutral/950` (#050C09) |
 | `color/border/focus` | `emerald/600` (#0EA075) | `emerald/400` (#4FD7A6) |
 | `color/background/overlay` (V25) | `black` al 50 % (#00000080) | `black` al 50 % (#00000080) |
-| `color/background/neutral/translucent` (V28) | `white` al 90 % (#FFFFFFE6) | `neutral/950` al 90 % (#050C09E6) |
+| `color/background/neutral/translucent` (V28, S35) | `white` al 96 % (#FFFFFFF5) | `neutral/950` al 90 % (#050C09E6) |
 | `color/background/info/subtle` | `blue/50` (#F1F6FB) | `blue/950` (#1D2747) |
 | `color/border/info/default` | `blue/300` (#A0C4ED) | `blue/700` (#3058B9) |
 | `color/text/info/default` | `blue/700` (#3058B9) | `blue/300` (#A0C4ED) |
@@ -456,7 +457,7 @@ Generada con `tools/semantic.py` (salvo los tokens de D06 y D12, añadidos en di
 | `color/border/danger/default` | `red/300` (#EDADAD) | `red/700` (#A63D35) |
 | `color/text/danger/default` | `red/700` (#A63D35) | `red/300` (#EDADAD) |
 
-33 tokens en Figma (los de `danger` y el fondo y el borde de `success` aún no los usa ningún componente; se mantienen, S31). Dos de ellos son valores directos: `color/background/overlay` (V25), capa sobre el contenido cuando el panel móvil está abierto, y `color/background/neutral/translucent` (V28), fondo de la cabecera sticky, porque un alias de Figma o con llaves no puede cambiar la opacidad (S32). **Creados en Figma el 2026-10-04** y reexportados el mismo día: salen de `tokens/figma/semantic-color/` y ya no están en los tokens solo de código (`code-only.light.tokens.json` y `code-only.dark.tokens.json` se han borrado). Figma exporta la opacidad en float32 (`"alpha": 0.8999999761581421` para el 90 %) y el normalizador la devuelve al valor escrito, `0.9` (V31); en CSS, `#ffffffe6` / `#050c09e6` y `#00000080`. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
+33 tokens en Figma (los de `danger` y el fondo y el borde de `success` aún no los usa ningún componente; se mantienen, S31). Dos de ellos son valores directos: `color/background/overlay` (V25), capa sobre el contenido cuando el panel móvil está abierto, y `color/background/neutral/translucent` (V28), fondo de la cabecera sticky, porque un alias de Figma o con llaves no puede cambiar la opacidad (S32). **Creados en Figma el 2026-10-04** y reexportados el mismo día: salen de `tokens/figma/semantic-color/` y ya no están en los tokens solo de código (`code-only.light.tokens.json` y `code-only.dark.tokens.json` se han borrado). Figma exporta la opacidad en float32 (`"alpha": 0.8999999761581421` para el 90 %) y el normalizador la devuelve al valor escrito, `0.9` (V31); en CSS, `#fffffff5` / `#050c09e6` y `#00000080`. **Light al 96 % desde S35** (antes 90 %): es la opacidad mínima con la que el anillo de foco (`border/focus`) llega a 3:1 sobre la cabecera aunque pase negro por debajo (3,06:1; con el 90 %, 2,67:1 en teoría y 2,74:1 medido en la web). En Dark el anillo da más de 8:1 con el 90 %, así que no cambia. `color/border/accent/default` (D06) es el borde del Callout de recomendación; es decorativo, como los demás bordes de Callout (§6.2, "No se comprueban"). El Callout de recomendación usa `background/accent/subtle` y `text/accent/default`, con un contraste de 4,85:1 en Light y 8,30:1 en Dark.
 
 **Por qué así:**
 - **Botón principal con el color de marca.** `emerald/500` y texto oscuro (`on-accent` = `neutral/950`), en vez de un verde oscuro con texto blanco. El color de marca se ve tal cual y el texto cumple 9,63:1.
