@@ -526,7 +526,7 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 
 **Para qué sirve.** Dar un tratamiento visual propio al apartado "Lo que te llevas" (T10), para que el alumno lo reconozca como el resumen de lo aprendido en la lección. Está al final de cada lección, antes de "Fuentes" (53 lecciones).
 
-**Por qué no es un `Callout`.** El `Callout` acompaña al texto (una nota, un aviso, una recomendación) y lleva una etiqueta fija. `Takeaways` cierra la lección y su título es un `h2` que aparece en "En esta página". Además, `recommendation` ya usa el fondo del acento: si el resumen lo usara, los dos se confundirían.
+**Por qué no es un `Callout`.** El `Callout` acompaña al texto (una nota, un aviso, una recomendación) y lleva una etiqueta fija. `Takeaways` cierra la lección y su título es un `h2` que aparece en "En esta página". Desde V35 comparte el fondo `background/accent/subtle` con `recommendation`; se distinguen porque `Takeaways` no tiene borde y lleva un título `h2` con icono en lugar de la etiqueta "Recomendación".
 
 **Esquema.**
 
@@ -542,23 +542,21 @@ Takeaways (section, aria-labelledby → el h2)
 
 | Parte | Token |
 |---|---|
-| Fondo | `background/neutral/subtle` |
-| Borde | `border/neutral/default`, `border-width/100` (decorativo) |
-| Marca lateral (trazo izquierdo) | `border/accent/strong`, `border-width/200` |
+| Fondo | `background/accent/subtle` (V35; antes `background/neutral/subtle`) |
+| Borde | Sin borde (V35; antes `border/neutral/default` de 1 px y marca lateral `border/accent/strong` de 2 px) |
 | Radio | `radius/container` |
 | Relleno | `space/400` por debajo de 64rem, `space/600` desde 64rem (D11) |
-| Título | `heading/2`, `text/neutral/default` (el mismo estilo que los demás `h2`) |
-| Icono del título | `text/accent/default`, tamaño del icono de `Callout` |
+| Título | `heading/2`, `text/neutral/default`, sin margen superior (V35): empieza en el relleno |
+| Icono del título | `text/accent/default`, 24 px (`space/600`, como el icono de `Callout`); hueco con el texto `space/300` (V35; antes `space/200`) |
 | Texto de la lista | `body/default`, `text/neutral/default` |
-| Marca de cada elemento | `li:check` en `text/accent/default`, en lugar de la viñeta |
-| Separación entre elementos | `space/*` |
+| Marca de cada elemento | `li:check` de 16 px (`space/400`) en `text/accent/default`, en lugar de la viñeta, alineada con la primera línea |
+| Separación | `space/400` entre título y lista; `space/200` entre elementos; `space/600` encima del componente (como un `h2`) |
 
-Sin tokens nuevos. Es el mismo lenguaje que el `SidebarItem` actual (marca lateral `border/accent/strong` de 2 px), aplicado al aprendizaje.
+Sin tokens nuevos.
 
-**Contraste** (calculado sobre los hex de §6.1, Light / Dark):
-- Texto sobre `background/neutral/subtle`: 17,01 / 17,01 (≥ 4,5:1).
-- Icono y marcas (`text/accent/default`) sobre `background/neutral/subtle`: 4,86 / 9,83 (≥ 3:1, 1.4.11).
-- Marca lateral (`border/accent/strong`) frente a `background/neutral/subtle`: 3,19 / 9,83. Es decorativa: la información está en el título.
+**Contraste** (medido en el navegador con V35, Light / Dark):
+- Texto y título (`text/neutral/default`) sobre `background/accent/subtle`: 16,98 / 14,36 (≥ 4,5:1).
+- Icono y marcas (`text/accent/default`) sobre `background/accent/subtle`: 4,85 / 8,30 (≥ 3:1, 1.4.11; es el mismo par que el texto de `recommendation`).
 
 **Accesibilidad.**
 - `section` con `aria-labelledby` al `h2`: el título da nombre a la región.
@@ -579,7 +577,7 @@ Sin tokens nuevos. Es el mismo lenguaje que el `SidebarItem` actual (marca later
 </Takeaways>
 ```
 
-**Comprobado en desarrollo (2026-10-05):** el `##` dentro del componente recibe su `id` de `rehype-slug` y el enlace de "En esta página" llega. Diferencias de la implementación con esta anatomía, pendientes de Oscar, en `estado.md` → Desarrollo → "C17 y C18: implementados". En Figma, la sesión de diseño lo pasa después, como en C14.
+**Comprobado en desarrollo (2026-10-05):** el `##` dentro del componente recibe su `id` de `rehype-slug` y el enlace de "En esta página" llega. Cambios de diseño de Oscar en V35. En Figma, la sesión de diseño lo pasa después, como en C14.
 
 ---
 
@@ -848,8 +846,9 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 | Borde superior | `border/neutral/default`, `border-width/100` |
 | Texto | `text/neutral/subtle`, estilo `caption/default` |
 | Enlaces | `Link` (§2.3) |
+| Logotipo del autor | Imagen SVG (D22) enlazada a `https://www.oscarballido.com` (V36), en la misma pestaña. 39 × 24 px. Foco: anillo `border-width/200` + `border/focus` por fuera |
 
-**Accesibilidad.** Es la región `footer`. **Contraste:** 7,74 / 7,65.
+**Accesibilidad.** Es la región `footer`. **Contraste:** 7,74 / 7,65. El enlace del logotipo del autor tiene nombre accesible "Oscar Carballido, web personal" (`aria-label`; la imagen sigue con `alt=""`), mide 39 × 24 px (≥ 24 × 24, 2.5.8) y el logotipo está exento de contraste (D22).
 
 ### 4.9 Plantilla de lección
 
