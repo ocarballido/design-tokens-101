@@ -12,7 +12,7 @@ En el módulo 3 viste que las colecciones semánticas de DesignToken101 se separ
 - [Qué es un eje](#qué-es-un-eje)
 - [Dos ejes en una sola colección](#dos-ejes-en-una-sola-colección)
 - [Una colección por eje](#una-colección-por-eje)
-- [Cuándo dos variaciones son un solo eje](#cuándo-dos-variaciones-son-un-solo-eje)
+- [Cuándo dos variaciones son un mismo eje](#cuándo-dos-variaciones-son-un-mismo-eje)
 - [Las colecciones de DesignToken101](#las-colecciones-de-designtoken101)
 - [Lo que te llevas](#lo-que-te-llevas)
 
@@ -66,15 +66,15 @@ En DesignToken101, **cada token cambia como mucho en un eje, y cada eje tiene su
 
 </Callout>
 
-## Cuándo dos variaciones son un solo eje
+## Cuándo dos variaciones son un mismo eje
 
-La regla no dice "una colección por cada cosa que varía", sino "un token cambia en un solo eje". Si dos variaciones cambian **los mismos tokens**, son un solo eje con más valores.
+La regla no dice "una colección por cada cosa que varía", sino "un token cambia en un único eje". Si dos variaciones cambian **los mismos tokens**, son un mismo eje con más valores.
 
 Un ejemplo: el alto contraste. Cambia los colores, igual que el tema. Si lo separaras en otra colección, cada color tendría que cambiar en dos colecciones a la vez, y eso no lo puede hacer una variable. Por eso el alto contraste va en el mismo eje que el tema, como valores nuevos: claro, oscuro, claro con alto contraste y oscuro con alto contraste.
 
 Es lo que hacen las referencias:
 
-- **DTCG.** El ejemplo de tema del Resolver tiene un solo modificador con cuatro contextos: `light`, `lightHighContrast`, `dark` y `darkHighContrast` ([Resolver Module: ejemplo de modificador de tema](https://www.designtokens.org/TR/2025.10/resolver/#example-color-theme-modifier)). Otros ejes, como el tamaño, van en otros modificadores ([Resolver Module: Inputs](https://www.designtokens.org/TR/2025.10/resolver/#inputs)).
+- **DTCG.** El ejemplo de tema del Resolver tiene un único modificador con cuatro contextos: `light`, `lightHighContrast`, `dark` y `darkHighContrast` ([Resolver Module: ejemplo de modificador de tema](https://www.designtokens.org/TR/2025.10/resolver/#example-color-theme-modifier)). Otros ejes, como el tamaño, van en otros modificadores ([Resolver Module: Inputs](https://www.designtokens.org/TR/2025.10/resolver/#inputs)).
 - **SDS de Figma.** En el archivo de tokens de su repositorio, la colección de color tiene tres modos: claro, oscuro y un claro de una segunda marca (`sds_light`, `sds_dark` y `brand_b_light`). El tamaño de dispositivo va en otra colección, con desktop, tablet y mobile, y el resto de colecciones tienen un único modo ([figma/sds: tokens.json](https://github.com/figma/sds/blob/main/scripts/tokens/tokens.json), consultado el 2026-10-05).
 
 El SDS pone en la misma colección dos variaciones del color, el tema y la marca, y crea únicamente la combinación que necesita (no hay `brand_b_dark`). Es el mismo criterio: todas cambian los mismos tokens, los colores.
@@ -94,7 +94,7 @@ El SDS pone en la misma colección dos variaciones del color, el tema y la marca
 
 - Un eje es una razón de cambio con sus valores; DesignToken101 tiene dos, el tema y el ancho de pantalla.
 - Mezclar ejes en una colección multiplica los modos y repite valores; separarlos los suma.
-- Si dos variaciones cambian los mismos tokens, como el tema y el alto contraste, son un solo eje.
+- Si dos variaciones cambian los mismos tokens, como el tema y el alto contraste, son un mismo eje.
 
 ## Fuentes
 
