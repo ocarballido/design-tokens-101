@@ -1,0 +1,128 @@
+---
+title: Los tokens de código
+description: "Los tokens que no existen en Figma: cuáles son, por qué viven en código, dónde se escriben y cómo entran en la misma cadena que los de Figma. Y qué pasa cuando Figma puede guardarlos."
+nav_title: Los tokens de código
+lastReviewed: 2026-10-05
+---
+
+Algunos tokens de DesignToken101 no están en Figma. Los primitivos de código los viste en el módulo 2; en esta lección tienes la lista completa, sabes dónde se escriben y cómo se generan junto a los de Figma, con el mismo nombre y las mismas comprobaciones.
+
+**En esta página**
+
+- [La lista completa](#la-lista-completa)
+- [Por qué se escriben en DTCG](#por-qué-se-escriben-en-dtcg)
+- [Dónde viven](#dónde-viven)
+- [El breakpoint, un token que se usa de dos formas](#el-breakpoint-un-token-que-se-usa-de-dos-formas)
+- [Cuando Figma puede guardarlo, se mueve](#cuando-figma-puede-guardarlo-se-mueve)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## La lista completa
+
+| Tokens | Valor | Por qué no está en Figma | Dónde se explica |
+|---|---|---|---|
+| `line-height/tight`, `snug`, `normal` | 1.2, 1.4, 1.5 | Figma lee una variable de interlineado como píxeles, no como multiplicador | [Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras) |
+| `space/negative/100` … `600` | −4 a −24 px | En Figma se aplicarían al gap o al padding, y en CSS ninguno de los dos admite negativos | [Espaciado](/primitives/spacing#espaciado-negativo) |
+| `duration/200`, `easing/standard` | 200 ms, `cubic-bezier(0.2, 0, 0, 1)` | Figma tiene variables Timing y Easing, pero se aplican a Figma Motion, y esta web no diseña animaciones en Figma | [Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación) |
+| `breakpoint/desktop` | 64rem (1024 px) | En Figma, el modo de `Layout` se elige a mano en cada marco: nada usa el corte | [Los modos en código](/modes/modes-in-code#el-ancho-de-pantalla) |
+| `blur/300` | 12 px | Difumina lo que pasa por debajo de la cabecera fija. DesignToken101 no tiene estilos de efecto en su versión 1, así que el desenfoque no se diseña en Figma | Esta lección |
+
+Cada fila tiene un motivo distinto, pero la regla es la misma: **cada token tiene una sola fuente**. Si Figma no puede guardar un token como lo necesita el código, o no lo usa, su fuente es la especificación del sistema, no el archivo de Figma ([Una sola fuente de verdad](/fundamentals/source-of-truth)).
+
+## Por qué se escriben en DTCG
+
+Un token de código podría escribirse directamente en el CSS, a mano. DesignToken101 no lo hace: lo escribe en un archivo DTCG, junto a la exportación de Figma, y lo genera con la misma herramienta.
+
+<Callout variant="recommendation">
+
+Escribe los tokens de código en DTCG, no en el CSS. Así reciben el mismo trato que los de Figma:
+
+- El mismo nombre: `--t101-` más la ruta con guiones.
+- La misma conversión de unidades: `-4px` pasa a `-0.25rem`.
+- La misma capa de Tailwind CSS: la clase `mt-negative-100` aplica `margin-top: var(--t101-space-negative-100)` ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme)).
+- La misma comprobación: si un valor no coincide con la especificación, la comprobación falla ([Comprobar y actualizar](/figma-to-code/check-and-update)).
+
+</Callout>
+
+Cada token lleva además una `$description` que dice por qué vive en código. Pasa al CSS como comentario: quien lea la variable sabe por qué no la encontrará en Figma.
+
+## Dónde viven
+
+Todos están en un archivo, `tokens/code-only.tokens.json`. El Resolver lo carga en el conjunto `base`, junto a `Primitives` y `Semantic size`, porque sus valores no cambian con el tema ni con el ancho ([DTCG no tiene modos](/modes/modes-in-code#dtcg-no-tiene-modos)).
+
+Un detalle del formato: en este archivo, el tipo se escribe en el grupo y lo heredan sus tokens. Los tres interlineados comparten `"$type": "number"` en el grupo `line-height`. El Format Module lo permite: un token sin `$type` toma el de su grupo más cercano ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
+
+## El breakpoint, un token que se usa de dos formas
+
+`breakpoint/desktop` se genera como cualquier token, `--t101-breakpoint-desktop: 64rem`. Pero donde se necesita, en la condición de una consulta `@media`, no se puede escribir `var(--t101-breakpoint-desktop)`.
+
+Lo que dice la fuente: `var()` no se puede usar en los nombres de propiedad, en los selectores ni en ningún sitio que no sea el valor de una propiedad ([MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)). La condición de una `@media` no es el valor de una propiedad.
+
+Por eso la configuración lee el valor del token, `64rem`, y lo escribe tal cual en la consulta: `@media (width >= 64rem)`. El valor sigue teniendo una sola fuente, el token; lo que cambia es que se copia al generar, no se referencia. Lo mismo pasa en la capa de Tailwind CSS ([El breakpoint](/figma-to-code/tailwind-theme#el-breakpoint)).
+
+## Cuando Figma puede guardarlo, se mueve
+
+Tres tokens empezaron en código y hoy salen de Figma:
+
+| Token | Por qué empezó en código | Desde |
+|---|---|---|
+| `size/sidebar/width` | El diseño dibujaba el sidebar a 305 px sin variable | Variable de `Semantic size` desde el 2026-10-04 |
+| `color/background/overlay` | Se añadió al construir el panel móvil, antes de dibujarlo en Figma | Variable de `Semantic color` desde el 2026-10-04 |
+| `color/background/neutral/translucent` | Se añadió al construir la cabecera fija | Variable de `Semantic color` desde el 2026-10-04 |
+
+Cuando se crearon sus variables en Figma, se quitaron del archivo de código. No se copiaron: un token no puede tener dos fuentes ([Los primitivos que viven en código](/primitives/primitives-collection#los-primitivos-que-viven-en-código)). Al cambiar de fuente, el CSS siguió dando los mismos valores (`19rem`, `#00000080`, `#ffffffe6` y `#050c09e6`), y una comprobación lo vigila.
+
+<Callout variant="note">
+
+Con los de movimiento podría pasar lo mismo: Figma tiene variables Timing y Easing ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). No hemos comprobado cómo se exportan en DTCG, así que DesignToken101 los mantiene en código.
+
+</Callout>
+
+<InCode title="El archivo de tokens de código">
+
+```json filename="tokens/code-only.tokens.json (abreviado)"
+{
+  "line-height": {
+    "$type": "number",
+    "$description": "Solo código (D01): Figma interpreta una variable en el interlineado como píxeles.",
+    "tight": { "$value": 1.2, "$description": "Títulos grandes" },
+    "snug": { "$value": 1.4, "$description": "Interfaz, textos cortos" },
+    "normal": { "$value": 1.5, "$description": "Texto de lectura" }
+  },
+  "blur": {
+    "300": {
+      "$type": "dimension",
+      "$value": { "value": 12, "unit": "px" }
+    }
+  },
+  "breakpoint": {
+    "desktop": {
+      "$type": "dimension",
+      "$value": { "value": 64, "unit": "rem" }
+    }
+  }
+}
+```
+
+El breakpoint se escribe en `rem`, la unidad de la consulta. Los tamaños de Figma llegan en `px` y se convierten al generar; este no se convierte, porque ya está en `rem`.
+
+La configuración de Terrazzo lee el breakpoint del mismo archivo para escribir la consulta del modo Desktop:
+
+```js filename="terrazzo.config.mjs (abreviado)"
+const codeOnly = JSON.parse(fs.readFileSync(new URL('./tokens/code-only.tokens.json', import.meta.url), 'utf8'));
+const { value: bpValue, unit: bpUnit } = codeOnly.breakpoint.desktop.$value;
+const DESKTOP = `(width >= ${bpValue}${bpUnit})`; // las media queries no leen variables CSS
+```
+
+</InCode>
+
+## Lo que te llevas
+
+- Los tokens que Figma no guarda como los necesita el código, o no usa, viven en un archivo DTCG escrito a mano.
+- Se generan con la misma herramienta que los de Figma: mismo nombre, mismas unidades y mismas comprobaciones.
+- Cuando Figma puede guardar uno de ellos, el token se mueve a Figma y sale del archivo de código.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)
+- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
+- [MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)

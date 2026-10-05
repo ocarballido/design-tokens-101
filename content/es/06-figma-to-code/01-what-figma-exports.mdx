@@ -1,0 +1,188 @@
+---
+title: Qué sale de Figma
+description: "Cómo leer los archivos que exporta Figma: qué lleva cada token, para qué sirve cada dato al generar el código y qué no viene en la exportación."
+nav_title: Qué sale de Figma
+lastReviewed: 2026-10-05
+---
+
+Terminaste el módulo 5 con tus colecciones exportadas, una carpeta por colección. En este módulo esos archivos se convierten en variables CSS y en un tema de Tailwind CSS. El primer paso es saber leerlos: qué lleva cada token, qué dato se usa para qué y qué falta.
+
+**En esta página**
+
+- [Los archivos](#los-archivos)
+- [Un token por dentro](#un-token-por-dentro)
+- [Para qué sirve cada dato](#para-qué-sirve-cada-dato)
+- [Por qué el valor viene resuelto](#por-qué-el-valor-viene-resuelto)
+- [Lo que no viene en la exportación](#lo-que-no-viene-en-la-exportación)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Los archivos
+
+La exportación de DesignToken101 tiene seis archivos, uno por modo, en cuatro carpetas, una por colección ([Exportar los modos](/modes/create-modes#exportar-los-modos)):
+
+| Carpeta | Colección | Archivos | Variables por archivo |
+|---|---|---|---|
+| `primitives/` | `Primitives` | `Value.tokens.json` | 97 |
+| `semantic-color/` | `Semantic color` | `Light.tokens.json`, `Dark.tokens.json` | 33 |
+| `semantic-size/` | `Semantic size` | `Value.tokens.json` | 4 |
+| `layout/` | `Layout` | `Desktop.tokens.json`, `Mobile.tokens.json` | 9 |
+
+Cada archivo es un documento DTCG completo: el árbol de grupos de la colección, con el valor de ese modo en cada token. El nombre del modo va en `$extensions`, en la raíz del archivo (comprobado en la exportación del 2026-10-04).
+
+## Un token por dentro
+
+Este es el texto principal en el archivo de Light, tal como lo escribe Figma:
+
+```json filename="tokens/figma/semantic-color/Light.tokens.json (abreviado)"
+"default": {
+  "$type": "color",
+  "$value": {
+    "colorSpace": "srgb",
+    "components": [0.062745101749897, 0.10196078568696976, 0.08235294371843338],
+    "alpha": 1,
+    "hex": "#101A15"
+  },
+  "$description": "Texto principal",
+  "$extensions": {
+    "com.figma.variableId": "VariableID:13:104",
+    "com.figma.scopes": ["SHAPE_FILL", "TEXT_FILL"],
+    "com.figma.codeSyntax": { "WEB": "var(--t101-color-text-neutral-default)" },
+    "com.figma.aliasData": {
+      "targetVariableName": "color/neutral/900",
+      "targetVariableSetName": "Primitives"
+    }
+  }
+}
+```
+
+Tiene dos partes:
+
+- **Lo que define DTCG:** `$type`, `$value` y `$description` ([Format Module: Design token](https://www.designtokens.org/TR/2025.10/format/#design-token-0)).
+- **Lo que añade Figma**, en `$extensions`. DTCG reserva esa propiedad para que cada herramienta guarde sus datos sin romper el formato ([Format Module: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)). Qué es cada dato lo viste en [Lo que guarda la exportación](/primitives/primitives-collection#lo-que-guarda-la-exportación).
+
+## Para qué sirve cada dato
+
+No todos los datos llegan al CSS. Esto es lo que hace DesignToken101 con cada uno al generar el código:
+
+| Dato | Qué se hace con él |
+|---|---|
+| `$type` | Es el punto de partida, pero a veces no es un tipo DTCG válido y hay que corregirlo ([Completar la exportación](/figma-to-code/normalize-the-export)) |
+| `$value` | El valor de la variable CSS cuando el token no es un alias. Si lo es, se sustituye por la referencia |
+| `$description` | Se escribe como comentario encima de la variable CSS |
+| `com.figma.aliasData` | Se convierte en la referencia DTCG, y después en `var()` |
+| `com.figma.scopes` | Decide el tipo DTCG de los números y los textos |
+| `com.figma.codeSyntax` | Es el nombre de la variable CSS. Una comprobación exige que coincida con la ruta del token |
+| `com.figma.hiddenFromPublishing` | No se usa. Qué tokens se exponen en Tailwind CSS se decide aparte ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme#lo-que-no-se-expone)) |
+| `com.figma.variableId` | No se usa |
+| `com.figma.modeName` | No se usa: el modo se sabe por el nombre del archivo |
+
+Dos datos de diseño trabajan ahora en código: el **scope**, que pusiste para limitar dónde se aplica cada variable, decide su tipo; y el **code syntax**, que escribiste en cada variable, es el nombre de la variable CSS.
+
+<Callout variant="recommendation">
+
+Antes de pasar al código, revisa estos dos datos en tu archivo de Figma. Una variable sin scope, o con un code syntax que no coincide con su ruta, es un error que en Figma no se ve y en código sí.
+
+</Callout>
+
+## Por qué el valor viene resuelto
+
+Al terminar el módulo 5 te preguntabas por qué el `$value` del texto principal es un color, `#101A15`, y no una referencia a `color/neutral/900`.
+
+Lo que dice la fuente: la ayuda de Figma documenta `com.figma.aliasData` como la forma de apuntar a variables **de otra colección**, con el nombre de la variable y el de su colección ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). No explica por qué el `$value` lleva además el valor resuelto.
+
+Lo que comprobamos en la exportación de DesignToken101:
+
+- Los 82 alias son entre colecciones: los semánticos de color, tamaño y `Layout` apuntan a `Primitives`.
+- Todos llevan a la vez el valor resuelto en `$value` y el destino en `com.figma.aliasData`.
+- El `hex` de cada semántico de color es el de su primitivo: lo comparamos en los 62 alias de Light y Dark, sin ninguna diferencia (2026-10-05).
+
+La consecuencia importa más que el motivo. Una herramienta que lee el archivo tal cual ve un color, no un alias. Generaría `--t101-color-text-neutral-default: #101a15`, y el CSS perdería la capa de alias: cambiar `color/neutral/900` ya no cambiaría el texto. Por eso, antes de generar el código, hay que recuperar la referencia ([Completar la exportación](/figma-to-code/normalize-the-export#recuperar-los-alias)).
+
+<Callout variant="note">
+
+Todos los alias de DesignToken101 apuntan a otra colección, así que no hemos visto cómo exporta Figma un alias dentro de una misma colección. Si tu sistema los tiene, abre el archivo y compruébalo antes de seguir.
+
+</Callout>
+
+## Lo que no viene en la exportación
+
+Dos cosas que el código necesita no están en estos archivos:
+
+- **Los estilos de texto.** La exportación DTCG trabaja con las variables de cada modo. Ningún archivo de la exportación de DesignToken101 trae estilos de texto. Cómo llegan al código lo verás en [Los estilos de texto en código](/figma-to-code/text-styles-in-code).
+- **Los tokens que no existen en Figma**, como el interlineado o el corte entre móvil y escritorio. Los verás en [Los tokens de código](/figma-to-code/code-only-tokens).
+
+<InCode title="Cuatro tokens tal como salen de Figma">
+
+Un tamaño, un peso, una familia y un tamaño de texto de `Layout`. Fíjate en el `$type` de cada uno y en el scope: en la siguiente lección verás por qué importan.
+
+```json filename="tokens/figma/primitives/Value.tokens.json (abreviado)"
+"space": {
+  "400": {
+    "$type": "number",
+    "$value": 16,
+    "$extensions": {
+      "com.figma.scopes": ["GAP"],
+      "com.figma.codeSyntax": { "WEB": "var(--t101-space-400)" }
+    }
+  }
+},
+"font-weight": {
+  "600": {
+    "$type": "number",
+    "$value": 600,
+    "$extensions": {
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": ["FONT_STYLE"],
+      "com.figma.codeSyntax": { "WEB": "var(--t101-font-weight-600)" }
+    }
+  }
+},
+"font-family": {
+  "sans": {
+    "$type": "string",
+    "$value": "Inter",
+    "$extensions": {
+      "com.figma.hiddenFromPublishing": true,
+      "com.figma.scopes": ["FONT_FAMILY"],
+      "com.figma.codeSyntax": { "WEB": "var(--t101-font-family-sans)" },
+      "com.figma.type": "string"
+    }
+  }
+}
+```
+
+```json filename="tokens/figma/layout/Mobile.tokens.json (abreviado)"
+"font-size": {
+  "heading": {
+    "1": {
+      "$type": "number",
+      "$value": 32,
+      "$extensions": {
+        "com.figma.scopes": ["FONT_SIZE"],
+        "com.figma.codeSyntax": { "WEB": "var(--t101-font-size-heading-1)" },
+        "com.figma.aliasData": {
+          "targetVariableName": "font-size/06",
+          "targetVariableSetName": "Primitives"
+        }
+      }
+    }
+  }
+}
+```
+
+Los nombres de los scopes son los de la API de plugins de Figma ([Plugin API: VariableScope](https://developers.figma.com/docs/plugins/api/VariableScope/)).
+
+</InCode>
+
+## Lo que te llevas
+
+- La exportación tiene un archivo por modo, con todas las variables de la colección y el valor de ese modo.
+- Cada token lleva los datos de DTCG y los de Figma en `$extensions`; el scope y el code syntax pasan a trabajar en código.
+- El valor de un alias viene resuelto y su destino va aparte, así que hay que recuperar la referencia antes de generar el CSS.
+
+## Fuentes
+
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma Plugin API: VariableScope](https://developers.figma.com/docs/plugins/api/VariableScope/)
+- [Design Tokens Format Module 2025.10: Design token](https://www.designtokens.org/TR/2025.10/format/#design-token-0)
+- [Design Tokens Format Module 2025.10: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)

@@ -1,0 +1,199 @@
+---
+title: Completar la exportación
+description: "Por qué la exportación de Figma no se puede usar tal cual y cómo se completa: los alias recuperados, el tipo deducido del scope, las unidades y la opacidad. Un paso que se detiene antes que adivinar."
+nav_title: Completar la exportación
+lastReviewed: 2026-10-05
+---
+
+La exportación de Figma es casi DTCG. Le faltan las referencias de los alias, las unidades y algunos tipos. En esta lección verás qué hace DesignToken101 con cada token antes de generar el CSS, y por qué cada cambio sale de una decisión que tomaste en Figma.
+
+**En esta página**
+
+- [Por qué no se usa tal cual](#por-qué-no-se-usa-tal-cual)
+- [Recuperar los alias](#recuperar-los-alias)
+- [El tipo sale del scope](#el-tipo-sale-del-scope)
+- [Las unidades](#las-unidades)
+- [La opacidad en float32](#la-opacidad-en-float32)
+- [Detenerse antes que adivinar](#detenerse-antes-que-adivinar)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Por qué no se usa tal cual
+
+Las cuatro diferencias entre la exportación y DTCG las viste en [Figma exporta casi DTCG](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg): alias resueltos, tamaños sin unidad, la familia como `string` y el peso como `number`.
+
+Lo que dice la fuente: una herramienta no puede arreglarlas por su cuenta. El Format Module prohíbe deducir el tipo de un token a partir de su valor ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)). Un `16` puede ser un tamaño, un peso o un número de columnas, y la herramienta no tiene derecho a decidirlo.
+
+Lo que comprobamos: con la exportación tal cual, Style Dictionary 5.5.5 y Terrazzo 2.7.1 escriben `--t101-space-100: 4`, sin unidad, que no es CSS válido, y escriben el valor resuelto de cada alias en vez de `var()` (octubre de 2026).
+
+<Callout variant="recommendation">
+
+En DesignToken101, un paso propio prepara la exportación antes de la herramienta de traducción. Lo llamamos **normalización**: lee `tokens/figma/`, escribe DTCG estricto en `tokens/dtcg/` y no toca los archivos de Figma. Si vuelves a exportar, se repite el paso y `tokens/dtcg/` se genera de nuevo.
+
+</Callout>
+
+Cada token pasa por los cambios que necesita. No son pasos en orden: un alias de tamaño, por ejemplo, recupera su referencia y cambia de tipo a la vez.
+
+## Recuperar los alias
+
+El destino del alias está en `com.figma.aliasData`, con el nombre de la variable de Figma. La normalización lo convierte en una referencia DTCG: cambia cada `/` por un punto y pone el resultado entre llaves ([Format Module: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)).
+
+| En la exportación | Después de normalizar |
+|---|---|
+| `$value`: `#101A15`, y `targetVariableName`: `color/neutral/900` | `$value`: `"{color.neutral.900}"` |
+
+El valor resuelto desaparece: lo calculará la herramienta siguiendo la referencia. Así, en el CSS, el semántico apunta al primitivo con `var()` y la capa de alias sigue viva.
+
+La conversión funciona porque el nombre de Figma y la ruta del token en DTCG son el mismo nombre escrito de dos formas ([Un nombre en Figma, DTCG y CSS](/naming/name-constraints#un-nombre-tres-formas)). Con tu convención de nombres, la referencia sale sola.
+
+## El tipo sale del scope
+
+Un número de Figma no dice qué es. Su scope sí: es la lista de propiedades en las que se puede aplicar la variable, una decisión de diseño que tomaste al crearla ([Para qué sirve el scope](/primitives/primitives-collection#para-qué-sirve-el-scope)). La normalización usa esa decisión para elegir el tipo DTCG:
+
+| Scope en la exportación | Propiedad en Figma | Tipo DTCG |
+|---|---|---|
+| `GAP` | Gap y padding de auto layout | `dimension` |
+| `CORNER_RADIUS` | Radio | `dimension` |
+| `STROKE_FLOAT` | Grosor del trazo | `dimension` |
+| `FONT_SIZE` | Tamaño de fuente | `dimension` |
+| `WIDTH_HEIGHT` | Ancho y alto | `dimension` |
+| `FONT_STYLE` | Peso tipográfico, en la exportación de DesignToken101 | `fontWeight` |
+| `FONT_FAMILY` (con `$type` `string`) | Familia tipográfica | `fontFamily` |
+
+Los colores ya salen como `color`, un tipo DTCG, y no cambian.
+
+Dos detalles de esta tabla:
+
+- **Los pesos llevan el scope `FONT_STYLE`** en la exportación de DesignToken101. La API de plugins tiene además un scope `FONT_WEIGHT` ([Plugin API: VariableScope](https://developers.figma.com/docs/plugins/api/VariableScope/)). Nuestra exportación no lo usa, y la normalización no lo trata: si aparece, se detiene ([Detenerse antes que adivinar](#detenerse-antes-que-adivinar)).
+- **El peso es un `number` en Figma** porque lo creamos como variable Number, no como String ([Tipografía](/primitives/typography)). En DTCG, `fontWeight` admite números del 1 al 1000 ([Format Module: Font weight](https://www.designtokens.org/TR/2025.10/format/#font-weight)): el valor no cambia; cambia el tipo.
+
+<Callout variant="warning">
+
+Una variable de número sin scope, o con el scope de todas las propiedades (`ALL_SCOPES`), no se puede normalizar: no hay ninguna decisión de la que deducir el tipo. Los scopes que pusiste en los módulos 2 a 5 ordenan los selectores de Figma y, además, deciden el tipo en código.
+
+</Callout>
+
+## Las unidades
+
+Figma guarda los tamaños en píxeles y los exporta sin unidad: `"$value": 16`. La importación de Figma admite `dimension` únicamente en `px` ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)), así que la normalización escribe `px`:
+
+```json
+"$value": { "value": 16, "unit": "px" }
+```
+
+DTCG admite dos unidades para `dimension`, `px` y `rem` ([Format Module: Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)). El paso a `rem` no se hace aquí: es una decisión del CSS, y la verás en [Las variables CSS](/figma-to-code/css-variables#los-valores).
+
+## La opacidad en float32
+
+Los dos fondos con transparencia de DesignToken101 muestran un detalle de la exportación ([Cuando un semántico no es alias](/relations/direct-values)). Figma escribe la opacidad como un número de coma flotante de 32 bits (float32). Un 50 % es exacto en ese formato; un 90 %, no:
+
+| Escrito en Figma | En la exportación |
+|---|---|
+| 50 % | `"alpha": 0.5` |
+| 90 % | `"alpha": 0.8999999761581421` |
+
+`0.8999999761581421` es el float32 más cercano a `0.9`. Es lo que devuelve `Math.fround(0.9)` en JavaScript, el método que da la representación float32 de un número ([MDN: Math.fround](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround)).
+
+La diferencia parece despreciable, pero cae justo en un redondeo. En un color hexadecimal, la opacidad es un número de 0 a 255:
+
+- 0,9 × 255 = 229,5, que se redondea a 230: `e6`.
+- 0,8999999761581421 × 255 = 229,49999…, que se redondea a 229: `e5`, un 89,8 %.
+
+Sin corregir, el fondo de la cabecera saldría `#ffffffe5` en vez de `#ffffffe6`.
+
+<Callout variant="recommendation">
+
+La normalización sustituye el `alpha` por el decimal más corto que da el mismo float32: `0.9`. No es una aproximación, es el valor que se escribió en Figma. Si el `alpha` no es un float32, lo deja como está. Así el CSS coincide con lo que dice la especificación del sistema.
+
+</Callout>
+
+## Detenerse antes que adivinar
+
+Si la normalización encuentra un tipo o un scope que no conoce, **se detiene con un error** que nombra el token. No elige un tipo por su cuenta. Es la regla del Format Module aplicada al propio script: si no hay una decisión registrada, no se inventa.
+
+Lo comprobamos el 2026-10-05 con Node.js 22.22.0, sobre una copia de la exportación: añadimos una variable Number con el scope `ALL_SCOPES` y el script paró con este mensaje:
+
+```txt
+size.test: $type "number" con scopes [ALL_SCOPES] no previsto. Revisa docs/paso-7-tokens.md §3.
+```
+
+Con esta misma regla detectamos, al preparar la primera exportación (2026-10-03), que los pesos de DesignToken101 llevan el scope `FONT_STYLE`.
+
+<InCode title="El script de normalización">
+
+El script está en el repositorio, en `tools/figma-to-dtcg.mjs` ([ocarballido/design-tokens-101](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs)). No necesita dependencias, basta con Node.js. Esta es la parte que decide cada token:
+
+```js filename="tools/figma-to-dtcg.mjs (abreviado)"
+const DIMENSION_SCOPES = new Set(['GAP', 'CORNER_RADIUS', 'STROKE_FLOAT', 'FONT_SIZE', 'WIDTH_HEIGHT']);
+
+function convertToken(token, id) {
+  const extensions = token.$extensions ?? {};
+  const scopes = extensions['com.figma.scopes'] ?? [];
+  const alias = extensions['com.figma.aliasData'];
+  const out = { ...token };
+
+  if (token.$type === 'color') {
+    const alpha = token.$value?.alpha;
+    if (typeof alpha === 'number' && float32Decimal(alpha) !== alpha) {
+      out.$value = { ...token.$value, alpha: float32Decimal(alpha) };
+    }
+  } else if (token.$type === 'number' && scopes.includes('FONT_STYLE')) {
+    out.$type = 'fontWeight';
+  } else if (token.$type === 'number' && scopes.some((scope) => DIMENSION_SCOPES.has(scope))) {
+    out.$type = 'dimension';
+    out.$value = { value: token.$value, unit: 'px' };
+  } else if (token.$type === 'string' && scopes.includes('FONT_FAMILY')) {
+    out.$type = 'fontFamily';
+  } else {
+    throw new Error(`${id}: $type "${token.$type}" con scopes [${scopes}] no previsto.`);
+  }
+
+  if (alias) {
+    out.$value = `{${alias.targetVariableName.replace(/\//g, '.')}}`;
+  }
+  return out;
+}
+
+// Decimal más corto que da el mismo float32.
+function float32Decimal(value) {
+  if (Math.fround(value) !== value) return value;
+  for (let digits = 1; digits <= 9; digits++) {
+    const candidate = Number(value.toPrecision(digits));
+    if (Math.fround(candidate) === value) return candidate;
+  }
+  return value;
+}
+```
+
+Además, el script quita el `$extensions` de la raíz de cada archivo (el nombre del modo) y conserva el de cada token. El Format Module pide a las herramientas que conserven las extensiones que no conocen ([Format Module: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)).
+
+Para ejecutarlo, desde la raíz del proyecto:
+
+```bash
+node tools/figma-to-dtcg.mjs
+```
+
+Con la exportación de DesignToken101 escribe 6 archivos y este resumen (comprobado el 2026-10-05 con Node.js 22.22.0; el proyecto usa Node.js 24):
+
+```txt
+tokens/dtcg: 6 archivos · 82 alias · 56 dimension · 4 fontWeight · 2 fontFamily · 123 color · 2 alpha float32
+```
+
+</InCode>
+
+## Lo que te llevas
+
+- La exportación no se usa tal cual: una herramienta no puede deducir el tipo por el valor, y sin preparar da CSS inválido y pierde los alias.
+- La normalización recupera las referencias, deduce el tipo del scope, añade la unidad y devuelve la opacidad al valor escrito.
+- Ante un caso que no conoce, el paso se detiene: sin scope no hay tipo.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)
+- [Design Tokens Format Module 2025.10: Aliases / References](https://www.designtokens.org/TR/2025.10/format/#aliases-references)
+- [Design Tokens Format Module 2025.10: Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)
+- [Design Tokens Format Module 2025.10: Font weight](https://www.designtokens.org/TR/2025.10/format/#font-weight)
+- [Design Tokens Format Module 2025.10: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma Plugin API: VariableScope](https://developers.figma.com/docs/plugins/api/VariableScope/)
+- [MDN: Math.fround()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround)
+- [Repositorio de DesignToken101: tools/figma-to-dtcg.mjs](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs)
