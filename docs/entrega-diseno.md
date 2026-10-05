@@ -241,6 +241,6 @@ Lo que solo se puede comprobar en código: orden de foco, `aria-*`, lector de pa
 
 ## 5. Abierto
 
-- **A14:** nombre del logotipo ("design-tokens 101" frente a "DesignToken101"). Decide Oscar; no bloquea.
+- **P15 (antes A14):** el logotipo dice "DesignToken101" (decisión de Oscar, 2026-10-05). Falta cambiarlo en Figma y exportar los SVG.
 - **Desenfoque de la cabecera (V28):** `blur/300` es un token solo de código; en Figma la cabecera tiene el fondo translúcido, sin desenfoque. Decide Oscar (opciones en `estado.md` → Diseño).
 - `tools/semantic.py` no incluye los tokens de D06, D12 y D20 (el contraste se comprobó en Figma).
