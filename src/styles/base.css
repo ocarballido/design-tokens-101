@@ -72,7 +72,9 @@
   & > * + * {
     margin-block-start: var(--t101-space-400);
   }
-  & > h2 {
+  /* Takeaways (C18) empieza con su h2: lleva la misma separación que un título. */
+  & > h2,
+  & > [data-component='Takeaways'] {
     margin-block-start: var(--t101-space-600);
   }
 }

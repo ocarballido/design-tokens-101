@@ -6,6 +6,8 @@ import { CodeBlock } from '@/components/CodeBlock';
 import { ColorScale } from '@/components/ColorScale';
 import { Flow, FlowGroup, FlowStep } from '@/components/Flow';
 import { InCode } from '@/components/InCode';
+import { Heading2, UnorderedList } from '@/components/Prose';
+import { Takeaways } from '@/components/Takeaways';
 import { TextLink } from '@/components/TextLink';
 
 // Prose (componentes-v1.md §3.1): cómo se ve cada elemento Markdown del MDX.
@@ -41,12 +43,11 @@ function Table(props: ComponentPropsWithoutRef<'table'>) {
 const cell = 'border-b-(length:--t101-border-width-100) border-neutral-default px-300 py-200 text-start align-top text-neutral-default';
 
 const components: MDXComponents = {
-  // §4.10: los títulos heading/2 usan text/neutral/subtle.
-  h2: (props) => <h2 className="type-heading-2 text-neutral-subtle" {...props} />,
+  h2: Heading2,
   h3: (props) => <h3 className="type-heading-3 text-neutral-default" {...props} />,
   h4: (props) => <h4 className="type-heading-4 text-neutral-default" {...props} />,
   p: (props) => <p className="type-body-default text-neutral-default" {...props} />,
-  ul: (props) => <ul className="list-disc ps-400 marker:text-neutral-subtle" {...props} />,
+  ul: UnorderedList,
   ol: (props) => <ol className="list-decimal ps-400 marker:text-neutral-subtle" {...props} />,
   a: TextLink,
   // Code (§3.5): código en línea. Dentro de <pre> lo sustituye CodeBlock.
@@ -66,6 +67,7 @@ const components: MDXComponents = {
   FlowGroup,
   FlowStep,
   ColorScale,
+  Takeaways,
 };
 
 export function useMDXComponents(): MDXComponents {
