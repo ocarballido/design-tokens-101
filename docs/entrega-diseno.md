@@ -34,6 +34,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | `Takeaways` (C18 + V35, D28; §3.4 de este documento) | Components | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364) |
 | `SidebarGroup` (C17, D29) | Components (Molecules) | [89:1418](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1418) |
 | `AuthorLink`, logotipo del autor del pie (V36, D30) | Components (Atoms) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663) |
+| Marcos de exportación de los logotipos (`logo-colored`, `logo-colored-dark`, `logo-gray`, `logo-gray-dark`; D35, §3.6) | Pages | 57:749, 96:1997, 57:727, 96:2005 |
 | `ColorScaleStep` y `ColorScale` (C14, D34; §3.5 de este documento) | Components | [93:1020](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1020) |
 
 Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
@@ -226,6 +227,13 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 - Sin valores sueltos en los componentes cambiados (`Callout`, `Link`, `Button`, `SiteHeader`, `SiteFooter`, selectores, `ColorScale`: 580 nodos) ni en los nodos propios de las seis plantillas. Se pusieron a 0 seis `itemSpacing` sin efecto (marcos con `SPACE_BETWEEN` o con un hijo) que la auditoría señalaba. Fuera de la regla, como siempre: tamaño de los iconos, logotipos (D22) y tamaño de pantalla (375 × 812 px).
 - Todo el texto con estilo.
 - Contraste, Light / Dark: etiquetas de `Callout` 5,99 / 8,10 (`note`), 4,77 / 10,32 (`warning`), 4,85 / 8,30 (`recommendation`), 7,40 / 6,89 (`pending`); texto 17,79 / 18,89; texto `subtle` y viñetas 7,74 / 7,65; enlaces 5,08 / 10,92; borde del paso destacado de `ColorScale` 4,70 / 4,20 (≥ 3:1).
+
+### 3.6 Logotipo "DesignToken101" (P15, D35, 2026-10-05)
+
+- Componente `Logo` (35:141), variantes `style=color`, `dark` y `light`: texto "DesignToken / 101" en contornos (JetBrains Mono ExtraBold 20/22 px), mismo símbolo, **184 × 44 px** (antes 208 × 44).
+- Marcos de exportación en Pages, cada uno con una instancia de `Logo` y el modo de Semantic color fijado en el marco: `logo-colored` (57:749, Light) y `logo-colored-dark` (96:1997, Dark), 184 × 44; `logo-gray` (57:727, Light) y `logo-gray-dark` (96:2005, Dark), `style=dark` escalado a 34 px de alto, **143 × 34** en el SVG (142,2 de dibujo).
+- SVG en `public/brand/` con los mismos nombres de archivo. `logo-gray.svg` es la exportación de Figma tal cual; `logo-colored.svg` también, salvo el semicírculo verde, que conserva el trazado del archivo anterior (Figma lo exporta con dos cifras de redondeo distintas). Las versiones Dark son las Light con el color del texto `#101A15` → `#F9FAFA` (V20).
+- **Para desarrollo:** las medidas de `src/components/Logo.tsx` pasan a 184 × 44 (`colored`) y 143 × 34 (`gray`).
 
 ## 4. Accesibilidad comprobada en el diseño
 
