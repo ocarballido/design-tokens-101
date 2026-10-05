@@ -1,0 +1,212 @@
+---
+title: El tema de Tailwind CSS
+description: "La segunda capa del código: un tema de Tailwind CSS v4 que apunta a las variables de los tokens. Por qué hace falta el prefijo --t101-, cómo se evita text-text, qué tokens no se exponen y cómo encajan el breakpoint y las fuentes."
+nav_title: El tema de Tailwind CSS
+lastReviewed: 2026-10-05
+---
+
+Las variables CSS ya sirven en cualquier proyecto. Si el proyecto usa Tailwind CSS, falta un paso: que cada token sea también una clase, como `bg-neutral-default` o `p-400`. En esta lección verás cómo se genera esa segunda capa, por qué los nombres necesitan el prefijo `--t101-` y qué decide DesignToken101 sobre lo que se expone y lo que no.
+
+**En esta página**
+
+- [La segunda capa](#la-segunda-capa)
+- [Por qué el prefijo](#por-qué-el-prefijo)
+- [Un espacio de nombres por propiedad](#un-espacio-de-nombres-por-propiedad)
+- [Lo que no se expone](#lo-que-no-se-expone)
+- [El breakpoint](#el-breakpoint)
+- [La familia tipográfica](#la-familia-tipográfica)
+- [Un token de principio a fin](#un-token-de-principio-a-fin)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## La segunda capa
+
+Lo que dice la fuente: en Tailwind CSS v4, el tema se escribe en CSS con `@theme`. Una variable del tema es una variable CSS que, además, le dice a Tailwind que cree las clases de utilidad correspondientes. Las variables que no deben dar clases van en `:root` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)).
+
+El patrón de dos capas, que viste en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind#4-tailwind-css-las-convierte-en-clases), usa las dos cosas:
+
+- **Capa 1, en `:root` y en los bloques de modo:** las variables `--t101-*` de la lección anterior.
+- **Capa 2, en `@theme inline`:** variables del tema que apuntan a la capa 1.
+
+```css filename="src/styles/theme.css (abreviado)"
+@theme inline {
+  --*: initial;
+  --spacing-400: var(--t101-space-400);
+  --radius-control: var(--t101-radius-control);
+  --text-color-neutral-default: var(--t101-color-text-neutral-default);
+}
+```
+
+Dos detalles de este bloque:
+
+- **`inline`.** Cuando una variable del tema apunta a otra variable, Tailwind pide usar `inline` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). Así la clase usa la variable de la capa 1 directamente, y cuando un bloque de modo la redefine, la clase cambia con él.
+- **`--*: initial`.** Quita el tema por defecto de Tailwind ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). En DesignToken101 no existen `bg-red-500`, `p-4` ni `text-xl`: cada clase sale de un token.
+
+<Callout variant="recommendation">
+
+Quita el tema por defecto. Si las clases de Tailwind conviven con las de tus tokens, nada impide usar `p-4` en vez de `p-400`, y el diseño se separa del sistema sin que nadie lo note.
+
+</Callout>
+
+La capa 2 se genera con los tokens, con el mismo comando que la capa 1. Si añades una variable en Figma, aparece su clase sin tocar el CSS.
+
+## Por qué el prefijo
+
+Todas las variables de la capa 1 empiezan por `--t101-`. El módulo 4 lo presentó como el espacio de nombres de DesignToken101 ([Un nombre en Figma, DTCG y CSS](/naming/name-constraints#un-nombre-tres-formas)). Aquí está el motivo técnico.
+
+La capa 2 usa los nombres que Tailwind espera: `--radius-*` para los radios o `--font-weight-*` para los pesos. Con propiedad primero, muchos tokens ya se llaman así. Sin prefijo, las dos capas declararían la misma variable:
+
+| Token | Capa 1 sin prefijo | Capa 2 |
+|---|---|---|
+| `radius/control` | `--radius-control` | `--radius-control: var(--radius-control)` |
+| `font-weight/600` | `--font-weight-600` | `--font-weight-600: var(--font-weight-600)` |
+| `blur/300` | `--blur-300` | `--blur-300: var(--blur-300)` |
+
+Una variable que apunta a sí misma es una referencia circular. Lo que dice la fuente: si las variables forman un ciclo, todas las del ciclo son inválidas ([CSS Custom Properties Level 1: Dependency cycles](https://www.w3.org/TR/css-variables-1/#cycles)). El radio, el peso o el desenfoque no tendrían valor.
+
+Con el prefijo, los nombres de las dos capas nunca coinciden: `--radius-control: var(--t101-radius-control)`.
+
+<Callout variant="note">
+
+El prefijo no hace falta en cualquier sistema. shadcn/ui no lo usa porque sus nombres de la capa 1 y de la capa 2 ya son distintos: `--warning` y `--color-warning` ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)). Hace falta cuando los nombres de tus tokens coinciden con los espacios de nombres de Tailwind, que es lo que pasa con propiedad primero. El SDS de Figma también usa un prefijo propio, `--sds-` ([SDS: theme.css](https://github.com/figma/sds/blob/main/src/theme.css)).
+
+</Callout>
+
+## Un espacio de nombres por propiedad
+
+El coste de propiedad primero en Tailwind lo viste en [Dos escuelas](/naming/naming-schools): con el espacio de nombres documentado para los colores, `--color-*`, el texto principal daría la clase `text-text-neutral-default`. Además, cada color daría todas las clases de color: también `bg-text-neutral-default`, un fondo con el color del texto.
+
+DesignToken101 usa otros espacios de nombres, uno por propiedad:
+
+| Tokens | Espacio de nombres | Clase |
+|---|---|---|
+| `color/background/*` | `--background-color-*` | `bg-neutral-default` |
+| `color/text/*` | `--text-color-*` | `text-neutral-default` |
+| `color/border/*` | `--border-color-*` | `border-neutral-default` |
+| `color/border/focus` | también `--outline-color-*` | `outline-focus` |
+
+La clase no repite la propiedad, porque ya la dice su inicio: `bg-` es el fondo; `text-`, el texto. Y no existen las combinaciones sin sentido: `bg-text-neutral-default` no da ninguna clase.
+
+<Callout variant="warning">
+
+Lo que dice la fuente: la documentación de Tailwind CSS cita `--color-*` para los colores, pero no `--background-color-*` ni `--text-color-*` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). Lo que comprobamos: funcionan en Tailwind CSS 4.3.3, porque cada clase de color busca primero su espacio de nombres propio y después `--color-*` (octubre de 2026). Al no estar documentado, puede cambiar en otra versión. Por eso la comprobación del proyecto genera esas clases y falla si dejan de existir ([Comprobar y actualizar](/figma-to-code/check-and-update)). Si un día se rompe, la alternativa documentada es `--color-*` con la ruta completa, aunque vuelva `text-text-…`.
+
+</Callout>
+
+`text-` sirve también para el tamaño de letra: `text-body-default` usa el espacio de nombres `--text-*`, el de los tamaños. Los dos conviven porque los nombres de los tokens no se repiten.
+
+## Lo que no se expone
+
+No todos los tokens tienen clase. Cada token tiene una regla en la configuración: se expone o se descarta con su motivo. Un token nuevo sin regla detiene la generación, así que nada se expone por accidente.
+
+| Tokens | Por qué no tienen clase | Cómo se usan |
+|---|---|---|
+| Primitivos de color | Son destino de alias, no se aplican al diseño ([Qué se publica y qué se oculta](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)) | A través de los semánticos |
+| `font-size/01` … `10` | Los usan los tokens de `Layout`, no los componentes | A través de `text-heading-1`, `text-body-default`… |
+| `border-width/*` | Tailwind no tiene espacio de nombres para el grosor de borde | `border-(length:--t101-border-width-100)` ([Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width#using-a-custom-value)) |
+| `duration/*` | Tailwind no tiene espacio de nombres para la duración | `duration-(--t101-duration-200)` ([Tailwind CSS: transition-duration](https://tailwindcss.com/docs/transition-duration#using-a-custom-value)) |
+
+Es la misma decisión que tomaste en Figma al ocultar los primitivos de color: lo que no se debe aplicar, no se ofrece.
+
+<Callout variant="warning">
+
+No uses `border` sin valor para el grosor: en Tailwind CSS escribe `border-width: 1px`, un valor fuera de los tokens ([Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)). Usa la sintaxis de variable con `border-width/100`.
+
+</Callout>
+
+## El breakpoint
+
+Los breakpoints de Tailwind CSS se definen en el espacio de nombres `--breakpoint-*` y dan los prefijos de las clases, como `md:` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). Con el tema por defecto quitado, DesignToken101 tiene un único breakpoint:
+
+```css
+--breakpoint-desktop: 64rem;
+```
+
+Da el prefijo `desktop:`: `desktop:p-400` aplica `p-400` desde 64rem. Es el mismo corte que el bloque Desktop de la capa 1.
+
+Este es el único token de la capa 2 que se escribe con su valor y no con `var()`. El breakpoint acaba en la condición de una consulta `@media`, donde `var()` no funciona ([El breakpoint, un token que se usa de dos formas](/figma-to-code/code-only-tokens#el-breakpoint-un-token-que-se-usa-de-dos-formas)). El valor se lee del token al generar, así que sigue teniendo una sola fuente.
+
+## La familia tipográfica
+
+`font-family/sans` vale `"Inter"`, el nombre que guarda Figma. En esta web no basta.
+
+Lo que dice la fuente: la web carga las fuentes con `next/font`, que las aloja en la propia web y las entrega en una variable CSS con el nombre que tú eliges, como `--font-inter` ([Next.js: Font, CSS variables](https://nextjs.org/docs/app/api-reference/components/font#css-variables)). Lo que comprobamos al construir la web (2026-10-03): con el nombre del token, `Inter`, el navegador no usaba la fuente que carga `next/font`.
+
+Por eso la capa 2 compone la familia en tres partes, en este orden:
+
+```css
+--font-sans: var(--font-inter, var(--t101-font-family-sans)), ui-sans-serif, system-ui, sans-serif;
+```
+
+1. La variable de `next/font`, si existe.
+2. Si no, el token, con el nombre que viene de Figma.
+3. Las familias de reserva del sistema, que no salen de los tokens porque Figma guarda un único nombre por variable de familia.
+
+El token no cambia y sigue saliendo de Figma. La composición vive en la capa de Tailwind, que es la que conoce cómo se cargan las fuentes en este proyecto.
+
+## Un token de principio a fin
+
+Con las dos capas, ya puedes seguir un token desde Figma hasta la clase. Este es el radio de los controles:
+
+<Flow caption="El recorrido de radius/control, de la variable de Figma a la clase de Tailwind CSS.">
+  <FlowStep title="Variable de Figma" meta="radius/control → radius/200" />
+  <FlowStep title="Exportación de Figma" meta="number 8, alias en aliasData" />
+  <FlowStep title="DTCG normalizado" meta="dimension, {radius.200}" />
+  <FlowStep title="Capa 1" meta="--t101-radius-control" />
+  <FlowStep title="Capa 2" meta="--radius-control" />
+  <FlowStep title="Clase" meta="rounded-control" />
+</Flow>
+
+1. **Variable de Figma.** En `Semantic size`, con el scope de radio, apunta a `radius/200`.
+2. **Exportación de Figma.** `"$type": "number"`, `"$value": 8` y el destino en `com.figma.aliasData`.
+3. **DTCG normalizado.** El scope de radio da el tipo `dimension`, y el alias, la referencia `{radius.200}`.
+4. **Capa 1.** `--t101-radius-control: var(--t101-radius-200)`; el primitivo vale `0.5rem`.
+5. **Capa 2.** `--radius-control: var(--t101-radius-control)`, en el espacio de nombres de los radios.
+6. **Clase.** `rounded-control`, que escribe `border-radius: var(--t101-radius-control)`.
+
+Si cambias el alias en Figma a `radius/300`, cambia el paso 1, se reexporta, y el resto se genera de nuevo sin tocar nada a mano. El componente que usa `rounded-control` no se toca.
+
+<InCode title="Cómo se genera la capa 2">
+
+La capa 2 la genera un plugin propio dentro de `terrazzo.config.mjs`. El plugin de Tailwind de Terrazzo escribe valores en el tema, no referencias a la capa 1, así que no encaja con las dos capas (comprobado en octubre de 2026 con la versión 2.7.1).
+
+Cada token pasa por una lista de reglas. La primera que coincide decide; si ninguna coincide, se detiene:
+
+```js filename="terrazzo.config.mjs (abreviado)"
+const ref = (id) => `var(--t101-${id.replace(/\./g, '-')})`;
+const rules = [
+  // Primitivos de color: solo son destino de alias, no se exponen.
+  [/^color\.(white|black|emerald|neutral|red|amber|blue)(\.|$)/, () => null],
+  [/^color\.background\.(.+)$/, (m, id) => [[`--background-color-${m[1].replace(/\./g, '-')}`, ref(id)]]],
+  [/^color\.text\.(.+)$/, (m, id) => [[`--text-color-${m[1].replace(/\./g, '-')}`, ref(id)]]],
+  [/^space\.(.+)$/, (m, id) => [[`--spacing-${m[1].replace(/\./g, '-')}`, ref(id)]]],
+  [/^radius\.(.+)$/, (m, id) => [[`--radius-${m[1]}`, ref(id)]]],
+  [/^border-width\./, () => null],
+  [/^font-size\.\d+$/, () => null],
+  [/^font-size\.(.+)$/, (m, id) => [[`--text-${m[1].replace(/\./g, '-')}`, ref(id)]]],
+  // … pesos, familias, interlineados, tamaños, movimiento y desenfoque
+  [/^breakpoint\.desktop$/, () => [['--breakpoint-desktop', `${bpValue}${bpUnit}`]]],
+];
+
+// En build(): para cada token, la primera regla que coincide.
+if (!rule) throw new Error(`theme.css: el token ${id} no tiene regla en terrazzo.config.mjs`);
+```
+
+El resultado es `src/styles/theme.css`, con 87 variables del tema, que se importa después de `tokens.css`. Los dos archivos están generados: no se editan a mano.
+
+</InCode>
+
+## Lo que te llevas
+
+- La segunda capa es un `@theme inline` que apunta a las variables `--t101-*`, sin el tema por defecto de Tailwind CSS.
+- El prefijo evita que las dos capas declaren la misma variable, lo que sería una referencia circular.
+- Cada token se expone o se descarta con su motivo; los colores usan un espacio de nombres por propiedad, que funciona aunque no está documentado.
+
+## Fuentes
+
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)
+- [Tailwind CSS: transition-duration](https://tailwindcss.com/docs/transition-duration)
+- [CSS Custom Properties Level 1: Dependency cycles](https://www.w3.org/TR/css-variables-1/#cycles)
+- [shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)
+- [Figma: Simple Design System, theme.css](https://github.com/figma/sds/blob/main/src/theme.css)
+- [Next.js: Font](https://nextjs.org/docs/app/api-reference/components/font)

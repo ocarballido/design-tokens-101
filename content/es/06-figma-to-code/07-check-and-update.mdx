@@ -1,0 +1,131 @@
+---
+title: Comprobar y actualizar
+description: "Qué hacer cuando cambia una variable en Figma: el ciclo de exportar, generar y comprobar. Qué vigila la comprobación automática, qué errores de diseño detecta y qué no puede ver."
+nav_title: Comprobar y actualizar
+lastReviewed: 2026-10-05
+---
+
+El código de los tokens se genera: nadie lo escribe a mano. Eso tiene una consecuencia práctica: cuando cambias algo en Figma, el código no cambia hasta que vuelves a generarlo, y conviene saber si el resultado es el esperado. En esta lección verás el ciclo de un cambio y qué comprueba DesignToken101 en cada vuelta.
+
+**En esta página**
+
+- [El ciclo de un cambio](#el-ciclo-de-un-cambio)
+- [Qué vigila la comprobación](#qué-vigila-la-comprobación)
+- [Los errores de diseño que detecta](#los-errores-de-diseño-que-detecta)
+- [Lo que no puede ver](#lo-que-no-puede-ver)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## El ciclo de un cambio
+
+<Flow caption="El ciclo de un cambio en los tokens de DesignToken101, de Figma al código publicado.">
+  <FlowStep title="Cambiar la variable" meta="En Figma, o el token de código en su archivo" />
+  <FlowStep title="Exportar" meta="Export modes de la colección" />
+  <FlowStep title="Sustituir los archivos" meta="La carpeta de esa colección" />
+  <FlowStep title="Generar" meta="npm run tokens" />
+  <FlowStep title="Comprobar" meta="npm run check:tokens" />
+  <FlowStep title="Revisar y guardar" meta="Los cambios del CSS, en un commit" />
+</Flow>
+
+1. **Cambiar la variable.** En Figma, como siempre. Si el token es de código, en `tokens/code-only.tokens.json` y en la especificación del sistema; si es un estilo de texto, en la tabla de la especificación y en `text-styles.css`.
+2. **Exportar.** Clic derecho en la colección y **Export modes** ([Exportar los modos](/modes/create-modes#exportar-los-modos)).
+3. **Sustituir los archivos.** Los de la carpeta de esa colección, enteros, sin editarlos.
+4. **Generar.** Un comando normaliza la exportación y genera las dos capas.
+5. **Comprobar.** Otro comando revisa el resultado y falla si algo no cuadra.
+6. **Revisar y guardar.** Mira qué ha cambiado en el CSS generado. Si cambiaste un alias, debería cambiar una línea; si cambian veinte, algo más se movió en Figma.
+
+<Callout variant="recommendation">
+
+Exporta la colección entera, no un modo suelto, y sustituye la carpeta completa. Así los archivos siempre son una foto de Figma en un momento, y nunca una mezcla de dos exportaciones.
+
+</Callout>
+
+El paso 6 es el que más enseña a un diseñador: el cambio del CSS es el reflejo exacto de lo que cambiaste en Figma. Si no lo es, la diferencia te dice qué tocaste sin querer.
+
+## Qué vigila la comprobación
+
+La comprobación compara lo generado con sus fuentes: la exportación de Figma, la especificación del sistema y Tailwind CSS. Son siete grupos de reglas:
+
+| Qué compara | Qué exige |
+|---|---|
+| El code syntax de cada variable de Figma | Que sea su ruta con guiones: `var(--t101-` + ruta + `)`, y que esa variable exista en el CSS |
+| Las referencias del CSS | Que cada `var(--t101-…)` apunte a una variable que existe |
+| Los bloques de modo | Que cada bloque Dark tenga exactamente los tokens de `Semantic color`, y el de Desktop, los de `Layout` |
+| Los colores primitivos | Que el hexadecimal del CSS sea el de la exportación de Figma |
+| Los tokens de código | Que sus valores sean los de la especificación. Y que los tres que pasaron de código a Figma estén en la exportación y den el mismo CSS que antes |
+| Los estilos de texto | Que cada clase `type-*` tenga la familia, el tamaño, el interlineado y el peso de la tabla ([Los estilos de texto en código](/figma-to-code/text-styles-in-code)) |
+| Las clases de Tailwind CSS | Que existan las de los tokens, como `bg-neutral-default` o `desktop:`, y que no existan las del tema por defecto, como `bg-red-500` o `p-4` |
+
+La última fila vigila también los espacios de nombres por propiedad, que funcionan pero no están documentados ([Un espacio de nombres por propiedad](/figma-to-code/tailwind-theme#un-espacio-de-nombres-por-propiedad)). Si una versión de Tailwind CSS deja de generar `bg-neutral-default`, la comprobación falla antes de publicar.
+
+<Callout variant="note">
+
+Una comprobación es tan buena como los errores que detecta. Cada regla se probó también en negativo: con una copia del proyecto, se introdujo el error a propósito y se comprobó que la regla fallaba.
+
+</Callout>
+
+## Los errores de diseño que detecta
+
+Varios errores que nacen en Figma, y que Figma no avisa, aparecen aquí:
+
+- **Renombrar una variable sin cambiar su code syntax.** Al renombrar, Figma conserva los alias y los vínculos, pero no cambia el code syntax ([Si tienes que renombrar](/naming/create-variables#si-tienes-que-renombrar)). La variable CSS seguiría con el nombre viejo. La comprobación lo detecta porque el code syntax ya no es la ruta.
+- **Duplicar una variable y no cambiar su code syntax.** Dos variables con el mismo nombre en CSS. Lo detecta la misma regla: el code syntax de la copia no es su ruta. Antes de que existiera esa regla, la comprobación miraba únicamente que el code syntax tuviera su variable en el CSS, y este error pasaba, porque el nombre copiado existe (prueba en negativo del 2026-10-04).
+- **Un valor que cambia por el camino.** Cuando los fondos con transparencia pasaron de código a Figma, el CSS tenía que seguir igual. Sin corregir la opacidad en float32, no lo estaba, y la comprobación detectó el `e5` ([La opacidad en float32](/figma-to-code/normalize-the-export#la-opacidad-en-float32)).
+
+<Callout variant="warning">
+
+El error más habitual al pasar de Figma al código es esperar que la exportación lo conserve todo: los alias, las unidades, los estilos de texto. No los conserva. Si tu cadena no tiene un paso que los recupere y una comprobación que lo vigile, el CSS puede parecer correcto y haber perdido la capa de alias.
+
+</Callout>
+
+## Lo que no puede ver
+
+La comprobación compara textos y valores. No mira el diseño:
+
+- **El contraste.** Que un par de texto y fondo se lea bien en Light y en Dark se comprueba aparte; lo verás en el módulo Accesibilidad.
+- **El uso.** No sabe si un componente usa `text-neutral-subtle` donde debería usar `text-neutral-default`.
+- **Dev Mode.** No ve cómo muestra Figma el code syntax en el panel de inspección.
+
+Por eso el paso 6 del ciclo, revisar el cambio, sigue siendo tuyo.
+
+<InCode title="Los comandos del ciclo">
+
+Desde la raíz del proyecto, después de sustituir los archivos de `tokens/figma/`:
+
+```bash
+npm run tokens
+npm run check:tokens
+```
+
+`npm run tokens` ejecuta la normalización (`node tools/figma-to-dtcg.mjs`) y Terrazzo (`tz build`). `npm run check:tokens` ejecuta `tools/check-tokens.mjs`, que usa el compilador de Tailwind CSS para generar las clases que comprueba. Sin errores, termina así:
+
+```txt
+tokens.css: 155 en :root · 33 en [data-theme="dark"] · 33 en prefers-color-scheme · 9 en Desktop
+theme.css: 89 variables de Tailwind
+Sin errores.
+```
+
+Con un error, lo nombra y termina con un código de salida distinto de cero, para que un proceso automático pueda pararse. Estos son los mensajes con el code syntax viejo de [Si tienes que renombrar](/naming/create-variables#si-tienes-que-renombrar): la variable del code syntax no existe, y el code syntax no es la ruta.
+
+```txt
+2 error(es):
+- Falta --t101-color-text-accent (code syntax de Figma) en :root
+- color/text/accent/default: code syntax var(--t101-color-text-accent) ≠ var(--t101-color-text-accent-default) (ruta de la variable)
+```
+
+Los dos mensajes los reprodujimos el 2026-10-05 con Node.js 22.22.0, en una copia del proyecto y sin la regla de Tailwind CSS, que necesita instalar el proyecto. La cuenta de `theme.css` incluye las dos variables de la familia por defecto, además de las 87 de los tokens.
+
+El script está en el repositorio: [tools/check-tokens.mjs](https://github.com/ocarballido/design-tokens-101/blob/main/tools/check-tokens.mjs).
+
+</InCode>
+
+## Lo que te llevas
+
+- Un cambio en Figma llega al código en un ciclo: exportar la colección, sustituir su carpeta, generar, comprobar y revisar.
+- La comprobación compara lo generado con Figma, con la especificación y con Tailwind CSS, y detecta errores que Figma no avisa, como un code syntax viejo.
+- No ve el diseño: el contraste y el uso de cada token se revisan aparte.
+
+## Fuentes
+
+- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma Plugin API: Variable](https://developers.figma.com/docs/plugins/api/Variable/)
+- [Repositorio de DesignToken101: tools/check-tokens.mjs](https://github.com/ocarballido/design-tokens-101/blob/main/tools/check-tokens.mjs)

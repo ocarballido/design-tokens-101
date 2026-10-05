@@ -1,0 +1,127 @@
+---
+title: Los estilos de texto en código
+description: "Los estilos de texto no salen en la exportación de Figma. Cómo llegan al código desde la especificación del sistema, por qué el interlineado cambia de porcentaje a multiplicador y cómo cambia un estilo con el ancho de pantalla."
+nav_title: Estilos de texto en código
+lastReviewed: 2026-10-05
+---
+
+Los estilos de texto son la capa semántica de la tipografía de DesignToken101 ([Estilos de texto como capa](/relations/text-styles)). Pero no son variables, y la exportación de Figma no los incluye. En esta lección verás de dónde salen en código, cómo se escriben y qué cambia por el camino.
+
+**En esta página**
+
+- [Lo que no exporta Figma](#lo-que-no-exporta-figma)
+- [La especificación es la fuente](#la-especificación-es-la-fuente)
+- [Un estilo, una clase](#un-estilo-una-clase)
+- [El interlineado, de porcentaje a multiplicador](#el-interlineado-de-porcentaje-a-multiplicador)
+- [La negrita](#la-negrita)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Lo que no exporta Figma
+
+La exportación DTCG de Figma trabaja con las variables de cada modo. Los estilos de texto no son variables, sino estilos, y no aparecen en ningún archivo de la exportación de DesignToken101 (comprobado en la exportación del 2026-10-04).
+
+En DTCG, un estilo de texto sería un token compuesto de tipo `typography`, con familia, tamaño, peso e interlineado, entre otros ([Format Module: Typography](https://www.designtokens.org/TR/2025.10/format/#typography)). Figma no tiene variables compuestas, así que no hay nada que exportar con esa forma.
+
+Lo que sí sale de Figma son las piezas: los primitivos de familia y peso, y los tamaños de `Layout`. Falta la decisión que los une: qué familia, tamaño, peso e interlineado lleva cada estilo.
+
+## La especificación es la fuente
+
+Esa decisión está escrita en la especificación del sistema, en la tabla de los diez estilos. Es la misma que creaste en Figma ([Los diez estilos](/relations/text-styles#los-diez-estilos)):
+
+| Estilo | Familia | Tamaño | Interlineado | Peso |
+|---|---|---|---|---|
+| `heading/1` | `font-family/sans` | `font-size/heading/1` | `line-height/tight` | `font-weight/700` |
+| `body/default` | `font-family/sans` | `font-size/body/default` | `line-height/normal` | `font-weight/400` |
+| `code/default` | `font-family/mono` | `font-size/code/default` | `line-height/normal` | `font-weight/400` |
+
+La tabla completa tiene diez filas, una por estilo.
+
+<Callout variant="recommendation">
+
+Cuando Figma no exporta una decisión, escríbela en un sitio y genera o comprueba el código a partir de él. En DesignToken101 ese sitio es la especificación: si cambias un estilo de texto en Figma, cambias también su fila en la tabla, y la comprobación del código avisa si el CSS no coincide.
+
+</Callout>
+
+## Un estilo, una clase
+
+En código, cada estilo es una clase de utilidad de Tailwind CSS, escrita con `@utility` ([Tailwind CSS: Adding custom utilities](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities)). El nombre es el del estilo con guiones y el inicio `type-`: `heading/1` es `type-heading-1`.
+
+```css filename="src/styles/text-styles.css (abreviado)"
+@utility type-heading-1 {
+  font-family: var(--font-sans);
+  font-size: var(--t101-font-size-heading-1);
+  line-height: var(--t101-line-height-tight);
+  font-weight: var(--t101-font-weight-700);
+}
+```
+
+Cada línea sale de una capa distinta:
+
+- **Familia:** la de la capa de Tailwind, `--font-sans`, que reúne la fuente cargada, el token y las de reserva ([La familia tipográfica](/figma-to-code/tailwind-theme#la-familia-tipográfica)).
+- **Tamaño:** el token de `Layout`. Cambia de 32 a 40 px desde 64rem porque la variable se redefine en el bloque Desktop. La clase no necesita su propia consulta `@media`: cambia con el modo, como el estilo en Figma cambia con el modo del marco.
+- **Interlineado:** un token de código ([Los tokens de código](/figma-to-code/code-only-tokens)).
+- **Peso:** un primitivo de Figma.
+
+Ningún valor está escrito a mano: la clase es una lista de referencias. El archivo sí está escrito a mano, porque nada lo genera, y por eso se comprueba.
+
+## El interlineado, de porcentaje a multiplicador
+
+En Figma, los estilos usan el interlineado en porcentaje, sin variable: 120 %, 140 % y 150 %. Figma lee una variable de interlineado como píxeles ([Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras)). En código, el mismo valor se escribe como multiplicador: 1.2, 1.4 y 1.5.
+
+Lo que dice la fuente: en CSS, los dos se calculan sobre el tamaño de letra del elemento, pero se heredan distinto. Un número sin unidad se hereda como multiplicador, y cada hijo lo aplica a su propio tamaño. Un porcentaje se convierte en una longitud fija, y los hijos con otro tamaño heredan esa longitud. Por eso MDN recomienda el número sin unidad en la mayoría de los casos ([MDN: line-height](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)).
+
+| | Figma | Código |
+|---|---|---|
+| `line-height/normal` | 150 % en el estilo | `1.5`, token de código |
+
+Es el mismo interlineado escrito en la forma que mejor funciona en cada sitio. DTCG también lo define como un número sin unidad ([Format Module: Typography](https://www.designtokens.org/TR/2025.10/format/#typography)).
+
+## La negrita
+
+En Figma, el texto destacado tiene su propio estilo, `body/strong`, porque poner negrita a un fragmento lo separa de su estilo de texto ([Estilos de texto como capa](/relations/text-styles)).
+
+En código no hace falta: una etiqueta `<strong>` dentro de un párrafo hereda la familia, el tamaño y el interlineado del párrafo, y cambia el peso. DesignToken101 da a `strong` el peso `font-weight/600`. Así un `<strong>` dentro de una tabla, con el tamaño de `body/small`, conserva ese tamaño. La clase `type-body-strong` existe para el texto que es `body/strong` por sí mismo, no por estar dentro de otro texto.
+
+Es un caso en el que el código y Figma llegan al mismo resultado de forma distinta, y los dos son correctos en su medio.
+
+<InCode title="La comprobación de los estilos">
+
+La comprobación del proyecto, `npm run check:tokens`, lee la tabla de los estilos en `docs/sistema-tokens-v1.md` y la compara con `src/styles/text-styles.css`. Para cada fila exige que la utilidad exista y que sus cuatro propiedades sean las de la tabla:
+
+```js filename="tools/check-tokens.mjs (abreviado)"
+for (const [, style, family, size, lineHeight, weight] of styleRows) {
+  const block = new RegExp(`@utility type-${style.replace('/', '-')} \\{([^}]*)\\}`).exec(textStylesCss)?.[1];
+  const want = {
+    'font-family': `var(--font-${family})`,
+    'font-size': cssVar(size),
+    'line-height': cssVar(lineHeight),
+    'font-weight': cssVar(weight),
+  };
+  for (const [prop, value] of Object.entries(want)) {
+    if (!block.includes(`${prop}: ${value};`)) errors.push(`type-${style.replace('/', '-')}: ${prop} debería ser ${value}`);
+  }
+}
+```
+
+La comprobación también exige diez filas en la tabla, así que una fila borrada por error no pasa desapercibida. La negrita dentro del texto va en los estilos base:
+
+```css filename="src/styles/base.css (abreviado)"
+strong,
+b {
+  font-weight: var(--t101-font-weight-600);
+}
+```
+
+</InCode>
+
+## Lo que te llevas
+
+- Figma no exporta los estilos de texto; en código, su fuente es la tabla de la especificación.
+- Cada estilo es una clase `type-*` que reúne referencias a tokens; cambia con el ancho porque su tamaño viene de `Layout`.
+- El interlineado pasa de porcentaje en Figma a multiplicador en código: el mismo valor, en la forma que mejor se hereda.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Typography](https://www.designtokens.org/TR/2025.10/format/#typography)
+- [Tailwind CSS: Adding custom utilities](https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities)
+- [MDN: line-height](https://developer.mozilla.org/en-US/docs/Web/CSS/line-height)

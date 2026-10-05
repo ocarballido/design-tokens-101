@@ -1,0 +1,179 @@
+---
+title: Las variables CSS
+description: "La primera capa del código: una variable CSS por token. Qué herramienta la genera, qué nombre recibe cada token, en qué se convierte su valor y cómo quedan los alias y los modos."
+nav_title: Las variables CSS
+lastReviewed: 2026-10-05
+---
+
+Con la exportación completada, una herramienta de traducción convierte los archivos DTCG en variables CSS. Es la primera de las dos capas del código, y la que cualquier proyecto web puede usar, con o sin Tailwind CSS. En esta lección verás qué le pasa a cada token al llegar al CSS.
+
+**En esta página**
+
+- [La herramienta de traducción](#la-herramienta-de-traducción)
+- [Qué le pasa a cada token](#qué-le-pasa-a-cada-token)
+- [El nombre](#el-nombre)
+- [Los valores](#los-valores)
+- [Los alias](#los-alias)
+- [Los modos](#los-modos)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## La herramienta de traducción
+
+Una herramienta de traducción lee archivos DTCG y escribe código para una plataforma. El Format Module pone dos ejemplos: Style Dictionary y Terrazzo ([Format Module: Translation tool](https://www.designtokens.org/TR/2025.10/format/#translation-tool)).
+
+Lo que dicen las fuentes:
+
+- **Style Dictionary** declara que todavía no soporta por completo la versión 2025.10 de DTCG: es un trabajo en curso de su versión 5 ([Style Dictionary: DTCG](https://styledictionary.com/info/dtcg/)).
+- **Terrazzo** soporta el Resolver Module de 2025.10, el que une los modos ([Terrazzo: Resolvers](https://terrazzo.app/docs/guides/resolvers)).
+
+Lo que comprobamos con la exportación normalizada de DesignToken101 (octubre de 2026, Style Dictionary 5.5.5 y Terrazzo 2.7.1): las dos escriben bien los colores, las unidades y los alias con `var()`. Las diferencias estaban en los modos y en una conversión:
+
+- Style Dictionary no tiene el concepto de modo: hay que generar cada combinación por separado. Terrazzo genera un solo archivo con un bloque por modo, a partir del Resolver.
+- La conversión de píxeles a `rem` de Style Dictionary ignora la unidad del valor: convirtió el breakpoint, `64rem`, en `4rem`.
+
+<Callout variant="recommendation">
+
+DesignToken101 usa **Terrazzo**, con la normalización delante. El motivo principal es el Resolver: es un formato estándar, así que el archivo que une los modos sirve para cualquier herramienta que lo implemente. Si eliges otra herramienta, comprueba antes cómo trata los modos y las unidades con tus propios archivos.
+
+</Callout>
+
+## Qué le pasa a cada token
+
+Esta tabla resume lo que verás en el resto de la lección. Cada fila es un token real y la línea que genera en `src/styles/tokens.css`:
+
+| Token | Tipo DTCG | Variable CSS generada |
+|---|---|---|
+| `color/emerald/500` | `color` | `--t101-color-emerald-500: #3c9;` |
+| `color/text/neutral/default` (Light) | `color`, alias | `--t101-color-text-neutral-default: var(--t101-color-neutral-900);` |
+| `color/background/overlay` | `color` con opacidad | `--t101-color-background-overlay: #00000080;` |
+| `space/400` | `dimension` | `--t101-space-400: 1rem;` |
+| `radius/control` | `dimension`, alias | `--t101-radius-control: var(--t101-radius-200);` |
+| `font-size/heading/1` (Mobile) | `dimension`, alias | `--t101-font-size-heading-1: var(--t101-font-size-06);` |
+| `font-weight/600` | `fontWeight` | `--t101-font-weight-600: 600;` |
+| `font-family/sans` | `fontFamily` | `--t101-font-family-sans: "Inter";` |
+| `line-height/normal` (código) | `number` | `--t101-line-height-normal: 1.5;` |
+| `space/negative/100` (código) | `dimension` | `--t101-space-negative-100: -0.25rem;` |
+| `duration/200` (código) | `duration` | `--t101-duration-200: 200ms;` |
+| `easing/standard` (código) | `cubicBezier` | `--t101-easing-standard: cubic-bezier(0.2, 0, 0, 1);` |
+
+## El nombre
+
+El nombre de cada variable es `--t101-` más la ruta del token con guiones. Es exactamente lo que dice el code syntax Web de la variable de Figma, sin el `var()`: `var(--t101-space-400)` en Figma, `--t101-space-400` en el CSS ([Una sola fuente de verdad](/fundamentals/source-of-truth#cómo-se-mantiene-un-solo-nombre)).
+
+El nombre no se lee del code syntax: se calcula a partir de la ruta. Por eso hace falta comprobar que los dos coinciden ([Comprobar y actualizar](/figma-to-code/check-and-update#qué-vigila-la-comprobación)). Por qué el prefijo `--t101-` lo verás en la capa siguiente, donde hace falta ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme#por-qué-el-prefijo)).
+
+## Los valores
+
+Cada tipo DTCG se escribe con la sintaxis CSS que le corresponde:
+
+- **Color en hexadecimal.** Es el mismo valor sRGB que guarda Figma, sin conversión ni redondeo ([Espacio de color](/primitives/color-space)). La herramienta abrevia cuando puede: `#33CC99` se escribe `#3c9`, que en CSS es el mismo color. Con opacidad, el hexadecimal lleva ocho cifras: `#00000080` es el negro al 50 %.
+- **Tamaños en `rem`**, con base 16: el valor en píxeles entre 16. `space/400`, 16 px, pasa a `1rem`. Las fracciones se escriben enteras: `border-width/100`, 1 px, es `0.0625rem`.
+- **Familia entre comillas**: `"Inter"`.
+- **Peso, interlineado, duración y curva**, tal cual: `600`, `1.5`, `200ms`, `cubic-bezier(0.2, 0, 0, 1)`.
+
+<Callout variant="recommendation">
+
+DesignToken101 escribe los tamaños en `rem`, la unidad que DTCG define como relativa al tamaño de letra por defecto ([Format Module: Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)). Es la decisión de la especificación del sistema: píxeles en Figma, `rem` en CSS.
+
+</Callout>
+
+Un caso curioso: `radius/full` vale 9999 px en Figma, el número que se usa para redondear del todo. En CSS queda `624.9375rem`. Es el mismo valor dividido entre 16; parece raro, pero funciona igual.
+
+## Los alias
+
+Un token con referencia se escribe con `var()` a la variable del token de destino:
+
+```css
+--t101-radius-control: var(--t101-radius-200);
+```
+
+La conversión a `rem` se aplica a los valores, no a los alias: `radius/control` sigue apuntando a `radius/200`, y es `radius/200` el que vale `0.5rem`. Así, en el CSS, la relación de Figma se mantiene: cambiar el primitivo cambia todos los semánticos que apuntan a él.
+
+<Callout variant="note">
+
+Los dos fondos con transparencia no son alias, así que llegan al CSS con su valor: `#00000080` y `#ffffffe6`. DTCG permitiría derivarlos de `color/black` y `color/white` con `$ref`, una referencia a una parte del valor de otro token ([Format Module: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)). Lo probamos con Terrazzo 2.7.1 (2026-10-04): funciona, pero no está documentado, y el CSS sale con el valor escrito, no con `var()`. El resultado es el mismo que el valor directo, así que no lo usamos ([Cuando un semántico no es alias](/relations/direct-values)).
+
+</Callout>
+
+## Los modos
+
+Cada modo es un bloque de CSS que redefine las mismas variables, con todos los tokens de su colección. Lo viste en [Los modos en código](/modes/modes-in-code#un-bloque-por-modo). El archivo generado tiene cuatro bloques:
+
+| Bloque | Qué contiene | Variables |
+|---|---|---|
+| `:root` | Todo, con Light y Mobile | 155 |
+| `[data-theme="dark"]` | `Semantic color` en Dark | 33 |
+| `@media (prefers-color-scheme: dark)` | `Semantic color` en Dark, para el tema del sistema | 33 |
+| `@media (width >= 64rem)` | `Layout` en Desktop | 9 |
+
+Además, cada variable con `$description` lleva su descripción como comentario encima. Quien lee el CSS sabe para qué sirve el token, con las palabras que escribiste en Figma:
+
+```css filename="src/styles/tokens.css (abreviado)"
+/* Fondo de tarjetas y bloques de código */
+--t101-color-background-neutral-subtle: var(--t101-color-neutral-50);
+```
+
+<InCode title="La configuración de la capa 1">
+
+La configuración está en `terrazzo.config.mjs`. Usa el plugin de CSS de Terrazzo ([Terrazzo: CSS](https://terrazzo.app/docs/integrations/css/)) y lee el Resolver:
+
+```js filename="terrazzo.config.mjs (abreviado)"
+import { defineConfig } from '@terrazzo/cli';
+import css from '@terrazzo/plugin-css';
+
+const REM_BASE = 16;
+const variableName = (token) => `--t101-${token.id.replace(/\./g, '-')}`;
+const THEME_TOKENS = ['color.background.**', 'color.text.**', 'color.border.**'];
+
+export default defineConfig({
+  tokens: ['./tokens/tokens101.resolver.json'],
+  outDir: './src/styles/',
+  plugins: [
+    css({
+      filename: 'tokens.css',
+      variableName,
+      legacyHex: true,
+      transform: (token) =>
+        token.$type === 'dimension' && !token.aliasOf && token.$value.unit === 'px'
+          ? `${token.$value.value / REM_BASE}rem`
+          : undefined,
+      permutations: [
+        {
+          input: { theme: 'light', layout: 'mobile' },
+          prepare: (contents) => `:root {\n  color-scheme: light;\n  ${contents}\n}`,
+        },
+        {
+          input: { theme: 'dark', layout: 'mobile' },
+          include: THEME_TOKENS,
+          prepare: (contents) => `[data-theme="dark"] {\n  color-scheme: dark;\n  ${contents}\n}`,
+        },
+        // … el bloque de prefers-color-scheme y el de Desktop
+      ],
+    }),
+  ],
+});
+```
+
+- `variableName` da el nombre: `--t101-` más el identificador del token, con guiones en vez de puntos. Tiene que devolver el nombre con los dos guiones iniciales: sin ellos, Terrazzo escribe `var(t101-…)`, que no es válido (comprobado al configurar Terrazzo, octubre de 2026).
+- `legacyHex` escribe el color en hexadecimal; sin la opción, Terrazzo usa `rgb()`.
+- `transform` pasa a `rem` los tamaños en `px` que no son alias. El breakpoint, que ya está en `rem`, no cambia.
+- Cada `permutation` es un bloque: elige un contexto de cada modificador del Resolver (`input`), lo envuelve en su selector (`prepare`) y, en los bloques de modo, se queda con los tokens de esa colección (`include`). Los tres grupos de `THEME_TOKENS` son todos los de `Semantic color`, así que cada bloque Dark lleva los 33.
+
+Se genera con `npm run tokens`, que primero normaliza la exportación y después ejecuta Terrazzo (`tz build`). Versiones del proyecto: `@terrazzo/cli` y `@terrazzo/plugin-css` 2.7.1.
+
+</InCode>
+
+## Lo que te llevas
+
+- Una herramienta de traducción escribe una variable CSS por token; DesignToken101 usa Terrazzo porque une los modos con el Resolver estándar.
+- El nombre es `--t101-` más la ruta del token, igual que el code syntax; el color sale en hexadecimal y los tamaños en `rem`.
+- Los alias se escriben con `var()` y cada modo es un bloque con todos los tokens de su colección.
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Translation tool](https://www.designtokens.org/TR/2025.10/format/#translation-tool)
+- [Design Tokens Format Module 2025.10: Dimension](https://www.designtokens.org/TR/2025.10/format/#dimension)
+- [Design Tokens Format Module 2025.10: JSON Pointer syntax](https://www.designtokens.org/TR/2025.10/format/#json-pointer-syntax-required-support)
+- [Style Dictionary: DTCG](https://styledictionary.com/info/dtcg/)
+- [Terrazzo: Resolvers](https://terrazzo.app/docs/guides/resolvers)
+- [Terrazzo: CSS](https://terrazzo.app/docs/integrations/css/)
