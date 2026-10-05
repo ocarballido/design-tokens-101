@@ -1,6 +1,6 @@
 # Investigación del módulo 7: Accesibilidad en los tokens
 
-Sesión de contenido, 2026-10-05. **Pendiente de la aprobación de Oscar** (T4). No es una lección: es la base para escribir el índice (tarea 2) y las lecciones.
+Sesión de contenido, 2026-10-05. **Aprobada por Oscar el 2026-10-05** (T4). Decisiones de §15: los puntos 1 (V26) y 2 (2.4.13 en el sidebar) se mantienen como están (registrado en V26 y D27). No es una lección: es la base para escribir el índice (tarea 2) y las lecciones.
 
 El alcance es lo que afecta a los tokens, no toda la accesibilidad: contraste de texto y de no texto, uso del color, foco, objetivos, espaciado de texto, movimiento, transparencia, contraste forzado y `prefers-contrast`. Lo que es de componentes de React (ARIA, orden de foco, lector de pantalla) va al módulo 9.
 
