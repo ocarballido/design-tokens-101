@@ -104,15 +104,24 @@ theme.css: 89 variables de Tailwind
 Sin errores.
 ```
 
-Con un error, lo nombra y termina con un código de salida distinto de cero, para que un proceso automático pueda pararse. Estos son los mensajes con el code syntax viejo de [Si tienes que renombrar](/naming/create-variables#si-tienes-que-renombrar): la variable del code syntax no existe, y el code syntax no es la ruta.
+Con un error, lo nombra y termina con un código de salida distinto de cero, para que un proceso automático pueda pararse. Este es el resultado con el code syntax viejo de [Si tienes que renombrar](/naming/create-variables#si-tienes-que-renombrar). En Figma, el code syntax es de la variable, no del modo, así que la reexportación lo trae igual en `Light.tokens.json` y en `Dark.tokens.json`:
 
 ```txt
-2 error(es):
+6 error(es):
 - Falta --t101-color-text-accent (code syntax de Figma) en :root
 - color/text/accent/default: code syntax var(--t101-color-text-accent) ≠ var(--t101-color-text-accent-default) (ruta de la variable)
+- Falta --t101-color-text-accent (code syntax de Figma) en :root
+- color/text/accent/default: code syntax var(--t101-color-text-accent) ≠ var(--t101-color-text-accent-default) (ruta de la variable)
+- El bloque darkAttr no coincide con Semantic color
+- El bloque darkMedia no coincide con Semantic color
 ```
 
-Los dos mensajes los reprodujimos el 2026-10-05 con Node.js 22.22.0, en una copia del proyecto y sin la regla de Tailwind CSS, que necesita instalar el proyecto. La cuenta de `theme.css` incluye las dos variables de la familia por defecto, además de las 87 de los tokens.
+Un solo error de diseño da seis mensajes. Se leen así:
+
+- **Los dos primeros, repetidos:** uno por cada archivo de modo. El primero dice que la variable del code syntax no existe en el CSS; el segundo, que el code syntax no es la ruta. El segundo es el que señala la causa.
+- **Los dos últimos:** los bloques Dark del CSS ya no coinciden con la colección, porque la colección dice que tiene una variable con un nombre que el CSS no tiene. Son una consecuencia del mismo error.
+
+Corregido el code syntax en Figma y reexportada la colección, desaparecen los seis. Lo comprobó la sesión de desarrollo el 2026-10-05, con el proyecto completo y la regla de Tailwind CSS incluida. La cuenta de `theme.css` incluye las dos variables de la familia por defecto, además de las 87 de los tokens.
 
 El script está en el repositorio: [tools/check-tokens.mjs](https://github.com/ocarballido/design-tokens-101/blob/main/tools/check-tokens.mjs).
 

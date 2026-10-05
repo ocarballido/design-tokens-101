@@ -27,7 +27,7 @@ En este ejercicio llevas tus propios tokens al código. Lo haces a mano, con cin
 - Un editor de texto para abrir los archivos `.tokens.json` y escribir un archivo `.css`.
 - Entre 60 y 90 minutos.
 
-No necesitas instalar nada. El itinerario de código, al final del paso 3, es opcional.
+No necesitas instalar nada. Los bloques En código de los pasos 3 y 4 son opcionales: normalizar tu exportación con el script y generar la capa 1 con Terrazzo.
 
 ## Paso 1 Revisa tus archivos
 
@@ -132,6 +132,101 @@ Con los cuatro tokens de la tabla de DesignToken101, el archivo queda así. Cada
   }
 }
 ```
+
+<InCode title="Genera la capa 1 con Terrazzo">
+
+Si normalizaste tu exportación en el paso 3, puedes generar la capa 1 de todo tu sistema con Terrazzo y compararla con la que has escrito a mano. Necesitas tres archivos más en tu carpeta de trabajo.
+
+**1. Las dependencias.** Crea un `package.json` con `{ "type": "module" }` e instala Terrazzo con la versión de este curso:
+
+```bash
+npm install -D --save-exact @terrazzo/cli@2.7.1 @terrazzo/plugin-css@2.7.1
+```
+
+**2. El Resolver**, en `tokens/sistema.resolver.json`. Un conjunto con tus colecciones de un modo y un modificador por cada colección con modos ([DTCG no tiene modos](/modes/modes-in-code#dtcg-no-tiene-modos)). Este ejemplo es de un sistema inventado, con una colección `Base` de un modo y una colección `Theme` con Light y Dark:
+
+```json filename="tokens/sistema.resolver.json"
+{
+  "name": "Mi sistema",
+  "version": "2025.10",
+  "sets": {
+    "base": {
+      "sources": [{ "$ref": "dtcg/base/Mode 1.tokens.json" }]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "default": "light",
+      "contexts": {
+        "light": [{ "$ref": "dtcg/theme/Light.tokens.json" }],
+        "dark": [{ "$ref": "dtcg/theme/Dark.tokens.json" }]
+      }
+    }
+  },
+  "resolutionOrder": [{ "$ref": "#/sets/base" }, { "$ref": "#/modifiers/theme" }]
+}
+```
+
+Usa los nombres de tus carpetas y de tus archivos tal como los dejó Figma: el `$ref` admite el espacio de `Mode 1.tokens.json`.
+
+**3. La configuración**, en `terrazzo.config.mjs`. Es la de [Las variables CSS](/figma-to-code/css-variables#los-modos) sin lo propio de DesignToken101: sin tokens de código, sin `Layout` y sin la capa de Tailwind CSS.
+
+```js filename="terrazzo.config.mjs"
+import { defineConfig } from '@terrazzo/cli';
+import css from '@terrazzo/plugin-css';
+
+const PREFIX = '--ds-'; // el de tu code syntax
+const THEME_TOKENS = ['surface.**', 'ink.**', 'shape.**']; // los grupos de tu colección con modos
+
+export default defineConfig({
+  tokens: ['./tokens/sistema.resolver.json'],
+  outDir: './css/',
+  plugins: [
+    css({
+      filename: 'tokens.css',
+      variableName: (token) => `${PREFIX}${token.id.replace(/\./g, '-')}`,
+      legacyHex: true,
+      transform: (token) =>
+        token.$type === 'dimension' && !token.aliasOf && token.$value.unit === 'px'
+          ? `${token.$value.value / 16}rem`
+          : undefined,
+      permutations: [
+        {
+          input: { theme: 'light' },
+          prepare: (contents) => `:root {\n  color-scheme: light;\n  ${contents}\n}`,
+        },
+        {
+          input: { theme: 'dark' },
+          include: THEME_TOKENS,
+          prepare: (contents) => `[data-theme="dark"] {\n  color-scheme: dark;\n  ${contents}\n}`,
+        },
+      ],
+    }),
+  ],
+});
+```
+
+Genera el CSS con:
+
+```bash
+npx tz build
+```
+
+La sesión de desarrollo de DesignToken101 lo probó el 2026-10-05 con una exportación inventada con este formato (prefijo `--ds-`, sin `Layout`, con alias distintos en Light y Dark), Node.js 24.11.1 y Terrazzo 2.7.1: el CSS sale con un bloque `:root` con todos los tokens y un bloque Dark con los de `Theme`, los tamaños en `rem` y los alias con `var()`.
+
+<Callout variant="warning">
+
+Revisa a mano el CSS generado, porque Terrazzo no avisa de estos errores:
+
+- **El prefijo** tiene que ser el de tu code syntax. Si no, el nombre de la variable CSS no es el que ve quien inspecciona tu diseño.
+- **Los grupos de `THEME_TOKENS`** tienen que ser los de tu colección con modos. Si no coinciden, el build termina sin error y el bloque Dark no aparece en el CSS.
+- **La normalización va antes.** Si el Resolver apunta a la exportación sin normalizar, el build también termina sin error, pero los tamaños salen sin unidad y los alias, sin `var()`.
+
+</Callout>
+
+Si tienes una colección como `Layout`, añade su modificador al Resolver, ponlo en el `input` de cada bloque y añade un bloque con su consulta `@media`, como en la configuración de esta web. La capa 2 escríbela a mano, como en el paso 5: el generador de la capa 2 de esta web tiene una regla por cada nombre de DesignToken101 y se detiene ante el primero que no conoce.
+
+</InCode>
 
 ## Paso 5 Escribe la capa 2
 
