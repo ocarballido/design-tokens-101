@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "00-start-here",
+    "---Diseñar los tokens---",
+    "01-fundamentals",
+    "02-primitives",
+    "03-relations",
+    "04-naming",
+    "05-modes",
+    "---Tokens en código---",
+    "06-figma-to-code",
+    "---Referencia---",
+    "99-resources"
+  ]
+}

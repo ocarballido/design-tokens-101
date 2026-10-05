@@ -144,11 +144,15 @@ Las palabras de estado significan lo mismo en todo el sistema, también en los c
 
 Por eso, cuando hizo falta marcar la sección del sidebar que contiene la lección actual, la variante del componente se llamó `current` y no `active`. Con `active`, quien leyera el componente no sabría si la sección está pulsada o es la actual. `current` es también la palabra de ARIA para ese caso, `aria-current` ([MDN: aria-current](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current)).
 
+<Takeaways>
+
 ## Lo que te llevas
 
 - En DTCG un token no puede ser también un grupo; por eso un token con estados lleva `/default`.
 - DTCG 2025.10 permite `$root`, pero Figma no admite nombres con `$`, así que DesignToken101 usa `/default`.
 - Si el token tiene el énfasis por defecto, el estado ocupa su lugar; si no, va en un nivel propio.
+
+</Takeaways>
 
 ## Fuentes
 

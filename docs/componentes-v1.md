@@ -522,6 +522,65 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 <ColorScale palette="emerald" highlight="500" highlightLabel="Color de marca" caption="Escala emerald: el acento de DesignToken101, del paso 50 al 950." />
 ```
 
+### 3.9 `Takeaways` ("Lo que te llevas"): C18, propuesta de la sesión de contenido (2026-10-05), pendiente de revisión de Oscar
+
+**Para qué sirve.** Dar un tratamiento visual propio al apartado "Lo que te llevas" (T10), para que el alumno lo reconozca como el resumen de lo aprendido en la lección. Está al final de cada lección, antes de "Fuentes" (53 lecciones).
+
+**Por qué no es un `Callout`.** El `Callout` acompaña al texto (una nota, un aviso, una recomendación) y lleva una etiqueta fija. `Takeaways` cierra la lección y su título es un `h2` que aparece en "En esta página". Además, `recommendation` ya usa el fondo del acento: si el resumen lo usara, los dos se confundirían.
+
+**Esquema.**
+
+```txt
+Takeaways (section, aria-labelledby → el h2)
+├── h2 "Lo que te llevas"  ·  icono (li:graduation-cap, decorativo)
+└── lista (ul): 3 elementos, cada uno con una marca (li:check, decorativa) y una frase
+```
+
+**Props.** `children`: el título y la lista, escritos en Markdown dentro del componente. El título sigue siendo un `##` del MDX, para que `rehype-slug` le dé su `id` (`lo-que-te-llevas`) y funcione el enlace de "En esta página".
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Fondo | `background/neutral/subtle` |
+| Borde | `border/neutral/default`, `border-width/100` (decorativo) |
+| Marca lateral (trazo izquierdo) | `border/accent/strong`, `border-width/200` |
+| Radio | `radius/container` |
+| Relleno | `space/400` por debajo de 64rem, `space/600` desde 64rem (D11) |
+| Título | `heading/2`, `text/neutral/default` (el mismo estilo que los demás `h2`) |
+| Icono del título | `text/accent/default`, tamaño del icono de `Callout` |
+| Texto de la lista | `body/default`, `text/neutral/default` |
+| Marca de cada elemento | `li:check` en `text/accent/default`, en lugar de la viñeta |
+| Separación entre elementos | `space/*` |
+
+Sin tokens nuevos. Es el mismo lenguaje que el `SidebarItem` actual (marca lateral `border/accent/strong` de 2 px), aplicado al aprendizaje.
+
+**Contraste** (calculado sobre los hex de §6.1, Light / Dark):
+- Texto sobre `background/neutral/subtle`: 17,01 / 17,01 (≥ 4,5:1).
+- Icono y marcas (`text/accent/default`) sobre `background/neutral/subtle`: 4,86 / 9,83 (≥ 3:1, 1.4.11).
+- Marca lateral (`border/accent/strong`) frente a `background/neutral/subtle`: 3,19 / 9,83. Es decorativa: la información está en el título.
+
+**Accesibilidad.**
+- `section` con `aria-labelledby` al `h2`: el título da nombre a la región.
+- Icono y marcas con `aria-hidden="true"`. La lista sigue siendo una `ul`, y el lector de pantalla anuncia sus 3 elementos.
+- No cambia el orden de lectura ni el tamaño del texto.
+
+**En el MDX.**
+
+```mdx
+<Takeaways>
+
+## Lo que te llevas
+
+- Primera idea.
+- Segunda idea.
+- Tercera idea.
+
+</Takeaways>
+```
+
+**A comprobar en desarrollo:** que el `##` dentro del componente recibe su `id` de `rehype-slug` y que el enlace de "En esta página" llega. En Figma, la sesión de diseño lo pasa después, como en C14.
+
 ---
 
 ## 4. Componentes de la estructura de la página
@@ -634,6 +693,40 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 | Radio | Sin radio (V23) | ← | ← |
 
 **Texto.** `label/default`.
+
+#### Grupos del `Sidebar` (C17): propuesta de la sesión de contenido (2026-10-05), pendiente de revisión de Oscar
+
+**Para qué sirven.** Separar en el sidebar los módulos que se siguen en Figma de los que trabajan también con código, para que el alumno vea dónde el curso se vuelve más técnico. Es un texto entre secciones, no un control.
+
+**Datos.** `content/{locale}/meta.json`, con la convención de separadores de Fumadocs ([Page Conventions](https://fumadocs.dev/docs/page-conventions)): `pages` lista las carpetas en orden, y una cadena `"---Texto---"` es un separador con ese texto. La sección que va antes del primer separador ("Empezar aquí") no lleva grupo.
+
+```json
+{ "pages": ["00-start-here", "---Diseñar los tokens---", "01-fundamentals", "…", "05-modes", "---Tokens en código---", "06-figma-to-code", "---Referencia---", "99-resources"] }
+```
+
+Si una carpeta de `content/es/` no está en `pages`, la compilación debe fallar, para que un módulo nuevo no desaparezca del sidebar. Sin `meta.json` raíz en un idioma, se usa el del español (V02, V05); los textos se traducen en `content/en/meta.json`.
+
+**Esquema.**
+
+```txt
+Sidebar (nav)
+├── SidebarSection "Empezar aquí"
+├── grupo (div role="group", aria-labelledby → etiqueta)
+│     ├── etiqueta "Diseñar los tokens" (p)
+│     └── SidebarSection × 5
+├── grupo "Tokens en código"
+└── grupo "Referencia"
+```
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Etiqueta | `caption/default`, `text/neutral/subtle` |
+| Separador encima de la etiqueta | `border/neutral/default`, `border-width/100` (decorativo) |
+| Separación | `space/600` encima del separador; `space/200` entre etiqueta y primera sección |
+
+**Accesibilidad.** La etiqueta no es interactiva ni un encabezado (no altera el índice de títulos de la página). Cada grupo es un `role="group"` con `aria-labelledby` a su etiqueta, así que el lector de pantalla anuncia el grupo al entrar en él. Contraste de la etiqueta: 7,74 / 7,65 (≥ 4,5:1). Igual en el panel de navegación móvil.
 
 #### Accesibilidad y contraste del `Sidebar`
 
