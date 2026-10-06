@@ -80,6 +80,7 @@ Contarlo como la diferencia más visible entre los dos lados: en Figma un estado
 ### Prueba propia (2026-10-06, `grep` sobre `src/components/` y `src/mdx-components.tsx`)
 
 - Ninguna clase de color, espacio, radio o tamaño escrita a mano: el único valor entre corchetes es `h-[1lh]` (`Takeaways`, una línea de texto, no un valor del diseño).
+  - **Corregido el 2026-10-06 (redacción del módulo):** hay más corchetes, ninguno con un valor del diseño. `grid-rows-[0fr]` y `grid-rows-[1fr]` (`InCode` y `Sidebar`, el plegado animado), `motion-safe:transition-[grid-template-rows,visibility]` (las mismas dos, la propiedad que se anima), `max-h-[calc(100dvh-var(--site-header-height))]` (`src/app/[locale]/layout.tsx`, alto del sidebar fijo: la pantalla menos la cabecera) y la variante `[@media(prefers-reduced-transparency:reduce)]:` de `SiteHeader` (una consulta de medios, no un valor). Con la sintaxis de variable entre paréntesis: `border-(length:--t101-border-width-*)` y `duration-(--t101-duration-200)` (tokens) y `top-(--site-header-height)` (`layout.tsx`; la altura medida de la cabecera, V28, no es un token). Búsqueda en todo `src/`, 2026-10-06.
 - **Ninguna comprobación lo vigila.** `--*: initial` (V09) hace que una clase del tema por defecto (`bg-red-500`) no genere CSS, pero un valor arbitrario (`p-[13px]`) sí lo genera, y `npm run check:tokens` no revisa los componentes.
 
 ### Recomendación

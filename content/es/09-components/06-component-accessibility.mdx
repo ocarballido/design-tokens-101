@@ -1,0 +1,116 @@
+---
+title: La accesibilidad del componente
+description: "Lo que la accesibilidad pide al componente y los tokens no resuelven: el elemento HTML correcto, un nombre accesible que contenga el texto visible, los estados que anuncia ARIA y un borde que se vea con colores forzados."
+nav_title: Accesibilidad del componente
+lastReviewed: 2026-10-06
+---
+
+Los tokens resuelven el contraste, el anillo de foco y el tamaño de los controles: lo viste en el [módulo 7](/accessibility/wcag-and-tokens). Lo demás depende del componente: qué elemento es, cómo se llama para un lector de pantalla y cómo anuncia sus estados. En esta lección verás esa parte, con los componentes de DesignToken101 como ejemplo, y un caso en el que un componente cumple con los tokens y aun así falla.
+
+**En esta página**
+
+- [Lo que los tokens no resuelven](#lo-que-los-tokens-no-resuelven)
+- [El elemento correcto](#el-elemento-correcto)
+- [Un nombre que contiene lo que se ve](#un-nombre-que-contiene-lo-que-se-ve)
+- [Estados que se anuncian](#estados-que-se-anuncian)
+- [Sin depender del color](#sin-depender-del-color)
+- [Un borde para los colores forzados](#un-borde-para-los-colores-forzados)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Lo que los tokens no resuelven
+
+El criterio 4.1.2 Name, Role, Value es de **nivel A**: en todo componente de la interfaz, el nombre y el rol se pueden determinar por programa, y los estados que cambia el usuario se pueden leer y se comunican cuando cambian. La guía del criterio añade que los controles estándar de HTML ya lo cumplen si se usan según su especificación; los controles propios necesitan ARIA ([Understanding 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html)).
+
+Ningún token interviene en eso. Un botón puede tener el contraste perfecto y no ser un botón para un lector de pantalla.
+
+## El elemento correcto
+
+Un botón hace una acción; un enlace lleva a otro sitio. La guía de patrones de WAI-ARIA lo dice así: las acciones de un botón son distintas de la función de un enlace, y el aspecto y el rol de un control tienen que coincidir con lo que hace ([WAI-ARIA APG: Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/)).
+
+El `Button` de DesignToken101 se ve igual en los dos casos, pero cambia de elemento:
+
+- **Con `href`**, es un enlace (`<a>`): lleva a otra página.
+- **Sin `href`**, es un botón (`<button>`): hace una acción en la página.
+
+En Figma no hay diferencia: `href` es un prop que no tiene propiedad, porque no cambia el dibujo. Por eso la decisión se escribe en la tabla de anatomía o en la descripción del componente, no en una variante.
+
+## Un nombre que contiene lo que se ve
+
+El criterio 2.5.3 Label in Name es de **nivel A**: si un control tiene una etiqueta con texto, su nombre accesible contiene ese texto ([Understanding 2.5.3](https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html)). Quien maneja la web con la voz dice lo que ve, y el nombre tiene que coincidir.
+
+Tres casos de DesignToken101:
+
+- **Un botón con texto** se llama como su texto. No hace falta nada más.
+- **Un botón con un icono y sin texto**, como el de copiar el código, necesita un nombre escrito ("Copiar código"). En la anatomía de DesignToken101, ese nombre es un prop obligatorio, `label`, y el icono lleva `aria-hidden` para que no se lea dos veces.
+- **Las secciones del menú lateral** muestran un número delante del título. El número forma parte del nombre ("1 Fundamentos"), con un espacio oculto entre los dos para que no se lea "1Fundamentos".
+
+## Estados que se anuncian
+
+Una sección que se abre y se cierra sigue el patrón Disclosure de WAI-ARIA: la cabecera es un botón con `aria-expanded`, que vale `true` cuando el contenido se ve y `false` cuando no; puede llevar `aria-controls` con el contenido que abre, y se activa con Enter y con Espacio ([WAI-ARIA APG: Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)).
+
+En DesignToken101 lo siguen dos componentes: las secciones del menú lateral y los bloques **En código**. En los dos, el estado tiene un nombre en cada lado:
+
+| En Figma | En React | Lo que anuncia el lector |
+|---|---|---|
+| Variante `open` | Prop `defaultOpen` (cómo empieza) y un estado interno | `aria-expanded` |
+| Variante `current` | Prop `current` | `aria-current` en la lección actual |
+
+La variante `open` de Figma no se llama igual que el prop de React, y es a propósito: en Figma dibujas cómo se ve, abierto o cerrado; en React, el prop dice cómo empieza, y la persona lo cambia después. Lo que se anuncia es siempre el estado de ese momento.
+
+<InCode title="El patrón Disclosure de InCode">
+
+La cabecera del bloque **En código** es un `<button>` con `aria-expanded` y `aria-controls`:
+
+```tsx filename="src/components/InCode.tsx (extracto)"
+<button
+  type="button"
+  aria-expanded={open}
+  aria-controls={contentId}
+  onClick={() => setOpen((value) => !value)}
+```
+
+Al ser un `<button>`, Enter y Espacio funcionan sin código propio. `open` es el estado interno, que empieza con el valor de `defaultOpen`.
+
+</InCode>
+
+## Sin depender del color
+
+Las variantes del `Callout` se distinguen por su color, pero no únicamente por él: cada una lleva un icono y una etiqueta fija (Nota, Aviso, Recomendación, Pendiente). Es lo que pide 1.4.1 Use of Color, de nivel A, que viste en [El color no basta](/accessibility/use-of-color). La etiqueta no es un token: es una parte del componente, y por eso se decide al escribir la tabla de anatomía.
+
+## Un borde para los colores forzados
+
+Con los colores forzados del sistema (los temas de contraste de Windows, por ejemplo), el navegador sustituye los colores del autor: los tokens de color desaparecen y los de forma, como los grosores, se quedan ([Colores forzados y más contraste](/accessibility/forced-colors-and-contrast#qué-queda-de-los-tokens)).
+
+El `Button` `primary` cumple todos sus pares de contraste, pero se reconoce por su fondo de color y no tenía borde. Con colores forzados, ese fondo desaparece, y en la prueba del módulo 7 (Chromium 141, 2026-10-05) el botón se vio como texto suelto, sin nada que lo delimitara.
+
+La corrección está en un token de forma: DesignToken101 le añade un borde de `border-width/100` con color transparente. Sin colores forzados, el borde no se ve y el botón no cambia de aspecto. Con colores forzados, el navegador pinta ese borde con un color del sistema, y el botón vuelve a tener contorno. En otra prueba del módulo 7 (Chromium 141, 2026-10-06), un botón con fondo de color y un borde transparente de 2 px mostró un borde negro de 2 px con colores forzados; sin borde, no mostró ninguno.
+
+<Callout variant="recommendation">
+
+Da un borde a cada control que se reconozca por su fondo, aunque sea transparente. Cuesta un token que ya tienes y no cambia el diseño. Además, en DesignToken101 iguala las dos variantes: `secondary` ya tenía un borde de `border-width/100`, así que ahora las dos miden lo mismo.
+
+</Callout>
+
+`transparent` no es un token: es una palabra clave de CSS que significa "sin color". El grosor sí es un token, y es lo que se queda con los colores forzados.
+
+## En Figma
+
+Lo que ve un lector de pantalla no se dibuja, pero se puede dejar escrito. En la descripción de cada componente de Figma, anota el elemento (`<a>` o `<button>`), de dónde sale su nombre accesible y qué atributo anuncia cada variante de situación (`open` → `aria-expanded`). Es lo primero que necesita quien lo implementa, y lo verá junto al componente.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- El componente decide lo que los tokens no pueden: el elemento HTML, el nombre accesible y los estados que anuncia ARIA.
+- Una variante de situación de Figma (`open`, `current`) se traduce en un atributo ARIA en código.
+- Un borde transparente con un token de grosor hace visible, con colores forzados, un control que se reconoce por su fondo.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 4.1.2 Name, Role, Value](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html)
+- [Understanding 2.5.3 Label in Name](https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html)
+- [WAI-ARIA APG: Button](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
+- [WAI-ARIA APG: Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)

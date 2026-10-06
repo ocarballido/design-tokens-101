@@ -1,0 +1,91 @@
+---
+title: El componente en Figma
+description: "Cómo se lleva la tabla de anatomía a un componente de Figma: una variable o un estilo en cada parte de cada variante, sin modo en el componente principal, comprobado en los cuatro modos y con la decisión sobre los tokens de componente escrita."
+nav_title: El componente en Figma
+lastReviewed: 2026-10-06
+---
+
+Con la tabla de anatomía escrita, crear el componente en Figma es aplicar cada celda a su capa. En esta lección verás qué lleva variable en un componente, qué no conviene hacer con los modos y cómo se comprueba antes de darlo por terminado. No verás cómo se crea un componente con variantes: es un fundamento de Figma, y el curso lo da por sabido.
+
+**En esta página**
+
+- [Una variable en cada parte](#una-variable-en-cada-parte)
+- [El texto con su estilo](#el-texto-con-su-estilo)
+- [Sin modo en el componente principal](#sin-modo-en-el-componente-principal)
+- [Pruébalo en los cuatro modos](#pruébalo-en-los-cuatro-modos)
+- [Variables que eligen una variante](#variables-que-eligen-una-variante)
+- [Un token de componente o ninguno](#un-token-de-componente-o-ninguno)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Una variable en cada parte
+
+Cada variante del componente es un dibujo con las celdas de su columna de la tabla. En cada dibujo, cada parte lleva una variable:
+
+| Parte | Dónde se aplica en Figma | Tipo de variable |
+|---|---|---|
+| Fondo | Relleno del marco | Color (`background/…`) |
+| Borde | Trazo del marco, color y grosor | Color (`border/…`) y número (`border-width/…`) |
+| Texto e icono | Relleno del texto y del vector | Color (`text/…`) |
+| Anillo de foco | Trazo por fuera, en la variante `focus` | Color (`border/focus`) y número (`border-width/200`) |
+| Radio | Radio de las esquinas | Número (`radius/…`) |
+| Relleno y hueco | Auto layout | Número (`space/…`) |
+
+La ayuda de Figma lista dónde se aplica cada tipo: las variables de color en rellenos y trazos, y las de número en el radio, el relleno y el grosor del trazo, entre otras propiedades ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Los scopes de tus variables ([Para qué sirve el scope](/primitives/primitives-collection#para-qué-sirve-el-scope)) deciden qué variables te ofrece Figma en cada campo.
+
+Fíjate en la última fila: **los espacios del auto layout también son tokens**. Un botón con un relleno de 12 px escrito a mano tiene un valor suelto aunque todos sus colores tengan variable.
+
+## El texto con su estilo
+
+El texto de cada parte lleva su estilo de texto, no un tamaño y un peso sueltos. En el `Button` de DesignToken101, la etiqueta usa `label/default`. Si cambias el peso de una palabra a mano, Figma la separa de su estilo ([Un texto sin estilo es un valor suelto](/relations/text-styles#un-texto-sin-estilo-es-un-valor-suelto)).
+
+## Sin modo en el componente principal
+
+En [Aplicar los modos al diseño](/modes/apply-modes#instancias-y-componentes) viste que una instancia hereda el modo del marco donde está, salvo que el componente principal tenga un modo elegido: entonces la instancia toma el del componente, esté donde esté.
+
+En un componente, eso significa que un `Button` con Light elegido se vería en Light dentro de una pantalla en Dark. El fallo no se ve mientras diseñas el componente: aparece cuando alguien usa la instancia.
+
+<Callout variant="warning">
+
+No elijas modo en el componente principal. Para verlo en Dark mientras lo diseñas, elige el modo en un marco que contenga instancias del componente.
+
+</Callout>
+
+## Pruébalo en los cuatro modos
+
+Un componente hecho con variables cambia con los modos sin tocarlo. Compruébalo con una prueba de una página:
+
+1. Crea cuatro marcos con las cuatro combinaciones de tus colecciones con modos: Light y Desktop, Light y Mobile, Dark y Desktop, Dark y Mobile.
+2. Pon en cada marco una instancia de cada variante y de cada estado.
+3. Busca lo que no cambia de un marco a otro cuando debería: un color que sigue igual en Dark es un valor suelto o una variable de una colección sin modos.
+4. Selecciona todas las instancias y revisa *Selection colors*: cada color tiene que ser una variable ([Cada valor tiene token](/final-exercise/final-check#cada-valor-tiene-token)).
+
+Si los tokens del componente valen lo mismo en Desktop y en Mobile (en DesignToken101, `label/default` mide 14 px en los dos), los marcos de los dos anchos se verán iguales. Es correcto: lo que importa es que nada se rompa.
+
+## Variables que eligen una variante
+
+Figma permite algo más: aplicar una variable booleana, de número o de texto a una instancia para que elija su variante, y así cambiar de variante según el modo del marco ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Por ejemplo, un componente con una variante `size` podría pasar de `large` a `small` al cambiar de Desktop a Mobile.
+
+DesignToken101 no lo usa: sus componentes cambian con los modos a través de las variables de cada parte. Si lo usas, la variable que elige la variante es un token más de tu sistema, con su nombre y su colección.
+
+## Un token de componente o ninguno
+
+Al aplicar la tabla, pregúntate en cada celda si el semántico basta. Los dos criterios de [La capa de componente](/relations/component-tokens#cuándo-se-justifica) deciden:
+
+1. ¿El componente se aparta del semántico, con un valor que no es el de ningún semántico ni merece uno nuevo?
+2. ¿El componente tiene que poder cambiar por separado, por una razón previsible?
+
+Si la respuesta a las dos es no, el componente usa el semántico. Es lo que pasa con los componentes de DesignToken101: ninguno cumple un criterio, y por eso la web no tiene tokens de componente. Si alguna respuesta es sí, crea el token con la convención de nombres de tu sistema y escribe la decisión en tu registro, con su motivo, como en el [ejercicio final](/final-exercise/exercise-final#paso-1-reúne-tus-decisiones).
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Cada parte de cada variante lleva una variable o un estilo de texto, también los espacios del auto layout.
+- Un modo elegido en el componente principal lo heredan todas sus instancias: el modo se elige en el marco.
+- Un componente se da por terminado cuando sus instancias cambian bien en los cuatro modos y la decisión sobre los tokens de componente está escrita.
+
+</Takeaways>
+
+## Fuentes
+
+- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)

@@ -1,0 +1,129 @@
+---
+title: La tabla de anatomía
+description: "Una tabla con una fila por parte del componente y una columna por estado o variante, con el token de cada celda: se escribe antes de dibujar y une Figma con el código."
+nav_title: La tabla de anatomía
+lastReviewed: 2026-10-06
+---
+
+Antes de dibujar un componente o de programarlo, DesignToken101 escribe una tabla: qué token lleva cada parte en cada estado. Es el puente entre Figma y el código, y la puedes hacer entera sin salir de Figma. En esta lección verás cómo se escribe, cómo se lee con dos ejemplos reales y por qué conviene escribirla primero.
+
+**En esta página**
+
+- [Parte, estado y token](#parte-estado-y-token)
+- [La tabla de Button](#la-tabla-de-button)
+- [La tabla de Callout](#la-tabla-de-callout)
+- [Cada celda tiene su contraste](#cada-celda-tiene-su-contraste)
+- [Primero la tabla](#primero-la-tabla)
+- [El método del módulo](#el-método-del-módulo)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Parte, estado y token
+
+La tabla tiene tres ingredientes:
+
+- **Las partes** del componente, una por fila: el fondo, el borde, el texto, el icono, el anillo de foco, el radio.
+- **Los estados o las variantes**, uno por columna: `default`, `hover`, `active` y `focus` en un control; `note`, `warning`… en un aviso.
+- **Un token en cada celda**, siempre un semántico. Si una parte no tiene nada en un estado, la celda lo dice ("Sin fondo"); si repite el valor de la columna anterior, lleva una flecha (←).
+
+## La tabla de Button
+
+Esta es la tabla de la variante `primary` del `Button` de DesignToken101:
+
+| Parte | `default` | `hover` | `active` | `focus` |
+|---|---|---|---|---|
+| Fondo | `background/accent/strong/default` | `background/accent/strong/hover` | `background/accent/strong/active` | `background/accent/strong/default` |
+| Borde | Transparente, `border-width/100` | ← | ← | ← |
+| Texto e icono | `text/on-accent` | `text/on-accent` | `text/on-accent` | `text/on-accent` |
+| Anillo de foco | No tiene | No tiene | No tiene | `border/focus`, `border-width/200`, por fuera |
+| Radio | `radius/control` | ← | ← | ← |
+
+Y la de `secondary`:
+
+| Parte | `default` | `hover` | `active` | `focus` |
+|---|---|---|---|---|
+| Fondo | Sin fondo | `background/neutral/hover` | `background/neutral/active` | Sin fondo |
+| Borde | `border/neutral/strong`, `border-width/100` | ← | ← | ← |
+| Texto e icono | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` | `text/neutral/default` |
+| Anillo de foco | No tiene | No tiene | No tiene | `border/focus`, `border-width/200`, por fuera |
+| Radio | `radius/control` | ← | ← | ← |
+
+Fíjate en tres cosas:
+
+- **En `primary`, el texto es el mismo en los cuatro estados**: lo que cambia es el fondo. En `secondary`, el fondo no existe en `default` y aparece con el puntero.
+- **El estado `focus` repite el fondo de `default`** y añade el anillo. El foco se marca con el anillo, no con otro color.
+- **Los tokens de estado ya existían** en el sistema (`…/hover`, `…/active`): los viste en [Estados](/relations/states). El componente no inventa ninguno.
+- **El borde del `primary` es transparente**: no se ve, pero hace visible el botón con los colores forzados del sistema. Lo verás en [Un borde para los colores forzados](/components/component-accessibility#un-borde-para-los-colores-forzados).
+
+## La tabla de Callout
+
+En un componente sin estados, las columnas son las variantes. Esta es la tabla del `Callout`:
+
+| Parte | `note` | `warning` | `recommendation` | `pending` |
+|---|---|---|---|---|
+| Fondo | `background/info/subtle` | `background/warning/subtle` | `background/accent/subtle` | `background/neutral/subtle` |
+| Borde | `border/info/default` | `border/warning/default` | `border/accent/default` | `border/neutral/default` |
+| Icono y etiqueta | `text/info/default` | `text/warning/default` | `text/accent/default` | `text/neutral/subtle` |
+| Contenido | `text/neutral/default` | ← | ← | ← |
+| Radio | `radius/container` | ← | ← | ← |
+
+Cada variante usa los tokens de un rol (`info`, `warning`, `accent`, `neutral`). La tabla deja ver de un vistazo que el contenido no cambia de color: lo que distingue un aviso de otro es el fondo, el borde, el icono y la etiqueta.
+
+<InCode title="La tabla de Callout en código">
+
+En el código, la tabla se convierte en un objeto con una entrada por variante. Cada clase es un token:
+
+```tsx filename="src/components/Callout.tsx (extracto)"
+const VARIANTS: Record<CalloutVariant, { icon: LucideIcon; box: string; role: string }> = {
+  note: { icon: Info, box: 'bg-info-subtle border-info-default', role: 'text-info-default' },
+  warning: { icon: TriangleAlert, box: 'bg-warning-subtle border-warning-default', role: 'text-warning-default' },
+  recommendation: { icon: ThumbsUp, box: 'bg-accent-subtle border-accent-default', role: 'text-accent-default' },
+  pending: { icon: ClockAlert, box: 'bg-neutral-subtle border-neutral-default', role: 'text-neutral-subtle' },
+};
+```
+
+Verás cómo se pasa de la tabla a las clases en [De la variante a la clase](/components/variants-to-classes).
+
+</InCode>
+
+## Cada celda tiene su contraste
+
+Cada celda de texto o de icono forma un par con el fondo de su misma columna. Por eso la tabla de anatomía de DesignToken101 lleva debajo el contraste de cada par, en Light y en Dark. En el `Button`, el texto da 9,63:1 en `default` (en los dos modos) en `primary`, y 17,79:1 en Light y 18,89:1 en Dark en `secondary`.
+
+Los pares de un componente salen de tu tabla de pares del [módulo 7](/accessibility/exercise-accessibility): si una celda usa un par que ya comprobaste, no tienes que volver a calcularlo. Si usa uno nuevo (un texto sobre un fondo de estado, por ejemplo), lo añades a la tabla.
+
+Hay celdas que no necesitan 3:1. El fondo del `primary` frente a la página da 2,05:1 en Light, y está permitido: según la guía de 1.4.11, si un control tiene un contenido visible que lo identifica, como su texto, no hace falta que su borde contraste ([Understanding 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)). Lo viste en [Qué no necesita 3:1](/accessibility/non-text-contrast#qué-no-necesita-31).
+
+## Primero la tabla
+
+<Callout variant="recommendation">
+
+Escribe la tabla antes de dibujar el componente en Figma. Una tabla tarda minutos en escribirse y descubre los huecos antes de que estén en un dibujo: un estado sin token, un par sin comprobar, dos variantes que se distinguen únicamente por el color.
+
+</Callout>
+
+Así aparecieron en DesignToken101 los tokens de estado: al preguntarse qué pasaba con cada control en `hover` y `active`, el sistema no tenía tokens para ello, y se añadieron con su contraste calculado. La tabla sirve también de documentación: es lo que verá quien implemente el componente, con o sin acceso a Figma. Puede vivir en la página de documentación de tu sistema ([Documentar el sistema](/final-exercise/document-the-system)).
+
+## El método del módulo
+
+Todo el módulo sigue el mismo orden, y el ejercicio también:
+
+<Flow caption="El método del módulo: de la tabla de anatomía al componente comprobado.">
+  <FlowStep title="Escribe la tabla" meta="Parte × estado → token" />
+  <FlowStep title="Crea el componente en Figma" meta="Una variable en cada parte" href="/components/components-in-figma" />
+  <FlowStep title="Escríbelo en código" meta="Una clase por token, opcional" href="/components/variants-to-classes" />
+  <FlowStep title="Comprueba" meta="Modos, contraste y valores sueltos" />
+</Flow>
+
+<Takeaways>
+
+## Lo que te llevas
+
+- La tabla de anatomía tiene una fila por parte, una columna por estado o variante y un token semántico en cada celda.
+- Cada celda de texto o de icono es un par de contraste que ya está, o que añades, en tu tabla del módulo 7.
+- Escribir la tabla antes de dibujar descubre los tokens que faltan cuando cambiar todavía no cuesta nada.
+
+</Takeaways>
+
+## Fuentes
+
+- [Understanding 1.4.11 Non-text Contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)

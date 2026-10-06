@@ -1,0 +1,114 @@
+---
+title: Componentes y tokens
+description: "Qué es un componente en Figma y en React, por qué sus propiedades se llaman igual en los dos lados y qué papel tiene en un sistema de tokens: consumirlos, no crearlos."
+nav_title: Componentes y tokens
+lastReviewed: 2026-10-06
+---
+
+Hasta ahora has aplicado tus tokens a pantallas. En este módulo los aplica un componente: un botón, un aviso. En esta lección verás qué es un componente en Figma y en React, por qué conviene que sus propiedades se llamen igual en los dos lados y qué papel tiene un componente en un sistema de tokens.
+
+**En esta página**
+
+- [El componente consume tokens](#el-componente-consume-tokens)
+- [Un componente en Figma](#un-componente-en-figma)
+- [Un componente en React](#un-componente-en-react)
+- [El mismo nombre en los dos lados](#el-mismo-nombre-en-los-dos-lados)
+- [Los dos ejemplos del módulo](#los-dos-ejemplos-del-módulo)
+- [Lo que no enseña este módulo](#lo-que-no-enseña-este-módulo)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## El componente consume tokens
+
+Al terminar el [ejercicio final](/final-exercise/exercise-final) tienes un sistema cerrado: primitivos, semánticos, modos, estilos de texto y su versión 1.0.0. Un componente no añade nada a ese sistema. **Lo consume**: elige qué token lleva cada una de sus partes en cada estado.
+
+Por eso el componente es la prueba del sistema. Si al montarlo te falta un token, el hueco está en el sistema, no en el componente. Y si un componente necesita un valor propio, la decisión sigue los dos criterios de [La capa de componente](/relations/component-tokens#cuándo-se-justifica): se crea un token de componente cuando se cumple uno de ellos, no antes.
+
+<Callout variant="note">
+
+Como en los módulos 6 a 8, el texto principal se sigue entero en Figma. El código de React y Tailwind CSS va en los bloques **En código**, que puedes saltarte.
+
+</Callout>
+
+## Un componente en Figma
+
+Un componente de Figma tiene cinco tipos de propiedad ([Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)):
+
+| Propiedad | Para qué sirve |
+|---|---|
+| Variante | Las distintas variaciones del componente, como sus estados, tamaños o colores |
+| Booleano | Mostrar u ocultar una capa, como el icono de un botón |
+| Intercambio de instancia | Cambiar una instancia por otra, como un icono por otro |
+| Texto | Cambiar el contenido de un texto |
+| Slot | Un área libre donde se añade y se ordena contenido dentro de la instancia |
+
+La variante es la que más trabajo da con los tokens: cada combinación de valores es un dibujo distinto, y cada dibujo tiene sus variables.
+
+## Un componente en React
+
+Un componente de React recibe **props**: la información que le pasa quien lo usa. Un prop puede tener un valor por defecto, que se usa cuando no se indica otro. Y el contenido que va dentro de la etiqueta del componente llega en un prop especial, `children` ([React: Passing props to a component](https://react.dev/learn/passing-props-to-a-component)).
+
+<InCode title="Los props de Button">
+
+Los props del `Button` de DesignToken101, tal como están en el código:
+
+```tsx filename="src/components/Button.tsx (extracto)"
+type ButtonProps = {
+  variant?: 'primary' | 'secondary';
+  children: ReactNode;
+  /** Icono opcional, al final. */
+  icon?: LucideIcon;
+  href?: string;
+} & Omit<ComponentPropsWithoutRef<'button'>, 'children'>;
+```
+
+`variant` es una lista cerrada de valores, con `primary` por defecto en la función del componente. `children` es el texto del botón. La última línea añade los atributos de un `<button>` de HTML, como `type`.
+
+</InCode>
+
+## El mismo nombre en los dos lados
+
+En DesignToken101, cada propiedad de un componente de Figma se llama igual que su prop de React, y los valores de las variantes son los del código. Así, quien diseña y quien programa hablan del mismo `variant="primary"`.
+
+La correspondencia entre los dos lados es esta:
+
+| En React | En Figma |
+|---|---|
+| Lista cerrada de valores (`'primary' \| 'secondary'`) | Variante |
+| Booleano que cambia el aspecto | Variante |
+| Booleano que únicamente muestra u oculta algo | Booleano |
+| Texto corto (una etiqueta) | Texto |
+| `children` o contenido libre | Slot |
+
+<Callout variant="recommendation">
+
+Pon a cada propiedad de Figma el nombre exacto del prop, en camelCase y en inglés, y usa como valores de la variante los del código. Si el código aún no existe, decide los nombres en Figma pensando en él: cambiarlos después obliga a tocar los dos lados.
+
+</Callout>
+
+Hay una excepción, y la verás en [Estados](/components/component-states): el estado de interacción (`hover`, `focus`) es una variante en Figma, pero en código no es un prop.
+
+## Los dos ejemplos del módulo
+
+El módulo usa dos componentes reales de DesignToken101:
+
+- **`Button`**: dos variantes (`primary` y `secondary`) y cuatro estados de interacción. Enseña cómo un token cambia con el estado.
+- **`Callout`**: cuatro variantes (`note`, `warning`, `recommendation` y `pending`) y ningún estado, porque no se puede pulsar. Enseña cómo un token cambia con la variante. Es el aviso que llevas viendo en todo el curso.
+
+## Lo que no enseña este módulo
+
+DesignToken101 no es un curso de sistemas de diseño ni de componentes ([Lo que enseñamos](/start-here/what-we-teach#qué-no-enseñamos)). Este módulo no enseña a diseñar una biblioteca de componentes, ni a documentarla o mantenerla, ni los fundamentos de Figma o de React. Enseña lo que pasa en la frontera: cómo un componente usa los tokens sin perder lo que el sistema garantiza (los modos, el contraste, el foco).
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Un componente no crea tokens: los consume, y es la prueba de que al sistema no le falta ninguno.
+- En DesignToken101, las propiedades de Figma se llaman igual que los props de React, con los mismos valores.
+- El estado de interacción es la excepción: una variante en Figma que en código no es un prop.
+
+</Takeaways>
+
+## Fuentes
+
+- [Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)
+- [React: Passing props to a component](https://react.dev/learn/passing-props-to-a-component)

@@ -1,0 +1,132 @@
+---
+title: De la variante a la clase
+description: "Cómo se convierte la tabla de anatomía en clases de Tailwind CSS: un objeto con una cadena de clases completas por variante, sin clases que se contradigan y con una búsqueda de valores sueltos entre corchetes."
+nav_title: De la variante a la clase
+lastReviewed: 2026-10-06
+---
+
+En código, la tabla de anatomía se convierte en clases de Tailwind CSS: una por celda. En esta lección verás por qué cada variante se escribe con sus clases completas, qué garantiza el tema de Tailwind de tu sistema y qué no, y cómo se buscan los valores sueltos que se cuelan en un componente. Es la lección más técnica del módulo: quien trabaje únicamente en Figma puede leer las tres primeras secciones y pasar a la siguiente lección.
+
+**En esta página**
+
+- [Una celda, una clase](#una-celda-una-clase)
+- [Clases completas](#clases-completas)
+- [Lo que garantiza el tema](#lo-que-garantiza-el-tema)
+- [Los corchetes](#los-corchetes)
+- [Clases que no se contradicen](#clases-que-no-se-contradicen)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Una celda, una clase
+
+Cada celda de la tabla de anatomía es un token semántico, y cada token tiene una clase en la capa 2 del [tema de Tailwind CSS](/figma-to-code/tailwind-theme). La traducción es directa:
+
+| Celda de la tabla | Clase |
+|---|---|
+| Fondo `default`: `background/accent/strong/default` | `bg-accent-strong-default` |
+| Fondo `hover`: `background/accent/strong/hover` | `hover:bg-accent-strong-hover` |
+| Fondo `active`: `background/accent/strong/active` | `active:bg-accent-strong-active` |
+| Texto: `text/on-accent` | `text-on-accent` |
+| Radio: `radius/control` | `rounded-control` |
+
+La propiedad del token decide el prefijo de la clase (`bg-`, `text-`, `border-`), y el estado decide la variante de Tailwind (`hover:`, `active:`), como viste en [Estados](/components/component-states#en-código-el-navegador).
+
+## Clases completas
+
+Tailwind CSS lee tus archivos como texto, sin ejecutarlos, y genera CSS para cada nombre de clase que encuentra completo. Por eso su documentación pide no construir nombres de clase a partir de un prop, sino asignar cada valor del prop a nombres de clase completos y estáticos ([Tailwind CSS: Detecting classes in source files](https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names)).
+
+Con los tokens de tu sistema, la diferencia es esta:
+
+```tsx
+// No: Tailwind no encuentra bg-accent-strong-default en el texto
+const classes = `bg-${tone}-strong-default`;
+
+// Sí: cada variante tiene sus clases completas
+const VARIANTS = {
+  primary: 'bg-accent-strong-default text-on-accent',
+  secondary: 'border-neutral-strong text-neutral-default',
+};
+```
+
+El objeto de variantes es la tabla de anatomía escrita en código: una entrada por columna de variante, con las clases de todas sus filas y sus estados.
+
+<InCode title="El objeto de variantes de Button">
+
+El `Button` de DesignToken101 sigue el mismo patrón. Las clases comunes a las dos variantes (forma, relleno, estilo de texto y anillo de foco) van aparte, y cada variante añade las suyas:
+
+```tsx filename="src/components/Button.tsx (extracto)"
+const VARIANTS = {
+  primary:
+    'bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
+  secondary:
+    'border-(length:--t101-border-width-100) border-neutral-strong text-neutral-default hover:bg-neutral-hover active:bg-neutral-active',
+};
+```
+
+`border-(length:--t101-border-width-100)` es la forma de usar el token de grosor de borde, que no tiene clase propia en Tailwind ([Lo que no se expone](/figma-to-code/tailwind-theme#lo-que-no-se-expone)).
+
+Otras bibliotecas hacen lo mismo con una dependencia. shadcn/ui, por ejemplo, usa la librería `cva`, con un objeto `variants` y un `defaultVariants` ([shadcn/ui: Button](https://ui.shadcn.com/docs/components/button)). Para entender el patrón no hace falta: un objeto de JavaScript basta.
+
+</InCode>
+
+## Lo que garantiza el tema
+
+El tema de Tailwind de DesignToken101 empieza con `--*: initial`, que quita el tema por defecto: **únicamente existen las clases que salen de los tokens** ([La segunda capa](/figma-to-code/tailwind-theme#la-segunda-capa)). Si alguien escribe `bg-red-500` en un componente, Tailwind no genera CSS para esa clase, y el error se ve en pantalla.
+
+Esa garantía tiene un límite. Tailwind CSS admite **valores arbitrarios** entre corchetes, como `p-[13px]` o `bg-[#316ff6]`, para valores puntuales que están fuera del tema ([Tailwind CSS: Using arbitrary values](https://tailwindcss.com/docs/styling-with-utility-classes#using-arbitrary-values)). Un valor arbitrario no pasa por el tema, así que `--*: initial` no lo detiene: genera su CSS con el valor escrito a mano.
+
+## Los corchetes
+
+Un componente que cumple con los tokens no tiene ningún color, espacio, radio ni tamaño entre corchetes. Eso no significa que no tenga corchetes: hay valores que no son del diseño, sino de cómo funciona la página. En DesignToken101, una búsqueda en todo el código de la web (2026-10-06) encuentra estos:
+
+| Clase | Dónde | Por qué no es un token |
+|---|---|---|
+| `h-[1lh]` | Las marcas de "Lo que te llevas" | Alto de una línea de texto, para alinear la marca con la primera línea |
+| `grid-rows-[0fr]`, `grid-rows-[1fr]` | Bloques "En código" y secciones del menú lateral | Cerrado y abierto: la técnica que anima el plegado |
+| `transition-[grid-template-rows,visibility]` | Los mismos | Qué propiedades se animan; la duración y la curva sí son tokens |
+| `max-h-[calc(100dvh-var(--site-header-height))]` | El menú lateral fijo de escritorio | El alto de la pantalla menos el de la cabecera, que mide el código porque cambia con el ancho |
+
+Ninguno es un valor que Figma pudiera tener como variable. Y cada uno está a la vista: si mañana aparece un `p-[13px]`, la búsqueda lo encuentra.
+
+<Callout variant="recommendation">
+
+Busca los corchetes en tus componentes cada vez que los cambies, y apunta las excepciones con su motivo, como en la tabla. Una excepción sin motivo escrito es un valor suelto que todavía no has encontrado.
+
+</Callout>
+
+<InCode title="Busca los valores arbitrarios">
+
+Con `grep`, desde la carpeta de tu proyecto, busca las clases con un guion seguido de corchetes:
+
+```bash
+grep -rnoE '[a-z0-9-]+-\[[^]]+\]' src
+```
+
+`-r` busca en todas las subcarpetas, `-n` da el número de línea, `-o` muestra la clase y no la línea entera, y `-E` activa la expresión. La búsqueda no encuentra las variantes entre corchetes, como `[@media(…)]:`, porque no llevan un guion delante: son condiciones, no valores.
+
+Probada con el código de DesignToken101 y con un archivo inventado con `p-[13px]` y `bg-[#316ff6]` (2026-10-06): encuentra las clases de la tabla y las dos inventadas.
+
+En DesignToken101, `npm run check:tokens` hace la misma búsqueda en cada comprobación, con la lista de excepciones de la tabla, y falla si encuentra una clase entre corchetes que no esté en la lista.
+
+</InCode>
+
+## Clases que no se contradicen
+
+Si un elemento tiene dos clases que cambian la misma propiedad, gana la que aparece después en la hoja de estilos, no la que escribiste después. Tailwind CSS lo resuelve con una recomendación para los componentes: exponer props concretos para personalizar el estilo, en lugar de dejar que quien usa el componente le añada clases desde fuera ([Tailwind CSS: Managing style conflicts](https://tailwindcss.com/docs/styling-with-utility-classes#managing-style-conflicts)).
+
+Con tokens, la recomendación tiene un motivo más: un componente que acepta clases de fuera acepta también colores y espacios que no están en su tabla de anatomía. Si un `Button` necesita otro aspecto, la salida es una variante nueva, con su columna en la tabla y su contraste comprobado.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Cada variante se escribe con sus clases completas en un objeto: es la tabla de anatomía en código.
+- Un tema sin valores por defecto impide las clases que no salen de tus tokens, pero no los valores arbitrarios entre corchetes.
+- Una búsqueda de corchetes, con sus excepciones escritas, encuentra los valores sueltos que se cuelan en un componente.
+
+</Takeaways>
+
+## Fuentes
+
+- [Tailwind CSS: Detecting classes in source files](https://tailwindcss.com/docs/detecting-classes-in-source-files#dynamic-class-names)
+- [Tailwind CSS: Styling with utility classes](https://tailwindcss.com/docs/styling-with-utility-classes)
+- [shadcn/ui: Button](https://ui.shadcn.com/docs/components/button)

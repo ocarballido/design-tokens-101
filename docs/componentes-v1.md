@@ -107,6 +107,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | Parte | `default` | `hover` | `active` | `focus` |
 |---|---|---|---|---|
 | Fondo | `background/accent/strong/default` | `background/accent/strong/hover` | `background/accent/strong/active` | `background/accent/strong/default` |
+| Borde | Transparente, `border-width/100` (T17) | ← | ← | ← |
 | Texto e icono | `text/on-accent` | `text/on-accent` | `text/on-accent` | `text/on-accent` |
 | Anillo de foco |: |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← | ← |
@@ -135,6 +136,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | `secondary` | 17,79 / 18,89 | 16,28 / 14,34 | 14,16 / 9,84 |
 
 - El fondo del `primary` frente a la página da 2,05:1 en Light. Está permitido: la etiqueta identifica el control (Understanding 1.4.11).
+- **Borde transparente del `primary` (T17, 2026-10-06):** no se ve, pero con colores forzados el navegador lo pinta con un color del sistema, y el botón conserva su contorno (sin borde, se ve como texto suelto; pruebas del módulo 7). Con él, `primary` y `secondary` miden lo mismo. `transparent` es una palabra clave de CSS, no un token. **En Figma, pendiente de decidir** cómo se dibuja sin valor suelto (ver `estado.md`).
 - El borde del `secondary` da 4,70 / 4,20 frente a la página.
 
 ### 2.3 `Link`

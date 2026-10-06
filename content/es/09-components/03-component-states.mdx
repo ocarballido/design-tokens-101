@@ -1,0 +1,106 @@
+---
+title: Estados
+description: "Por qué un estado de interacción es una variante en Figma y una pseudoclase en CSS, en qué se diferencian active y current, cómo entran los atributos ARIA y por qué DesignToken101 usa un token por estado en lugar de una opacidad."
+nav_title: Estados
+lastReviewed: 2026-10-06
+---
+
+Un botón cambia cuando pasas el puntero, cuando lo pulsas y cuando le llega el foco. En Figma, cada uno de esos estados se dibuja. En código no se programa: lo decide el navegador. En esta lección verás esa diferencia, la que hay entre `active` y `current`, y por qué DesignToken101 da a cada estado su propio token.
+
+**En esta página**
+
+- [Dos clases de estado](#dos-clases-de-estado)
+- [En Figma, una variante](#en-figma-una-variante)
+- [En código, el navegador](#en-código-el-navegador)
+- [Active no es current](#active-no-es-current)
+- [Estados que anuncia ARIA](#estados-que-anuncia-aria)
+- [Un token por estado](#un-token-por-estado)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Dos clases de estado
+
+Un componente puede cambiar por dos motivos distintos:
+
+- **Por la interacción**: el puntero encima (`hover`), el control pulsado (`active`) o el foco del teclado (`focus`). Dura lo que dura el gesto.
+- **Por su situación**: es la página actual (`current`) o una sección abierta (`open`). Dura hasta que algo cambia en la página.
+
+La diferencia importa porque cada clase de estado se resuelve de una forma en código.
+
+## En Figma, una variante
+
+En Figma, los dos se dibujan igual: con una propiedad de variante, que según su ayuda sirve para las variaciones de un componente, como sus estados, tamaños o colores ([Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)). El `Button` de DesignToken101 tiene dos propiedades de variante, `variant` y `state`, y por eso ocho dibujos: dos variantes por cuatro estados.
+
+Cada dibujo aplica los tokens de su columna en la [tabla de anatomía](/components/anatomy-table#la-tabla-de-button). Así se revisa en Figma el `hover` o el foco de un control sin programarlo.
+
+## En código, el navegador
+
+En código, un estado de interacción **no es un prop**. Nadie le dice al botón "ahora estás en hover": el navegador lo sabe y aplica los estilos de la pseudoclase correspondiente (`:hover`, `:active`, `:focus-visible`). Por eso, en DesignToken101, `state` es una propiedad que existe únicamente en Figma.
+
+En Tailwind CSS, cada clase se puede aplicar con una condición añadiendo una variante al principio de su nombre ([Tailwind CSS: Hover, focus, and other states](https://tailwindcss.com/docs/hover-focus-and-other-states)). Con las clases que salen de tus tokens, un estado de la tabla recorre este camino:
+
+<Flow caption="El estado hover del Button primary, de Figma al navegador.">
+  <FlowStep title="state=hover" meta="Variante del componente en Figma" />
+  <FlowStep title="background/accent/strong/hover" meta="Token de la tabla de anatomía" />
+  <FlowStep title="hover:bg-accent-strong-hover" meta="Clase de Tailwind CSS" />
+  <FlowStep title=":hover" meta="Lo aplica el navegador" />
+</Flow>
+
+El foco tiene una particularidad: en DesignToken101 no usa una clase de color, sino el anillo de dos tokens que viste en [El foco](/accessibility/focus#el-anillo-de-designtoken101), con `:focus-visible`.
+
+<InCode title="Los estados de Button en código">
+
+Cada variante del `Button` reúne en una cadena las clases de sus estados:
+
+```tsx filename="src/components/Button.tsx (extracto)"
+const VARIANTS = {
+  primary:
+    'bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
+  secondary:
+    'border-(length:--t101-border-width-100) border-neutral-strong text-neutral-default hover:bg-neutral-hover active:bg-neutral-active',
+};
+```
+
+No hay ninguna clase con `focus:`: el anillo lo pone la utilidad `focus-ring`, común a todos los controles. Y no hay ninguna clase para `default`: es lo que se aplica cuando no se cumple ninguna condición.
+
+</InCode>
+
+## Active no es current
+
+Las dos palabras parecen sinónimas, y en muchos sistemas se confunden. En DesignToken101 no:
+
+- **`active` es "pulsado"**, siempre. Es un estado de interacción: una variante de Figma y la pseudoclase `:active` en CSS. Únicamente lo tienen los controles que hacen una acción. Los enlaces no lo tienen: al pulsarlos se navega y el estado no llega a verse.
+- **`current` es "el actual"**: la lección en la que estás, la opción elegida. Es una situación, así que es un prop real en los dos lados, y se anuncia con `aria-current`.
+
+La lección actual del sidebar se marca con `current`, no con `active`, porque `active` ya tenía un significado en el sistema: es el nombre de los tokens del estado pulsado (`background/neutral/active`). Es el vocabulario de los estados que viste en [Estados en el nombre](/naming/states-in-names#el-vocabulario-de-estados-fuera-de-los-tokens) aplicado a los componentes.
+
+## Estados que anuncia ARIA
+
+Algunos estados de situación tienen un atributo ARIA que los anuncia a un lector de pantalla. Una sección que se abre y se cierra lleva `aria-expanded`; la página actual, `aria-current`. En código, ese atributo es la fuente del estilo: Tailwind CSS tiene variantes para los atributos ARIA más comunes, y `aria-expanded:` se aplica cuando el atributo vale `true` ([Tailwind CSS: Hover, focus, and other states](https://tailwindcss.com/docs/hover-focus-and-other-states)).
+
+En Figma, el mismo estado es una variante con otro nombre: las secciones del sidebar de DesignToken101 tienen una propiedad `open` que en código se traduce en `aria-expanded`. Lo verás en [La accesibilidad del componente](/components/component-accessibility#estados-que-se-anuncian).
+
+## Un token por estado
+
+No todos los sistemas dan un token a cada estado. El `Button` de shadcn/ui, una colección de componentes de React con Tailwind CSS, cambia el fondo en hover con una opacidad sobre el mismo token: `bg-primary hover:bg-primary/90` ([shadcn/ui: button.tsx](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/button.tsx)). Es una forma válida de hacerlo y ahorra tokens.
+
+<Callout variant="recommendation">
+
+DesignToken101 usa un token para cada estado (`…/hover`, `…/active`). Con una opacidad, el color que se ve depende de lo que hay debajo del botón, así que su contraste no está en tu tabla de pares: cambia con cada fondo. Con un token, el color es fijo en cada modo y su contraste se calcula una vez. Si prefieres la opacidad, comprueba el par con el fondo más desfavorable, como en [Fondos con transparencia](/accessibility/text-contrast#fondos-con-transparencia).
+
+</Callout>
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Un estado de interacción es una variante en Figma y una pseudoclase en código, no un prop.
+- `active` significa pulsado y `current` significa el actual: el primero lo decide el navegador, el segundo es un prop que se anuncia con `aria-current`.
+- Un token por estado tiene un contraste fijo y comprobado; una opacidad depende del fondo que haya debajo.
+
+</Takeaways>
+
+## Fuentes
+
+- [Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)
+- [Tailwind CSS: Hover, focus, and other states](https://tailwindcss.com/docs/hover-focus-and-other-states)
+- [shadcn/ui: button.tsx](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/button.tsx)

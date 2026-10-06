@@ -1,0 +1,93 @@
+---
+title: Del diseño al código
+description: "Qué ve en Dev Mode quien implementa un componente, cómo llega el code syntax de cada variable al CSS que propone Figma, qué es Code Connect y qué hacer cuando el dibujo y la especificación no coinciden."
+nav_title: Del diseño al código
+lastReviewed: 2026-10-06
+---
+
+Un componente pasa de Figma al código en manos de quien lo implementa, que a menudo no es quien lo diseñó. En esta lección verás qué encuentra esa persona en Dev Mode, cómo le llegan los nombres de tus tokens y qué hacer cuando el dibujo de Figma, la tabla de anatomía y el código dicen cosas distintas.
+
+**En esta página**
+
+- [Dev Mode](#dev-mode)
+- [Las variables en Dev Mode](#las-variables-en-dev-mode)
+- [El code syntax llega al CSS](#el-code-syntax-llega-al-css)
+- [Code Connect](#code-connect)
+- [Cuando el dibujo y la especificación no coinciden](#cuando-el-dibujo-y-la-especificación-no-coinciden)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Dev Mode
+
+Dev Mode es el modo de Figma para inspeccionar un diseño y llevarlo al código. Está disponible en todos los planes de pago y necesita un puesto Full o Dev. Se activa con el selector de la barra de herramientas o con Mayúsculas + D. Su panel de inspección muestra cada capa de dos formas: en la vista **Code**, con fragmentos de código generados; en la vista **List**, con cada propiedad y su valor ([Figma: Guide to Dev Mode](https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode)).
+
+## Las variables en Dev Mode
+
+Según la ayuda de Figma, Dev Mode muestra las variables de la capa seleccionada en el panel de inspección y en los fragmentos de código ([Figma: Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471)). Además:
+
+- **Sigue la cadena de alias** hasta el valor: de un semántico a su primitivo y de ahí al color.
+- **Cambia de modo** en el detalle de una variable, para ver el valor que tiene en cada uno.
+- **Sugiere una variable** cuando una capa tiene un valor suelto, si hay una variable con ese valor y con el scope adecuado.
+- **Ajusta los nombres** de las variables en el código para que el CSS sea válido.
+
+La sugerencia depende de tus scopes: una variable sin el scope de esa propiedad no se propone. Es otro motivo para darles el scope justo ([Para qué sirve el scope](/primitives/primitives-collection#para-qué-sirve-el-scope)).
+
+## El code syntax llega al CSS
+
+En el [módulo 1](/fundamentals/source-of-truth#cómo-se-mantiene-un-solo-nombre) viste que cada variable puede tener un **code syntax**, el nombre que tendrá en código, y que DesignToken101 le da el nombre exacto de su variable CSS. La ayuda de Figma dice que ese nombre aparece en los fragmentos de código de Dev Mode, pero no muestra cómo.
+
+Lo comprobamos el 2026-10-06 con el archivo de DesignToken101 (Figma Professional): al inspeccionar el `Button` `primary` en la vista **Code**, los apartados de maquetación y de estilo muestran, entre otras, estas líneas:
+
+```css filename="Dev Mode, vista Code (extracto)"
+gap: var(--t101-space-200);
+border-radius: var(--t101-radius-control);
+background: var(--t101-color-background-accent-strong-default);
+```
+
+Dos cosas que conviene ver:
+
+- **El nombre es el code syntax, tal cual.** Quien implementa copia `var(--t101-color-background-accent-strong-default)`, y esa variable existe en el CSS generado. Si el code syntax no coincidiera con la variable CSS, copiaría un nombre que no existe.
+- **No lleva valor de reserva.** El servidor MCP de Figma, que verás en el módulo 10, escribe la misma variable con su valor detrás (`var(--t101-space-200,8px)`). En Dev Mode, en esta prueba, no.
+
+<Callout variant="recommendation">
+
+Revisa tu code syntax en Dev Mode al menos una vez: elige un componente, cópialo de la vista **Code** y busca cada variable en tu CSS generado. Si todas existen, el puente entre tu diseño y tu código funciona.
+
+</Callout>
+
+## Code Connect
+
+Code Connect une los componentes de tu repositorio con los de Figma y los muestra en Dev Mode. Con su versión de línea de comandos, Dev Mode enseña los fragmentos de código de tu propio sistema en lugar de los que genera Figma. Tiene una versión que funciona dentro de Figma y otra que se ejecuta en el repositorio. Está disponible en los planes Organization y Enterprise ([Figma: Code Connect](https://help.figma.com/hc/en-us/articles/23920389749655-Code-Connect)).
+
+DesignToken101 no lo usa: el curso parte de Figma Professional ([Requisitos](/start-here/requirements)). Sin Code Connect, el puente entre tu componente de Figma y el de código son los nombres: el de las propiedades, igual que el de los props, y el de las variables, igual que el code syntax.
+
+## Cuando el dibujo y la especificación no coinciden
+
+Un componente de DesignToken101 existe en tres sitios: la tabla de anatomía, el dibujo de Figma y el código. Cuando dos de ellos dicen cosas distintas, uno tiene que mandar. Dos casos reales:
+
+- **Mandó la tabla.** Al implementar el `Callout`, la etiqueta ("Nota", "Aviso") estaba dibujada en Figma con el color neutro del texto, y la tabla de anatomía la ponía en el color de su rol, con el contraste ya calculado. Se siguió la tabla, y después se cambió el dibujo de Figma.
+- **Mandó el código.** El recuadro de "Lo que te llevas" se ajustó en el navegador (fondo, bordes y huecos) antes de existir en Figma. Se registraron los cambios y después se pasó el componente a Figma con esos tokens.
+
+En los dos casos se hizo lo mismo, en este orden: **decidir qué lado manda, escribir la decisión y actualizar el otro lado**. Lo que no se hizo es dejar la diferencia sin resolver: un componente que se ve distinto en Figma y en la web enseña a desconfiar de los dos.
+
+<Callout variant="recommendation">
+
+Haz que la tabla de anatomía sea el contrato. Si el dibujo o el código necesitan otra cosa, cambia primero la tabla, con su contraste, y luego los otros dos. Así la tabla siempre dice lo que hay.
+
+</Callout>
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Dev Mode muestra a quien implementa las variables de cada capa, su cadena de alias y su valor en cada modo, en todos los planes de pago.
+- En la prueba de DesignToken101, el CSS de Dev Mode usa el code syntax tal cual y sin valor de reserva: por eso tiene que ser el nombre de la variable CSS.
+- Cuando el dibujo, la tabla y el código no coinciden, se decide cuál manda, se registra y se actualizan los otros.
+
+</Takeaways>
+
+## Fuentes
+
+- [Figma: Guide to Dev Mode](https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode)
+- [Figma: Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471)
+- [Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Code Connect](https://help.figma.com/hc/en-us/articles/23920389749655-Code-Connect)

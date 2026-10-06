@@ -1,0 +1,162 @@
+---
+title: "Ejercicio: tu primer componente"
+description: "Elige un control de tu diseño, escribe su tabla de anatomía, créalo en Figma con variantes y variables, pruébalo en los cuatro modos, decide si necesita tokens de componente y, si quieres, escríbelo en React."
+nav_title: Ejercicio
+lastReviewed: 2026-10-06
+---
+
+En este ejercicio tu sistema de tokens pasa su primera prueba de uso: un componente que lo consume entero. Partes de un control de tu diseño y terminas con su tabla de anatomía, el componente en Figma comprobado en los cuatro modos y la decisión sobre los tokens de componente escrita en tu registro. El último paso, opcional, lo lleva a React.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Elige un control](#paso-1-elige-un-control)
+- [Paso 2 Escribe sus partes y sus props](#paso-2-escribe-sus-partes-y-sus-props)
+- [Paso 3 Escribe la tabla de anatomía](#paso-3-escribe-la-tabla-de-anatomía)
+- [Paso 4 Comprueba los pares nuevos](#paso-4-comprueba-los-pares-nuevos)
+- [Paso 5 Crea el componente en Figma](#paso-5-crea-el-componente-en-figma)
+- [Paso 6 Pruébalo en los cuatro modos](#paso-6-pruébalo-en-los-cuatro-modos)
+- [Paso 7 Decide sobre los tokens de componente](#paso-7-decide-sobre-los-tokens-de-componente)
+- [Paso 8 Escríbelo en código](#paso-8-escríbelo-en-código)
+- [Comprueba tu componente](#comprueba-tu-componente)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué necesitas
+
+- Tu archivo de Figma con el sistema cerrado en el [ejercicio final](/final-exercise/exercise-final): colecciones, modos y estilos de texto.
+- Tu tabla de pares de color y tu registro de decisiones, del [ejercicio del módulo 7](/accessibility/exercise-accessibility).
+- Si vas a hacer el paso 8: tu proyecto con las dos capas de CSS del ejercicio final.
+
+## Paso 1 Elige un control
+
+Elige en tu diseño un control que tenga **al menos dos variantes y que se pueda pulsar**: un botón es el caso más claro. Si tu diseño tiene varios, elige el que más se repita.
+
+Un control que se pulsa tiene los cuatro estados de interacción (`default`, `hover`, `active` y `focus`). Si eliges uno que no se pulsa, como un aviso, el ejercicio funciona igual con las variantes como columnas, pero no practicarás los estados.
+
+## Paso 2 Escribe sus partes y sus props
+
+Haz dos listas:
+
+1. **Las partes** que tienen un token: fondo, borde, texto, icono, anillo de foco, radio, relleno.
+2. **Las propiedades**, con el nombre que tendrán en Figma y en código, y sus valores. Por ejemplo, `variant` con `primary` y `secondary`, y `state` con los cuatro estados, que existe únicamente en Figma.
+
+Usa la tabla de [El mismo nombre en los dos lados](/components/components-and-tokens#el-mismo-nombre-en-los-dos-lados) para decidir qué tipo de propiedad de Figma es cada una.
+
+## Paso 3 Escribe la tabla de anatomía
+
+Escribe una tabla por variante, con una fila por parte y una columna por estado, como en [La tabla de Button](/components/anatomy-table#la-tabla-de-button). En cada celda, un token semántico de tu sistema.
+
+Si una celda no tiene token, no lo inventes en el componente. Anótalo aparte: es un hueco del sistema, y se decide como cualquier token nuevo, con su nombre, su alias y su contraste.
+
+Añade también, debajo de la tabla, el elemento HTML del control (`<button>` si hace una acción, `<a>` si lleva a otra página) y de dónde sale su nombre accesible ([La accesibilidad del componente](/components/component-accessibility#el-elemento-correcto)).
+
+## Paso 4 Comprueba los pares nuevos
+
+Cada celda de texto o de icono forma un par con el fondo de su columna. Busca cada par en tu tabla de pares del módulo 7:
+
+- **Si está**, ya sabes su contraste en cada modo.
+- **Si no está**, calcúlalo en cada modo y añádelo a la tabla, con 4,5:1 para el texto y 3:1 para un icono que identifica el control.
+
+Comprueba también el anillo de foco frente al fondo que rodea al control, y que ninguna variante se distinga únicamente por el color.
+
+## Paso 5 Crea el componente en Figma
+
+Con la tabla delante, crea el conjunto de variantes y aplica a cada parte de cada variante la variable de su celda ([El componente en Figma](/components/components-in-figma#una-variable-en-cada-parte)):
+
+- Rellenos, trazos y textos con variables de color.
+- Radio, grosor del trazo, relleno y hueco del auto layout con variables de número.
+- El texto con su estilo de texto.
+- La variante `focus` con el anillo de tus dos tokens.
+- Si el control se reconoce por su fondo, un borde con tu token de grosor más fino y, como color, la misma variable que el fondo de cada estado: no se ve, y no deja un valor suelto. En código puede ser transparente ([Un borde para los colores forzados](/components/component-accessibility#un-borde-para-los-colores-forzados)).
+
+No elijas modo en el componente principal. En la descripción del componente, anota el elemento HTML y el nombre accesible del paso 3.
+
+## Paso 6 Pruébalo en los cuatro modos
+
+Haz la prueba de [Pruébalo en los cuatro modos](/components/components-in-figma#pruébalo-en-los-cuatro-modos): cuatro marcos con tus combinaciones de modos y, en cada uno, una instancia de cada variante y de cada estado.
+
+En cada marco, busca lo que no cambia cuando debería y revisa *Selection colors* con todas las instancias seleccionadas. Si encuentras un valor suelto, corrígelo en el componente principal y repite la prueba.
+
+## Paso 7 Decide sobre los tokens de componente
+
+Recorre tu tabla y aplica a cada celda los dos criterios de [La capa de componente](/relations/component-tokens#cuándo-se-justifica):
+
+1. ¿El componente se aparta del semántico?
+2. ¿Tiene que poder cambiar por separado, por una razón previsible?
+
+Escribe el resultado en tu registro de decisiones, también si la respuesta es que no hace falta ninguno. Por ejemplo:
+
+| Decisión | Motivo | Alternativa | Fecha |
+|---|---|---|---|
+| El botón usa los semánticos, sin tokens de componente | Ninguna celda se aparta de un semántico ni tiene que cambiar por separado | `button/primary/background/default` si una marca necesita otro botón principal | 2026-10-06 |
+
+Si creas un token de componente, dale nombre con tu convención, añádelo a tu sistema y anota el cambio de versión: un token nuevo es un cambio MINOR ([Versionar el sistema](/final-exercise/version-the-system)).
+
+## Paso 8 Escríbelo en código
+
+Este paso es opcional. Escribe el componente de React con un objeto de variantes, una entrada por variante y las clases completas de su tabla ([De la variante a la clase](/components/variants-to-classes#clases-completas)).
+
+<InCode title="Un botón con su objeto de variantes">
+
+Un punto de partida con las clases de DesignToken101. Sustitúyelas por las de tu capa 2, celda por celda:
+
+```tsx filename="Button.tsx"
+import type { ReactNode } from 'react';
+
+type ButtonProps = {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  children: ReactNode;
+};
+
+// Una entrada por variante, con las clases completas de su tabla de anatomía.
+const VARIANTS = {
+  primary:
+    'bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
+  secondary:
+    'border-(length:--t101-border-width-100) border-neutral-strong text-neutral-default hover:bg-neutral-hover active:bg-neutral-active',
+};
+
+export function Button({ variant = 'primary', href, children }: ButtonProps) {
+  // Clases comunes: forma, relleno, estilo de texto y anillo de foco.
+  const classes = `inline-flex items-center rounded-control px-400 py-200 type-label-default focus-ring ${VARIANTS[variant]}`;
+
+  // Con href lleva a otra página: es un enlace. Sin href hace una acción: es un botón.
+  return href ? (
+    <a href={href} className={classes}>
+      {children}
+    </a>
+  ) : (
+    <button type="button" className={classes}>
+      {children}
+    </button>
+  );
+}
+```
+
+`type-label-default` y `focus-ring` son utilidades propias de DesignToken101: la primera aplica el estilo de texto ([Los estilos de texto en código](/figma-to-code/text-styles-in-code)) y la segunda, el anillo de foco ([El foco](/accessibility/focus#el-anillo-de-designtoken101)). Escribe las tuyas con tus tokens, o usa sus propiedades directamente.
+
+Al terminar, busca los corchetes en tu componente con la búsqueda de [Los corchetes](/components/variants-to-classes#los-corchetes). No debería aparecer ninguno.
+
+</InCode>
+
+## Comprueba tu componente
+
+Tu componente está listo si puedes responder que sí a estas preguntas:
+
+- ¿Cada celda de la tabla de anatomía es un token semántico, o un token de componente con su decisión escrita?
+- ¿Cada par de texto o de icono tiene su contraste comprobado en cada modo?
+- ¿Cada parte de cada variante tiene en Figma su variable o su estilo de texto, también los espacios?
+- ¿Las instancias cambian bien en los cuatro modos, sin modo elegido en el componente principal?
+- ¿Las propiedades de Figma se llaman como los props, y la descripción dice el elemento y el nombre accesible?
+- Si hiciste el paso 8, ¿el componente de React tiene las clases completas y ningún valor entre corchetes?
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Tienes un componente que consume tu sistema de tokens, con su tabla de anatomía como contrato entre Figma y el código.
+- Lo has comprobado en los cuatro modos y has completado tu tabla de pares con los que faltaban.
+- Tu registro de decisiones dice si el componente necesita tokens propios y por qué.
+
+</Takeaways>
