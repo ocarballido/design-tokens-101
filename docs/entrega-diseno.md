@@ -14,6 +14,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 > - **V26:** los selectores de idioma y tema no llevan marca inferior (`Marker`). Quitada en Figma el 2026-10-05 (D33).
 > - **V27:** `size/content/max-width` = 960 px (cambiado en Figma, con la descripción al día desde la reexportación del 2026-10-04).
 > - **V18, V19, V28 y diferencias del paso 8:** en Figma desde el 2026-10-05 (D31, D33), salvo el desenfoque de la cabecera (`blur/300`, solo de código; pendiente de Oscar).
+> - **C19 / V40 (2026-10-06):** número del módulo en `SidebarSection`. **Hecho en Figma (2026-10-06, D36):** propiedades `number` y `showNumber`; en las plantillas, 0 a 7 y Recursos sin número (§3.7).
 > - **V30 (2026-10-04):** `SidebarSection` con variante `current` = `true` / `false`: título y chevron en `text/accent/default` (hover `text/accent/hover`), combinable con `open`. Tokens por estado en `componentes-v1.md` §4.2. **Hecho en Figma (2026-10-04, D25):** `SidebarSection` ([27:910](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=27-910)), 12 variantes; en las plantillas, "Empezar aquí" con `current = true`.
 
 ---
@@ -81,7 +82,7 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `Code` | `children` |: | Código en línea. |
 | `TableCell` | `children` | `header`, `ShowCode`, `ShowBody` | En MDX: `th` / `td` de `remark-gfm`. |
 | `LessonHeader` | `section`, `title`, `description`, `lastReviewed` |: | `title` es el único `h1`. |
-| `SidebarSection` | `title`, `current`, `defaultOpen`, `children` | `current`, `open`, `state` | Disclosure. `current` (V30): título y chevron en `text/accent/default` (hover `text/accent/hover`); en Figma desde el 2026-10-04 (D25). |
+| `SidebarSection` | `title`, `number`, `current`, `defaultOpen`, `children` | `current`, `open`, `state`, `showNumber` | Disclosure. `current` (V30): título y chevron en `text/accent/default` (hover `text/accent/hover`); en Figma desde el 2026-10-04 (D25). |
 | `SidebarItem` | `title` (frontmatter `nav_title`), `href`, `current` | `state` | `aria-current="page"`. |
 | `PageNavLink` | `direction` (`previous`/`next`), `title`, `href` | `state`, `LabelPrevious`, `LabelNext` (textos fijos) | Si no hay anterior o siguiente, no se muestra. |
 | `LanguageSwitcher` → `LanguageOption` | `locale`, `current` | `state` | `aria-current`, atributo `lang` en cada enlace (3.1.2). |
@@ -110,7 +111,7 @@ Sin disabled ni loading en v1 (D14).
 
 - Regiones: `header`, `nav` (sidebar), `main`, `footer`.
 - Columna de la lección: `max-width: var(--t101-size-content-max-width)` (960 px desde V27; 720 px en D20), centrada, con padding `space/400`.
-- Sidebar: las ocho secciones, con los grupos "Diseñar los tokens", "Tokens en código" y "Referencia" (C17, D29).
+- Sidebar: las nueve secciones (0 a 7 numeradas y Recursos sin número, C19), con los grupos "Diseñar los tokens", "Tokens en código" y "Referencia" (C17, D29).
 - Móvil (por debajo de 64rem): sidebar oculto; botón de menú (`IconButton` `li:menu`) que abre un panel lateral desde la izquierda, con los selectores y el sidebar, y un overlay sobre el contenido (V25, sustituye a D21). El panel tiene su botón de cerrar (`li:x`).
 - Logotipos: SVG (D22), en `public/brand/` (C10).
 
@@ -193,7 +194,7 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 | `SidebarGroup` | `space/600` encima; separador `border/neutral/default` de `border-width/100`; `space/200` hasta la etiqueta y `space/200` hasta la primera sección; relleno lateral `space/300`; etiqueta `caption/default`, `text/neutral/subtle` |
 | `AuthorLink` `focus` | anillo `border/focus` de `border-width/200`, por fuera |
 
-**Plantillas.** Las seis tienen el sidebar con los tres grupos: "Empezar aquí" (sin grupo, abierta y `current`), "Diseñar los tokens" (Fundamentos, Primitivos, Relaciones, Nombrar, Modos y temas), "Tokens en código" (De Figma al código) y "Referencia" (Recursos). Todas las secciones salvo la actual, cerradas; la lección de Recursos, oculta (C11). En las plantillas móviles el sidebar está oculto, como antes (solo se ve en el menú abierto).
+**Plantillas.** Las seis tienen el sidebar con los tres grupos: "Empezar aquí" (sin grupo, abierta y `current`), "Diseñar los tokens" (Fundamentos, Primitivos, Relaciones, Nombrar, Modos y temas), "Tokens en código" (De Figma al código y, desde D36, Accesibilidad) y "Referencia" (Recursos). Todas las secciones salvo la actual, cerradas; la lección de Recursos, oculta (C11). En las plantillas móviles el sidebar está oculto, como antes (solo se ve en el menú abierto).
 
 **Auditoría (2026-10-05)**
 - Sin valores sueltos en los 39 nodos de los tres componentes (colores, espacios, radios y grosores con variables). Fuera de la regla, como en el resto del archivo: el tamaño de los iconos (24 y 16 px) y el logotipo del autor (D22).
@@ -234,6 +235,18 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 - Marcos de exportación en Pages, cada uno con una instancia de `Logo` y el modo de Semantic color fijado en el marco: `logo-colored` (57:749, Light) y `logo-colored-dark` (96:1997, Dark), 184 × 44; `logo-gray` (57:727, Light) y `logo-gray-dark` (96:2005, Dark), `style=dark` escalado a 34 px de alto, **143 × 34** en el SVG (142,2 de dibujo).
 - SVG en `public/brand/` con los mismos nombres de archivo. `logo-gray.svg` es la exportación de Figma tal cual; `logo-colored.svg` también, salvo el semicírculo verde, que conserva el trazado del archivo anterior (Figma lo exporta con dos cifras de redondeo distintas). Las versiones Dark son las Light con el color del texto `#101A15` → `#F9FAFA` (V20).
 - **Para desarrollo:** las medidas de `src/components/Logo.tsx` pasan a 184 × 44 (`colored`) y 143 × 34 (`gray`).
+
+### 3.7 Número del módulo en `SidebarSection` (C19, V40, D36, 2026-10-06)
+
+- **Componente** ([27:910](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=27-910)): capa de texto `Number` delante de `Label` en las 12 variantes (nodos 103:1912 a 103:1923). Propiedades nuevas: texto `number` (por defecto "0") y booleana `showNumber` (solo Figma). Estilo `label/default`; relleno con la misma variable que el título en cada variante. Hueco `space/200` (el de la fila). Fila de 304 × 40 px, sin cambios.
+- **Plantillas** (35:843, 35:1479, 52:487, 52:688, 55:699, 55:833): números 0 a 6 en las secciones existentes, Recursos con `showNumber = false` y sección nueva **7 Accesibilidad** (cerrada) tras "De Figma al código": 103:1956, 103:1962, 103:1968, 103:1979, 103:1990, 103:1996.
+- **Diferencia con el código:** cifras proporcionales en Figma (7 a 10 px de ancho), tabulares en código (9,08 px). Los títulos empiezan entre 27 y 30 px del borde en Figma y a 29,08 px en código. Pendiente de Oscar (D36).
+
+**Auditoría (2026-10-06)**, como la del 2026-10-02, con scripts sobre las páginas Components, Pages y Foundations:
+- Sin valores sueltos en componentes ni plantillas (colores, espacios, radios y grosores con variables), salvo logotipos (D22), tamaño de los iconos y de pantalla. Se pusieron a 0 diez `itemSpacing` sin efecto (D36). Quedan sin variable, fuera de componentes y plantillas, los marcos de presentación de la página Components: relleno blanco de `Atoms`, `Molecules` y `Organisms`, y relleno de 40 px de los marcos `Takeaways` y `ColorScale` (89:365, 93:1020). Se tratan al preparar el archivo de referencia (P16).
+- Todo el texto con estilo: los 42 textos con estilo mixto combinan `body/default` y `body/strong` por tramos (D17), sin tramos sin estilo.
+- Todas las variantes `focus` con anillo `border/focus`; todas las variantes con `state` miden 24 × 24 px o más.
+- Contraste del número: usa la misma variable y está sobre el mismo fondo que el título en cada variante, así que coincide con §4.2 de `componentes-v1.md`: 17,79 / 18,89; `current` 5,08 / 10,92; `current` en hover 6,62 / 10,58.
 
 ## 4. Accesibilidad comprobada en el diseño
 
