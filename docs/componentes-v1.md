@@ -107,7 +107,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | Parte | `default` | `hover` | `active` | `focus` |
 |---|---|---|---|---|
 | Fondo | `background/accent/strong/default` | `background/accent/strong/hover` | `background/accent/strong/active` | `background/accent/strong/default` |
-| Borde | Transparente, `border-width/100` (T17) | ← | ← | ← |
+| Borde | `border-width/100`. En Figma, la variable del fondo del estado: `background/accent/strong/default` (D39). En código, `transparent` (T17, V42) | En Figma, `background/accent/strong/hover`; en código, `transparent` | En Figma, `background/accent/strong/active`; en código, `transparent` | En Figma, `background/accent/strong/default`; en código, `transparent` |
 | Texto e icono | `text/on-accent` | `text/on-accent` | `text/on-accent` | `text/on-accent` |
 | Anillo de foco |: |: |: | `border/focus`, `border-width/200`, por fuera |
 | Radio | `radius/control` | ← | ← | ← |
@@ -136,7 +136,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | `secondary` | 17,79 / 18,89 | 16,28 / 14,34 | 14,16 / 9,84 |
 
 - El fondo del `primary` frente a la página da 2,05:1 en Light. Está permitido: la etiqueta identifica el control (Understanding 1.4.11).
-- **Borde transparente del `primary` (T17, 2026-10-06):** no se ve, pero con colores forzados el navegador lo pinta con un color del sistema, y el botón conserva su contorno (sin borde, se ve como texto suelto; pruebas del módulo 7). Con él, `primary` y `secondary` miden lo mismo. `transparent` es una palabra clave de CSS, no un token. En código: `border-(length:--t101-border-width-100) border-transparent` (V42); con `--*: initial`, Tailwind CSS sigue generando `border-transparent` (`border-color: transparent`), porque no sale del tema. **En Figma, pendiente de decidir** cómo se dibuja sin valor suelto (ver `estado.md`).
+- **Borde transparente del `primary` (T17, 2026-10-06):** no se ve, pero con colores forzados el navegador lo pinta con un color del sistema, y el botón conserva su contorno (sin borde, se ve como texto suelto; pruebas del módulo 7). Con él, `primary` y `secondary` miden lo mismo. `transparent` es una palabra clave de CSS, no un token. En código: `border-(length:--t101-border-width-100) border-transparent` (V42); con `--*: initial`, Tailwind CSS sigue generando `border-transparent` (`border-color: transparent`), porque no sale del tema. **En Figma** (D39), el trazo tiene la misma variable que el fondo de cada estado: no se ve, no deja valor suelto y el contraste no cambia. Diferencia en §4.10.
 - El borde del `secondary` da 4,70 / 4,20 frente a la página.
 
 ### 2.3 `Link`
@@ -886,7 +886,8 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `Callout` | Etiqueta fija por variante (D18). Borde de `pending`: `border/neutral/default` (decorativo). |
 | `IconButton` | 40 × 40 px, sin fondo en `default`. |
 | `Link` (icono externo) | Hueco `space/100` entre el texto y `li:external-link` en los dos tamaños (D33; antes `space/200` y `space/150`), como `ms-100` en código. |
-| `Button` | Sin alto ni ancho mínimos (D33): sin icono mide 36 px de alto, con icono 40. |
+| `Button` | Sin alto ni ancho mínimos (D33). Desde D39, con el borde, sin icono mide 38 px de alto y con icono 42 (en código, 37,59 y 42: Figma redondea el interlineado de `label/default` a 20 px). |
+| `Button` (borde de `primary`, D39) | En Figma, trazo de `border-width/100` con la misma variable que el fondo de cada estado (`background/accent/strong/default`, `…/hover`, `…/active`; `default` en `focus`), por dentro y contado en el auto layout, como el borde de `secondary`. En código, `border-transparent` (V42): Figma no tiene una variable transparente y un 0 % de opacidad sería un valor suelto. Se ve igual y mide lo mismo; con colores forzados solo importa el código. `secondary` corregido a §2.2 en el mismo cambio (antes, borde solo en `active` y fondo en `focus`). **Anillo de `focus`:** rectángulo `Focus ring` fuera del auto layout, con trazo `border/focus` de `border-width/200` por fuera y `radius/control`, porque un marco no puede tener a la vez el trazo de 1 px por dentro y el de 2 px por fuera (patrón de D27). En código es el `outline` de `focus-ring`. |
 | `ColorScale` (D34) | `ColorScaleStep` con `highlighted` y `ColorScale` con `palette` × `size`. `size` solo de Figma: `large` 11 columnas, `small` 4 (rejilla con huecos `space/200` y `space/400`). El hex es texto escrito desde el valor de la variable (en código se lee de los tokens al compilar): si la escala cambia, hay que actualizarlo. |
 | `SidebarItem` / `SidebarSection` | Filas de 36 / 40 px (padding `space/200` vertical y `space/300` horizontal). En `focus` + `current`, la marca lateral es un rectángulo `Marker` porque el trazo lo ocupa el anillo de foco. |
 | `LanguageSwitcher` / `ThemeToggle` | Grupo con fondo `background/neutral/strong`; la opción actual es un recuadro `background/neutral/default` con texto o icono `text/accent/default`. **Sin marca inferior desde V26** (capa `Marker` quitada de Figma el 2026-10-05, D33; riesgo de 1.4.1 y 1.4.11 aceptado). Opciones no actuales: texto o icono `text/neutral/subtle`; en hover, `text/neutral/default` y fondo `background/neutral/hover`. |
@@ -952,4 +953,5 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D32 | Panel de navegación móvil lateral en Figma (V25, §4.10). |
 | D33 | Componentes al día con el código: V18, V26, V28 (sin desenfoque), pie, `Link` y `Button` (§4.10). |
 | D34 | `ColorScale` en Figma (§3.8, §4.10). |
+| D39 | Borde de `Button` `primary` en Figma con la variable de su fondo; `secondary` con borde en los cuatro estados; anillo de `focus` en capa aparte (§2.2, §4.10). |
 | C19, V40 | Número del módulo en la cabecera de `SidebarSection`, del prefijo de la carpeta; sin número con prefijo de 90 o más (§4.2). |
