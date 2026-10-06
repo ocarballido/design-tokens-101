@@ -4,7 +4,17 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-10-04.
+Última actualización: 2026-10-06.
+
+**Versión del sistema: 1.0.0** (2026-10-06, S36). API pública: los nombres de las variables publicadas en Figma, de las variables CSS (`--t101-*`) y de las clases de la capa 2. Cada cambio posterior sube el número según S36: PATCH para un valor o un alias, MINOR para algo nuevo o un token obsoleto, MAJOR para borrar o renombrar.
+
+**Versiones del sistema**
+
+| Versión | Fecha | Añadido | Cambiado | Obsoleto | Eliminado |
+|---|---|---|---|---|---|
+| 1.0.0 | 2026-10-06 | Primera versión estable: el sistema completo (97 primitivos, 33 semánticos de color, 4 de tamaño, 9 de Layout, 10 estilos de texto y los tokens de código de §4) | No aplica | No aplica | No aplica |
+
+Las versiones 0.y.z no se numeraron: el historial anterior está en el registro de cambios de este documento y en `docs/decisiones.md`.
 
 **Registro de cambios**
 
@@ -27,6 +37,7 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 | 2026-10-04 | Contenido | §3.1: referencias de Tailwind verificadas contra el CSS fuente 4.3.3. §3.5: contraste de las escalas de estado recalculado sobre el hex guardado (S30); cambios de 0,01 a 0,06, ninguno cruza un umbral. |
 | 2026-10-04 | Desarrollo | `size/sidebar/width`, `color/background/overlay` y `color/background/neutral/translucent` salen de la exportación de Figma, no de los tokens solo de código (§4.6, §6.1, §7). Opacidad en float32 recuperada por el normalizador (V31). Sin cambios de valor. |
 | 2026-10-05 | Contenido | §6.1: `color/background/neutral/translucent` pasa al 96 % en Light (S35), para que el anillo de foco llegue a 3:1 sobre la cabecera en el peor caso (1.4.11). Dark sigue al 90 %. |
+| 2026-10-06 | Contenido | Versión del sistema 1.0.0 y tabla "Versiones del sistema" (S36), al aprobarse el módulo 8. |
 
 ---
 

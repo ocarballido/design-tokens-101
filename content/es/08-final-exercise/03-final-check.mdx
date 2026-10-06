@@ -79,6 +79,39 @@ Haz la comprobación con una tabla: una fila por token y una columna por sitio. 
 
 </Callout>
 
+<InCode title="Comprueba las descripciones con Terrazzo">
+
+Si generas tu código con Terrazzo, como en el [ejercicio del módulo 6](/figma-to-code/exercise-figma-to-code#paso-4-escribe-la-capa-1), puedes pedirle que compruebe que tus semánticos tienen descripción. Terrazzo tiene reglas de lint que se activan en `lint.rules` de su configuración; la regla `core/descriptions` exige `$description` en cada token, y acepta `ignore` para dejar fuera los tokens que no la necesitan ([Terrazzo: Lint](https://terrazzo.app/docs/linting/)).
+
+Añade el bloque `lint` a tu `terrazzo.config.mjs` y lista en `ignore` los grupos de tus primitivos:
+
+```js filename="terrazzo.config.mjs (fragmento)"
+export default defineConfig({
+  tokens: ['./tokens/sistema.resolver.json'],
+  outDir: './css/',
+  lint: {
+    rules: {
+      'core/descriptions': ['error', { ignore: ['palette.**', 'spacing.**', 'corner.**'] }],
+    },
+  },
+  // plugins: igual que antes
+});
+```
+
+`npx tz build` ejecuta el lint antes de generar el CSS, y `npx tz lint` ejecuta el lint sin generar nada ([Terrazzo: Getting started](https://terrazzo.app/docs/)). Una descripción en un grupo no cuenta: la regla mira cada token.
+
+La sesión de desarrollo de DesignToken101 lo probó el 6 de octubre de 2026, con Terrazzo 2.7.1, Node.js 24.11.1 y la exportación inventada del módulo 6: con los grupos primitivos en `ignore`, pasa sin errores; al quitar la descripción de un semántico, la detecta y termina con error.
+
+<Callout variant="warning">
+
+Con un Resolver, el lint comprobó únicamente el modo por defecto. En la prueba, una descripción que faltaba únicamente en Dark no se detectó. Revisa a mano las colecciones con modos, o compara las descripciones de los dos archivos exportados.
+
+</Callout>
+
+Terrazzo tiene también una regla de contraste, `a11y/min-contrast`, pero en la misma prueba tampoco miró más que el modo por defecto: un par que fallaba en Dark pasó sin error. Para el contraste, sigue con la comprobación par a par del [módulo 7](/accessibility/exercise-accessibility#paso-1-completa-la-tabla-de-texto), en cada modo.
+
+</InCode>
+
 ## Lo que DTCG exige a un archivo
 
 Lo que dice la fuente: DTCG pide a las herramientas que den error ante ciertos archivos ([Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)):
@@ -113,3 +146,5 @@ Para la comprobación de usos, ten abiertos a la vez la vista Variables y tu map
 - [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
 - [shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Terrazzo: Lint](https://terrazzo.app/docs/linting/)
+- [Terrazzo: Getting started](https://terrazzo.app/docs/)

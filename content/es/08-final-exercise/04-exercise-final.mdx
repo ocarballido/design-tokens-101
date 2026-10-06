@@ -225,6 +225,8 @@ export default defineConfig({
 });
 ```
 
+La línea que lee el corte usa el nombre de tu token en el archivo de tokens de código: si tu token no se llama `breakpoint.desktop`, cámbialo en esa línea. Si no coinciden, la configuración falla al cargarse: en la prueba de esta web, con el token llamado `bp.desktop`, el build se detuvo con "config: Cannot read properties of undefined (reading 'desktop')", un mensaje que no nombra el token.
+
 Genera el CSS con `npx tz build` y revisa el resultado:
 
 - `:root` tiene todos tus tokens, también los de código, con el prefijo de tu code syntax.
