@@ -142,7 +142,7 @@
             "alpha": 0.9,
             "hex": "#050C09"
           },
-          "$description": "Fondo de la cabecera sticky (V28): color/white al 90 % en Light y neutral/950 al 90 % en Dark, con blur/300 detrás. Valor directo: un alias de Figma no puede cambiar la opacidad.",
+          "$description": "color/white al 96 % en Light (S35) y neutral/950 al 90 % en Dark, con blur/300 detrás (solo en código). Valor directo: un alias de Figma no puede cambiar la opacidad",
           "$extensions": {
             "com.figma.variableId": "VariableID:75:304",
             "com.figma.scopes": [
