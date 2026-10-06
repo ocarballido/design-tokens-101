@@ -27,8 +27,11 @@
   --t101-color-background-accent-strong-default: var(--t101-color-emerald-500);
   /* Botón principal al pasar el ratón */
   --t101-color-background-accent-strong-hover: var(--t101-color-emerald-400);
+  /* Fondo tintado de acento: Callout recommendation, Lo que te llevas, lección actual del sidebar y pasos de Flow */
   --t101-color-background-accent-subtle: var(--t101-color-emerald-50);
+  /* Fondo de los mensajes de error. Sin uso todavía (S31) */
   --t101-color-background-danger-subtle: var(--t101-color-red-50);
+  /* Fondo de los mensajes de información (Callout note) */
   --t101-color-background-info-subtle: var(--t101-color-blue-50);
   /* Active (pulsado) de controles neutros. El texto pasa a text/neutral/default: el secundario da 3,99:1 en Dark (D12). */
   --t101-color-background-neutral-active: var(--t101-color-neutral-200);
@@ -36,6 +39,7 @@
   --t101-color-background-neutral-default: var(--t101-color-white);
   /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
   --t101-color-background-neutral-hover: var(--t101-color-neutral-100);
+  /* Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea */
   --t101-color-background-neutral-strong: var(--t101-color-neutral-100);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-50);
@@ -43,6 +47,7 @@
   --t101-color-background-neutral-translucent: #fffffff5;
   /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
   --t101-color-background-overlay: #00000080;
+  /* Fondo de los mensajes de éxito. Sin uso todavía (S31) */
   --t101-color-background-success-subtle: var(--t101-color-emerald-50);
   --t101-color-background-warning-subtle: var(--t101-color-amber-50);
   --t101-color-black: #000;
@@ -61,6 +66,7 @@
   --t101-color-border-accent-default: var(--t101-color-emerald-300);
   /* Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
   --t101-color-border-accent-strong: var(--t101-color-emerald-600);
+  /* Borde de los mensajes de error, decorativo. Sin uso todavía (S31) */
   --t101-color-border-danger-default: var(--t101-color-red-300);
   /* Anillo de foco (2 px, border-width/200) */
   --t101-color-border-focus: var(--t101-color-emerald-600);
@@ -69,6 +75,7 @@
   --t101-color-border-neutral-default: var(--t101-color-neutral-200);
   /* Bordes que identifican un control (≥ 3:1) */
   --t101-color-border-neutral-strong: var(--t101-color-neutral-500);
+  /* Borde de los mensajes de éxito, decorativo. Sin uso todavía (S31) */
   --t101-color-border-success-default: var(--t101-color-emerald-300);
   --t101-color-border-warning-default: var(--t101-color-amber-300);
   --t101-color-emerald-50: #f2fcf7;
@@ -192,8 +199,11 @@
   --t101-color-background-accent-strong-default: var(--t101-color-emerald-500);
   /* Botón principal al pasar el ratón */
   --t101-color-background-accent-strong-hover: var(--t101-color-emerald-400);
+  /* Fondo tintado de acento: Callout recommendation, Lo que te llevas, lección actual del sidebar y pasos de Flow */
   --t101-color-background-accent-subtle: var(--t101-color-emerald-950);
+  /* Fondo de los mensajes de error. Sin uso todavía (S31) */
   --t101-color-background-danger-subtle: var(--t101-color-red-950);
+  /* Fondo de los mensajes de información (Callout note) */
   --t101-color-background-info-subtle: var(--t101-color-blue-950);
   /* Active (pulsado) de controles neutros. El texto pasa a text/neutral/default: el secundario da 3,99:1 en Dark (D12). */
   --t101-color-background-neutral-active: var(--t101-color-neutral-700);
@@ -201,6 +211,7 @@
   --t101-color-background-neutral-default: var(--t101-color-neutral-950);
   /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
   --t101-color-background-neutral-hover: var(--t101-color-neutral-800);
+  /* Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea */
   --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
@@ -208,27 +219,35 @@
   --t101-color-background-neutral-translucent: #050c09e6;
   /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
   --t101-color-background-overlay: #00000080;
+  /* Fondo de los mensajes de éxito. Sin uso todavía (S31) */
   --t101-color-background-success-subtle: var(--t101-color-emerald-950);
+  /* Fondo de los avisos (Callout warning) */
   --t101-color-background-warning-subtle: var(--t101-color-amber-950);
   /* Borde del Callout recommendation (decorativo; D06). */
   --t101-color-border-accent-default: var(--t101-color-emerald-700);
   /* Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
   --t101-color-border-accent-strong: var(--t101-color-emerald-400);
+  /* Borde de los mensajes de error, decorativo. Sin uso todavía (S31) */
   --t101-color-border-danger-default: var(--t101-color-red-700);
   /* Anillo de foco (2 px, border-width/200) */
   --t101-color-border-focus: var(--t101-color-emerald-400);
+  /* Borde de los mensajes de información (Callout note). Decorativo: no necesita 3:1 */
   --t101-color-border-info-default: var(--t101-color-blue-700);
   /* Bordes y separadores (decorativos) */
   --t101-color-border-neutral-default: var(--t101-color-neutral-800);
   /* Bordes que identifican un control (≥ 3:1) */
   --t101-color-border-neutral-strong: var(--t101-color-neutral-500);
+  /* Borde de los mensajes de éxito, decorativo. Sin uso todavía (S31) */
   --t101-color-border-success-default: var(--t101-color-emerald-700);
+  /* Borde de los avisos (Callout warning). Decorativo: no necesita 3:1 */
   --t101-color-border-warning-default: var(--t101-color-amber-700);
   /* Enlaces y texto de acento */
   --t101-color-text-accent-default: var(--t101-color-emerald-400);
   /* Enlace al pasar el ratón (D12). */
   --t101-color-text-accent-hover: var(--t101-color-emerald-300);
+  /* Texto e icono de los mensajes de error. Sin uso todavía (S31) */
   --t101-color-text-danger-default: var(--t101-color-red-300);
+  /* Texto e icono de los mensajes de información (Callout note) */
   --t101-color-text-info-default: var(--t101-color-blue-300);
   /* Texto principal */
   --t101-color-text-neutral-default: var(--t101-color-neutral-50);
@@ -236,7 +255,9 @@
   --t101-color-text-neutral-subtle: var(--t101-color-neutral-400);
   /* Texto sobre el botón principal */
   --t101-color-text-on-accent: var(--t101-color-neutral-950);
+  /* Texto e icono de los mensajes de éxito (mensaje Copiado del bloque de código) */
   --t101-color-text-success-default: var(--t101-color-emerald-300);
+  /* Texto e icono de los avisos (Callout warning) */
   --t101-color-text-warning-default: var(--t101-color-amber-300);
 }
 
@@ -249,8 +270,11 @@
     --t101-color-background-accent-strong-default: var(--t101-color-emerald-500);
     /* Botón principal al pasar el ratón */
     --t101-color-background-accent-strong-hover: var(--t101-color-emerald-400);
+    /* Fondo tintado de acento: Callout recommendation, Lo que te llevas, lección actual del sidebar y pasos de Flow */
     --t101-color-background-accent-subtle: var(--t101-color-emerald-950);
+    /* Fondo de los mensajes de error. Sin uso todavía (S31) */
     --t101-color-background-danger-subtle: var(--t101-color-red-950);
+    /* Fondo de los mensajes de información (Callout note) */
     --t101-color-background-info-subtle: var(--t101-color-blue-950);
     /* Active (pulsado) de controles neutros. El texto pasa a text/neutral/default: el secundario da 3,99:1 en Dark (D12). */
     --t101-color-background-neutral-active: var(--t101-color-neutral-700);
@@ -258,6 +282,7 @@
     --t101-color-background-neutral-default: var(--t101-color-neutral-950);
     /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
     --t101-color-background-neutral-hover: var(--t101-color-neutral-800);
+    /* Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea */
     --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
     /* Fondo de tarjetas y bloques de código */
     --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
@@ -265,27 +290,35 @@
     --t101-color-background-neutral-translucent: #050c09e6;
     /* Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad. */
     --t101-color-background-overlay: #00000080;
+    /* Fondo de los mensajes de éxito. Sin uso todavía (S31) */
     --t101-color-background-success-subtle: var(--t101-color-emerald-950);
+    /* Fondo de los avisos (Callout warning) */
     --t101-color-background-warning-subtle: var(--t101-color-amber-950);
     /* Borde del Callout recommendation (decorativo; D06). */
     --t101-color-border-accent-default: var(--t101-color-emerald-700);
     /* Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
     --t101-color-border-accent-strong: var(--t101-color-emerald-400);
+    /* Borde de los mensajes de error, decorativo. Sin uso todavía (S31) */
     --t101-color-border-danger-default: var(--t101-color-red-700);
     /* Anillo de foco (2 px, border-width/200) */
     --t101-color-border-focus: var(--t101-color-emerald-400);
+    /* Borde de los mensajes de información (Callout note). Decorativo: no necesita 3:1 */
     --t101-color-border-info-default: var(--t101-color-blue-700);
     /* Bordes y separadores (decorativos) */
     --t101-color-border-neutral-default: var(--t101-color-neutral-800);
     /* Bordes que identifican un control (≥ 3:1) */
     --t101-color-border-neutral-strong: var(--t101-color-neutral-500);
+    /* Borde de los mensajes de éxito, decorativo. Sin uso todavía (S31) */
     --t101-color-border-success-default: var(--t101-color-emerald-700);
+    /* Borde de los avisos (Callout warning). Decorativo: no necesita 3:1 */
     --t101-color-border-warning-default: var(--t101-color-amber-700);
     /* Enlaces y texto de acento */
     --t101-color-text-accent-default: var(--t101-color-emerald-400);
     /* Enlace al pasar el ratón (D12). */
     --t101-color-text-accent-hover: var(--t101-color-emerald-300);
+    /* Texto e icono de los mensajes de error. Sin uso todavía (S31) */
     --t101-color-text-danger-default: var(--t101-color-red-300);
+    /* Texto e icono de los mensajes de información (Callout note) */
     --t101-color-text-info-default: var(--t101-color-blue-300);
     /* Texto principal */
     --t101-color-text-neutral-default: var(--t101-color-neutral-50);
@@ -293,7 +326,9 @@
     --t101-color-text-neutral-subtle: var(--t101-color-neutral-400);
     /* Texto sobre el botón principal */
     --t101-color-text-on-accent: var(--t101-color-neutral-950);
+    /* Texto e icono de los mensajes de éxito (mensaje Copiado del bloque de código) */
     --t101-color-text-success-default: var(--t101-color-emerald-300);
+    /* Texto e icono de los avisos (Callout warning) */
     --t101-color-text-warning-default: var(--t101-color-amber-300);
   }
 }

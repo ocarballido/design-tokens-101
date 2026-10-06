@@ -71,6 +71,7 @@
         "strong": {
           "$type": "color",
           "$value": "{color.neutral.800}",
+          "$description": "Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:103",
             "com.figma.scopes": [
@@ -159,6 +160,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.emerald.950}",
+          "$description": "Fondo tintado de acento: Callout recommendation, Lo que te llevas, lección actual del sidebar y pasos de Flow",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:109",
             "com.figma.scopes": [
@@ -246,6 +248,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.blue.950}",
+          "$description": "Fondo de los mensajes de información (Callout note)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:115",
             "com.figma.scopes": [
@@ -268,6 +271,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.emerald.950}",
+          "$description": "Fondo de los mensajes de éxito. Sin uso todavía (S31)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:118",
             "com.figma.scopes": [
@@ -290,6 +294,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.amber.950}",
+          "$description": "Fondo de los avisos (Callout warning)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:121",
             "com.figma.scopes": [
@@ -312,6 +317,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.red.950}",
+          "$description": "Fondo de los mensajes de error. Sin uso todavía (S31)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:124",
             "com.figma.scopes": [
@@ -445,6 +451,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.blue.300}",
+          "$description": "Texto e icono de los mensajes de información (Callout note)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:117",
             "com.figma.scopes": [
@@ -467,6 +474,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.emerald.300}",
+          "$description": "Texto e icono de los mensajes de éxito (mensaje Copiado del bloque de código)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:120",
             "com.figma.scopes": [
@@ -489,6 +497,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.amber.300}",
+          "$description": "Texto e icono de los avisos (Callout warning)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:123",
             "com.figma.scopes": [
@@ -511,6 +520,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.red.300}",
+          "$description": "Texto e icono de los mensajes de error. Sin uso todavía (S31)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:126",
             "com.figma.scopes": [
@@ -597,6 +607,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.blue.700}",
+          "$description": "Borde de los mensajes de información (Callout note). Decorativo: no necesita 3:1",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:116",
             "com.figma.scopes": [
@@ -618,6 +629,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.emerald.700}",
+          "$description": "Borde de los mensajes de éxito, decorativo. Sin uso todavía (S31)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:119",
             "com.figma.scopes": [
@@ -639,6 +651,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.amber.700}",
+          "$description": "Borde de los avisos (Callout warning). Decorativo: no necesita 3:1",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:122",
             "com.figma.scopes": [
@@ -660,6 +673,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.red.700}",
+          "$description": "Borde de los mensajes de error, decorativo. Sin uso todavía (S31)",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:125",
             "com.figma.scopes": [
