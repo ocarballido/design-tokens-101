@@ -1,0 +1,115 @@
+---
+title: La comprobación final
+description: "Lo que se comprueba al cerrar un sistema de tokens y que no se ve hasta tenerlo entero: que cada token tiene un uso, que cada valor del diseño tiene token y que cada token está en todos los sitios donde debe estar."
+nav_title: La comprobación final
+lastReviewed: 2026-10-06
+---
+
+Cada ejercicio del curso terminaba con su comprobación: los modos, la traducción al código, la accesibilidad. Esas comprobaciones miran una parte del sistema. Antes de publicarlo como versión 1.0.0, quedan tres que necesitan el sistema entero. En esta lección verás cuáles son y cómo se hacen.
+
+**En esta página**
+
+- [Lo que ya has comprobado](#lo-que-ya-has-comprobado)
+- [Cada token tiene un uso](#cada-token-tiene-un-uso)
+- [Cada valor tiene token](#cada-valor-tiene-token)
+- [Cada token está en todos sus sitios](#cada-token-está-en-todos-sus-sitios)
+- [Lo que DTCG exige a un archivo](#lo-que-dtcg-exige-a-un-archivo)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Lo que ya has comprobado
+
+La comprobación final no repite estas listas. Si alguna quedó a medias, termínala antes:
+
+| Qué | Dónde se comprobó |
+|---|---|
+| Los modos cambian lo que tienen que cambiar | [Ejercicio del módulo 5, paso 6](/modes/exercise-modes#paso-6-revisa-las-cuatro-pantallas) |
+| Scopes, code syntax y la traducción a las dos capas | [Ejercicio del módulo 6, comprobación](/figma-to-code/exercise-figma-to-code#comprueba-tu-traducción) |
+| Lo que vigila la comprobación del código de esta web | [Comprobar y actualizar](/figma-to-code/check-and-update#qué-vigila-la-comprobación) |
+| Contraste, estados, foco, tamaños y preferencias | [Ejercicio del módulo 7, comprobación](/accessibility/exercise-accessibility#comprueba-tu-revisión) |
+
+## Cada token tiene un uso
+
+Es la comprobación de [Un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve). Mientras construías el sistema pudo quedar algún token que creaste por si acaso, o uno cuyo uso desapareció al cambiar el diseño. Antes de la 1.0.0, borrarlo no cuesta nada; después, es un cambio MAJOR ([Versionar el sistema](/final-exercise/version-the-system#qué-cambio-es-qué)).
+
+Lo que dice la fuente sobre cómo encontrarlos en Figma:
+
+- La ayuda de las variables no describe ninguna forma de ver dónde se usa una variable ni de seleccionar las capas que la usan ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+- **Library analytics** mide el uso de las variables de una biblioteca, pero es de los planes Organization y Enterprise ([Figma: View and explore library analytics](https://help.figma.com/hc/en-us/articles/360039238353)).
+
+En el plan Professional, la comprobación se hace con tu documentación. Para cada token semántico, busca en tu mapa de alias del [módulo 3](/relations/exercise-aliases) y en tus pantallas al menos un sitio donde se use. La descripción del token te dice dónde mirar.
+
+Un token sin uso tiene dos salidas:
+
+- **Lo borras.** Es lo normal.
+- **Lo mantienes con un motivo escrito**, en su descripción y en el registro de decisiones. DesignToken101 tiene un caso: los tokens de los mensajes de error y el fondo y el borde de los de éxito no los usa ningún componente, y se mantienen porque el juego completo de mensajes se usará más adelante (S31). Su descripción lo dice: "Sin uso todavía (S31)".
+
+## Cada valor tiene token
+
+Es la comprobación inversa: que nada del diseño esté fuera del sistema. Un color sin variable o un texto sin estilo no cambian con los modos, y no llegan al código con su nombre ([Un texto sin estilo es un valor suelto](/relations/text-styles#un-texto-sin-estilo-es-un-valor-suelto)).
+
+Lo que dice la fuente:
+
+- Al seleccionar varias capas con rellenos distintos, el panel derecho muestra **Selection colors**, con los colores sólidos y los degradados de los rellenos y trazos de la selección ([Figma: View and adjust colors in a mixed selection](https://help.figma.com/hc/en-us/articles/360042553434)). Es la misma herramienta del [inventario del módulo 1](/fundamentals/exercise-inventory#en-figma).
+- **Check designs** busca valores sin variable y propone la variable que falta, pero es de los planes Organization y Enterprise ([Figma: Check designs in Figma](https://help.figma.com/hc/en-us/articles/39592284074263-Check-designs-in-Figma)).
+
+En Professional, recorre tus pantallas con *Selection colors* y con los paneles de propiedades: colores, espacios, radios, bordes y textos. Hazlo en las cuatro combinaciones de modos del [módulo 5](/modes/exercise-modes#paso-5-aplica-los-modos-a-tus-pantallas): un valor suelto puede pasar desapercibido en Light y verse en Dark.
+
+## Cada token está en todos sus sitios
+
+Un token es algo más que una variable de Figma. Según su tipo, tiene que estar en varios sitios, y cada uno se crea en un paso distinto del curso:
+
+| Sitio | Qué tiene que tener | Para qué tokens |
+|---|---|---|
+| Variable de Figma | Nombre de tu convención, descripción (los semánticos), scope, code syntax y visibilidad | Todos los que guarda Figma |
+| Archivo de tokens de código | Nombre, tipo DTCG, valor y descripción | Los que Figma no guarda: interlineado, breakpoint, duraciones… |
+| Capa 1 (variables CSS) | Una variable con el nombre del code syntax, en cada bloque de modo donde cambia | Todos |
+| Capa 2 (tema de Tailwind CSS) | Una entrada en su espacio de nombres | Los que se usan como clase |
+
+Las dos últimas filas son del itinerario de código. Lo que dicen las fuentes sobre la capa 2:
+
+- Un token que está en `@theme` da clases; uno que está en `:root` no ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme#why-theme-instead-of-root)).
+- shadcn/ui añade un token nuevo en dos pasos: lo define en `:root` y en `.dark`, y después lo expone a Tailwind CSS con `@theme inline` ([shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)).
+
+No todos los tokens van a la capa 2. Los primitivos de color, por ejemplo, no se exponen, para que nadie los use en lugar de un semántico ([Lo que no se expone](/figma-to-code/tailwind-theme#lo-que-no-se-expone)). Lo que importa es que esa ausencia sea una decisión, no un olvido.
+
+<Callout variant="recommendation">
+
+Haz la comprobación con una tabla: una fila por token y una columna por sitio. Una celda vacía tiene que tener un motivo ("primitivo de color: no se expone"). Así ves de un vistazo los tokens que te faltan por llevar a algún sitio.
+
+</Callout>
+
+## Lo que DTCG exige a un archivo
+
+Lo que dice la fuente: DTCG pide a las herramientas que den error ante ciertos archivos ([Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)):
+
+- Una referencia mal escrita o que apunta a un token que no existe ([Error conditions](https://www.designtokens.org/TR/2025.10/format/#error-conditions-0)).
+- Referencias circulares: un token que, de alias en alias, acaba apuntando a sí mismo ([Circular references](https://www.designtokens.org/TR/2025.10/format/#circular-references); [Cadenas y referencias circulares](/relations/what-is-an-alias#cadenas-y-referencias-circulares)).
+- Un token cuyo tipo no se puede determinar ([Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
+- Un objeto que es a la vez token y grupo ([Group structure](https://www.designtokens.org/TR/2025.10/format/#group-structure)).
+
+Estos errores se ven al pasar los archivos por una herramienta, así que son parte del itinerario de código. Si generas tu código con la normalización y Terrazzo, revisa los avisos que den y el CSS resultante, como en el [ejercicio del módulo 6](/figma-to-code/exercise-figma-to-code#paso-4-escribe-la-capa-1). En Figma, el último caso es el que más se escapa: Figma acepta a la vez `…/default` y `…/default/hover`, que en DTCG no es válido ([Revisa la lista de nombres](/naming/exercise-naming#paso-4-revisa-la-lista-de-nombres)).
+
+## En Figma
+
+Para la comprobación de usos, ten abiertos a la vez la vista Variables y tu mapa de alias, y recorre una colección grupo a grupo. Para la de valores, trabaja pantalla a pantalla: selecciona todas las capas de una pantalla y revisa *Selection colors* antes de pasar a la siguiente.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Al cerrar el sistema se comprueba lo que se ve únicamente con el sistema entero: que cada token tiene un uso o un motivo escrito y que cada valor del diseño tiene token.
+- Cada token tiene que estar en todos sus sitios, y una ausencia tiene que ser una decisión, no un olvido.
+- En Figma Professional estas comprobaciones son manuales y se apoyan en tu mapa de alias y en tu documentación.
+
+</Takeaways>
+
+## Fuentes
+
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: View and explore library analytics](https://help.figma.com/hc/en-us/articles/360039238353)
+- [Figma: Check designs in Figma](https://help.figma.com/hc/en-us/articles/39592284074263-Check-designs-in-Figma)
+- [Figma: View and adjust colors in a mixed selection](https://help.figma.com/hc/en-us/articles/360042553434)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [shadcn/ui: Theming](https://ui.shadcn.com/docs/theming)
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)

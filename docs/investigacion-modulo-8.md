@@ -93,7 +93,7 @@ Los 14 semánticos de color sin descripción: `background/neutral/strong`, `back
 
 **Figma.**
 - **Check designs** busca valores sin variable, contraste y componentes desvinculados, y propone variables. Está disponible únicamente en los planes Organization y Enterprise ([Figma: Check designs in Figma](https://help.figma.com/hc/en-us/articles/39592284074263-Check-designs-in-Figma)).
-- **Library analytics** mide el uso de componentes, estilos y variables. También Organization y Enterprise ([Figma: Library analytics](https://help.figma.com/hc/en-us/articles/360039238353)).
+- **Library analytics** mide el uso de componentes, estilos y variables. También Organization y Enterprise ([Figma: View and explore library analytics](https://help.figma.com/hc/en-us/articles/360039238353)).
 - La ayuda de variables no describe ninguna forma de ver dónde se usa una variable ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
 - *Selection colors* muestra los colores de una selección (ya usado en el ejercicio 1, [Figma: View and adjust colors in a mixed selection](https://help.figma.com/hc/en-us/articles/360042553434)).
 

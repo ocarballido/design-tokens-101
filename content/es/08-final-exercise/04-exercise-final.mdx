@@ -1,0 +1,326 @@
+---
+title: "Ejercicio: cierra tu sistema"
+description: "Reúne las decisiones de los ejercicios 1 a 7, describe cada token, comprueba el sistema entero, escribe su documentación, completa el código si lo sigues y publica tu sistema de tokens como versión 1.0.0."
+nav_title: Ejercicio
+lastReviewed: 2026-10-06
+---
+
+Este es el último ejercicio del curso. Partes de todo lo que has hecho en los ejercicios 1 a 7 y terminas con tu sistema de tokens cerrado: documentado, comprobado entero y publicado como versión 1.0.0. Tu sistema tiene la misma estructura, el mismo método y la misma convención que el de esta web, con los valores de tu diseño.
+
+Todo el ejercicio se puede hacer en Figma. Los pasos 6 a 8 tienen además un itinerario de código, en bloques En código, que completa lo que el ejercicio del módulo 6 dejó en una muestra: tus tokens de código en DTCG, la capa 1 de todo el sistema y la capa 2 completa.
+
+**En esta página**
+
+- [Qué necesitas](#qué-necesitas)
+- [Paso 1 Reúne tus decisiones](#paso-1-reúne-tus-decisiones)
+- [Paso 2 Describe cada token semántico](#paso-2-describe-cada-token-semántico)
+- [Paso 3 Comprueba que cada token tiene un uso](#paso-3-comprueba-que-cada-token-tiene-un-uso)
+- [Paso 4 Comprueba que cada valor tiene token](#paso-4-comprueba-que-cada-valor-tiene-token)
+- [Paso 5 Escribe la página de documentación](#paso-5-escribe-la-página-de-documentación)
+- [Paso 6 Completa tus tokens de código](#paso-6-completa-tus-tokens-de-código)
+- [Paso 7 Genera la capa 1 de todo el sistema](#paso-7-genera-la-capa-1-de-todo-el-sistema)
+- [Paso 8 Escribe la capa 2 completa](#paso-8-escribe-la-capa-2-completa)
+- [Paso 9 Comprueba cada token en todos sus sitios](#paso-9-comprueba-cada-token-en-todos-sus-sitios)
+- [Paso 10 Publica la versión 1.0.0](#paso-10-publica-la-versión-100)
+- [Comprueba tu sistema](#comprueba-tu-sistema)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Qué necesitas
+
+- Tu archivo de Figma con `Primitives`, `Semantic color` (Light y Dark), `Semantic size`, `Layout`, tus estilos de texto y tus pantallas en las cuatro combinaciones de modos ([ejercicio del módulo 5](/modes/exercise-modes)).
+- Tu mapa de alias del [módulo 3](/relations/exercise-aliases), con las columnas que le añadiste en el módulo 4.
+- Tu convención escrita ([ejercicio del módulo 4, paso 1](/naming/exercise-naming#paso-1-escribe-tu-convención)).
+- La lista de tus tokens de código ([ejercicio del módulo 6, paso 6](/figma-to-code/exercise-figma-to-code#paso-6-lista-tus-tokens-de-código)).
+- Tu registro de decisiones de accesibilidad ([ejercicio del módulo 7, paso 7](/accessibility/exercise-accessibility#paso-7-escribe-el-registro-de-decisiones)).
+- Para el itinerario de código: tu carpeta de trabajo del módulo 6, con tus colecciones exportadas, y Node.js.
+- Entre 2 y 4 horas, según el tamaño de tu sistema y si sigues el itinerario de código.
+
+## Paso 1 Reúne tus decisiones
+
+Crea tu registro de decisiones, con las columnas de [El registro de decisiones](/final-exercise/document-the-system#el-registro-de-decisiones): decisión, motivo, alternativas descartadas, módulo y fecha.
+
+No escribas de cero: recorre tus ejercicios y copia lo que ya decidiste. Cada módulo deja al menos una decisión:
+
+| Módulo | Qué decidiste |
+|---|---|
+| 1 | Qué valores viven en Figma y cuáles en código |
+| 2 | La base del espaciado, el color de marca y su paso, el tinte de los neutros, las escalas de estado |
+| 3 | Las excepciones a "un semántico es un alias" y si necesitas tokens de componente |
+| 4 | Tu convención: orden, vocabulario, regla de estados y prefijo |
+| 5 | Qué colecciones tienen modos y cuáles no |
+| 6 | Los tokens que viven en código y por qué |
+| 7 | Lo que corregiste y los riesgos que aceptaste (copia tu registro de accesibilidad entero) |
+
+Si no recuerdas el motivo de alguna decisión, escríbelo ahora: dentro de un año lo recordarás menos.
+
+## Paso 2 Describe cada token semántico
+
+Abre la vista Variables y recorre `Semantic color`, `Semantic size` y `Layout`, grupo a grupo. Cada variable necesita una descripción con su función ([La descripción de un token](/final-exercise/document-the-system#la-descripción-de-un-token)):
+
+1. Escribe para qué sirve el token y, si ayuda a elegirlo, dónde se usa.
+2. En las excepciones, añade el motivo: "Valor directo: un alias de Figma no puede cambiar la opacidad".
+3. Si dos tokens se parecen, di en qué se diferencian.
+
+Los primitivos pueden quedarse sin descripción, salvo los que se usen directamente al diseñar.
+
+## Paso 3 Comprueba que cada token tiene un uso
+
+Para cada token semántico, busca en tu mapa de alias y en tus pantallas al menos un sitio donde se use ([Cada token tiene un uso](/final-exercise/final-check#cada-token-tiene-un-uso)).
+
+- Si no lo encuentras, **bórralo**. Antes de la 1.0.0 no rompe nada.
+- Si quieres mantenerlo, escribe por qué en su descripción ("Sin uso todavía: …") y en tu registro de decisiones.
+
+Haz lo mismo con los primitivos: un paso de escala al que no apunta ningún semántico ni se usa en el diseño es candidato a desaparecer. Si decides mantenerlo, por ejemplo para que la escala siga completa, anota el motivo en tu registro de decisiones.
+
+## Paso 4 Comprueba que cada valor tiene token
+
+Recorre tus pantallas en las cuatro combinaciones de modos ([Cada valor tiene token](/final-exercise/final-check#cada-valor-tiene-token)):
+
+1. Selecciona todas las capas de una pantalla y revisa *Selection colors*: cada color tiene que ser una variable.
+2. Revisa en el panel de propiedades los espacios, los radios y los bordes de los elementos principales.
+3. Comprueba que cada texto usa un estilo.
+
+Cada valor suelto que encuentres tiene dos salidas: vincularlo a un token que ya tienes o, si no existe ninguno que sirva, añadir el token a tu mapa y a Figma.
+
+## Paso 5 Escribe la página de documentación
+
+Crea una página en tu archivo de Figma, por ejemplo "Documentación", con tres apartados ([Dónde vive la documentación](/final-exercise/document-the-system#dónde-vive-la-documentación)):
+
+1. **La convención de nombres**, la del ejercicio del módulo 4, al día con lo que hayas cambiado después.
+2. **El registro de decisiones** del paso 1.
+3. **El registro de cambios**, de momento con una sola entrada para la 1.0.0, que completarás en el paso 10 ([El registro de cambios](/final-exercise/version-the-system#el-registro-de-cambios)).
+
+Escribe el texto con tus estilos de texto y los colores con tus variables. La página de documentación también forma parte del sistema.
+
+## Paso 6 Completa tus tokens de código
+
+Repasa la lista de tokens de código del ejercicio del módulo 6 con todo lo que has decidido después. Para cada token, comprueba que tiene nombre según tu convención, valor y motivo, y que sigue sin poder vivir en Figma ([Cuando Figma puede guardarlo, se mueve](/figma-to-code/code-only-tokens#cuando-figma-puede-guardarlo-se-mueve)).
+
+Si sigues el curso en Figma, añade la lista a tu página de documentación, en un apartado "Tokens de código": así quien lea el sistema sabe que existen.
+
+<InCode title="Escribe tus tokens de código en DTCG">
+
+Escribe tus tokens de código en un archivo DTCG, `tokens/code-only.tokens.json`, dentro de tu carpeta de trabajo del módulo 6 ([Por qué se escriben en DTCG](/figma-to-code/code-only-tokens#por-qué-se-escriben-en-dtcg)). Cada token lleva su tipo, su valor y su descripción. Usa grupos y nombres que, con tu prefijo, den la variable CSS que esperas: `line-height/normal` da `--ds-line-height-normal`.
+
+Así empieza el de esta web, con dos de sus tokens de código:
+
+```json filename="tokens/code-only.tokens.json (abreviado)"
+{
+  "line-height": {
+    "$type": "number",
+    "$description": "Solo código (D01): Figma interpreta una variable en el interlineado como píxeles. Fuente: docs/sistema-tokens-v1.md §4.2.",
+    "tight": { "$value": 1.2, "$description": "Títulos grandes" },
+    "snug": { "$value": 1.4, "$description": "Interfaz, textos cortos" },
+    "normal": { "$value": 1.5, "$description": "Texto de lectura" }
+  },
+  "breakpoint": {
+    "desktop": {
+      "$type": "dimension",
+      "$value": { "value": 64, "unit": "rem" },
+      "$description": "Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Fuente: docs/sistema-tokens-v1.md §4.2."
+    }
+  }
+}
+```
+
+El `$type` del grupo `line-height` vale para sus tres tokens. Las dimensiones llevan valor y unidad por separado, como pide DTCG.
+
+</InCode>
+
+## Paso 7 Genera la capa 1 de todo el sistema
+
+Este paso es del itinerario de código. Si sigues el curso en Figma, pasa al paso 9.
+
+<InCode title="Genera la capa 1 con tus tokens de código y Layout">
+
+En el ejercicio del módulo 6 generaste la capa 1 con Terrazzo a partir de tus colecciones exportadas ([Genera la capa 1 con Terrazzo](/figma-to-code/exercise-figma-to-code#paso-4-escribe-la-capa-1)). Ahora añades lo que faltaba: los tokens de código y los modos de `Layout`.
+
+**1. Vuelve a exportar y a normalizar.** Si cambiaste algo en Figma en los pasos 2 a 4, exporta otra vez las colecciones que cambiaron, sustituye sus carpetas en `tokens/figma/` y ejecuta `node tools/figma-to-dtcg.mjs`.
+
+**2. Amplía el Resolver.** Añade tu archivo de tokens de código al conjunto fijo, porque vale lo mismo en todos los modos, y un modificador para `Layout`. Este ejemplo sigue con el sistema inventado del módulo 6, que ahora tiene también una colección `Layout`:
+
+```json filename="tokens/sistema.resolver.json"
+{
+  "name": "Mi sistema",
+  "version": "2025.10",
+  "sets": {
+    "base": {
+      "sources": [
+        { "$ref": "dtcg/base/Mode 1.tokens.json" },
+        { "$ref": "code-only.tokens.json" }
+      ]
+    }
+  },
+  "modifiers": {
+    "theme": {
+      "default": "light",
+      "contexts": {
+        "light": [{ "$ref": "dtcg/theme/Light.tokens.json" }],
+        "dark": [{ "$ref": "dtcg/theme/Dark.tokens.json" }]
+      }
+    },
+    "layout": {
+      "default": "mobile",
+      "contexts": {
+        "mobile": [{ "$ref": "dtcg/layout/Mobile.tokens.json" }],
+        "desktop": [{ "$ref": "dtcg/layout/Desktop.tokens.json" }]
+      }
+    }
+  },
+  "resolutionOrder": [
+    { "$ref": "#/sets/base" },
+    { "$ref": "#/modifiers/theme" },
+    { "$ref": "#/modifiers/layout" }
+  ]
+}
+```
+
+El `version` es el de la especificación del Resolver, no el de tu sistema ([El registro de cambios](/final-exercise/version-the-system#el-registro-de-cambios)).
+
+**3. Amplía la configuración.** Cada bloque pide ahora un modo de cada eje, y se añade el bloque de Desktop con su consulta `@media`. El corte se lee de tu archivo de tokens de código, porque una consulta `@media` no puede leer una variable CSS ([El breakpoint, un token que se usa de dos formas](/figma-to-code/code-only-tokens#el-breakpoint-un-token-que-se-usa-de-dos-formas)):
+
+```js filename="terrazzo.config.mjs"
+import fs from 'node:fs';
+import { defineConfig } from '@terrazzo/cli';
+import css from '@terrazzo/plugin-css';
+
+const PREFIX = '--ds-'; // el de tu code syntax
+const THEME_TOKENS = ['surface.**', 'ink.**', 'shape.**']; // los grupos de tu colección con tema
+const LAYOUT_TOKENS = ['text-size.**']; // los grupos de tu colección Layout
+
+// El corte entre Mobile y Desktop, desde tu archivo de tokens de código.
+const codeOnly = JSON.parse(fs.readFileSync(new URL('./tokens/code-only.tokens.json', import.meta.url), 'utf8'));
+const { value: bpValue, unit: bpUnit } = codeOnly.breakpoint.desktop.$value; // el nombre de tu token de corte
+
+export default defineConfig({
+  tokens: ['./tokens/sistema.resolver.json'],
+  outDir: './css/',
+  plugins: [
+    css({
+      filename: 'tokens.css',
+      variableName: (token) => `${PREFIX}${token.id.replace(/\./g, '-')}`,
+      legacyHex: true,
+      transform: (token) =>
+        token.$type === 'dimension' && !token.aliasOf && token.$value.unit === 'px'
+          ? `${token.$value.value / 16}rem`
+          : undefined,
+      permutations: [
+        {
+          input: { theme: 'light', layout: 'mobile' },
+          prepare: (contents) => `:root {\n  color-scheme: light;\n  ${contents}\n}`,
+        },
+        {
+          input: { theme: 'dark', layout: 'mobile' },
+          include: THEME_TOKENS,
+          prepare: (contents) => `[data-theme="dark"] {\n  color-scheme: dark;\n  ${contents}\n}`,
+        },
+        {
+          input: { theme: 'light', layout: 'desktop' },
+          include: LAYOUT_TOKENS,
+          prepare: (contents) => `@media (width >= ${bpValue}${bpUnit}) {\n  :root {\n    ${contents}\n  }\n}`,
+        },
+      ],
+    }),
+  ],
+});
+```
+
+Genera el CSS con `npx tz build` y revisa el resultado:
+
+- `:root` tiene todos tus tokens, también los de código, con el prefijo de tu code syntax.
+- El bloque Dark tiene los tokens de tu colección con tema, y el de Desktop, los de `Layout`. Si falta alguno de los dos, revisa `THEME_TOKENS` y `LAYOUT_TOKENS`: Terrazzo no avisa si un grupo no coincide ([los avisos del módulo 6](/figma-to-code/exercise-figma-to-code#paso-4-escribe-la-capa-1)).
+- Los tamaños están en `rem`, y los alias son `var()` a variables que existen en el archivo.
+
+</InCode>
+
+## Paso 8 Escribe la capa 2 completa
+
+Este paso es del itinerario de código. Si sigues el curso en Figma, pasa al paso 9.
+
+<InCode title="Escribe el tema de Tailwind CSS de todo el sistema">
+
+En el ejercicio del módulo 6 escribiste la capa 2 de cinco tokens. Ahora la completas: recorre tu capa 1 token a token y decide, para cada uno, una de dos cosas ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme)):
+
+- **Se expone:** escribe su entrada en el espacio de nombres de su propiedad, apuntando a su variable de la capa 1 ([Un espacio de nombres por propiedad](/figma-to-code/tailwind-theme#un-espacio-de-nombres-por-propiedad)).
+- **No se expone:** anota por qué. Los primitivos de color, por ejemplo, no se exponen ([Lo que no se expone](/figma-to-code/tailwind-theme#lo-que-no-se-expone)).
+
+Estas líneas amplían el ejemplo del módulo 6 con las categorías que faltaban. Cada línea es igual a la de la capa 2 de esta web (`src/styles/theme.css`):
+
+```css filename="theme.css (ejercicio, abreviado)"
+@theme inline {
+  --*: initial;
+  --spacing-400: var(--t101-space-400);                     /* p-400, gap-400… */
+  --radius-control: var(--t101-radius-control);             /* rounded-control */
+  --text-body-default: var(--t101-font-size-body-default);  /* text-body-default (tamaño) */
+  --leading-normal: var(--t101-line-height-normal);         /* leading-normal */
+  --background-color-neutral-default: var(--t101-color-background-neutral-default); /* bg-neutral-default */
+  --container-content: var(--t101-size-content-max-width);  /* max-w-content */
+  --ease-standard: var(--t101-easing-standard);             /* ease-standard */
+  --blur-300: var(--t101-blur-300);                          /* backdrop-blur-300 */
+  --breakpoint-desktop: 64rem;                               /* desktop: */
+}
+```
+
+Fíjate en la última línea: el breakpoint se escribe con su valor y no con `var()`, por el mismo motivo que en el paso 7 ([El breakpoint](/figma-to-code/tailwind-theme#el-breakpoint)).
+
+Cuando termines, comprueba que ningún nombre de la capa 2 coincide con uno de la capa 1 ([Por qué el prefijo](/figma-to-code/tailwind-theme#por-qué-el-prefijo)) y que cada token de la capa 1 está expuesto o tiene su motivo escrito.
+
+</InCode>
+
+## Paso 9 Comprueba cada token en todos sus sitios
+
+Haz una tabla con una fila por token y una columna por sitio ([Cada token está en todos sus sitios](/final-exercise/final-check#cada-token-está-en-todos-sus-sitios)):
+
+| Token | Figma | Tokens de código | Capa 1 | Capa 2 |
+|---|---|---|---|---|
+| `color/text/neutral/default` | Sí | No aplica | `--t101-color-text-neutral-default` | `text-neutral-default` |
+| `color/neutral/900` | Sí, oculto | No aplica | `--t101-color-neutral-900` | No se expone: primitivo de color |
+| `line-height/normal` | No: Figma lo lee como píxeles | Sí | `--t101-line-height-normal` | `leading-normal` |
+
+Las filas son de DesignToken101. Si sigues el curso en Figma, rellena las dos primeras columnas: las de código se quedan para cuando lleves tu sistema a código.
+
+Cada celda vacía tiene que tener un motivo. Una celda vacía sin motivo es algo que falta por hacer.
+
+## Paso 10 Publica la versión 1.0.0
+
+Con todo comprobado, tu sistema está listo para su primera versión estable ([Antes y después de 1.0.0](/final-exercise/version-the-system#antes-y-después-de-100)):
+
+1. **Completa el registro de cambios** de tu página de documentación con la entrada de la 1.0.0: la fecha y "Primera versión estable: el sistema completo".
+2. **Publica la biblioteca**, si tu equipo la usa desde otros archivos. En la descripción de la publicación, empieza por "1.0.0" ([En Figma](/final-exercise/version-the-system#en-figma)).
+3. **Guarda una versión con nombre** con *Save to Version History*, con "1.0.0" como título y la fecha en la descripción.
+
+Desde ahora, cada cambio sigue las reglas de [Qué cambio es qué](/final-exercise/version-the-system#qué-cambio-es-qué): un valor es un PATCH, algo nuevo es una MINOR y un nombre borrado o cambiado es una MAJOR.
+
+## Comprueba tu sistema
+
+Tu sistema está cerrado si puedes responder que sí a estas preguntas:
+
+- ¿Tienes un registro de decisiones con las de los siete módulos, cada una con su motivo y su fecha?
+- ¿Cada token semántico tiene descripción, y cada excepción y cada token sin uso, su motivo?
+- ¿Cada token tiene un uso, o un motivo escrito para mantenerlo?
+- ¿Cada valor de tus pantallas, en las cuatro combinaciones de modos, sale de un token o de un estilo de texto?
+- ¿Tu página de documentación tiene la convención, el registro de decisiones y el registro de cambios?
+- ¿Cada token está en todos sus sitios, o tiene un motivo escrito para no estar?
+- ¿Tu sistema está publicado como 1.0.0, con su entrada en el registro de cambios?
+- Si sigues el itinerario de código: ¿tienes tus tokens de código en DTCG, la capa 1 de todo el sistema con sus bloques de modo y la capa 2 completa?
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Tienes tu sistema de tokens completo, con la misma estructura, método y convención que el de esta web y los valores de tu diseño.
+- Tu sistema está documentado: cada token con su descripción y cada decisión con su motivo, en una página de tu archivo de Figma.
+- Lo has comprobado entero y publicado como versión 1.0.0, listo para crecer con versiones MINOR y PATCH.
+
+</Takeaways>
+
+## Fuentes
+
+Las de las lecciones del módulo. En especial:
+
+- [Semantic Versioning 2.0.0](https://semver.org/)
+- [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
+- [Figma: Lesson 4, Document and manage your system](https://help.figma.com/hc/en-us/articles/14552804059927-Lesson-4-Document-and-manage-your-system)
+- [Figma: View a file's version history](https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history)
+- [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)

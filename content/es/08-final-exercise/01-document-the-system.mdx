@@ -1,0 +1,137 @@
+---
+title: Documentar el sistema
+description: "Qué se documenta en un sistema de tokens y dónde: la función de cada token en su descripción y las decisiones en un registro. Qué lleva una buena descripción y cómo se escribe un registro de todo el sistema."
+nav_title: Documentar el sistema
+lastReviewed: 2026-10-06
+---
+
+Un sistema de tokens sin documentar obliga a adivinar. Quien lo usa no sabe qué token elegir, y quien lo mantiene no sabe por qué un valor es el que es. En los módulos anteriores has tomado muchas decisiones; en esta lección verás dónde se guarda cada una para que no se pierdan.
+
+**En esta página**
+
+- [Dos cosas distintas que documentar](#dos-cosas-distintas-que-documentar)
+- [La descripción de un token](#la-descripción-de-un-token)
+- [Qué tokens llevan descripción](#qué-tokens-llevan-descripción)
+- [El registro de decisiones](#el-registro-de-decisiones)
+- [Dónde vive la documentación](#dónde-vive-la-documentación)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Dos cosas distintas que documentar
+
+Un sistema de tokens responde a dos preguntas, y cada una tiene su sitio:
+
+| Pregunta | Quién la hace | Dónde se responde | Ejemplo de DesignToken101 |
+|---|---|---|---|
+| ¿Para qué sirve este token? | Quien diseña o programa con el sistema | En la **descripción** del token | `color/text/neutral/default`: "Texto principal" |
+| ¿Por qué el sistema es así? | Quien mantiene o cambia el sistema | En el **registro de decisiones** | Por qué el interlineado vive en código y no en Figma |
+
+La descripción viaja con el token: se ve en Figma y llega al código con la exportación. El registro guarda lo que no cabe en un token: las alternativas que descartaste y el motivo.
+
+## La descripción de un token
+
+Lo que dice la fuente:
+
+- **DTCG** define `$description`, una descripción en texto plano del propósito del token. Lo tienen también los grupos. Las herramientas pueden mostrarla junto a una muestra del token, como ayuda en un editor o como comentario en el código generado ([Format Module: Description](https://www.designtokens.org/TR/2025.10/format/#description)).
+- **Figma** tiene un campo de descripción en la ventana de edición de cada variable, para explicar cómo se usa ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+
+Lo que comprobamos: la exportación de Figma escribe esa descripción como `$description` del token, al lado de su valor (exportación de `Semantic color` de DesignToken101, 6 de octubre de 2026):
+
+```json filename="tokens/figma/semantic-color/Light.tokens.json (abreviado)"
+"focus": {
+  "$type": "color",
+  "$value": { "colorSpace": "srgb", "hex": "#0EA075" },
+  "$description": "Anillo de foco (2 px, border-width/200)"
+}
+```
+
+Una descripción escrita una vez en Figma viaja con el token, así que cualquier herramienta que lea el archivo puede usarla: DTCG prevé, por ejemplo, que se convierta en un comentario del código generado.
+
+### Qué lleva
+
+Una buena descripción dice **para qué** sirve el token, y **dónde** se usa si eso ayuda a elegir. No repite el valor, que ya está en el token, ni cuenta la historia de cómo llegó ahí.
+
+| Tipo de token | Qué dice la descripción | Ejemplo de DesignToken101 |
+|---|---|---|
+| Un semántico normal | Su función | `color/text/neutral/subtle`: "Texto secundario" |
+| Uno que se confunde con otro | Cuándo usarlo y cuándo no | `color/border/neutral/strong`: "Bordes que identifican un control (≥ 3:1)" |
+| Uno sin uso todavía | Que no se usa, y por qué existe | `color/background/danger/subtle`: "Fondo de los mensajes de error. Sin uso todavía (S31)" |
+| Una excepción | Su función y el motivo de la excepción | `color/background/overlay`: "…Valor directo: un alias de Figma no puede cambiar la opacidad." |
+
+Los dos últimos tipos son los más importantes. Un token sin uso o un valor directo parecen un error a quien no conoce el motivo. La descripción evita que alguien los "arregle" sin saberlo ([Cuando un semántico no es alias](/relations/direct-values#cómo-se-controla-una-excepción)).
+
+## Qué tokens llevan descripción
+
+Lo que hacen los sistemas de referencia:
+
+- **Atlassian** describe cada token de su lista pública con su uso, y anota la versión en la que se introdujo ([Atlassian: Design tokens, All tokens](https://atlassian.design/components/tokens/all-tokens)).
+- **El SDS de Figma** deja sin descripción sus variables primitivas, en el `tokens.json` de su repositorio ([Simple Design System](https://github.com/figma/sds)).
+
+<Callout variant="recommendation">
+
+En DesignToken101, **todos los semánticos llevan descripción y los primitivos no la necesitan** (S37). Los semánticos son lo que se usa al diseñar y al programar: su nombre dice la función, pero no siempre basta para elegir entre dos parecidos. Los primitivos están ocultos al publicar ([La colección completa](/primitives/primitives-collection)) y su nombre ya es su valor: `space/400` no necesita explicar que mide 16 px. Si en tu sistema algún primitivo se usa directamente al diseñar, descríbelo.
+
+</Callout>
+
+## El registro de decisiones
+
+El registro guarda lo que una descripción no puede contar: qué alternativas había, por qué elegiste una y cuándo. Sin él, la siguiente persona que mire el sistema repetirá la discusión, o cambiará algo que se decidió por un buen motivo.
+
+En el [ejercicio del módulo 7](/accessibility/exercise-accessibility#paso-7-escribe-el-registro-de-decisiones) escribiste un registro de decisiones de accesibilidad. El de todo el sistema tiene la misma forma, con una columna más para saber de dónde viene cada decisión:
+
+| Decisión | Motivo | Alternativas descartadas | Módulo | Fecha |
+|---|---|---|---|---|
+| Espaciado negativo únicamente en código | En Figma, el scope del gap cubre también el padding, y un padding negativo no es válido en CSS | Variables en Figma limitadas al gap | 2 | 2026-09-30 |
+| Interlineado únicamente en código | Figma lee una variable de interlineado como píxeles | Variable en Figma como multiplicador | 2 | 2026-09-30 |
+| `translucent` al 96 % en Light | El anillo de foco no llegaba a 3:1 sobre la cabecera | Cabecera opaca; anillo de dos colores | 7 | 2026-10-05 |
+
+Las tres filas son decisiones reales de DesignToken101 (D02, D01 y S35). El registro completo de esta web está en su repositorio, con todas las decisiones del curso y del sistema ([docs/decisiones.md](https://github.com/ocarballido/design-tokens-101/blob/main/docs/decisiones.md)).
+
+Tres reglas para que el registro siga siendo útil:
+
+1. **Una decisión por fila**, con fecha. Si la cambias, no borres la fila: añade la nueva y anota en la vieja qué la sustituye. Así se ve la historia.
+2. **El motivo, no la descripción.** "Interlineado únicamente en código" es la decisión; "Figma lo lee como píxeles" es el motivo.
+3. **Las alternativas descartadas**, aunque sea una. Es lo primero que preguntará quien quiera cambiarla.
+
+## Dónde vive la documentación
+
+Lo que dice la fuente: el curso de sistemas de diseño de Figma propone, para un equipo pequeño, documentar en el mismo sitio que el sistema o en herramientas como Storybook o Notion; una web propia permite más, pero cuesta construirla y mantenerla. El mismo curso documenta las decisiones del sistema con ejemplos visuales de los valores, como referencia para quien lo usa ([Figma: Lesson 4, Document and manage your system](https://help.figma.com/hc/en-us/articles/14552804059927-Lesson-4-Document-and-manage-your-system)).
+
+<Callout variant="recommendation">
+
+Guarda la documentación **en una página de tu archivo de Figma**, al lado de las variables que describe: la convención de nombres que escribiste en el [ejercicio del módulo 4](/naming/exercise-naming#paso-1-escribe-tu-convención), el registro de decisiones y el registro de cambios ([Versionar el sistema](/final-exercise/version-the-system)). Quien abra el archivo para usar el sistema la encontrará sin buscar.
+
+</Callout>
+
+<InCode title="El registro junto al código">
+
+Si tu sistema vive también en un repositorio, el registro puede ir allí, en un archivo de texto al lado de los tokens. Así cada cambio en los tokens y su motivo entran en el mismo commit, y el historial del repositorio guarda los dos juntos. Es lo que hace esta web: `docs/decisiones.md` registra cada decisión con su estado y su fecha, y una regla del proyecto pide actualizarlo en el mismo commit que cambia la especificación.
+
+Si tu equipo diseña en Figma y programa en un repositorio, elige uno de los dos como sitio del registro y enlázalo desde el otro. Dos registros que se copian acaban diciendo cosas distintas.
+
+</InCode>
+
+## En Figma
+
+Para escribir o revisar las descripciones, abre la vista Variables. En cada fila, el icono de editar abre la ventana de la variable, donde está el campo de descripción ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+
+Recorre una colección entera de una vez, grupo a grupo. Así ves los tokens parecidos uno al lado del otro, y puedes escribir en qué se diferencian mientras los comparas.
+
+<Takeaways>
+
+## Lo que te llevas
+
+- La descripción de cada token dice para qué sirve; el registro de decisiones dice por qué el sistema es así.
+- Todos los semánticos llevan descripción, y las excepciones y los tokens sin uso, también su motivo.
+- La documentación vive al lado del sistema, en una página del archivo de Figma o junto a los tokens en el repositorio.
+
+</Takeaways>
+
+## Fuentes
+
+- [Design Tokens Format Module 2025.10: Description](https://www.designtokens.org/TR/2025.10/format/#description)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Lesson 4, Document and manage your system](https://help.figma.com/hc/en-us/articles/14552804059927-Lesson-4-Document-and-manage-your-system)
+- [Atlassian: Design tokens, All tokens](https://atlassian.design/components/tokens/all-tokens)
+- [Simple Design System (SDS) de Figma](https://github.com/figma/sds)
+- [Repositorio de DesignToken101: docs/decisiones.md](https://github.com/ocarballido/design-tokens-101/blob/main/docs/decisiones.md)

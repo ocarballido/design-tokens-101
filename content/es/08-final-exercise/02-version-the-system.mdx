@@ -1,0 +1,162 @@
+---
+title: Versionar el sistema
+description: "Cómo se numera un sistema de tokens: qué es su API pública, qué cambio es PATCH, MINOR o MAJOR, cuándo llega la 1.0.0, cómo se deja un token obsoleto y qué se anota en el registro de cambios. Y qué ofrece Figma para publicar una versión."
+nav_title: Versionar el sistema
+lastReviewed: 2026-10-06
+---
+
+Un sistema de tokens sigue cambiando después de terminarlo: aparece un caso nuevo, un contraste no llega, un nombre se queda corto. Quien usa el sistema necesita saber, antes de aceptar un cambio, si le va a romper algo. Para eso sirve un número de versión. En esta lección verás cómo se decide ese número y dónde se anota.
+
+**En esta página**
+
+- [Por qué un número](#por-qué-un-número)
+- [La API pública de un sistema de tokens](#la-api-pública-de-un-sistema-de-tokens)
+- [Qué cambio es qué](#qué-cambio-es-qué)
+- [Antes y después de 1.0.0](#antes-y-después-de-100)
+- [Dejar un token obsoleto](#dejar-un-token-obsoleto)
+- [El registro de cambios](#el-registro-de-cambios)
+- [En Figma](#en-figma)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Por qué un número
+
+Lo que dice la fuente: el curso de sistemas de diseño de Figma recomienda que cada versión tenga su entrada en un registro de cambios, con lo nuevo, lo que cambia y lo que se corrige, y un número con el patrón Major.Minor.Patch. Recomienda también no publicar tan a menudo que se abrume a quien usa el sistema, y darle tiempo para adoptar los cambios ([Figma: Lesson 4, Document and manage your system](https://help.figma.com/hc/en-us/articles/14552804059927-Lesson-4-Document-and-manage-your-system)).
+
+Ese patrón es el de **Semantic Versioning** (SemVer), una especificación pública para numerar versiones ([Semantic Versioning 2.0.0](https://semver.org/)). Cada número dice algo a quien recibe el cambio:
+
+- **MAJOR**: hay cambios incompatibles. Puede que tengas que tocar tu diseño o tu código.
+- **MINOR**: hay algo nuevo, compatible con lo que ya usas.
+- **PATCH**: hay correcciones compatibles.
+
+## La API pública de un sistema de tokens
+
+Lo que dice la fuente: SemVer exige declarar una **API pública**, en el propio código o en la documentación. El número cambia según cómo cambia esa API ([Semantic Versioning 2.0.0](https://semver.org/)).
+
+SemVer se escribió para software, así que no dice cuál es la API de un sistema de tokens. Lo que DesignToken101 considera su API pública (S36):
+
+- Los **nombres de las variables publicadas** en Figma: lo que el diseño tiene vinculado.
+- Los **nombres de las variables CSS**: lo que el código usa en `var()`.
+- Las **clases de la capa 2**, si hay código: `bg-neutral-default`, `p-400`…
+
+Los valores no forman parte de la API. Quien usa `color/text/neutral/default` no depende de que sea `#101A15`, sino de que sea el texto principal. Por eso el valor puede cambiar sin romper nada, y el nombre no.
+
+## Qué cambio es qué
+
+Con esa API, cada tipo de cambio tiene su número:
+
+| Cambio | Número | Por qué | Ejemplo de DesignToken101 |
+|---|---|---|---|
+| Cambiar un valor o un alias, sin cambiar nombres | PATCH | Quien usa el token no tiene que hacer nada | `translucent` del 90 % al 96 % en Light, para que el anillo de foco llegue a 3:1 (S35) |
+| Añadir un token, un modo o un estilo de texto | MINOR | Lo que ya existía sigue igual | Los tokens de hover y active de los controles (D12) |
+| Marcar un token como obsoleto | MINOR | Sigue funcionando; avisa de que va a desaparecer | DesignToken101 no ha tenido ninguno |
+| Borrar o renombrar un token publicado | MAJOR | Lo que lo usaba deja de funcionar | DesignToken101 no ha tenido ninguno |
+
+Lo que dice la fuente sobre borrar y renombrar:
+
+- **Borrar.** Al borrar una variable en Figma, las propiedades que la usaban dejan de estar conectadas a ella ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)). En código, si un `var()` apunta a una variable que no existe y no tiene valor de reserva, la propiedad se trata como si valiera `unset`: el color o el tamaño del token desaparece sin dar error ([MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)).
+- **Renombrar.** En Figma, al renombrar una variable se conservan los alias y los vínculos del diseño, pero el code syntax no cambia por sí mismo ([Si tienes que renombrar](/naming/create-variables#si-tienes-que-renombrar)). Si cambias el code syntax para que siga a la ruta, cambia el nombre de la variable CSS, y el código que usaba el nombre anterior se rompe.
+
+Un cambio de valor también puede afectar a alguien. Si un PATCH baja el contraste de un par, el diseño sigue funcionando, pero ya no cumple. Por eso, antes de publicar un cambio de valor, se repiten las comprobaciones de contraste del par afectado ([Contraste de texto](/accessibility/text-contrast#cómo-se-comprueba-un-par)).
+
+Para decidir el número de un cambio, hazte tres preguntas en este orden. La primera respuesta afirmativa decide:
+
+<Flow caption="Tres preguntas para numerar un cambio en un sistema de tokens.">
+  <FlowStep title="¿Borra o renombra un token publicado?" meta="Sí: MAJOR" />
+  <FlowStep title="¿Añade algo o deja un token obsoleto?" meta="Sí: MINOR" />
+  <FlowStep title="¿Cambia un valor o un alias?" meta="Sí: PATCH" />
+</Flow>
+
+Si una misma versión reúne varios cambios, manda el más alto: un token nuevo y un valor corregido son una MINOR.
+
+<Callout variant="note">
+
+Crecer cuesta menos que encoger. Añadir un token cuando aparece un caso nuevo es una MINOR, que nadie tiene que adoptar; quitar uno que sobraba es una MAJOR, que obliga a todos a revisar su trabajo. Es otra razón para el criterio de [Un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve): un token creado por si acaso es una MAJOR esperando.
+
+</Callout>
+
+## Antes y después de 1.0.0
+
+Lo que dice la fuente: la versión 0.y.z es de desarrollo inicial, y en ella cualquier cosa puede cambiar en cualquier momento. La 1.0.0 es la que define la API pública; desde ahí, el número sigue las reglas de arriba ([Semantic Versioning 2.0.0](https://semver.org/)).
+
+Mientras construías tu sistema en los módulos 1 a 7, renombrar o borrar era parte del trabajo. Al cerrar el sistema en el ejercicio de este módulo, lo publicas como **1.0.0**: a partir de ese momento, quien lo use puede confiar en que un nombre no cambia sin una MAJOR. DesignToken101 publica su 1.0.0 al cerrar este módulo (S36).
+
+## Dejar un token obsoleto
+
+Cuando un token va a desaparecer, conviene avisar antes de borrarlo: así quien lo usa tiene una versión entera para cambiarlo.
+
+Lo que dicen las fuentes:
+
+- **SemVer**: marcar algo como obsoleto es un cambio MINOR. Hay que actualizar la documentación para avisar y publicar una MINOR con el aviso. Antes de borrarlo en una MAJOR, debería haber al menos una MINOR con el aviso, para que quien lo usa pueda cambiar a tiempo ([Semantic Versioning 2.0.0](https://semver.org/)).
+- **DTCG** tiene la propiedad `$deprecated` para tokens y grupos. Puede valer `true`, un texto con la explicación o `false`. Un grupo obsoleto lo es con todos sus tokens, salvo los que digan lo contrario, y las herramientas pueden avisar cuando se usa un token obsoleto ([Format Module: Deprecated](https://www.designtokens.org/TR/2025.10/format/#deprecated)):
+
+```json filename="Ejemplo de la especificación DTCG (abreviado)"
+"Button focus": {
+  "$type": "color",
+  "$deprecated": "Please use the border style instead."
+}
+```
+
+- **Figma**: la ayuda de las variables no describe ninguna forma de marcar una variable como obsoleta ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+- **Atlassian** lo hace en dos pasos en su registro de cambios: en la versión 10.1.0, una MINOR, marca como obsoleto `font.body.UNSAFE_small` y dice qué usar en su lugar; en la 13.0.0, una MAJOR, lo borra ([Atlassian: tokens changelog](https://atlassian.design/components/tokens/changelog)).
+
+<Callout variant="recommendation">
+
+Como Figma no tiene la marca, escribe el aviso en la **descripción** de la variable, empezando por él: "Obsoleto desde 1.3.0: usa `color/text/neutral/subtle`". Publica esa MINOR y borra la variable en la siguiente MAJOR. Si tu sistema tiene código, el aviso de la descripción llega a la exportación como `$description`; si quieres el `$deprecated` de DTCG, añádelo en el archivo que escribes a mano o en la normalización, no en la exportación de Figma.
+
+</Callout>
+
+## El registro de cambios
+
+El registro de cambios dice qué trae cada versión. Es distinto del [registro de decisiones](/final-exercise/document-the-system#el-registro-de-decisiones): este explica por qué el sistema es así; aquel, qué cambió y cuándo.
+
+Cada entrada lleva el número, la fecha y los cambios agrupados por tipo:
+
+| Versión | Fecha | Añadido | Cambiado | Obsoleto | Eliminado |
+|---|---|---|---|---|---|
+| 1.1.0 (ejemplo inventado) | Su fecha | `color/border/neutral/hover` | No tiene | No tiene | No tiene |
+| 1.0.0 | Fecha del cierre | El sistema completo | No aplica | No aplica | No aplica |
+
+En las columnas de cambiado, obsoleto y eliminado, escribe también **qué tiene que hacer quien usa el sistema**: "usa `color/text/neutral/subtle` en su lugar". Es la información que más se busca en un registro de cambios.
+
+<Callout variant="warning">
+
+El Resolver de DTCG tiene un campo `version`, pero no es la versión de tu sistema: es la de la especificación, y tiene que valer `2025.10` ([Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)). No pongas ahí tu 1.0.0.
+
+</Callout>
+
+## En Figma
+
+Lo que ofrece Figma para publicar una versión, en el plan Professional:
+
+- **Publicar la biblioteca.** Está en todos los planes de pago. Al publicar los cambios, Figma pide una descripción; quien usa la biblioteca la ve al aceptar las actualizaciones, y queda también en el historial de versiones ([Figma: Publish a library](https://help.figma.com/hc/en-us/articles/360025508373-Publish-a-library)).
+- **Guardar una versión con nombre.** *Save to Version History* guarda el estado del archivo con un título de hasta 25 caracteres y una descripción. Las publicaciones de la biblioteca también quedan en el historial, y se pueden nombrar. El plan Professional conserva el historial completo ([Figma: View a file's version history](https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history)).
+- **Ramas.** Las ramas permiten probar cambios sin tocar el archivo principal, pero son de los planes Organization y Enterprise ([Figma: Guide to branching](https://help.figma.com/hc/en-us/articles/360063144053-Guide-to-branching)).
+
+<Callout variant="recommendation">
+
+Cada vez que publiques una versión, empieza la descripción de la publicación por su número ("1.1.0: añade `color/border/neutral/hover`") y guarda una versión con nombre con el número como título. Así el historial de Figma y tu registro de cambios dicen lo mismo. Como en Professional no hay ramas, guarda también una versión con nombre antes de empezar un cambio grande: si algo sale mal, puedes volver a ella.
+
+</Callout>
+
+<Takeaways>
+
+## Lo que te llevas
+
+- La API pública de un sistema de tokens son sus nombres: cambiar un valor es PATCH, añadir es MINOR y borrar o renombrar es MAJOR.
+- Un token que va a desaparecer se marca como obsoleto en una MINOR y se borra en la siguiente MAJOR.
+- Cada versión tiene su entrada en el registro de cambios y su descripción al publicar la biblioteca en Figma.
+
+</Takeaways>
+
+## Fuentes
+
+- [Semantic Versioning 2.0.0](https://semver.org/)
+- [Design Tokens Format Module 2025.10: Deprecated](https://www.designtokens.org/TR/2025.10/format/#deprecated)
+- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
+- [Figma: Lesson 4, Document and manage your system](https://help.figma.com/hc/en-us/articles/14552804059927-Lesson-4-Document-and-manage-your-system)
+- [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
+- [Figma: Publish a library](https://help.figma.com/hc/en-us/articles/360025508373-Publish-a-library)
+- [Figma: View a file's version history](https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history)
+- [Figma: Guide to branching](https://help.figma.com/hc/en-us/articles/360063144053-Guide-to-branching)
+- [MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)
+- [Atlassian: tokens changelog](https://atlassian.design/components/tokens/changelog)
