@@ -5,6 +5,8 @@ import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §2.2. Con `href` es un enlace; sin él, un <button> (D15).
 // Sin disabled ni loading en v1 (D14).
+// `primary` lleva un borde transparente de border-width/100: con colores forzados el navegador
+// lo pinta con un color del sistema y el botón conserva su contorno (T17, V42).
 
 type ButtonProps = {
   variant?: 'primary' | 'secondary';
@@ -16,7 +18,7 @@ type ButtonProps = {
 
 const VARIANTS = {
   primary:
-    'bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
+    'border-(length:--t101-border-width-100) border-transparent bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
   secondary:
     'border-(length:--t101-border-width-100) border-neutral-strong text-neutral-default hover:bg-neutral-hover active:bg-neutral-active',
 };
