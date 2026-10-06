@@ -10,6 +10,8 @@
 //   6. Los estilos de texto de src/styles/text-styles.css coinciden con la tabla §8 (V15).
 //   7. Tailwind CSS genera las clases de los tokens y no genera las del tema por defecto (V09).
 //      Vigila los espacios de nombres por propiedad, que Tailwind no documenta.
+//   8. En src/ no hay valores arbitrarios entre corchetes fuera de la lista de excepciones, y la
+//      sintaxis de variable entre paréntesis apunta a tokens --t101-* (T17, V43).
 // Uso: npm run tokens && npm run check:tokens
 
 import fs from 'node:fs';
@@ -192,11 +194,56 @@ for (const [cls, declaration] of Object.entries(expected)) {
 for (const cls of forbidden) if (ruleFor(cls)) errors.push(`Tailwind: .${cls} no debería existir`);
 if (!/@media \(width >= 64rem\)\s*\{\s*\.desktop\\:p-400/.test(output)) errors.push('Tailwind: desktop: no usa (width >= 64rem)');
 
+// 8. Valores arbitrarios en src/ (T17, V43). `--*: initial` impide las clases que no salen de los
+//    tokens, pero no los valores entre corchetes (p-[13px], bg-[#316ff6]), que generan su CSS con el
+//    valor escrito a mano. Cada excepción lleva su motivo (tabla "Los corchetes" de
+//    content/es/09-components/05-variants-to-classes.mdx). Las variantes entre corchetes
+//    ([@media(…)]:, data-[…]:) son condiciones, no valores: no se marcan.
+const ARBITRARY_ALLOWED = {
+  'h-[1lh]': 'alto de una línea de texto: marca de Takeaways alineada con la primera línea',
+  'grid-rows-[0fr]': 'plegado animado (InCode, Sidebar): cerrado',
+  'grid-rows-[1fr]': 'plegado animado (InCode, Sidebar): abierto',
+  'transition-[grid-template-rows,visibility]': 'propiedades que se animan; duración y curva son tokens (V24)',
+  'max-h-[calc(100dvh-var(--site-header-height))]': 'sidebar sticky: alto de la pantalla menos la cabecera medida (V28)',
+};
+//    La sintaxis de variable entre paréntesis (border-(length:--x), duration-(--x)) tiene que apuntar
+//    a un token --t101-* definido en tokens.css, salvo estas excepciones.
+const VARIABLE_ALLOWED = {
+  'top-(--site-header-height)': 'sidebar sticky debajo de la cabecera: altura medida en código, no es un token (V28)',
+};
+const sourceFiles = fs
+  .readdirSync(path.join(ROOT, 'src'), { recursive: true })
+  .filter((file) => /\.(tsx?|css|mdx?)$/.test(file))
+  .map((file) => path.join('src', file));
+let arbitraryCount = 0;
+for (const file of sourceFiles) {
+  read(file)
+    .split('\n')
+    .forEach((line, i) => {
+      const where = `${file}:${i + 1}`;
+      // Clase con valor arbitrario (p-[13px]) y propiedad arbitraria ([color:#f00]), sin las variantes (…]:).
+      const arbitrary = [
+        ...line.matchAll(/[a-z0-9-]+-\[[^\]]+\](?!:)/g),
+        ...line.matchAll(/(?<![\w-])\[[a-z-]+:[^\]]+\](?!:)/g),
+      ];
+      for (const [cls] of arbitrary) {
+        arbitraryCount += 1;
+        if (!(cls in ARBITRARY_ALLOWED)) errors.push(`${where}: valor arbitrario ${cls} (usa un token o añade la excepción con su motivo)`);
+      }
+      for (const [cls, name] of line.matchAll(/[a-z0-9-]+-\((?:[a-z-]+:)?(--[\w-]+)\)/g)) {
+        if (cls in VARIABLE_ALLOWED) continue;
+        if (!name.startsWith('--t101-')) errors.push(`${where}: ${cls} no apunta a un token --t101-*`);
+        else if (!defined.has(name)) errors.push(`${where}: ${cls}: ${name} no está definido en tokens.css`);
+      }
+    });
+}
+
 console.log(
   `tokens.css: ${blocks.root.size} en :root · ${blocks.darkAttr.size} en [data-theme="dark"] · ` +
     `${blocks.darkMedia.size} en prefers-color-scheme · ${blocks.desktop.size} en Desktop`,
 );
 console.log(`theme.css: ${(themeCss.match(/^\s+--[\w-]+:/gm) ?? []).length} variables de Tailwind`);
+console.log(`src/: ${sourceFiles.length} archivos · ${arbitraryCount} valores arbitrarios (${Object.keys(ARBITRARY_ALLOWED).length} excepciones)`);
 if (errors.length) {
   console.error(`\n${errors.length} error(es):\n- ${errors.join('\n- ')}`);
   process.exit(1);
