@@ -1,6 +1,6 @@
 # Investigación del módulo 8: cerrar un sistema de tokens
 
-Sesión de contenido, 2026-10-06. Tarea 1 del módulo 8 (Ejercicio final, T1, P5, P11, P16). Pendiente de la aprobación de Oscar.
+Sesión de contenido, 2026-10-06. Tarea 1 del módulo 8 (Ejercicio final, T1, P5, P11, P16). **Aprobada por Oscar el 2026-10-06**, con las recomendaciones de §6: S36, S37 y T15.
 
 Pregunta: qué hace falta para **cerrar** un sistema de tokens. Tres frentes: documentar las decisiones, la comprobación final y el versionado. En cada apartado se separa **lo que dice la fuente** de **la recomendación** de la sesión de contenido. Las pruebas propias dicen con qué se hicieron y cuándo.
 
@@ -188,6 +188,8 @@ P11 ("un sistema tan grande como lo que resuelve") ya está en `what-is-designto
 ---
 
 ## 6. Huecos y decisiones para Oscar
+
+**Decididas el 2026-10-06:** Oscar elige la recomendación en los seis puntos (1 A, 2 A, 3 opcional, 4 únicamente si se prueba, 5 A, 6 con el índice). Registradas en S36, S37 y T15. En el punto 2, la reexportación del 2026-10-06 trae al día la descripción de `translucent`, pero los 14 semánticos siguen sin descripción.
 
 1. **Versión de DesignToken101.** La especificación dice "v1" y P16 pide una versión en la portada del archivo de referencia, pero el sistema no tiene número. Opciones:
    - A. **1.0.0 con el cierre del módulo 8**, registro de cambios en `docs/sistema-tokens-v1.md` (el que ya tiene) y la misma cifra en la portada del archivo de referencia. *Recomendada:* el módulo enseña a hacerlo y la web lo hace.
