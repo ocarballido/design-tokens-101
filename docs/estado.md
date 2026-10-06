@@ -207,6 +207,14 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
   **Decidido (2026-10-06): opción 1.** Activarlas a mano podría desvincular el estilo y dejar un valor suelto en el archivo de referencia (P16).
 - ~~**S35 en Figma:** el valor Light de `color/background/neutral/translucent` está al 96 %, pero **la descripción sigue diciendo 90 %** (también en `tokens/figma/semantic-color/Light.tokens.json`). Lo cambia Oscar y reexporta Semantic color (C10).~~ **Resuelto el 2026-10-06:** descripción cambiada en Figma y Semantic color reexportada.
 
+**Archivo de referencia (P16): estructura aprobada y TokensDS preparado, 2026-10-06 (D37)**
+- Estructura de 7 páginas (Léeme, Convención, Primitivos, Semánticos, Estilos de texto, Componentes, Plantillas), sin componentes nuevos. Detalle en D37.
+- **Hecho en TokensDS:** 21 iconos de Lucide como componentes locales (89 instancias sustituidas, ningún color perdido, ninguna instancia remota); descripción en español en los 31 componentes; marcos de presentación con tokens; nombres de marco sin códigos ni guion largo. Auditoría sin valores sueltos. Detalle en `entrega-diseno.md` §3.8.
+- **Descripciones de los semánticos (S37):** las 33 tienen descripción; 11 de las 14 nuevas se reescribieron para que cada una diga solo su papel.
+- **Pendiente de Oscar:** reexportar Semantic color (la exportación del repositorio no tiene aún las 14 descripciones) y duplicar TokensDS como "DesignToken101: sistema de referencia" para el bloque 3.
+- **Bloque 3 (en la copia):** páginas Léeme, Convención, Primitivos y Semánticos; quitar los marcos de exportación; comparar colecciones, modos, scopes, code syntax, descripciones y visibilidad con `tokens/figma/`; preparar descripción, etiquetas e imágenes para Community.
+- **Publicación:** con 1.0.0 (S36), cuando se cierre el módulo 8 y la web esté desplegada (hace falta su enlace), después de revisar la licencia (CC BY 4.0 en los archivos gratuitos, según la ayuda de Figma) y de la prueba con una cuenta Starter (P16).
+
 **Pendiente**
 - Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).
 

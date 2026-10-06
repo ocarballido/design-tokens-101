@@ -26,10 +26,11 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Átomos (`Icon`, `Code`, `TableCell`, `LanguageOption`, `ThemeOption`, `Symbol`, `Logo`) | Components | [24:847](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=24-847) |
 | Moléculas (`Button`, `IconButton`, `Link`, `Callout`, `InCode`, `CodeBlock`, `SkipLink`, `LessonHeader`, `SidebarItem`, `SidebarSection`, `PageNavLink`, `LanguageSwitcher`, `ThemeToggle`) | Components | [24:849](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=24-849) |
 | Organismos (`SiteHeader`, `SiteFooter`) | Components | [35:242](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-242) |
-| Lección, escritorio, Light / Dark | Pages | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
+| Lección, escritorio, Light / Dark ("Lección · Desktop · Light" / "· Dark", D37) | Pages | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
 | Lección, móvil, Light / Dark | Pages | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
 | Menú móvil abierto (panel lateral, V25), Light / Dark | Pages | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
-| Muestra de estilos de texto | Foundations |: |
+| Muestra de estilos de texto (marcos "Estilos de texto · Desktop · Light", "· Dark" y "· Mobile · Light") | Foundations | 14:12, 14:40, 16:13 |
+| Iconos de Lucide como componentes locales (21, `li:*`, D37) | Components | [108:1963](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1963) |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
 | Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark | Pages | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
 | `Takeaways` (C18 + V35, D28; §3.4 de este documento) | Components | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364) |
@@ -247,6 +248,14 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 - Todo el texto con estilo: los 42 textos con estilo mixto combinan `body/default` y `body/strong` por tramos (D17), sin tramos sin estilo.
 - Todas las variantes `focus` con anillo `border/focus`; todas las variantes con `state` miden 24 × 24 px o más.
 - Contraste del número: usa la misma variable y está sobre el mismo fondo que el título en cada variante, así que coincide con §4.2 de `componentes-v1.md`: 17,79 / 18,89; `current` 5,08 / 10,92; `current` en hover 6,62 / 10,58.
+
+### 3.8 TokensDS preparado para el archivo de referencia (D37, 2026-10-06)
+
+- **Iconos:** los 21 `li:*` son componentes del archivo (marco `Iconos`, 108:1963), copiados de la biblioteca de Lucide. Las 89 instancias se sustituyeron conservando su color vinculado. En código no cambia nada: siguen siendo `lucide-react` (D08).
+- **Descripciones:** los 31 componentes tienen descripción en español, con su apartado de `componentes-v1.md`, props y decisiones. Los 33 semánticos de color tienen la suya (S37).
+- **Marcos de presentación** de Components (`Atoms`, `Molecules`, `Organisms`, `Takeaways`, `ColorScale`) con tokens: `background/neutral/default` y `space/800`.
+- **Nombres:** plantillas "Lección · {Desktop o Mobile} · {Light o Dark}" (y "· Menú abierto"), "Flow: metodología" y estilos de texto en español. Los nodos no cambian.
+- Auditoría de la página Components tras los cambios: sin valores sueltos.
 
 ## 4. Accesibilidad comprobada en el diseño
 
