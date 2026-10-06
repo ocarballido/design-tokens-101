@@ -1,11 +1,11 @@
 ---
 title: "Ejercicio: nombra tu mapa y crea las colecciones"
-description: Escribe tu convención de nombres, nombra cada función de tu mapa de alias y crea las colecciones semánticas en Figma, con alias, scope, descripción y code syntax. Termina preparando los modos del módulo 5.
+description: Escribe tu convención de nombres, nombra cada función de tu mapa de alias, crea las colecciones semánticas en Figma, con alias, scope, descripción y code syntax, y crea tus estilos de texto. Termina preparando los modos del módulo 5.
 nav_title: Ejercicio
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-06
 ---
 
-En este ejercicio conviertes tu mapa de alias del módulo 3 en variables de Figma. Primero escribes tu convención y nombras cada función; después creas las colecciones semánticas con todo lo que necesita cada variable. Al terminar, tu sistema tiene por fin sus dos capas en Figma: primitivos y semánticos.
+En este ejercicio conviertes tu mapa de alias del módulo 3 en variables de Figma. Primero escribes tu convención y nombras cada función; después creas las colecciones semánticas con todo lo que necesita cada variable y los estilos de texto, la capa semántica de la tipografía. Al terminar, tu sistema tiene por fin sus dos capas en Figma: primitivos y semánticos.
 
 **En esta página**
 
@@ -15,8 +15,9 @@ En este ejercicio conviertes tu mapa de alias del módulo 3 en variables de Figm
 - [Paso 3 Nombra los estados](#paso-3-nombra-los-estados)
 - [Paso 4 Revisa la lista de nombres](#paso-4-revisa-la-lista-de-nombres)
 - [Paso 5 Crea las colecciones](#paso-5-crea-las-colecciones)
-- [Paso 6 Pruébalas en tu diseño](#paso-6-pruébalas-en-tu-diseño)
-- [Paso 7 Prepara los modos](#paso-7-prepara-los-modos)
+- [Paso 6 Crea tus estilos de texto](#paso-6-crea-tus-estilos-de-texto)
+- [Paso 7 Pruébalas en tu diseño](#paso-7-pruébalas-en-tu-diseño)
+- [Paso 8 Prepara los modos](#paso-8-prepara-los-modos)
 - [Comprueba tus colecciones](#comprueba-tus-colecciones)
 - [Lo que te llevas](#lo-que-te-llevas)
 
@@ -24,6 +25,7 @@ En este ejercicio conviertes tu mapa de alias del módulo 3 en variables de Figm
 
 - Tu mapa de alias del [ejercicio del módulo 3](/relations/exercise-aliases), con cada función descrita en palabras y su primitivo en cada modo.
 - Tu archivo de Figma con la colección `Primitives` del módulo 2.
+- Las combinaciones de texto que agrupaste en el [inventario del módulo 1](/fundamentals/exercise-inventory#paso-5-agrupa-los-compuestos).
 - Una hoja de cálculo o una tabla en cualquier editor.
 - Entre 60 y 120 minutos.
 
@@ -91,13 +93,23 @@ Para cada fila de tu tabla, crea una variable con:
 
 No crees todavía el modo Dark ni la colección `Layout`: llegan en el módulo siguiente.
 
-## Paso 6 Pruébalas en tu diseño
+## Paso 6 Crea tus estilos de texto
 
-Elige una pantalla de tu diseño y cambia sus valores sueltos por las variables semánticas: el fondo, los textos, los bordes y algún botón.
+Los estilos de texto son la capa semántica de la tipografía ([Estilos de texto como capa](/relations/text-styles)). Parte de las combinaciones de texto de tu inventario: cada combinación que se repite es un estilo.
+
+1. **Nómbralo por su rol**, no por su tamaño: `heading/1`, `body/default`, `label/default`. Usa los roles que necesita tu diseño, no más.
+2. **Vincula sus propiedades a tus primitivos**, como en [Estilos de texto como capa](/relations/text-styles#en-figma): familia, tamaño y peso con sus variables; el interlineado, en porcentaje y sin variable. El tamaño apunta de momento a su primitivo `font-size/*`: lo cambiarás a la colección `Layout` en el módulo siguiente.
+3. **Si tu diseño pone en negrita una parte de un párrafo**, crea un estilo para ese texto destacado, como `body/strong` ([Un texto sin estilo es un valor suelto](/relations/text-styles#un-texto-sin-estilo-es-un-valor-suelto)).
+
+Si quieres los de DesignToken101, crea los diez estilos de [Los diez estilos](/relations/text-styles#los-diez-estilos).
+
+## Paso 7 Pruébalas en tu diseño
+
+Elige una pantalla de tu diseño y cambia sus valores sueltos por las variables semánticas y los estilos de texto: el fondo, los textos, los bordes y algún botón.
 
 Mientras lo haces, fíjate en el selector de variables. Al elegir el color de un texto, deberías ver los tokens `color/text/*` y no los de fondo ni los de borde. Si aparece un token donde no toca, revisa su scope. Si no encuentras el token que necesitas, puede que falte una función en tu mapa: añádela con su nombre y su alias.
 
-## Paso 7 Prepara los modos
+## Paso 8 Prepara los modos
 
 El módulo Modos y temas añade los modos a tus colecciones ([ejercicio del módulo 5](/modes/exercise-modes)). Prepara tu mapa para ese momento:
 
@@ -114,6 +126,7 @@ Tus colecciones están listas si puedes responder que sí a estas preguntas:
 - ¿Ningún nombre es a la vez token y grupo?
 - ¿Cada semántico es un alias de un primitivo, salvo las excepciones con su motivo en la descripción?
 - ¿Cada variable tiene descripción, scope de su propiedad y un code syntax que coincide con su nombre?
+- ¿Cada combinación de texto repetida tiene su estilo, nombrado por su rol y con familia, tamaño y peso vinculados a variables?
 - ¿Al aplicar las variables a una pantalla, cada selector muestra únicamente los tokens de su propiedad?
 - ¿Tu mapa tiene la columna Dark y los tamaños de texto de escritorio y móvil anotados?
 
@@ -128,7 +141,7 @@ Guarda la convención donde la encuentre quien trabaje con el sistema: en una p�
 ## Lo que te llevas
 
 - Tienes tu convención de nombres escrita, con su orden, su vocabulario y su regla de estados.
-- Tienes las colecciones semánticas en Figma, con cada variable nombrada, con su alias, su scope y su code syntax.
+- Tienes las colecciones semánticas en Figma, con cada variable nombrada, con su alias, su scope y su code syntax, y tus estilos de texto.
 - Tu mapa está listo para añadir los modos en el módulo Modos y temas.
 
 </Takeaways>
