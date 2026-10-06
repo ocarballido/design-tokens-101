@@ -1,6 +1,6 @@
 # Investigación del módulo 9: componentes que consumen los tokens
 
-Sesión de contenido, 2026-10-06. Tarea 1 del módulo 9 (Componentes y código, T1, T4, P2, P10, P11). **Pendiente de la aprobación de Oscar.**
+Sesión de contenido, 2026-10-06. Tarea 1 del módulo 9 (Componentes y código, T1, T4, P2, P10, P11). **Aprobada por Oscar el 2026-10-06**, con las siete recomendaciones de §8 (T17).
 
 Pregunta: qué tiene que saber quien termina el módulo 8 para que un componente **consuma** su sistema de tokens, en Figma y en código, sin valores sueltos y sin perder lo que el sistema garantiza (modos, contraste, foco). El módulo no enseña a crear un sistema de diseño ni una biblioteca de componentes (P10, T5, `what-we-teach`: "Los componentes aparecen en el módulo 9 como consumidores de los tokens"). En cada apartado se separa **lo que dice la fuente** de **la recomendación** de la sesión de contenido. Las pruebas propias dicen con qué se hicieron y cuándo.
 
