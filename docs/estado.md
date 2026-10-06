@@ -189,14 +189,14 @@ Qué está hecho, qué falta y qué está bloqueado en cada frente. **Cada sesi�
 - SVG en `public/brand/` (mismos nombres): `logo-colored.svg` y `logo-colored-dark.svg` de 184 × 44; `logo-gray.svg` y `logo-gray-dark.svg` de 143 × 34. Comprobados contra la exportación de Figma con una suma FNV-1a: `logo-gray.svg` idéntico; `logo-colored.svg` idéntico salvo el semicírculo verde, que conserva el trazado anterior; las versiones Dark, con el color cambiado (V20).
 - ~~**Para desarrollo:** cambiar las medidas de `src/components/Logo.tsx` (208 × 44 → 184 × 44; 160 × 34 → 143 × 34) y comprobar cabecera, pie y panel móvil en Light y Dark.~~ Hecho por la sesión de desarrollo (ver Desarrollo → "Logotipo P15 en código").
 
-**Número del módulo en `SidebarSection` (C19, V40): hecho en Figma el 2026-10-06 (D36), pendiente de la revisión de Oscar**
+**Número del módulo en `SidebarSection` (C19, V40): hecho en Figma el 2026-10-06 (D36), cerrado el mismo día (Oscar sigue las recomendaciones)**
 - Propiedades `number` (texto) y `showNumber` (booleana, solo Figma) en las 12 variantes de 27:910; capa `Number` con `label/default` y el color del título en cada estado; hueco `space/200`. Plantillas: 0 a 7, Recursos sin número y sección nueva "7 Accesibilidad" (el código ya la tenía; las plantillas no). Detalle en `entrega-diseno.md` §3.7.
 - Auditoría del archivo (2026-10-06): sin valores sueltos en componentes ni plantillas (diez `itemSpacing` sin efecto pasados a 0), texto con estilo, foco con anillo, objetivos ≥ 24 × 24 px, contraste del número igual que el del título.
 - **Cifras tabulares, para que decida Oscar.** En código, `tabular-nums` alinea los títulos (todos los números miden 9,08 px). En Figma, `label/default` tiene cifras proporcionales ("1" 7 px, "0", "3" y "4" 10 px, el resto 9 px) y los títulos se desplazan hasta 3 px. La API de plugins no deja activar las cifras tabulares (prueba del 2026-10-06). Opciones:
   1. **Aceptar la diferencia** en Figma (hasta 3 px) y dejarla en `componentes-v1.md` §4.10 (como está ahora).
   2. **Activarlas a mano** en la capa `Number` de las 12 variantes (panel de texto → detalles del tipo → números tabulares). Sin comprobar si Figma lo trata como un cambio sobre el estilo que lo desvincula: Oscar lo ve al hacerlo.
   3. **Ancho fijo** en el número: descartada, ningún token de espacio mide 9 o 10 px (sería un valor suelto).
-  Recomendación: la 2 si el texto sigue vinculado a `label/default`; si no, la 1.
+  **Decidido (2026-10-06): opción 1.** Activarlas a mano podría desvincular el estilo y dejar un valor suelto en el archivo de referencia (P16).
 - **S35 en Figma:** el valor Light de `color/background/neutral/translucent` está al 96 %, pero **la descripción sigue diciendo 90 %** (también en `tokens/figma/semantic-color/Light.tokens.json`). Lo cambia Oscar y reexporta Semantic color (C10).
 
 **Pendiente**
