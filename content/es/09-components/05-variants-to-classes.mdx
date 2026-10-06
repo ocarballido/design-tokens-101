@@ -62,7 +62,7 @@ const VARIANTS = {
 };
 ```
 
-`border-(length:--t101-border-width-100)` es la forma de usar el token de grosor de borde, que no tiene clase propia en Tailwind ([Lo que no se expone](/figma-to-code/tailwind-theme#lo-que-no-se-expone)).
+`border-(length:--t101-border-width-100)` es la forma de usar el token de grosor de borde, que no tiene clase propia en Tailwind ([Lo que no se expone](/figma-to-code/tailwind-theme#lo-que-no-se-expone)). `border-transparent` es una de las palabras clave de la sección siguiente: el borde del `primary` no se ve, y sirve para los colores forzados ([Un borde para los colores forzados](/components/component-accessibility#un-borde-para-los-colores-forzados)).
 
 Otras bibliotecas hacen lo mismo con una dependencia. shadcn/ui, por ejemplo, usa la librería `cva`, con un objeto `variants` y un `defaultVariants` ([shadcn/ui: Button](https://ui.shadcn.com/docs/components/button)). Para entender el patrón no hace falta: un objeto de JavaScript basta.
 
@@ -70,7 +70,9 @@ Otras bibliotecas hacen lo mismo con una dependencia. shadcn/ui, por ejemplo, us
 
 ## Lo que garantiza el tema
 
-El tema de Tailwind de DesignToken101 empieza con `--*: initial`, que quita el tema por defecto: **únicamente existen las clases que salen de los tokens** ([La segunda capa](/figma-to-code/tailwind-theme#la-segunda-capa)). Si alguien escribe `bg-red-500` en un componente, Tailwind no genera CSS para esa clase, y el error se ve en pantalla.
+El tema de Tailwind de DesignToken101 empieza con `--*: initial`, que quita el tema por defecto: **las clases de color, espacio, radio y tamaño salen de los tokens** ([La segunda capa](/figma-to-code/tailwind-theme#la-segunda-capa)). Si alguien escribe `bg-red-500` en un componente, Tailwind no genera CSS para esa clase, y el error se ve en pantalla.
+
+Quedan unas pocas clases que no salen del tema, porque Tailwind CSS las tiene como valores fijos: las palabras clave de CSS, como `border-transparent`, `bg-transparent` o `border-current` (comprobado con Tailwind CSS 4.3.3 y el tema de esta web, 2026-10-06). No son valores sueltos: no escriben ningún color ni ninguna medida.
 
 Esa garantía tiene un límite. Tailwind CSS admite **valores arbitrarios** entre corchetes, como `p-[13px]` o `bg-[#316ff6]`, para valores puntuales que están fuera del tema ([Tailwind CSS: Using arbitrary values](https://tailwindcss.com/docs/styling-with-utility-classes#using-arbitrary-values)). Un valor arbitrario no pasa por el tema, así que `--*: initial` no lo detiene: genera su CSS con el valor escrito a mano.
 
@@ -105,7 +107,7 @@ grep -rnoE '[a-z0-9-]+-\[[^]]+\]' src
 
 Probada con el código de DesignToken101 y con un archivo inventado con `p-[13px]` y `bg-[#316ff6]` (2026-10-06): encuentra las clases de la tabla y las dos inventadas.
 
-En DesignToken101, `npm run check:tokens` hace la misma búsqueda en cada comprobación, con la lista de excepciones de la tabla, y falla si encuentra una clase entre corchetes que no esté en la lista.
+En DesignToken101, `npm run check:tokens` hace esta búsqueda y algo más en cada comprobación. Falla si encuentra una clase entre corchetes que no esté en la lista de excepciones de la tabla. También encuentra las **propiedades arbitrarias**, como `[color:#f00]`, que escriben un valor a mano y que este `grep` no ve. Y exige que la sintaxis de variable entre paréntesis, como `border-(length:--t101-border-width-100)`, apunte a un token `--t101-*` que exista, con una excepción: `top-(--site-header-height)`, la altura medida de la cabecera, que no es un token.
 
 </InCode>
 

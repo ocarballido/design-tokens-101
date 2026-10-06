@@ -43,7 +43,7 @@ El paso 6 es el que más enseña a un diseñador: el cambio del CSS es el reflej
 
 ## Qué vigila la comprobación
 
-La comprobación compara lo generado con sus fuentes: la exportación de Figma, la especificación del sistema y Tailwind CSS. Son siete grupos de reglas:
+La comprobación compara lo generado con sus fuentes: la exportación de Figma, la especificación del sistema y Tailwind CSS. Son ocho grupos de reglas:
 
 | Qué compara | Qué exige |
 |---|---|
@@ -54,8 +54,9 @@ La comprobación compara lo generado con sus fuentes: la exportación de Figma, 
 | Los tokens de código | Que sus valores sean los de la especificación. Y que los tres que pasaron de código a Figma estén en la exportación y den el mismo CSS que antes |
 | Los estilos de texto | Que cada clase `type-*` tenga la familia, el tamaño, el interlineado y el peso de la tabla ([Los estilos de texto en código](/figma-to-code/text-styles-in-code)) |
 | Las clases de Tailwind CSS | Que existan las de los tokens, como `bg-neutral-default` o `desktop:`, y que no existan las del tema por defecto, como `bg-red-500` o `p-4` |
+| Los componentes | Que no tengan valores arbitrarios, como `p-[13px]`, salvo las excepciones con motivo, y que la sintaxis de variable entre paréntesis apunte a un token que existe ([Los corchetes](/components/variants-to-classes#los-corchetes)) |
 
-La última fila vigila también los espacios de nombres por propiedad, que funcionan pero no están documentados ([Un espacio de nombres por propiedad](/figma-to-code/tailwind-theme#un-espacio-de-nombres-por-propiedad)). Si una versión de Tailwind CSS deja de generar `bg-neutral-default`, la comprobación falla antes de publicar.
+La fila de las clases de Tailwind CSS vigila también los espacios de nombres por propiedad, que funcionan pero no están documentados ([Un espacio de nombres por propiedad](/figma-to-code/tailwind-theme#un-espacio-de-nombres-por-propiedad)). Si una versión de Tailwind CSS deja de generar `bg-neutral-default`, la comprobación falla antes de publicar.
 
 <Callout variant="note">
 
@@ -101,6 +102,7 @@ npm run check:tokens
 ```txt
 tokens.css: 155 en :root · 33 en [data-theme="dark"] · 33 en prefers-color-scheme · 9 en Desktop
 theme.css: 89 variables de Tailwind
+src/: 39 archivos · 8 valores arbitrarios (5 excepciones)
 Sin errores.
 ```
 

@@ -28,7 +28,7 @@ La diferencia importa porque cada clase de estado se resuelve de una forma en c�
 
 ## En Figma, una variante
 
-En Figma, los dos se dibujan igual: con una propiedad de variante, que según su ayuda sirve para las variaciones de un componente, como sus estados, tamaños o colores ([Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)). El `Button` de DesignToken101 tiene dos propiedades de variante, `variant` y `state`, y por eso ocho dibujos: dos variantes por cuatro estados.
+En Figma, los dos se dibujan igual: con una propiedad de variante, que según su ayuda sirve para las variaciones de un componente, como sus estados, tamaños o colores ([Figma: Explore component properties](https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties)). El `Button` de DesignToken101 tiene tres propiedades de variante, `variant`, `showIcon` y `state`, y por eso dieciséis dibujos: dos variantes, con icono y sin él, por cuatro estados. `showIcon` es una variante y no un booleano porque el icono no se limita a aparecer: cambia el relleno del botón (en código, `ps-400 pe-300` en lugar de `px-400`). Es la fila "booleano que cambia el aspecto" de [El mismo nombre en los dos lados](/components/components-and-tokens#el-mismo-nombre-en-los-dos-lados).
 
 Cada dibujo aplica los tokens de su columna en la [tabla de anatomía](/components/anatomy-table#la-tabla-de-button). Así se revisa en Figma el `hover` o el foco de un control sin programarlo.
 

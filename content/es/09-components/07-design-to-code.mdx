@@ -62,12 +62,13 @@ DesignToken101 no lo usa: el curso parte de Figma Professional ([Requisitos](/st
 
 ## Cuando el dibujo y la especificación no coinciden
 
-Un componente de DesignToken101 existe en tres sitios: la tabla de anatomía, el dibujo de Figma y el código. Cuando dos de ellos dicen cosas distintas, uno tiene que mandar. Dos casos reales:
+Un componente de DesignToken101 existe en tres sitios: la tabla de anatomía, el dibujo de Figma y el código. Cuando dos de ellos dicen cosas distintas, uno tiene que mandar. Tres casos reales:
 
 - **Mandó la tabla.** Al implementar el `Callout`, la etiqueta ("Nota", "Aviso") estaba dibujada en Figma con el color neutro del texto, y la tabla de anatomía la ponía en el color de su rol, con el contraste ya calculado. Se siguió la tabla, y después se cambió el dibujo de Figma.
 - **Mandó el código.** El recuadro de "Lo que te llevas" se ajustó en el navegador (fondo, bordes y huecos) antes de existir en Figma. Se registraron los cambios y después se pasó el componente a Figma con esos tokens.
+- **Mandó la tabla, otra vez.** Al añadir el borde del `Button` `primary` en Figma, apareció otra diferencia: el `secondary` del archivo tenía borde únicamente en `active`, y la tabla lo pide en los cuatro estados, como el código. Se corrigió el dibujo, y desde entonces las dos variantes miden lo mismo en Figma y en el navegador.
 
-En los dos casos se hizo lo mismo, en este orden: **decidir qué lado manda, escribir la decisión y actualizar el otro lado**. Lo que no se hizo es dejar la diferencia sin resolver: un componente que se ve distinto en Figma y en la web enseña a desconfiar de los dos.
+En los tres casos se hizo lo mismo, en este orden: **decidir qué lado manda, escribir la decisión y actualizar el otro lado**. Lo que no se hizo es dejar la diferencia sin resolver: un componente que se ve distinto en Figma y en la web enseña a desconfiar de los dos.
 
 <Callout variant="recommendation">
 

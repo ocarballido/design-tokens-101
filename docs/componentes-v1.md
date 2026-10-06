@@ -96,11 +96,11 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 |---|---|---|
 | `variant` | `'primary' \| 'secondary'` | Variante |
 | `children` | texto de la etiqueta | Texto |
-| `icon` | icono opcional, al final | Intercambio de instancia + booleano `showIcon` |
+| `icon` | icono opcional, al final | Intercambio de instancia + variante `showIcon` (D39) |
 | `href` | `string` opcional |: (con `href` es un enlace `<a>`; sin él, un `<button>`) |
 | `state` | solo Figma | Variante: `default`, `hover`, `active`, `focus` |
 
-**Variantes en Figma:** `variant` (2) × `state` (4) = 8.
+**Variantes en Figma:** `variant` (2) × `showIcon` (2) × `state` (4) = 16 (D39: en TokensDS, `showIcon` es una variante, porque con icono cambia el relleno; antes decía 8).
 
 **Tokens de `primary`.**
 

@@ -82,9 +82,11 @@ Las variantes del `Callout` se distinguen por su color, pero no únicamente por 
 
 Con los colores forzados del sistema (los temas de contraste de Windows, por ejemplo), el navegador sustituye los colores del autor: los tokens de color desaparecen y los de forma, como los grosores, se quedan ([Colores forzados y más contraste](/accessibility/forced-colors-and-contrast#qué-queda-de-los-tokens)).
 
-El `Button` `primary` cumple todos sus pares de contraste, pero se reconoce por su fondo de color y no tenía borde. Con colores forzados, ese fondo desaparece, y en la prueba del módulo 7 (Chromium 141, 2026-10-05) el botón se vio como texto suelto, sin nada que lo delimitara.
+El `Button` `primary` cumple todos sus pares de contraste, pero se reconoce por su fondo de color y no tenía borde. Con colores forzados, ese fondo toma el color de fondo del sistema, el mismo de la página, y el botón se ve como texto suelto, sin nada que lo delimite.
 
-La corrección está en un token de forma: DesignToken101 le añade un borde de `border-width/100` con color transparente. Sin colores forzados, el borde no se ve y el botón no cambia de aspecto. Con colores forzados, el navegador pinta ese borde con un color del sistema, y el botón vuelve a tener contorno. En otra prueba del módulo 7 (Chromium 141, 2026-10-06), un botón con fondo de color y un borde transparente de 2 px mostró un borde negro de 2 px con colores forzados; sin borde, no mostró ninguno.
+La corrección está en un token de forma: DesignToken101 le añade un borde de `border-width/100` con color transparente. Sin colores forzados, el borde no se ve y el botón no cambia de aspecto. Con colores forzados, el navegador pinta ese borde con un color del sistema, y el botón vuelve a tener contorno.
+
+Lo comprobamos con el componente de esta web, antes y después del cambio (Chrome 154 sin interfaz, colores forzados emulados con las herramientas de desarrollo, 2026-10-06). Antes, el `primary` se veía como texto suelto. Después, con colores forzados, muestra un borde sólido de 1 px, negro con el esquema claro y blanco con el oscuro, igual que el `secondary`; sin colores forzados, el borde no se ve.
 
 <Callout variant="recommendation">
 
@@ -95,6 +97,8 @@ Da un borde a cada control que se reconozca por su fondo, aunque sea transparent
 `transparent` no es un token: es una palabra clave de CSS que significa "sin color". El grosor sí es un token, y es lo que se queda con los colores forzados.
 
 ## En Figma
+
+En el archivo de Figma, el borde del `primary` lleva la misma variable que el fondo de cada estado: Figma no tiene una variable transparente, y un trazo al 0 % de opacidad sería un valor suelto ([Un trazo por marco](/components/components-in-figma#un-trazo-por-marco)). Se ve igual y mide lo mismo; con colores forzados, lo que importa es el código.
 
 Lo que ve un lector de pantalla no se dibuja, pero se puede dejar escrito. En la descripción de cada componente de Figma, anota el elemento (`<a>` o `<button>`), de dónde sale su nombre accesible y qué atributo anuncia cada variante de situación (`open` → `aria-expanded`). Es lo primero que necesita quien lo implementa, y lo verá junto al componente.
 

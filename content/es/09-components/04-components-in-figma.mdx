@@ -10,6 +10,7 @@ Con la tabla de anatomía escrita, crear el componente en Figma es aplicar cada 
 **En esta página**
 
 - [Una variable en cada parte](#una-variable-en-cada-parte)
+- [Un trazo por marco](#un-trazo-por-marco)
 - [El texto con su estilo](#el-texto-con-su-estilo)
 - [Sin modo en el componente principal](#sin-modo-en-el-componente-principal)
 - [Pruébalo en los cuatro modos](#pruébalo-en-los-cuatro-modos)
@@ -26,13 +27,21 @@ Cada variante del componente es un dibujo con las celdas de su columna de la tab
 | Fondo | Relleno del marco | Color (`background/…`) |
 | Borde | Trazo del marco, color y grosor | Color (`border/…`) y número (`border-width/…`) |
 | Texto e icono | Relleno del texto y del vector | Color (`text/…`) |
-| Anillo de foco | Trazo por fuera, en la variante `focus` | Color (`border/focus`) y número (`border-width/200`) |
+| Anillo de foco | Trazo por fuera de una capa aparte, en la variante `focus` | Color (`border/focus`) y número (`border-width/200`) |
 | Radio | Radio de las esquinas | Número (`radius/…`) |
 | Relleno y hueco | Auto layout | Número (`space/…`) |
 
 La ayuda de Figma lista dónde se aplica cada tipo: las variables de color en rellenos y trazos, y las de número en el radio, el relleno y el grosor del trazo, entre otras propiedades ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Los scopes de tus variables ([Para qué sirve el scope](/primitives/primitives-collection#para-qué-sirve-el-scope)) deciden qué variables te ofrece Figma en cada campo.
 
 Fíjate en la última fila: **los espacios del auto layout también son tokens**. Un botón con un relleno de 12 px escrito a mano tiene un valor suelto aunque todos sus colores tengan variable.
+
+## Un trazo por marco
+
+En Figma, un marco tiene una sola posición de trazo: por dentro, centrado o por fuera. Un botón con borde necesita dos trazos distintos: el borde, de 1 px, por dentro y contado en el auto layout, para que el botón mida lo mismo que en código; y el anillo de foco, de 2 px, por fuera y sin cambiar la medida, como el `outline` del código.
+
+Por eso, en el `Button` de DesignToken101, el anillo es una capa aparte: un rectángulo `Focus ring` fuera del auto layout, del tamaño del botón, con el trazo de `border/focus` y `border-width/200` por fuera y el mismo radio. El marco conserva su borde. Es una decisión de dibujo del archivo de DesignToken101, no una regla de Figma: si tu control no tiene borde, el anillo puede ser el trazo del propio marco.
+
+Y si el control se reconoce por su fondo, como el `Button` `primary`, su borde lleva **la misma variable que el fondo** en cada estado. No se ve y no deja un valor suelto: Figma no tiene una variable transparente, y un trazo al 0 % de opacidad sería un valor escrito a mano. Para qué sirve ese borde lo verás en [Un borde para los colores forzados](/components/component-accessibility#un-borde-para-los-colores-forzados).
 
 ## El texto con su estilo
 

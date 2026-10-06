@@ -66,7 +66,7 @@ Con la tabla delante, crea el conjunto de variantes y aplica a cada parte de cad
 - Rellenos, trazos y textos con variables de color.
 - Radio, grosor del trazo, relleno y hueco del auto layout con variables de número.
 - El texto con su estilo de texto.
-- La variante `focus` con el anillo de tus dos tokens.
+- La variante `focus` con el anillo de tus dos tokens. Si el marco ya lleva borde, dibuja el anillo en una capa aparte ([Un trazo por marco](/components/components-in-figma#un-trazo-por-marco)).
 - Si el control se reconoce por su fondo, un borde con tu token de grosor más fino y, como color, la misma variable que el fondo de cada estado: no se ve, y no deja un valor suelto. En código puede ser transparente ([Un borde para los colores forzados](/components/component-accessibility#un-borde-para-los-colores-forzados)).
 
 No elijas modo en el componente principal. En la descripción del componente, anota el elemento HTML y el nombre accesible del paso 3.
@@ -112,7 +112,7 @@ type ButtonProps = {
 // Una entrada por variante, con las clases completas de su tabla de anatomía.
 const VARIANTS = {
   primary:
-    'bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
+    'border-(length:--t101-border-width-100) border-transparent bg-accent-strong-default text-on-accent hover:bg-accent-strong-hover active:bg-accent-strong-active',
   secondary:
     'border-(length:--t101-border-width-100) border-neutral-strong text-neutral-default hover:bg-neutral-hover active:bg-neutral-active',
 };
