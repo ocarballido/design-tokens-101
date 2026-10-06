@@ -26,17 +26,21 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Átomos (`Icon`, `Code`, `TableCell`, `LanguageOption`, `ThemeOption`, `Symbol`, `Logo`) | Components | [24:847](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=24-847) |
 | Moléculas (`Button`, `IconButton`, `Link`, `Callout`, `InCode`, `CodeBlock`, `SkipLink`, `LessonHeader`, `SidebarItem`, `SidebarSection`, `PageNavLink`, `LanguageSwitcher`, `ThemeToggle`) | Components | [24:849](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=24-849) |
 | Organismos (`SiteHeader`, `SiteFooter`) | Components | [35:242](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-242) |
-| Lección, escritorio, Light / Dark ("Lección · Desktop · Light" / "· Dark", D37) | Pages | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
-| Lección, móvil, Light / Dark | Pages | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
-| Menú móvil abierto (panel lateral, V25), Light / Dark | Pages | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
-| Muestra de estilos de texto (marcos "Estilos de texto · Desktop · Light", "· Dark" y "· Mobile · Light") | Foundations | 14:12, 14:40, 16:13 |
-| Iconos de Lucide como componentes locales (21, `li:*`, D37) | Components | [108:1963](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1963) |
+| Lección, escritorio, Light / Dark ("Lesson · Desktop · Light" / "· Dark", D38) | Templates | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
+| Lección, móvil, Light / Dark | Templates | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
+| Menú móvil abierto (panel lateral, V25), Light / Dark ("Lesson · Mobile · Light · Menu open") | Templates | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
+| Muestra de estilos de texto (marcos "Text styles · Desktop · Light", "· Dark" y "· Mobile · Light") | Text styles | 14:12, 14:40, 16:13 |
+| Iconos de Lucide como componentes locales (21, `li:*`, D37; marco `Icons`) | Components | [108:1963](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1963) |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
-| Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark | Pages | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
+| Ejemplo de `Flow`: metodología, Desktop / Mobile × Light / Dark ("Flow: methodology") | Templates | [64:842](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=64-842) |
 | `Takeaways` (C18 + V35, D28; §3.4 de este documento) | Components | [89:364](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-364) |
 | `SidebarGroup` (C17, D29) | Components (Molecules) | [89:1418](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1418) |
+| Páginas de lectura del archivo de referencia (D38): portada y texto | Read me | [115:2](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=115-2) / [115:119](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=115-119) |
+| Convención de nombres | Naming convention | [116:191](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=116-191) |
+| Primitivos (`ColorScale` y tablas) | Primitives | [117:191](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=117-191) |
+| Semánticos Light, Dark y tamaños | Semantics | [118:191](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=118-191) / [118:445](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=118-445) / [118:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=118-699) |
 | `AuthorLink`, logotipo del autor del pie (V36, D30) | Components (Atoms) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663) |
-| Marcos de exportación de los logotipos (`logo-colored`, `logo-colored-dark`, `logo-gray`, `logo-gray-dark`; D35, §3.6) | Pages | 57:749, 96:1997, 57:727, 96:2005 |
+| Marcos de exportación de los logotipos (`logo-colored`, `logo-colored-dark`, `logo-gray`, `logo-gray-dark` y `logo-oc`; D35, §3.6) | Logo exports (D38) | 57:749, 96:1997, 57:727, 96:2005, 57:724 |
 | `ColorScaleStep` y `ColorScale` (C14, D34; §3.5 de este documento) | Components | [93:1020](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1020) |
 
 Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
@@ -233,7 +237,7 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 ### 3.6 Logotipo "DesignToken101" (P15, D35, 2026-10-05)
 
 - Componente `Logo` (35:141), variantes `style=color`, `dark` y `light`: texto "DesignToken / 101" en contornos (JetBrains Mono ExtraBold 20/22 px), mismo símbolo, **184 × 44 px** (antes 208 × 44).
-- Marcos de exportación en Pages, cada uno con una instancia de `Logo` y el modo de Semantic color fijado en el marco: `logo-colored` (57:749, Light) y `logo-colored-dark` (96:1997, Dark), 184 × 44; `logo-gray` (57:727, Light) y `logo-gray-dark` (96:2005, Dark), `style=dark` escalado a 34 px de alto, **143 × 34** en el SVG (142,2 de dibujo).
+- Marcos de exportación en Pages (desde D38, en la página Logo exports), cada uno con una instancia de `Logo` y el modo de Semantic color fijado en el marco: `logo-colored` (57:749, Light) y `logo-colored-dark` (96:1997, Dark), 184 × 44; `logo-gray` (57:727, Light) y `logo-gray-dark` (96:2005, Dark), `style=dark` escalado a 34 px de alto, **143 × 34** en el SVG (142,2 de dibujo).
 - SVG en `public/brand/` con los mismos nombres de archivo. `logo-gray.svg` es la exportación de Figma tal cual; `logo-colored.svg` también, salvo el semicírculo verde, que conserva el trazado del archivo anterior (Figma lo exporta con dos cifras de redondeo distintas). Las versiones Dark son las Light con el color del texto `#101A15` → `#F9FAFA` (V20).
 - **Para desarrollo:** las medidas de `src/components/Logo.tsx` pasan a 184 × 44 (`colored`) y 143 × 34 (`gray`).
 
@@ -254,8 +258,17 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 - **Iconos:** los 21 `li:*` son componentes del archivo (marco `Iconos`, 108:1963), copiados de la biblioteca de Lucide. Las 89 instancias se sustituyeron conservando su color vinculado. En código no cambia nada: siguen siendo `lucide-react` (D08).
 - **Descripciones:** los 31 componentes tienen descripción en español, con su apartado de `componentes-v1.md`, props y decisiones. Los 33 semánticos de color tienen la suya (S37).
 - **Marcos de presentación** de Components (`Atoms`, `Molecules`, `Organisms`, `Takeaways`, `ColorScale`) con tokens: `background/neutral/default` y `space/800`.
-- **Nombres:** plantillas "Lección · {Desktop o Mobile} · {Light o Dark}" (y "· Menú abierto"), "Flow: metodología" y estilos de texto en español. Los nodos no cambian.
+- **Nombres:** plantillas "Lección · {Desktop o Mobile} · {Light o Dark}" (y "· Menú abierto"), "Flow: metodología" y estilos de texto en español. Los nodos no cambian. *Pasados a inglés por D38.*
 - Auditoría de la página Components tras los cambios: sin valores sueltos.
+
+### 3.9 Nombres en inglés y páginas de lectura en TokensDS (D38, 2026-10-06)
+
+- **Nombres en inglés** en los dos archivos (TokensDS y la copia de referencia): páginas, marcos, capas de auto layout, componentes e instancias. Variables, colecciones, modos, estilos de texto y propiedades de los componentes ya lo estaban. El texto que se lee en el lienzo (lección, páginas de lectura, descripciones) sigue en español (C5).
+- **Páginas, en este orden:** Read me, Naming convention, Primitives, Semantics, Text styles, Components, Templates. En TokensDS, además, Logo exports (al final); en la copia, la página temporal Community images.
+- **Capas renombradas:** "Cabecera" → "Section header", "Columna" → "Column", "Tabla" → "Table", "Fila" → "Row", "Muestra" → "Swatch", "Información" → "Info", "Iconos" → "Icons", "Frame 6" → "Author" y la capa de texto "P7" → "Credit" (las dos en `SiteFooter`), "Lección · …" → "Lesson · …", "Menú abierto" → "Menu open". La primera columna de la tabla "Qué hay en cada página" de Read me usa los nombres nuevos de página.
+- **Páginas de lectura copiadas a TokensDS** desde la copia de referencia con un script: cada nodo se recrea con los componentes, variables y estilos de texto locales (los componentes tienen el mismo ID en los dos archivos, porque la copia se duplicó de TokensDS). Comprobado el 2026-10-06: los siete marcos miden lo mismo que en la copia (960 × 540, 1088 × 3619, 1088 × 2345, 1088 × 3349, 1088 × 3441 dos veces y 1088 × 1365), con los mismos modos y la exportación al 2× de la portada.
+- **Auditoría** de las cuatro páginas nuevas: sin rellenos, trazos, huecos ni rellenos internos sin variable, y todo el texto con estilo; la única excepción es el relleno del logotipo (D22).
+- **Nombre del archivo:** la API de plugins no lo puede cambiar. Lo cambia Oscar a mano: "DesignToken101: Reference system".
 
 ## 4. Accesibilidad comprobada en el diseño
 
