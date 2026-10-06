@@ -2,6 +2,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
+import { InlineScript } from '@/components/InlineScript';
 import { Sidebar, type SidebarData } from '@/components/Sidebar';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
@@ -50,9 +51,11 @@ export default async function LocaleLayout({
 
   return (
     // data-theme lo pone THEME_SCRIPT antes de hidratar: por eso se avisa a React (V10, V21).
+    // El script solo se ejecuta al cargar el documento; al volver a montar el layout (cambio de
+    // idioma), ThemeToggle vuelve a aplicar el tema guardado (P17).
     <html lang={locale} className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <InlineScript html={THEME_SCRIPT} />
       </head>
       <body className="flex min-h-dvh flex-col">
         <NextIntlClientProvider>

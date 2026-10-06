@@ -2,7 +2,7 @@
 
 import { LaptopMinimal, Moon, SunDim, type LucideIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useSyncExternalStore } from 'react';
+import { useLayoutEffect, useSyncExternalStore } from 'react';
 import { cx } from '@/lib/cx';
 import { THEME_STORAGE_KEY, type Theme } from '@/lib/theme';
 
@@ -37,6 +37,21 @@ function setTheme(theme: Theme) {
   listeners.forEach((listener) => listener());
 }
 
+// Lee el tema guardado y lo pone en <html>, como THEME_SCRIPT. Hace falta cuando React vuelve a
+// montar el layout raíz (al cambiar de idioma, o el doble montaje de desarrollo): deja <html> solo
+// con los atributos del JSX y borra el data-theme que puso el script (P17; Next.js: Preventing
+// flash before hydration, "Re-applying attributes in development").
+function applyStoredTheme() {
+  let stored: string | null = null;
+  try {
+    stored = localStorage.getItem(THEME_STORAGE_KEY);
+  } catch {
+    // Sin almacenamiento: se queda el tema que haya.
+  }
+  if (stored === 'light' || stored === 'dark') document.documentElement.dataset.theme = stored;
+  listeners.forEach((listener) => listener());
+}
+
 function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => listeners.delete(listener);
@@ -46,6 +61,8 @@ export function ThemeToggle() {
   const t = useTranslations('ThemeToggle');
   // En el servidor no se sabe el tema guardado: se pinta `system` y se corrige al hidratar.
   const current = useSyncExternalStore(subscribe, readTheme, () => 'system' as Theme);
+  // Antes de pintar, para que no se vea el tema por defecto ni un instante.
+  useLayoutEffect(applyStoredTheme, []);
 
   return (
     <div role="group" aria-label={t('label')} className="flex gap-100 rounded-300 bg-neutral-strong p-100">
