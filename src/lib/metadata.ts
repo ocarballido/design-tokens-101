@@ -15,7 +15,7 @@ const SHARE_IMAGE = {
   url: '/brand/share.png',
   width: 1200,
   height: 630,
-  alt: 'DesignToken101: la lección «Qué es DesignToken101» con el sidebar del curso',
+  alt: 'Logotipo de DesignToken101 junto a su símbolo en 3D: una esfera verde y dos formas rojas sobre fondo negro',
 };
 
 /** C20, V49: el <title> de una lección es meta_title (o title) seguido de la marca. */
