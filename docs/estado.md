@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. Ninguna lección habla del prefijo `/es/` ni del proxy (V45). Comprobado en Figma: el selector de idioma sigue en los dos archivos y la descripción de `background/neutral/strong` tiene una errata (ver Diseño).
+Última actualización: 2026-10-07, sesión de contenido. Segunda comprobación de Figma tras P24: descripción corregida en los dos archivos; quedan tres restos del selector de idioma (ver Diseño).
 
 ---
 
@@ -60,11 +60,11 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
   - Antes de publicar: versión, fecha y enlace en Read me (quitar el `Callout` `pending`); borrar la página de imágenes; prueba con una cuenta Starter; revisar la licencia.
   - Revisar (P14): el texto de ejemplo de `body/small` dice que, al importar, "si dos tokens acaban con el mismo nombre, solo importa el primero". Sin comprobar.
   - La referencia no se edita: un cambio se hace en TokensDS y se vuelve a duplicar al publicar (D38).
-- **P24, comprobado con la API de plugins el 2026-10-07 (solo lectura), en TokensDS y en la referencia:**
-  - El selector de idioma **sigue**: el componente `LanguageSwitcher` (30:1166) y su instancia de muestra (35:658) en Components, y una instancia en cada plantilla con el menú abierto ("Lesson · Mobile · Light · Menu open", 55:813, y "… Dark …", 55:947). En la referencia, además, una en la página de imágenes de Community (2016:1616). Las plantillas de escritorio ya no lo tienen.
-  - La descripción de `color/background/neutral/strong` tiene una errata: "grupo de  selector de tema" (TokensDS, con dos espacios) y "grupo de selector de tema" (referencia). Debe decir "grupo del selector de tema".
-  - En la página Semantics de los dos archivos, el texto de la tabla aún dice "grupo de los selectores de idioma y tema" (TokensDS 118:218 y 118:472; referencia 2013:3874 y 2013:4128).
-  - Después: reexportar `Semantic color` (C10) y que desarrollo regenere con `npm run tokens`. La exportación del repositorio aún tiene el texto antiguo.
+- **P24, segunda comprobación con la API de plugins (2026-10-07, solo lectura).** Hecho: descripción de `color/background/neutral/strong` ("grupo del selector de tema") en los dos archivos; plantillas y página de imágenes de Community sin selector; colecciones intactas (97, 33, 4 y 9). Quedan:
+  - Una instancia de `LanguageSwitcher` dentro del componente `SiteHeader`, variante `size=small` → Nav → Actions (35:658), en los dos archivos. En la referencia ya no tiene componente principal.
+  - El componente `LanguageSwitcher` en TokensDS (Components → Molecules, 30:1166).
+  - El texto de la tabla Semantics · Dark → Backgrounds con la descripción antigua (TokensDS 118:472, referencia 2013:4128).
+  - Después: reexportar `Semantic color` (C10) y que desarrollo ejecute `npm run tokens`; la exportación del repositorio aún tiene el texto antiguo.
 - **Diseño de partida (P16, P18):** cuando estén cerrados los módulos 9 y 10; incluye al menos un botón con estados dibujado con valores sueltos (T17).
 - **V40:** implementada en código el 2026-10-07 (ancho mínimo `space/600`, número alineado al final). Anotar en `componentes-v1.md` §4.10 la columna de ancho mínimo y añadir la sección "10" a las plantillas.
 
