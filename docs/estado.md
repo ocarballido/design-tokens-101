@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. V40 (a) implementada (número del sidebar con ancho mínimo `space/600`, títulos de "0" a "10" alineados); módulo 10 y lecciones de P23 compilados y comprobados, sin errores; un aviso para contenido sobre `radius/full` en `course-summary`.
+Última actualización: 2026-10-07, sesión de desarrollo. V44: Tailwind solo busca clases en `src/`; arregla el 500 de `next dev` (texto de `docs/` tomado como clase) y saca del CSS publicado 43 clases de ejemplos. Antes, V40 (a) implementada y módulo 10 comprobado.
 
 ---
 
@@ -59,4 +59,5 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 - Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.
 - Prueba manual, con lector de pantalla y en Safari y Firefox.
 - `npm` bloquea el `postinstall` de `@swc/core` (dependencia de next-intl); el build funciona sin él.
-- **Provisionales que esperan la revisión de Oscar:** C19, V34, V37.
+- **Provisionales que esperan la revisión de Oscar:** C19, V34, V37, V44.
+- **Propuesta para Oscar (V44):** que `check:content` busque en el CSS generado clases con corchetes fuera de las excepciones de V43.

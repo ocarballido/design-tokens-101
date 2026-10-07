@@ -1,4 +1,7 @@
-@import "tailwindcss";
+/* V44: Tailwind solo busca clases en src/ (la ruta es relativa a este archivo). Sin source(),
+   leería también docs/, content/ y tools/, y los valores arbitrarios de los ejemplos de las
+   lecciones acabarían en el CSS publicado. */
+@import "tailwindcss" source("..");
 /* Capa 1: variables --t101-* con sus modos. Generado por `npm run tokens`. */
 @import "../styles/tokens.css";
 /* Capa 2: @theme inline de Tailwind que apunta a la capa 1 (S7, V09). Generado por `npm run tokens`. */

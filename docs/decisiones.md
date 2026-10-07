@@ -236,6 +236,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V41 | El tema se conserva al cambiar de idioma. | Cerrada | 2026-10-06 |
 | V42 | Borde transparente en `Button` `primary`. | Cerrada | 2026-10-06 |
 | V43 | `check:tokens` busca valores arbitrarios en `src/`. | Cerrada | 2026-10-06 |
+| V44 | Tailwind solo busca clases en `src/` (`source("..")`). | Provisional (falta la revisión de Oscar) | 2026-10-07 |
 
 ## Abiertas
 
