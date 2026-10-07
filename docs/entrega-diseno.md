@@ -289,7 +289,7 @@ Punto 2 de "Para la primera versión" (`estado.md`). Hecho en TokensDS, no en la
 </div>
 ```
 
-Los nombres de las claves de `messages/es.json` son una propuesta; los textos: `reportError` "¿Has encontrado un error?" y `reportLink` "Avísalo en GitHub". En Figma, el hueco de `space/100` sustituye al espacio del párrafo (Figma no cuenta el espacio final de un texto). `Link` tiene ahora `size=caption` (136:842 a 136:855). **Pendiente de Oscar:** poner a mano `body/small` en las etiquetas de `size=small` y `caption/default` en las de `size=caption` (la API lo aplica a las 18 a la vez, D41).
+Los nombres de las claves de `messages/es.json` son una propuesta; los textos: `reportError` "¿Has encontrado un error?" y `reportLink` "Avísalo en GitHub". En Figma, el hueco de `space/100` sustituye al espacio del párrafo (Figma no cuenta el espacio final de un texto). `Link` tiene ahora `size=caption` (136:842 a 136:855). Oscar lo resolvió con una propiedad de texto por tamaño (`children`, `children-small`, `children-caption`); en el pie, el texto va en `children-caption` (D41).
 
 **Portada (D42, P27).** Cuatro marcos copiados de las plantillas de lección: [137:2993](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-2993) (Desktop Light), [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) (Desktop Dark), [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) (Mobile Light) y [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) (Mobile Dark). Sidebar con todas las secciones cerradas y sin lección actual. En `Content`, el marco `Hero`:
 
@@ -300,9 +300,9 @@ Los nombres de las claves de `messages/es.json` son una propuesta; los textos: `
 | `Heading` | Título `heading/1`, `text/neutral/default`; subtítulo `heading/4`, `text/neutral/subtle`; hueco `space/200` | Igual |
 | Párrafo | `body/default`, `text/neutral/default` | Igual |
 | Botón | `Button` `primary` con icono `li:chevron-right`, "Empezar el curso", 178 × 42 px; lleva a la primera lección | Igual |
-| Imagen | Hueco cuadrado de 441 px con borde discontinuo `border/neutral/default` y `radius/container` (solo marca el sitio) | 343 × 343, debajo del texto |
+| Imagen (D43) | Render de Oscar recortado en un cuadrado de 440 × 441 con `radius/container`; versión Light o Dark según el tema | 343 × 343, debajo del texto |
 
-En código (propuesta): `grid desktop:grid-cols-2 items-center gap-1200 py-600 desktop:py-1600` dentro de la columna de `main`; la imagen, `aspect-square` y decorativa (`alt=""`) en `public/brand/`, hasta que Oscar la entregue. Estilos, huecos y orden, pendientes de la revisión de Oscar (D42).
+En código (propuesta): `grid desktop:grid-cols-2 items-center gap-1200 py-600 desktop:py-1600` dentro de la columna de `main`. **Imagen (D43):** `public/brand/home-light.png` y `home-dark.png`, 880 × 880 px, exportadas desde los marcos `home-light` y `home-dark` de Logo exports ([142:1966](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=142-1966), [142:1968](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=142-1968); PNG 1×, ya configurado). Dos `img` como `Logo` (V20): `dark:hidden` y `hidden dark:block`, `alt=""`, `width`/`height` 880, `w-full aspect-square rounded-container`. Estilos y huecos revisados por Oscar en Figma (2026-10-07).
 
 ## 4. Accesibilidad comprobada en el diseño
 

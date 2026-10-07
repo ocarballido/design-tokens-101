@@ -56,7 +56,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P24 | La web se lanza solo en español: único idioma configurado y sin selector de idioma; el inglés queda aplazado (URL sin `/es/` desde V45). | Cerrada | 2026-10-07 |
 | P25 | Los errores se comunican con issues de GitHub en el repositorio público; los enlazan la lección "Cómo se hizo esta web" y el pie, con una plantilla de issue en español (resuelve A11). | Cerrada | 2026-10-07 |
 | P26 | Dominio de la web: `designtokens101.com`. | Cerrada | 2026-10-07 |
-| P27 | La web tiene portada en `/`: título, subtítulo, un párrafo, el botón "Empezar el curso" y el símbolo del logotipo en isométrico, válido en Light y Dark (sustituye a V04). | Cerrada | 2026-10-07 |
+| P27 | La web tiene portada en `/`: título, subtítulo, un párrafo, el botón "Empezar el curso" y el símbolo del logotipo en isométrico, válido en Light y Dark (sustituye a V04; imagen precisada por D43). | Cerrada | 2026-10-07 |
 
 ## Temario
 
@@ -195,6 +195,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D40 | Número de `SidebarSection` en un marco de ancho mínimo `space/600`, alineado al inicio (C19); secciones 8 a 10 en las plantillas. | Cerrada | 2026-10-07 |
 | D41 | Enlace a los issues en `SiteFooter`, junto al aviso de P7; `Link` con `size=caption`. | Cerrada | 2026-10-07 |
 | D42 | Plantilla de la portada con sidebar: texto, botón y hueco para la imagen de Oscar. | Cerrada | 2026-10-07 |
+| D43 | Imagen de la portada: dos renders en mapa de bits (Light y Dark), PNG de 880 px con el radio en CSS (cambia el SVG de P27). | Cerrada | 2026-10-07 |
 
 ## Desarrollo
 

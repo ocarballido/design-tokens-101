@@ -875,7 +875,7 @@ SiteFooter
 - Regiones: `header`, `nav` (sidebar), `main` (la lección), `footer`. Sin columna lateral de índice (D16).
 - Columna de la lección con ancho máximo `size/content/max-width` (960 px desde V27; antes 720 px, D20), centrada.
 - Dos marcos en Figma (D09): escritorio 1440 px (Layout Desktop) y móvil 375 px (Layout Mobile), cada uno en Light y Dark.
-- **Portada (P27, D42):** la misma plantilla, con todas las secciones del sidebar cerradas y sin lección actual. En la columna, un bloque `Hero`: título (`h1`, `heading/1`), subtítulo (`heading/4`, `text/neutral/subtle`), párrafo (`body/default`) y `Button` `primary` con icono "Empezar el curso", y la imagen isométrica de Oscar (decorativa, `alt=""`). Escritorio: dos columnas iguales, hueco `space/1200`, relleno vertical `space/1600`. Móvil: apilados, imagen después del texto, relleno `space/600`.
+- **Portada (P27, D42):** la misma plantilla, con todas las secciones del sidebar cerradas y sin lección actual. En la columna, un bloque `Hero`: título (`h1`, `heading/1`), subtítulo (`heading/4`, `text/neutral/subtle`), párrafo (`body/default`) y `Button` `primary` con icono "Empezar el curso", y la imagen isométrica de Oscar (decorativa, `alt=""`; dos renders, Light y Dark, cuadrados y recortados con `radius/container`, D43). Escritorio: dos columnas iguales, hueco `space/1200`, relleno vertical `space/1600`. Móvil: apilados, imagen después del texto, relleno `space/600`.
 
 ### 4.10 Ajustes tras el diseño de Oscar (2026-10-02)
 
@@ -886,7 +886,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `LessonHeader` | Con contenedor: borde `border/neutral/default` y `radius/container`. |
 | `Prose` (`##`) | Los títulos `heading/2` usan `text/neutral/subtle` (7,74 / 7,65). |
 | `Prose` (negrita y "En esta página") | Estilo `body/strong` (D17). |
-| `Link` | Propiedad `size` (`default`/`small`/`caption`) solo de Figma: el enlace hereda el tamaño del texto que lo rodea. `caption` desde D41, para el pie. Icono externo: `li:external-link`, 16 px en los tres tamaños, como `size-400` en código. **Pendiente de Oscar (D41):** las etiquetas de `small` y `caption` están en `body/default`; con la API, un estilo aplicado a una etiqueta se aplica a todas, así que hay que ponerles `body/small` y `caption/default` a mano. La instancia del pie lleva `caption/default` aplicado en la instancia. |
+| `Link` | Propiedad `size` (`default`/`small`/`caption`) solo de Figma: el enlace hereda el tamaño del texto que lo rodea. `caption` desde D41, para el pie. Icono externo: `li:external-link`, 16 px en los tres tamaños, como `size-400` en código. **Texto por tamaño (D41):** en Figma hay una propiedad de texto por tamaño, `children` (`body/default`), `children-small` (`body/small`) y `children-caption` (`caption/default`), porque una sola propiedad imponía el mismo estilo a todas las variantes. En React es un único `children` (excepción a §1.1). |
 | `Callout` | Etiqueta fija por variante (D18). Borde de `pending`: `border/neutral/default` (decorativo). |
 | `IconButton` | 40 × 40 px, sin fondo en `default`. |
 | `Link` (icono externo) | Hueco `space/100` entre el texto y `li:external-link` en los dos tamaños (D33; antes `space/200` y `space/150`), como `ms-100` en código. |
@@ -962,3 +962,4 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D40 | Número de `SidebarSection` en Figma en un marco de ancho mínimo `space/600`, alineado al inicio; secciones 8 a 10 en las plantillas (§4.10). |
 | D41, P25 | Enlace a los issues en `SiteFooter`; `Link` con `size=caption` (§2.3, §4.8, §4.10). |
 | D42, P27 | Plantilla de la portada (§4.9). |
+| D43 | Imagen de la portada en mapa de bits, una por tema (§4.9). |
