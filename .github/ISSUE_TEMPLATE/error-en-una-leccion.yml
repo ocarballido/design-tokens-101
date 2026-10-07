@@ -1,0 +1,25 @@
+name: Error en una lección
+description: Algo no coincide con la fuente citada, una fuente ha cambiado o un ejemplo no funciona.
+body:
+  - type: input
+    id: pagina
+    attributes:
+      label: Página
+      description: La dirección de la lección donde está el error.
+      placeholder: https://designtokens101.com/fundamentals/what-is-a-token
+    validations:
+      required: true
+  - type: textarea
+    id: que-falla
+    attributes:
+      label: Qué falla
+      description: Qué dice la lección y qué debería decir, o qué ocurre al seguir el ejemplo.
+    validations:
+      required: true
+  - type: input
+    id: fuente
+    attributes:
+      label: Fuente
+      description: Si la tienes, el enlace a la documentación que muestra el dato correcto.
+    validations:
+      required: false

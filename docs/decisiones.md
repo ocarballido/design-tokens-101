@@ -54,8 +54,9 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P22 | `decisiones.md` con una línea por decisión; el texto completo, en `decisiones-detalle.md`, bajo demanda. | Cerrada | 2026-10-07 |
 | P23 | Web de educación sobre tokens, sin contenido de IA: ni módulo, ni hipótesis, ni promesas; el módulo 10 son las conclusiones del curso. | Cerrada | 2026-10-07 |
 | P24 | La web se lanza solo en español: único idioma configurado y sin selector de idioma; el inglés queda aplazado (URL sin `/es/` desde V45). | Cerrada | 2026-10-07 |
-| P25 | Los errores se comunican con issues de GitHub en el repositorio público; la lección "Cómo se hizo esta web" lo enlaza (resuelve A11). | Cerrada | 2026-10-07 |
+| P25 | Los errores se comunican con issues de GitHub en el repositorio público; los enlazan la lección "Cómo se hizo esta web" y el pie, con una plantilla de issue en español (resuelve A11). | Cerrada | 2026-10-07 |
 | P26 | Dominio de la web: `designtokens101.com`. | Cerrada | 2026-10-07 |
+| P27 | La web tiene portada en `/`: título, subtítulo, un párrafo, el botón "Empezar el curso" y el símbolo del logotipo en isométrico, válido en Light y Dark (sustituye a V04). | Cerrada | 2026-10-07 |
 
 ## Temario
 
@@ -92,7 +93,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C4 | Contenido portable; no se migra a Fumadocs Core: ningún módulo necesita búsqueda, `llms.txt` ni MCP (P23). | Cerrada | 2026-09-30 |
 | C5 | Inglés por defecto y español (cambiada por P24: solo español). | Sustituida por P24 | 2026-09-30 |
 | C6 | `content/{locale}/NN-seccion/NN-pagina.mdx`; el prefijo ordena y no sale en la URL. | Cerrada | 2026-09-30 |
-| C7 | Slugs en inglés en todos los idiomas. | Provisional | 2026-09-30 |
+| C7 | Slugs en inglés en todos los idiomas. | Cerrada | 2026-09-30 |
 | C8 | Componentes de contenido: `Callout` (note, warning, recommendation, pending) e `InCode`. | Cerrada | 2026-09-30 |
 | C9 | Guía de redacción adaptada de Next.js (`content/README.md`). | Cerrada | 2026-09-30 |
 | C10 | Exportación de Figma en `tokens/figma/`, una carpeta por colección, sin editar. | Cerrada | 2026-10-03 |
@@ -101,10 +102,10 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C13 | Gráficos con el componente `Flow`, hecho con tokens. | Cerrada | 2026-10-04 |
 | C14 | Componente `ColorScale`, con el hex leído de los tokens. | Cerrada | 2026-10-04 |
 | C15 | Sin guiones largos. | Cerrada | 2026-10-04 |
-| C16 | Vídeos externos: enlace, no inserción. | Provisional | 2026-10-04 |
+| C16 | Vídeos externos: enlace, no inserción. | Cerrada | 2026-10-04 |
 | C17 | Grupos del sidebar: Diseñar los tokens, Tokens en código y Referencia. | Cerrada | 2026-10-05 |
 | C18 | Componente `Takeaways` para "Lo que te llevas" (diseño cambiado por V35). | Cerrada | 2026-10-05 |
-| C19 | Secciones del sidebar numeradas desde el prefijo de la carpeta; Recursos sin número. | Provisional | 2026-10-06 |
+| C19 | Secciones del sidebar numeradas desde el prefijo de la carpeta; Recursos sin número; el número, alineado al inicio (cambia V40). | Cerrada | 2026-10-06 |
 
 ## Sistema de tokens
 
@@ -142,7 +143,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | S30 | `scales.py` calcula el contraste sobre el hex guardado. | Cerrada | 2026-10-04 |
 | S31 | Se mantienen los semánticos de mensaje aún sin uso. | Cerrada | 2026-10-04 |
 | S32 | Un alias de Figma o con llaves no cambia la opacidad; `$ref` podría, pero no se usa. | Cerrada | 2026-10-04 |
-| S33 | Tokens de componente: componente / variante / propiedad / estado. | Provisional | 2026-10-04 |
+| S33 | Tokens de componente: componente / variante / propiedad / estado. | Cerrada | 2026-10-04 |
 | S34 | `focus` y `overlay` son roles; los semánticos de tamaño siguen categoría / elemento / medida. | Cerrada | 2026-10-04 |
 | S35 | `background/neutral/translucent` al 96 % en Light, por el contraste del anillo de foco. | Cerrada | 2026-10-05 |
 | S36 | Versión semántica del sistema; 1.0.0 al cerrar el módulo 8. | Cerrada | 2026-10-06 |
@@ -197,16 +198,16 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | # | Decisión | Estado | Fecha |
 |---|---|---|---|
 | V01 | Esqueleto: Next.js 16.3, next-intl 4.14, Tailwind CSS 4.3, `@next/mdx` y TypeScript 7. | Cerrada | 2026-10-03 |
-| V02 | Una lección sin traducir se muestra en español, con aviso (sin uso con un solo idioma, P24 y V45). | Provisional | 2026-10-03 |
+| V02 | Una lección sin traducir se muestra en español, con aviso (sin uso con un solo idioma, P24 y V45). | Cerrada | 2026-10-03 |
 | V03 | Prefijo de idioma siempre en la URL. | Sustituida por V45 | 2026-10-03 |
-| V04 | Sin portada: `/` lleva a la primera lección (antes `/{locale}`, V45). | Provisional | 2026-10-03 |
+| V04 | Sin portada: `/` lleva a la primera lección (antes `/{locale}`, V45). | Sustituida por P27 | 2026-10-03 |
 | V05 | El nombre de cada sección va en su `meta.json`. | Cerrada | 2026-10-03 |
 | V06 | Terrazzo 2.7 con una normalización propia delante (`tools/figma-to-dtcg.mjs`). | Cerrada | 2026-10-03 |
 | V07 | Color en hex en el CSS. | Cerrada | 2026-10-03 |
 | V08 | Modos con el Resolver de DTCG 2025.10. | Cerrada | 2026-10-03 |
 | V09 | Tailwind: espacios de nombres por propiedad y `--*: initial` (riesgo aceptado: no documentado). | Cerrada | 2026-10-03 |
 | V10 | Dark con `[data-theme="dark"]` y con `prefers-color-scheme` en modo system. | Cerrada | 2026-10-03 |
-| V11 | Familias tipográficas de reserva en la capa de Tailwind. | Provisional | 2026-10-03 |
+| V11 | Familias tipográficas de reserva en la capa de Tailwind. | Cerrada | 2026-10-03 |
 | V12 | `npm run tokens` genera las capas 1 y 2; `npm run check:tokens` las comprueba. | Cerrada | 2026-10-03 |
 | V13 | Fuentes con `next/font`. | Cerrada | 2026-10-03 |
 | V14 | Grosor de borde con `border-(length:--t101-…)`. | Cerrada | 2026-10-03 |
@@ -216,8 +217,8 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V18 | Icono y etiqueta del `Callout` en `text/{rol}/default`. | Cerrada | 2026-10-03 |
 | V19 | "En esta página" con viñetas. | Cerrada | 2026-10-03 |
 | V20 | Logotipos para Dark. | Cerrada | 2026-10-03 |
-| V21 | El tema elegido se guarda en `localStorage`. | Provisional | 2026-10-03 |
-| V22 | Panel móvil como `<dialog>` modal. | Provisional | 2026-10-03 |
+| V21 | El tema elegido se guarda en `localStorage`. | Cerrada | 2026-10-03 |
+| V22 | Panel móvil como `<dialog>` modal. | Cerrada | 2026-10-03 |
 | V23 | `SidebarItem` sin radio. | Cerrada | 2026-10-03 |
 | V24 | Tokens de movimiento solo en código; sin animación con `prefers-reduced-motion`. | Cerrada | 2026-10-03 |
 | V25 | Panel móvil lateral con overlay (sustituye a D21). | Cerrada | 2026-10-03 |
@@ -229,13 +230,13 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V31 | La opacidad se escribe con el decimal de Figma, no en float32. | Cerrada | 2026-10-04 |
 | V32 | Cada bloque de modo lleva todos los tokens de su colección. | Cerrada | 2026-10-04 |
 | V33 | `check:tokens` exige que el code syntax sea la ruta de la variable. | Cerrada | 2026-10-04 |
-| V34 | Icono de la web (favicon) desde el símbolo del logotipo. | Provisional | 2026-10-05 |
+| V34 | Icono de la web (favicon) desde el símbolo del logotipo. | Cerrada | 2026-10-05 |
 | V35 | `Takeaways` con fondo de acento y sin borde. | Cerrada | 2026-10-05 |
 | V36 | El logotipo del autor enlaza a su web. | Cerrada | 2026-10-05 |
-| V37 | `semantic.py` comprueba todos los pares y su cifra de referencia. | Provisional | 2026-10-05 |
+| V37 | `semantic.py` comprueba todos los pares y su cifra de referencia. | Cerrada | 2026-10-05 |
 | V38 | El título de `LessonHeader` parte las palabras que no caben. | Cerrada | 2026-10-05 |
 | V39 | El nombre de archivo de `CodeBlock` baja de línea, sin puntos suspensivos. | Cerrada | 2026-10-05 |
-| V40 | Número de sección desde el prefijo; ancho mínimo `space/600`, alineado al final (implementado el 2026-10-07). | Cerrada | 2026-10-06 |
+| V40 | Número de sección desde el prefijo; ancho mínimo `space/600`; alineado al inicio desde C19 (antes, al final). | Cerrada | 2026-10-06 |
 | V41 | El tema se conserva cuando React vuelve a montar el layout (nació con el cambio de idioma, que ya no existe: V45). | Cerrada | 2026-10-06 |
 | V42 | Borde transparente en `Button` `primary`. | Cerrada | 2026-10-06 |
 | V43 | `check:tokens` busca valores arbitrarios en `src/`. | Cerrada | 2026-10-06 |

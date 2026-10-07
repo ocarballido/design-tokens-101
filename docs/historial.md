@@ -24,6 +24,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: pasada de provisionales, C19, P25 y P27**
+- Oscar cierra todas las provisionales: C7, C16, S33, V02, V11, V21, V22, V34 y V37 como estaban; C19 con un cambio y V04 sustituida por P27. No queda ninguna provisional ni abierta.
+- C19: el número de `SidebarSection` pasa a ir alineado al inicio (con V40 iba al final y un número de una cifra quedaba unos 16 px más adentro que el texto de las lecciones). Se mantiene el ancho mínimo `space/600`. `componentes-v1.md` (`SidebarSection`) actualizado; lo aplican diseño y desarrollo.
+- P25, punto 3: el pie enlazará los issues y el repositorio lleva la plantilla `.github/ISSUE_TEMPLATE/error-en-una-leccion.yml` (página, qué falla y fuente; sintaxis comprobada en GitHub Docs: `name`, `description` y `body`). Las incidencias en blanco siguen permitidas.
+- P27: portada en `/` con título, subtítulo, párrafo, botón "Empezar el curso" e imagen isométrica del símbolo (la hace Oscar). Texto propuesto en `decisiones-detalle.md`, sacado de lo que ya dicen las lecciones de Empezar aquí (P14).
+- Recomendación aceptada: comprobar si `designtoken101.com` está libre y redirigirlo al dominio principal.
+
 **2026-10-07, sesión de contenido: decisiones de lanzamiento (T20, P25, P26, V44)**
 - Oscar aprueba el módulo 10, Conclusiones (T20): `course-summary` y `conclusions` dejan de estar en borrador.
 - A11 resuelta como P25: issues de GitHub del repositorio público (comprobado con `gh api`: público y con issues activados). Descartados el correo (correo basura) y el formulario (servicio o base de datos que mantener).

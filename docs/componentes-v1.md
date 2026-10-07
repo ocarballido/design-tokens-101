@@ -666,7 +666,7 @@ Sin tokens nuevos.
 
 **Texto.** `label/default`.
 
-**Número del módulo** (C19, V40). Va delante del título, con el mismo estilo (`label/default`) y el mismo color que el título en cada estado de las dos tablas (también con `current`: `text/accent/default` y, en hover, `text/accent/hover`). Hueco entre número y título: `space/200`. Ancho mínimo `space/600`, con el número alineado al final y cifras tabulares (`font-variant-numeric: tabular-nums`), para que los títulos de "0" a "10" queden alineados (V40, opción a). Forma parte del nombre accesible del botón ("1 Fundamentos", 2.5.3 Label in Name), con un espacio oculto entre número y título; no lleva `aria-hidden`. Las secciones sin número (referencia) empiezan donde empiezan los números.
+**Número del módulo** (C19, V40). Va delante del título, con el mismo estilo (`label/default`) y el mismo color que el título en cada estado de las dos tablas (también con `current`: `text/accent/default` y, en hover, `text/accent/hover`). Hueco entre número y título: `space/200`. Ancho mínimo `space/600`, con el número alineado al inicio (C19, 2026-10-07; antes, al final) y cifras tabulares (`font-variant-numeric: tabular-nums`), para que los títulos de "0" a "10" queden alineados (V40, opción a). Forma parte del nombre accesible del botón ("1 Fundamentos", 2.5.3 Label in Name), con un espacio oculto entre número y título; no lleva `aria-hidden`. Las secciones sin número (referencia) empiezan donde empiezan los números.
 
 #### `SidebarItem` (una lección: un enlace)
 
