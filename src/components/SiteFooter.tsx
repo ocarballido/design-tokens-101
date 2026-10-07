@@ -1,9 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { Logo } from '@/components/Logo';
+import { TextLink } from '@/components/TextLink';
 
-// Anatomía: docs/componentes-v1.md §4.8. Región footer: logotipo, autor (P8) y aviso de P7.
+// Anatomía: docs/componentes-v1.md §4.8. Región footer: logotipo, autor (P8), aviso de P7 y
+// enlace para avisar de un error (P25).
 
 const AUTHOR_URL = 'https://www.oscarballido.com';
+const ISSUES_URL = 'https://github.com/ocarballido/design-tokens-101/issues';
 
 export function SiteFooter() {
   const t = useTranslations('SiteFooter');
@@ -24,7 +27,14 @@ export function SiteFooter() {
             <img src="/brand/logo-oc.svg" alt="" width={39} height={24} className="block" />
           </a>
         </div>
-        <p>{t('notice')}</p>
+        {/* P25, D41: el aviso de P7 y el enlace a los issues de GitHub, en el mismo bloque.
+            TextLink hereda caption/default del pie; la pregunta le da contexto (2.4.4). */}
+        <div className="flex flex-col gap-200">
+          <p>{t('notice')}</p>
+          <p>
+            {t('reportError')} <TextLink href={ISSUES_URL}>{t('reportLink')}</TextLink>
+          </p>
+        </div>
       </div>
     </footer>
   );

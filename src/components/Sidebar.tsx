@@ -117,12 +117,13 @@ function SidebarSection({
       >
         {/* C19, V40: el número del módulo forma parte del nombre accesible ("1 Fundamentos", 2.5.3);
             el espacio oculto lo separa del título también en el árbol de accesibilidad. Mismo
-            estilo y color que el título (los hereda). V40 (a): ancho mínimo space/600 y número
-            alineado al final, para que "0" a "10" dejen los títulos en la misma columna. */}
+            estilo y color que el título (los hereda). V40 (a): ancho mínimo space/600, para que "0" a
+            "10" dejen los títulos en la misma columna; C19: número alineado al inicio, en la columna
+            del texto de los SidebarItem. */}
         <span className="flex flex-1 gap-200">
           {number !== null && (
             <>
-              <span data-section-number className="min-w-600 shrink-0 text-end tabular-nums">
+              <span data-section-number className="min-w-600 shrink-0 text-start tabular-nums">
                 {number}
               </span>
               <span className="sr-only"> </span>

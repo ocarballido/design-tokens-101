@@ -247,6 +247,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V44 | Tailwind solo busca clases en `src/` (`source("..")`). | Cerrada | 2026-10-07 |
 | V45 | Sin enrutado por idioma (configuración básica de next-intl): idioma fijo `es`, sin `[locale]`, proxy ni selector; URL `/{sección}/{lección}`. | Cerrada | 2026-10-07 |
 | V46 | `check:content` busca clases con corchetes en el CSS generado, fuera de las excepciones de V43. | Cerrada | 2026-10-07 |
+| V47 | Portada en `/` según §3.10: subtítulo en `<hgroup>`, metadatos con el nombre delante, imágenes como `Logo` (V20); C19 y pie de P25 aplicados. | Cerrada | 2026-10-07 |
 
 ## Abiertas
 

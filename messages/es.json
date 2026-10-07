@@ -57,6 +57,16 @@
   "SiteFooter": {
     "createdBy": "Una web creada por:",
     "notice": "Esta web se ha hecho con ayuda de Claude (Anthropic) y con la revisión de una persona.",
-    "authorSite": "Oscar Carballido, web personal"
+    "authorSite": "Oscar Carballido, web personal",
+    "reportError": "¿Has encontrado un error?",
+    "reportLink": "Avísalo en GitHub"
+  },
+  "Home": {
+    "metaTitle": "DesignToken101 · Tokens de diseño, de Figma al código",
+    "metaDescription": "Un curso en español para diseñadores de UI: planifica un sistema de tokens, créalo con variables de Figma y llévalo al código en formato DTCG, con un itinerario opcional en CSS y Tailwind CSS.",
+    "title": "Tokens de diseño, de Figma al código",
+    "subtitle": "Un curso en español para diseñadores de UI",
+    "intro": "Paso a paso, planificarás un sistema de tokens, lo crearás con variables de Figma y lo llevarás al código en formato DTCG, con un itinerario opcional en CSS y Tailwind CSS. Cada afirmación técnica enlaza a su fuente, y esta web usa el mismo sistema que enseña.",
+    "start": "Empezar el curso"
   }
 }

@@ -309,6 +309,14 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Primera versión: C19, pie con los issues y portada (2026-10-07, V47)**
+- **C19:** número de `SidebarSection` con `text-start` (antes `text-end`, V40); se mantiene `min-w-600`.
+- **Pie (P25, D41):** el aviso de P7 y la línea "¿Has encontrado un error? Avísalo en GitHub" en un bloque `flex flex-col gap-200`; "Avísalo en GitHub" es un `TextLink` a `https://github.com/ocarballido/design-tokens-101/issues`, con icono externo. Claves `SiteFooter.reportError` y `SiteFooter.reportLink`.
+- **Portada (P27, D42, D43, V47):** `src/app/page.tsx` sin `redirect`; bloque `Hero` de `entrega-diseno.md` §3.10 dentro del layout raíz, con el sidebar cerrado. Textos y metadatos en `messages/es.json` (`Home`). Comprobado en el HTML generado: `<title>` y `<meta name="description">` de la portada; `h1` único, subtítulo en `hgroup`; botón a `/start-here/what-is-designtoken101`; las dos `img` con `alt=""`.
+- **CSS generado:** todas las clases nuevas salen de tokens (`gap: var(--t101-space-1200)`, `padding-block: var(--t101-space-1600)`, `border-radius: var(--t101-radius-container)`, `type-heading-4`); `aspect-square` y `grid-cols-2` son utilidades sin valor de diseño.
+- **Imágenes:** `public/brand/home-light.png` y `home-dark.png` **no estaban en el repositorio** al implementar (ni en `~/Downloads`). El código ya las enlaza; hasta que se añadan, la portada sale sin imagen (petición 404).
+- **Comprobaciones:** `npm run build` sin errores (`/` estática, 83 páginas); `npm run check:content` y `npm run check:tokens`: "Sin errores." (`src/`: 35 archivos, 8 valores arbitrarios, 5 excepciones, como antes). Sin prueba en el navegador.
+
 **Semantic color: las dos descripciones propuestas (2026-10-07)**
 - Oscar cambió en Figma las descripciones de `color/background/neutral/hover` y `color/border/accent/strong` y reexportó `Semantic color` (C10).
 - `git diff` y comparación con Node.js sin `$description`: en Light y Dark solo cambian esas dos descripciones; el resto es idéntico. Los textos coinciden letra por letra con los propuestos por la sesión de contenido (sin "En esta página" ni "los selectores"; `border/accent/strong` nombra la marca lateral de la lección actual y el borde de los pasos de `Flow` con enlace en hover).
