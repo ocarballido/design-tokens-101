@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. `Semantic color` reexportada con las dos descripciones propuestas (`neutral/hover`, `border/accent/strong`) y generada; solo cambian descripciones y comentarios; `check:tokens` sin errores.
+Última actualización: 2026-10-07, sesión de contenido. Oscar aprueba el módulo 10 (T20), cierra A11 con issues de GitHub (P25), fija el dominio `designtokens101.com` (P26) y aprueba V44; "Cómo se hizo esta web" enlaza los issues.
 
 ---
 
@@ -14,7 +14,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 |---|---|---|---|
 | 1-4, 7, 8 | Todos | Bloque 0, especificación, repositorio, esqueleto, tokens a código, componentes y páginas | Hechos (2026-09-30 a 2026-10-03) |
 | 5 | Diseño | Variables, componentes y plantillas en Figma | Hecho; al día con el código (D31 a D39) |
-| 6 | Contenido | Módulos 1 a 10 en español | Módulos 0 a 9 aprobados (el 9, el 2026-10-07, T18). Módulo 10, Conclusiones (T20): en borrador, pendiente de la revisión de Oscar |
+| 6 | Contenido | Módulos 1 a 10 en español | Módulos 0 a 10 aprobados (el 10, Conclusiones, el 2026-10-07, T20) |
 | 9 | Contenido | Versión en inglés | Aplazada (P24): la web se lanza solo en español |
 | 10 | Todos | Lanzamiento (P17, P18, P24) | Lista en "Para la primera versión" |
 
@@ -22,7 +22,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 Lo que falta para publicar (P17, P18, P24), por quién lo hace. Orden: 1 y 2 en paralelo; después 3; al final, el bloque de lanzamiento.
 
-1. **Oscar:** revisar y aprobar el módulo 10; decidir V44 y la comprobación del CSS que propone desarrollo; A11 (canal para comunicar errores, bloquea la publicación); el dominio de la web (lo necesitan la portada del archivo de referencia y Vercel); una pasada por las provisionales (C7, C16, C19, S33, V02 a V04, V11, V21, V22, V34, V37) para cerrarlas o dejarlas.
+1. **Oscar:** una pasada por las provisionales (C7, C16, C19, S33, V02, V04, V11, V21, V22, V34, V37) para cerrarlas o dejarlas; decidir si el pie de la web enlaza también los issues y si el repositorio lleva una plantilla de issue (P25, punto 3). Hecho: módulo 10, V44, A11 (P25) y dominio (P26).
 2. **Desarrollo:** hecho (P24 con V45; comprobación del CSS, V46). Queda el despliegue, en el bloque de lanzamiento.
 3. **Diseño y Oscar, en Figma:** P24 en TokensDS; el archivo de referencia (nombre de la copia, captura de las variables, texto de Community, versión, fecha y enlace en Read me, página de imágenes borrada, prueba con Starter y licencia); el diseño de partida, si entra en la primera versión.
 4. **Bloque de lanzamiento:** publicar los archivos en Community; página "Archivos de Figma" y sus tres enlaces (contenido); build final, despliegue en Vercel con el dominio y prueba manual en Safari, Firefox y con lector de pantalla (desarrollo).
@@ -31,11 +31,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 ## Contenido
 
-**En curso: módulo 10, Conclusiones (T20, P23)**
-- `content/es/10-conclusions/`: `course-summary` y `conclusions`, en borrador. **Pendiente de la revisión de Oscar.**
-- **P24, hecho en el contenido:** `states`, `use-of-color`, `non-text-contrast`, `size-and-spacing`, `forced-colors-and-contrast` y `what-is-a-mode` ya no hablan del selector de idioma. Build hecho por la sesión de desarrollo (2026-10-07), sin errores; con V45 las URL ya no llevan `/es/`.
-- Menciones a la IA quitadas (P23) de `why-this-site`, `figma-dtcg-tailwind`, `component-tokens`, `design-to-code` y `what-we-teach`; esta última y `content/es/meta.json` enlazan ya el módulo 10.
-- Build y navegador hechos por la sesión de desarrollo (2026-10-07), sin errores ni cambios en el MDX (detalle en `historial.md`). El aviso sobre `radius/full` en `course-summary` está corregido (2026-10-07).
+**Estado:** módulos 0 a 10 aprobados (P23, P24 y T20 reflejados; detalle en `historial.md`). `how-this-site-was-made` enlaza los issues (P25) desde el 2026-10-07: falta el build de desarrollo, que puede ir con el build final.
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
@@ -76,4 +72,5 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.
 - Prueba manual, con lector de pantalla y en Safari y Firefox.
 - `npm` bloquea el `postinstall` de `@swc/core` (dependencia de next-intl); el build funciona sin él.
-- **Provisionales que esperan la revisión de Oscar:** C19, V34, V37, V44.
+- **Provisionales que esperan la revisión de Oscar:** C19, V34, V37.
+- **Dominio `designtokens101.com` (P26):** configurarlo en Vercel en el despliegue.

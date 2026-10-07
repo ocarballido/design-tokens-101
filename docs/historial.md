@@ -24,6 +24,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: decisiones de lanzamiento (T20, P25, P26, V44)**
+- Oscar aprueba el módulo 10, Conclusiones (T20): `course-summary` y `conclusions` dejan de estar en borrador.
+- A11 resuelta como P25: issues de GitHub del repositorio público (comprobado con `gh api`: público y con issues activados). Descartados el correo (correo basura) y el formulario (servicio o base de datos que mantener).
+- P26: dominio `designtokens101.com`, ya comprado.
+- V44 aprobada por Oscar y cerrada.
+- `how-this-site-was-made`: el apartado "Si encuentras un error" enlaza a `github.com/ocarballido/design-tokens-101/issues`, pide la página, qué falla y la fuente, y avisa de que hace falta una cuenta de GitHub; desaparece el `Callout` `pending`. El `Callout` de errores corregidos ya no promete una página de "errores frecuentes" (fuera de la primera versión, P14): dice que los que ayudan a aprender están en su lección (el de timing y easing está en `simple-types`). `lastReviewed` pasa a 2026-10-07. Enlaces y anclas comprobados con el script de contenido: 77 páginas, 0 errores.
+
 **2026-10-07, sesión de contenido: P24, solo español**
 - Decisión de Oscar tras comparar costes: traducir 77 lecciones (unas 99 000 palabras; del orden de un millón de tokens, estimado) frente a lanzar en español. Ocultar el selector no basta (next-intl elige por `Accept-Language` o la cookie y usaría el inglés por defecto; envía `hreflang` de todos los idiomas): se deja un único idioma configurado y el prefijo `/es/`.
 - Lecciones al día: `states`, `use-of-color` (V26 con el selector de tema y `aria-pressed`; cifras sin cambios, son los mismos pares), `non-text-contrast`, `size-and-spacing` (sin la fila del selector de idioma), `forced-colors-and-contrast` y `what-is-a-mode`. `course-summary`: corregido el aviso de desarrollo sobre `radius/full`.

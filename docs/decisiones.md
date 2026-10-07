@@ -54,6 +54,8 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P22 | `decisiones.md` con una línea por decisión; el texto completo, en `decisiones-detalle.md`, bajo demanda. | Cerrada | 2026-10-07 |
 | P23 | Web de educación sobre tokens, sin contenido de IA: ni módulo, ni hipótesis, ni promesas; el módulo 10 son las conclusiones del curso. | Cerrada | 2026-10-07 |
 | P24 | La web se lanza solo en español: único idioma configurado y sin selector de idioma; el inglés queda aplazado (URL sin `/es/` desde V45). | Cerrada | 2026-10-07 |
+| P25 | Los errores se comunican con issues de GitHub en el repositorio público; la lección "Cómo se hizo esta web" lo enlaza (resuelve A11). | Cerrada | 2026-10-07 |
+| P26 | Dominio de la web: `designtokens101.com`. | Cerrada | 2026-10-07 |
 
 ## Temario
 
@@ -237,7 +239,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V41 | El tema se conserva cuando React vuelve a montar el layout (nació con el cambio de idioma, que ya no existe: V45). | Cerrada | 2026-10-06 |
 | V42 | Borde transparente en `Button` `primary`. | Cerrada | 2026-10-06 |
 | V43 | `check:tokens` busca valores arbitrarios en `src/`. | Cerrada | 2026-10-06 |
-| V44 | Tailwind solo busca clases en `src/` (`source("..")`). | Provisional (falta la revisión de Oscar) | 2026-10-07 |
+| V44 | Tailwind solo busca clases en `src/` (`source("..")`). | Cerrada | 2026-10-07 |
 | V45 | Sin enrutado por idioma (configuración básica de next-intl): idioma fijo `es`, sin `[locale]`, proxy ni selector; URL `/{sección}/{lección}`. | Cerrada | 2026-10-07 |
 | V46 | `check:content` busca clases con corchetes en el CSS generado, fuera de las excepciones de V43. | Cerrada | 2026-10-07 |
 
@@ -245,4 +247,4 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 
 | # | Decisión | Quién | Bloquea |
 |---|---|---|---|
-| A11 | Canal para comunicar errores (repositorio público, formulario o correo). | Oscar | Publicación |
+| Ninguna | | | |
