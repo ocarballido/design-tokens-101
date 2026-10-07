@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. C20 aplicado; metadatos para buscadores y para compartir (V49 a V52): `<title>` con `meta_title`, canónicas, `sitemap.xml`, `robots.txt`, Open Graph y X. Títulos aprobados por Oscar (contenido). Build y comprobaciones sin errores.
+Última actualización: 2026-10-07, sesión de contenido. Sistema de referencia publicado en Community; página "Archivos de Figma" (`/resources/figma-files`) enlazada desde Requisitos y el ejercicio final (P18).
 
 ---
 
@@ -41,7 +41,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
-- **P17 y P18 (bloque de lanzamiento):** página "Archivos de Figma" (solo en español, P24) y sus tres enlaces (Requisitos, ejercicio del módulo 1, ejercicio final).
+- **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
 - **V01:** para "Cómo se hizo esta web" (plugins de MDX con Turbopack; `proxy.ts` ya no existe desde V45).
@@ -55,7 +55,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.
-  - Oscar: prueba con una cuenta Starter o, si no la hace, la página "Archivos de Figma" no dirá qué ve Starter (P14); publicar en Community y pasar el enlace a contenido.
+  - **Publicado en Community el 2026-10-07:** https://www.figma.com/community/file/1689691616219413490 (Education → Design tutorials). Sin prueba con Starter: la página "Archivos de Figma" no dice qué ve ese plan (P14).
   - La referencia no se edita: un cambio se hace en TokensDS y se vuelve a duplicar al publicar (D38).
 - **P24 en Figma: hecho (comprobado con la API de plugins el 2026-10-07, solo lectura).** Sin selector de idioma en ninguno de los dos archivos; descripción de `color/background/neutral/strong` y textos de Semantics (Light y Dark) corregidos. `Semantic color` reexportada, en el repositorio y generada (2026-10-07).
 - **Descripciones de `neutral/hover` y `border/accent/strong`:** cambiadas en Figma, reexportadas y generadas (2026-10-07). Sin comprobar desde desarrollo: el texto de las tablas de Semantics (Light y Dark) en TokensDS y en la copia de referencia, que no sale en la exportación.

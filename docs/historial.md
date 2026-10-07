@@ -24,6 +24,12 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: "Archivos de Figma" (P18)**
+- Oscar publica el sistema de referencia en Community (categoría Education → Design tutorials).
+- Página nueva `content/es/99-resources/02-figma-files.mdx`: qué contiene (páginas, colecciones y modos), cuándo usarlo (al terminar el ejercicio final), cómo hacer la copia ("Open in Figma"; las copias no se actualizan, según la ayuda de Figma), plan (Professional, como Requisitos) y licencia (CC BY 4.0, Lucide ISC y Feather MIT).
+- Enlaces: Requisitos (párrafo tras los avisos del apartado Figma) y ejercicio final (apartado "Compara tu sistema", tras "Comprueba tu sistema"). El ejercicio del módulo 1 no cambia: su enlace es para el diseño de partida, que no existe aún.
+- Script de enlaces: 78 páginas, 568 enlaces internos, 0 errores. Falta el build de desarrollo.
+
 **2026-10-07, sesión de contenido: archivo de referencia**
 - Read me (copia `neyQRIHKv3ylU9vksDy9Ho`, nodo 2045:191, y TokensDS, nodo 146:191): el `Callout` `pending` pasa a un texto con la versión, el mes de publicación y el enlace a `https://designtokens101.com`, con el mismo estilo que el párrafo anterior.
 - Licencia: la ayuda de Figma dice que los archivos gratuitos de Community se publican con CC BY 4.0 y que se pueden añadir otras licencias; no hace falta ninguna más. El Read me ya incluye los avisos de Lucide (ISC) y Feather (MIT).
