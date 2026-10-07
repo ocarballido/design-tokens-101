@@ -24,6 +24,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: P24, solo español**
+- Decisión de Oscar tras comparar costes: traducir 77 lecciones (unas 99 000 palabras; del orden de un millón de tokens, estimado) frente a lanzar en español. Ocultar el selector no basta (next-intl elige por `Accept-Language` o la cookie y usaría el inglés por defecto; envía `hreflang` de todos los idiomas): se deja un único idioma configurado y el prefijo `/es/`.
+- Lecciones al día: `states`, `use-of-color` (V26 con el selector de tema y `aria-pressed`; cifras sin cambios, son los mismos pares), `non-text-contrast`, `size-and-spacing` (sin la fila del selector de idioma), `forced-colors-and-contrast` y `what-is-a-mode`. `course-summary`: corregido el aviso de desarrollo sobre `radius/full`.
+- Script de enlaces (reglas de `rehype-slug`): 77 páginas, 563 enlaces internos y 293 anclas entre páginas, sin errores. Sin build (npm da 403).
+
 **2026-10-07, sesión de contenido: P20 a P23, T19 y T20**
 - **Investigación del módulo 10** (`docs/investigacion-modulo-10.md`): dos pruebas con el servidor MCP de Figma en TokensDS (plan Professional, puesto Full). (1) `Button` `primary`, solo lectura: el agente recibe el code syntax como nombre, con valor de reserva y como valores arbitrarios de Tailwind; llega la descripción del componente, no la de las variables. (2) D03 con cuatro formatos (colección y página temporales, borradas; TokensDS con 8 páginas y 143 variables): `var(--x)` y `x` dan `var(--x,valor)`; `--x`, cuatro guiones; sin code syntax, un nombre inventado desde la ruta de Figma.
 - **P20** (opción B) y **T19** (investigación aprobada), sustituidas el mismo día por **P23**: la web no tiene contenido de IA. **P21** y **P22**: `estado.md` y `decisiones.md` cortos, con el detalle en `historial.md` y `decisiones-detalle.md` (de unos 322 KB a 32 KB al empezar cada sesión).

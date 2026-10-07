@@ -30,7 +30,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 
 ## Estructura del repositorio
 
-- `content/{locale}/NN-seccion/NN-pagina.mdx`: lecciones (C6). El español es el idioma de trabajo; el inglés es el idioma por defecto de la web (C5).
+- `content/{locale}/NN-seccion/NN-pagina.mdx`: lecciones (C6). La web se publica solo en español (P24); la parte técnica de idiomas sigue en el código, sin uso.
 - `docs/`: documentos compartidos.
 - `tools/`: scripts de escalas y contraste (`python3 tools/scales.py`, `python3 tools/semantic.py`) y comprobación del contenido compilado (`npm run build && npm run check:content`).
 - `src/`: la aplicación Next.js. `app/[locale]/[section]/[lesson]/page.tsx` carga las lecciones; `lib/content.ts` lee `content/`; `components/`, los componentes; `i18n/`, next-intl; `mdx-components.tsx`, los componentes del MDX.

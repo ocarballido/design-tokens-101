@@ -2,7 +2,7 @@
 title: El color no basta
 description: "Qué pide el criterio 1.4.1 (A), cuándo una diferencia de luminosidad cuenta como segunda señal, cómo se distinguen los enlaces y los estados de DesignToken101 y un riesgo aceptado y registrado: los selectores de la cabecera."
 nav_title: El color no basta
-lastReviewed: 2026-10-05
+lastReviewed: 2026-10-07
 ---
 
 Un token de color puede cumplir todos los contrastes y aun así dejar fuera a quien no distingue ese color. Si la única diferencia entre un enlace y el texto, o entre la opción elegida y las demás, es el tono, esa información no le llega. En esta lección verás qué pide WCAG, cuándo la luminosidad cuenta como segunda señal y cómo lo resuelve DesignToken101, incluido un caso en el que no lo resuelve.
@@ -63,16 +63,16 @@ El rol `success` usa la misma escala que el acento (`emerald`). No pasa nada, po
 
 ## Un riesgo aceptado
 
-Los selectores de idioma y de tema de la cabecera marcan la opción actual con un recuadro de fondo (`background/neutral/default`) y el texto o el icono de acento (`text/accent/default`). Las demás opciones no tienen recuadro y usan `text/neutral/subtle`. ¿Llega alguna de esas diferencias a 3:1?
+El selector de tema de la cabecera marca la opción actual con un recuadro de fondo (`background/neutral/default`) y el icono de acento (`text/accent/default`). Las demás opciones no tienen recuadro y usan `text/neutral/subtle`. ¿Llega alguna de esas diferencias a 3:1?
 
 | Diferencia | Light | Dark |
 |---|---|---|
 | Recuadro de la opción actual frente al fondo del grupo (`background/neutral/strong`) | 1,09 | 1,32 |
-| Texto de la opción actual frente al de las otras | 1,52 | 1,43 |
+| Icono de la opción actual frente al de las otras | 1,52 | 1,43 |
 
 Cálculo propio con la fórmula de WCAG 2.2, 2026-10-05.
 
-Ninguna llega. Según la guía de 1.4.1, la opción actual se distingue únicamente por el color, y por eso **ese control no cumple 1.4.1**, que es un criterio de nivel A. Para un lector de pantalla no hay problema (el código anuncia la opción actual con `aria-current` y `aria-pressed`), pero 1.4.1 trata de lo que se ve.
+Ninguna llega. Según la guía de 1.4.1, la opción actual se distingue únicamente por el color, y por eso **ese control no cumple 1.4.1**, que es un criterio de nivel A. Para un lector de pantalla no hay problema (el código anuncia la opción actual con `aria-pressed`), pero 1.4.1 trata de lo que se ve.
 
 Es una decisión tomada y registrada, no un descuido: el diseño sin marca inferior se eligió aceptando el riesgo, y la decisión quedó escrita con sus cifras. El registro incluye también la alternativa, por si se revisa: un borde de 1 px con `border/accent/strong` alrededor del recuadro, que es una forma y no un color. La decisión se volvió a revisar con los datos de este módulo, y se mantiene.
 

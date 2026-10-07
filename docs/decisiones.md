@@ -46,13 +46,14 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P14 | Lo que no se puede comprobar no se publica; `pending` solo para contenido en preparación; en `docs/` se anota. | Cerrada | 2026-10-04 |
 | P15 | El logotipo dice "DesignToken101". | Cerrada | 2026-10-05 |
 | P16 | Archivos de Figma descargables: sistema de referencia y, después, diseño de partida; en Community tras licencia y prueba con Starter. | Cerrada | 2026-10-06 |
-| P17 | La web no se publica sin el inglés y los módulos 9 y 10; los archivos de Figma salen en el mismo bloque. | Cerrada | 2026-10-06 |
+| P17 | La web no se publica sin los módulos 9 y 10 (el inglés ya no hace falta, P24); los archivos de Figma salen en el mismo bloque. | Cerrada | 2026-10-06 |
 | P18 | Los archivos de Figma se enlazan desde la página "Archivos de Figma" de Recursos, y esta desde Requisitos, el ejercicio 1 y el final. | Cerrada | 2026-10-06 |
-| P19 | El texto del lienzo de los archivos de Figma sigue en español; los nombres técnicos, en inglés. | Cerrada | 2026-10-06 |
+| P19 | El texto del lienzo de los archivos de Figma, en español; los nombres técnicos, en inglés. | Cerrada | 2026-10-06 |
 | P20 | Módulo 10 sobre lo que recibe un agente de IA. | Sustituida por P23 | 2026-10-07 |
 | P21 | `estado.md` solo con lo abierto; el detalle de lo hecho va a `historial.md`, que se lee bajo demanda. | Cerrada | 2026-10-07 |
 | P22 | `decisiones.md` con una línea por decisión; el texto completo, en `decisiones-detalle.md`, bajo demanda. | Cerrada | 2026-10-07 |
 | P23 | Web de educación sobre tokens, sin contenido de IA: ni módulo, ni hipótesis, ni promesas; el módulo 10 son las conclusiones del curso. | Cerrada | 2026-10-07 |
+| P24 | La web se lanza solo en español: único idioma configurado, sin selector de idioma y con el prefijo `/es/`; el inglés queda aplazado. | Cerrada | 2026-10-07 |
 
 ## Temario
 
@@ -87,7 +88,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C2 | Lecciones en MDX. | Cerrada | 2026-09-30 |
 | C3 | `@next/mdx` con `remark-frontmatter`, `remark-mdx-frontmatter`, `remark-gfm` y `rehype-slug`; navegación hecha a mano. | Cerrada | 2026-09-30 |
 | C4 | Contenido portable; no se migra a Fumadocs Core: ningún módulo necesita búsqueda, `llms.txt` ni MCP (P23). | Cerrada | 2026-09-30 |
-| C5 | Inglés por defecto y español; se redacta primero en español. | Cerrada | 2026-09-30 |
+| C5 | Inglés por defecto y español (cambiada por P24: solo español). | Sustituida por P24 | 2026-09-30 |
 | C6 | `content/{locale}/NN-seccion/NN-pagina.mdx`; el prefijo ordena y no sale en la URL. | Cerrada | 2026-09-30 |
 | C7 | Slugs en inglés en todos los idiomas. | Provisional | 2026-09-30 |
 | C8 | Componentes de contenido: `Callout` (note, warning, recommendation, pending) e `InCode`. | Cerrada | 2026-09-30 |
@@ -167,7 +168,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D16 | "En esta página" sin componente propio. | Cerrada | 2026-10-01 |
 | D17 | Estilo de texto `body/strong`. | Cerrada | 2026-10-02 |
 | D18 | `Callout` con etiqueta fija por variante. | Cerrada | 2026-10-02 |
-| D19 | En móvil, los selectores de idioma y tema pasan al panel de navegación. | Cerrada | 2026-10-02 |
+| D19 | En móvil, el selector de tema pasa al panel de navegación (sin selector de idioma desde P24). | Cerrada | 2026-10-02 |
 | D20 | `size/content/max-width` (960 px desde V27). | Cerrada | 2026-10-02 |
 | D21 | Panel móvil a pantalla completa. | Sustituida por V25 | 2026-10-02 |
 | D22 | Logotipos como imagen, fuera de "solo tokens". | Cerrada | 2026-10-02 |
@@ -194,7 +195,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | # | Decisión | Estado | Fecha |
 |---|---|---|---|
 | V01 | Esqueleto: Next.js 16.3, next-intl 4.14, Tailwind CSS 4.3, `@next/mdx` y TypeScript 7. | Cerrada | 2026-10-03 |
-| V02 | Una lección sin traducir se muestra en español, con aviso. | Provisional | 2026-10-03 |
+| V02 | Una lección sin traducir se muestra en español, con aviso (sin uso con un solo idioma, P24). | Provisional | 2026-10-03 |
 | V03 | Prefijo de idioma siempre en la URL. | Provisional | 2026-10-03 |
 | V04 | Sin portada: `/{locale}` lleva a la primera lección. | Provisional | 2026-10-03 |
 | V05 | El nombre de cada sección va en su `meta.json`. | Cerrada | 2026-10-03 |

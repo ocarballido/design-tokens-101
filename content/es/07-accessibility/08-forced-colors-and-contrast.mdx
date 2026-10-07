@@ -2,7 +2,7 @@
 title: Colores forzados y más contraste
 description: "Qué pasa con un sistema de tokens cuando la persona impone su propia paleta (forced-colors), qué queda de DesignToken101 en ese modo, qué es prefers-contrast y por qué DesignToken101 no tiene un modo de contraste aumentado."
 nav_title: Colores forzados
-lastReviewed: 2026-10-06
+lastReviewed: 2026-10-07
 ---
 
 Hay personas que no usan los colores de la web: el sistema los sustituye por una paleta que eligen ellas, con el contraste que necesitan. En ese caso, casi todos tus tokens de color dejan de verse. En esta lección verás qué queda de un sistema de tokens cuando el navegador quita sus colores, qué queda de DesignToken101 y qué es la preferencia de más contraste.
@@ -50,7 +50,7 @@ Lo comprobamos en la web con la emulación de colores forzados de Chrome, con es
 |---|---|---|
 | Anillo de foco | Se ve en todas las paradas del tabulador, en un color del sistema | Es un `outline` de `border-width/200`: el grosor se queda ([El foco](/accessibility/focus#outline-no-box-shadow)) |
 | Lección actual del sidebar | Se distingue | Su marca lateral de 2 px es forma |
-| Opción actual de los selectores de idioma y tema | **No se distingue** de las demás | Únicamente cambiaba el color del fondo y del texto ([Un riesgo aceptado](/accessibility/use-of-color#un-riesgo-aceptado)) |
+| Opción actual del selector de tema | **No se distingue** de las demás | Únicamente cambiaba el color del fondo y del texto ([Un riesgo aceptado](/accessibility/use-of-color#un-riesgo-aceptado)) |
 | Pasos de los gráficos de proceso | Se distinguen | Sus bordes de 1 px se quedan |
 | Muestras de las escalas de color | Pierden el color; el número y el hex se siguen leyendo | La muestra es un fondo, y el navegador lo sustituye |
 | `Callout` | Pierde el fondo; conserva el borde, la etiqueta y el icono | La etiqueta fija lo identifica |
