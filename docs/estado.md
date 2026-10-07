@@ -53,10 +53,8 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Archivo de referencia (P16, D37, D38):**
-  - Oscar: cambiar el nombre de la copia a "DesignToken101: Reference system" (la API no puede) y hacer la captura de la vista de variables con los modos.
-  - Texto para Community (nombre, descripción, etiquetas): pendiente de la aprobación de Oscar.
-  - Antes de publicar: versión, fecha y enlace en Read me (quitar el `Callout` `pending`); borrar la página de imágenes; prueba con una cuenta Starter; revisar la licencia.
-  - Revisar (P14): el texto de ejemplo de `body/small` dice que, al importar, "si dos tokens acaban con el mismo nombre, solo importa el primero". Sin comprobar.
+  - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
+  - Oscar: captura del panel de variables con los modos (opcional, para las imágenes de Community); exportar las imágenes de la página "Community images" y borrarla; prueba con una cuenta Starter o, si no la hace, la página "Archivos de Figma" no dirá qué ve Starter (P14).
   - La referencia no se edita: un cambio se hace en TokensDS y se vuelve a duplicar al publicar (D38).
 - **P24 en Figma: hecho (comprobado con la API de plugins el 2026-10-07, solo lectura).** Sin selector de idioma en ninguno de los dos archivos; descripción de `color/background/neutral/strong` y textos de Semantics (Light y Dark) corregidos. `Semantic color` reexportada, en el repositorio y generada (2026-10-07).
 - **Descripciones de `neutral/hover` y `border/accent/strong`:** cambiadas en Figma, reexportadas y generadas (2026-10-07). Sin comprobar desde desarrollo: el texto de las tablas de Semantics (Light y Dark) en TokensDS y en la copia de referencia, que no sale en la exportación.

@@ -24,6 +24,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: archivo de referencia**
+- Read me (copia `neyQRIHKv3ylU9vksDy9Ho`, nodo 2045:191, y TokensDS, nodo 146:191): el `Callout` `pending` pasa a un texto con la versión, el mes de publicación y el enlace a `https://designtokens101.com`, con el mismo estilo que el párrafo anterior.
+- Licencia: la ayuda de Figma dice que los archivos gratuitos de Community se publican con CC BY 4.0 y que se pueden añadir otras licencias; no hace falta ninguna más. El Read me ya incluye los avisos de Lucide (ISC) y Feather (MIT).
+- `body/small`: la frase de ejemplo está en la ayuda de Figma ("If two tokens end up with the same normalized name, only the first one encountered will be imported"); se queda.
+
 **2026-10-07, sesión de contenido: C20, títulos para buscadores**
 - Revisión de metadatos: 77 lecciones con `title` y `description` únicos; 61 descripciones de más de 160 caracteres (Google no pone límite); "Estados" repetido en los módulos 3 y 9.
 - `meta_title` añadido a 66 lecciones; ninguno se repite; el más largo, 67 caracteres con " · DesignToken101". Regla en `content/README.md`. Sin meta keywords (Google no las usa).
