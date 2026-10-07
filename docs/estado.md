@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. P24 en código con la configuración de next-intl sin enrutado (V45): solo español, URL `/{sección}/{lección}` sin `/es/`, sin selector de idioma; `check:content` busca valores arbitrarios en el CSS generado (V46). Build y comprobaciones sin errores; hay que reiniciar `next dev`.
+Última actualización: 2026-10-07, sesión de contenido. Ninguna lección habla del prefijo `/es/` ni del proxy (V45). Comprobado en Figma: el selector de idioma sigue en los dos archivos y la descripción de `background/neutral/strong` tiene una errata (ver Diseño).
 
 ---
 
@@ -46,7 +46,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente de reflejar en el contenido**
 - **P17 y P18 (bloque de lanzamiento):** página "Archivos de Figma" (solo en español, P24) y sus tres enlaces (Requisitos, ejercicio del módulo 1, ejercicio final).
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
-- **V01:** para "Cómo se hizo esta web" (`proxy.ts`, plugins de MDX con Turbopack).
+- **V01:** para "Cómo se hizo esta web" (plugins de MDX con Turbopack; `proxy.ts` ya no existe desde V45).
 - **V05 (si algún día se traduce, P24):** crear también `content/en/NN-seccion/meta.json`.
 
 ## Diseño
@@ -60,7 +60,11 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
   - Antes de publicar: versión, fecha y enlace en Read me (quitar el `Callout` `pending`); borrar la página de imágenes; prueba con una cuenta Starter; revisar la licencia.
   - Revisar (P14): el texto de ejemplo de `body/small` dice que, al importar, "si dos tokens acaban con el mismo nombre, solo importa el primero". Sin comprobar.
   - La referencia no se edita: un cambio se hace en TokensDS y se vuelve a duplicar al publicar (D38).
-- **P24:** quitar el selector de idioma de las plantillas de TokensDS (cabecera y panel móvil); cambiar en Figma la descripción de `color/background/neutral/strong` ("grupo de los selectores de idioma y tema" → "grupo del selector de tema") y reexportar `Semantic color` (Oscar, C10).
+- **P24, comprobado con la API de plugins el 2026-10-07 (solo lectura), en TokensDS y en la referencia:**
+  - El selector de idioma **sigue**: el componente `LanguageSwitcher` (30:1166) y su instancia de muestra (35:658) en Components, y una instancia en cada plantilla con el menú abierto ("Lesson · Mobile · Light · Menu open", 55:813, y "… Dark …", 55:947). En la referencia, además, una en la página de imágenes de Community (2016:1616). Las plantillas de escritorio ya no lo tienen.
+  - La descripción de `color/background/neutral/strong` tiene una errata: "grupo de  selector de tema" (TokensDS, con dos espacios) y "grupo de selector de tema" (referencia). Debe decir "grupo del selector de tema".
+  - En la página Semantics de los dos archivos, el texto de la tabla aún dice "grupo de los selectores de idioma y tema" (TokensDS 118:218 y 118:472; referencia 2013:3874 y 2013:4128).
+  - Después: reexportar `Semantic color` (C10) y que desarrollo regenere con `npm run tokens`. La exportación del repositorio aún tiene el texto antiguo.
 - **Diseño de partida (P16, P18):** cuando estén cerrados los módulos 9 y 10; incluye al menos un botón con estados dibujado con valores sueltos (T17).
 - **V40:** implementada en código el 2026-10-07 (ancho mínimo `space/600`, número alineado al final). Anotar en `componentes-v1.md` §4.10 la columna de ancho mínimo y añadir la sección "10" a las plantillas.
 
@@ -70,8 +74,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Abierto tras P24 (V45)**
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
-- **Contenido:** las URL ya no llevan `/es/` (V45); revisar si alguna lección o "Cómo se hizo esta web" (V01, V02) habla del prefijo, del proxy o del cambio de idioma.
-- **Diseño:** quitar `LanguageSwitcher` de las plantillas de TokensDS (ya anotado en P24).
+- **Cuando Oscar reexporte `Semantic color`:** `npm run tokens` y `check:tokens` (solo cambia una descripción).
 
 **Pendiente o sin verificar**
 - Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.
