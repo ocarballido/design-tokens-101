@@ -253,7 +253,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V49 | `<title>` de lección = `meta_title` o `title` + " · DesignToken101" (C20), con una función y no con `title.template`. | Cerrada | 2026-10-07 |
 | V50 | `metadataBase` `https://designtokens101.com` en el layout raíz y URL canónica en cada página. | Cerrada | 2026-10-07 |
 | V51 | `sitemap.ts` (portada y lecciones, sin `lastmod`, `priority` ni `changefreq`) y `robots.ts`. | Cerrada | 2026-10-07 |
-| V52 | Open Graph y X en cada página con su título y descripción; imagen `home-light.png` tal cual y tarjeta `summary`. | Cerrada | 2026-10-07 |
+| V52 | Open Graph y X en cada página con su título y descripción; imagen `share.png` de 1200 × 630 y tarjeta `summary_large_image` (antes, `home-light.png` y `summary`). | Cerrada | 2026-10-07 |
 
 ## Abiertas
 

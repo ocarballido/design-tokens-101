@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. Sistema de referencia publicado en Community; página "Archivos de Figma" (`/resources/figma-files`) enlazada desde Requisitos y el ejercicio final (P18).
+Última actualización: 2026-10-07, sesión de contenido. Dominio funcionando; `robots.txt` y `sitemap.xml` comprobados (79 URL); imagen para compartir de 1200 × 630 (V52).
 
 ---
 
@@ -74,9 +74,9 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente o sin verificar**
 - **Oscar:** decidir la versión de Node en Vercel. Propuesta: `"engines": { "node": "24.x" }` en `package.json` (la que usa Vercel por defecto y la de local; 20.x deprecada el 2026-10-01).
-- **Imagen para compartir (V52):** hoy, `home-light.png` cuadrada con tarjeta `summary`. Si se quiere la tarjeta grande, diseño entrega un PNG de 1200 × 630.
-- Al desplegar: comprobar `robots.txt`, `sitemap.xml` y la vista previa al compartir con el dominio real; dar de alta el sitemap en Google Search Console.
+- **Imagen para compartir (V52):** `share.png` de 1200 × 630 y tarjeta grande desde el 2026-10-07; falta ver el build de Vercel y la vista previa en LinkedIn.
+- `robots.txt` y `sitemap.xml` con el dominio: comprobados el 2026-10-07 (79 URL, todas en `designtokens101.com`). Oscar: vista previa en LinkedIn y alta en Google Search Console.
 - Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.
 - Prueba manual, con lector de pantalla y en Safari y Firefox.
 - `npm` bloquea el `postinstall` de `@swc/core` (dependencia de next-intl); el build funciona sin él.
-- **Dominio `designtokens101.com` (P26):** configurarlo en Vercel en el despliegue.
+- **Dominio `designtokens101.com` (P26):** funcionando desde el 2026-10-07.

@@ -9,9 +9,14 @@ import type { Metadata } from 'next';
 export const SITE_URL = 'https://designtokens101.com';
 export const SITE_NAME = 'DesignToken101';
 
-// V51: la imagen de la portada (D43) tal cual, en Light. Es cuadrada, así que la tarjeta de X es
-// "summary" y no "summary_large_image" (2:1). Si diseño entrega una de 1200 × 630, se cambia aquí.
-const SHARE_IMAGE = { url: '/brand/home-light.png', width: 440, height: 441 };
+// V52 (cambiada el 2026-10-07): imagen para compartir de 1200 × 630 que entrega Oscar, con tarjeta
+// grande en X (summary_large_image). Antes, home-light.png cuadrada con tarjeta summary.
+const SHARE_IMAGE = {
+  url: '/brand/share.png',
+  width: 1200,
+  height: 630,
+  alt: 'DesignToken101: la lección «Qué es DesignToken101» con el sidebar del curso',
+};
 
 /** C20, V49: el <title> de una lección es meta_title (o title) seguido de la marca. */
 export const lessonTitle = (frontmatter: { title: string; meta_title?: string }) =>
@@ -32,6 +37,6 @@ export function pageMetadata({ title, description, path }: { title: string; desc
       description,
       images: [SHARE_IMAGE],
     },
-    twitter: { card: 'summary', title, description, images: [SHARE_IMAGE.url] },
+    twitter: { card: 'summary_large_image', title, description, images: [{ url: SHARE_IMAGE.url, alt: SHARE_IMAGE.alt }] },
   };
 }

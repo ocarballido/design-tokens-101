@@ -24,6 +24,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: dominio e imagen para compartir**
+- Con el dominio funcionando: `robots.txt` permite todo y apunta al sitemap; `sitemap.xml` tiene 79 URL (portada y 78 lecciones), todas en `https://designtokens101.com`, con `/resources/figma-files`.
+- V52 cambiada: `public/brand/share.png` (1200 × 630, de Oscar) con `alt`, en Open Graph y X; tarjeta `summary_large_image`.
+
 **2026-10-07, sesión de contenido: "Archivos de Figma" (P18)**
 - Oscar publica el sistema de referencia en Community (categoría Education → Design tutorials).
 - Página nueva `content/es/99-resources/02-figma-files.mdx`: qué contiene (páginas, colecciones y modos), cuándo usarlo (al terminar el ejercicio final), cómo hacer la copia ("Open in Figma"; las copias no se actualizan, según la ayuda de Figma), plan (Professional, como Requisitos) y licencia (CC BY 4.0, Lucide ISC y Feather MIT).
