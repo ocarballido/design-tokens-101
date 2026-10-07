@@ -1,10 +1,10 @@
 # DesignToken101: Estado
 
-En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P21): se carga al empezar cada sesión de Claude Code. El detalle de lo hecho (pruebas, cifras, comprobaciones, hallazgos) va en `docs/historial.md`, que se lee bajo demanda. Las decisiones van en `docs/decisiones.md`.
+En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P21): se carga al empezar cada sesión de Claude Code. El detalle de lo hecho (pruebas, cifras, comprobaciones, hallazgos) va en `docs/historial.md`, que se lee bajo demanda. Las decisiones van en `docs/decisiones.md` (resumen) y `docs/decisiones-detalle.md` (texto completo).
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. Investigación del módulo 10 aprobada (T19, P20); `estado.md` dividido (P21); siguiente, el índice del módulo 10.
+Última actualización: 2026-10-07, sesión de contenido. `decisiones.md` pasa a índice de una línea por decisión y el texto completo a `decisiones-detalle.md` (P22); antes, T19, P20 y P21. Siguiente, el índice del módulo 10.
 
 ---
 

@@ -10,6 +10,7 @@ Los documentos de `docs/` son la fuente de verdad compartida entre las sesiones 
 @docs/estado.md
 
 Lee bajo demanda, cuando el trabajo lo pida:
+- `docs/decisiones-detalle.md`: el porqué de cada decisión (motivo, fuentes, opciones descartadas). `decisiones.md` solo tiene el resumen (P22).
 - `docs/historial.md`: detalle de lo hecho en cada frente (pruebas, cifras, hallazgos). Al cerrar un bloque, el detalle va aquí y `estado.md` queda corto (P21).
 - `docs/sistema-tokens-v1.md`: especificación de los tokens (valores, nombres, modos, estilos de texto). Fuente de verdad de los tokens que no salen de Figma.
 - `docs/entrega-diseno.md`: entrega del diseño a desarrollo (variables, componentes, estados y plantilla).
@@ -21,7 +22,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 ## Reglas de trabajo
 
 - **No improvises sobre la especificación.** Si algo falta o se contradice, plantea las opciones a Oscar y espera su decisión (protocolo en `docs/decisiones.md`).
-- **Quien decide, escribe:** registra cada decisión en `docs/decisiones.md` y actualiza el documento afectado en el mismo commit. Numeración de la sesión de desarrollo: `V01`, `V02`…
+- **Quien decide, escribe:** en el mismo commit, el texto completo de la decisión en `docs/decisiones-detalle.md`, su resumen de una línea en `docs/decisiones.md` y el documento afectado. Numeración de la sesión de desarrollo: `V01`, `V02`…
 - **Al terminar un bloque de trabajo**, añade el detalle a `docs/historial.md`, deja en tu apartado de `docs/estado.md` solo lo que sigue abierto y, si afecta al curso, añade el punto a "Pendiente de reflejar en el contenido".
 - **Verifica antes de configurar:** consulta la documentación oficial (Next.js, next-intl, MDX, Tailwind CSS, Style Dictionary, Terrazzo) y cítala al tomar una decisión. Separa lo que dice la fuente de tu recomendación. Lo no verificado se marca como pendiente.
 - **Solo tokens:** ningún color, espacio, radio, grosor ni tamaño escrito a mano en los componentes. Todo sale de las variables `--t101-*` (S27).

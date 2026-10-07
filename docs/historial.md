@@ -1,6 +1,6 @@
 # DesignToken101: Historial
 
-Registro detallado de lo hecho en cada frente hasta el 2026-10-07: pruebas, cifras, comprobaciones y hallazgos. **No se carga al empezar una sesión** (P21): se lee bajo demanda, cuando una tarea necesita el detalle de un trabajo anterior. El estado actual, corto, está en `docs/estado.md`. Las decisiones, en `docs/decisiones.md`.
+Registro detallado de lo hecho en cada frente hasta el 2026-10-07: pruebas, cifras, comprobaciones y hallazgos. **No se carga al empezar una sesión** (P21): se lee bajo demanda, cuando una tarea necesita el detalle de un trabajo anterior. El estado actual, corto, está en `docs/estado.md`. Las decisiones, en `docs/decisiones.md` (resumen) y `docs/decisiones-detalle.md` (texto completo).
 
 Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha) y deja en `estado.md` solo lo que sigue abierto.
 
