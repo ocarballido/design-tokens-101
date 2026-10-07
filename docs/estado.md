@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. Pasada de provisionales: todas cerradas; C19 cambia la alineación del número; V04 sustituida por la portada (P27); P25 añade el enlace del pie y la plantilla de issue.
+Última actualización: 2026-10-07, sesión de diseño. Punto 2 de "Para la primera versión" hecho en TokensDS (D40 a D42): número de `SidebarSection` alineado al inicio con ancho mínimo, secciones 8 a 10 en las plantillas, enlace a los issues en el pie con `Link` `size=caption` y plantilla de la portada con sidebar. Desarrollo puede empezar el punto 3 (`entrega-diseno.md` §3.10).
 
 ---
 
@@ -13,7 +13,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 | Paso | Frente | Qué | Estado |
 |---|---|---|---|
 | 1-4, 7, 8 | Todos | Bloque 0, especificación, repositorio, esqueleto, tokens a código, componentes y páginas | Hechos (2026-09-30 a 2026-10-03) |
-| 5 | Diseño | Variables, componentes y plantillas en Figma | Hecho; al día con el código (D31 a D39) |
+| 5 | Diseño | Variables, componentes y plantillas en Figma | Hecho; al día con el código (D31 a D42) |
 | 6 | Contenido | Módulos 1 a 10 en español | Módulos 0 a 10 aprobados (el 10, Conclusiones, el 2026-10-07, T20) |
 | 9 | Contenido | Versión en inglés | Aplazada (P24): la web se lanza solo en español |
 | 10 | Todos | Lanzamiento (P17, P18, P24) | Lista en "Para la primera versión" |
@@ -23,8 +23,8 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 Lo que falta para publicar (P17, P18, P24), por quién lo hace. Orden: 1, 2 y 4 en paralelo; 3 cuando diseño entregue; al final, el bloque de lanzamiento.
 
 1. **Oscar:** la imagen isométrica del símbolo para la portada (P27, punto 3); comprobar si `designtoken101.com` (en singular, como el nombre del curso) está libre y, si lo está, comprarlo y redirigirlo a `designtokens101.com` (P26). Hecho: módulo 10, provisionales, V44, A11 (P25) y dominio (P26).
-2. **Diseño, en Figma:** plantilla de la portada (P27) con los componentes y estilos existentes; número de `SidebarSection` alineado al inicio (C19); enlace a los issues en `SiteFooter` (P25), con el texto "¿Has encontrado un error? Avísalo en GitHub" (propuesta de contenido) y su fila en `componentes-v1.md` §4.8.
-3. **Desarrollo, después de diseño:** C19 (`text-end` → `text-start` en el número); el enlace del pie a `https://github.com/ocarballido/design-tokens-101/issues` (P25); la portada en `/` sin la redirección de V04, con el texto en `messages/es.json`, metadatos y la imagen de Oscar (P27); build y `check:content`.
+2. **Diseño, en Figma: hecho el 2026-10-07 (D40 a D42).** Portada con sidebar y hueco para la imagen (P27), número alineado al inicio (C19) y enlace a los issues en `SiteFooter` (P25, fila en `componentes-v1.md` §4.8). Queda, de Oscar: revisar la portada (estilos, huecos y orden, D42) y poner a mano los estilos de `Link` `small` y `caption` (D41).
+3. **Desarrollo (diseño ya entregado, `entrega-diseno.md` §3.10):** C19 (`text-end` → `text-start` en el número); el enlace del pie a `https://github.com/ocarballido/design-tokens-101/issues` (P25); la portada en `/` sin la redirección de V04, con el texto en `messages/es.json`, metadatos y la imagen de Oscar (P27); build y `check:content`.
 4. **Diseño y Oscar, en Figma:** el archivo de referencia (nombre de la copia, captura de las variables, texto de Community, versión, fecha y enlace en Read me, página de imágenes borrada, prueba con Starter y licencia); el diseño de partida, si entra en la primera versión.
 5. **Bloque de lanzamiento:** publicar los archivos en Community; página "Archivos de Figma" y sus tres enlaces (contenido); build final, despliegue en Vercel con el dominio y prueba manual en Safari, Firefox y con lector de pantalla (desarrollo).
 
@@ -48,7 +48,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 ## Diseño
 
-**Estado:** archivo TokensDS al día con el código (D31 a D39). Detalle en `historial.md` y `docs/entrega-diseno.md`.
+**Estado:** archivo TokensDS al día con el código (D31 a D39) y con lo de la primera versión (D40 a D42: C19, enlace del pie y portada). Detalle en `historial.md` y `docs/entrega-diseno.md` §3.10.
 
 **Pendiente**
 - **Archivo de referencia (P16, D37, D38):**
@@ -60,7 +60,8 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **P24 en Figma: hecho (comprobado con la API de plugins el 2026-10-07, solo lectura).** Sin selector de idioma en ninguno de los dos archivos; descripción de `color/background/neutral/strong` y textos de Semantics (Light y Dark) corregidos. `Semantic color` reexportada, en el repositorio y generada (2026-10-07).
 - **Descripciones de `neutral/hover` y `border/accent/strong`:** cambiadas en Figma, reexportadas y generadas (2026-10-07). Sin comprobar desde desarrollo: el texto de las tablas de Semantics (Light y Dark) en TokensDS y en la copia de referencia, que no sale en la exportación.
 - **Diseño de partida (P16, P18):** cuando estén cerrados los módulos 9 y 10; incluye al menos un botón con estados dibujado con valores sueltos (T17).
-- **V40:** implementada en código el 2026-10-07 (ancho mínimo `space/600`, número alineado al final). Anotar en `componentes-v1.md` §4.10 la columna de ancho mínimo y añadir la sección "10" a las plantillas.
+- **Estilos de `Link` (D41), Oscar a mano en TokensDS:** las 6 etiquetas de `size=small` con `body/small` y las 6 de `size=caption` con `caption/default`. Con la API, un estilo aplicado a una etiqueta se aplica a las 18. Si la interfaz hace lo mismo, deshacer y avisar a la sesión de diseño.
+- **Portada (D42):** revisión de Oscar (estilo del subtítulo, huecos, imagen debajo del texto en móvil). Cuando esté la imagen isométrica, sustituir el hueco en las cuatro plantillas.
 
 ## Desarrollo
 

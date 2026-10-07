@@ -29,6 +29,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Lección, escritorio, Light / Dark ("Lesson · Desktop · Light" / "· Dark", D38) | Templates | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
 | Lección, móvil, Light / Dark | Templates | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
 | Menú móvil abierto (panel lateral, V25), Light / Dark ("Lesson · Mobile · Light · Menu open") | Templates | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
+| Portada (P27, D42), escritorio y móvil, Light / Dark ("Home · Desktop · Light"…) | Templates | [137:2993](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-2993) / [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) · [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) / [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) |
 | Muestra de estilos de texto (marcos "Text styles · Desktop · Light", "· Dark" y "· Mobile · Light") | Text styles | 14:12, 14:40, 16:13 |
 | Iconos de Lucide como componentes locales (21, `li:*`, D37; marco `Icons`) | Components | [108:1963](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1963) |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
@@ -245,7 +246,7 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 
 - **Componente** ([27:910](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=27-910)): capa de texto `Number` delante de `Label` en las 12 variantes (nodos 103:1912 a 103:1923). Propiedades nuevas: texto `number` (por defecto "0") y booleana `showNumber` (solo Figma). Estilo `label/default`; relleno con la misma variable que el título en cada variante. Hueco `space/200` (el de la fila). Fila de 304 × 40 px, sin cambios.
 - **Plantillas** (35:843, 35:1479, 52:487, 52:688, 55:699, 55:833): números 0 a 6 en las secciones existentes, Recursos con `showNumber = false` y sección nueva **7 Accesibilidad** (cerrada) tras "De Figma al código": 103:1956, 103:1962, 103:1968, 103:1979, 103:1990, 103:1996.
-- **Diferencia con el código:** cifras proporcionales en Figma (7 a 10 px de ancho), tabulares en código (9,08 px). Los títulos empiezan entre 27 y 30 px del borde en Figma y a 29,08 px en código. Diferencia aceptada (D36).
+- **Diferencia con el código:** cifras proporcionales en Figma (7 a 10 px de ancho), tabulares en código (9,08 px). Los títulos empiezan entre 27 y 30 px del borde en Figma y a 29,08 px en código. Diferencia aceptada (D36). *Desde D40 (§3.10), los títulos empiezan a 44 px en los dos.*
 
 **Auditoría (2026-10-06)**, como la del 2026-10-02, con scripts sobre las páginas Components, Pages y Foundations:
 - Sin valores sueltos en componentes ni plantillas (colores, espacios, radios y grosores con variables), salvo logotipos (D22), tamaño de los iconos y de pantalla. Se pusieron a 0 diez `itemSpacing` sin efecto (D36). Quedan sin variable, fuera de componentes y plantillas, los marcos de presentación de la página Components: relleno blanco de `Atoms`, `Molecules` y `Organisms`, y relleno de 40 px de los marcos `Takeaways` y `ColorScale` (89:365, 93:1020). Se tratan al preparar el archivo de referencia (P16).
@@ -269,6 +270,39 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 - **Páginas de lectura copiadas a TokensDS** desde la copia de referencia con un script: cada nodo se recrea con los componentes, variables y estilos de texto locales (los componentes tienen el mismo ID en los dos archivos, porque la copia se duplicó de TokensDS). Comprobado el 2026-10-06: los siete marcos miden lo mismo que en la copia (960 × 540, 1088 × 3619, 1088 × 2345, 1088 × 3349, 1088 × 3441 dos veces y 1088 × 1365), con los mismos modos y la exportación al 2× de la portada.
 - **Auditoría** de las cuatro páginas nuevas: sin rellenos, trazos, huecos ni rellenos internos sin variable, y todo el texto con estilo; la única excepción es el relleno del logotipo (D22).
 - **Nombre del archivo:** la API de plugins no lo puede cambiar. Lo cambia Oscar a mano: "DesignToken101: Reference system".
+
+### 3.10 Primera versión: C19, enlace del pie y portada (D40–D42, 2026-10-07)
+
+Punto 2 de "Para la primera versión" (`estado.md`). Hecho en TokensDS, no en la copia de referencia (D38).
+
+**C19, número alineado al inicio (D40).** En las 12 variantes de `SidebarSection` ([27:910](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=27-910)), el texto del número (`Value`, 103:1912 a 103:1923) va dentro de un marco `Number` (135:842 a 135:853) con ancho mínimo `space/600` y el texto a la izquierda; `showNumber` está en el marco y `number` en el texto. Títulos a 44 px del borde de "0" a "10" y Recursos a 12 px, como en código (`min-w-600 text-start`, V40). Secciones nuevas 8, 9 y 10 en las diez plantillas con sidebar.
+
+**Enlace a los issues (D41, P25).** En `SiteFooter` ([35:778](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-778)), bloque `Notice` (137:848, hueco `space/200`) con el aviso de P7 (`Credit`) y la línea `Report` (137:849): "¿Has encontrado un error?" (`caption/default`, `text/neutral/subtle`) y un `Link` `size=caption`, `external=true`, "Avísalo en GitHub" (137:851), con hueco `space/100`. Para el código, lo que corresponde es:
+
+```tsx
+<div className="flex flex-col gap-200">
+  <p>{t('notice')}</p>
+  <p>
+    {t('reportError')}{' '}
+    <TextLink href="https://github.com/ocarballido/design-tokens-101/issues">{t('reportLink')}</TextLink>
+  </p>
+</div>
+```
+
+Los nombres de las claves de `messages/es.json` son una propuesta; los textos: `reportError` "¿Has encontrado un error?" y `reportLink` "Avísalo en GitHub". En Figma, el hueco de `space/100` sustituye al espacio del párrafo (Figma no cuenta el espacio final de un texto). `Link` tiene ahora `size=caption` (136:842 a 136:855). **Pendiente de Oscar:** poner a mano `body/small` en las etiquetas de `size=small` y `caption/default` en las de `size=caption` (la API lo aplica a las 18 a la vez, D41).
+
+**Portada (D42, P27).** Cuatro marcos copiados de las plantillas de lección: [137:2993](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-2993) (Desktop Light), [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) (Desktop Dark), [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) (Mobile Light) y [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) (Mobile Dark). Sidebar con todas las secciones cerradas y sin lección actual. En `Content`, el marco `Hero`:
+
+| Parte | Escritorio | Móvil |
+|---|---|---|
+| `Hero` | Fila, dos columnas iguales, hueco `space/1200`, centradas en vertical; relleno vertical `space/1600` | Columna, hueco `space/1200`, relleno vertical `space/600` |
+| `Text` | Columna, hueco `space/600`: `Heading`, párrafo y botón | Igual |
+| `Heading` | Título `heading/1`, `text/neutral/default`; subtítulo `heading/4`, `text/neutral/subtle`; hueco `space/200` | Igual |
+| Párrafo | `body/default`, `text/neutral/default` | Igual |
+| Botón | `Button` `primary` con icono `li:chevron-right`, "Empezar el curso", 178 × 42 px; lleva a la primera lección | Igual |
+| Imagen | Hueco cuadrado de 441 px con borde discontinuo `border/neutral/default` y `radius/container` (solo marca el sitio) | 343 × 343, debajo del texto |
+
+En código (propuesta): `grid desktop:grid-cols-2 items-center gap-1200 py-600 desktop:py-1600` dentro de la columna de `main`; la imagen, `aspect-square` y decorativa (`alt=""`) en `public/brand/`, hasta que Oscar la entregue. Estilos, huecos y orden, pendientes de la revisión de Oscar (D42).
 
 ## 4. Accesibilidad comprobada en el diseño
 

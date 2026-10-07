@@ -188,10 +188,13 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D33 | Componentes de Figma al día con el código; el desenfoque de la cabecera, solo en código. | Cerrada | 2026-10-05 |
 | D34 | `ColorScale` en Figma. | Cerrada | 2026-10-05 |
 | D35 | Logotipo "DesignToken101" en Figma: 184 × 44 y 143 × 34 px. | Cerrada | 2026-10-05 |
-| D36 | Número del módulo en `SidebarSection`; en Figma se aceptan las cifras proporcionales. | Cerrada | 2026-10-06 |
+| D36 | Número del módulo en `SidebarSection`; en Figma se aceptan las cifras proporcionales (columna de ancho mínimo desde D40). | Cerrada | 2026-10-06 |
 | D37 | Estructura del archivo de referencia; iconos como componentes locales. | Cerrada | 2026-10-06 |
 | D38 | Nombres en inglés en Figma; TokensDS con todas las páginas; la referencia se obtiene duplicándolo. | Cerrada | 2026-10-06 |
 | D39 | Borde del `Button` `primary` con la variable del fondo; `secondary` corregido; anillo en capa aparte. | Cerrada | 2026-10-06 |
+| D40 | Número de `SidebarSection` en un marco de ancho mínimo `space/600`, alineado al inicio (C19); secciones 8 a 10 en las plantillas. | Cerrada | 2026-10-07 |
+| D41 | Enlace a los issues en `SiteFooter`, junto al aviso de P7; `Link` con `size=caption`. | Cerrada | 2026-10-07 |
+| D42 | Plantilla de la portada con sidebar: texto, botón y hueco para la imagen de Oscar. | Cerrada | 2026-10-07 |
 
 ## Desarrollo
 

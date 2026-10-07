@@ -152,7 +152,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | `external` | en React se deduce de `href`, no es prop | Variante `external` = `true` / `false` |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
 
-**Variantes en Figma:** `external` (2) × `state` (3) = 6 (más `size`, solo de Figma, §4.10).
+**Variantes en Figma:** `external` (2) × `state` (3) = 6, por cada `size` (`default`, `small`, `caption`; solo de Figma, §4.10): 18.
 
 **Tokens.**
 
@@ -846,7 +846,7 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 
 ### 4.8 `SiteFooter`
 
-**Para qué sirve.** El pie de todas las páginas: logotipo, autor y aviso de P7 (hecho con ayuda de Claude y revisión de Oscar Carballido).
+**Para qué sirve.** El pie de todas las páginas: logotipo, autor, aviso de P7 (hecho con ayuda de Claude y revisión de Oscar Carballido) y enlace para avisar de un error (P25).
 
 | Parte | Token |
 |---|---|
@@ -855,8 +855,9 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 | Texto | `text/neutral/subtle`, estilo `caption/default` |
 | Enlaces | `Link` (§2.3) |
 | Logotipo del autor | Imagen SVG (D22) enlazada a `https://www.oscarballido.com` (V36), en la misma pestaña. 39 × 24 px. Foco: anillo `border-width/200` + `border/focus` por fuera |
+| Enlace a los issues (P25, D41) | Párrafo "¿Has encontrado un error? Avísalo en GitHub" debajo del aviso de P7, en el mismo bloque (hueco `space/200`). "Avísalo en GitHub" es un `Link` (§2.3) externo a `https://github.com/ocarballido/design-tokens-101/issues`, con el estilo del pie (`caption/default`; en Figma, `size=caption`). La pregunta, en `text/neutral/subtle` |
 
-**Accesibilidad.** Es la región `footer`. **Contraste:** 7,74 / 7,65. El enlace del logotipo del autor tiene nombre accesible "Oscar Carballido, web personal" (`aria-label`; la imagen sigue con `alt=""`), mide 39 × 24 px (≥ 24 × 24, 2.5.8) y el logotipo está exento de contraste (D22).
+**Accesibilidad.** Es la región `footer`. **Contraste:** 7,74 / 7,65. El enlace del logotipo del autor tiene nombre accesible "Oscar Carballido, web personal" (`aria-label`; la imagen sigue con `alt=""`), mide 39 × 24 px (≥ 24 × 24, 2.5.8) y el logotipo está exento de contraste (D22). El enlace a los issues va subrayado, con el contraste de §2.3 (5,08 / 10,92), y la pregunta del mismo párrafo le da contexto (2.4.4, A); mide 17 px de alto, pero está en una línea de texto, exenta de 2.5.8.
 
 ### 4.9 Plantilla de lección
 
@@ -874,6 +875,7 @@ SiteFooter
 - Regiones: `header`, `nav` (sidebar), `main` (la lección), `footer`. Sin columna lateral de índice (D16).
 - Columna de la lección con ancho máximo `size/content/max-width` (960 px desde V27; antes 720 px, D20), centrada.
 - Dos marcos en Figma (D09): escritorio 1440 px (Layout Desktop) y móvil 375 px (Layout Mobile), cada uno en Light y Dark.
+- **Portada (P27, D42):** la misma plantilla, con todas las secciones del sidebar cerradas y sin lección actual. En la columna, un bloque `Hero`: título (`h1`, `heading/1`), subtítulo (`heading/4`, `text/neutral/subtle`), párrafo (`body/default`) y `Button` `primary` con icono "Empezar el curso", y la imagen isométrica de Oscar (decorativa, `alt=""`). Escritorio: dos columnas iguales, hueco `space/1200`, relleno vertical `space/1600`. Móvil: apilados, imagen después del texto, relleno `space/600`.
 
 ### 4.10 Ajustes tras el diseño de Oscar (2026-10-02)
 
@@ -884,7 +886,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `LessonHeader` | Con contenedor: borde `border/neutral/default` y `radius/container`. |
 | `Prose` (`##`) | Los títulos `heading/2` usan `text/neutral/subtle` (7,74 / 7,65). |
 | `Prose` (negrita y "En esta página") | Estilo `body/strong` (D17). |
-| `Link` | Propiedad `size` (`default`/`small`) solo de Figma: el enlace hereda el tamaño del texto que lo rodea. Icono externo: `li:external-link`. |
+| `Link` | Propiedad `size` (`default`/`small`/`caption`) solo de Figma: el enlace hereda el tamaño del texto que lo rodea. `caption` desde D41, para el pie. Icono externo: `li:external-link`, 16 px en los tres tamaños, como `size-400` en código. **Pendiente de Oscar (D41):** las etiquetas de `small` y `caption` están en `body/default`; con la API, un estilo aplicado a una etiqueta se aplica a todas, así que hay que ponerles `body/small` y `caption/default` a mano. La instancia del pie lleva `caption/default` aplicado en la instancia. |
 | `Callout` | Etiqueta fija por variante (D18). Borde de `pending`: `border/neutral/default` (decorativo). |
 | `IconButton` | 40 × 40 px, sin fondo en `default`. |
 | `Link` (icono externo) | Hueco `space/100` entre el texto y `li:external-link` en los dos tamaños (D33; antes `space/200` y `space/150`), como `ms-100` en código. |
@@ -896,14 +898,14 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `CodeBlock` | Props: `children`, `filename`; solo de Figma: `showFilename`, `showCopied`. Botón copiar: `IconButton` con `li:copy`. |
 | `SkipLink` | Se dibuja en estado de foco. En las plantillas está oculto. |
 | `SiteHeader` | `size=large` (escritorio) y `size=small` (móvil, sin selectores: D19). Fondo `background/neutral/translucent` (V28, D33). **Sin desenfoque en Figma:** `blur/300` es un token solo de código (pendiente de Oscar). |
-| `SiteFooter` | Logotipo, autor y aviso P7. Todo el texto en `text/neutral/subtle` desde el 2026-10-05 (D33; antes, el autor en `default`). |
+| `SiteFooter` | Logotipo, autor y aviso P7. Todo el texto en `text/neutral/subtle` desde el 2026-10-05 (D33; antes, el autor en `default`). Desde D41, bloque `Notice` con el aviso y la línea `Report` (pregunta y `Link` con hueco `space/100`, porque Figma no cuenta el espacio final de un texto; en código es un espacio normal dentro del párrafo). |
 | `Callout`, `InCode`, `LessonHeader`, `PageNavLink` | Borde de 1 px en los cuatro lados (`border-width/100`). |
-| Plantilla | Columna con ancho máximo `size/content/max-width` (960 px, V27), centrada. Sidebar con las ocho secciones y los tres grupos (D29). Contenido de `what-is-designtoken101` al día (D31). **Listas del texto:** en Figma son listas nativas, y la viñeta toma el color del texto (`text/neutral/default`); en código, `marker:text-neutral-subtle`. Visto en el archivo: la viñeta sale del color del primer carácter de la línea; no se ha buscado otra forma de cambiarla. "En esta página" sí lleva la viñeta en `subtle`, porque sus elementos son instancias de `Link` con un marco `Marker`. |
+| Plantilla | Columna con ancho máximo `size/content/max-width` (960 px, V27), centrada. Sidebar con todas las secciones (0 a 10 y Recursos, D40) y los tres grupos (D29). Contenido de `what-is-designtoken101` al día (D31). **Listas del texto:** en Figma son listas nativas, y la viñeta toma el color del texto (`text/neutral/default`); en código, `marker:text-neutral-subtle`. Visto en el archivo: la viñeta sale del color del primer carácter de la línea; no se ha buscado otra forma de cambiarla. "En esta página" sí lleva la viñeta en `subtle`, porque sus elementos son instancias de `Link` con un marco `Marker`. |
 | Navegación móvil | Panel lateral con overlay (V25), en Figma desde el 2026-10-05 (D32): ancho `size/sidebar/width`, logotipo y botón de cerrar `li:x` arriba, selectores debajo y el sidebar; `Overlay` en `color/background/overlay` sobre la página y la cabecera. |
 | `Callout` (etiqueta) | Icono y etiqueta en `text/{rol}/default` (V18), en Figma desde el 2026-10-05 (D33). |
 | "En esta página" | Con viñetas (V19), en Figma desde el 2026-10-05 (D31): marco `Marker` de ancho `space/400` con "•" en `text/neutral/subtle` y la instancia de `Link`. |
 | `SidebarSection` (D25) | Variante `current` (V30) con las 12 combinaciones de `state` × `open` × `current`. Anillo de foco por dentro, como `SidebarItem` (D27). Sin radio (D26), como `SidebarItem` (V23). Corregido para seguir §4.2 (decisión de Oscar, 2026-10-04): chevron de `focus` con `current = false` en `text/neutral/subtle` (antes `text/neutral/default`). En las plantillas, la sección de la lección actual tiene `current = true` y `open = true` (C11). |
-| `SidebarSection`, número del módulo (D36) | Capa de texto `Number` delante del título, en las 12 variantes, con la propiedad de texto `number` y la booleana `showNumber` (solo Figma). Mismo estilo y color que el título; hueco `space/200` de la fila. **Cifras proporcionales en Figma:** la API no permite activar las cifras tabulares, así que los títulos empiezan entre 27 y 30 px según el número (en código, alineados a 29,08 px con `tabular-nums`). Diferencia aceptada por Oscar (D36): activarlas a mano podría desvincular el estilo. |
+| `SidebarSection`, número del módulo (D36) | Capa de texto `Number` delante del título, en las 12 variantes, con la propiedad de texto `number` y la booleana `showNumber` (solo Figma). Mismo estilo y color que el título; hueco `space/200` de la fila. **Cifras proporcionales en Figma:** la API no permite activar las cifras tabulares, así que los títulos empiezan entre 27 y 30 px según el número (en código, alineados a 29,08 px con `tabular-nums`). Diferencia aceptada por Oscar (D36): activarlas a mano podría desvincular el estilo. **Desde D40 (C19),** el número va en un marco `Number` con ancho mínimo `space/600` y el texto a la izquierda, así que los títulos empiezan a 44 px en Figma y en código; las cifras proporcionales solo cambian el aire dentro de la columna. `showNumber` oculta el marco entero. |
 | `Takeaways` (D28) | Variante `size` solo de Figma: `large` (relleno `space/600`, Desktop) y `small` (`space/400`, Mobile), porque Layout no tiene tokens de espaciado. En código no es un prop: `p-400` y `desktop:p-600`. La marca `li:check` va en un marco `Marker` con `space/100` arriba y abajo (24 px, una línea de `body/default`); en código, `h-[1lh]`. Los 24 px del icono del título y los 16 de las marcas son tamaño de icono, sin variable, como en el resto del archivo. El `space/600` encima es el hueco de la columna de la lección (el mismo que antes de un `h2`). |
 | Grupos del `Sidebar` (D29) | Componente `SidebarGroup` con el separador y la etiqueta (texto `label`); las secciones del grupo son hermanas, como los `SidebarItem`. En código, el grupo envuelve a sus secciones (`div role="group"`). **Relleno lateral de la etiqueta `space/300`**, como en código (`px-300`); §4.2 no lo dice. El separador cuenta en el auto layout (1 px + `space/200` hasta la etiqueta). En las plantillas, la lección de Recursos está oculta porque su sección está cerrada (C11). En el menú móvil abierto (812 px de alto), el grupo "Referencia" queda por debajo del borde del marco, como quedaría en la pantalla antes de hacer scroll. |
 | `SiteFooter`, logotipo del autor (D30) | Conjunto `AuthorLink` con `state` `default` / `focus` (solo de Figma); el anillo va por fuera, como en `Link`. En código no es un componente propio: es el `<a>` de `SiteFooter`. |
@@ -957,3 +959,6 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | D34 | `ColorScale` en Figma (§3.8, §4.10). |
 | D39 | Borde de `Button` `primary` en Figma con la variable de su fondo; `secondary` con borde en los cuatro estados; anillo de `focus` en capa aparte (§2.2, §4.10). |
 | C19, V40 | Número del módulo en la cabecera de `SidebarSection`, del prefijo de la carpeta; sin número con prefijo de 90 o más (§4.2). |
+| D40 | Número de `SidebarSection` en Figma en un marco de ancho mínimo `space/600`, alineado al inicio; secciones 8 a 10 en las plantillas (§4.10). |
+| D41, P25 | Enlace a los issues en `SiteFooter`; `Link` con `size=caption` (§2.3, §4.8, §4.10). |
+| D42, P27 | Plantilla de la portada (§4.9). |
