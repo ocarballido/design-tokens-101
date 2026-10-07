@@ -14,6 +14,8 @@ const PREFIX = /^(\d{2})-(.+?)(\.mdx)?$/;
 
 export type Frontmatter = {
   title: string;
+  /** C20: <title> para buscadores; si falta, se usa title. No cambia el h1 ni el sidebar. */
+  meta_title?: string;
   description?: string;
   nav_title?: string;
   lastReviewed?: string;

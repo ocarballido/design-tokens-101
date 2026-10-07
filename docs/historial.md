@@ -313,6 +313,15 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Buscadores y despliegue: C20 y V49 a V52 (2026-10-07)**
+- Parche de contenido C20 aplicado con `git am` y subido (`9cdba92`).
+- Documentación consultada: la de Next.js 16.3.8 incluida en `node_modules/next/dist/docs` (generateMetadata, metadataBase, Merging, opengraph-image, sitemap, robots, instalación: Node 20.9 como mínimo); Google (sitemaps); Vercel (versiones de Node).
+- `src/lib/metadata.ts` (`SITE_URL`, `lessonTitle`, `pageMetadata`); `metadataBase` en el layout; portada y lecciones con `pageMetadata`; `src/app/sitemap.ts` y `src/app/robots.ts`.
+- `npm run build` (85 páginas estáticas, `/robots.txt` y `/sitemap.xml` estáticos), `check:content` y `check:tokens`: sin errores.
+- `<head>` revisado en `/`, `/primitives/spacing` (con `meta_title`: "Tokens de espaciado · DesignToken101") y `/start-here/what-is-designtoken101` (sin `meta_title`): `<title>`, `description`, `canonical`, `og:*` y `twitter:*` correctos y con URL absolutas. Sitemap: 78 `<loc>` (portada y 77 lecciones), sin duplicados.
+- Hallazgo para contenido: sin `meta_title`, "Qué es DesignToken101" da `<title>` "Qué es DesignToken101 · DesignToken101", con la marca dos veces.
+- Node para Vercel: Vercel ofrece 24.x (por defecto), 22.x y 20.x (deprecada el 2026-10-01); `engines.node` en `package.json` manda sobre el ajuste del proyecto. En local, Node 24.11.1. Propuesta: `"engines": { "node": "24.x" }`, sin aplicar hasta que Oscar decida.
+
 **Portada: imágenes y centrado vertical (2026-10-07, V48)**
 - Oscar añadió `public/brand/home-light.png` y `home-dark.png`: PNG RGBA de **440 × 441** (D43 pedía 880 × 880). Contenido correcto: render Light sobre fondo claro y Dark sobre negro. Servidas con 200.
 - Centrado vertical en `main` (V48): `main` en `flex flex-col`, columna con `w-full flex-1`, `Hero` con `my-auto`.

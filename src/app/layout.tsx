@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { InlineScript } from '@/components/InlineScript';
 import { Sidebar, type SidebarData } from '@/components/Sidebar';
@@ -8,6 +9,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { SkipLink } from '@/components/SkipLink';
 import { LOCALE } from '@/i18n/request';
 import { getSections, lessonHref } from '@/lib/content';
+import { SITE_URL } from '@/lib/metadata';
 import { THEME_SCRIPT } from '@/lib/theme';
 import { inter, jetbrainsMono } from './fonts';
 import './globals.css';
@@ -16,6 +18,9 @@ import './globals.css';
 // regiones header, nav (sidebar), main y footer.
 
 const MAIN_ID = 'main';
+
+// V50: base de las URL de los metadatos (canonical, og:url, og:image), P26.
+export const metadata: Metadata = { metadataBase: new URL(SITE_URL) };
 
 // V45: layout raíz sin segmento [locale]; el idioma es fijo (src/i18n/request.ts).
 export default async function RootLayout({ children }: { children: ReactNode }) {

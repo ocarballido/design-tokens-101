@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. C20: títulos aprobados por Oscar; `meta_title` también en `what-is-designtoken101`, cuyo `<title>` repetía la marca (aviso de desarrollo).
+Última actualización: 2026-10-07, sesión de desarrollo. C20 aplicado; metadatos para buscadores y para compartir (V49 a V52): `<title>` con `meta_title`, canónicas, `sitemap.xml`, `robots.txt`, Open Graph y X. Títulos aprobados por Oscar (contenido). Build y comprobaciones sin errores.
 
 ---
 
@@ -35,7 +35,6 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** módulos 0 a 10 aprobados (P23, P24 y T20 reflejados; detalle en `historial.md`). `how-this-site-was-made` enlaza los issues (P25) desde el 2026-10-07: falta el build de desarrollo, que puede ir con el build final.
 
 **Pendiente**
-- **C20, SEO:** 67 `meta_title` aprobados por Oscar (2026-10-07). La parte de código (`generateMetadata`, `metadataBase`, canónicas, `sitemap.ts`, `robots.ts`, imagen para compartir) es de desarrollo.
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
 - **Herramienta de escalas de color (T8)**, al final: requisitos en `historial.md` → Contenido → Pendiente.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; cómo exporta Figma un alias dentro de una misma colección; si un estilo de texto creado desde un texto con variables las conserva.
@@ -44,6 +43,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente de reflejar en el contenido**
 - **P17 y P18 (bloque de lanzamiento):** página "Archivos de Figma" (solo en español, P24) y sus tres enlaces (Requisitos, ejercicio del módulo 1, ejercicio final).
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
+- **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
 - **V01:** para "Cómo se hizo esta web" (plugins de MDX con Turbopack; `proxy.ts` ya no existe desde V45).
 - **V05 (si algún día se traduce, P24):** crear también `content/en/NN-seccion/meta.json`.
 
@@ -74,6 +74,9 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
+- **Oscar:** decidir la versión de Node en Vercel. Propuesta: `"engines": { "node": "24.x" }` en `package.json` (la que usa Vercel por defecto y la de local; 20.x deprecada el 2026-10-01).
+- **Imagen para compartir (V52):** hoy, `home-light.png` cuadrada con tarjeta `summary`. Si se quiere la tarjeta grande, diseño entrega un PNG de 1200 × 630.
+- Al desplegar: comprobar `robots.txt`, `sitemap.xml` y la vista previa al compartir con el dominio real; dar de alta el sitemap en Google Search Console.
 - Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.
 - Prueba manual, con lector de pantalla y en Safari y Firefox.
 - `npm` bloquea el `postinstall` de `@swc/core` (dependencia de next-intl); el build funciona sin él.

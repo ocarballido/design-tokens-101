@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/Button';
 import { LOCALE } from '@/i18n/request';
 import { getLessons, lessonHref } from '@/lib/content';
+import { pageMetadata } from '@/lib/metadata';
 
 // Portada (P27, D42; sustituye a la redirección de V04). Va dentro del layout raíz: con sidebar y
 // ninguna sección abierta, porque ninguna lección es la actual (C11). Estructura y huecos:
@@ -11,7 +12,7 @@ import { getLessons, lessonHref } from '@/lib/content';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Home');
-  return { title: t('metaTitle'), description: t('metaDescription') };
+  return pageMetadata({ title: t('metaTitle'), description: t('metaDescription'), path: '/' });
 }
 
 export default async function Home() {

@@ -6,6 +6,7 @@ import { LessonHeader } from '@/components/LessonHeader';
 import { PageNav } from '@/components/PageNav';
 import { LOCALE } from '@/i18n/request';
 import { getLesson, getLessons, getSections, lessonHref, type Lesson } from '@/lib/content';
+import { lessonTitle, pageMetadata } from '@/lib/metadata';
 
 type Params = { section: string; lesson: string };
 
@@ -23,10 +24,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const locale = LOCALE;
   const lesson = getLesson(locale, section, slug);
   if (!lesson) return {};
-  return {
-    title: `${lesson.frontmatter.title} · DesignToken101`,
+  return pageMetadata({
+    title: lessonTitle(lesson.frontmatter),
     description: lesson.frontmatter.description,
-  };
+    path: lessonHref(lesson),
+  });
 }
 
 export default async function LessonPage({ params }: { params: Promise<Params> }) {
