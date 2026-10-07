@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. Build y comprobaciones sin errores con "Archivos de Figma" y la imagen para compartir (V52); etiquetas de `<head>` correctas en local y en producción; Node 24.x en Vercel (V53), desplegado sin errores. Hallazgo: el dominio sin `www` redirige a `www`.
+Última actualización: 2026-10-07, sesión de contenido. Web publicada en `designtokens101.com`; `www` redirige al dominio sin `www` (opción a de desarrollo). Quedan la vista previa en LinkedIn, Search Console y la prueba manual.
 
 ---
 
@@ -20,13 +20,10 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 ## Para la primera versión
 
-Lo que falta para publicar (P17, P18, P24), por quién lo hace. Orden: 1, 2 y 4 en paralelo; 3 cuando diseño entregue; al final, el bloque de lanzamiento.
+**Publicada el 2026-10-07** en https://designtokens101.com (P17, P18, P24, P26), con el sistema de referencia en Figma Community. Lo que queda:
 
-1. **Oscar:** exportar `home-light` y `home-dark` desde Logo exports en TokensDS a `public/brand/` (D43): **en el repositorio desde el 2026-10-07, pero a 440 × 441 y no a 880 × 880**; si se reexportan desde Logo exports, desarrollo cambia las medidas (V48); comprobar si `designtoken101.com` (en singular, como el nombre del curso) está libre y, si lo está, comprarlo y redirigirlo a `designtokens101.com` (P26). Hecho: imagen de la portada (D43), módulo 10, provisionales, V44, A11 (P25) y dominio (P26).
-2. **Diseño, en Figma: hecho el 2026-10-07 (D40 a D42).** Portada con sidebar y hueco para la imagen (P27), número alineado al inicio (C19) y enlace a los issues en `SiteFooter` (P25, fila en `componentes-v1.md` §4.8). Revisado por Oscar; imagen puesta (D43) y estilos de `Link` resueltos (D41).
-3. **Desarrollo: hecho el 2026-10-07 (V47).** C19, enlace a los issues en el pie (P25) y portada en `/` (P27, D42, D43); build, `check:content` y `check:tokens` sin errores. Imágenes puestas y portada centrada en vertical (V48). Falta que Oscar la revise en el navegador.
-4. **Diseño y Oscar, en Figma:** el archivo de referencia (nombre de la copia, captura de las variables, texto de Community, versión, fecha y enlace en Read me, página de imágenes borrada, prueba con Starter y licencia); el diseño de partida, si entra en la primera versión.
-5. **Bloque de lanzamiento:** publicar los archivos en Community; página "Archivos de Figma" y sus tres enlaces (contenido); build final, despliegue en Vercel con el dominio y prueba manual en Safari, Firefox y con lector de pantalla (desarrollo).
+1. **Oscar:** vista previa en el Post Inspector de LinkedIn; alta del dominio en Google Search Console (propiedad de tipo Dominio) y envío de `sitemap.xml`; prueba manual en Safari, Firefox y con VoiceOver.
+2. **Opcional (Oscar):** reexportar `home-light` y `home-dark` a 880 × 880 (D43, V48; desarrollo cambia las medidas); comprobar si `designtoken101.com` está libre y redirigirlo; prueba con Starter (si se hace, contenido lo añade a "Archivos de Figma").
 
 Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la página de errores frecuentes (T1; ninguna lección los promete), la herramienta de escalas (T8) y la versión en inglés (P24).
 
@@ -73,7 +70,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
-- **Oscar: dominio canónico.** `designtokens101.com` redirige (308) a `www.designtokens101.com`, pero la canónica, `og:url`, `og:image` y el sitemap usan el dominio sin `www`. Opciones: (a) en Vercel → Domains, dejar `designtokens101.com` como principal y que `www` redirija a él (sin cambios de código; recomendada, es el dominio de P26); (b) cambiar `SITE_URL` a `https://www.designtokens101.com` (cambia P26 y V50).
+- **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).
 - Prueba manual, con lector de pantalla y en Safari y Firefox.
