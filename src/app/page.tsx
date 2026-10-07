@@ -19,7 +19,8 @@ export default async function Home() {
   const [first] = getLessons(LOCALE);
 
   return (
-    <div className="grid items-center gap-1200 py-600 desktop:grid-cols-2 desktop:py-1600">
+    // V48: centrada en vertical en main (my-auto en la columna flex del layout).
+    <div className="my-auto grid items-center gap-1200 py-600 desktop:grid-cols-2 desktop:py-1600">
       <div className="flex flex-col items-start gap-600">
         {/* El subtítulo no es un encabezado: hgroup lo une al h1 sin crear otro nivel. */}
         <hgroup className="flex flex-col gap-200">
@@ -32,12 +33,13 @@ export default async function Home() {
           {t('start')}
         </Button>
       </div>
-      {/* D43: render de Oscar en mapa de bits (880 × 880, el 2× de la columna), una versión por tema
-          como los logotipos (V20). Decorativa: el título ya dice qué es la página. Fuera de "solo
-          tokens" como los logotipos (D22); el radio sí es un token. */}
+      {/* D43: render de Oscar en mapa de bits, una versión por tema como los logotipos (V20).
+          Decorativa: el título ya dice qué es la página. Fuera de "solo tokens" como los logotipos
+          (D22); el radio sí es un token. object-cover: el PNG entregado mide 440 × 441 y el marco
+          es cuadrado (V48). */}
       <div>
-        <img src="/brand/home-light.png" alt="" width={880} height={880} className="block aspect-square w-full rounded-container dark:hidden" />
-        <img src="/brand/home-dark.png" alt="" width={880} height={880} className="hidden aspect-square w-full rounded-container dark:block" />
+        <img src="/brand/home-light.png" alt="" width={440} height={441} className="block aspect-square w-full rounded-container object-cover dark:hidden" />
+        <img src="/brand/home-dark.png" alt="" width={440} height={441} className="hidden aspect-square w-full rounded-container object-cover dark:block" />
       </div>
     </div>
   );

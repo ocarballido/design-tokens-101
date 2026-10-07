@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. Punto 3 de "Para la primera versión" hecho (V47): C19, enlace a los issues en el pie y portada en `/`. Faltan las dos imágenes de la portada en `public/brand/`. Build y comprobaciones sin errores.
+Última actualización: 2026-10-07, sesión de desarrollo. Portada con las imágenes de Oscar y centrada en vertical en `main` (V48); las imágenes miden 440 × 441, no 880 × 880 (D43). Build y comprobaciones sin errores.
 
 ---
 
@@ -22,9 +22,9 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 Lo que falta para publicar (P17, P18, P24), por quién lo hace. Orden: 1, 2 y 4 en paralelo; 3 cuando diseño entregue; al final, el bloque de lanzamiento.
 
-1. **Oscar:** exportar `home-light` y `home-dark` desde Logo exports en TokensDS a `public/brand/` (D43; la sesión de diseño no llega a Figma por red; **el código ya las enlaza y no están en el repositorio**, 2026-10-07); comprobar si `designtoken101.com` (en singular, como el nombre del curso) está libre y, si lo está, comprarlo y redirigirlo a `designtokens101.com` (P26). Hecho: imagen de la portada (D43), módulo 10, provisionales, V44, A11 (P25) y dominio (P26).
+1. **Oscar:** exportar `home-light` y `home-dark` desde Logo exports en TokensDS a `public/brand/` (D43): **en el repositorio desde el 2026-10-07, pero a 440 × 441 y no a 880 × 880**; si se reexportan desde Logo exports, desarrollo cambia las medidas (V48); comprobar si `designtoken101.com` (en singular, como el nombre del curso) está libre y, si lo está, comprarlo y redirigirlo a `designtokens101.com` (P26). Hecho: imagen de la portada (D43), módulo 10, provisionales, V44, A11 (P25) y dominio (P26).
 2. **Diseño, en Figma: hecho el 2026-10-07 (D40 a D42).** Portada con sidebar y hueco para la imagen (P27), número alineado al inicio (C19) y enlace a los issues en `SiteFooter` (P25, fila en `componentes-v1.md` §4.8). Revisado por Oscar; imagen puesta (D43) y estilos de `Link` resueltos (D41).
-3. **Desarrollo: hecho el 2026-10-07 (V47).** C19, enlace a los issues en el pie (P25) y portada en `/` (P27, D42, D43); build, `check:content` y `check:tokens` sin errores. Falta que Oscar revise la portada en el navegador y que estén las imágenes (punto 1).
+3. **Desarrollo: hecho el 2026-10-07 (V47).** C19, enlace a los issues en el pie (P25) y portada en `/` (P27, D42, D43); build, `check:content` y `check:tokens` sin errores. Imágenes puestas y portada centrada en vertical (V48). Falta que Oscar la revise en el navegador.
 4. **Diseño y Oscar, en Figma:** el archivo de referencia (nombre de la copia, captura de las variables, texto de Community, versión, fecha y enlace en Read me, página de imágenes borrada, prueba con Starter y licencia); el diseño de partida, si entra en la primera versión.
 5. **Bloque de lanzamiento:** publicar los archivos en Community; página "Archivos de Figma" y sus tres enlaces (contenido); build final, despliegue en Vercel con el dominio y prueba manual en Safari, Firefox y con lector de pantalla (desarrollo).
 
@@ -67,7 +67,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** la web funciona en Light, Dark y system, en móvil y escritorio, con los módulos 0 a 10 compilados y comprobados (último build: 2026-10-07, módulo 10 y V40). Detalle de cada comprobación en `historial.md`.
 
 **Portada (V47)**
-- **Oscar:** añadir `public/brand/home-light.png` y `home-dark.png` (sin ellas, la portada pide dos imágenes que dan 404) y revisar la portada en el navegador, en Light, Dark, móvil y escritorio; también el texto de `title` y `description` (propuesta de desarrollo, V47).
+- **Oscar:** decidir si se reexportan las imágenes a 880 × 880 (las de ahora, 440 × 441, se ven a media resolución en pantallas de alta densidad, V48) y revisar la portada en el navegador, en Light, Dark, móvil y escritorio; también el texto de `title` y `description` (propuesta de desarrollo, V47).
 
 **Abierto tras P24 (V45)**
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).

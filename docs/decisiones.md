@@ -248,6 +248,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V45 | Sin enrutado por idioma (configuración básica de next-intl): idioma fijo `es`, sin `[locale]`, proxy ni selector; URL `/{sección}/{lección}`. | Cerrada | 2026-10-07 |
 | V46 | `check:content` busca clases con corchetes en el CSS generado, fuera de las excepciones de V43. | Cerrada | 2026-10-07 |
 | V47 | Portada en `/` según §3.10: subtítulo en `<hgroup>`, metadatos con el nombre delante, imágenes como `Logo` (V20); C19 y pie de P25 aplicados. | Cerrada | 2026-10-07 |
+| V48 | Portada centrada en vertical en `main` (`main` en columna flex, `Hero` con `my-auto`); imágenes de 440 × 441 con `object-cover`. | Cerrada | 2026-10-07 |
 
 ## Abiertas
 

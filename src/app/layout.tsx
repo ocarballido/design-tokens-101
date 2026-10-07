@@ -54,9 +54,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <Sidebar {...sidebar} />
               </div>
             </div>
-            <main id={MAIN_ID} tabIndex={-1} className="min-w-0 flex-1 outline-hidden">
-              {/* Columna de la lección: ancho máximo size/content/max-width, centrada (D20). */}
-              <div className="mx-auto flex max-w-content flex-col gap-600 px-400 py-600">{children}</div>
+            <main id={MAIN_ID} tabIndex={-1} className="flex min-w-0 flex-1 flex-col outline-hidden">
+              {/* Columna de la lección: ancho máximo size/content/max-width, centrada (D20). Ocupa todo
+                  el alto de main para que la portada pueda centrarse en vertical (V48). */}
+              <div className="mx-auto flex w-full max-w-content flex-1 flex-col gap-600 px-400 py-600">{children}</div>
             </main>
           </div>
           <SiteFooter />
