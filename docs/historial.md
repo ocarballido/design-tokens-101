@@ -24,6 +24,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: C20, títulos para buscadores**
+- Revisión de metadatos: 77 lecciones con `title` y `description` únicos; 61 descripciones de más de 160 caracteres (Google no pone límite); "Estados" repetido en los módulos 3 y 9.
+- `meta_title` añadido a 66 lecciones; ninguno se repite; el más largo, 67 caracteres con " · DesignToken101". Regla en `content/README.md`. Sin meta keywords (Google no las usa).
+
 **2026-10-07, sesión de contenido: pasada de provisionales, C19, P25 y P27**
 - Oscar cierra todas las provisionales: C7, C16, S33, V02, V11, V21, V22, V34 y V37 como estaban; C19 con un cambio y V04 sustituida por P27. No queda ninguna provisional ni abierta.
 - C19: el número de `SidebarSection` pasa a ir alineado al inicio (con V40 iba al final y un número de una cifra quedaba unos 16 px más adentro que el texto de las lecciones). Se mantiene el ancho mínimo `space/600`. `componentes-v1.md` (`SidebarSection`) actualizado; lo aplican diseño y desarrollo.

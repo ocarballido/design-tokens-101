@@ -32,12 +32,15 @@ content/
 
 ```yaml
 ---
-title: Qué es DTCG                # h1 y SEO (2-4 palabras)
+title: Qué es DTCG                # h1 (2-4 palabras); también el <title> si no hay meta_title
+meta_title: "…"                   # opcional (C20): <title> para buscadores, si title no se entiende fuera del curso
 description: Una o dos frases.    # meta description
 nav_title: Qué es DTCG            # opcional: texto en el sidebar
 lastReviewed: 2026-09-30          # última verificación de las fuentes
 ---
 ```
+
+**`meta_title` (C20).** El `<title>` de la página es `meta_title · DesignToken101`, o `title · DesignToken101` si no hay `meta_title`. Se añade cuando el `title` solo se entiende dentro del curso ("Espaciado", "Las capas") o se repite en otro módulo: el buscador muestra la página sin el sidebar, así que el título tiene que decir que trata de tokens. No cambia el h1 ni el sidebar. Debe ser único, describir la página y no llevar la marca, que se añade sola ([Google: Influencing your title links](https://developers.google.com/search/docs/appearance/title-link)). Sin keywords: Google no usa la etiqueta meta keywords ([Google: Meta tags](https://developers.google.com/search/docs/crawling-indexing/special-tags)).
 
 `@next/mdx` no admite frontmatter por defecto, así que hay que añadir `remark-frontmatter` y `remark-mdx-frontmatter` ([Next.js: MDX, Frontmatter](https://nextjs.org/docs/app/guides/mdx#frontmatter)). Las tablas necesitan `remark-gfm`.
 

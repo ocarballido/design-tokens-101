@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de desarrollo. Portada con las imágenes de Oscar y centrada en vertical en `main` (V48); las imágenes miden 440 × 441, no 880 × 880 (D43). Build y comprobaciones sin errores.
+Última actualización: 2026-10-07, sesión de contenido. C20: `meta_title` en 66 lecciones para el `<title>` (SEO); sin meta keywords. Falta que desarrollo lo lea y la revisión de Oscar de los títulos.
 
 ---
 
@@ -35,6 +35,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** módulos 0 a 10 aprobados (P23, P24 y T20 reflejados; detalle en `historial.md`). `how-this-site-was-made` enlaza los issues (P25) desde el 2026-10-07: falta el build de desarrollo, que puede ir con el build final.
 
 **Pendiente**
+- **C20, SEO:** Oscar revisa los 66 `meta_title` (tabla en la conversación del 2026-10-07; cualquier cambio se hace en el frontmatter). Desarrollo: leer `meta_title` en `generateMetadata`, con `metadataBase`, canónicas, `sitemap.ts`, `robots.ts` e imagen para compartir.
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
 - **Herramienta de escalas de color (T8)**, al final: requisitos en `historial.md` → Contenido → Pendiente.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; cómo exporta Figma un alias dentro de una misma colección; si un estilo de texto creado desde un texto con variables las conserva.
