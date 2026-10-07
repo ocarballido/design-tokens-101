@@ -10,6 +10,7 @@ Los documentos de `docs/` son la fuente de verdad compartida entre las sesiones 
 @docs/estado.md
 
 Lee bajo demanda, cuando el trabajo lo pida:
+- `docs/historial.md`: detalle de lo hecho en cada frente (pruebas, cifras, hallazgos). Al cerrar un bloque, el detalle va aquí y `estado.md` queda corto (P21).
 - `docs/sistema-tokens-v1.md`: especificación de los tokens (valores, nombres, modos, estilos de texto). Fuente de verdad de los tokens que no salen de Figma.
 - `docs/entrega-diseno.md`: entrega del diseño a desarrollo (variables, componentes, estados y plantilla).
 - `docs/paso-7-tokens.md`: qué exporta Figma, comparación Style Dictionary / Terrazzo y propuesta para Tailwind (paso 7).
@@ -21,7 +22,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 
 - **No improvises sobre la especificación.** Si algo falta o se contradice, plantea las opciones a Oscar y espera su decisión (protocolo en `docs/decisiones.md`).
 - **Quien decide, escribe:** registra cada decisión en `docs/decisiones.md` y actualiza el documento afectado en el mismo commit. Numeración de la sesión de desarrollo: `V01`, `V02`…
-- **Al terminar un bloque de trabajo**, actualiza tu apartado de `docs/estado.md` y, si afecta al curso, añade el punto a "Pendiente de reflejar en el contenido".
+- **Al terminar un bloque de trabajo**, añade el detalle a `docs/historial.md`, deja en tu apartado de `docs/estado.md` solo lo que sigue abierto y, si afecta al curso, añade el punto a "Pendiente de reflejar en el contenido".
 - **Verifica antes de configurar:** consulta la documentación oficial (Next.js, next-intl, MDX, Tailwind CSS, Style Dictionary, Terrazzo) y cítala al tomar una decisión. Separa lo que dice la fuente de tu recomendación. Lo no verificado se marca como pendiente.
 - **Solo tokens:** ningún color, espacio, radio, grosor ni tamaño escrito a mano en los componentes. Todo sale de las variables `--t101-*` (S27).
 - **Accesibilidad (WCAG 2.2 AA):** foco visible con `:focus-visible` (anillo `--t101-border-width-200` + `--t101-color-border-focus`), objetivos de 24 × 24 px como mínimo, `aria-*` según `docs/componentes-v1.md`, sin scroll horizontal de página a 320 px.

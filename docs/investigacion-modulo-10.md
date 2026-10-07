@@ -1,6 +1,6 @@
 # Investigación del módulo 10: preparado para IA
 
-Sesión de contenido, 2026-10-07. Tarea 1 del módulo 10 (Preparado para IA, T1, T4, P3). **Pendiente de la aprobación de Oscar.** Decidido ya el enfoque (**P20**, 2026-10-07, opción B): el módulo enseña lo comprobado y la hipótesis de P3 sale del curso; quedan las decisiones 1 y 3 a 7 de §8. No se redacta ninguna lección hasta que Oscar apruebe esta investigación y después el índice.
+Sesión de contenido, 2026-10-07. Tarea 1 del módulo 10 (Preparado para IA, T1, T4, P3). **Aprobada por Oscar el 2026-10-07** (T19): enfoque de P20 (opción B: el módulo enseña lo comprobado y la hipótesis de P3 sale del curso) y las recomendaciones de §8 (decisiones 1 y 3 a 7; la 5, aplicada con P21). No se redacta ninguna lección hasta que Oscar apruebe esta investigación y después el índice.
 
 Pregunta: qué tiene que saber quien termina el módulo 9 para que un agente de IA **lea y use** su sistema de tokens sin inventar valores, y cómo se comprueba que eso funciona (P3). El módulo no enseña a programar con agentes ni a escribir prompts en general (P10, T5): trata el sistema de tokens como información que un agente consume. En cada apartado se separa **lo que dice la fuente** de **la recomendación** de la sesión de contenido. Las pruebas propias dicen con qué se hicieron y cuándo (P14).
 
