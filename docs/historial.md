@@ -283,6 +283,12 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Semantic color: las dos descripciones propuestas (2026-10-07)**
+- Oscar cambió en Figma las descripciones de `color/background/neutral/hover` y `color/border/accent/strong` y reexportó `Semantic color` (C10).
+- `git diff` y comparación con Node.js sin `$description`: en Light y Dark solo cambian esas dos descripciones; el resto es idéntico. Los textos coinciden letra por letra con los propuestos por la sesión de contenido (sin "En esta página" ni "los selectores"; `border/accent/strong` nombra la marca lateral de la lección actual y el borde de los pasos de `Flow` con enlace en hover).
+- `npm run tokens`: "155 tokens built", código 0. Cambian las dos `$description` en `tokens/dtcg/semantic-color/` y 6 comentarios en `src/styles/tokens.css` (dos tokens en `:root` y en los dos bloques Dark); sin comentarios, el archivo es idéntico. `theme.css` no cambia.
+- `npm run check:tokens`: "Sin errores.".
+
 **Semantic color reexportada tras P24 (2026-10-07)**
 - Oscar reexportó `Semantic color`; los dos archivos, en `tokens/figma/semantic-color/` sin editar (C10).
 - `git diff`: en `Light.tokens.json` y `Dark.tokens.json` cambia una sola línea, la `$description` de `color/background/neutral/strong` ("…grupo de los selectores de idioma y tema, y código en línea" → "…grupo del selector de tema, y código en línea"). Comparados con un script de Node.js sin `$description`: los dos archivos son idénticos a los anteriores (valores, alias, `alpha`, scopes, code syntax, nombres; 33 tokens en cada modo).

@@ -37,7 +37,7 @@
   --t101-color-background-neutral-active: var(--t101-color-neutral-200);
   /* Fondo de la página */
   --t101-color-background-neutral-default: var(--t101-color-white);
-  /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
+  /* Hover de controles neutros sin fondo (IconButton, sidebar, cabecera de InCode, selector de tema, botón secundario, navegación anterior y siguiente). El texto pasa a text/neutral/default (D12). */
   --t101-color-background-neutral-hover: var(--t101-color-neutral-100);
   /* Fondo de superficies destacadas: grupo del selector de tema, y código en línea */
   --t101-color-background-neutral-strong: var(--t101-color-neutral-100);
@@ -64,7 +64,7 @@
   --t101-color-blue-950: #1d2747;
   /* Borde del Callout recommendation (decorativo; D06). */
   --t101-color-border-accent-default: var(--t101-color-emerald-300);
-  /* Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
+  /* Indicador de seleccionado o actual: marca lateral de la lección actual del sidebar y borde de los pasos de Flow con enlace en hover. ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
   --t101-color-border-accent-strong: var(--t101-color-emerald-600);
   /* Borde de los mensajes de error, decorativo. Sin uso todavía (S31) */
   --t101-color-border-danger-default: var(--t101-color-red-300);
@@ -209,7 +209,7 @@
   --t101-color-background-neutral-active: var(--t101-color-neutral-700);
   /* Fondo de la página */
   --t101-color-background-neutral-default: var(--t101-color-neutral-950);
-  /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
+  /* Hover de controles neutros sin fondo (IconButton, sidebar, cabecera de InCode, selector de tema, botón secundario, navegación anterior y siguiente). El texto pasa a text/neutral/default (D12). */
   --t101-color-background-neutral-hover: var(--t101-color-neutral-800);
   /* Fondo de superficies destacadas: grupo del selector de tema, y código en línea */
   --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
@@ -225,7 +225,7 @@
   --t101-color-background-warning-subtle: var(--t101-color-amber-950);
   /* Borde del Callout recommendation (decorativo; D06). */
   --t101-color-border-accent-default: var(--t101-color-emerald-700);
-  /* Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
+  /* Indicador de seleccionado o actual: marca lateral de la lección actual del sidebar y borde de los pasos de Flow con enlace en hover. ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
   --t101-color-border-accent-strong: var(--t101-color-emerald-400);
   /* Borde de los mensajes de error, decorativo. Sin uso todavía (S31) */
   --t101-color-border-danger-default: var(--t101-color-red-700);
@@ -280,7 +280,7 @@
     --t101-color-background-neutral-active: var(--t101-color-neutral-700);
     /* Fondo de la página */
     --t101-color-background-neutral-default: var(--t101-color-neutral-950);
-    /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
+    /* Hover de controles neutros sin fondo (IconButton, sidebar, cabecera de InCode, selector de tema, botón secundario, navegación anterior y siguiente). El texto pasa a text/neutral/default (D12). */
     --t101-color-background-neutral-hover: var(--t101-color-neutral-800);
     /* Fondo de superficies destacadas: grupo del selector de tema, y código en línea */
     --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
@@ -296,7 +296,7 @@
     --t101-color-background-warning-subtle: var(--t101-color-amber-950);
     /* Borde del Callout recommendation (decorativo; D06). */
     --t101-color-border-accent-default: var(--t101-color-emerald-700);
-    /* Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
+    /* Indicador de seleccionado o actual: marca lateral de la lección actual del sidebar y borde de los pasos de Flow con enlace en hover. ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12). */
     --t101-color-border-accent-strong: var(--t101-color-emerald-400);
     /* Borde de los mensajes de error, decorativo. Sin uso todavía (S31) */
     --t101-color-border-danger-default: var(--t101-color-red-700);

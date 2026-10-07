@@ -92,7 +92,7 @@
         "hover": {
           "$type": "color",
           "$value": "{color.neutral.800}",
-          "$description": "Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12).",
+          "$description": "Hover de controles neutros sin fondo (IconButton, sidebar, cabecera de InCode, selector de tema, botón secundario, navegación anterior y siguiente). El texto pasa a text/neutral/default (D12).",
           "$extensions": {
             "com.figma.variableId": "VariableID:20:2",
             "com.figma.scopes": [
@@ -715,7 +715,7 @@
         "strong": {
           "$type": "color",
           "$value": "{color.emerald.400}",
-          "$description": "Indicador de seleccionado o actual (marca lateral del sidebar y de En esta página, opción activa de los selectores). ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12).",
+          "$description": "Indicador de seleccionado o actual: marca lateral de la lección actual del sidebar y borde de los pasos de Flow con enlace en hover. ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12).",
           "$extensions": {
             "com.figma.variableId": "VariableID:20:5",
             "com.figma.scopes": [
