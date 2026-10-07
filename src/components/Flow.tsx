@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { Children, isValidElement, useId, type ReactNode } from 'react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §3.7 (C13). Diseño y medidas: docs/entrega-diseno.md §3.3 (D24).

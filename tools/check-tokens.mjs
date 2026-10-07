@@ -16,6 +16,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { ARBITRARY_ALLOWED } from './arbitrary-allowed.mjs';
 import { compile } from 'tailwindcss';
 
 const ROOT = process.cwd();
@@ -199,13 +200,7 @@ if (!/@media \(width >= 64rem\)\s*\{\s*\.desktop\\:p-400/.test(output)) errors.p
 //    valor escrito a mano. Cada excepción lleva su motivo (tabla "Los corchetes" de
 //    content/es/09-components/05-variants-to-classes.mdx). Las variantes entre corchetes
 //    ([@media(…)]:, data-[…]:) son condiciones, no valores: no se marcan.
-const ARBITRARY_ALLOWED = {
-  'h-[1lh]': 'alto de una línea de texto: marca de Takeaways alineada con la primera línea',
-  'grid-rows-[0fr]': 'plegado animado (InCode, Sidebar): cerrado',
-  'grid-rows-[1fr]': 'plegado animado (InCode, Sidebar): abierto',
-  'transition-[grid-template-rows,visibility]': 'propiedades que se animan; duración y curva son tokens (V24)',
-  'max-h-[calc(100dvh-var(--site-header-height))]': 'sidebar sticky: alto de la pantalla menos la cabecera medida (V28)',
-};
+//    La lista está en tools/arbitrary-allowed.mjs (la comparte check-content.mjs, V46).
 //    La sintaxis de variable entre paréntesis (border-(length:--x), duration-(--x)) tiene que apuntar
 //    a un token --t101-* definido en tokens.css, salvo estas excepciones.
 const VARIABLE_ALLOWED = {

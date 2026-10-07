@@ -4,15 +4,13 @@ import { notFound } from 'next/navigation';
 import { Callout } from '@/components/Callout';
 import { LessonHeader } from '@/components/LessonHeader';
 import { PageNav } from '@/components/PageNav';
-import { routing } from '@/i18n/routing';
+import { LOCALE } from '@/i18n/request';
 import { getLesson, getLessons, getSections, lessonHref, type Lesson } from '@/lib/content';
 
-type Params = { locale: string; section: string; lesson: string };
+type Params = { section: string; lesson: string };
 
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) =>
-    getLessons(locale).map((lesson) => ({ locale, section: lesson.section, lesson: lesson.slug })),
-  );
+  return getLessons(LOCALE).map((lesson) => ({ section: lesson.section, lesson: lesson.slug }));
 }
 
 export const dynamicParams = false;
@@ -21,7 +19,8 @@ const toTarget = (lesson?: Lesson) =>
   lesson ? { title: lesson.frontmatter.nav_title ?? lesson.frontmatter.title, href: lessonHref(lesson) } : undefined;
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { locale, section, lesson: slug } = await params;
+  const { section, lesson: slug } = await params;
+  const locale = LOCALE;
   const lesson = getLesson(locale, section, slug);
   if (!lesson) return {};
   return {
@@ -31,14 +30,15 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 }
 
 export default async function LessonPage({ params }: { params: Promise<Params> }) {
-  const { locale, section, lesson: slug } = await params;
+  const { section, lesson: slug } = await params;
+  const locale = LOCALE;
   const lesson = getLesson(locale, section, slug);
   if (!lesson) notFound();
 
   const { default: Content } = await import(`@content/${lesson.contentLocale}/${lesson.file}.mdx`);
   const sectionTitle = getSections(locale).find((item) => item.slug === section)?.title;
   const untranslated = lesson.contentLocale !== locale;
-  const t = await getTranslations({ locale });
+  const t = await getTranslations();
   const lessons = getLessons(locale);
   const index = lessons.findIndex((item) => item.file === lesson.file);
 

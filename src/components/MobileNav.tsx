@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { IconButton } from '@/components/IconButton';
-import { usePathname } from '@/i18n/navigation';
+import { usePathname } from 'next/navigation';
 
 // Panel de navegación móvil (D19, V25): entra desde la izquierda por encima del contenido, con
 // el ancho del sidebar (size/sidebar/width) y un overlay (color/background/overlay) sobre el resto.

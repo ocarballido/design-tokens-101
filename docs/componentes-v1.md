@@ -778,6 +778,8 @@ Si no hay lección anterior o siguiente, ese enlace no se muestra (no se desacti
 
 ### 4.4 `LanguageSwitcher`
 
+**Retirado (P24, V45):** la web es solo en español y el componente se ha borrado del código (queda en el historial de git). La anatomía se conserva por si vuelve otro idioma.
+
 **Para qué sirve.** Cambiar entre español e inglés. Lleva a la misma lección en el otro idioma. Dos enlaces (`LanguageOption`), uno por idioma.
 
 #### `LanguageOption`
@@ -830,7 +832,7 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 
 ### 4.7 `SiteHeader`
 
-**Para qué sirve.** La barra superior de todas las páginas: `SkipLink` (oculto), logotipo (enlace a inicio), y en escritorio `LanguageSwitcher` y `ThemeToggle`; en móvil, botón de menú (D19, D21).
+**Para qué sirve.** La barra superior de todas las páginas: `SkipLink` (oculto), logotipo (enlace a inicio), y en escritorio `ThemeToggle` (sin `LanguageSwitcher` desde P24); en móvil, botón de menú y el selector de tema pasa al panel (D19, D21).
 
 | Parte | Token |
 |---|---|

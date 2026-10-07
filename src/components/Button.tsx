@@ -1,6 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §2.2. Con `href` es un enlace; sin él, un <button> (D15).

@@ -1,6 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import type { ComponentPropsWithoutRef } from 'react';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
 // `Link` de la anatomía (docs/componentes-v1.md §2.3). Se llama TextLink para no confundirlo con

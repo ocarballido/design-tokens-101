@@ -8,15 +8,21 @@
 //      con role="group" y aria-labelledby a su etiqueta.
 //   5. Números de sección (C19, V40): cada cabecera muestra el prefijo de su carpeta (01- → 1),
 //      salvo las de referencia (prefijo de 90 o más), que van sin número.
+//   6. CSS generado (V46): ninguna clase con valor arbitrario entre corchetes fuera de las
+//      excepciones de V43 (tools/arbitrary-allowed.mjs). check:tokens lo mira en src/; aquí se mira
+//      lo que se publica, venga de donde venga (V44).
+// Solo español y sin prefijo de idioma en la URL (P24, V45): las páginas son /{seccion}/{leccion}.
 // Uso: npm run build && npm run check:content
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { ARBITRARY_ALLOWED } from './arbitrary-allowed.mjs';
 
 const ROOT = process.cwd();
 const HTML_DIR = path.join(ROOT, '.next/server/app');
 const CONTENT_DIR = path.join(ROOT, 'content/es');
-const LOCALES = ['en', 'es'];
+const LOCALE = 'es';
+const STATIC_DIR = path.join(ROOT, '.next/static');
 
 if (!fs.existsSync(HTML_DIR)) {
   console.error('No hay build. Ejecuta antes `npm run build`.');
@@ -36,16 +42,16 @@ const expected = byPrefix(fs.readdirSync(CONTENT_DIR)).flatMap((section) =>
   ),
 );
 
-// Separadores de meta.json raíz por idioma (sin el del idioma, el del español).
-const groupLabels = (locale) => {
-  const file = [locale, 'es'].map((l) => path.join(ROOT, 'content', l, 'meta.json')).find((f) => fs.existsSync(f));
+// Separadores de meta.json raíz.
+const groupLabels = () => {
+  const file = path.join(ROOT, 'content', LOCALE, 'meta.json');
   return JSON.parse(fs.readFileSync(file, 'utf8')).pages.map((p) => /^---(.+)---$/.exec(p)?.[1].trim()).filter(Boolean);
 };
 
 // C19, V40: número de cada sección en el orden de meta.json, sacado del prefijo de su carpeta
 // ("-" = sin número: prefijo de 90 o más, secciones de referencia).
-const sectionNumbers = (locale) => {
-  const file = [locale, 'es'].map((l) => path.join(ROOT, 'content', l, 'meta.json')).find((f) => fs.existsSync(f));
+const sectionNumbers = () => {
+  const file = path.join(ROOT, 'content', LOCALE, 'meta.json');
   return JSON.parse(fs.readFileSync(file, 'utf8'))
     .pages.filter((p) => !/^---(.+)---$/.test(p))
     .map((p) => (Number(p.slice(0, 2)) >= 90 ? '-' : String(Number(p.slice(0, 2)))));
@@ -54,12 +60,12 @@ const sectionNumbers = (locale) => {
 let anchorCount = 0;
 let accentedCount = 0;
 
-for (const locale of LOCALES) {
-  const pages = new Set(expected.map((href) => `/${locale}${href}`));
+{
+  const pages = new Set(expected);
 
   for (const href of expected) {
-    const file = path.join(HTML_DIR, locale, `${href.slice(1)}.html`);
-    const page = `/${locale}${href}`;
+    const file = path.join(HTML_DIR, `${href.slice(1)}.html`);
+    const page = href;
     if (!fs.existsSync(file)) {
       errors.push(`${page}: no se generó la página`);
       continue;
@@ -80,7 +86,7 @@ for (const locale of LOCALES) {
     if (!nav) {
       errors.push(`${page}: no hay sidebar`);
     } else {
-      const order = [...nav[1].matchAll(/href="([^"]+)"/g)].map((m) => m[1].replace(`/${locale}`, ''));
+      const order = [...nav[1].matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
       if (order.join() !== expected.join()) {
         errors.push(`${page}: orden del sidebar inesperado:\n    ${order.join('\n    ')}`);
       }
@@ -92,7 +98,7 @@ for (const locale of LOCALES) {
       // 4. Grupos
       const groups = [...nav[1].matchAll(/<div role="group" aria-labelledby="([^"]+)"[^>]*>\s*<p id="([^"]+)"[^>]*>([^<]*)<\/p>/g)];
       const labels = groups.map((m) => decodeEntities(m[3]));
-      if (labels.join() !== groupLabels(locale).join()) {
+      if (labels.join() !== groupLabels().join()) {
         errors.push(`${page}: grupos del sidebar inesperados: ${labels.join(', ') || 'ninguno'}`);
       }
       if (groups.some((m) => m[1] !== m[2])) errors.push(`${page}: un grupo del sidebar no apunta a su etiqueta`);
@@ -100,8 +106,8 @@ for (const locale of LOCALES) {
       const numbers = [...nav[1].matchAll(/<button[^>]*aria-expanded[^>]*>([\s\S]*?)<\/button>/g)].map(
         (m) => /<span[^>]*data-section-number[^>]*>([^<]*)<\/span>/.exec(m[1])?.[1] ?? '-',
       );
-      if (numbers.join() !== sectionNumbers(locale).join()) {
-        errors.push(`${page}: números de sección inesperados: ${numbers.join(', ')} (se esperaba ${sectionNumbers(locale).join(', ')})`);
+      if (numbers.join() !== sectionNumbers().join()) {
+        errors.push(`${page}: números de sección inesperados: ${numbers.join(', ')} (se esperaba ${sectionNumbers().join(', ')})`);
       }
     }
 
@@ -113,10 +119,35 @@ for (const locale of LOCALES) {
   }
 }
 
-console.log(`Páginas: ${expected.length} × ${LOCALES.length} idiomas`);
+// 6. Valores arbitrarios en el CSS generado (V46). Cada selector de clase se desescapa
+//    (.p-\[13px\] → p-[13px]) y se busca con las mismas expresiones que la comprobación 8 de
+//    check-tokens.mjs: clase con valor arbitrario y propiedad arbitraria, sin las variantes (…]:).
+const cssFiles = fs
+  .readdirSync(STATIC_DIR, { recursive: true })
+  .filter((file) => file.endsWith('.css'))
+  .map((file) => path.join(STATIC_DIR, file));
+const cssArbitrary = new Set();
+for (const file of cssFiles) {
+  for (const [, escaped] of fs.readFileSync(file, 'utf8').matchAll(/\.((?:\\.|[\w-])+)/g)) {
+    const cls = escaped.replace(/\\(.)/g, '$1');
+    for (const [match] of [
+      ...cls.matchAll(/[a-z0-9-]+-\[[^\]]+\](?!:)/g),
+      ...cls.matchAll(/(?<![\w-])\[[a-z-]+:[^\]]+\](?!:)/g),
+    ]) {
+      cssArbitrary.add(match);
+    }
+  }
+}
+if (!cssFiles.length) errors.push('No hay CSS en .next/static');
+for (const cls of cssArbitrary) {
+  if (!(cls in ARBITRARY_ALLOWED)) errors.push(`CSS generado: valor arbitrario ${cls} (no sale de src/ o falta su excepción, V43–V46)`);
+}
+
+console.log(`Páginas: ${expected.length} (${LOCALE}, sin prefijo de idioma)`);
+console.log(`CSS generado: ${cssFiles.length} archivo(s) · ${cssArbitrary.size} clases con corchetes (${[...cssArbitrary].filter((c) => c in ARBITRARY_ALLOWED).length} excepciones)`);
 console.log(`Anclas comprobadas: ${anchorCount} (${accentedCount} con tildes u otros caracteres no ASCII)`);
-console.log(`Grupos del sidebar (es): ${groupLabels('es').join(', ')}`);
-console.log(`Números de sección (es, "-" sin número): ${sectionNumbers('es').join(', ')}`);
+console.log(`Grupos del sidebar (es): ${groupLabels().join(', ')}`);
+console.log(`Números de sección (es, "-" sin número): ${sectionNumbers().join(', ')}`);
 console.log(`Orden esperado del sidebar:\n  ${expected.join('\n  ')}`);
 
 if (errors.length) {

@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §4.3. Si no hay lección anterior o siguiente, no se muestra.

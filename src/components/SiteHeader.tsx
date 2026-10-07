@@ -1,15 +1,15 @@
 import { useTranslations } from 'next-intl';
 import { HeaderHeight } from '@/components/HeaderHeight';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { Logo } from '@/components/Logo';
 import { MobileNav } from '@/components/MobileNav';
 import { Sidebar, type SidebarData } from '@/components/Sidebar';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Link } from '@/i18n/navigation';
+import Link from 'next/link';
 
 // Anatomía: docs/componentes-v1.md §4.7. Región header.
-// Escritorio (size=large): logotipo, selector de idioma y de tema.
-// Móvil (size=small, por debajo de 64rem): logotipo y botón de menú; los selectores pasan al panel (D19, D21).
+// Escritorio (size=large): logotipo y selector de tema. Sin selector de idioma: la web es solo en
+// español (P24); LanguageSwitcher se queda en el código, sin uso.
+// Móvil (size=small, por debajo de 64rem): logotipo y botón de menú; el selector pasa al panel (D19, D21).
 // V28: sticky arriba, con el contenido pasando por debajo difuminado (background/neutral/translucent y
 // blur/300). Con prefers-reduced-transparency, fondo opaco.
 
@@ -23,12 +23,7 @@ export function SiteHeader({ sidebar }: { sidebar: SidebarData }) {
       <Logo variant="colored" />
     </Link>
   );
-  const selectors = (
-    <>
-      <LanguageSwitcher />
-      <ThemeToggle />
-    </>
-  );
+  const selectors = <ThemeToggle />;
 
   return (
     <header

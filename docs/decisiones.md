@@ -53,7 +53,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P21 | `estado.md` solo con lo abierto; el detalle de lo hecho va a `historial.md`, que se lee bajo demanda. | Cerrada | 2026-10-07 |
 | P22 | `decisiones.md` con una línea por decisión; el texto completo, en `decisiones-detalle.md`, bajo demanda. | Cerrada | 2026-10-07 |
 | P23 | Web de educación sobre tokens, sin contenido de IA: ni módulo, ni hipótesis, ni promesas; el módulo 10 son las conclusiones del curso. | Cerrada | 2026-10-07 |
-| P24 | La web se lanza solo en español: único idioma configurado, sin selector de idioma y con el prefijo `/es/`; el inglés queda aplazado. | Cerrada | 2026-10-07 |
+| P24 | La web se lanza solo en español: único idioma configurado y sin selector de idioma; el inglés queda aplazado (URL sin `/es/` desde V45). | Cerrada | 2026-10-07 |
 
 ## Temario
 
@@ -195,9 +195,9 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | # | Decisión | Estado | Fecha |
 |---|---|---|---|
 | V01 | Esqueleto: Next.js 16.3, next-intl 4.14, Tailwind CSS 4.3, `@next/mdx` y TypeScript 7. | Cerrada | 2026-10-03 |
-| V02 | Una lección sin traducir se muestra en español, con aviso (sin uso con un solo idioma, P24). | Provisional | 2026-10-03 |
-| V03 | Prefijo de idioma siempre en la URL. | Provisional | 2026-10-03 |
-| V04 | Sin portada: `/{locale}` lleva a la primera lección. | Provisional | 2026-10-03 |
+| V02 | Una lección sin traducir se muestra en español, con aviso (sin uso con un solo idioma, P24 y V45). | Provisional | 2026-10-03 |
+| V03 | Prefijo de idioma siempre en la URL. | Sustituida por V45 | 2026-10-03 |
+| V04 | Sin portada: `/` lleva a la primera lección (antes `/{locale}`, V45). | Provisional | 2026-10-03 |
 | V05 | El nombre de cada sección va en su `meta.json`. | Cerrada | 2026-10-03 |
 | V06 | Terrazzo 2.7 con una normalización propia delante (`tools/figma-to-dtcg.mjs`). | Cerrada | 2026-10-03 |
 | V07 | Color en hex en el CSS. | Cerrada | 2026-10-03 |
@@ -234,10 +234,12 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V38 | El título de `LessonHeader` parte las palabras que no caben. | Cerrada | 2026-10-05 |
 | V39 | El nombre de archivo de `CodeBlock` baja de línea, sin puntos suspensivos. | Cerrada | 2026-10-05 |
 | V40 | Número de sección desde el prefijo; ancho mínimo `space/600`, alineado al final (implementado el 2026-10-07). | Cerrada | 2026-10-06 |
-| V41 | El tema se conserva al cambiar de idioma. | Cerrada | 2026-10-06 |
+| V41 | El tema se conserva cuando React vuelve a montar el layout (nació con el cambio de idioma, que ya no existe: V45). | Cerrada | 2026-10-06 |
 | V42 | Borde transparente en `Button` `primary`. | Cerrada | 2026-10-06 |
 | V43 | `check:tokens` busca valores arbitrarios en `src/`. | Cerrada | 2026-10-06 |
 | V44 | Tailwind solo busca clases en `src/` (`source("..")`). | Provisional (falta la revisión de Oscar) | 2026-10-07 |
+| V45 | Sin enrutado por idioma (configuración básica de next-intl): idioma fijo `es`, sin `[locale]`, proxy ni selector; URL `/{sección}/{lección}`. | Cerrada | 2026-10-07 |
+| V46 | `check:content` busca clases con corchetes en el CSS generado, fuera de las excepciones de V43. | Cerrada | 2026-10-07 |
 
 ## Abiertas
 

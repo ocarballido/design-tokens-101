@@ -2,7 +2,8 @@
 
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useId, useState, type ReactNode } from 'react';
-import { Link, usePathname } from '@/i18n/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §4.2. Recibe las secciones ya leídas de content/
