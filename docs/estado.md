@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. P23: la web no tiene contenido de IA; el módulo 10 son las Conclusiones (T20), redactadas y pendientes de la revisión de Oscar; menciones a la IA quitadas de cinco lecciones; falta el build (npm da 403).
+Última actualización: 2026-10-07, sesión de desarrollo. V40 (a) implementada (número del sidebar con ancho mínimo `space/600`, títulos de "0" a "10" alineados); módulo 10 y lecciones de P23 compilados y comprobados, sin errores; un aviso para contenido sobre `radius/full` en `course-summary`.
 
 ---
 
@@ -23,7 +23,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 **En curso: módulo 10, Conclusiones (T20, P23)**
 - `content/es/10-conclusions/`: `course-summary` y `conclusions`, en borrador. **Pendiente de la revisión de Oscar.**
 - Menciones a la IA quitadas (P23) de `why-this-site`, `figma-dtcg-tailwind`, `component-tokens`, `design-to-code` y `what-we-teach`; esta última y `content/es/meta.json` enlazan ya el módulo 10.
-- **Falta el build** (`npm run build && npm run check:content`): en la sesión de contenido npm da 403. Comprobado con un script aparte (reglas de `rehype-slug`, probado en negativo): 77 páginas, 562 enlaces internos con 293 anclas y 564 anclas en la misma página, sin errores; etiquetas equilibradas; sin guiones largos.
+- Build y navegador hechos por la sesión de desarrollo (2026-10-07), sin errores ni cambios en el MDX (detalle en `historial.md`). **Aviso:** en `course-summary`, "Crear en Figma", la viñeta "El espaciado y el radio son escalas en las que el número es proporcional al valor" no vale para `radius/full`.
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
@@ -49,16 +49,11 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
   - Revisar (P14): el texto de ejemplo de `body/small` dice que, al importar, "si dos tokens acaban con el mismo nombre, solo importa el primero". Sin comprobar.
   - La referencia no se edita: un cambio se hace en TokensDS y se vuelve a duplicar al publicar (D38).
 - **Diseño de partida (P16, P18):** cuando estén cerrados los módulos 9 y 10; incluye al menos un botón con estados dibujado con valores sueltos (T17).
-- **V40:** el número del sidebar sigue con la diferencia aceptada en D36 (cifras proporcionales, sin ancho fijo); cuando desarrollo lo implemente, anotar en `componentes-v1.md` §4.10 la columna de ancho mínimo y añadir la sección "10" a las plantillas.
+- **V40:** implementada en código el 2026-10-07 (ancho mínimo `space/600`, número alineado al final). Anotar en `componentes-v1.md` §4.10 la columna de ancho mínimo y añadir la sección "10" a las plantillas.
 
 ## Desarrollo
 
-**Estado:** la web funciona en Light, Dark y system, en móvil y escritorio, con los módulos 0 a 9 compilados y comprobados (último build: 2026-10-07, módulo 9). Detalle de cada comprobación en `historial.md`.
-
-**Encargos del módulo 10 (T20)**
-- **Build y comprobación del módulo 10** (`npm run build && npm run check:content`) y de las cinco lecciones cambiadas por P23; sidebar con "10 Conclusiones" después del 9, en "Tokens en código"; anterior y siguiente: `exercise-components` → `course-summary` → `conclusions` → `sources`.
-- **V40, opción (a):** la carpeta del módulo 10 ya existe. Número de sección con ancho mínimo `space/600` (`min-w-600`), alineado al final, y hueco `space/200`; comprobar la alineación de "0" a "10" y el nombre accesible ("10 Conclusiones").
-- ~~`llms.txt`~~: cancelado por P23.
+**Estado:** la web funciona en Light, Dark y system, en móvil y escritorio, con los módulos 0 a 10 compilados y comprobados (último build: 2026-10-07, módulo 10 y V40). Detalle de cada comprobación en `historial.md`.
 
 **Pendiente o sin verificar**
 - Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.

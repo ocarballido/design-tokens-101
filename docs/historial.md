@@ -278,6 +278,17 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Módulo 10 y V40 (a): comprobado e implementado (2026-10-07, T20, P23)**
+- **V40 (a):** en `src/components/Sidebar.tsx`, el número de `SidebarSection` lleva `min-w-600 text-end` además de `shrink-0 tabular-nums`; el hueco sigue siendo `gap-200`. Compilado: `.min-w-600{min-width:var(--t101-space-600)}` (sale del token; `--spacing-600` ya estaba en `theme.css`). Sin tokens nuevos ni valores sueltos.
+- `npm run build && npm run check:content && npm run check:tokens`: sin errores. 77 lecciones × 2 idiomas, 1282 anclas (350 no ASCII); números de sección 0 a 10 y Recursos sin número; `check:tokens` igual que antes (155 / 33 / 33 / 9; 89 variables; `src/`: 39 archivos, 8 valores arbitrarios, 5 excepciones). No hizo falta tocar el MDX.
+- **Navegador** (Chrome 154.0.8037.98 sin interfaz, `puppeteer-core` 25, `next start`), Light y Dark a 320 px (panel móvil abierto) y 1440 px, en `exercise-components`, `course-summary`, `conclusions`, `sources` y las cinco lecciones de P23 (`why-this-site`, `figma-dtcg-tailwind`, `what-we-teach`, `component-tokens`, `design-to-code`): 36 cargas, sin errores de consola ni scroll horizontal de página.
+  - **Alineación:** en las 11 cabeceras con número (0 a 10), el número mide 24 px (`space/600`) y termina a 36 px del borde del botón; todos los títulos empiezan a 44 px (`px-300` 12 + 24 + `gap-200` 8). Antes, "10" desplazaba su título 9 px.
+  - **Nombre accesible** (árbol de accesibilidad): "0 Empezar aquí" … "9 Componentes y código", "10 Conclusiones" y "Recursos".
+  - **Sidebar:** "10 Conclusiones" justo después de "9 Componentes y código", en el grupo "Tokens en código". En cada lección solo está abierta su sección (C11) y la lección actual lleva `aria-current`.
+  - **Anterior y siguiente:** `exercise-components` → `course-summary` → `conclusions` → `sources`, y al revés. En las cinco lecciones de P23, los enlaces son los de su módulo, sin cambios.
+- **Para la sesión de contenido (sin cambiar el MDX):** `course-summary`, "Crear en Figma", primera viñeta: "El espaciado y el radio son escalas en las que el número es proporcional al valor" no vale para `radius/full` (624.9375rem), que no sigue la proporción. El ejemplo citado (`space/400` = 16 px) es correcto.
+- Sin prueba manual ni con lector de pantalla.
+
 **Módulo 9: comprobado (2026-10-06, T17, T18, V42, V43)**
 - **V42, borde transparente en `Button` `primary`:** `border-(length:--t101-border-width-100) border-transparent`. Con `--*: initial`, `border-transparent` existe (`border-color: transparent`): Tailwind CSS 4.3.3 lo tiene como valor fijo, no lo saca del tema (también `bg-transparent` y `border-current`). Prueba en Chrome 154.0.8037.98 sin interfaz (`puppeteer-core` 25, `next start`, página temporal `/es/tmp-button` borrada; `forced-colors` y `prefers-color-scheme` emulados con DevTools), esquemas claro y oscuro, antes y después:
   - Antes: `primary` 147,84 × 35,59 px (175,84 × 40 con icono), sin borde; `secondary` 149,84 × 37,59 (177,84 × 42). Con colores forzados, el fondo del `primary` pasa al del sistema (blanco o negro, igual que la página) y el botón se ve como texto suelto (captura).

@@ -232,7 +232,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V37 | `semantic.py` comprueba todos los pares y su cifra de referencia. | Provisional | 2026-10-05 |
 | V38 | El título de `LessonHeader` parte las palabras que no caben. | Cerrada | 2026-10-05 |
 | V39 | El nombre de archivo de `CodeBlock` baja de línea, sin puntos suspensivos. | Cerrada | 2026-10-05 |
-| V40 | Número de sección desde el prefijo; ancho mínimo `space/600`, alineado al final (sin implementar). | Cerrada | 2026-10-06 |
+| V40 | Número de sección desde el prefijo; ancho mínimo `space/600`, alineado al final (implementado el 2026-10-07). | Cerrada | 2026-10-06 |
 | V41 | El tema se conserva al cambiar de idioma. | Cerrada | 2026-10-06 |
 | V42 | Borde transparente en `Button` `primary`. | Cerrada | 2026-10-06 |
 | V43 | `check:tokens` busca valores arbitrarios en `src/`. | Cerrada | 2026-10-06 |
