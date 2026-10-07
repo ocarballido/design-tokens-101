@@ -1,6 +1,6 @@
 # Investigación del módulo 10: preparado para IA
 
-Sesión de contenido, 2026-10-07. Tarea 1 del módulo 10 (Preparado para IA, T1, T4, P3). **Pendiente de la aprobación de Oscar.** No se redacta ninguna lección hasta que Oscar apruebe esta investigación y después el índice.
+Sesión de contenido, 2026-10-07. Tarea 1 del módulo 10 (Preparado para IA, T1, T4, P3). **Pendiente de la aprobación de Oscar.** Decidido ya el enfoque (**P20**, 2026-10-07, opción B): el módulo enseña lo comprobado y la hipótesis de P3 sale del curso; quedan las decisiones 1 y 3 a 7 de §8. No se redacta ninguna lección hasta que Oscar apruebe esta investigación y después el índice.
 
 Pregunta: qué tiene que saber quien termina el módulo 9 para que un agente de IA **lea y use** su sistema de tokens sin inventar valores, y cómo se comprueba que eso funciona (P3). El módulo no enseña a programar con agentes ni a escribir prompts en general (P10, T5): trata el sistema de tokens como información que un agente consume. En cada apartado se separa **lo que dice la fuente** de **la recomendación** de la sesión de contenido. Las pruebas propias dicen con qué se hicieron y cuándo (P14).
 
@@ -91,6 +91,8 @@ Todas las variables tienen code syntax `var(--t101-…)` (S6, S27, D03) y `npm r
 ---
 
 ## 3. La hipótesis de P3: cómo comprobarla de verdad
+
+**Resuelto por P20 (2026-10-07):** la hipótesis sale del curso y este experimento no se hace dentro de él. El apartado se conserva como registro de por qué: comprobarla bien exige separar tres factores y unas veinte ejecuciones, y eso es investigación, no enseñanza.
 
 ### Lo que dicen las fuentes
 
@@ -196,7 +198,7 @@ Reuniendo §2 a §5, lo que un agente puede leer de un sistema de tokens y por d
 | Qué no puede hacer el agente | Archivo de reglas (`CLAUDE.md`, `AGENTS.md`) | Módulo 10 |
 | Qué se comprueba | `check:tokens` y `semantic.py` | Módulos 6, 7 y 9 |
 
-La aportación propia del módulo 10 son las tres últimas filas y la prueba de P3. El resto lo junta y lo enseña desde el lado del agente.
+La aportación propia del módulo 10 son las tres últimas filas (P20: sin la prueba de P3). El resto lo junta y lo enseña desde el lado del agente.
 
 ---
 
@@ -221,25 +223,41 @@ Medidas de V40: cada cifra mide 9,08 px (`tabular-nums`) y "10", 18,14 px; hueco
    - **A.** Como los módulos 6 a 9: el texto principal trata lo que el diseñador prepara en Figma (nombres, code syntax, descripciones, componentes) y lo que el agente recibe (salida real del MCP); el archivo de reglas, `llms.txt` y la ejecución del agente, en `InCode`.
    - **B.** El módulo entero para quien trabaja con agentes en código.
    - *Recomendación: A*, por P2 y por coherencia. La fila de `what-we-teach` pasaría a "Qué lee un agente de tu sistema y cómo comprobarlo".
-2. **Prueba de P3 (§3).** Opciones: (a) las cuatro condiciones, con registro previo; (b) solo "con" y "sin" (A frente a D), como dice hoy `why-this-site`; (c) no hacer la prueba y quitar la promesa. *Recomendación: a.* Con (b) no se sabe si mejora el nombre o la mera existencia de variables, que es lo que dice la hipótesis. Si Oscar elige (a), la sesión de contenido escribe el protocolo para su aprobación y la sesión de desarrollo prepara la copia de B y ejecuta.
+2. **Prueba de P3 (§3).** **Decidido con P20: ninguna de las tres; la hipótesis sale del curso.** Opciones que se plantearon: (a) las cuatro condiciones, con registro previo; (b) solo "con" y "sin" (A frente a D), como dice hoy `why-this-site`; (c) no hacer la prueba y quitar la promesa. *Recomendación: a.* Con (b) no se sabe si mejora el nombre o la mera existencia de variables, que es lo que dice la hipótesis. Si Oscar elige (a), la sesión de contenido escribe el protocolo para su aprobación y la sesión de desarrollo prepara la copia de B y ejecuta.
 3. **D03 en la lección.** *Recomendación:* los cuatro formatos de la prueba 2, con su salida real y fecha, y el `Button` de la prueba 1 como ejemplo completo. Lo nuevo (sin code syntax, el servidor inventa un nombre) se cuenta como el motivo de S6. No hace falta otra captura.
 4. **Descripciones de las variables.** En las dos pruebas no llegan al agente por MCP. *Recomendación:* la lección lo dice con fecha y enseña la exportación DTCG como el sitio donde un agente las lee. Pendiente, sin bloquear: probar `search_design_system` con la biblioteca publicada, por si allí sí aparecen.
 5. **P9: el tamaño de lo que carga cada sesión (§4).** Unos 322 KB por las dos importaciones, frente a las 200 líneas que recomienda Claude Code. Opciones: (a) dejarlo y contarlo como está; (b) `CLAUDE.md` importa solo `decisiones.md` y `estado.md` se lee bajo demanda; (c) dividir `estado.md` en un estado actual corto (importado) y un historial (bajo demanda). *Recomendación: c*, antes de redactar la lección, para que el ejemplo siga la fuente. Afecta a las tres sesiones: lo aplica la sesión que Oscar elija y se registra en `decisiones.md`.
 6. **C4: búsqueda, `llms.txt` y MCP (§5).** *Recomendación:* sin migración a Fumadocs Core; `llms.txt` como índice generado en el build (sesión de desarrollo); sin MCP de la web; la búsqueda, fuera del módulo 10. C4 se cerraría con "no hace falta migrar".
 7. **V40 (§7).** *Recomendación:* (a) con el número alineado al final y hueco `space/200`.
-8. **`why-this-site`, "Y la IA" (P14).** El ejemplo `color.action.primary` no sigue la convención del curso (D12: no hay categoría `action`) y la frase "tiene una intención que puede reutilizar" se afirma sin prueba. *Recomendación:* reescribir el apartado al cerrar el módulo, con el resultado de la prueba y un nombre real del sistema (`color/background/accent/strong/default`).
+8. **`why-this-site`, "Y la IA" (P14).** **Decidido con P20:** se reescribe (§9). El ejemplo `color.action.primary` no sigue la convención del curso (D12: no hay categoría `action`) y la frase "tiene una intención que puede reutilizar" se afirma sin prueba. *Recomendación:* reescribir el apartado al cerrar el módulo, con el resultado de la prueba y un nombre real del sistema (`color/background/accent/strong/default`).
 
 ---
 
-## 9. Pendiente (sin verificar)
+## 9. Lecciones que cambia P20
+
+Inventario del 2026-10-07: todas las menciones a la IA, a los agentes, a MCP y al módulo 10 en `content/es/`. Se aplican al redactar el módulo 10 (para que los enlaces tengan destino) y con la aprobación de Oscar.
+
+| Lección | Qué dice hoy | Propuesta |
+|---|---|---|
+| `why-this-site`, apartado "Y la IA" | Los agentes "trabajan mejor" con información nombrada; ejemplo `color.action.primary`; `Callout` `pending` con la hipótesis y la prueba "con y sin el sistema preparado" | Contar lo comprobado: un agente que lee un diseño de Figma recibe el code syntax de cada variable, y sin él recibe un nombre inventado; enlace al módulo 10. Sin `Callout` `pending`. Ejemplo con un nombre real (`color/background/accent/strong/default`, D12) |
+| `why-this-site`, "Lo que te llevas" | "Una hipótesis que comprobaremos al final" | "Un agente recibe los nombres que pones en Figma: el módulo 10 enseña qué le llega" (o equivalente, una frase) |
+| `figma-dtcg-tailwind`, final de la tabla de nombres | El nombre compartido permite pasar al componente "sin traducir nada, ya sea una persona o un agente" | Quitar "sin traducir nada": el agente recibe el nombre, pero en esta web tiene que pasar los valores arbitrarios a las clases del proyecto (§2, prueba 1). Propuesta: "Ese nombre compartido es el que encuentra quien implementa el componente, sea una persona en Dev Mode o un agente con el servidor MCP de Figma", con enlace al módulo 10 |
+| `what-we-teach`, `Flow` | Paso "Preparado para IA", "Módulo 10 · En estudio", `pending` | Enlace a la primera lección del módulo y meta "Módulo 10" |
+| `what-we-teach`, tabla | "Cómo documentar el sistema para que lo entienda un agente" / "Documentación legible por agentes" / "Próximamente" | "Qué recibe un agente de tu sistema y cómo vigilarlo" / el resultado lo fija el ejercicio del índice / "En redacción" |
+| `what-we-teach`, `Callout` | El módulo 10 "todavía está en estudio" | Se quita o se ajusta, como al publicar los módulos anteriores |
+| `component-tokens`, `Callout` `note` | Un vocabulario pequeño "podría ayudar" a un agente; hipótesis del módulo final | Quitar el `Callout`: los dos argumentos de la lección (mantenimiento y una decisión en dos sitios) no lo necesitan |
+| `design-to-code`, "No lleva valor de reserva" | "El servidor MCP de Figma, que verás en el módulo 10" | Se mantiene; solo se añade el enlace a la lección del módulo 10 |
+
+No cambian: `how-this-site-was-made` (cómo se hizo la web con Claude, P7) ni ninguna otra lección (sin más menciones). Los módulos 1 a 9 no prometen nada sobre agentes fuera de estas líneas.
+
+## 10. Pendiente (sin verificar)
 
 - Si `search_design_system` devuelve la descripción de las variables (necesita la biblioteca publicada).
 - Si el servidor MCP de escritorio da la misma salida que el remoto (la ayuda dice que el de escritorio es "sobre todo" para Organization y Enterprise).
-- El resultado de P3, que depende de la decisión 2.
 
 ---
 
-## 10. Fuentes
+## 11. Fuentes
 
 - [Model Context Protocol: What is MCP](https://modelcontextprotocol.io/docs/getting-started/intro)
 - [Figma: Guide to the Figma MCP server](https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server)
