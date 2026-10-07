@@ -329,6 +329,15 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Imagen para compartir, Node en Vercel y despliegue (2026-10-07, V52 y V53)**
+- `git pull` con lo de contenido: `content/es/99-resources/02-figma-files.mdx` (P18), enlaces desde `requirements` y `exercise-final`, y V52 cambiada (`public/brand/share.png`, PNG RGBA de 1200 × 630; `alt` coherente con la imagen).
+- `npm run build` (86 páginas estáticas, con `/resources/figma-files`), `check:content` y `check:tokens`: sin errores.
+- `<head>` revisado en el HTML generado de `/resources/figma-files` y de `/`: `og:image` (URL absoluta a `share.png`), `og:image:width` 1200, `og:image:height` 630, `og:image:alt`, `twitter:card` `summary_large_image`, `twitter:image` y `twitter:image:alt`. Correcto.
+- V53: `"engines": { "node": "24.x" }` en `package.json` (documentación de Vercel consultada de nuevo: `engines.node` manda sobre el ajuste del proyecto). Commit `8111f6a`.
+- Despliegue de Vercel de `8111f6a`: estado `success` ("Deployment has completed") en el estado del commit de GitHub. No se pudo leer el log del build (sin CLI de Vercel ni `gh`), así que la versión de Node usada no se ha visto en el log.
+- Producción: `og:*`, `twitter:*` y canónica iguales que en local; `share.png` servida con 200, `image/png`, 370 789 bytes.
+- **Hallazgo:** `https://designtokens101.com/` responde 308 a `https://www.designtokens101.com/`, mientras la canónica, `og:url`, `og:image`, el sitemap y `robots.txt` usan el dominio sin `www` (`SITE_URL`, P26). La canónica apunta a una URL que redirige. Pendiente de decisión de Oscar.
+
 **Buscadores y despliegue: C20 y V49 a V52 (2026-10-07)**
 - Parche de contenido C20 aplicado con `git am` y subido (`9cdba92`).
 - Documentación consultada: la de Next.js 16.3.8 incluida en `node_modules/next/dist/docs` (generateMetadata, metadataBase, Merging, opengraph-image, sitemap, robots, instalación: Node 20.9 como mínimo); Google (sitemaps); Vercel (versiones de Node).

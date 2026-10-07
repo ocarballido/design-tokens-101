@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. Dominio funcionando; `robots.txt` y `sitemap.xml` comprobados (79 URL); imagen para compartir de 1200 × 630 (V52).
+Última actualización: 2026-10-07, sesión de desarrollo. Build y comprobaciones sin errores con "Archivos de Figma" y la imagen para compartir (V52); etiquetas de `<head>` correctas en local y en producción; Node 24.x en Vercel (V53), desplegado sin errores. Hallazgo: el dominio sin `www` redirige a `www`.
 
 ---
 
@@ -32,7 +32,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 ## Contenido
 
-**Estado:** módulos 0 a 10 aprobados (P23, P24 y T20 reflejados; detalle en `historial.md`). `how-this-site-was-made` enlaza los issues (P25) desde el 2026-10-07: falta el build de desarrollo, que puede ir con el build final.
+**Estado:** módulos 0 a 10 aprobados (P23, P24 y T20 reflejados; detalle en `historial.md`). `how-this-site-was-made` enlaza los issues (P25) y "Archivos de Figma" (P18) está publicada; las dos, compiladas y comprobadas por desarrollo el 2026-10-07.
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
@@ -73,10 +73,9 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
-- **Oscar:** decidir la versión de Node en Vercel. Propuesta: `"engines": { "node": "24.x" }` en `package.json` (la que usa Vercel por defecto y la de local; 20.x deprecada el 2026-10-01).
-- **Imagen para compartir (V52):** `share.png` de 1200 × 630 y tarjeta grande desde el 2026-10-07; falta ver el build de Vercel y la vista previa en LinkedIn.
-- `robots.txt` y `sitemap.xml` con el dominio: comprobados el 2026-10-07 (79 URL, todas en `designtokens101.com`). Oscar: vista previa en LinkedIn y alta en Google Search Console.
-- Despliegue en Vercel (después de P17); `next/font/google` descarga las fuentes al compilar, sin probar en Vercel.
+- **Oscar: dominio canónico.** `designtokens101.com` redirige (308) a `www.designtokens101.com`, pero la canónica, `og:url`, `og:image` y el sitemap usan el dominio sin `www`. Opciones: (a) en Vercel → Domains, dejar `designtokens101.com` como principal y que `www` redirija a él (sin cambios de código; recomendada, es el dominio de P26); (b) cambiar `SITE_URL` a `https://www.designtokens101.com` (cambia P26 y V50).
+- **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
+- Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).
 - Prueba manual, con lector de pantalla y en Safari y Firefox.
 - `npm` bloquea el `postinstall` de `@swc/core` (dependencia de next-intl); el build funciona sin él.
 - **Dominio `designtokens101.com` (P26):** funcionando desde el 2026-10-07.
