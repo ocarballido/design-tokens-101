@@ -98,7 +98,7 @@
             "alpha": 1,
             "hex": "#1F2924"
           },
-          "$description": "Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea",
+          "$description": "Fondo de superficies destacadas: grupo del selector de tema, y código en línea",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:103",
             "com.figma.scopes": [

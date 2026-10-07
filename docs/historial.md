@@ -283,6 +283,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Semantic color reexportada tras P24 (2026-10-07)**
+- Oscar reexportó `Semantic color`; los dos archivos, en `tokens/figma/semantic-color/` sin editar (C10).
+- `git diff`: en `Light.tokens.json` y `Dark.tokens.json` cambia una sola línea, la `$description` de `color/background/neutral/strong` ("…grupo de los selectores de idioma y tema, y código en línea" → "…grupo del selector de tema, y código en línea"). Comparados con un script de Node.js sin `$description`: los dos archivos son idénticos a los anteriores (valores, alias, `alpha`, scopes, code syntax, nombres; 33 tokens en cada modo).
+- `npm run tokens` (código 0): "6 archivos · 82 alias · 56 dimension · 4 fontWeight · 2 fontFamily · 123 color · 2 alpha float32" y "155 tokens built". Solo cambian esa `$description` en `tokens/dtcg/semantic-color/` (Light y Dark) y su comentario en `src/styles/tokens.css` (`:root` y los dos bloques Dark). `theme.css` no cambia.
+- `npm run check:tokens`: "Sin errores." (155 / 33 / 33 / 9; 89 variables de Tailwind; `src/`: 35 archivos, 8 valores arbitrarios, 5 excepciones).
+- **Las dos descripciones propuestas por la sesión de contenido no están en esta exportación.** `color/background/neutral/hover` sigue diciendo "…(IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario)…" y `color/border/accent/strong`, "…(marca lateral del sidebar y de En esta página, opción activa de los selectores)…", en Light y Dark.
+
 **P24, solo español: sin enrutado por idioma (2026-10-07, V45, V46)**
 - **Primer intento (lo que pedía el encargo):** `locales: ['es']`, `defaultLocale: 'es'`, `localePrefix: 'always'`. Funcionaba salvo un punto: `/en/…` no daba 404 directo. next-intl lo toma como ruta sin prefijo y redirige (307) a `/es/en/…`, que da 404 (también `/fr/…`). La documentación de next-intl no describe este caso. Oscar pidió seguir la documentación oficial.
 - **Lo que dice la documentación:** la configuración básica de next-intl (App Router) no tiene enrutado y fija el idioma en `i18n/request.ts`; el enrutado por idioma (`[locale]`, `routing.ts`, proxy) es "in order to use unique pathnames for every language" (Routing setup). Con un solo idioma, no hace falta. Detalle y citas en V45.

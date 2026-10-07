@@ -39,7 +39,7 @@
   --t101-color-background-neutral-default: var(--t101-color-white);
   /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
   --t101-color-background-neutral-hover: var(--t101-color-neutral-100);
-  /* Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea */
+  /* Fondo de superficies destacadas: grupo del selector de tema, y código en línea */
   --t101-color-background-neutral-strong: var(--t101-color-neutral-100);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-50);
@@ -211,7 +211,7 @@
   --t101-color-background-neutral-default: var(--t101-color-neutral-950);
   /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
   --t101-color-background-neutral-hover: var(--t101-color-neutral-800);
-  /* Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea */
+  /* Fondo de superficies destacadas: grupo del selector de tema, y código en línea */
   --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
   /* Fondo de tarjetas y bloques de código */
   --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
@@ -282,7 +282,7 @@
     --t101-color-background-neutral-default: var(--t101-color-neutral-950);
     /* Hover de controles neutros sin fondo (IconButton, sidebar, En esta página, cabecera de InCode, selectores, botón secundario). El texto pasa a text/neutral/default (D12). */
     --t101-color-background-neutral-hover: var(--t101-color-neutral-800);
-    /* Fondo de superficies destacadas: grupo de los selectores de idioma y tema, y código en línea */
+    /* Fondo de superficies destacadas: grupo del selector de tema, y código en línea */
     --t101-color-background-neutral-strong: var(--t101-color-neutral-800);
     /* Fondo de tarjetas y bloques de código */
     --t101-color-background-neutral-subtle: var(--t101-color-neutral-900);
