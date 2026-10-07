@@ -1,5 +1,7 @@
 # Design System preparado para IA: Fase 1: Fundamentos de tokens y nomenclatura
 
+> **Nota (2026-10-07, P23):** documento histórico de la fase 1. Los objetivos sobre IA que aparecen aquí (sistema legible por agentes, servidor MCP, `llms.txt`, prueba con un agente) **ya no forman parte del curso**: DesignToken101 es una web de educación sobre tokens, sin contenido de IA.
+
 **Documento consolidado** · Versión corregida con fuentes · Cerrado el 30 de septiembre de 2026
 
 Este documento recoge todo lo visto en la fase 1 del plan de aprendizaje, **en su versión corregida**. Sirve como material de base para dos cosas: continuar el estudio en nuevas sesiones y construir la web-curso. Si algo de este documento contradice lo dicho en una conversación anterior, prevalece este documento.

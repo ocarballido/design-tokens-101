@@ -463,7 +463,7 @@ Los espacios, el tamaño de las cajas y la alineación son libres, siempre con t
   </FlowGroup>
   <FlowGroup title="Después">
     <FlowStep title="Componentes y código" meta="Módulo 9 · En estudio" status="pending" />
-    <FlowStep title="Preparado para IA" meta="Módulo 10 · En estudio" status="pending" />
+    <FlowStep title="Conclusiones" meta="Módulo 10" href="/conclusions/course-summary" />
   </FlowGroup>
 </Flow>
 ```

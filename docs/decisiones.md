@@ -32,7 +32,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 |---|---|---|---|
 | P1 | Web que enseña a planificar, crear e implementar tokens con Figma, DTCG y, opcionalmente, Tailwind CSS (nombre: P12). | Cerrada | 2026-09-30 |
 | P2 | Público: diseñadores UI/UX, todo se sigue en Figma; itinerario de código opcional (React) en cada lección. | Cerrada | 2026-09-30 |
-| P3 | La IA es el hilo conductor y el módulo final, no el tema central. | Cambiada por P20 | 2026-09-30 |
+| P3 | La IA como hilo conductor y módulo final del curso. | Sustituida por P23 | 2026-09-30 |
 | P4 | La web usa su propio sistema de tokens, con modo claro y oscuro; se diseña en Figma antes de desarrollar. | Cerrada | 2026-09-30 |
 | P5 | El alumno obtiene la misma estructura, método y convención que la web, con los valores de su diseño. | Cerrada | 2026-10-06 |
 | P6 | De menos a más; cada afirmación técnica con fuente oficial; la fuente, separada de la recomendación. | Cerrada | 2026-09-30 |
@@ -49,15 +49,16 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P17 | La web no se publica sin el inglés y los módulos 9 y 10; los archivos de Figma salen en el mismo bloque. | Cerrada | 2026-10-06 |
 | P18 | Los archivos de Figma se enlazan desde la página "Archivos de Figma" de Recursos, y esta desde Requisitos, el ejercicio 1 y el final. | Cerrada | 2026-10-06 |
 | P19 | El texto del lienzo de los archivos de Figma sigue en español; los nombres técnicos, en inglés. | Cerrada | 2026-10-06 |
-| P20 | Web educacional: el módulo 10 enseña solo lo comprobado (qué recibe un agente y cómo se vigila); la hipótesis de P3 sale del curso. | Cerrada | 2026-10-07 |
+| P20 | Módulo 10 sobre lo que recibe un agente de IA. | Sustituida por P23 | 2026-10-07 |
 | P21 | `estado.md` solo con lo abierto; el detalle de lo hecho va a `historial.md`, que se lee bajo demanda. | Cerrada | 2026-10-07 |
 | P22 | `decisiones.md` con una línea por decisión; el texto completo, en `decisiones-detalle.md`, bajo demanda. | Cerrada | 2026-10-07 |
+| P23 | Web de educación sobre tokens, sin contenido de IA: ni módulo, ni hipótesis, ni promesas; el módulo 10 son las conclusiones del curso. | Cerrada | 2026-10-07 |
 
 ## Temario
 
 | # | Decisión | Estado | Fecha |
 |---|---|---|---|
-| T1 | Módulos 0 a 10 (Empezar aquí, Fundamentos, Primitivos, Relaciones, Nombrar, Modos, De Figma al código, Accesibilidad, Ejercicio final, Componentes, Preparado para IA) y Recursos. | Cerrada | 2026-09-30 |
+| T1 | Módulos 0 a 10 (Empezar aquí, Fundamentos, Primitivos, Relaciones, Nombrar, Modos, De Figma al código, Accesibilidad, Ejercicio final, Componentes, Conclusiones) y Recursos. | Cerrada | 2026-09-30 |
 | T2 | Las escalas van antes que los alias y las capas. | Cerrada | 2026-09-30 |
 | T3 | Lección: introducción, "En esta página", contenido con fuentes, Figma, `InCode`, "Lo que te llevas", Fuentes. | Cerrada | 2026-09-30 |
 | T4 | Los módulos 9 y 10 no se publican sin estudiarlos y verificarlos; el 7 lleva investigación propia. | Cerrada | 2026-09-30 |
@@ -75,7 +76,8 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | T16 | Módulo 8: tres lecciones y el ejercicio final; aprobado. | Cerrada | 2026-10-06 |
 | T17 | Investigación del módulo 9: tabla parte × estado → token; React en `InCode`. | Cerrada | 2026-10-06 |
 | T18 | Módulo 9: siete lecciones y un ejercicio; aprobado el 2026-10-07. | Cerrada | 2026-10-06 |
-| T19 | Investigación del módulo 10 aprobada: enfoque P20, D03 con cuatro formatos, descripciones por DTCG, C4 sin migrar, V40 (a). | Cerrada | 2026-10-07 |
+| T19 | Investigación del módulo 10 sobre IA (salvo V40, que se mantiene). | Sustituida por P23 | 2026-10-07 |
+| T20 | Módulo 10, Conclusiones: resumen del curso por fases y conclusiones con las ideas que lo recorren y cómo mantener el sistema; sin ejercicio. | Cerrada | 2026-10-07 |
 
 ## Contenido y técnica
 
@@ -84,7 +86,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C1 | Stack: Next.js (App Router), TypeScript, Tailwind CSS v4, next-intl, Git y Vercel. | Cerrada | 2026-09-30 |
 | C2 | Lecciones en MDX. | Cerrada | 2026-09-30 |
 | C3 | `@next/mdx` con `remark-frontmatter`, `remark-mdx-frontmatter`, `remark-gfm` y `rehype-slug`; navegación hecha a mano. | Cerrada | 2026-09-30 |
-| C4 | Contenido portable; no se migra a Fumadocs Core (T19). | Cerrada | 2026-09-30 |
+| C4 | Contenido portable; no se migra a Fumadocs Core: ningún módulo necesita búsqueda, `llms.txt` ni MCP (P23). | Cerrada | 2026-09-30 |
 | C5 | Inglés por defecto y español; se redacta primero en español. | Cerrada | 2026-09-30 |
 | C6 | `content/{locale}/NN-seccion/NN-pagina.mdx`; el prefijo ordena y no sale en la URL. | Cerrada | 2026-09-30 |
 | C7 | Slugs en inglés en todos los idiomas. | Provisional | 2026-09-30 |
@@ -149,7 +151,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 |---|---|---|---|
 | D01 | Interlineado sin variable en Figma (la lee como píxeles); 120, 140 y 150 %. | Cerrada | 2026-09-30 |
 | D02 | `space/negative/*` solo en código. | Cerrada | 2026-09-30 |
-| D03 | Code syntax `var(--t101-…)`; Dev Mode lo escribe sin reserva y el servidor MCP, con reserva. | Cerrada | 2026-09-30 |
+| D03 | Code syntax `var(--t101-…)`, que Dev Mode escribe tal cual y sin valor de reserva. | Cerrada | 2026-09-30 |
 | D04 | Pesos tipográficos como variables Number. | Cerrada | 2026-09-30 |
 | D05 | Oscar diseña los componentes; la sesión de diseño aporta la anatomía y revisa. | Cerrada | 2026-09-30 |
 | D06 | `Callout` `recommendation` con el acento y `border/accent/default`; `pending` con neutros. | Cerrada | 2026-09-30 |
@@ -230,7 +232,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V37 | `semantic.py` comprueba todos los pares y su cifra de referencia. | Provisional | 2026-10-05 |
 | V38 | El título de `LessonHeader` parte las palabras que no caben. | Cerrada | 2026-10-05 |
 | V39 | El nombre de archivo de `CodeBlock` baja de línea, sin puntos suspensivos. | Cerrada | 2026-10-05 |
-| V40 | Número de sección desde el prefijo; ancho mínimo `space/600`, alineado al final (T19, sin implementar). | Cerrada | 2026-10-06 |
+| V40 | Número de sección desde el prefijo; ancho mínimo `space/600`, alineado al final (sin implementar). | Cerrada | 2026-10-06 |
 | V41 | El tema se conserva al cambiar de idioma. | Cerrada | 2026-10-06 |
 | V42 | Borde transparente en `Button` `primary`. | Cerrada | 2026-10-06 |
 | V43 | `check:tokens` busca valores arbitrarios en `src/`. | Cerrada | 2026-10-06 |

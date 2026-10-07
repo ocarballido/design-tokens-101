@@ -1,0 +1,123 @@
+---
+title: Resumen del curso
+description: "Lo que has aprendido y construido en cada fase de DesignToken101: planificar, crear en Figma, llevar al código, revisar y cerrar, y los componentes."
+nav_title: Resumen del curso
+lastReviewed: 2026-10-07
+---
+
+Has recorrido el trabajo con tokens de principio a fin: de un inventario de valores sueltos a un sistema documentado, versionado y consumido por un componente. Esta página reúne lo esencial de cada fase, con un enlace a la lección donde se explica, para que puedas volver a cualquier punto sin releer el curso entero.
+
+**En esta página**
+
+- [Planificar](#planificar)
+- [Crear en Figma](#crear-en-figma)
+- [Llevar al código](#llevar-al-código)
+- [Revisar y cerrar](#revisar-y-cerrar)
+- [Los componentes](#los-componentes)
+- [Lo que has construido](#lo-que-has-construido)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Planificar
+
+El módulo [Fundamentos](/fundamentals/what-is-a-token) te dio el vocabulario de todo lo demás.
+
+- Un valor suelto pierde la intención con la que se eligió. Un **token** es una decisión de diseño con nombre: nombre, valor y tipo ([Qué es un token](/fundamentals/what-is-a-token)).
+- Los tipos de DTCG y las variables de Figma no coinciden uno a uno. Por eso el peso es una variable Number, y el interlineado y el movimiento viven en código ([Tipos simples](/fundamentals/simple-types)).
+- Figma no tiene variables compuestas: los estilos de texto son estilos con variables dentro, y no se exportan en DTCG ([Tipos compuestos y estilos](/fundamentals/composite-types)).
+- Cada token tiene **una única fuente**. Si cambia de sitio, se mueve, no se copia ([Una sola fuente de verdad](/fundamentals/source-of-truth)).
+
+El ejercicio terminó con un inventario de los valores sueltos de tu diseño: la materia prima de tus primitivos.
+
+## Crear en Figma
+
+Cuatro módulos convirtieron ese inventario en variables y estilos.
+
+**[Primitivos](/primitives/what-is-a-primitive).** Un primitivo dice qué valor es; un semántico, para qué se usa.
+
+- El espaciado y el radio son escalas en las que el número es proporcional al valor: `space/400` mide 16 px ([Espaciado](/primitives/spacing)).
+- Las escalas de color se construyen en oklch, se guardan en sRGB y su contraste se mide sobre el hex guardado ([Espacio de color](/primitives/color-space)).
+- Las paletas se nombran por su tono, nunca por su rol, y el color de marca va exacto en su paso ([Escalas de color](/primitives/color-scales)).
+
+**[Relaciones](/relations/what-is-an-alias).** Un alias es un token cuyo valor es otro token, y conservar la referencia hace que un cambio llegue a todos los que apuntan a él.
+
+- Al diseñar se aplican los semánticos, no los primitivos ([Las capas](/relations/layers)).
+- Un semántico nombra una función, no un elemento, y cada modo puede apuntar a un primitivo distinto ([Semánticos de color](/relations/semantic-color)).
+- Cada estado que cambia un color es un token, y si nada se desactiva no hay tokens de disabled ([Estados](/relations/states)).
+- Un token de componente se justifica únicamente si el componente se aparta del semántico o tiene que cambiar por separado ([La capa de componente](/relations/component-tokens)).
+
+**[Nombrar](/naming/anatomy-of-a-name).** DTCG no da significado a los nombres: lo da una convención escrita.
+
+- Los semánticos de color siguen categoría / propiedad / rol / énfasis / estado, con los niveles necesarios y ninguno más ([La convención de DesignToken101](/naming/naming-convention)).
+- Un token con estados lleva `/default`, porque en DTCG un token no puede ser también un grupo ([Estados en el nombre](/naming/states-in-names)).
+- El mismo nombre se escribe con `/` en Figma, con puntos en DTCG y con guiones en CSS ([Un nombre en Figma, DTCG y CSS](/naming/name-constraints)).
+
+**[Modos y temas](/modes/what-is-a-mode).** Un modo es una columna de valores: cada variable tiene un valor en cada modo.
+
+- Cada colección responde a un eje de cambio; en DesignToken101, el tema y el ancho de pantalla ([Un eje por colección](/modes/one-axis-per-collection)).
+- La columna Dark se decide alias a alias, por función y por contraste ([Light y Dark](/modes/light-and-dark)).
+- El modo se elige en el marco, no en el componente principal, porque sus instancias lo heredarían estén donde estén ([Aplicar los modos al diseño](/modes/apply-modes)).
+
+## Llevar al código
+
+El módulo [De Figma al código](/figma-to-code/what-figma-exports) llevó el sistema de Figma a variables CSS y a un tema de Tailwind CSS.
+
+- Figma exporta casi DTCG: un archivo por modo, con los alias resueltos y su destino aparte ([Qué sale de Figma](/figma-to-code/what-figma-exports)).
+- Antes de generar el CSS, un paso de normalización recupera las referencias, deduce el tipo del scope, añade las unidades y se detiene ante lo que no conoce ([Completar la exportación](/figma-to-code/normalize-the-export)).
+- Los tokens que Figma no guarda como los necesita el código viven en un archivo DTCG escrito a mano ([Los tokens de código](/figma-to-code/code-only-tokens)).
+- Cada token es una variable CSS con el mismo nombre que su code syntax; cada modo, un bloque con todos los tokens de su colección ([Las variables CSS](/figma-to-code/css-variables)).
+- La capa de Tailwind CSS apunta a esas variables, sin el tema por defecto ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme)).
+- Un cambio en Figma llega al código en un ciclo: exportar, sustituir, generar, comprobar y revisar ([Comprobar y actualizar](/figma-to-code/check-and-update)).
+
+## Revisar y cerrar
+
+**[Accesibilidad](/accessibility/wcag-and-tokens).** DesignToken101 apunta al nivel AA de WCAG 2.2, y diez de sus criterios dependen de valores que viven en los tokens.
+
+- El contraste es de un par de colores, y se comprueba con el hex de cada modo ([Contraste de texto](/accessibility/text-contrast)).
+- Lo que identifica un control o su estado necesita 3:1 frente a lo que lo rodea ([Contraste de lo que no es texto](/accessibility/non-text-contrast)).
+- El color nunca es la única señal: necesita una forma, un texto, un icono o una diferencia de luminosidad ([El color no basta](/accessibility/use-of-color)).
+- Una preferencia de la persona, como reducir el movimiento, no cambia el valor del token, sino si se aplica ([Movimiento y transparencia](/accessibility/motion-and-transparency)).
+
+**[Ejercicio final](/final-exercise/document-the-system).** Cerrar un sistema es documentarlo, comprobarlo entero y darle versión.
+
+- La descripción de cada token dice para qué sirve; el registro de decisiones, por qué el sistema es así ([Documentar el sistema](/final-exercise/document-the-system)).
+- La API pública de un sistema de tokens son sus nombres: cambiar un valor es PATCH, añadir es MINOR, y borrar o renombrar es MAJOR ([Versionar el sistema](/final-exercise/version-the-system)).
+- Al final se comprueba lo que se ve únicamente con el sistema entero: que cada token tiene un uso y que cada valor del diseño tiene token ([La comprobación final](/final-exercise/final-check)).
+
+## Los componentes
+
+El módulo [Componentes y código](/components/components-and-tokens) usó el sistema terminado.
+
+- Un componente no crea tokens: los consume, y es la prueba de que al sistema no le falta ninguno.
+- La tabla de anatomía, una fila por parte y una columna por estado, es el contrato entre Figma y el código ([La tabla de anatomía](/components/anatomy-table)).
+- Un estado de interacción es una variante en Figma y una pseudoclase en código, no un prop ([Estados](/components/component-states)).
+- El componente decide lo que los tokens no pueden: el elemento HTML, el nombre accesible y los estados que anuncia ARIA ([La accesibilidad del componente](/components/component-accessibility)).
+
+## Lo que has construido
+
+Si has hecho los ejercicios, tu sistema tiene la misma estructura, el mismo método y la misma convención que el de esta web, con los valores de tu diseño:
+
+| Ejercicio | Lo que añadió a tu sistema |
+|---|---|
+| [Módulo 1](/fundamentals/exercise-inventory) | El inventario de valores sueltos |
+| [Módulo 2](/primitives/exercise-scales) | Las escalas primitivas en Figma, con scope, visibilidad y code syntax |
+| [Módulo 3](/relations/exercise-aliases) | El mapa de alias: cada función con su primitivo |
+| [Módulo 4](/naming/exercise-naming) | La convención de nombres, las colecciones semánticas y los estilos de texto |
+| [Módulo 5](/modes/exercise-modes) | Los modos Light y Dark, la colección Layout y la exportación |
+| [Módulo 6](/figma-to-code/exercise-figma-to-code) | Una muestra de tus tokens en CSS y en Tailwind CSS, y la tabla de pares de color |
+| [Módulo 7](/accessibility/exercise-accessibility) | El contraste comprobado y el registro de decisiones de accesibilidad |
+| [Módulo 8](/final-exercise/exercise-final) | El sistema completo, documentado y publicado como 1.0.0 |
+| [Módulo 9](/components/exercise-components) | Tu primer componente, con su tabla de anatomía |
+
+<Takeaways>
+
+## Lo que te llevas
+
+- El curso recorre cuatro fases (planificar, crear en Figma, llevar al código, y revisar y cerrar) y después usa el sistema en un componente.
+- Cada fase se apoya en la anterior: el inventario da los primitivos, los primitivos dan los semánticos y los semánticos llegan al código con el mismo nombre.
+- Al terminar tienes un sistema completo, documentado y versionado, con la estructura de esta web y los valores de tu diseño.
+
+</Takeaways>
+
+## Fuentes
+
+Esta página resume el curso: las fuentes de cada afirmación están en la lección enlazada y en [Fuentes consultadas](/resources/sources).

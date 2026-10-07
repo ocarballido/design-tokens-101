@@ -2,7 +2,7 @@
 title: Del diseño al código
 description: "Qué ve en Dev Mode quien implementa un componente, cómo llega el code syntax de cada variable al CSS que propone Figma, qué es Code Connect y qué hacer cuando el dibujo y la especificación no coinciden."
 nav_title: Del diseño al código
-lastReviewed: 2026-10-06
+lastReviewed: 2026-10-07
 ---
 
 Un componente pasa de Figma al código en manos de quien lo implementa, que a menudo no es quien lo diseñó. En esta lección verás qué encuentra esa persona en Dev Mode, cómo le llegan los nombres de tus tokens y qué hacer cuando el dibujo de Figma, la tabla de anatomía y el código dicen cosas distintas.
@@ -46,7 +46,7 @@ background: var(--t101-color-background-accent-strong-default);
 Dos cosas que conviene ver:
 
 - **El nombre es el code syntax, tal cual.** Quien implementa copia `var(--t101-color-background-accent-strong-default)`, y esa variable existe en el CSS generado. Si el code syntax no coincidiera con la variable CSS, copiaría un nombre que no existe.
-- **No lleva valor de reserva.** El servidor MCP de Figma, que verás en el módulo 10, escribe la misma variable con su valor detrás (`var(--t101-space-200,8px)`). En Dev Mode, en esta prueba, no.
+- **No lleva valor de reserva.** La variable aparece sola, sin un valor detrás como `var(--t101-space-200, 8px)`. Si esa variable no existiera en tu CSS, la propiedad se trataría como `unset` ([MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)): el fallo se vería, en lugar de quedar tapado por un valor copiado.
 
 <Callout variant="recommendation">
 
@@ -92,3 +92,4 @@ Haz que la tabla de anatomía sea el contrato. Si el dibujo o el código necesit
 - [Figma: Variables in Dev Mode](https://help.figma.com/hc/en-us/articles/27882809912471)
 - [Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
 - [Figma: Code Connect](https://help.figma.com/hc/en-us/articles/23920389749655-Code-Connect)
+- [MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)

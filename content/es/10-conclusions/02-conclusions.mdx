@@ -1,0 +1,101 @@
+---
+title: Conclusiones
+description: "Las ideas que recorren todo DesignToken101 y cómo mantener tu sistema de tokens después del curso: añadir, cambiar y retirar tokens sin perder lo que el sistema garantiza."
+nav_title: Conclusiones
+lastReviewed: 2026-10-07
+---
+
+Cada módulo trataba un tema, pero unas pocas ideas han aparecido en todos. Son las que conviene recordar cuando el curso quede lejos y tu sistema tenga que crecer. Esta página las reúne y termina con lo que necesitas para mantenerlo.
+
+**En esta página**
+
+- [Un nombre, de Figma al código](#un-nombre-de-figma-al-código)
+- [Cada token en un único sitio](#cada-token-en-un-único-sitio)
+- [Primero la función, después el valor](#primero-la-función-después-el-valor)
+- [Tan grande como lo que resuelve](#tan-grande-como-lo-que-resuelve)
+- [Lo que no se comprueba no se da por bueno](#lo-que-no-se-comprueba-no-se-da-por-bueno)
+- [Las herramientas tienen límites](#las-herramientas-tienen-límites)
+- [Cada decisión, con su motivo](#cada-decisión-con-su-motivo)
+- [Después del curso](#después-del-curso)
+- [Lo que te llevas](#lo-que-te-llevas)
+
+## Un nombre, de Figma al código
+
+Un token es una decisión de diseño con nombre. Ese nombre es lo que la hace compartida: la variable de Figma, el token DTCG, la variable CSS y la clase de Tailwind CSS son la misma decisión escrita en formatos distintos ([Qué es un token](/fundamentals/what-is-a-token)).
+
+Por eso el curso ha cuidado tanto los nombres. La convención se escribe antes de crear las variables ([La convención de DesignToken101](/naming/naming-convention)), el nombre se elige para que funcione en los tres formatos ([Un nombre en Figma, DTCG y CSS](/naming/name-constraints)) y el code syntax de cada variable es el nombre exacto de su variable CSS. Así, quien implementa encuentra en el CSS la misma variable que ve en Dev Mode ([Del diseño al código](/components/design-to-code)).
+
+## Cada token en un único sitio
+
+Cada token tiene una sola fuente. En DesignToken101 son las variables de Figma, salvo los tokens que Figma no puede guardar como hace falta, que viven en un archivo de código escrito a mano y documentado ([Una sola fuente de verdad](/fundamentals/source-of-truth), [Los tokens de código](/figma-to-code/code-only-tokens)).
+
+Lo demás se genera a partir de esa fuente: el DTCG normalizado, las variables CSS y el tema de Tailwind CSS. Un archivo generado no se edita a mano; se cambia la fuente y se vuelve a generar ([Comprobar y actualizar](/figma-to-code/check-and-update)).
+
+## Primero la función, después el valor
+
+Un primitivo dice qué valor es; un semántico, para qué se usa ([Qué es un primitivo](/primitives/what-is-a-primitive)). La separación tiene consecuencias en todo el curso:
+
+- Al diseñar se aplican los semánticos, así que un cambio de valor se hace en un alias y llega a todo el diseño ([Las capas](/relations/layers)).
+- Los modos cambian el primitivo al que apunta cada semántico, no el nombre que aplicas ([Semánticos de color](/relations/semantic-color)).
+- Los componentes consumen semánticos, y un token de componente se añade cuando un componente tiene que apartarse de ellos ([La capa de componente](/relations/component-tokens)).
+
+## Tan grande como lo que resuelve
+
+Los tokens se crean para los casos de uso que existen, no para los que podrían llegar ([Qué es DesignToken101](/start-here/what-is-designtoken101)). El curso lo ha aplicado varias veces: un paso de escala nuevo se añade cuando un valor se repite ([Espaciado](/primitives/spacing)), no hay tokens de disabled porque nada se desactiva ([Estados](/relations/states)) y DesignToken101 no tiene tokens de componente porque ningún componente los necesita.
+
+Un sistema pequeño no es un sistema incompleto: es uno en el que cada token tiene un uso o un motivo escrito ([La comprobación final](/final-exercise/final-check)).
+
+## Lo que no se comprueba no se da por bueno
+
+El curso ha comprobado cada valor que importa:
+
+- El contraste, par a par y modo a modo, sobre el hex guardado ([Contraste de texto](/accessibility/text-contrast)).
+- Que los modos cambian lo que tienen que cambiar, pantalla a pantalla ([Ejercicio de los modos](/modes/exercise-modes)).
+- Que lo generado coincide con Figma y con la especificación, con una comprobación automática ([Comprobar y actualizar](/figma-to-code/check-and-update)).
+- Que ningún valor suelto se cuela en un componente ([De la variante a la clase](/components/variants-to-classes)).
+
+Una comprobación automática vigila lo que se puede escribir como regla, pero no ve el diseño: el contraste y el uso de cada token se siguen revisando aparte.
+
+## Las herramientas tienen límites
+
+Figma, DTCG y Tailwind CSS encajan, pero no del todo, y el curso lo ha dicho en cada caso:
+
+- Figma exporta casi DTCG: los alias salen resueltos y hace falta normalizar la exportación ([Completar la exportación](/figma-to-code/normalize-the-export)).
+- Figma lee una variable de interlineado como píxeles, así que el interlineado vive en código ([Tipos simples](/fundamentals/simple-types)).
+- Los estilos de texto no se exportan, y en código su fuente es la especificación ([Los estilos de texto en código](/figma-to-code/text-styles-in-code)).
+- Los espacios de nombres por propiedad del tema de Tailwind CSS funcionan, pero no están documentados ([El tema de Tailwind CSS](/figma-to-code/tailwind-theme)).
+
+Un límite conocido y escrito se puede vigilar. Uno que nadie ha anotado aparece como un error difícil de explicar.
+
+## Cada decisión, con su motivo
+
+Un sistema de tokens es un conjunto de decisiones. La descripción de cada token dice para qué sirve, y el registro de decisiones dice por qué el sistema es así: qué se eligió, qué alternativas se descartaron y por qué ([Documentar el sistema](/final-exercise/document-the-system)). También guarda los riesgos que aceptaste en la revisión de accesibilidad ([Ejercicio de accesibilidad](/accessibility/exercise-accessibility)). Cuando el dibujo, la especificación y el código no coinciden, se decide cuál manda, se registra y se actualizan los otros ([Del diseño al código](/components/design-to-code)).
+
+## Después del curso
+
+Tu sistema está en la versión 1.0.0. A partir de aquí, cada cambio sigue el mismo método:
+
+1. **Un caso nuevo.** Comprueba si un token existente lo resuelve. Si no, añade el token con su nombre según la convención, su descripción y, si es un color, su contraste comprobado en cada modo.
+2. **Un valor que cambia.** Cambia el alias o el valor en la fuente, vuelve a generar el código y comprueba los pares afectados.
+3. **Un token que sobra.** Márcalo como obsoleto y bórralo en la siguiente versión mayor, cuando nada lo use ([Versionar el sistema](/final-exercise/version-the-system)).
+4. **En todos los casos.** Registra la decisión, publica la versión que corresponde (PATCH, MINOR o MAJOR) y actualiza el registro de cambios.
+
+<Callout variant="recommendation">
+
+Vuelve a la [comprobación final](/final-exercise/final-check) cada vez que publiques una versión mayor. Es la que encuentra los tokens sin uso y los valores sin token que se acumulan con el tiempo.
+
+</Callout>
+
+<Takeaways>
+
+## Lo que te llevas
+
+- Un token es una decisión con nombre, y ese nombre recorre Figma, DTCG, CSS y Tailwind CSS sin cambiar.
+- Cada token tiene una fuente, una función y un motivo escrito, y el sistema crece cuando aparece un caso de uso, no antes.
+- Lo que importa se comprueba, los límites de las herramientas se anotan y cada cambio se registra y se versiona.
+
+</Takeaways>
+
+## Fuentes
+
+Esta página reúne las ideas del curso: las fuentes de cada afirmación están en la lección enlazada y en [Fuentes consultadas](/resources/sources).

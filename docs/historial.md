@@ -24,6 +24,14 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-07, sesión de contenido: P20 a P23, T19 y T20**
+- **Investigación del módulo 10** (`docs/investigacion-modulo-10.md`): dos pruebas con el servidor MCP de Figma en TokensDS (plan Professional, puesto Full). (1) `Button` `primary`, solo lectura: el agente recibe el code syntax como nombre, con valor de reserva y como valores arbitrarios de Tailwind; llega la descripción del componente, no la de las variables. (2) D03 con cuatro formatos (colección y página temporales, borradas; TokensDS con 8 páginas y 143 variables): `var(--x)` y `x` dan `var(--x,valor)`; `--x`, cuatro guiones; sin code syntax, un nombre inventado desde la ruta de Figma.
+- **P20** (opción B) y **T19** (investigación aprobada), sustituidas el mismo día por **P23**: la web no tiene contenido de IA. **P21** y **P22**: `estado.md` y `decisiones.md` cortos, con el detalle en `historial.md` y `decisiones-detalle.md` (de unos 322 KB a 32 KB al empezar cada sesión).
+- **Módulo 10, Conclusiones (T20)**, en borrador: `course-summary` (lo esencial de cada fase, enlazado a su lección, y tabla de lo que añadió cada ejercicio) y `conclusions` (siete ideas que recorren el curso y cómo mantener el sistema). Solo resumen lo que dicen las lecciones; sin afirmaciones técnicas nuevas.
+- **Menciones a la IA quitadas (P23):** `why-this-site` (apartado "Y la IA" y su viñeta, que pasa a describir el papel de Figma, DTCG y Tailwind CSS), `figma-dtcg-tailwind` (el nombre compartido, sin "sin traducir nada" ni el agente), `component-tokens` (`Callout` de la hipótesis), `design-to-code` ("no lleva valor de reserva", ahora con MDN: `var()` sin variable ni reserva vale `unset`) y `what-we-teach` (paso del `Flow`, fila del módulo 10 y `Callout` del módulo en estudio). `how-this-site-was-made` no cambia (P7).
+- Sin build (npm da 403 con `zwitch`). Script de enlaces con las reglas de `rehype-slug`, probado en negativo (un ancla rota y un `<Takeaways>` sin cerrar, los dos detectados): 77 páginas, 562 enlaces internos, 293 anclas entre páginas y 564 en la misma página, sin errores.
+
+
 **Hecho**
 - Documento de la fase 1 con fuentes (`docs/fase-1-fundamentos-tokens.md`).
 - Bloque 0 en español, borrador en MDX (`content/es/`):
