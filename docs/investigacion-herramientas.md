@@ -425,7 +425,7 @@ Fuera de estas herramientas, como pidió Oscar: la conversión a CSS con Terrazz
 
 ## 9. Índice de las herramientas
 
-Propuesta del 2026-10-08, **pendiente de aprobación de Oscar**. Criterio de Oscar: son herramientas, no lecciones; texto mínimo y directo a la tarea. Por eso las páginas no llevan la estructura de lección (T3): ni "En esta página", ni "Lo que te llevas", ni Fuentes propias. El método y sus fuentes están en las lecciones que cada página enlaza.
+Propuesta del 2026-10-08, **aprobada por Oscar el mismo día**. Criterio de Oscar: son herramientas, no lecciones; texto mínimo y directo a la tarea. Por eso las páginas no llevan la estructura de lección (T3): ni "En esta página", ni "Lo que te llevas", ni Fuentes propias. El método y sus fuentes están en las lecciones que cada página enlaza.
 
 Sección `content/es/98-tools/` ("Herramientas", `meta.json`), en el grupo "Referencia" de `content/es/meta.json`, antes de `99-resources`; sin número (V40).
 
