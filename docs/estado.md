@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. Decisión 15 aplicada: `tools/figma-to-dtcg.mjs` deja como están los alias dentro de una colección (antes los convertía en un `dimension` no válido) y ocho lecciones precisan que solo los alias a otra colección salen resueltos; prueba 3 hecha (`[]` se importa como `ALL_SCOPES`). Falta el build. Antes, el mismo día: pruebas DTCG en Figma, corrección del scope del peso e investigación de las herramientas (A15).
+Última actualización: 2026-10-08, sesión de contenido. T22: Oscar aprueba las decisiones de las herramientas (cierra A15). `tools/scales.py` acepta hex, curva de referencia (17 de Tailwind CSS 4.3.3) y avisa de las escalas pobres, con la salida de DesignToken101 idéntica; `color-scales` y `exercise-scales` al día. Falta el build de esas lecciones. Antes, el mismo día: decisiones 11 y 15, pruebas DTCG en Figma (build hecho por desarrollo).
 
 ---
 
@@ -33,7 +33,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
-- **Herramientas (T8, T21):** investigación hecha (`docs/investigacion-herramientas.md`); esperan las decisiones de Oscar (A15, §8; la 11 está aplicada). Pruebas en Figma de §7 hechas. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro. No se pasa al índice ni al diseño sin su aprobación.
+- **Herramientas (T8, T21, T22):** decisiones cerradas (T22). Siguiente: el índice de las dos páginas, para que Oscar lo apruebe; después, diseño y desarrollo. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; si un estilo de texto creado desde un texto con variables las conserva.
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
@@ -70,6 +70,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
+- **Build de T22 (2026-10-08, sesión de contenido):** `npm run build && npm run check:content` (texto en `color-scales`, `exercise-scales`, `status-colors` y `sources`; enlaces a `theme.css` fijados a `v4.3.3`) y `python3 tools/semantic.py` (`tools/scales.py` cambió; la salida debe ser la misma).
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).

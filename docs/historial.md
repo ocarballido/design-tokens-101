@@ -24,6 +24,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: decisiones de las herramientas (T22) y `scales.py`**
+- Oscar aprueba las recomendaciones de `investigacion-herramientas.md` §8 (cierra A15). En la 8 pide explicar al usuario qué es la curva de referencia: va en T22 (texto y gráfico del croma por paso junto al selector).
+- `tools/scales.py`: entrada `ACCENT_HEX` (antes HSL), `REFERENCE` con `TW_CURVES` (17 paletas de Tailwind CSS 4.3.3, copiadas de la etiqueta `v4.3.3`, commit `c2b24dd`; `green` idéntica a la de antes), recorte por paso (`clip`) y tres avisos (sin croma con el umbral de CSS Color 4, ancla extrema, pasos recortados). `semantic.py` llama a `build('#33CC99')`. Comprobado con Python 3.13.16: 55 hex, oklch y tablas de contraste idénticos; `semantic.py` sin errores y con la misma salida. Avisos probados con `#808080`, `#1A2B5C` (`green` y `blue`) y `#FF0000` (`green` y `red`).
+- Lecciones: `color-scales` (`Callout` del método con lo que cambia entre curvas; `InCode` con `ACCENT_HEX`, `REFERENCE`, las 17 curvas y los avisos), `exercise-scales` (paso 3). Enlaces a `theme.css` fijados a `v4.3.3` (antes `main`) en `color-scales`, `status-colors` y `sources`. Sin build.
+
 **2026-10-08, sesión de contenido: alias dentro de una colección (A15, decisión 15) y prueba 3**
 - Prueba 3 (Oscar arrastró `Tres.tokens.json`): `"com.figma.scopes": []`, sin la clave o con `hiddenFromPublishing: false` dan `ALL_SCOPES`; `["STROKE"]` da `STROKE_COLOR`. La importación no crea variables sin scopes.
 - Oscar pide corregir cada incongruencia en cuanto aparezca, sin dejar nada antiguo. Aplicada la decisión 15: `tools/figma-to-dtcg.mjs` (`isReference`) deja como están las referencias de `$value` y las cuenta como alias. Comprobado con Node.js 22.22.0: salida de DesignToken101 idéntica byte a byte (82 alias); con la exportación real de la prueba 1, `"{number.gap}"` con `$type` `dimension` (antes, `{ "value": "{number.gap}", "unit": "px" }`).
