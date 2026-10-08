@@ -51,6 +51,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
+  - **T23 (contenido, 2026-10-08):** quitar el bloque "Escalas de estado" de las plantillas de Escalas de color y el componente `CheckboxGroup`; el resultado son dos escalas, la del color y la de neutros. `componentes-v1.md` §5 ya está al día.
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
   - **Sin decidir:** nombre de las carpetas dentro de `dtcg.zip` y de los enlaces por archivo (las plantillas usan el del .zip, `Primitives/Value.tokens.json`; el repositorio, `primitives/`).
   - **Para contenido:** las dos páginas se llaman como las lecciones que enlazan ("Escalas de color" en Primitivos y "Completar la exportación" en De Figma al código), así que el sidebar muestra dos entradas iguales en secciones distintas; decidir si las herramientas llevan otro `nav_title`.
