@@ -22,6 +22,11 @@
       "$type": "duration",
       "$value": { "value": 200, "unit": "ms" },
       "$description": "Solo código (V24): Figma tiene variables Timing, pero se aplican a Figma Motion y esta web no diseña animaciones en Figma. Panel móvil y acordeón del sidebar. Fuente: docs/sistema-tokens-v1.md §4.7."
+    },
+    "2000": {
+      "$type": "duration",
+      "$value": { "value": 2000, "unit": "ms" },
+      "$description": "Solo código (C30): un ciclo del pulso del resultado desactualizado en Generar escalas (de 1 a opacity/inactive y vuelta). Fuente: docs/sistema-tokens-v1.md §4.7."
     }
   },
   "easing": {

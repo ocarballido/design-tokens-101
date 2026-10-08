@@ -343,6 +343,7 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 | Token | Valor | Tipo DTCG | Uso |
 |---|---|---|---|
 | duration/200 | 200 ms | `duration` | Panel de navegación móvil y acordeón del sidebar |
+| duration/2000 | 2000 ms | `duration` | Un ciclo del pulso del resultado desactualizado en Generar escalas (C30) |
 | easing/standard | `cubic-bezier(0.2, 0, 0, 1)` | `cubicBezier` | Curva de todas las animaciones de la interfaz |
 
 - Viven en `tokens/code-only.tokens.json`, como `breakpoint/desktop` (D11). **Precisión (2026-10-03):** Figma sí tiene variables **Timing** y **Easing** ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes); [Plugin API: Update 133](https://developers.figma.com/docs/plugins/updates/2026/08/05/version-1-update-133/)). Oscar decide mantener estos tokens solo en código. Sin verificar: si esas variables se exportan en DTCG y en qué unidad (la ayuda dice milisegundos; la API de plugins, segundos).
@@ -359,7 +360,7 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 
 ### 4.9 Opacidad (C27): token solo de código
 
-`opacity/inactive` = 0,4. Atenúa las muestras de color (`ColorScale`, `ScalePreview`) de un resultado que ya no corresponde a los ajustes en "Generar escalas". Nunca se aplica a texto: con cualquier opacidad que se note, el texto de esa zona baja de 4,5:1 (con el 80 %, 3,31:1 en Light; cálculo de C27). No hay variable en Figma: el estado desactualizado no se dibuja en las plantillas.
+`opacity/inactive` = 0,4. Punto más bajo del pulso del resultado desactualizado en "Generar escalas" (C30) y, con `prefers-reduced-motion`, opacidad fija de sus muestras de color (C27). Con el pulso, el texto también baja de opacidad: riesgo de accesibilidad aceptado por Oscar (C30). Fuera de ese caso, nunca se aplica a texto: con cualquier opacidad que se note, el texto de esa zona baja de 4,5:1 (con el 80 %, 3,31:1 en Light; cálculo de C27). No hay variable en Figma: el estado desactualizado no se dibuja en las plantillas.
 
 ## 5. Nomenclatura
 

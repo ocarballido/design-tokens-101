@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de desarrollo. C28 (nombre propuesto al generar; nombre no válido que bloquea la descarga) en código y en `main`; build, `check:content` y `npm test` sin errores, probado en Chrome. Antes, el mismo día: C28 decidida (contenido), C27 en código (desarrollo).
+Última actualización: 2026-10-08, sesión de contenido. C29 (estilo del deslizador) y C30 (pulso constante del resultado desactualizado, riesgo de accesibilidad aceptado), con el token `duration/2000`; encargo a desarrollo. Antes, el mismo día: C28 en código (desarrollo).
 
 ---
 
@@ -51,7 +51,8 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
-  - **C27 (contenido, 2026-10-08):** el estado desactualizado no se dibuja en Figma (`opacity/inactive` es solo de código).
+  - **C29 (contenido, 2026-10-08):** deslizador del tinte con pulgar de 24 px (`space/600`, borde `border/accent/strong`) y pista de 4 px (`space/100`, `border/neutral/strong`).
+  - **C27 y C30 (contenido, 2026-10-08):** el estado desactualizado (pulso) no se dibuja en Figma (`opacity/inactive` y `duration/2000` son solo de código).
   - **C23 y C24 (contenido, 2026-10-08):** componente deslizador para el tinte (sustituye al `TextField` de D45) y botón "Generar escalas" con su `ErrorSummary` en las plantillas de Generar escalas (`componentes-v1.md` §5.10b).
   - **C21 (contenido, 2026-10-08):** en `ChromaChart`, borde inferior de la barra destacada `border/neutral/strong` (antes `border/accent/strong`); el relleno, en código, es el hex del usuario (en Figma sigue `#33CC99`).
   - **T24 (contenido, 2026-10-08):** las páginas se llaman "Generar escalas" y "Normalizar la exportación" (título de `LessonHeader`, sidebar y `PageNav` de las plantillas); las carpetas del .zip, con el nombre de Figma (como ya hacen las plantillas).
