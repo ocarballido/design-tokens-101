@@ -500,13 +500,13 @@ ColorScale (figure)
 | Parte | Token |
 |---|---|
 | Muestra: relleno | `var(--t101-color-{palette}-{paso})` (primitivo) |
-| Muestra: borde | `border/neutral/default`, `border-width/100` (para que los pasos claros se distingan del fondo) |
+| Muestra: borde | `border/neutral/default`, `border-width/100` (para que los pasos claros se distingan del fondo); sin borde en el paso destacado (D62) |
 | Muestra: radio | `radius/control` |
 | Muestra: alto | Un paso de `space/*` (p. ej. `space/1200`); ancho flexible |
 | Número del paso | `text/neutral/default`, `label/default` |
 | Hex | `text/neutral/subtle`, `code/default` o `caption/default` |
 | Etiqueta del paso destacado | `text/neutral/default`, `caption/default` |
-| Paso destacado: marca visual | Borde `border/neutral/strong`, `border-width/200` (≥ 3:1 con el fondo) |
+| Paso destacado: caja (D62) | El paso entero (muestra y texto) va en una caja: relleno `background/neutral/strong`, borde `border/neutral/default` de `border-width/100`, `radius/control` y relleno `space/200`; ocupa el ancho de su columna |
 | Pie | `text/neutral/subtle`, `caption/default` |
 | Separación | `space/*` |
 
@@ -517,8 +517,8 @@ Las muestras no cambian con Light y Dark: son primitivos. El texto sí, porque u
 **Accesibilidad.**
 - `figure` con `figcaption`; los pasos son una lista ordenada (`ol`).
 - La muestra es decorativa (`aria-hidden="true"`): la información está en el texto de cada paso (número y hex). Cada `li` se lee como "500, #33CC99, Color de marca".
-- El paso destacado se distingue por texto (`highlightLabel`) además del borde (1.4.1).
-- Todo el texto va sobre el fondo de la página, no sobre la muestra: el contraste es el de los tokens de texto (≥ 4,5:1), sea cual sea el color de la muestra.
+- El paso destacado se distingue por texto (`highlightLabel`) además de la caja (1.4.1). La etiqueta es la marca que cuenta: la caja frente a la página da 1,09 / 1,32 (no llega a 3:1), como el recuadro de la opción actual de los selectores (V26), y en Dark su borde es del mismo color que el relleno (D62).
+- El texto nunca va sobre la muestra, así que su contraste no depende del color del paso. Va sobre el fondo de la página, salvo en el paso destacado, que va sobre `background/neutral/strong`: número y etiqueta (`text/neutral/default`) 16,28 / 14,34, hex (`text/neutral/subtle`) 7,08 / 5,81 (D62).
 
 **En el MDX.**
 

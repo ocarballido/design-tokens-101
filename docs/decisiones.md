@@ -218,6 +218,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D59 | Plantilla con errores de Escalas de color: color y tinte no válidos, `ErrorSummary` con dos enlaces y el resultado de la última entrada válida. | Cerrada | 2026-10-08 |
 | D60 | Plantilla con errores de Completar la exportación: los cuatro .zip de DesignToken101 más un `Foundations.zip` de ejemplo, dos `TypeDecision` sin tipo y `ErrorSummary`; sin resumen ni descargas por archivo mientras falte una decisión. | Cerrada | 2026-10-08 |
 | D61 | T23 en Figma: plantillas de Escalas de color sin el bloque "Escalas de estado" ni las escalas red, amber y blue; `ScalePreview` con `emerald` y `neutral`; `CheckboxGroup` borrado de TokensDS. | Cerrada | 2026-10-08 |
+| D62 | Cambio de Oscar en `ColorScaleStep`: el paso destacado va en una caja (`background/neutral/strong`, borde `border/neutral/default`, `radius/control`, relleno `space/200`) y su muestra no lleva borde; la etiqueta sigue siendo obligatoria. | Cerrada | 2026-10-08 |
 
 ## Desarrollo
 

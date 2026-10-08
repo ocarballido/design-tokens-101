@@ -230,13 +230,13 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 | Parte | Tokens |
 |---|---|
 | `ColorScale` | gap `space/300` entre la rejilla y el pie; rejilla de 11 columnas (`large`) o 4 (`small`), huecos `space/200` (columnas) y `space/400` (filas) |
-| Paso | gap `space/100`; muestra de alto `space/1200`, `radius/control`, relleno del primitivo `color/{paleta}/{paso}`, borde `border/neutral/default` de `border-width/100` (destacado: `border/neutral/strong` de `border-width/200`) |
+| Paso | gap `space/100`; muestra de alto `space/1200`, `radius/control`, relleno del primitivo `color/{paleta}/{paso}`, borde `border/neutral/default` de `border-width/100`. Destacado (D62, 2026-10-08): el paso va en una caja con relleno `background/neutral/strong`, borde `border/neutral/default` de `border-width/100`, `radius/control` y relleno `space/200`; la muestra, sin borde |
 | Texto | número `label/default` en `text/neutral/default`; hex `caption/default` en `text/neutral/subtle`; etiqueta del destacado `caption/default` en `text/neutral/default`; pie `caption/default` en `text/neutral/subtle` |
 
 **Auditoría (2026-10-05)**
 - Sin valores sueltos en los componentes cambiados (`Callout`, `Link`, `Button`, `SiteHeader`, `SiteFooter`, selectores, `ColorScale`: 580 nodos) ni en los nodos propios de las seis plantillas. Se pusieron a 0 seis `itemSpacing` sin efecto (marcos con `SPACE_BETWEEN` o con un hijo) que la auditoría señalaba. Fuera de la regla, como siempre: tamaño de los iconos, logotipos (D22) y tamaño de pantalla (375 × 812 px).
 - Todo el texto con estilo.
-- Contraste, Light / Dark: etiquetas de `Callout` 5,99 / 8,10 (`note`), 4,77 / 10,32 (`warning`), 4,85 / 8,30 (`recommendation`), 7,40 / 6,89 (`pending`); texto 17,79 / 18,89; texto `subtle` y viñetas 7,74 / 7,65; enlaces 5,08 / 10,92; borde del paso destacado de `ColorScale` 4,70 / 4,20 (≥ 3:1).
+- Contraste, Light / Dark: etiquetas de `Callout` 5,99 / 8,10 (`note`), 4,77 / 10,32 (`warning`), 4,85 / 8,30 (`recommendation`), 7,40 / 6,89 (`pending`); texto 17,79 / 18,89; texto `subtle` y viñetas 7,74 / 7,65; enlaces 5,08 / 10,92; borde del paso destacado de `ColorScale` 4,70 / 4,20 (≥ 3:1). *Desde D62 el destacado es una caja: texto sobre ella 16,28 / 14,34 (`subtle`, 7,08 / 5,81); la caja frente a la página, 1,09 / 1,32, y la marca que cuenta es la etiqueta (1.4.1).*
 
 ### 3.6 Logotipo "DesignToken101" (P15, D35, 2026-10-05)
 

@@ -392,6 +392,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - **Hecho:** en las cinco plantillas, fuera el `CheckboxGroup` y los marcos `Scale red`, `Scale amber` y `Scale blue` (20 nodos); en `ScalePreview`, fuera las filas `red`, `amber` y `blue` de los cuatro paneles (12 filas; la variante `large` pasa de 264 a 156 px de alto y la `small`, de 532 a 316); `CheckboxGroup` borrado de `Tools`, que queda con nueve componentes. Alto de las plantillas: escritorio de 6260 a 3914 px, móvil de 9521 a 5966, errores de 6468 a 4122.
 - **Revisado en captura:** Desktop Light (165:1963) y Mobile Dark (166:8534): Entrada termina en la curva y `ChromaChart`, Resultado tiene `emerald` y `neutral`, y `ScalePreview` dos tiras por panel.
 
+**Paso destacado de `ColorScale` (2026-10-08, D62)**
+- **Cambio de Oscar** en `ColorScaleStep` `highlighted=true` (93:322), sin decir cuál: localizado comparando una captura de la plantilla Escalas de color Desktop Light (165:1963) con la de antes del cambio (el paso 500 en un recuadro y el marco 18 px más alto) y leyendo el componente con la API de plugins. Las propiedades y variantes de los nueve componentes de `Tools` no habían cambiado.
+- **Antes / ahora:** borde `border/neutral/strong` de `border-width/200` en la muestra / caja con todo el paso (`background/neutral/strong`, borde `border/neutral/default`, `radius/control`, relleno `space/200`), muestra sin borde.
+- **Contraste** (Light / Dark): texto sobre la caja 16,28 / 14,34, `subtle` 7,08 / 5,81; caja frente a la página 1,09 / 1,32, borde frente a la página 1,26 / 1,32 (en Dark, borde = relleno). La marca que cuenta es la etiqueta (1.4.1).
+- **Ajuste:** grosor del borde de la caja vinculado a `border-width/100` (estaba en 1 px sin variable); descripción del componente al día.
+- **Documentos:** `componentes-v1.md` §3.8 (tokens y accesibilidad) y `entrega-diseno.md` §3.5. Ninguna lección describe el aspecto del paso destacado: nada para contenido.
+
 **Pendiente**
 - ~~Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).~~ **Hecho el 2026-10-06** (captura de Oscar, `docs/capturas/dev-mode-button-primary-2026-10-06.png`): Dev Mode escribe el code syntax tal cual, sin valor de reserva.
 
