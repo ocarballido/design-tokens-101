@@ -84,7 +84,7 @@
     "tintHint": "De 0 a 1. 0 es gris puro; DesignToken101 usa 0,5.",
     "tintError": "Escribe un número de 0 a 1, por ejemplo 0,5.",
     "curveLabel": "Curva de referencia",
-    "curveIntro": "La curva es la escala de Tailwind CSS que se toma como modelo: de ella salen la luminosidad y el croma de cada paso. Tu color ocupa el paso de luminosidad más parecida y conserva su tono; los demás pasos siguen la forma de la curva.",
+    "curveIntro": "La curva es la escala de Tailwind CSS que se toma como modelo: de ella salen la luminosidad y el croma de cada paso. Tu color ocupa el paso de luminosidad más parecida y conserva su tono; los demás pasos siguen la forma de la curva. No hace falta usar Tailwind: la curva solo aporta cifras, y el resultado son colores en hex que sirven en cualquier código.",
     "curveAdvice": "Deja green si no tienes un motivo para cambiarla. Prueba otra si tu escala sale demasiado viva o apagada en los extremos.",
     "chartCaption": "Croma por paso de la curva {curve}",
     "chartStep": "{step}, croma {chroma}",
