@@ -276,6 +276,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - `messages/es.json`: `ToolScales` (apartados, campos con ayuda y error, curva en dos frases, gráfico, los tres avisos de §5.2 con el mismo sentido que `tools/scales.py`, columnas de la tabla, vista previa, botones y `ErrorSummary`) y `ToolNormalize` (subida, decisiones de tipo con sus opciones, referencias sin destino, resumen, descarga, `ErrorSummary` y "En tu repositorio"). Plurales con la sintaxis ICU de next-intl.
 - `npm test`: 15 de 15. La rama no compila hasta que existan los componentes (un MDX con un componente sin definir rompe el build), por eso no está en `main`.
 
+### 2026-10-08: prueba 4 en Figma (*Import mode* con variables nuevas)
+
+- *Import mode* actualiza `color/prueba/500` pero no crea `color/prueba/600` (variable nueva en un grupo existente) ni `color/neutral/500` (grupo nuevo); Figma avisa de 2 errores. Detalle en `investigacion-herramientas.md` §7. T25 (sin code syntax en el archivo de escalas) registrada el mismo día.
+- Consecuencia: el archivo de "Generar escalas" no se añade con *Import mode* a una colección que ya existe. Siguiente: prueba 5 (arrastrar y copiar y pegar entre colecciones) y, con su resultado, el paso 1 de "Importar en Figma".
+
 ## Diseño
 
 **Estado:** cerrado (2026-10-02). Todo lo que necesita desarrollo está en `docs/entrega-diseno.md`.
