@@ -43,6 +43,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | `AuthorLink`, logotipo del autor del pie (V36, D30) | Components (Atoms) | [89:1663](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=89-1663) |
 | Marcos de exportación de los logotipos (`logo-colored`, `logo-colored-dark`, `logo-gray`, `logo-gray-dark` y `logo-oc`; D35, §3.6) | Logo exports (D38) | 57:749, 96:1997, 57:727, 96:2005, 57:724 |
 | `ColorScaleStep` y `ColorScale` (C14, D34; §3.5 de este documento) | Components | [93:1020](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1020) |
+| Componentes de las herramientas (D44, D55; §3.11 de este documento), marco `Tools` | Components | [155:846](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=155-846) |
 
 Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
 
@@ -303,6 +304,31 @@ Los nombres de las claves de `messages/es.json` son una propuesta; los textos: `
 | Imagen (D43) | Render de Oscar recortado en un cuadrado de 440 × 441 con `radius/container`; versión Light o Dark según el tema | 343 × 343, debajo del texto |
 
 En código (propuesta): `grid desktop:grid-cols-2 items-center gap-1200 py-600 desktop:py-1600` dentro de la columna de `main`. **Imagen (D43):** `public/brand/home-light.png` y `home-dark.png`, 880 × 880 px, exportadas desde los marcos `home-light` y `home-dark` de Logo exports ([142:1966](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=142-1966), [142:1968](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=142-1968); PNG 1×, ya configurado). Dos `img` como `Logo` (V20): `dark:hidden` y `hidden dark:block`, `alt=""`, `width`/`height` 880, `w-full aspect-square rounded-container`. Estilos y huecos revisados por Oscar en Figma (2026-10-07).
+
+### 3.11 Componentes de las herramientas (D44 a D55, 2026-10-08)
+
+Primera versión dibujada por la sesión de diseño a petición de Oscar (D55), con la anatomía de `componentes-v1.md` §5. **Pendiente de la revisión de Oscar** (D05): lo que cambie en Figma manda. Marco `Tools` ([155:846](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=155-846)) en la página Components, a la derecha de `Icons`, con relleno `space/800` y fondo `background/neutral/default`, como los demás marcos de presentación.
+
+| Componente | Nodo | Variantes (solo Figma, salvo las que son props) | Propiedades |
+|---|---|---|---|
+| `TextField` | [155:923](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=155-923) | `state` (`default`, `focus`) × `invalid` × `code` = 8 | `label`, `hint`, `showHint`, `value`, `error` |
+| `Select` | [156:918](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=156-918) | `state` (`default`, `hover`, `focus`) × `invalid` = 6 | `label`, `hint`, `showHint`, `value`, `error` |
+| `Checkbox` | [156:951](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=156-951) | `checked` × `state` (`default`, `hover`, `focus`) = 6 | `label`, `showLabel` |
+| `CheckboxGroup` | [156:952](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=156-952) | 1 | `legend`, `hint`, `showHint`; marco `Options` con tres `Checkbox` |
+| `ErrorSummary` | [157:916](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=157-916) | `size` (`large`, `small`) × `state` (`default`, `focus`) = 4 | `title`; lista de `Link` |
+| `TypeDecision` | [157:1160](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=157-1160) | `open` × `state` del `summary` (`default`, `hover`, `focus`) = 6 | `legend`, `summary`; ejemplos con `Code`; `Select` dentro |
+| `FileItem` | [158:988](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=158-988) | `invalid` = 2 | `name`, `detail`, `error`; `IconButton` con `li:x` |
+| `FileUpload` | [158:1079](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=158-1079) | `dragOver` = 2 | `label`, `hint`, `showHint`, `showList`; dos `Button` `secondary` (`li:upload`, `li:folder-open`) y dos `FileItem` |
+| `ChromaChart` | [159:1021](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=159-1021) | 1 (curva `green`, paso 500 destacado) | `caption` |
+| `ScalePreview` | [159:1102](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=159-1102) | 1 (las cinco escalas de DesignToken101) | `caption` |
+
+**Medidas** (todo con variables): campos con relleno `space/200` × `space/300`, borde `border/neutral/strong` de `border-width/100`, `radius/control`, separación `space/100` entre etiqueta, ayuda, campo y error; icono de error `li:circle-alert` de 16 px. Caja de `Checkbox` de 16 × 16 (`space/400` en ancho y alto), `radius/100`, `li:check` de 12 px; fila con alto mínimo `space/600`. `ErrorSummary` con relleno `space/600` (`large`) o `space/400` (`small`), icono de 24 px y hueco `space/300`. `TypeDecision` con relleno `space/400` y hueco `space/300`; `summary` con relleno `space/100` × `space/200` y `radius/control`. Zona de `FileUpload` con relleno `space/600`, hueco `space/300`, `radius/container`; filas de `FileItem` con borde inferior. `ChromaChart`: columna del número con ancho mínimo `space/800`, columna del valor de `space/2400`, barras de alto `space/400` con `radius/100`; el largo de cada barra es un dato (C ÷ 0,295 × 520 px de pista en el componente de 640). `ScalePreview`: paneles con relleno `space/400`, `radius/container`, borde `border/neutral/default`; muestras de alto `space/800` con `radius/control`, rellenas con los primitivos (en la herramienta serán los hex calculados, D48).
+
+**Anillo de foco:** rectángulo `Focus ring` fuera del auto layout, con trazo `border/focus` de `border-width/200` por fuera (patrón de D39), en el campo, la caja de la casilla, el `summary` y el contenedor de `ErrorSummary`.
+
+**Diferencias con §5 de `componentes-v1.md`:** `size` de `ErrorSummary` es solo de Figma (en código, `p-400 desktop:p-600`), como el de `Takeaways`. `showLabel` de `Checkbox` es solo de Figma (en la columna Exportar, la etiqueta es solo accesible, D46). En `TypeDecision`, el estado con error se dibuja con la variante `invalid` del `Select` de dentro. `value` de `TextField` y `Select` es el texto que se ve, no un prop.
+
+**Auditoría (2026-10-08):** colores, grosores, rellenos internos, huecos y radios con variables en los diez componentes; todo el texto con estilo. Fuera de la regla, como en el resto del archivo: el tamaño de los iconos (24, 16 y 12 px), el radio del contenedor de variantes de Figma y el largo de las barras de `ChromaChart` (dato). Revisados en Light y Dark (modo de Semantic color en el marco). Objetivos: campos de 37 px de alto, `summary` de 28, filas de `Checkbox` de 24 e `IconButton` de 40 (≥ 24 × 24). El contraste es el de §5 de `componentes-v1.md`: mismos tokens sobre los mismos fondos.
 
 ## 4. Accesibilidad comprobada en el diseño
 

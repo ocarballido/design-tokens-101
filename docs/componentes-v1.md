@@ -916,6 +916,8 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 
 ## 5. Componentes de las herramientas (T22): aprobado por Oscar el 2026-10-08 (D44 a D54)
 
+**En Figma desde el 2026-10-08 (D55):** primera versión de la sesión de diseño, pendiente de la revisión de Oscar; nodos, medidas y diferencias en `entrega-diseno.md` §3.11.
+
 Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de color" (`/tools/color-scales`) y "Completar la exportación" (`/tools/normalize-export`), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
 
 **Sin tokens nuevos** (D44). Oscar aprobó las diez recomendaciones de §5.11 (D45 a D54).
@@ -1448,3 +1450,4 @@ Prose: introducción con enlace a "Completar la exportación"
 | D43 | Imagen de la portada en mapa de bits, una por tema (§4.9). |
 | D44 | Componentes de las herramientas, sin tokens nuevos (§5). |
 | D45 a D54 | Tinte con `TextField` numérico, columna "Exportar", campo con error sin cambio de borde, fondos de `ScalePreview`, borde continuo de la zona, `LessonHeader`, estados de las plantillas, sitio de `ErrorSummary`, iconos nuevos y `ColorScale` con `colors` (§5.11). |
+| D55 | Componentes de las herramientas en Figma, primera versión de la sesión de diseño (§5; `entrega-diseno.md` §3.11). |

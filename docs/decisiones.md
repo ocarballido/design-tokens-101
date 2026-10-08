@@ -210,6 +210,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D52 | `ErrorSummary` va encima del botón de descarga. | Cerrada | 2026-10-08 |
 | D53 | Cinco iconos nuevos de Lucide en TokensDS: `li:upload`, `li:folder-open`, `li:download`, `li:link` y `li:circle-alert`. | Cerrada | 2026-10-08 |
 | D54 | `ColorScale` acepta los hex de la herramienta con una prop `colors` (y `name`) en lugar de `palette` (cambia C14). | Cerrada | 2026-10-08 |
+| D55 | Componentes de las herramientas en Figma (marco `Tools`): primera versión de la sesión de diseño, a petición de Oscar, que la revisa (excepción puntual a D05). | Cerrada | 2026-10-08 |
 
 ## Desarrollo
 
