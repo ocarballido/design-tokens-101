@@ -3,7 +3,7 @@ title: Qué sale de Figma
 meta_title: "Qué exporta Figma de las variables"
 description: "Cómo leer los archivos que exporta Figma: qué lleva cada token, para qué sirve cada dato al generar el código y qué no viene en la exportación."
 nav_title: Qué sale de Figma
-lastReviewed: 2026-10-05
+lastReviewed: 2026-10-08
 ---
 
 Terminaste el módulo 5 con tus colecciones exportadas, una carpeta por colección. En este módulo esos archivos se convierten en variables CSS y en un tema de Tailwind CSS. El primer paso es saber leerlos: qué lleva cada token, qué dato se usa para qué y qué falta.
@@ -105,11 +105,13 @@ Lo que comprobamos en la exportación de DesignToken101:
 
 La consecuencia importa más que el motivo. Una herramienta que lee el archivo tal cual ve un color, no un alias. Generaría `--t101-color-text-neutral-default: #101a15`, y el CSS perdería la capa de alias: cambiar `color/neutral/900` ya no cambiaría el texto. Por eso, antes de generar el código, hay que recuperar la referencia ([Completar la exportación](/figma-to-code/normalize-the-export#recuperar-los-alias)).
 
-<Callout variant="note">
+**Un alias dentro de la misma colección se exporta de otra forma.** DesignToken101 no tiene ninguno, así que lo probamos con una colección de prueba (octubre de 2026): Figma escribe la referencia DTCG directamente en `$value`, sin `com.figma.aliasData`.
 
-Todos los alias de DesignToken101 apuntan a otra colección, así que no hemos visto cómo exporta Figma un alias dentro de una misma colección. Si tu sistema los tiene, abre el archivo y compruébalo antes de seguir.
+```json
+"$value": "{space.100}"
+```
 
-</Callout>
+Ese alias ya está en DTCG y no hay que recuperarlo. Si tu sistema tiene los dos tipos, en el mismo archivo verás las dos formas.
 
 ## Lo que no viene en la exportación
 
@@ -187,7 +189,7 @@ Los nombres de los scopes son los de la API de plugins de Figma ([Plugin API: Va
 
 - La exportación tiene un archivo por modo, con todas las variables de la colección y el valor de ese modo.
 - Cada token lleva los datos de DTCG y los de Figma en `$extensions`; el scope y el code syntax pasan a trabajar en código.
-- El valor de un alias viene resuelto y su destino va aparte, así que hay que recuperar la referencia antes de generar el CSS.
+- El valor de un alias a otra colección viene resuelto y su destino va aparte, así que hay que recuperar la referencia antes de generar el CSS.
 
 </Takeaways>
 

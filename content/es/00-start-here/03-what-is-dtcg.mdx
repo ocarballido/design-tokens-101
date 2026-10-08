@@ -2,7 +2,7 @@
 title: Qué es DTCG
 description: DTCG es el grupo del W3C que define un formato JSON común para intercambiar tokens de diseño entre herramientas. Qué es, qué estado tiene y para qué lo usamos.
 nav_title: Qué es DTCG
-lastReviewed: 2026-10-03
+lastReviewed: 2026-10-08
 ---
 
 DTCG son las siglas de **Design Tokens Community Group**, un grupo comunitario del W3C. También se usa "DTCG" para referirse a la especificación que publica: un formato de archivo para que distintas herramientas puedan leer y escribir los mismos tokens.
@@ -122,7 +122,7 @@ Hay restricciones de importación que conviene conocer desde el principio:
 
 Además, Figma convierte los puntos de los grupos en barras (`color.accent.light` pasa a `color/accent/light`) y, si dos tokens acaban con el mismo nombre, solo importa el primero (misma fuente).
 
-Al exportar, Figma no deshace esas conversiones: los tamaños salen como `number` sin unidad y la familia tipográfica como `string`. Además, los alias salen con el valor ya resuelto. Lo explicamos en [Figma exporta casi DTCG](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg).
+Al exportar, Figma no deshace esas conversiones: los tamaños salen como `number` sin unidad y la familia tipográfica como `string`. Además, los alias que apuntan a otra colección salen con el valor ya resuelto. Lo explicamos en [Figma exporta casi DTCG](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg).
 
 <Callout variant="warning">
 
@@ -148,7 +148,7 @@ Figma, por su parte, exporta un archivo por modo. En DesignToken101 unimos esos 
 
 - DTCG es el formato común para mover tokens entre herramientas: un JSON con `$value`, `$type` y alias entre llaves.
 - La versión 2025.10 es estable, aunque no es un estándar del W3C.
-- Figma importa y exporta DTCG con limitaciones: solo `px`, sRGB o HSL, y los alias salen resueltos.
+- Figma importa y exporta DTCG con limitaciones: solo `px`, sRGB o HSL, y los alias a otra colección salen resueltos.
 
 </Takeaways>
 

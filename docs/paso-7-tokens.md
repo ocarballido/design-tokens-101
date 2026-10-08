@@ -96,7 +96,7 @@ Conclusión: **con ninguna de las dos herramientas sirve la exportación sin pre
 
 Un script propio (prototipo probado; propuesta: `tools/figma-to-dtcg.mjs`) convierte cada archivo sin tocar el original (C10):
 
-1. `com.figma.aliasData.targetVariableName` → referencia DTCG: `color/neutral/950` → `"{color.neutral.950}"`.
+1. `com.figma.aliasData.targetVariableName` → referencia DTCG: `color/neutral/950` → `"{color.neutral.950}"`. Un alias dentro de la misma colección ya llega como referencia en `$value` y se deja como está (desde el 2026-10-08; antes, un alias de tamaño se convertía en un `dimension` no válido).
 2. `number` con scope de tamaño (`GAP`, `CORNER_RADIUS`, `STROKE_FLOAT`, `FONT_SIZE`, `WIDTH_HEIGHT`) → `dimension` `{ "value": 4, "unit": "px" }`.
 3. `number` con scope `FONT_STYLE` → `fontWeight`.
 4. `string` con scope `FONT_FAMILY` → `fontFamily`.

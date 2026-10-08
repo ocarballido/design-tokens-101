@@ -6,7 +6,7 @@ nav_title: Completar la exportación
 lastReviewed: 2026-10-08
 ---
 
-La exportación de Figma es casi DTCG. Le faltan las referencias de los alias, las unidades y algunos tipos. En esta lección verás qué hace DesignToken101 con cada token antes de generar el CSS, y por qué cada cambio sale de una decisión que tomaste en Figma.
+La exportación de Figma es casi DTCG. Le faltan las referencias de los alias entre colecciones, las unidades y algunos tipos. En esta lección verás qué hace DesignToken101 con cada token antes de generar el CSS, y por qué cada cambio sale de una decisión que tomaste en Figma.
 
 **En esta página**
 
@@ -45,6 +45,8 @@ El destino del alias está en `com.figma.aliasData`, con el nombre de la variabl
 El valor resuelto desaparece: lo calculará la herramienta siguiendo la referencia. Así, en el CSS, el semántico apunta al primitivo con `var()` y la capa de alias sigue viva.
 
 La conversión funciona porque el nombre de Figma y la ruta del token en DTCG son el mismo nombre escrito de dos formas ([Un nombre en Figma, DTCG y CSS](/naming/name-constraints#un-nombre-tres-formas)). Con tu convención de nombres, la referencia sale sola.
+
+Un alias dentro de la misma colección ya sale de Figma como referencia DTCG en `$value` ([Qué sale de Figma](/figma-to-code/what-figma-exports#por-qué-el-valor-viene-resuelto)). La normalización lo deja como está y solo le pone el tipo que le corresponde. Sin esa comprobación, un alias de tamaño acabaría como `{ "value": "{space.100}", "unit": "px" }`, que no es DTCG válido: lo vimos en una versión anterior del script, que no daba ningún error (octubre de 2026).
 
 ## El tipo sale del scope
 
@@ -125,6 +127,7 @@ El script está en el repositorio, en `tools/figma-to-dtcg.mjs` ([ocarballido/de
 
 ```js filename="tools/figma-to-dtcg.mjs (abreviado)"
 const DIMENSION_SCOPES = new Set(['GAP', 'CORNER_RADIUS', 'STROKE_FLOAT', 'FONT_SIZE', 'WIDTH_HEIGHT']);
+const isReference = (value) => typeof value === 'string' && /^\{[^{}]+\}$/.test(value);
 
 function convertToken(token, id) {
   const extensions = token.$extensions ?? {};
@@ -141,7 +144,8 @@ function convertToken(token, id) {
     out.$type = 'fontWeight';
   } else if (token.$type === 'number' && scopes.some((scope) => DIMENSION_SCOPES.has(scope))) {
     out.$type = 'dimension';
-    out.$value = { value: token.$value, unit: 'px' };
+    // Un alias dentro de la colección ya es una referencia: se deja como está.
+    if (!isReference(token.$value)) out.$value = { value: token.$value, unit: 'px' };
   } else if (token.$type === 'string' && scopes.includes('FONT_FAMILY')) {
     out.$type = 'fontFamily';
   } else {

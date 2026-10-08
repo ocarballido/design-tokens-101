@@ -14,7 +14,7 @@ Pruebas propias del 2026-10-08, fuera del repositorio (copias en un directorio t
 - **La exportación de Figma no usa los nombres de scope de la API.** En TokensDS, los pesos tienen el scope `FONT_WEIGHT` y los bordes `STROKE_COLOR`; la exportación escribe `FONT_STYLE` y `STROKE`. La lección `normalize-the-export` y `docs/paso-7-tokens.md` §1.2 dicen otra cosa (§6.2).
 - **Con archivos sueltos, la herramienta no sabe a qué colección pertenece cada uno:** Primitives y Semantic size exportan los dos `Value.tokens.json` (§2).
 - **El método de escalas da resultados pobres en tres casos medibles:** marcas sin croma (el tono no existe), marcas en los pasos extremos (la proporción de croma se dispara) y marcas que obligan a recortar el croma en muchos pasos. Con la curva de referencia del tono de la marca, el recorte baja mucho, pero DesignToken101 cambiaría de `green` a `emerald` si se eligiera sola (§5.2, §5.3).
-- **Pruebas en la interfaz de Figma hechas con Oscar** (§7): la exportación cambia el nombre de dos scopes y ninguno más; los alias dentro de una colección salen como referencia DTCG, y **el script actual los convierte en un `dimension` no válido sin dar error** (decisión 15); la importación lee scopes, code syntax, visibilidad y descripción. Queda una prueba de un minuto (scopes vacíos).
+- **Pruebas en la interfaz de Figma hechas con Oscar** (§7): la exportación cambia el nombre de dos scopes y ninguno más; los alias dentro de una colección salen como referencia DTCG, y **el script actual los convierte en un `dimension` no válido sin dar error** (decisión 15); la importación lee scopes, code syntax, visibilidad y descripción. Una lista de scopes vacía se importa como `ALL_SCOPES`.
 - Las decisiones para Oscar, con la recomendación de cada una, están en §8.
 
 ---
@@ -140,7 +140,7 @@ Un escritor de .zip propio (cabecera local, directorio central, CRC-32 y `Compre
 
 **Lo que se comprobó** en la interfaz (§7, prueba 2): la importación crea un modo con el nombre del archivo (`Uno.tokens.json` → modo "Uno"), lee `com.figma.scopes` (y traduce `STROKE` a `STROKE_COLOR`), `com.figma.codeSyntax`, `com.figma.hiddenFromPublishing` y `$description`, y convierte `"{color.brand.500}"` en un alias. "Import mode" con un segundo archivo actualiza valores y scopes sin aviso, y conserva la visibilidad y el code syntax que el segundo archivo no trae. Con la API de plugins (2026-10-08), Figma rechaza los nombres con `.`, `{`, `}` o un segmento que empieza por `$` ("invalid variable name"), y acepta espacios y tildes: los mismos caracteres que prohíbe DTCG ([Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)).
 
-**Recomendación:** la herramienta genera un archivo DTCG con los colores (objeto de color sRGB con `hex`) agrupados como en el curso (`color/<paleta>/<paso>`), con el code syntax Web y la visibilidad oculta que pide `color-scales` (pasos 3 y 4 de "En Figma"), que la importación lee. El scope vacío (paso 2) depende de la prueba 3 de §7: hasta tenerla, la página dice que se revise en Figma. La página avisa de que "Import mode" sobre una colección existente cambia los valores sin preguntar.
+**Recomendación:** la herramienta genera un archivo DTCG con los colores (objeto de color sRGB con `hex`) agrupados como en el curso (`color/<paleta>/<paso>`), con el code syntax Web y la visibilidad oculta que pide `color-scales` (pasos 3 y 4 de "En Figma"), que la importación lee. El scope vacío (paso 2) no se puede importar: Figma lo convierte en `ALL_SCOPES` (§7, prueba 3), así que la página dice que, después de importar, se quiten los scopes de los primitivos a mano y el archivo no lleva `com.figma.scopes`. La página avisa de que "Import mode" sobre una colección existente cambia los valores sin preguntar.
 
 ### 5.2 Cuándo da el método escalas pobres
 
@@ -316,7 +316,7 @@ Dos diferencias de comportamiento, solo cuando hay error:
 ### 6.6 Otras comprobaciones que la normalización no hace hoy
 
 - **Referencias sin destino.** Si un alias apunta a una colección que el usuario no subió (`targetVariableSetName`), la referencia `{…}` no tiene destino y fallará en la herramienta de traducción. **Recomendación:** comprobar que cada referencia tiene destino entre los archivos subidos y, si no, listarlas antes de descargar.
-- **Alias dentro de la misma colección (comprobado, §7):** la exportación escribe la referencia DTCG en `$value` (`"{number.gap}"`), sin `com.figma.aliasData`. El script actual trata ese token como cualquier número con `GAP` y escribe `"$value": { "value": "{number.gap}", "unit": "px" }`, que no es DTCG válido, **sin error** (probado con Node.js 22.22.0 sobre la exportación real). Con un color no pasa: el valor se queda como está. DesignToken101 no tiene alias dentro de una colección, así que su salida no cambia. Propuesta en §8, decisión 15.
+- **Alias dentro de la misma colección (comprobado, §7):** la exportación escribe la referencia DTCG en `$value` (`"{number.gap}"`), sin `com.figma.aliasData`. El script actual trata ese token como cualquier número con `GAP` y escribe `"$value": { "value": "{number.gap}", "unit": "px" }`, que no es DTCG válido, **sin error** (probado con Node.js 22.22.0 sobre la exportación real). Con un color no pasa: el valor se queda como está. DesignToken101 no tiene alias dentro de una colección, así que su salida no cambia. Corregido el 2026-10-08 (§8, decisión 15).
 - **Nombres:** Figma ya no deja crear los caracteres que DTCG prohíbe (§5.1), así que la conversión de `/` a `.` no puede romper una referencia.
 
 ---
@@ -353,9 +353,18 @@ Dos archivos DTCG preparados por la sesión, `Uno.tokens.json` y `Dos.tokens.jso
 | `brand/alias` | Alias de `color/brand/500` |
 | `space/100` | Número 4 con `GAP` y code syntax Web |
 
-### Prueba 3: scopes vacíos (pendiente, un minuto)
+### Prueba 3: scopes vacíos
 
-Con la prueba 2 no se distingue si `"com.figma.scopes": []` se lee como "sin scopes" o como `ALL_SCOPES`, ni si una importación sin la clave devuelve el scope a `ALL_SCOPES`. Importa para el archivo de escalas, porque los primitivos van sin scopes (`color-scales`, "En Figma", paso 2). `Tres.tokens.json` tiene cuatro colores (scopes `[]`, sin `$extensions`, `STROKE` y `hiddenFromPublishing: false`) para arrastrar a una colección nueva.
+`Tres.tokens.json`, arrastrado por Oscar a una colección nueva, con cuatro colores: scopes `[]`, sin `$extensions`, scopes `["STROKE"]` y `hiddenFromPublishing: false`.
+
+| Variable | Scopes al importar |
+|---|---|
+| `"com.figma.scopes": []` | `ALL_SCOPES` |
+| Sin `$extensions` | `ALL_SCOPES` |
+| `["STROKE"]` | `STROKE_COLOR` |
+| `hiddenFromPublishing: false` | `ALL_SCOPES`, visible |
+
+**Conclusión:** la importación no puede crear una variable sin scopes. Una lista vacía y la falta de la clave dan lo mismo, `ALL_SCOPES`. Por eso exportar e importar no es un viaje de ida y vuelta: un primitivo sin scopes (la exportación no escribe la clave) vuelve con todos.
 
 ### Al terminar
 
@@ -376,10 +385,10 @@ Oscar borra el archivo de prueba (o la sesión lo pide). El resultado está en `
 9. **Entrada en hex.** `scales.py` y la herramienta parten del hex (RGB y HSL se convierten a hex primero). *Recomendación: sí*: es el valor que se guarda (S9, S30) y DesignToken101 no cambia (§5.4).
 10. **Avisos de escalas pobres.** Los tres de §5.2: sin croma (umbral de CSS Color 4; neutros sin tinte), ancla en un paso extremo y pasos recortados, sin umbrales propios. *Recomendación: sí.*
 11. **Corrección del hallazgo de §6.2** en `normalize-the-export` (los pesos tienen `FONT_WEIGHT` en Figma y la exportación lo escribe `FONT_STYLE`; los bordes, `STROKE_COLOR` y `STROKE`) y en `docs/paso-7-tokens.md` §1.2. *Recomendación: sí*, ahora: la lección está publicada y lo afirma con otra explicación. **Aprobada por Oscar y aplicada el 2026-10-08:** `normalize-the-export` (tabla, viñeta y apartado "Detenerse antes que adivinar"), `typography` (`Callout` del módulo 2), `exercise-figma-to-code` (paso 3: el ejemplo de scope ya no es `FONT_WEIGHT`, que la exportación no escribe) y `paso-7-tokens.md` §1.2 y §3.
-12. **Las pruebas de §7**: hechas la 1 y la 2 el 2026-10-08; falta la 3 (un minuto).
+12. **Las pruebas de §7**: hechas las tres el 2026-10-08.
 13. **Pruebas automáticas** con `node:test` y `npm test` (§4), con el archivo de casos de las escalas generado por `scales.py` y guardado en el repositorio. *Recomendación: sí.*
 14. **Referencias sin destino** (§6.6): la herramienta y el script las listan antes de escribir. *Recomendación: sí*, como aviso en la web y como error en el script.
-15. **Alias dentro de una colección** (§6.6, encontrado en la prueba 1). El script actual escribe un `dimension` no válido sin dar error. Opciones: (a) corregirlo ya en `tools/figma-to-dtcg.mjs` (si `$value` ya es una referencia `{…}`, se deja como está y solo cambia el `$type`), con la salida de DesignToken101 igual, y actualizar `normalize-the-export` (extracto del código y un párrafo) y el paso 1 de `exercise-figma-to-code`, que hoy dice que la normalización "no lo ha probado"; (b) dejarlo para cuando se haga la herramienta. *Recomendación: a*, ahora: el ejercicio del módulo 6 pide al alumno que pase su exportación por el script, y hoy recibe un archivo no válido sin aviso.
+15. **Alias dentro de una colección** (§6.6, encontrado en la prueba 1). El script actual escribe un `dimension` no válido sin dar error. Opciones: (a) corregirlo ya en `tools/figma-to-dtcg.mjs` (si `$value` ya es una referencia `{…}`, se deja como está y solo cambia el `$type`), con la salida de DesignToken101 igual, y actualizar `normalize-the-export` (extracto del código y un párrafo) y el paso 1 de `exercise-figma-to-code`, que hoy dice que la normalización "no lo ha probado"; (b) dejarlo para cuando se haga la herramienta. *Recomendación: a*. **Aplicada el 2026-10-08** a petición de Oscar ("lo vamos haciendo cada vez que encuentres una incongruencia"): `tools/figma-to-dtcg.mjs` deja las referencias como están (salida de DesignToken101 idéntica byte a byte; con la exportación real, `"{number.gap}"` con `$type` `dimension`) y ocho lecciones dejan de decir que todos los alias salen resueltos: `what-is-dtcg`, `figma-dtcg-tailwind`, `what-is-an-alias`, `what-figma-exports` (el `Callout` "no hemos visto" pasa a ser el resultado de la prueba), `normalize-the-export` (párrafo y extracto del código), `exercise-figma-to-code` (paso 1), `course-summary` y `conclusions`.
 
 Fuera de estas herramientas, como pidió Oscar: la conversión a CSS con Terrazzo y cualquier paquete de npm.
 

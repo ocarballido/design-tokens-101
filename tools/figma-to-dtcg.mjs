@@ -2,8 +2,10 @@
 // Motivo y pruebas: docs/paso-7-tokens.md §1 y §3 (V06).
 //
 // Lo que Figma exporta y lo que hace este script:
-//   1. Alias resueltos, con la referencia solo en $extensions["com.figma.aliasData"]
-//      → referencia DTCG: "color/neutral/950" → "{color.neutral.950}".
+//   1. Alias a otra colección: valor resuelto, con la referencia solo en $extensions["com.figma.aliasData"]
+//      → referencia DTCG: "color/neutral/950" → "{color.neutral.950}". Un alias dentro de la misma
+//      colección ya sale como referencia DTCG en $value ("{space.100}") y se deja como está
+//      (comprobado el 2026-10-08, docs/investigacion-herramientas.md §7).
 //   2. Tamaños como `number` sin unidad → `dimension` en px. El tipo se deduce del scope
 //      de Figma (una decisión de diseño, S22), nunca del valor: el Format Module prohíbe adivinarlo.
 //   3. Pesos como `number` con scope FONT_STYLE → `fontWeight`.
@@ -22,6 +24,9 @@ import path from 'node:path';
 const IN_DIR = path.join(process.cwd(), 'tokens/figma');
 const OUT_DIR = path.join(process.cwd(), 'tokens/dtcg');
 const DIMENSION_SCOPES = new Set(['GAP', 'CORNER_RADIUS', 'STROKE_FLOAT', 'FONT_SIZE', 'WIDTH_HEIGHT']);
+
+// Una referencia DTCG: el valor entero entre llaves (Format Module 2025.10, Aliases / References).
+const isReference = (value) => typeof value === 'string' && /^\{[^{}]+\}$/.test(value);
 
 const count = { files: 0, alias: 0, dimension: 0, fontWeight: 0, fontFamily: 0, color: 0, alpha: 0 };
 
@@ -53,7 +58,7 @@ function convertToken(token, id) {
     count.fontWeight++;
   } else if (token.$type === 'number' && scopes.some((scope) => DIMENSION_SCOPES.has(scope))) {
     out.$type = 'dimension';
-    out.$value = { value: token.$value, unit: 'px' };
+    if (!isReference(token.$value)) out.$value = { value: token.$value, unit: 'px' };
     count.dimension++;
   } else if (token.$type === 'string' && scopes.includes('FONT_FAMILY')) {
     out.$type = 'fontFamily';
@@ -64,6 +69,8 @@ function convertToken(token, id) {
 
   if (alias) {
     out.$value = `{${alias.targetVariableName.replace(/\//g, '.')}}`;
+    count.alias++;
+  } else if (isReference(token.$value)) {
     count.alias++;
   }
   return out;

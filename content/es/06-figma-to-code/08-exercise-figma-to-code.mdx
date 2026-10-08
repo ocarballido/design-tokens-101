@@ -38,7 +38,7 @@ Abre cada carpeta y comprueba:
 2. Cada archivo tiene todas las variables de su colección, y el nombre del modo en el `$extensions` de la raíz ([Los archivos](/figma-to-code/what-figma-exports#los-archivos)).
 3. Los semánticos llevan el valor resuelto en `$value` y el destino en `com.figma.aliasData`.
 
-Si un alias tuyo apunta a una variable de su misma colección, mira cómo lo ha escrito Figma y anótalo: DesignToken101 no tiene ninguno, y la normalización de esta web no lo ha probado.
+Si un alias tuyo apunta a una variable de su misma colección, Figma lo escribe ya como referencia DTCG en `$value`, sin `com.figma.aliasData` ([Qué sale de Figma](/figma-to-code/what-figma-exports#por-qué-el-valor-viene-resuelto)). Anótalo: ese alias no hay que recuperarlo.
 
 ## Paso 2 Revisa scopes y code syntax
 

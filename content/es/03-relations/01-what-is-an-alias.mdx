@@ -3,7 +3,7 @@ title: Qué es un alias
 meta_title: "Qué es un alias de token"
 description: Un alias es un token cuyo valor es otro token. Cómo se escribe en DTCG, qué reglas siguen las cadenas de alias, por qué conviene conservar la referencia y cómo se crea un alias en Figma.
 nav_title: Qué es un alias
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-08
 ---
 
 En el módulo 2 creaste los primitivos: los valores que existen en tu sistema. Ahora los vas a relacionar. La herramienta para hacerlo es el **alias**, un token cuyo valor no es un valor, sino otro token. En esta lección verás cómo se escribe un alias en DTCG, qué reglas sigue y cómo se crea en Figma.
@@ -104,7 +104,7 @@ Si el primitivo cambia, el semántico lo sigue sin regenerar nada más. Si la re
 
 <Callout variant="warning">
 
-La exportación de Figma **no conserva el alias como referencia DTCG**. Escribe el valor ya resuelto y guarda el destino en un dato propio, `com.figma.aliasData`. Esta web recupera la referencia antes de generar el CSS. Lo viste por encima en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg), y lo harás paso a paso en [el módulo De Figma al código](/figma-to-code/normalize-the-export#recuperar-los-alias).
+Cuando el alias apunta a **otra colección**, la exportación de Figma **no lo conserva como referencia DTCG**: escribe el valor ya resuelto y guarda el destino en un dato propio, `com.figma.aliasData`. Es el caso de los semánticos, que apuntan a `Primitives`. Un alias dentro de la misma colección sí sale como referencia. Esta web recupera la referencia antes de generar el CSS. Lo viste por encima en [Cómo encajan Figma, DTCG y Tailwind](/start-here/figma-dtcg-tailwind#2-figma-exporta-casi-dtcg), y lo harás paso a paso en [el módulo De Figma al código](/figma-to-code/normalize-the-export#recuperar-los-alias).
 
 </Callout>
 

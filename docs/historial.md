@@ -24,6 +24,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: alias dentro de una colección (A15, decisión 15) y prueba 3**
+- Prueba 3 (Oscar arrastró `Tres.tokens.json`): `"com.figma.scopes": []`, sin la clave o con `hiddenFromPublishing: false` dan `ALL_SCOPES`; `["STROKE"]` da `STROKE_COLOR`. La importación no crea variables sin scopes.
+- Oscar pide corregir cada incongruencia en cuanto aparezca, sin dejar nada antiguo. Aplicada la decisión 15: `tools/figma-to-dtcg.mjs` (`isReference`) deja como están las referencias de `$value` y las cuenta como alias. Comprobado con Node.js 22.22.0: salida de DesignToken101 idéntica byte a byte (82 alias); con la exportación real de la prueba 1, `"{number.gap}"` con `$type` `dimension` (antes, `{ "value": "{number.gap}", "unit": "px" }`).
+- Lecciones (`lastReviewed` 2026-10-08): `what-is-dtcg` (dos frases), `figma-dtcg-tailwind` (fila de la tabla), `what-is-an-alias` (`Callout`), `what-figma-exports` (el `Callout` "no hemos visto" pasa a párrafo con el resultado y un bloque JSON; viñeta de "Lo que te llevas"), `normalize-the-export` (introducción, párrafo en "Recuperar los alias" y extracto del código), `exercise-figma-to-code` (paso 1), `course-summary` y `conclusions`. `paso-7-tokens.md` §3. Sin build (npm sin acceso).
+
 **2026-10-08, sesión de contenido: pruebas de exportación e importación DTCG en la interfaz de Figma (A15, §7)**
 - Archivo de borrador "zz DesignToken101 · prueba DTCG (borrar)" en el equipo Pro de Oscar, con la colección preparada por la API de plugins; Oscar hizo los clics.
 - Exportación (35 variables, modos A y B): .zip con el nombre de la colección y `A.tokens.json` y `B.tokens.json` en la raíz, sin comprimir. De los 23 scopes, solo cambian `FONT_WEIGHT` → `FONT_STYLE` y `STROKE_COLOR` → `STROKE`; sin scopes, sin la clave; `ALL_SCOPES`, escrito. Boolean: `number` 1/0 con `com.figma.type: "boolean"`. Alias dentro de la colección: `"{number.gap}"` en `$value`, sin `aliasData`. Oculta, code syntax (Web, Android, iOS) y `$description`, exportados.
