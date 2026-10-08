@@ -12,11 +12,12 @@ import {
   isPaletteName,
   oklchText,
   parseColor,
-  parseTint,
   searchFromState,
   stateFromSearch,
+  suggest,
   toFigmaTokens,
   DEFAULTS,
+  type ScaleState,
 } from '../../tools/scales.mjs';
 import { Button } from '@/components/Button';
 import { Callout } from '@/components/Callout';
@@ -29,7 +30,7 @@ import { Heading2 } from '@/components/Prose';
 import { ScalePreview } from '@/components/ScalePreview';
 import { Select } from '@/components/Select';
 import { Table, Td, Th } from '@/components/Table';
-import { TextField } from '@/components/TextField';
+import { TextField, fieldHint, fieldLabel } from '@/components/TextField';
 import { TextLink } from '@/components/TextLink';
 import { download } from '@/lib/download';
 
@@ -37,15 +38,22 @@ import { download } from '@/lib/download';
 // componentes-v1.md §5.10 y plantillas de entrega-diseno.md §3.12.
 // El cálculo es tools/scales.mjs, la traducción de tools/scales.py que comprueba `npm test`: aquí
 // no se calcula nada. Todo pasa en el navegador.
-// - Con un campo no válido, el resultado es el de la última entrada válida (D59). El error del campo
-//   se ve desde que se sale de él (blur) y mientras siga sin ser válido, y en todos al pulsar la
-//   descarga (C22). Si el campo pierde el foco por un clic, el error aparece al soltar: si apareciera
-//   antes, el contenido bajaría entre el mousedown y el mouseup y el clic se perdería (pasó en la
-//   prueba de la primera versión).
-// - La descarga está siempre activa (D14): si falta algo, aparece el ErrorSummary encima (D52) y
-//   recibe el foco.
-// - Los ajustes se leen de la URL al cargar (?color=33CC99&name=emerald&tint=0.5&curve=green) y el
-//   botón secundario copia ese enlace.
+// - El resultado se genera al montar (con los valores por defecto o los de la URL) y al pulsar
+//   "Generar escalas" (C24). Con un campo no válido, el botón muestra el ErrorSummary encima (D52) y
+//   no hay resultado hasta que se corrija y se pulse otra vez; si todo es válido, el foco pasa al
+//   título "Resultado". La gráfica de la curva sigue al selector al momento, con el color del campo
+//   si es válido.
+// - El error del color y del nombre se ve desde que se sale del campo (blur) y mientras siga sin ser
+//   válido, y en los dos al pulsar el botón (C22). Si el campo pierde el foco por un clic, el error
+//   aparece al soltar: si apareciera antes, el contenido bajaría entre el mousedown y el mouseup y el
+//   clic se perdería (pasó en la prueba de la primera versión).
+// - El tinte es un deslizador nativo de 0 a 1 (C23): no tiene valor no válido.
+// - La curva y el nombre los propone suggest() a partir del color hasta que el usuario los cambia
+//   (C25, C26); null significa "el propuesto".
+// - La descarga está siempre activa (D14) y solo comprueba que haya pasos marcados: si no, aparece
+//   su ErrorSummary encima (D52) y recibe el foco.
+// - Los ajustes se leen de la URL al cargar (?color=33CC99&tint=0.5, más name y curve si el usuario
+//   los eligió) y el botón secundario copia el enlace del resultado.
 
 const LESSON = '/primitives/color-scales';
 const CURVES = Object.keys(TW_CURVES);
@@ -57,31 +65,42 @@ const WHITE = [1, 1, 1];
 const decimal = (value: number) => String(value).replace('.', ',');
 const exportId = (scale: string, step: number) => `export-${scale}-${step}`;
 
-type Field = 'color' | 'name' | 'tint';
+type Field = 'color' | 'name';
 
 export function ScaleGenerator() {
   const t = useTranslations('ToolScales');
   const format = useFormatter();
 
-  const [text, setText] = useState({ color: DEFAULTS.color, name: DEFAULTS.name, tint: decimal(DEFAULTS.tint) });
-  const [valid, setValid] = useState({ color: DEFAULTS.color, name: DEFAULTS.name, tint: DEFAULTS.tint });
-  const [curve, setCurve] = useState(DEFAULTS.curve);
+  const [text, setText] = useState({ color: DEFAULTS.color, name: '' });
+  // Último color válido del campo: de él salen las propuestas mientras el campo no es válido.
+  const [lastColor, setLastColor] = useState(DEFAULTS.color);
+  const [nameEdited, setNameEdited] = useState(false);
+  const [curveChoice, setCurveChoice] = useState<string | null>(DEFAULTS.curve);
+  const [tint, setTint] = useState(DEFAULTS.tint);
+  const [generated, setGenerated] = useState<ScaleState | null>(DEFAULTS);
   const [submitted, setSubmitted] = useState(false);
-  const [touched, setTouched] = useState({ color: false, name: false, tint: false });
-  const [summary, setSummary] = useState(0);
+  const [touched, setTouched] = useState({ color: false, name: false });
+  const [generateSummary, setGenerateSummary] = useState(0);
+  const [resultFocus, setResultFocus] = useState(0);
+  const [downloadSummary, setDownloadSummary] = useState(0);
   const [accentSteps, setAccentSteps] = useState<number[]>(STEPS);
   const [neutralSteps, setNeutralSteps] = useState<number[]>(STEPS);
   const [copied, setCopied] = useState(false);
-  const summaryRef = useRef<HTMLDivElement>(null);
+  const generateSummaryRef = useRef<HTMLDivElement>(null);
+  const resultRef = useRef<HTMLHeadingElement>(null);
+  const downloadSummaryRef = useRef<HTMLDivElement>(null);
   const pointerDown = useRef(false);
 
-  // Ajustes de la URL: la página se genera estática, así que se leen al montar.
+  // Ajustes de la URL: la página se genera estática, así que se leen al montar y se genera con ellos.
   useEffect(() => {
     if (!window.location.search) return;
     const state = stateFromSearch(window.location.search);
-    setText({ color: state.color, name: state.name, tint: decimal(state.tint) });
-    setValid({ color: state.color, name: state.name, tint: state.tint });
-    setCurve(state.curve);
+    setText({ color: state.color, name: state.name ?? '' });
+    setLastColor(state.color);
+    setNameEdited(state.name !== null);
+    setCurveChoice(state.curve);
+    setTint(state.tint);
+    setGenerated(state);
   }, []);
 
   // Si hay un botón del puntero pulsado (C22, arriba).
@@ -99,8 +118,16 @@ export function ScaleGenerator() {
   }, []);
 
   useEffect(() => {
-    if (summary) summaryRef.current?.focus();
-  }, [summary]);
+    if (generateSummary) generateSummaryRef.current?.focus();
+  }, [generateSummary]);
+
+  useEffect(() => {
+    if (resultFocus) resultRef.current?.focus();
+  }, [resultFocus]);
+
+  useEffect(() => {
+    if (downloadSummary) downloadSummaryRef.current?.focus();
+  }, [downloadSummary]);
 
   useEffect(() => {
     if (!copied) return;
@@ -108,19 +135,25 @@ export function ScaleGenerator() {
     return () => clearTimeout(timer);
   }, [copied]);
 
-  const parsed = { color: parseColor(text.color), name: isPaletteName(text.name) ? text.name : null, tint: parseTint(text.tint) };
-  const scales = useMemo(() => build(valid.color, valid.tint, curve), [valid.color, valid.tint, curve]);
-  const dark = scales.neutral[STEPS.length - 1].hex;
-  const accent = scales.accent.map((row) => row.hex);
-  const neutral = scales.neutral.map((row) => row.hex);
+  // Entrada: lo que hay en los campos, con la curva y el nombre propuestos si el usuario no los eligió.
+  const proposal = useMemo(() => suggest(lastColor), [lastColor]);
+  const name = nameEdited ? text.name : proposal.name;
+  const curve = curveChoice ?? proposal.curve;
+  const parsed = { color: parseColor(text.color), name: isPaletteName(name) ? name : null };
+  // La gráfica sigue al selector y al campo de color al momento (C24).
+  const chartInput = useMemo(() => build(parsed.color ?? lastColor, tint, curve).input, [parsed.color, lastColor, tint, curve]);
 
-  const errors = [
-    parsed.color === null ? { field: 'color', message: t('errorColor'), href: '#scale-color' } : null,
-    parsed.name === null ? { field: 'name', message: t('errorName'), href: '#scale-name' } : null,
-    parsed.tint === null ? { field: 'tint', message: t('errorTint'), href: '#scale-tint' } : null,
-    accentSteps.length + neutralSteps.length === 0
-      ? { field: 'steps', message: t('errorSteps'), href: `#${exportId(valid.name, STEPS[0])}` }
-      : null,
+  // Resultado: lo generado al montar o con el botón.
+  const result = useMemo(() => {
+    if (!generated) return null;
+    const own = suggest(generated.color);
+    const resolved = { ...generated, name: generated.name ?? own.name, curve: generated.curve ?? own.curve };
+    return { ...resolved, scales: build(resolved.color, resolved.tint, resolved.curve) };
+  }, [generated]);
+
+  const inputErrors = [
+    parsed.color === null ? { message: t('errorColor'), href: '#scale-color' } : null,
+    parsed.name === null ? { message: t('errorName'), href: '#scale-name' } : null,
   ].filter((error) => error !== null);
   const showError = (field: Field) => (submitted || touched[field]) && parsed[field] === null;
   function touch(field: Field) {
@@ -131,38 +164,58 @@ export function ScaleGenerator() {
     document.addEventListener('pointercancel', () => setTimeout(show), { once: true });
   }
 
-  function change(field: Field, value: string) {
-    setText((current) => ({ ...current, [field]: value }));
-    const next = field === 'color' ? parseColor(value) : field === 'name' ? (isPaletteName(value) ? value : null) : parseTint(value);
-    if (next !== null) setValid((current) => ({ ...current, [field]: next }));
+  function changeColor(value: string) {
+    setText((current) => ({ ...current, color: value }));
+    const next = parseColor(value);
+    if (next !== null) setLastColor(next);
+  }
+
+  function changeName(value: string) {
+    setText((current) => ({ ...current, name: value }));
+    setNameEdited(true);
+  }
+
+  function onGenerate() {
+    setSubmitted(true);
+    if (inputErrors.length || parsed.color === null) {
+      setGenerated(null);
+      setGenerateSummary((count) => count + 1);
+      return;
+    }
+    setGenerateSummary(0);
+    setGenerated({ color: parsed.color, name: nameEdited ? name : null, tint, curve: curveChoice });
+    setResultFocus((count) => count + 1);
   }
 
   function onDownload() {
-    setSubmitted(true);
-    if (errors.length) {
-      setSummary((count) => count + 1);
+    if (!result) return;
+    if (accentSteps.length + neutralSteps.length === 0) {
+      setDownloadSummary((count) => count + 1);
       return;
     }
-    setSummary(0);
-    const json = toFigmaTokens(scales, { name: valid.name, accentSteps, neutralSteps });
+    setDownloadSummary(0);
+    const json = toFigmaTokens(result.scales, { name: result.name, accentSteps, neutralSteps });
     download(new Blob([json], { type: 'application/json' }), 'Value.tokens.json');
   }
 
   async function copyLink() {
+    if (!generated) return;
     const { origin, pathname } = window.location;
-    await navigator.clipboard.writeText(`${origin}${pathname}${searchFromState({ ...valid, curve })}`);
+    await navigator.clipboard.writeText(`${origin}${pathname}${searchFromState(generated)}`);
     setCopied(true);
   }
 
   const lessonLink = (chunks: ReactNode) => <TextLink href={LESSON}>{chunks}</TextLink>;
-  const warnings = scales.warnings.map((warning) => {
-    if (warning.code === 'achromatic') return t.rich('warningAchromatic', { link: lessonLink });
-    if (warning.code === 'extreme') return t.rich('warningExtreme', { step: warning.step, link: lessonLink });
+  // El recorte es habitual y va como nota; la marca sin croma y el paso extremo, como aviso (C25).
+  const warnings = (result?.scales.warnings ?? []).map((warning) => {
+    if (warning.code === 'achromatic') return { variant: 'warning' as const, text: t.rich('warningAchromatic', { link: lessonLink }) };
+    if (warning.code === 'extreme') return { variant: 'warning' as const, text: t.rich('warningExtreme', { step: warning.step, link: lessonLink }) };
     const steps = warning.steps.map((item) => item.step).join(', ');
-    return t.rich('warningClipped', { count: warning.steps.length, steps, link: lessonLink });
+    return { variant: 'note' as const, text: t.rich('warningClipped', { count: warning.steps.length, steps, link: lessonLink }) };
   });
 
-  function scaleTable(name: string, rows: typeof scales.accent, selected: number[], setSelected: (steps: number[]) => void) {
+  type Rows = ReturnType<typeof build>['accent'];
+  function scaleTable(name: string, rows: Rows, dark: string, selected: number[], setSelected: (steps: number[]) => void) {
     const ratio = (a: number[], b: number[]) => format.number(contrast(a, b), { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     return (
       <Table label={t('tableCaption', { name })}>
@@ -210,6 +263,11 @@ export function ScaleGenerator() {
     );
   }
 
+  const scales = result?.scales;
+  const dark = scales ? scales.neutral[STEPS.length - 1].hex : '';
+  const accent = scales ? scales.accent.map((row) => row.hex) : [];
+  const neutral = scales ? scales.neutral.map((row) => row.hex) : [];
+
   return (
     <div data-component="ScaleGenerator" className="flex flex-col gap-600">
       <section className="flex flex-col gap-400">
@@ -224,18 +282,18 @@ export function ScaleGenerator() {
               autoComplete="off"
               spellCheck={false}
               value={text.color}
-              onChange={(event) => change('color', event.target.value)}
+              onChange={(event) => changeColor(event.target.value)}
               onBlur={() => touch('color')}
               error={showError('color') ? t('colorError') : undefined}
             />
-            {/* Hex resultante (§5.10): el color con el que se calcula, el último válido. */}
+            {/* Hex resultante (§5.10): el color del campo, o el último válido. */}
             <output htmlFor="scale-color" className="flex items-center gap-200 type-body-small text-neutral-subtle">
               <span
                 aria-hidden
                 className="size-600 shrink-0 rounded-100 border-(length:--t101-border-width-100) border-neutral-default"
-                style={{ backgroundColor: valid.color }}
+                style={{ backgroundColor: lastColor }}
               />
-              <span>{t.rich('colorUsed', { code: () => <Code>{valid.color}</Code> })}</span>
+              <span>{t.rich('colorUsed', { code: () => <Code>{lastColor}</Code> })}</span>
             </output>
           </div>
           <TextField
@@ -244,29 +302,44 @@ export function ScaleGenerator() {
             hint={t('nameHint')}
             autoComplete="off"
             spellCheck={false}
-            value={text.name}
-            onChange={(event) => change('name', event.target.value)}
+            value={name}
+            onChange={(event) => changeName(event.target.value)}
             onBlur={() => touch('name')}
             error={showError('name') ? t('nameError') : undefined}
           />
-          <TextField
-            id="scale-tint"
-            label={t('tintLabel')}
-            hint={t('tintHint')}
-            inputMode="decimal"
-            autoComplete="off"
-            value={text.tint}
-            onChange={(event) => change('tint', event.target.value)}
-            onBlur={() => touch('tint')}
-            error={showError('tint') ? t('tintError') : undefined}
-          />
+          {/* Deslizador nativo (C23, §5.10b): flechas del teclado y clic en la pista (2.5.7); color
+              border/accent/strong, como el borde de la casilla marcada. */}
+          <div className="flex flex-col gap-100">
+            <label htmlFor="scale-tint" className={fieldLabel}>
+              {t('tintLabel')}
+            </label>
+            <p id="scale-tint-hint" className={fieldHint}>
+              {t('tintHint')}
+            </p>
+            <div className="flex items-center gap-300">
+              <input
+                id="scale-tint"
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={tint}
+                aria-describedby="scale-tint-hint"
+                onChange={(event) => setTint(Number(event.target.value))}
+                className="h-600 min-w-0 flex-1 cursor-pointer accent-(--t101-color-border-accent-strong) focus-ring"
+              />
+              <output htmlFor="scale-tint" className="min-w-1200 type-body-default text-neutral-default tabular-nums">
+                {decimal(tint)}
+              </output>
+            </div>
+          </div>
           <div className="flex flex-col gap-400">
             <Select
               id="scale-curve"
               label={t('curveLabel')}
-              options={CURVES.map((name) => ({ value: name, label: name }))}
+              options={CURVES.map((option) => ({ value: option, label: option }))}
               value={curve}
-              onChange={(event) => setCurve(event.target.value)}
+              onChange={(event) => setCurveChoice(event.target.value)}
             />
             <p className="type-body-default text-neutral-default">{t('curveIntro')}</p>
             <p className="type-body-default text-neutral-default">{t('curveAdvice')}</p>
@@ -275,72 +348,97 @@ export function ScaleGenerator() {
               steps={STEPS}
               chroma={TW_CURVES[curve].map(([, c]) => c)}
               max={MAX_CHROMA}
-              highlight={scales.input.anchorStep}
+              highlight={chartInput.anchorStep}
               highlightLabel={t('yourColor')}
-              highlightColor={scales.input.hex}
+              highlightColor={chartInput.hex}
             />
+          </div>
+          <div className="flex flex-col gap-400">
+            {generateSummary && inputErrors.length ? (
+              <ErrorSummary ref={generateSummaryRef} title={t('generateErrorTitle')} errors={inputErrors} />
+            ) : null}
+            <div>
+              <Button onClick={onGenerate}>{t('generate')}</Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="flex flex-col gap-400">
-        <Heading2>{t('result')}</Heading2>
-        {warnings.map((warning, i) => (
-          <Callout key={i} variant="warning">
-            <p className="type-body-default">{warning}</p>
-          </Callout>
-        ))}
-        <div className="flex flex-col gap-600">
-          {[
-            { name: valid.name, colors: accent, rows: scales.accent, selected: accentSteps, setSelected: setAccentSteps, highlight: true },
-            { name: t('scaleNeutral'), colors: neutral, rows: scales.neutral, selected: neutralSteps, setSelected: setNeutralSteps, highlight: false },
-          ].map((scale) => (
-            <div key={scale.highlight ? 'accent' : 'neutral'} className="flex flex-col gap-400">
-              <h3 className="type-heading-3 text-neutral-default">{scale.name}</h3>
-              <ColorScale
-                name={scale.name}
-                colors={scale.colors}
-                caption={
-                  scale.highlight
-                    ? t('captionAccent', { name: scale.name, step: scales.input.anchorStep })
-                    : t('captionNeutral')
-                }
-                highlight={scale.highlight ? String(scales.input.anchorStep) : undefined}
-                highlightLabel={scale.highlight ? t('yourColor') : undefined}
-              />
-              {scaleTable(scale.name, scale.rows, scale.selected, scale.setSelected)}
+      {result && scales ? (
+        <>
+          <section className="flex flex-col gap-400">
+            <div className="flex flex-col gap-200">
+              <Heading2 ref={resultRef} tabIndex={-1} className="type-heading-2 text-neutral-subtle focus-ring">
+                {t('result')}
+              </Heading2>
+              <p className="type-body-small text-neutral-subtle">
+                {t.rich('resultSummary', { code: () => <Code>{result.color}</Code>, tint: decimal(result.tint), curve: result.curve })}
+              </p>
             </div>
-          ))}
-          <ScalePreview
-            scales={[
-              { name: valid.name, colors: accent },
-              { name: 'neutral', colors: neutral },
-            ]}
-            light="#FFFFFF"
-            dark={dark}
-            lightLabel={t('previewLight')}
-            darkLabel={t('previewDark')}
-            caption={t('previewCaption')}
-          />
-        </div>
-      </section>
+            {warnings.map((warning, i) => (
+              <Callout key={i} variant={warning.variant}>
+                <p className="type-body-default">{warning.text}</p>
+              </Callout>
+            ))}
+            <div className="flex flex-col gap-600">
+              {[
+                { name: result.name, colors: accent, rows: scales.accent, selected: accentSteps, setSelected: setAccentSteps, highlight: true },
+                { name: t('scaleNeutral'), colors: neutral, rows: scales.neutral, selected: neutralSteps, setSelected: setNeutralSteps, highlight: false },
+              ].map((scale) => (
+                <div key={scale.highlight ? 'accent' : 'neutral'} className="flex flex-col gap-400">
+                  <h3 className="type-heading-3 text-neutral-default">{scale.name}</h3>
+                  <ColorScale
+                    name={scale.name}
+                    colors={scale.colors}
+                    caption={
+                      scale.highlight
+                        ? t('captionAccent', { name: scale.name, step: scales.input.anchorStep })
+                        : t('captionNeutral')
+                    }
+                    highlight={scale.highlight ? String(scales.input.anchorStep) : undefined}
+                    highlightLabel={scale.highlight ? t('yourColor') : undefined}
+                  />
+                  {scaleTable(scale.name, scale.rows, dark, scale.selected, scale.setSelected)}
+                </div>
+              ))}
+              <ScalePreview
+                scales={[
+                  { name: result.name, colors: accent },
+                  { name: 'neutral', colors: neutral },
+                ]}
+                light="#FFFFFF"
+                dark={dark}
+                lightLabel={t('previewLight')}
+                darkLabel={t('previewDark')}
+                caption={t('previewCaption')}
+              />
+            </div>
+          </section>
 
-      <section className="flex flex-col gap-400">
-        <Heading2>{t('export')}</Heading2>
-        {summary && errors.length ? <ErrorSummary ref={summaryRef} title={t('errorTitle')} errors={errors} /> : null}
-        <div className="flex flex-wrap items-center gap-200">
-          <Button icon={Download} onClick={onDownload}>
-            {t('download')}
-          </Button>
-          <Button variant="secondary" icon={LinkIcon} onClick={copyLink}>
-            {t('copyLink')}
-          </Button>
-          {/* Tras copiar, el texto "Enlace copiado", como el "Copiado" de CodeBlock (1.4.1). */}
-          <p aria-live="polite" className="type-caption-default text-success-default">
-            {copied ? t('linkCopied') : ''}
-          </p>
-        </div>
-      </section>
+          <section className="flex flex-col gap-400">
+            <Heading2>{t('export')}</Heading2>
+            {downloadSummary && accentSteps.length + neutralSteps.length === 0 ? (
+              <ErrorSummary
+                ref={downloadSummaryRef}
+                title={t('errorTitle')}
+                errors={[{ message: t('errorSteps'), href: `#${exportId(result.name, STEPS[0])}` }]}
+              />
+            ) : null}
+            <div className="flex flex-wrap items-center gap-200">
+              <Button icon={Download} onClick={onDownload}>
+                {t('download')}
+              </Button>
+              <Button variant="secondary" icon={LinkIcon} onClick={copyLink}>
+                {t('copyLink')}
+              </Button>
+              {/* Tras copiar, el texto "Enlace copiado", como el "Copiado" de CodeBlock (1.4.1). */}
+              <p aria-live="polite" className="type-caption-default text-success-default">
+                {copied ? t('linkCopied') : ''}
+              </p>
+            </div>
+          </section>
+        </>
+      ) : null}
     </div>
   );
 }

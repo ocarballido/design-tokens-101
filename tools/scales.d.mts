@@ -12,7 +12,8 @@ export type Scales = {
   neutral: ScaleRow[];
   warnings: ScaleWarning[];
 };
-export type ScaleState = { color: string; name: string; tint: number; curve: string };
+// name y curve en null: los propuestos por suggest() (C25, C26).
+export type ScaleState = { color: string; name: string | null; tint: number; curve: string | null };
 
 export const STEPS: number[];
 export const TW_CURVES: Record<string, [number, number][]>;
@@ -26,12 +27,14 @@ export function contrast(a: number[], b: number[]): number;
 export function parseColor(input: unknown): string | null;
 export function isPaletteName(name: string): boolean;
 export function parseTint(input: unknown): number | null;
-export function build(hex: string, tint?: number, reference?: string): Scales;
+export function build(hex: string, tint?: number, reference?: string | null): Scales;
 export function oklchText(oklch: Oklch): string;
 export function toFigmaTokens(
   scales: Scales,
   options: { name: string; accentSteps?: number[]; neutralSteps?: number[] },
 ): string;
+export const TW_HUES: Record<string, number>;
+export function suggest(hex: string): { curve: string; name: string };
 export const DEFAULTS: ScaleState;
 export function stateFromSearch(search: string): ScaleState;
 export function searchFromState(state: ScaleState): string;
