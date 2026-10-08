@@ -370,6 +370,7 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - **Iconos que ya había** en el marco `Icons` (108:1963, 21): sirven `li:x`, `li:check`, `li:chevron-down` y `li:triangle-alert`.
 - **Incongruencia resuelta:** §1 de la investigación llama a la segunda página "Normalizar la exportación de Figma" y §9, "Completar la exportación"; manda §9, que es el índice aprobado.
 - **Oscar aprueba** las diez recomendaciones de §5.11 (D45 a D54).
+- **Iconos (D53), hechos el 2026-10-08:** los cinco, importados de la biblioteca "Lucide Icons (Community)", separados de ella y convertidos en componentes locales del marco `Icons` (153:852 a 153:880), como los 21 de D37: 24 × 24, un solo `Vector` con el relleno en `color/text/neutral/default` y la descripción con la licencia ISC. Comprobado con una captura del marco.
 
 **Pendiente**
 - ~~Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).~~ **Hecho el 2026-10-06** (captura de Oscar, `docs/capturas/dev-mode-button-primary-2026-10-06.png`): Dev Mode escribe el code syntax tal cual, sin valor de reserva.
