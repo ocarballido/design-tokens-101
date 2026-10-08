@@ -32,6 +32,7 @@ import { Select } from '@/components/Select';
 import { Table, Td, Th } from '@/components/Table';
 import { TextField, fieldHint, fieldLabel } from '@/components/TextField';
 import { TextLink } from '@/components/TextLink';
+import { cx } from '@/lib/cx';
 import { download } from '@/lib/download';
 
 // Herramienta "Generar escalas" (/tools/color-scales; T8, T22, T23, T24). Estructura de
@@ -50,8 +51,9 @@ import { download } from '@/lib/download';
 // - El tinte es un deslizador nativo de 0 a 1 (C23): no tiene valor no válido.
 // - La curva y el nombre los propone suggest() a partir del color hasta que el usuario los cambia
 //   (C25, C26); null significa "el propuesto".
-// - Resultado desactualizado (C27): si el color, el tinte o la curva no son los generados, las
-//   muestras van a opacity/inactive (nunca el texto), el aviso sale en un role="status" debajo de
+// - Resultado desactualizado (C27, C30): si el color, el tinte o la curva no son los generados, el
+//   resultado pulsa de 1 a opacity/inactive sin parar (pulse-stale; con prefers-reduced-motion, sin
+//   pulso y solo las muestras a opacity/inactive), el aviso sale en un role="status" debajo de
 //   "Resultado" y la descarga se bloquea; si vuelven a coincidir, deja de estarlo. El nombre no lo
 //   marca (C28): el escrito por el usuario se aplica al momento (el último válido); el propuesto se
 //   ve en el campo al momento, pero el resultado lo toma al generar, porque depende del color.
@@ -336,8 +338,8 @@ export function ScaleGenerator() {
             onBlur={() => touch('name')}
             error={showError('name') ? t('nameError') : undefined}
           />
-          {/* Deslizador nativo (C23, §5.10b): flechas del teclado y clic en la pista (2.5.7); color
-              border/accent/strong, como el borde de la casilla marcada. */}
+          {/* Deslizador nativo (C23, §5.10b): flechas del teclado y clic en la pista (2.5.7); pulgar y
+              pista con el estilo de C29 (range-tint, en base.css). */}
           <div className="flex flex-col gap-100">
             <label htmlFor="scale-tint" className={fieldLabel}>
               {t('tintLabel')}
@@ -355,7 +357,7 @@ export function ScaleGenerator() {
                 value={tint}
                 aria-describedby="scale-tint-hint"
                 onChange={(event) => setTint(Number(event.target.value))}
-                className="h-600 min-w-0 flex-1 cursor-pointer accent-(--t101-color-border-accent-strong) focus-ring"
+                className="h-600 min-w-0 flex-1 cursor-pointer range-tint"
               />
               <output htmlFor="scale-tint" className="min-w-1200 type-body-default text-neutral-default tabular-nums">
                 {decimal(tint)}
@@ -415,45 +417,48 @@ export function ScaleGenerator() {
                 ) : null}
               </div>
             </div>
-            {warnings.map((warning, i) => (
-              <Callout key={i} variant={warning.variant}>
-                <p className="type-body-default">{warning.text}</p>
-              </Callout>
-            ))}
-            <div className="flex flex-col gap-600">
-              {[
-                { name: result.name, colors: accent, rows: scales.accent, selected: accentSteps, setSelected: setAccentSteps, highlight: true },
-                { name: t('scaleNeutral'), colors: neutral, rows: scales.neutral, selected: neutralSteps, setSelected: setNeutralSteps, highlight: false },
-              ].map((scale) => (
-                <div key={scale.highlight ? 'accent' : 'neutral'} className="flex flex-col gap-400">
-                  <h3 className="type-heading-3 text-neutral-default">{scale.name}</h3>
-                  <ColorScale
-                    name={scale.name}
-                    colors={scale.colors}
-                    caption={
-                      scale.highlight
-                        ? t('captionAccent', { name: scale.name, step: scales.input.anchorStep })
-                        : t('captionNeutral')
-                    }
-                    highlight={scale.highlight ? String(scales.input.anchorStep) : undefined}
-                    highlightLabel={scale.highlight ? t('yourColor') : undefined}
-                    inactive={stale}
-                  />
-                  {scaleTable(scale.name, scale.rows, dark, scale.selected, scale.setSelected)}
-                </div>
+            {/* C30: pulsa todo lo que hay debajo del aviso; el título, el resumen y el aviso no. */}
+            <div className={cx('flex flex-col gap-400', stale && 'pulse-stale')}>
+              {warnings.map((warning, i) => (
+                <Callout key={i} variant={warning.variant}>
+                  <p className="type-body-default">{warning.text}</p>
+                </Callout>
               ))}
-              <ScalePreview
-                scales={[
-                  { name: result.name, colors: accent },
-                  { name: 'neutral', colors: neutral },
-                ]}
-                light="#FFFFFF"
-                dark={dark}
-                lightLabel={t('previewLight')}
-                darkLabel={t('previewDark')}
-                caption={t('previewCaption')}
-                inactive={stale}
-              />
+              <div className="flex flex-col gap-600">
+                {[
+                  { name: result.name, colors: accent, rows: scales.accent, selected: accentSteps, setSelected: setAccentSteps, highlight: true },
+                  { name: t('scaleNeutral'), colors: neutral, rows: scales.neutral, selected: neutralSteps, setSelected: setNeutralSteps, highlight: false },
+                ].map((scale) => (
+                  <div key={scale.highlight ? 'accent' : 'neutral'} className="flex flex-col gap-400">
+                    <h3 className="type-heading-3 text-neutral-default">{scale.name}</h3>
+                    <ColorScale
+                      name={scale.name}
+                      colors={scale.colors}
+                      caption={
+                        scale.highlight
+                          ? t('captionAccent', { name: scale.name, step: scales.input.anchorStep })
+                          : t('captionNeutral')
+                      }
+                      highlight={scale.highlight ? String(scales.input.anchorStep) : undefined}
+                      highlightLabel={scale.highlight ? t('yourColor') : undefined}
+                      inactive={stale}
+                    />
+                    {scaleTable(scale.name, scale.rows, dark, scale.selected, scale.setSelected)}
+                  </div>
+                ))}
+                <ScalePreview
+                  scales={[
+                    { name: result.name, colors: accent },
+                    { name: 'neutral', colors: neutral },
+                  ]}
+                  light="#FFFFFF"
+                  dark={dark}
+                  lightLabel={t('previewLight')}
+                  darkLabel={t('previewDark')}
+                  caption={t('previewCaption')}
+                  inactive={stale}
+                />
+              </div>
             </div>
           </section>
 

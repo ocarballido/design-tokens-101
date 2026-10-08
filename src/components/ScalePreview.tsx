@@ -5,7 +5,8 @@ import { cx } from '@/lib/cx';
 // las muestras son los hex del usuario, no tokens de la web: no cambian con Light y Dark.
 // Los paneles son decorativos (aria-hidden): los valores están en las tablas. Las etiquetas y el pie
 // van sobre el fondo de la página. Dos columnas desde 64rem; apilados por debajo (size de Figma, D58).
-// C27: con `inactive`, los paneles (sin texto) van a opacity/inactive; las etiquetas, no.
+// C27, C30: con `inactive` y prefers-reduced-motion, los paneles (sin texto) van a opacity/inactive;
+// las etiquetas, no. Sin esa preferencia, el resultado entero pulsa (ScaleGenerator).
 
 type ScalePreviewProps = {
   scales: { name: string; colors: readonly string[] }[];
@@ -26,7 +27,7 @@ function Panel({ scales, background, label, inactive }: PanelProps) {
         aria-hidden
         className={cx(
           'flex flex-col gap-100 rounded-container border-(length:--t101-border-width-100) border-neutral-default p-400',
-          inactive && 'opacity-(--t101-opacity-inactive)',
+          inactive && 'motion-reduce:opacity-(--t101-opacity-inactive)',
         )}
         style={{ backgroundColor: background }}
       >

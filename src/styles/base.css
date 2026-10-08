@@ -67,6 +67,73 @@
   }
 }
 
+/* C29: deslizador del tinte de Generar escalas sobre el input type="range" nativo, que conserva el
+ * teclado y el lector de pantalla. Pulgar de 24 × 24 px (2.5.8) con relleno de acento y borde
+ * border/accent/strong (1.4.11); pista de 4 px en border/neutral/strong; anillo de foco en el pulgar.
+ * Cada motor tiene sus pseudoelementos y una regla que no entiende anula las demás de su lista, así
+ * que van por separado. https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-slider-thumb
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-range-thumb */
+@utility range-tint {
+  appearance: none;
+  background: transparent;
+  outline: none;
+
+  &::-webkit-slider-runnable-track {
+    block-size: var(--t101-space-100);
+    border-radius: var(--t101-radius-100);
+    background-color: var(--t101-color-border-neutral-strong);
+  }
+  &::-moz-range-track {
+    block-size: var(--t101-space-100);
+    border-radius: var(--t101-radius-100);
+    background-color: var(--t101-color-border-neutral-strong);
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    box-sizing: border-box;
+    inline-size: var(--t101-space-600);
+    block-size: var(--t101-space-600);
+    /* Centra el pulgar sobre la pista: WebKit lo alinea con el borde superior de la pista. */
+    margin-block-start: calc((var(--t101-space-100) - var(--t101-space-600)) / 2);
+    border: var(--t101-border-width-200) solid var(--t101-color-border-accent-strong);
+    border-radius: var(--t101-radius-1200);
+    background-color: var(--t101-color-background-accent-strong-default);
+  }
+  &::-moz-range-thumb {
+    box-sizing: border-box;
+    inline-size: var(--t101-space-600);
+    block-size: var(--t101-space-600);
+    border: var(--t101-border-width-200) solid var(--t101-color-border-accent-strong);
+    border-radius: var(--t101-radius-1200);
+    background-color: var(--t101-color-background-accent-strong-default);
+  }
+
+  /* El anillo es una sombra sin desenfoque y no un outline: Chrome no pinta el outline del pulgar
+   * (comprobado en Chrome 154). Mismo grosor y color que focus-ring, por fuera del borde. */
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 var(--t101-border-width-200) var(--t101-color-border-focus);
+  }
+  &:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 var(--t101-border-width-200) var(--t101-color-border-focus);
+  }
+}
+
+/* C30: pulso del resultado desactualizado de Generar escalas, de 1 a opacity/inactive y vuelta, en
+ * ciclos de duration/2000 con easing/standard, sin parar. Con prefers-reduced-motion no hay pulso
+ * (V24) y las muestras se atenúan fijas (prop inactive de ColorScale y ScalePreview). */
+@keyframes t101-pulse {
+  50% {
+    opacity: var(--t101-opacity-inactive);
+  }
+}
+
+@utility pulse-stale {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: t101-pulse var(--t101-duration-2000) var(--t101-easing-standard) infinite;
+  }
+}
+
 /* Separación vertical del texto de la lección (Figma: 16 px entre bloques, 24 px antes de cada apartado). */
 @utility flow {
   & > * + * {
