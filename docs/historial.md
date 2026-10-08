@@ -362,6 +362,15 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - **Imagen:** Oscar puso en las portadas de escritorio dos renders (rectángulos con relleno de imagen; Light 848 × 1264 px, Dark 1024 × 1536 px), recortados en el marco cuadrado con `radius/container`, sin borde. La portada Desktop Light se rehízo (nodo nuevo 133:5656). Diseño copió las dos versiones a las portadas móviles (142:1962 y 142:1964, 343 × 343, mismo encuadre escalado).
 - **Exportación:** marcos `home-light` (142:1966) y `home-dark` (142:1968) de 880 × 880 en Logo exports, con PNG 1×. No se pudieron bajar al repositorio desde la sesión de diseño: su red no llega a `www.figma.com` (CONNECT 403 del proxy). Los exporta Oscar o la sesión de desarrollo.
 
+
+**Herramientas: componentes (2026-10-08, D44 a D54)**
+- **Encargo** (sesión de contenido): inventario de las piezas del índice de las herramientas (`investigacion-herramientas.md` §9) y anatomía de los componentes nuevos; plantillas de las dos páginas después.
+- **Inventario** (`componentes-v1.md` §5.1): 23 piezas. Se resuelven con lo que existe `Button`, `Link`, `Callout`, `Table`, `CodeBlock`, `IconButton`, `LessonHeader` y `Sidebar`; `ColorScale` necesita la prop `colors` (D54). Ocho componentes nuevos: `TextField`, `Select`, `Checkbox` y `CheckboxGroup`, `FileUpload` y `FileItem`, `TypeDecision`, `ErrorSummary`, `ChromaChart` y `ScalePreview` (§5.2 a §5.9). Cinco iconos nuevos (D53).
+- **Contraste calculado** con los primitivos de `tokens/dtcg/primitives` y la fórmula de `scales.py` (Light / Dark): borde de campo `border/neutral/strong` 4,70 / 4,20 sobre la página, 4,50 / 3,78 sobre `subtle` y 4,30 / 3,19 sobre `hover`; error `text/danger/default` 6,29 / 10,52 sobre la página y 6,01 / 9,47 sobre `subtle`; casilla marcada, borde `border/accent/strong` 3,33 / 10,92 y marca `text/on-accent` 9,63 (10,92 en hover); `ErrorSummary`, título 5,75 / 8,49 y enlaces 4,65 / 8,82 sobre `background/danger/subtle`, anillo sobre ese fondo 3,05 / 8,82; texto de la zona para soltar 7,38 / 5,82 sobre `accent/subtle`. **Hallazgo:** `border/danger/default` da 1,88:1 sobre blanco en Light, menos que el borde normal, así que no sirve como borde de un campo con error (D47). Las alternativas medidas: `red/600` 4,68 sobre blanco y `red/400` 7,09 sobre `neutral/950`.
+- **Iconos que ya había** en el marco `Icons` (108:1963, 21): sirven `li:x`, `li:check`, `li:chevron-down` y `li:triangle-alert`.
+- **Incongruencia resuelta:** §1 de la investigación llama a la segunda página "Normalizar la exportación de Figma" y §9, "Completar la exportación"; manda §9, que es el índice aprobado.
+- **Oscar aprueba** las diez recomendaciones de §5.11 (D45 a D54).
+
 **Pendiente**
 - ~~Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).~~ **Hecho el 2026-10-06** (captura de Oscar, `docs/capturas/dev-mode-button-primary-2026-10-06.png`): Dev Mode escribe el code syntax tal cual, sin valor de reserva.
 

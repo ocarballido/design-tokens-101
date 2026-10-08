@@ -102,7 +102,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C11 | En el sidebar solo está abierta la sección de la lección actual. | Cerrada | 2026-10-03 |
 | C12 | Los modos del sistema se nombran como en Figma; el concepto general, en español. | Cerrada | 2026-10-04 |
 | C13 | Gráficos con el componente `Flow`, hecho con tokens. | Cerrada | 2026-10-04 |
-| C14 | Componente `ColorScale`, con el hex leído de los tokens. | Cerrada | 2026-10-04 |
+| C14 | Componente `ColorScale`, con el hex leído de los tokens (o de la herramienta con `colors`, D54). | Cerrada | 2026-10-04 |
 | C15 | Sin guiones largos. | Cerrada | 2026-10-04 |
 | C16 | Vídeos externos: enlace, no inserción. | Cerrada | 2026-10-04 |
 | C17 | Grupos del sidebar: Diseñar los tokens, Tokens en código y Referencia. | Cerrada | 2026-10-05 |
@@ -199,6 +199,17 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D41 | Enlace a los issues en `SiteFooter`, junto al aviso de P7; `Link` con `size=caption`. | Cerrada | 2026-10-07 |
 | D42 | Plantilla de la portada con sidebar: texto, botón y hueco para la imagen de Oscar. | Cerrada | 2026-10-07 |
 | D43 | Imagen de la portada: dos renders en mapa de bits (Light y Dark), PNG de 880 px con el radio en CSS (cambia el SVG de P27). | Cerrada | 2026-10-07 |
+| D44 | Anatomía de los componentes de las herramientas aprobada (`componentes-v1.md` §5): `TextField`, `Select`, `Checkbox` y `CheckboxGroup`, `FileUpload` y `FileItem`, `TypeDecision`, `ErrorSummary`, `ChromaChart` y `ScalePreview`; sin tokens nuevos. | Cerrada | 2026-10-08 |
+| D45 | Tinte de los neutros con un `TextField` numérico de 0 a 1, sin deslizador. | Cerrada | 2026-10-08 |
+| D46 | Los pasos que se exportan se eligen en una columna "Exportar" de la tabla de cada escala, con los 11 marcados. | Cerrada | 2026-10-08 |
+| D47 | Un campo con error no cambia de borde: el error lo dicen el texto y el icono en `text/danger/default`; sin token `border/danger/strong`. | Cerrada | 2026-10-08 |
+| D48 | La vista previa de las escalas va sobre blanco y sobre el `neutral/950` generado para el usuario, no sobre los fondos de la web. | Cerrada | 2026-10-08 |
+| D49 | La zona para soltar de `FileUpload` tiene el borde continuo. | Cerrada | 2026-10-08 |
+| D50 | Las páginas de Herramientas usan `LessonHeader` como las lecciones, con sección, título, descripción y fecha de revisión. | Cerrada | 2026-10-08 |
+| D51 | Plantillas de las herramientas: el estado con resultado en Desktop y Mobile, Light y Dark, y un marco Desktop Light con errores por página. | Cerrada | 2026-10-08 |
+| D52 | `ErrorSummary` va encima del botón de descarga. | Cerrada | 2026-10-08 |
+| D53 | Cinco iconos nuevos de Lucide en TokensDS: `li:upload`, `li:folder-open`, `li:download`, `li:link` y `li:circle-alert`. | Cerrada | 2026-10-08 |
+| D54 | `ColorScale` acepta los hex de la herramienta con una prop `colors` (y `name`) en lugar de `palette` (cambia C14). | Cerrada | 2026-10-08 |
 
 ## Desarrollo
 

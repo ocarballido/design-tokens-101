@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de diseño. Herramientas: inventario y anatomía de los componentes nuevos en `componentes-v1.md` §5, con diez preguntas para Oscar (§5.11); sin tokens nuevos con las recomendaciones. Las plantillas en TokensDS, después de su aprobación. Antes, el mismo día (contenido): índice de las herramientas aprobado (`investigacion-herramientas.md` §9).
+Última actualización: 2026-10-08, sesión de diseño. Herramientas: Oscar aprueba la anatomía de los componentes nuevos (`componentes-v1.md` §5) y las diez recomendaciones, D44 a D54, sin tokens nuevos. Siguiente: el diseño de los componentes (D05) y las plantillas de las dos páginas en TokensDS.
 
 ---
 
@@ -38,6 +38,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
+- **D44 a D54 (herramientas):** los textos de la interfaz de las dos páginas, con los provisionales de `componentes-v1.md` §5 (etiquetas, ayudas, errores, títulos del `ErrorSummary` y nombre accesible de las casillas "Exportar el paso {paso} de {paleta}", D46); el tinte se escribe como número de 0 a 1 (D45).
 - **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
@@ -49,7 +50,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** archivo TokensDS al día con el código (D31 a D39) y con lo de la primera versión (D40 a D42: C19, enlace del pie y portada). Detalle en `historial.md` y `docs/entrega-diseno.md` §3.10.
 
 **Pendiente**
-- **Herramientas (T22):** anatomía propuesta el 2026-10-08 en `componentes-v1.md` §5 (`TextField`, `Select`, `Checkbox` y `CheckboxGroup`, `FileUpload` y `FileItem`, `TypeDecision`, `ErrorSummary`, `ChromaChart`, `ScalePreview`; `ColorScale` con `colors`; cinco iconos de Lucide). **Espera a Oscar:** las diez preguntas de §5.11 y el diseño de los componentes (D05). Después: plantillas de las dos páginas en TokensDS (Desktop y Mobile, Light y Dark) y las decisiones D44 en adelante.
+- **Herramientas (T22, D44 a D54):** anatomía aprobada (`componentes-v1.md` §5). Falta: (1) los cinco iconos de Lucide en `Icons` (D53); (2) el diseño de los ocho componentes nuevos (D05) y `ColorScale` con `colors` sin cambios en Figma (D54); (3) las plantillas de las dos páginas en TokensDS según D51, con la sección "Herramientas" en el sidebar (grupo Referencia, sin número, antes de Recursos).
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.

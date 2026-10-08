@@ -488,6 +488,7 @@ ColorScale (figure)
 | Prop | Tipo | Notas |
 |---|---|---|
 | `palette` | `'emerald' \| 'neutral' \| 'red' \| 'amber' \| 'blue'` | Obligatorio. Los pasos son siempre 50, 100… 900, 950 |
+| `colors`, `name` | `string[]` (11 hex) y `string` | En lugar de `palette`, para los hex que calcula la herramienta de escalas (D54, §5.10). Hex en mayúsculas y con 6 cifras |
 | `caption` | `string` | Obligatorio: frase que explica la escala |
 | `highlight` | `string` opcional | Un paso que destacar, p. ej. `"500"` |
 | `highlightLabel` | `string` opcional | Texto que acompaña al paso destacado, p. ej. "Color de marca". Obligatorio si hay `highlight` (1.4.1) |
@@ -913,11 +914,11 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 
 ---
 
-## 5. Componentes de las herramientas (T22): propuesta de la sesión de diseño (2026-10-08), pendiente de Oscar
+## 5. Componentes de las herramientas (T22): aprobado por Oscar el 2026-10-08 (D44 a D54)
 
 Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de color" (`/tools/color-scales`) y "Completar la exportación" (`/tools/normalize-export`), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
 
-**Sin tokens nuevos** con las recomendaciones de §5.11. La única propuesta de token depende de la pregunta 3 de §5.11.
+**Sin tokens nuevos** (D44). Oscar aprobó las diez recomendaciones de §5.11 (D45 a D54).
 
 ### 5.1 Inventario
 
@@ -925,7 +926,7 @@ Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de colo
 |---|---|---|---|
 | Color de marca (hex, RGB o HSL) | Escalas | `TextField` (§5.2), con el hex resultante debajo (texto de la página, §5.10) | Sí |
 | Nombre de la paleta | Escalas | `TextField` | Sí (el mismo) |
-| Tinte de los neutros (0 a 1) | Escalas | `TextField` numérico (pregunta 1 de §5.11) | No, si se elige la recomendación |
+| Tinte de los neutros (0 a 1) | Escalas | `TextField` numérico (D45) | No |
 | Curva de referencia | Escalas | `Select` (§5.3) y dos frases de `Prose` | Sí |
 | Gráfico del croma por paso | Escalas | `ChromaChart` (§5.8) | Sí |
 | Escalas de estado (opcional) | Escalas | `CheckboxGroup` con tres `Checkbox` (§5.4) | Sí |
@@ -933,7 +934,7 @@ Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de colo
 | Tabla de cada escala (paso, oklch, hex, contraste, recorte) | Escalas | `Table` (§3.6), con `Code` para los valores | No |
 | Pasos recortados y avisos de §5.2 | Escalas | Columna "Recorte" de la tabla (texto) y `Callout` `warning` (§3.2) con enlace a la lección | No |
 | Vista previa sobre fondo claro y oscuro | Escalas | `ScalePreview` (§5.9) | Sí |
-| Pasos que se exportan | Escalas | `Checkbox` en una columna de la tabla de cada escala (pregunta 2 de §5.11) | Sí (el mismo) |
+| Pasos que se exportan | Escalas | `Checkbox` en una columna de la tabla de cada escala (D46) | Sí (el mismo) |
 | Descargar el `.tokens.json` | Escalas | `Button` `primary` con icono `li:download` | No (icono nuevo) |
 | Copiar el enlace con los ajustes | Escalas | `Button` `secondary` con `li:link` y el texto "Enlace copiado", como el "Copiado" de `CodeBlock` | No (icono nuevo) |
 | Importar en Figma (tres pasos) | Escalas | Lista numerada de `Prose` y `Callout` `warning` (*Import mode* cambia los valores sin preguntar) | No |
@@ -945,10 +946,10 @@ Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de colo
 | Resumen de errores con enlaces | Las dos | `ErrorSummary` (§5.7) | Sí |
 | `SCOPE_TYPES`, descarga del script y comando | Normalización | `CodeBlock` (§3.4) y `Button` `secondary` con `li:download` | No |
 | Quitar un archivo de la lista | Normalización | `IconButton` (§2.1) con `li:x` | No |
-| Cabecera de la página | Las dos | `LessonHeader` (§4.1), sección "Herramientas" (pregunta 6) | No |
+| Cabecera de la página | Las dos | `LessonHeader` (§4.1), sección "Herramientas" (D50) | No |
 | Sección en el sidebar | Las dos | `SidebarSection` sin número (`showNumber = false`) y dos `SidebarItem`, en el grupo "Referencia", antes de Recursos | No |
 
-**Iconos nuevos de Lucide** (D08), como componentes locales en el marco `Icons` (D37): `li:upload`, `li:folder-open`, `li:download`, `li:link` y `li:circle-alert`. Los demás ya están (`li:x`, `li:check`, `li:chevron-down`, `li:triangle-alert`).
+**Iconos nuevos de Lucide** (D08, D53), como componentes locales en el marco `Icons` (D37): `li:upload`, `li:folder-open`, `li:download`, `li:link` y `li:circle-alert`. Los demás ya están (`li:x`, `li:check`, `li:chevron-down`, `li:triangle-alert`).
 
 **Controles nativos.** `TextField`, `Select` y `Checkbox` son los elementos de HTML (`input`, `select`, `input type="checkbox"`) con estilo. El navegador da el teclado, el lector de pantalla y la lista abierta del `select`, que no se diseña (la dibuja el sistema).
 
@@ -956,7 +957,7 @@ Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de colo
 
 ### 5.2 `TextField`
 
-**Para qué sirve.** Un campo de texto con su etiqueta. En Escalas: color de marca, nombre de la paleta y, si se aprueba la pregunta 1, el tinte de los neutros.
+**Para qué sirve.** Un campo de texto con su etiqueta. En Escalas: color de marca, nombre de la paleta y tinte de los neutros (D45).
 
 **Esquema.**
 
@@ -996,7 +997,7 @@ TextField (div)
 | Error (icono y texto) | `text/danger/default`, `body/small` | ← |
 | Separación | `space/100` entre etiqueta, ayuda y campo; `space/100` hasta el error | ← |
 
-Con `invalid = true`, el borde no cambia (pregunta 3): el error se identifica por el texto y el icono.
+Con `invalid = true`, el borde no cambia (D47): el error se identifica por el texto y el icono. `border/danger/default` no sirve para un campo: en Light da 1,88:1.
 
 **Accesibilidad.**
 - Etiqueta siempre visible (3.3.2); sin `placeholder` como etiqueta.
@@ -1149,7 +1150,7 @@ FileUpload (div, role="group", aria-labelledby → etiqueta)
 | Parte | `dragOver = false` | `dragOver = true` |
 |---|---|---|
 | Fondo | `background/neutral/subtle` | `background/accent/subtle` |
-| Borde | `border/neutral/default`, `border-width/100`, continuo (pregunta 5) | `border/accent/strong`, `border-width/200` |
+| Borde | `border/neutral/default`, `border-width/100`, continuo (D49) | `border/accent/strong`, `border-width/200` |
 | Icono y texto | `text/neutral/subtle`, `body/small` | ← |
 | Radio | `radius/container` | ← |
 | Relleno | `space/600` | ← |
@@ -1252,7 +1253,7 @@ ErrorSummary (div, tabindex="-1", aria-labelledby → título)
 
 Usa por primera vez los tokens de `danger` (S31: se mantenían sin uso).
 
-**Disposición.** Encima del botón de descarga, donde está el usuario al pulsarlo (pregunta 8). Desaparece cuando no queda ningún error y se vuelve a pulsar.
+**Disposición.** Encima del botón de descarga, donde está el usuario al pulsarlo (D52). Desaparece cuando no queda ningún error y se vuelve a pulsar.
 
 **Accesibilidad.**
 - Al pulsar la descarga con errores, aparece y recibe el foco (`tabindex="-1"`), así que el lector lee el título y la lista. Sin `role="alert"`: el foco ya lo anuncia.
@@ -1317,7 +1318,7 @@ ScalePreview (figure)
 
 **Props.** `scales` (`{ name, colors: string[] }[]`), `light` y `dark` (hex de los dos fondos), `caption`.
 
-**Datos.** El fondo de cada panel y las muestras son colores de la escala del usuario, no tokens de la web, como las muestras de `ColorScale`. Con la recomendación de la pregunta 4: fondo claro `#FFFFFF` y fondo oscuro el `neutral/950` generado (los fondos de página de DesignToken101, D23, con los valores del usuario). Los paneles no cambian con Light y Dark.
+**Datos.** El fondo de cada panel y las muestras son colores de la escala del usuario, no tokens de la web, como las muestras de `ColorScale`. Fondo claro (D48) `#FFFFFF` y fondo oscuro el `neutral/950` generado (los fondos de página de DesignToken101, D23, con los valores del usuario). Los paneles no cambian con Light y Dark.
 
 **Tokens.**
 
@@ -1333,12 +1334,12 @@ ScalePreview (figure)
 
 ### 5.10 Cambios en componentes que ya existen y plantillas
 
-- **`ColorScale` (C14):** prop nueva `colors` (11 hex) con `name`, en lugar de `palette`, para los hex que calcula la herramienta (`investigacion-herramientas.md` §5.6). En las lecciones no cambia nada. En Figma no cambia: el hex ya es un texto. `highlight` marca el paso de la marca ("Tu color").
-- **`Table`:** sin cambios. En Escalas, columnas Exportar (`Checkbox` sin etiqueta visible: "Exportar el paso 500 de emerald"), Paso, oklch, Hex, Contraste con blanco, Contraste con `neutral/950` y Recorte ("−45 %", en texto; vacío si no recorta).
+- **`ColorScale` (C14, D54):** prop nueva `colors` (11 hex) con `name`, en lugar de `palette`, para los hex que calcula la herramienta (`investigacion-herramientas.md` §5.6). En las lecciones no cambia nada. En Figma no cambia: el hex ya es un texto. `highlight` marca el paso de la marca ("Tu color").
+- **`Table`:** sin cambios. En Escalas, columnas Exportar (D46; `Checkbox` sin etiqueta visible: "Exportar el paso 500 de emerald"), Paso, oklch, Hex, Contraste con blanco, Contraste con `neutral/950` y Recorte ("−45 %", en texto; vacío si no recorta).
 - **Hex resultante** (Escalas): debajo del campo del color, una línea `output` con una muestra decorativa de 24 px (`space/600`, `radius/100`, borde `border/neutral/default`) y "Se usa el hex #33CC99" (`body/small`, `text/neutral/subtle`, el hex en `Code`). No es un componente.
 - **`Sidebar`:** sección "Herramientas" sin número, en el grupo "Referencia", antes de Recursos, con "Escalas de color" y "Completar la exportación".
 
-**Plantillas de Escalas de color** (Desktop y Mobile, Light y Dark), con los valores de DesignToken101 (`#33CC99`, `emerald`, tinte 0,5, `green`, las tres escalas de estado):
+**Plantillas de Escalas de color** (D51: Desktop y Mobile, Light y Dark, más un marco Desktop Light con errores), con los valores de DesignToken101 (`#33CC99`, `emerald`, tinte 0,5, `green`, las tres escalas de estado):
 
 ```txt
 LessonHeader (sección "Herramientas", "Escalas de color")
@@ -1346,7 +1347,7 @@ Prose: introducción con enlace a "Escalas de color"
 ## Entrada
    TextField "Color de marca" (code) · hex resultante
    TextField "Nombre de la paleta"
-   TextField "Tinte de los neutros" (pregunta 1)
+   TextField "Tinte de los neutros" (D45)
    Select "Curva de referencia" · dos frases · ChromaChart
    CheckboxGroup "Escalas de estado"
 ## Resultado
@@ -1360,7 +1361,7 @@ Prose: introducción con enlace a "Escalas de color"
    Lista numerada (3 pasos) · Callout warning
 ```
 
-**Plantillas de Completar la exportación**, con los cuatro .zip de DesignToken101 cargados (sin decisiones pendientes):
+**Plantillas de Completar la exportación** (D51), con los cuatro .zip de DesignToken101 cargados (sin decisiones pendientes); el marco con errores lleva dos `TypeDecision` y el `ErrorSummary`:
 
 ```txt
 LessonHeader (sección "Herramientas", "Completar la exportación")
@@ -1380,7 +1381,7 @@ Prose: introducción con enlace a "Completar la exportación"
    Enlace a "Las variables CSS"
 ```
 
-### 5.11 Preguntas para Oscar
+### 5.11 Preguntas para Oscar: aprobadas las diez recomendaciones el 2026-10-08 (D45 a D54)
 
 1. **Tinte de los neutros.** (a) `TextField` numérico (`inputMode="decimal"`, de 0 a 1, ayuda "0 es gris puro; DesignToken101 usa 0,5"); (b) un deslizador con el mismo campo al lado (componente nuevo; el campo es la alternativa a arrastrar, 2.5.7). *Recomendación: a*: no hace falta otro componente (P11), no hay nada que arrastrar y el valor es el mismo `TINT` del script.
 2. **Pasos que se exportan.** (a) una columna "Exportar" en la tabla de cada escala, con los 11 marcados; (b) un solo grupo de 11 casillas para todas las escalas. *Recomendación: a*: el acento y los neutros suelen necesitar pasos distintos, y la casilla queda en la fila del paso que describe.
@@ -1445,3 +1446,5 @@ Prose: introducción con enlace a "Completar la exportación"
 | D41, P25 | Enlace a los issues en `SiteFooter`; `Link` con `size=caption` (§2.3, §4.8, §4.10). |
 | D42, P27 | Plantilla de la portada (§4.9). |
 | D43 | Imagen de la portada en mapa de bits, una por tema (§4.9). |
+| D44 | Componentes de las herramientas, sin tokens nuevos (§5). |
+| D45 a D54 | Tinte con `TextField` numérico, columna "Exportar", campo con error sin cambio de borde, fondos de `ScalePreview`, borde continuo de la zona, `LessonHeader`, estados de las plantillas, sitio de `ErrorSummary`, iconos nuevos y `ColorScale` con `colors` (§5.11). |
