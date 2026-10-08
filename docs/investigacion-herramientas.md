@@ -423,7 +423,38 @@ Fuera de estas herramientas, como pidió Oscar: la conversión a CSS con Terrazz
 
 ---
 
-## 9. Fuentes
+## 9. Índice de las herramientas
+
+Propuesta del 2026-10-08, **pendiente de aprobación de Oscar**. Criterio de Oscar: son herramientas, no lecciones; texto mínimo y directo a la tarea. Por eso las páginas no llevan la estructura de lección (T3): ni "En esta página", ni "Lo que te llevas", ni Fuentes propias. El método y sus fuentes están en las lecciones que cada página enlaza.
+
+Sección `content/es/98-tools/` ("Herramientas", `meta.json`), en el grupo "Referencia" de `content/es/meta.json`, antes de `99-resources`; sin número (V40).
+
+### `01-color-scales.mdx`: Escalas de color (`/tools/color-scales`)
+
+1. **Introducción** (dos frases): genera las escalas de color de tu sistema con el método del curso y te da el archivo para importarlas en Figma. Enlace a [Escalas de color](/primitives/color-scales).
+2. **La herramienta** (componente interactivo):
+   - **Entrada:** color de marca (hex, RGB o HSL; se calcula desde el hex), nombre de la paleta, tinte de los neutros, curva de referencia (`green` por defecto, con dos frases sobre qué es y el gráfico del croma por paso) y, opcional, escalas de estado.
+   - **Resultado:** las escalas con `ColorScale` y su tabla (paso, oklch, hex, contraste con blanco y con `neutral/950`), los pasos recortados marcados y los avisos de §5.2. Vista previa sobre fondo claro y oscuro.
+   - **Exportar:** elegir los pasos que se van a usar (los 11 marcados por defecto; los nombres no cambian), descargar el archivo `.tokens.json` y copiar el enlace con los ajustes.
+3. **Importar en Figma** (tres pasos): arrastrar el archivo a una colección nueva o usar *Import mode*; quitar los scopes de los primitivos, que la importación pone en `ALL_SCOPES` (§7, prueba 3); revisar que *Import mode* sobre una colección existente cambia los valores sin preguntar (§7, prueba 2).
+
+### `02-normalize-export.mdx`: Completar la exportación (`/tools/normalize-export`)
+
+1. **Introducción** (dos frases): convierte lo que exporta Figma en DTCG estricto, en tu navegador, sin subir nada a ningún servidor. Enlace a [Completar la exportación](/figma-to-code/normalize-the-export).
+2. **La herramienta** (componente interactivo):
+   - **Subir:** botón para elegir los .zip de *Export modes* o una carpeta con una subcarpeta por colección; zona para soltar como atajo; lista de archivos con su colección.
+   - **Decisiones:** las combinaciones de tipo y scope sin correspondencia clara (§6.3), una por grupo, sin opción por defecto. Solo aparece si hace falta.
+   - **Avisos:** referencias sin destino entre los archivos subidos.
+   - **Resultado:** el resumen (archivos, alias, tipos) y la descarga en .zip, con un enlace por archivo debajo.
+3. **En tu repositorio** (dos frases y un bloque de código): descargar `figma-to-dtcg.mjs` con tus decisiones ya escritas en el mapa y ejecutarlo con Node.js. La conversión a CSS no es parte de la herramienta: enlace a [Las variables CSS](/figma-to-code/css-variables).
+
+### Enlaces desde las lecciones
+
+Cuando las páginas estén publicadas, no antes: los cinco de §1 (`color-space`, `color-scales`, `exercise-scales`, `normalize-the-export`, `exercise-figma-to-code`).
+
+---
+
+## 10. Fuentes
 
 - [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables) (importación y exportación DTCG)
 - [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)

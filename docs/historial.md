@@ -24,6 +24,9 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: índice de las herramientas**
+- Oscar aprueba las recomendaciones de la comparación con Scale (ajustes en la URL, vista previa en claro y oscuro, exportar solo los pasos elegidos; siempre 11), añadidas a T22. Índice de las dos páginas en `investigacion-herramientas.md` §9, corto por petición de Oscar: sin la estructura de lección (T3).
+
 **2026-10-08, sesión de contenido: comparación con Scale (hihayk.github.io/scale)**
 - A petición de Oscar. Algoritmo leído en `hihayk/scale` (commit `69b766b`, 2020-06-04) y ejecutado con `color` 3.0.0, `color-convert` 1.9.2 y `color-string` 1.5.2 (sacados de GitHub; npm sin acceso). Con `#F1A035` y los ajustes del enlace de Oscar: saltos de L entre 0,027 y 0,156, tono de 68 a 95, paso más claro con L 0,93. Detalle y recomendación en `investigacion-herramientas.md` §5.5.
 

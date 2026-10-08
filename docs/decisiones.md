@@ -83,7 +83,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | T19 | Investigación del módulo 10 sobre IA (salvo V40, que se mantiene). | Sustituida por P23 | 2026-10-07 |
 | T20 | Módulo 10, Conclusiones: resumen del curso por fases y conclusiones con las ideas que lo recorren y cómo mantener el sistema; sin ejercicio. | Cerrada | 2026-10-07 |
 | T21 | Herramienta de normalización en "Herramientas": la exportación de Figma a DTCG estricto en el navegador y el mismo script descargable con un mapa de scopes al principio; una función pura para las dos vías; sin paquete de npm ni Terrazzo. | Cerrada | 2026-10-07 |
-| T22 | Herramientas: sección `98-tools` sin número en Referencia; normalización con .zip o carpeta, descarga en .zip propio, tipos dudosos y conflictos los decide el usuario, un solo script con mapa, todos los errores a la vez y referencias sin destino; escalas desde el hex, con curva de referencia elegible (`green` por defecto, explicada con un gráfico) y tres avisos; pruebas con `node:test`. | Cerrada | 2026-10-08 |
+| T22 | Herramientas: sección `98-tools` sin número en Referencia; normalización con .zip o carpeta, descarga en .zip propio, tipos dudosos y conflictos los decide el usuario, un solo script con mapa, todos los errores a la vez y referencias sin destino; escalas desde el hex, con curva de referencia elegible (`green` por defecto, explicada con un gráfico) tres avisos, ajustes en la URL, vista previa en claro y oscuro y exportación de los pasos elegidos (siempre 11); pruebas con `node:test`. | Cerrada | 2026-10-08 |
 
 ## Contenido y técnica
 
