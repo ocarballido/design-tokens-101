@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-07, sesión de contenido. Web publicada en `designtokens101.com`; `www` redirige al dominio sin `www` (opción a de desarrollo). Quedan la vista previa en LinkedIn, Search Console y la prueba manual.
+Última actualización: 2026-10-08, sesión de contenido. Investigación de las herramientas de escalas y de normalización (T8, T21) en `docs/investigacion-herramientas.md`, pendiente de Oscar (A15). Hallazgo: la exportación de Figma escribe `FONT_STYLE` y `STROKE` donde la API dice `FONT_WEIGHT` y `STROKE_COLOR`.
 
 ---
 
@@ -25,7 +25,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 1. **Oscar:** vista previa en el Post Inspector de LinkedIn; alta del dominio en Google Search Console (propiedad de tipo Dominio) y envío de `sitemap.xml`; prueba manual en Safari, Firefox y con VoiceOver.
 2. **Opcional (Oscar):** reexportar `home-light` y `home-dark` a 880 × 880 (D43, V48; desarrollo cambia las medidas); comprobar si `designtoken101.com` está libre y redirigirlo; prueba con Starter (si se hace, contenido lo añade a "Archivos de Figma").
 
-Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la página de errores frecuentes (T1; ninguna lección los promete), la herramienta de escalas (T8) y la versión en inglés (P24).
+Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la página de errores frecuentes (T1; ninguna lección los promete), las herramientas de escalas y de normalización (T8, T21) y la versión en inglés (P24).
 
 ## Contenido
 
@@ -33,11 +33,12 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
-- **Herramienta de escalas de color (T8)**, al final: requisitos en `historial.md` → Contenido → Pendiente.
-- **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; cómo exporta Figma un alias dentro de una misma colección; si un estilo de texto creado desde un texto con variables las conserva.
+- **Herramientas (T8, T21):** investigación hecha (`docs/investigacion-herramientas.md`); esperan las 14 decisiones de Oscar (A15, §8). Antes del índice y del diseño, las dos pruebas en la interfaz de Figma de §7 (importación y exportación DTCG, unos diez minutos de Oscar). No se pasa al índice ni al diseño sin su aprobación.
+- **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; cómo exporta Figma un alias dentro de una misma colección; si un estilo de texto creado desde un texto con variables las conserva; cómo escribe la exportación los 12 scopes que DesignToken101 no usa y los Boolean; qué `$extensions` lee la importación DTCG (las dos, en `investigacion-herramientas.md` §7).
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
+- **Hallazgo del 2026-10-08 (A15, decisión 11):** `normalize-the-export` dice que la exportación "no usa" `FONT_WEIGHT`; en Figma, los pesos tienen `FONT_WEIGHT` y la exportación lo escribe `FONT_STYLE` (y `STROKE_COLOR` como `STROKE`). También `docs/paso-7-tokens.md` §1.2. Se corrige cuando Oscar lo apruebe.
 - **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
