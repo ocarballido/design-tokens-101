@@ -1,0 +1,23 @@
+---
+title: Generar escalas
+meta_title: "Generar escalas de color para Figma"
+description: "Escribe un color y obtén su escala de once pasos y la de neutros con su tono, con el método del curso, el contraste de cada paso y el archivo para importarlas en Figma."
+nav_title: Generar escalas
+lastReviewed: 2026-10-08
+---
+
+Escribe tu color y obtén dos escalas de once pasos: la de tu color y la de neutros con su tono. Se calculan con el método de [Escalas de color](/primitives/color-scales#el-método), en oklch y guardadas en sRGB, y puedes descargarlas para importarlas en Figma.
+
+<ScaleGenerator />
+
+## Importar en Figma
+
+1. En el panel de variables, crea una colección y arrastra a ella el archivo `Value.tokens.json`. Figma crea una variable por paso y un modo con el nombre del archivo, `Value`. Si esas variables ya existen en tu colección, haz clic derecho en su modo y elige *Import mode*: Figma actualiza las variables con el mismo nombre y tipo ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
+2. Quita el scope de las variables nuevas. La importación les pone todos los scopes, aunque el archivo no lleve ninguno (lo comprobamos en octubre de 2026). Ya vienen ocultas al publicar.
+3. Añade a cada variable su code syntax Web, como en [Escalas de color](/primitives/color-scales#en-figma).
+
+<Callout variant="warning">
+
+*Import mode* sobre un modo que ya tiene variables con los mismos nombres cambia sus valores sin preguntar (lo comprobamos en octubre de 2026). Si tus tokens semánticos ya apuntan a esa escala, cambiarán con ella.
+
+</Callout>
