@@ -447,6 +447,12 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**C28 en código (2026-10-08)**
+- **Nombre:** `appliedName` pasa a `editedName`, el último nombre válido escrito por el usuario (`null` si no ha escrito ninguno, o el de la URL). El resultado usa `editedName` o, si es `null`, el propuesto para el color **generado** (`suggest(generated.color)`), no el del campo: la propuesta se ve en el campo al momento y llega al resultado al generar.
+- **Descarga:** con el nombre del campo no válido, `ErrorSummary` con `errorName`, que enlaza a `#scale-name`; va antes de `errorStale` y `errorSteps`, en el orden de la página. El resultado y el archivo conservan el último nombre válido.
+- **Enlace copiado:** los ajustes generados con `editedName` si lo hay.
+- **Comprobaciones:** `npm run build`, `check:content` y `npm test` (17 de 17) sin errores. En Chrome con Playwright (`next start`), sin errores en la consola: `#FF0000` sin generar → campo `red`, título `emerald`; al generar, título `red`; `mi-marca` → título al momento; `Mi Marca` → título sigue `mi-marca`; descarga → `ErrorSummary` con "Escribe un nombre de paleta válido" y su enlace lleva el foco al campo; corregido, el archivo lleva `mi-marca` y `neutral`; enlace `?color=FF0000&tint=0.5&name=mi-marca`.
+
 **C27 en código (2026-10-08)**
 - **Token:** `opacity/inactive` (0,4) ya estaba en `tokens/code-only.tokens.json`; `npm run tokens` fallaba porque `terrazzo.config.mjs` no tenía regla para `opacity.*`. Tailwind CSS 4.3 usa `--opacity` como clave del tema por dentro (`themeKeys: ["--opacity"]` en `dist/lib.js`), pero la [documentación de opacity](https://tailwindcss.com/docs/opacity) no lo presenta como espacio de nombres: se sigue el patrón de `duration` (V24), sin variable en `theme.css`, y los componentes usan `opacity-(--t101-opacity-inactive)`. `tokens.css` lleva `--t101-opacity-inactive: 0.4`.
 - **`ColorScale` y `ScalePreview`:** prop `inactive`; atenúa la muestra de cada paso y los dos paneles (sin texto), no las etiquetas, el hex ni los pies.

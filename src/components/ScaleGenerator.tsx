@@ -53,9 +53,11 @@ import { download } from '@/lib/download';
 // - Resultado desactualizado (C27): si el color, el tinte o la curva no son los generados, las
 //   muestras van a opacity/inactive (nunca el texto), el aviso sale en un role="status" debajo de
 //   "Resultado" y la descarga se bloquea; si vuelven a coincidir, deja de estarlo. El nombre no lo
-//   marca: se aplica al momento (el último válido).
-// - La descarga está siempre activa (D14) y comprueba que el resultado esté al día y que haya pasos
-//   marcados: si no, aparece su ErrorSummary encima (D52) y recibe el foco.
+//   marca (C28): el escrito por el usuario se aplica al momento (el último válido); el propuesto se
+//   ve en el campo al momento, pero el resultado lo toma al generar, porque depende del color.
+// - La descarga está siempre activa (D14) y comprueba que el nombre sea válido (C28), que el
+//   resultado esté al día y que haya pasos marcados: si no, aparece su ErrorSummary encima (D52) y
+//   recibe el foco.
 // - Los ajustes se leen de la URL al cargar (?color=33CC99&tint=0.5, más name y curve si el usuario
 //   los eligió) y el botón secundario copia el enlace de los ajustes generados.
 
@@ -79,8 +81,8 @@ export function ScaleGenerator() {
   // Último color válido del campo: de él salen las propuestas mientras el campo no es válido.
   const [lastColor, setLastColor] = useState(DEFAULTS.color);
   const [nameEdited, setNameEdited] = useState(false);
-  // Último nombre válido: el del resultado, que se aplica al momento (C27).
-  const [appliedName, setAppliedName] = useState(() => suggest(DEFAULTS.color).name);
+  // Último nombre válido escrito por el usuario: se aplica al resultado al momento (C27, C28).
+  const [editedName, setEditedName] = useState<string | null>(null);
   const [curveChoice, setCurveChoice] = useState<string | null>(DEFAULTS.curve);
   const [tint, setTint] = useState(DEFAULTS.tint);
   const [generated, setGenerated] = useState<ScaleState | null>(DEFAULTS);
@@ -104,7 +106,7 @@ export function ScaleGenerator() {
     setText({ color: state.color, name: state.name ?? '' });
     setLastColor(state.color);
     setNameEdited(state.name !== null);
-    setAppliedName(state.name ?? suggest(state.color).name);
+    setEditedName(state.name);
     setCurveChoice(state.curve);
     setTint(state.tint);
     setGenerated(state);
@@ -150,17 +152,15 @@ export function ScaleGenerator() {
   // La gráfica sigue al selector y al campo de color al momento (C24).
   const chartInput = useMemo(() => build(parsed.color ?? lastColor, tint, curve).input, [parsed.color, lastColor, tint, curve]);
 
-  useEffect(() => {
-    if (parsed.name !== null) setAppliedName(parsed.name);
-  }, [parsed.name]);
-
-  // Resultado: lo generado al montar o con el botón, con el nombre de ahora (C27).
+  // Resultado: lo generado al montar o con el botón. El nombre: el último válido escrito por el
+  // usuario o, si no ha escrito ninguno, el propuesto para el color generado (C28).
   const generatedResult = useMemo(() => {
     if (!generated) return null;
-    const resolved = { ...generated, curve: generated.curve ?? suggest(generated.color).curve };
+    const own = suggest(generated.color);
+    const resolved = { ...generated, name: generated.name ?? own.name, curve: generated.curve ?? own.curve };
     return { ...resolved, scales: build(resolved.color, resolved.tint, resolved.curve) };
   }, [generated]);
-  const result = generatedResult ? { ...generatedResult, name: appliedName } : null;
+  const result = generatedResult ? { ...generatedResult, name: editedName ?? generatedResult.name } : null;
   const stale = result !== null && (parsed.color !== result.color || tint !== result.tint || curve !== result.curve);
 
   const inputErrors = [
@@ -185,6 +185,7 @@ export function ScaleGenerator() {
   function changeName(value: string) {
     setText((current) => ({ ...current, name: value }));
     setNameEdited(true);
+    if (isPaletteName(value)) setEditedName(value);
   }
 
   function onGenerate() {
@@ -200,9 +201,10 @@ export function ScaleGenerator() {
   }
 
   const downloadErrors = [
+    parsed.name === null ? { message: t('errorName'), href: '#scale-name' } : null,
     stale ? { message: t('errorStale'), href: '#scale-generate' } : null,
-    accentSteps.length + neutralSteps.length === 0
-      ? { message: t('errorSteps'), href: `#${exportId(appliedName, STEPS[0])}` }
+    accentSteps.length + neutralSteps.length === 0 && result
+      ? { message: t('errorSteps'), href: `#${exportId(result.name, STEPS[0])}` }
       : null,
   ].filter((error) => error !== null);
 
@@ -226,8 +228,8 @@ export function ScaleGenerator() {
   async function copyLink() {
     if (!generated) return;
     const { origin, pathname } = window.location;
-    // Los ajustes generados; el nombre, el aplicado (se aplica al momento, C27).
-    const settings = { ...generated, name: nameEdited ? appliedName : null };
+    // Los ajustes generados; el nombre escrito por el usuario, el aplicado (C27, C28).
+    const settings = { ...generated, name: editedName ?? generated.name };
     await navigator.clipboard.writeText(`${origin}${pathname}${searchFromState(settings)}`);
     setCopied(true);
   }
