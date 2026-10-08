@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de diseño. D62: el paso destacado de `ColorScale` va en una caja (cambio de Oscar en Figma); `componentes-v1.md` §3.8 y `entrega-diseno.md` §3.5 al día; falta el código. Antes, el mismo día: T23 en Figma (D61, diseño); T23 (contenido); componentes y plantillas de las herramientas (D44 a D60, diseño).
+Última actualización: 2026-10-08, sesión de diseño. D63: `ColorScale` con el mismo relleno en todos los pasos (el destacado queda alineado) y la etiqueta del destacado partida tras cada "/"; Figma y documentos al día, falta el código. Antes, el mismo día: D62 en código (desarrollo); D62, paso destacado en una caja (diseño); T23 en Figma (D61); T23 (contenido); componentes y plantillas de las herramientas (D44 a D60).
 
 ---
 
@@ -54,6 +54,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
   - **Sin decidir:** nombre de las carpetas dentro de `dtcg.zip` y de los enlaces por archivo (las plantillas usan el del .zip, `Primitives/Value.tokens.json`; el repositorio, `primitives/`).
   - **Para contenido:** las dos páginas se llaman como las lecciones que enlazan ("Escalas de color" en Primitivos y "Completar la exportación" en De Figma al código), así que el sidebar muestra dos entradas iguales en secciones distintas; decidir si las herramientas llevan otro `nav_title`.
+- **Para desarrollo (D63):** en `src/components/ColorScale.tsx`, todos los `li` llevan `rounded-control border-(length:--t101-border-width-100) border-transparent p-200`, y el destacado cambia el borde y el fondo (`border-neutral-default bg-neutral-strong`); la etiqueta del destacado, con un `<wbr />` después de cada "/". Comprobar en `color-scales`, `semantic-color` y `light-and-dark`: muestras de una fila a la misma altura y con el mismo ancho, y la etiqueta de `semantic-color` partida solo tras una barra.
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.

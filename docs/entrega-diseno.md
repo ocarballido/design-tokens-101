@@ -230,7 +230,7 @@ Figma refleja lo implementado y comprobado en código. Anatomía en `componentes
 | Parte | Tokens |
 |---|---|
 | `ColorScale` | gap `space/300` entre la rejilla y el pie; rejilla de 11 columnas (`large`) o 4 (`small`), huecos `space/200` (columnas) y `space/400` (filas) |
-| Paso | gap `space/100`; muestra de alto `space/1200`, `radius/control`, relleno del primitivo `color/{paleta}/{paso}`, borde `border/neutral/default` de `border-width/100`. Destacado (D62, 2026-10-08): el paso va en una caja con relleno `background/neutral/strong`, borde `border/neutral/default` de `border-width/100`, `radius/control` y relleno `space/200`; la muestra, sin borde |
+| Paso | gap `space/100`; muestra de alto `space/1200`, `radius/control`, relleno del primitivo `color/{paleta}/{paso}`, borde `border/neutral/default` de `border-width/100`. Todos los pasos con relleno `space/200` (D63). Destacado (D62, 2026-10-08): el paso va en una caja con relleno `background/neutral/strong`, borde `border/neutral/default` de `border-width/100` (fuera del auto layout, para no desplazar el contenido) y `radius/control`; la muestra, sin borde. En código, todos los pasos llevan un borde transparente de `border-width/100`, que cumple ese papel |
 | Texto | número `label/default` en `text/neutral/default`; hex `caption/default` en `text/neutral/subtle`; etiqueta del destacado `caption/default` en `text/neutral/default`; pie `caption/default` en `text/neutral/subtle` |
 
 **Auditoría (2026-10-05)**

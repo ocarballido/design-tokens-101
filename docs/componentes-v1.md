@@ -505,8 +505,9 @@ ColorScale (figure)
 | Muestra: alto | Un paso de `space/*` (p. ej. `space/1200`); ancho flexible |
 | Número del paso | `text/neutral/default`, `label/default` |
 | Hex | `text/neutral/subtle`, `code/default` o `caption/default` |
-| Etiqueta del paso destacado | `text/neutral/default`, `caption/default` |
-| Paso destacado: caja (D62) | El paso entero (muestra y texto) va en una caja: relleno `background/neutral/strong`, borde `border/neutral/default` de `border-width/100`, `radius/control` y relleno `space/200`; ocupa el ancho de su columna |
+| Etiqueta del paso destacado | `text/neutral/default`, `caption/default`. Puede partirse después de cada "/" (`<wbr>`, D63), para que un nombre de token no se corte por la mitad de una palabra |
+| Paso | Todos los pasos llevan relleno `space/200` y un borde transparente de `border-width/100` (D63), para que el destacado no se desplace: las muestras de una fila quedan a la misma altura y con el mismo ancho |
+| Paso destacado: caja (D62) | El paso entero (muestra y texto) va en una caja: relleno `background/neutral/strong`, borde `border/neutral/default` de `border-width/100` y `radius/control`; ocupa el ancho de su columna |
 | Pie | `text/neutral/subtle`, `caption/default` |
 | Separación | `space/*` |
 
