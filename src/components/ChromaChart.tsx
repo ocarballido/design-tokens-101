@@ -6,6 +6,8 @@ import { cx } from '@/lib/cx';
 // - El largo de cada barra es un dato (C ÷ max), no un estilo, como el relleno de las muestras de
 //   ColorScale: no sale de un token. `max` es fijo (el mayor C de las 17 curvas), para que al
 //   cambiar de curva las barras se puedan comparar.
+// - La barra destacada se rellena con el hex del usuario (C21), también un dato; su borde inferior
+//   border/neutral/strong (4,70 / 4,20) la separa de la página aunque ese color no contraste.
 // - La barra es decorativa (aria-hidden): cada li se lee "500, croma 0,137" (y "Tu color"). El paso
 //   destacado se distingue también por el texto (1.4.1).
 
@@ -17,9 +19,11 @@ type ChromaChartProps = {
   max: number;
   highlight?: number;
   highlightLabel?: string;
+  /** Hex del usuario para el relleno de la barra destacada (C21). */
+  highlightColor?: string;
 };
 
-export function ChromaChart({ curve, steps, chroma, max, highlight, highlightLabel }: ChromaChartProps) {
+export function ChromaChart({ curve, steps, chroma, max, highlight, highlightLabel, highlightColor }: ChromaChartProps) {
   const t = useTranslations('ToolScales');
   const format = useFormatter();
   const value = (c: number) => format.number(c, { minimumFractionDigits: 3, maximumFractionDigits: 3 });
@@ -42,9 +46,9 @@ export function ChromaChart({ curve, steps, chroma, max, highlight, highlightLab
                 <span
                   className={cx(
                     'h-full border-b-(length:--t101-border-width-100)',
-                    highlighted ? 'border-accent-strong bg-accent-strong-default' : 'border-neutral-default bg-neutral-strong',
+                    highlighted ? 'border-neutral-strong' : 'border-neutral-default bg-neutral-strong',
                   )}
-                  style={{ width: `${(chroma[i] / max) * 100}%` }}
+                  style={{ width: `${(chroma[i] / max) * 100}%`, backgroundColor: highlighted ? highlightColor : undefined }}
                 />
               </span>
               <span aria-hidden className="flex w-2400 shrink-0 flex-wrap gap-x-200 type-caption-default">

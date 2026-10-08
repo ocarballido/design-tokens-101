@@ -38,8 +38,10 @@ import { download } from '@/lib/download';
 // El cálculo es tools/scales.mjs, la traducción de tools/scales.py que comprueba `npm test`: aquí
 // no se calcula nada. Todo pasa en el navegador.
 // - Con un campo no válido, el resultado es el de la última entrada válida (D59). El error del campo
-//   se ve al pulsar la descarga, no al salir del campo: si apareciera al perder el foco, el contenido
-//   bajaría entre que se pulsa y se suelta el botón, y el clic se perdería.
+//   se ve desde que se sale de él (blur) y mientras siga sin ser válido, y en todos al pulsar la
+//   descarga (C22). Si el campo pierde el foco por un clic, el error aparece al soltar: si apareciera
+//   antes, el contenido bajaría entre el mousedown y el mouseup y el clic se perdería (pasó en la
+//   prueba de la primera versión).
 // - La descarga está siempre activa (D14): si falta algo, aparece el ErrorSummary encima (D52) y
 //   recibe el foco.
 // - Los ajustes se leen de la URL al cargar (?color=33CC99&name=emerald&tint=0.5&curve=green) y el
@@ -65,11 +67,13 @@ export function ScaleGenerator() {
   const [valid, setValid] = useState({ color: DEFAULTS.color, name: DEFAULTS.name, tint: DEFAULTS.tint });
   const [curve, setCurve] = useState(DEFAULTS.curve);
   const [submitted, setSubmitted] = useState(false);
+  const [touched, setTouched] = useState({ color: false, name: false, tint: false });
   const [summary, setSummary] = useState(0);
   const [accentSteps, setAccentSteps] = useState<number[]>(STEPS);
   const [neutralSteps, setNeutralSteps] = useState<number[]>(STEPS);
   const [copied, setCopied] = useState(false);
   const summaryRef = useRef<HTMLDivElement>(null);
+  const pointerDown = useRef(false);
 
   // Ajustes de la URL: la página se genera estática, así que se leen al montar.
   useEffect(() => {
@@ -78,6 +82,20 @@ export function ScaleGenerator() {
     setText({ color: state.color, name: state.name, tint: decimal(state.tint) });
     setValid({ color: state.color, name: state.name, tint: state.tint });
     setCurve(state.curve);
+  }, []);
+
+  // Si hay un botón del puntero pulsado (C22, arriba).
+  useEffect(() => {
+    const down = () => (pointerDown.current = true);
+    const up = () => (pointerDown.current = false);
+    document.addEventListener('pointerdown', down, true);
+    document.addEventListener('pointerup', up, true);
+    document.addEventListener('pointercancel', up, true);
+    return () => {
+      document.removeEventListener('pointerdown', down, true);
+      document.removeEventListener('pointerup', up, true);
+      document.removeEventListener('pointercancel', up, true);
+    };
   }, []);
 
   useEffect(() => {
@@ -104,7 +122,14 @@ export function ScaleGenerator() {
       ? { field: 'steps', message: t('errorSteps'), href: `#${exportId(valid.name, STEPS[0])}` }
       : null,
   ].filter((error) => error !== null);
-  const showError = (field: Field) => submitted && parsed[field] === null;
+  const showError = (field: Field) => (submitted || touched[field]) && parsed[field] === null;
+  function touch(field: Field) {
+    const show = () => setTouched((current) => (current[field] ? current : { ...current, [field]: true }));
+    if (!pointerDown.current) return show();
+    // Después del click, que el navegador lanza justo tras el pointerup.
+    document.addEventListener('pointerup', () => setTimeout(show), { once: true });
+    document.addEventListener('pointercancel', () => setTimeout(show), { once: true });
+  }
 
   function change(field: Field, value: string) {
     setText((current) => ({ ...current, [field]: value }));
@@ -200,6 +225,7 @@ export function ScaleGenerator() {
               spellCheck={false}
               value={text.color}
               onChange={(event) => change('color', event.target.value)}
+              onBlur={() => touch('color')}
               error={showError('color') ? t('colorError') : undefined}
             />
             {/* Hex resultante (§5.10): el color con el que se calcula, el último válido. */}
@@ -220,6 +246,7 @@ export function ScaleGenerator() {
             spellCheck={false}
             value={text.name}
             onChange={(event) => change('name', event.target.value)}
+            onBlur={() => touch('name')}
             error={showError('name') ? t('nameError') : undefined}
           />
           <TextField
@@ -230,6 +257,7 @@ export function ScaleGenerator() {
             autoComplete="off"
             value={text.tint}
             onChange={(event) => change('tint', event.target.value)}
+            onBlur={() => touch('tint')}
             error={showError('tint') ? t('tintError') : undefined}
           />
           <div className="flex flex-col gap-400">
@@ -249,6 +277,7 @@ export function ScaleGenerator() {
               max={MAX_CHROMA}
               highlight={scales.input.anchorStep}
               highlightLabel={t('yourColor')}
+              highlightColor={scales.input.hex}
             />
           </div>
         </div>
