@@ -100,7 +100,7 @@ function convertToken(token, id, ctx) {
     if (!dtcgType || !(TYPE_OPTIONS[type] ?? ['exclude']).includes(dtcgType)) {
       const key = `${type}|${scopeKey(scopes)}`;
       const entry = ctx.unresolved.get(key) ?? { type, key: scopeKey(scopes), scopes, ids: [] };
-      entry.ids.push(id);
+      if (!entry.ids.includes(id)) entry.ids.push(id); // una vez por variable, aunque esté en varios modos
       ctx.unresolved.set(key, entry);
       return undefined;
     }

@@ -98,3 +98,13 @@ test('el script descargable con las decisiones del usuario resuelve lo mismo', a
   const mod = await import(pathToFileURL(tmp).href);
   assert.deepEqual(mod.SCOPE_TYPES, map);
 });
+
+test('una variable en varios modos cuenta una vez en las decisiones', () => {
+  const file = (mode) => ({
+    path: `Prueba/${mode}.tokens.json`,
+    text: JSON.stringify({ alto: { $type: 'number', $value: 1.5, $extensions: { 'com.figma.scopes': ['LINE_HEIGHT'] } } }),
+  });
+  const result = normalize([file('A'), file('B')], { map: { number: {}, string: {}, boolean: {} } });
+  assert.equal(result.unresolved.length, 1);
+  assert.deepEqual(result.unresolved[0].ids, ['alto']);
+});
