@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. Índice de las herramientas aprobado (`investigacion-herramientas.md` §9); siguiente, el encargo a la sesión de diseño. Oscar decide seguir con la sesión de diseño en claude.ai y no en Claude Design (Figma es la fuente de verdad, P4). Antes, el mismo día: T22, `scales.py` con hex y curva, decisiones 11 y 15.
+Última actualización: 2026-10-08, sesión de diseño. Herramientas: inventario y anatomía de los componentes nuevos en `componentes-v1.md` §5, con diez preguntas para Oscar (§5.11); sin tokens nuevos con las recomendaciones. Las plantillas en TokensDS, después de su aprobación. Antes, el mismo día (contenido): índice de las herramientas aprobado (`investigacion-herramientas.md` §9).
 
 ---
 
@@ -49,7 +49,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** archivo TokensDS al día con el código (D31 a D39) y con lo de la primera versión (D40 a D42: C19, enlace del pie y portada). Detalle en `historial.md` y `docs/entrega-diseno.md` §3.10.
 
 **Pendiente**
-- **Herramientas (T22):** encargo del 2026-10-08: anatomía de los componentes nuevos en `componentes-v1.md` y plantillas de las dos páginas en TokensDS (`investigacion-herramientas.md` §9).
+- **Herramientas (T22):** anatomía propuesta el 2026-10-08 en `componentes-v1.md` §5 (`TextField`, `Select`, `Checkbox` y `CheckboxGroup`, `FileUpload` y `FileItem`, `TypeDecision`, `ErrorSummary`, `ChromaChart`, `ScalePreview`; `ColorScale` con `colors`; cinco iconos de Lucide). **Espera a Oscar:** las diez preguntas de §5.11 y el diseño de los componentes (D05). Después: plantillas de las dos páginas en TokensDS (Desktop y Mobile, Light y Dark) y las decisiones D44 en adelante.
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.

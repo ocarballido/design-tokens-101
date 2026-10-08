@@ -913,7 +913,489 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 
 ---
 
-## 5. Decisiones que afectan a este documento
+## 5. Componentes de las herramientas (T22): propuesta de la sesión de diseño (2026-10-08), pendiente de Oscar
+
+Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de color" (`/tools/color-scales`) y "Completar la exportación" (`/tools/normalize-export`), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
+
+**Sin tokens nuevos** con las recomendaciones de §5.11. La única propuesta de token depende de la pregunta 3 de §5.11.
+
+### 5.1 Inventario
+
+| Pieza de §9 | Página | Se resuelve con | Nuevo |
+|---|---|---|---|
+| Color de marca (hex, RGB o HSL) | Escalas | `TextField` (§5.2), con el hex resultante debajo (texto de la página, §5.10) | Sí |
+| Nombre de la paleta | Escalas | `TextField` | Sí (el mismo) |
+| Tinte de los neutros (0 a 1) | Escalas | `TextField` numérico (pregunta 1 de §5.11) | No, si se elige la recomendación |
+| Curva de referencia | Escalas | `Select` (§5.3) y dos frases de `Prose` | Sí |
+| Gráfico del croma por paso | Escalas | `ChromaChart` (§5.8) | Sí |
+| Escalas de estado (opcional) | Escalas | `CheckboxGroup` con tres `Checkbox` (§5.4) | Sí |
+| Escalas generadas | Escalas | `ColorScale` (§3.8) con los hex de la herramienta: prop nueva `colors` (§5.10) | Cambio |
+| Tabla de cada escala (paso, oklch, hex, contraste, recorte) | Escalas | `Table` (§3.6), con `Code` para los valores | No |
+| Pasos recortados y avisos de §5.2 | Escalas | Columna "Recorte" de la tabla (texto) y `Callout` `warning` (§3.2) con enlace a la lección | No |
+| Vista previa sobre fondo claro y oscuro | Escalas | `ScalePreview` (§5.9) | Sí |
+| Pasos que se exportan | Escalas | `Checkbox` en una columna de la tabla de cada escala (pregunta 2 de §5.11) | Sí (el mismo) |
+| Descargar el `.tokens.json` | Escalas | `Button` `primary` con icono `li:download` | No (icono nuevo) |
+| Copiar el enlace con los ajustes | Escalas | `Button` `secondary` con `li:link` y el texto "Enlace copiado", como el "Copiado" de `CodeBlock` | No (icono nuevo) |
+| Importar en Figma (tres pasos) | Escalas | Lista numerada de `Prose` y `Callout` `warning` (*Import mode* cambia los valores sin preguntar) | No |
+| Subir los .zip o una carpeta | Normalización | `FileUpload` (§5.5): dos `Button` `secondary`, zona para soltar y lista con `FileItem` | Sí |
+| Decisiones de tipo | Normalización | `TypeDecision` (§5.6), con `Select` | Sí |
+| Referencias sin destino | Normalización | `Callout` `warning` con la lista (`Code`) | No |
+| Resumen (archivos, alias, tipos) | Normalización | `Table` | No |
+| Descarga en .zip y un enlace por archivo | Normalización | `Button` `primary` con `li:download`; lista de `Link` | No |
+| Resumen de errores con enlaces | Las dos | `ErrorSummary` (§5.7) | Sí |
+| `SCOPE_TYPES`, descarga del script y comando | Normalización | `CodeBlock` (§3.4) y `Button` `secondary` con `li:download` | No |
+| Quitar un archivo de la lista | Normalización | `IconButton` (§2.1) con `li:x` | No |
+| Cabecera de la página | Las dos | `LessonHeader` (§4.1), sección "Herramientas" (pregunta 6) | No |
+| Sección en el sidebar | Las dos | `SidebarSection` sin número (`showNumber = false`) y dos `SidebarItem`, en el grupo "Referencia", antes de Recursos | No |
+
+**Iconos nuevos de Lucide** (D08), como componentes locales en el marco `Icons` (D37): `li:upload`, `li:folder-open`, `li:download`, `li:link` y `li:circle-alert`. Los demás ya están (`li:x`, `li:check`, `li:chevron-down`, `li:triangle-alert`).
+
+**Controles nativos.** `TextField`, `Select` y `Checkbox` son los elementos de HTML (`input`, `select`, `input type="checkbox"`) con estilo. El navegador da el teclado, el lector de pantalla y la lista abierta del `select`, que no se diseña (la dibuja el sistema).
+
+**Sin `disabled`** (D14): ningún control se desactiva. El botón de descarga está siempre activo; si falta algo, muestra el `ErrorSummary` (§5.7, `investigacion-herramientas.md` §6.4).
+
+### 5.2 `TextField`
+
+**Para qué sirve.** Un campo de texto con su etiqueta. En Escalas: color de marca, nombre de la paleta y, si se aprueba la pregunta 1, el tinte de los neutros.
+
+**Esquema.**
+
+```txt
+TextField (div)
+├── etiqueta (label for → campo)
+├── ayuda (p, id) · opcional
+├── campo (input)
+└── error (p, id) · solo con error: icono li:circle-alert (decorativo) + texto
+```
+
+**Props.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `label` | `string`, obligatorio | Texto |
+| `hint` | `string` opcional | Texto + booleano `showHint` |
+| `error` | `string` opcional: el campo pasa a no válido | Texto + variante `invalid` = `true` / `false` |
+| `code` | `boolean`: el valor se escribe en `code/default` (hex) | Variante `code` = `true` / `false` |
+| `inputMode` | `'text' \| 'decimal'` | No se ve |
+| `name`, `value`, `onChange` | | No se ven |
+| `state` | solo Figma | Variante: `default`, `focus` |
+
+**Variantes en Figma:** `state` (2) × `invalid` (2) × `code` (2) = 8. Sin `hover`: un campo de texto no cambia al pasar el puntero (WCAG no lo pide, 1.4.11), y así hay menos variantes.
+
+**Tokens.**
+
+| Parte | `default` | `focus` |
+|---|---|---|
+| Etiqueta | `text/neutral/default`, `label/default` | ← |
+| Ayuda | `text/neutral/subtle`, `caption/default` | ← |
+| Fondo del campo | `background/neutral/default` | ← |
+| Borde del campo | `border/neutral/strong`, `border-width/100` | ← |
+| Valor | `text/neutral/default`, `body/default` (`code/default` con `code`) | ← |
+| Anillo de foco |: | `border/focus`, `border-width/200`, por fuera |
+| Radio | `radius/control` | ← |
+| Error (icono y texto) | `text/danger/default`, `body/small` | ← |
+| Separación | `space/100` entre etiqueta, ayuda y campo; `space/100` hasta el error | ← |
+
+Con `invalid = true`, el borde no cambia (pregunta 3): el error se identifica por el texto y el icono.
+
+**Accesibilidad.**
+- Etiqueta siempre visible (3.3.2); sin `placeholder` como etiqueta.
+- `aria-describedby` apunta a la ayuda y al error; con error, `aria-invalid="true"` (3.3.1).
+- El borde da 4,70 / 4,20 frente a la página (1.4.11): por eso `border/neutral/strong` y no `default` (`sistema-tokens-v1.md` §6.2, "No se comprueban").
+- Alto de al menos 24 px (2.5.8). Ancho flexible: a 320 px ocupa la columna.
+- En el campo del color, `autocomplete="off"` y `spellcheck="false"`.
+
+**Contraste** (Light / Dark): etiqueta y valor 17,79 / 18,89; ayuda 7,74 / 7,65; error 6,29 / 10,52 sobre la página; borde 4,70 / 4,20; anillo 3,33 / 10,92.
+
+### 5.3 `Select`
+
+**Para qué sirve.** Elegir una opción de una lista: la curva de referencia (Escalas) y el tipo DTCG de cada combinación (Normalización, dentro de `TypeDecision`).
+
+**Esquema.**
+
+```txt
+Select (div)
+├── etiqueta (label for → select)
+├── ayuda (p, id) · opcional
+├── select nativo + chevron li:chevron-down (decorativo, encima del select)
+└── error (p, id) · solo con error
+```
+
+**Props.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `label` | `string`, obligatorio | Texto |
+| `hint` | `string` opcional | Texto + booleano `showHint` |
+| `error` | `string` opcional | Texto + variante `invalid` |
+| `options` | `{ value, label }[]` | Texto `value` (la opción elegida) |
+| `placeholder` | `string` opcional: primera opción, con valor vacío ("Elige un tipo", §6.4) | Se ve como el valor cuando no hay opción elegida |
+| `state` | solo Figma | Variante: `default`, `hover`, `focus` |
+
+**Variantes en Figma:** `state` (3) × `invalid` (2) = 6. Aquí sí hay `hover`, porque el `select` se pulsa como un botón.
+
+**Tokens.**
+
+| Parte | `default` | `hover` | `focus` |
+|---|---|---|---|
+| Etiqueta, ayuda y error | Como `TextField` | ← | ← |
+| Fondo | `background/neutral/default` | `background/neutral/hover` | `background/neutral/default` |
+| Borde | `border/neutral/strong`, `border-width/100` | ← | ← |
+| Valor | `text/neutral/default`, `body/default` | ← | ← |
+| Chevron | `text/neutral/subtle` | `text/neutral/default` | `text/neutral/subtle` |
+| Anillo de foco |: |: | `border/focus`, `border-width/200`, por fuera |
+| Radio | `radius/control` | ← | ← |
+
+**Accesibilidad.**
+- `select` nativo: el teclado y la lista abierta los da el navegador. El chevron es decorativo (`aria-hidden`) y no recibe el puntero.
+- En las decisiones de tipo no hay opción elegida por defecto: la primera es el `placeholder` con valor vacío (§6.4 de la investigación). En la curva, `green` viene elegida (T22).
+- Borde 4,70 / 4,20 sobre la página y 4,30 / 3,19 sobre `background/neutral/hover` (≥ 3:1).
+
+**Contraste:** valor 17,79 / 18,89 (`default`) y 16,28 / 14,34 (`hover`); chevron 7,74 / 7,65.
+
+### 5.4 `Checkbox` y `CheckboxGroup`
+
+**Para qué sirve.** Marcar opciones sueltas: las escalas de estado que se generan (red, amber, blue) y los pasos que se exportan.
+
+**Esquema.**
+
+```txt
+CheckboxGroup (fieldset)
+├── legend
+├── ayuda (p) · opcional
+└── Checkbox × n
+      Checkbox (label que envuelve)
+      ├── caja: input type="checkbox" con estilo (appearance: none) · marca li:check
+      └── texto
+```
+
+**Props de `Checkbox`.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `label` | `string` | Texto (booleano `showLabel` para la columna de la tabla, donde la etiqueta es solo accesible) |
+| `checked` / `defaultChecked` | `boolean` | Variante `checked` = `true` / `false` |
+| `name`, `value`, `onChange` | | No se ven |
+| `state` | solo Figma | Variante: `default`, `hover`, `focus` |
+
+**Props de `CheckboxGroup`.** `legend` (`string`), `hint` (`string` opcional), `children` (los `Checkbox`). En Figma: texto `legend`, booleano `showHint` y slot.
+
+**Variantes en Figma:** `Checkbox` `checked` (2) × `state` (3) = 6; `CheckboxGroup`, 1.
+
+**Tokens de la caja.**
+
+| Parte | `checked = false` | `checked = false`, `hover` | `checked = true` | `checked = true`, `hover` |
+|---|---|---|---|---|
+| Relleno | `background/neutral/default` | `background/neutral/hover` | `background/accent/strong/default` | `background/accent/strong/hover` |
+| Borde | `border/neutral/strong`, `border-width/100` | ← | `border/accent/strong`, `border-width/100` | ← |
+| Marca `li:check` |: |: | `text/on-accent` | `text/on-accent` |
+| Radio | `radius/100` (primitivo, como `Code`: `radius/control` es demasiado redondo para 16 px) | ← | ← | ← |
+| Anillo de foco (`focus`) | `border/focus`, `border-width/200`, por fuera de la caja | | ← | |
+
+| Parte | Token |
+|---|---|
+| Caja | 16 × 16 px (`space/400`) |
+| Texto | `text/neutral/default`, `body/default` |
+| Fila | alto mínimo `space/600` (24 px); hueco caja–texto `space/200` |
+| Legend | `text/neutral/default`, `label/default`; ayuda `text/neutral/subtle`, `caption/default` |
+| Entre casillas | `space/200` (en fila, bajan de línea si no caben) |
+
+**Accesibilidad.**
+- `input type="checkbox"` con `appearance: none`: sigue siendo la casilla del navegador para el teclado (barra espaciadora) y el lector de pantalla. La etiqueta envuelve la caja, así que pulsar el texto también marca, y la fila mide al menos 24 px de alto (2.5.8).
+- El estado no depende solo del color: marcada lleva `li:check` (1.4.1).
+- Borde sin marcar 4,70 / 4,20 frente a la página (1.4.11); marcada, el borde `border/accent/strong` da 3,33 / 10,92 y la marca sobre el relleno 9,63 / 9,63 (10,92 en hover). Por eso el borde de la marcada no es el relleno: `emerald/500` sobre blanco da 2,05:1.
+- El grupo es un `fieldset` con `legend`, que el lector anuncia al entrar.
+
+### 5.5 `FileUpload` y `FileItem`
+
+**Para qué sirve.** Subir lo que exporta Figma en Normalización: uno o varios .zip de *Export modes* o una carpeta con una subcarpeta por colección (T22, 2). Dos botones como vía principal y una zona para soltar como atajo (`investigacion-herramientas.md` §2).
+
+**Esquema.**
+
+```txt
+FileUpload (div, role="group", aria-labelledby → etiqueta)
+├── etiqueta (p, id) · ayuda (p)
+├── zona (div): los botones van dentro
+│     ├── icono li:upload (decorativo)
+│     ├── Button secondary "Elegir archivos .zip" (li:upload) → input type="file" accept=".zip" multiple, oculto
+│     ├── Button secondary "Elegir una carpeta" (li:folder-open) → input type="file" webkitdirectory, oculto
+│     └── texto "o suelta aquí los .zip o la carpeta"
+├── lista (ul, aria-label "Archivos cargados") · solo si hay archivos
+│     └── FileItem × n
+└── región de estado (role="status", visualmente oculta)
+```
+
+**Props de `FileUpload`.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `label`, `hint` | `string` | Texto (+ `showHint`) |
+| `files` | lista de archivos cargados | Slot con `FileItem` + booleano `showList` |
+| `onAdd`, `onRemove` | funciones | No se ven |
+| `dragOver` | solo Figma: hay un archivo encima de la zona (en código, una clase entre `dragenter` y `dragleave`) | Variante `dragOver` = `true` / `false` |
+
+**Props de `FileItem`.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `name` | `string`: nombre del .zip o de la subcarpeta | Texto |
+| `detail` | `string`: colección y archivos que trae ("Primitives · 1 archivo") | Texto |
+| `error` | `string` opcional (por ejemplo, un .zip sin `*.tokens.json` o dos con el mismo nombre de colección) | Texto + variante `invalid` |
+
+**Variantes en Figma:** `FileUpload` `dragOver` (2); `FileItem` `invalid` (2).
+
+**Tokens de la zona.**
+
+| Parte | `dragOver = false` | `dragOver = true` |
+|---|---|---|
+| Fondo | `background/neutral/subtle` | `background/accent/subtle` |
+| Borde | `border/neutral/default`, `border-width/100`, continuo (pregunta 5) | `border/accent/strong`, `border-width/200` |
+| Icono y texto | `text/neutral/subtle`, `body/small` | ← |
+| Radio | `radius/container` | ← |
+| Relleno | `space/600` | ← |
+| Entre botones | `space/200`; bajan de línea si no caben | ← |
+
+**Tokens de `FileItem`.**
+
+| Parte | Token |
+|---|---|
+| Nombre | `text/neutral/default`, `code/default` |
+| Detalle | `text/neutral/subtle`, `caption/default` |
+| Error | `text/danger/default`, `body/small`, con `li:circle-alert` |
+| Botón quitar | `IconButton` con `li:x` y `label` "Quitar {nombre}" |
+| Separador entre filas | `border/neutral/default`, `border-width/100` |
+| Relleno de la fila | `space/200` vertical |
+
+**Accesibilidad.**
+- Los botones abren el selector del sistema: subir no exige arrastrar (2.5.7). Los `input type="file"` quedan ocultos y fuera del orden de tabulación; el botón visible es el control.
+- Dos botones porque un mismo `input` no elige archivos y carpetas a la vez (`webkitdirectory`, §2 de la investigación).
+- La zona no es un control: no recibe el foco. Su texto lo lee el lector como un párrafo más.
+- Al añadir o quitar, la región `role="status"` lo anuncia (4.1.3). Al quitar un archivo, el foco pasa al botón de quitar siguiente o, si la lista queda vacía, al primer botón (2.4.3).
+- `dragOver` no depende solo del color: el borde pasa a 2 px.
+
+**Contraste:** texto de la zona 7,40 / 6,89 sobre `subtle` y 7,38 / 5,82 sobre `accent/subtle`; borde de `dragOver` 3,18 / 8,30 sobre `accent/subtle`; nombre 17,79 / 18,89; detalle 7,74 / 7,65; error 6,29 / 10,52.
+
+### 5.6 `TypeDecision`
+
+**Para qué sirve.** Pedir al usuario el tipo DTCG de una combinación de `$type` y scopes que no tiene correspondencia clara (`investigacion-herramientas.md` §6.3 y §6.4). Uno por combinación; solo aparecen si hacen falta.
+
+**Esquema.**
+
+```txt
+TypeDecision (fieldset, id)
+├── legend: "12 variables de número con el scope LINE_HEIGHT"
+├── ejemplos (p): tres nombres en Code
+├── lista completa (details)
+│     ├── summary "Ver las 12 variables" + chevron
+│     └── lista (ul) de nombres en Code
+└── Select "Tipo DTCG" · placeholder "Elige un tipo" · error si falta
+```
+
+**Props.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `legend` | `string` | Texto |
+| `examples` | `string[]` (tres nombres) | Texto |
+| `tokens` | `string[]`: todos los nombres | Slot de la lista + variante `open` |
+| `options` | las opciones posibles para ese tipo (§6.3) | Las del `Select` |
+| `error` | `string` opcional | La del `Select` |
+
+**Variantes en Figma:** `open` (2). El `Select` lleva sus propias variantes; el `summary`, `state` `default`, `hover` y `focus` como la cabecera de `InCode`.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Contenedor | Sin fondo; borde `border/neutral/default`, `border-width/100`; `radius/container`; relleno `space/400` |
+| Legend | `text/neutral/default`, `label/default` |
+| Ejemplos | `text/neutral/subtle`, `body/small`; nombres con `Code` |
+| `summary` | `text/neutral/default`, `label/default`; chevron `text/neutral/subtle`; en hover, fondo `background/neutral/hover` y chevron `text/neutral/default`; `radius/control`; anillo de foco por fuera |
+| Separación | `space/300` entre las partes |
+
+**Accesibilidad.**
+- `fieldset` con `legend`: el lector anuncia la combinación al llegar al `select` (§6.4).
+- `details` y `summary` nativos (patrón Disclosure sin ARIA propio). El `summary` mide al menos 24 px de alto.
+- El enlace del `ErrorSummary` lleva al `select` de cada grupo, que recibe el foco.
+
+**Contraste:** legend 17,79 / 18,89; ejemplos y chevron 7,74 / 7,65.
+
+### 5.7 `ErrorSummary`
+
+**Para qué sirve.** Decir qué falta cuando se pulsa una descarga que no puede hacerse, con un enlace a cada campo (§6.4 de la investigación; 3.3.1 y 3.3.2). Sustituye al botón desactivado (D14). Se usa en las dos páginas.
+
+**Por qué no es un `Callout`.** El `Callout` acompaña al texto y no recibe el foco. `ErrorSummary` aparece por una acción del usuario, recibe el foco y es una lista de enlaces a los campos.
+
+**Esquema.**
+
+```txt
+ErrorSummary (div, tabindex="-1", aria-labelledby → título)
+├── icono li:circle-alert (decorativo) · título (h2): "Falta algo para descargar"
+└── lista (ul): Link × n ("Elige el tipo de las 12 variables con LINE_HEIGHT" → #id del select)
+```
+
+**Props.** `title` (`string`) y `errors` (`{ message, href }[]`). En Figma: texto `title` y slot con los `Link`.
+
+**Variantes en Figma:** 1, más `state` `default` / `focus` (solo Figma).
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Fondo | `background/danger/subtle` |
+| Borde | `border/danger/default`, `border-width/100` (decorativo, como el de `Callout`) |
+| Icono y título | `text/danger/default`; título `body/strong` |
+| Enlaces | `Link` (§2.3), `size=default` |
+| Radio | `radius/container` |
+| Relleno | `space/400` por debajo de 64rem, `space/600` desde 64rem |
+| Anillo de foco (`focus`) | `border/focus`, `border-width/200`, por fuera |
+
+Usa por primera vez los tokens de `danger` (S31: se mantenían sin uso).
+
+**Disposición.** Encima del botón de descarga, donde está el usuario al pulsarlo (pregunta 8). Desaparece cuando no queda ningún error y se vuelve a pulsar.
+
+**Accesibilidad.**
+- Al pulsar la descarga con errores, aparece y recibe el foco (`tabindex="-1"`), así que el lector lee el título y la lista. Sin `role="alert"`: el foco ya lo anuncia.
+- Cada enlace lleva al campo, que recibe el foco; cada campo muestra además su propio error (3.3.1).
+- El título dice qué pasa en texto, no solo con el color (1.4.1).
+
+**Contraste** (sobre `background/danger/subtle`): título 5,75 / 8,49; enlaces 4,65 / 8,82; anillo sobre la página 3,33 / 10,92.
+
+### 5.8 `ChromaChart`
+
+**Para qué sirve.** Mostrar junto al selector de la curva qué es la curva de referencia: el croma de cada uno de sus 11 pasos (petición de Oscar en T22, 8). Cambia al elegir otra curva.
+
+**Esquema.** Barras horizontales, una fila por paso: así cabe igual a 320 px y en escritorio.
+
+```txt
+ChromaChart (figure)
+├── lista ordenada (ol)
+│     └── paso (li): número del paso · barra (decorativa) · valor de C   × 11
+└── pie (figcaption): "Croma por paso de la curva green"
+```
+
+**Props.**
+
+| Prop | Tipo | Notas |
+|---|---|---|
+| `curve` | `string` | Nombre de la curva (pie y nombre accesible) |
+| `chroma` | `number[]` (11) | Valores de C de la curva, de 50 a 950 |
+| `max` | `number` | Escala fija del eje: el mayor C de las 17 curvas, para que al cambiar de curva las barras se puedan comparar |
+| `highlight` | `string` opcional | Paso donde cae la marca (paso ancla), como en `ColorScale` |
+| `highlightLabel` | `string` opcional | "Tu color", obligatorio con `highlight` (1.4.1) |
+
+**Datos.** El largo de cada barra es un dato (C ÷ `max`), no un estilo, como el relleno de las muestras de `ColorScale`: no sale de un token. Todo lo demás, sí.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Barra | Relleno `background/accent/subtle`; borde `border/accent/strong`, `border-width/100`; `radius/100` |
+| Barra del paso destacado | Borde `border-width/200` + `highlightLabel` |
+| Número del paso | `text/neutral/default`, `label/default`, columna de ancho mínimo `space/800` |
+| Valor de C | `text/neutral/subtle`, `caption/default` (con coma decimal: "0,137") |
+| Fila | alto `space/600`; hueco `space/200` |
+| Pie | `text/neutral/subtle`, `caption/default` |
+
+**Accesibilidad.**
+- `figure` con `figcaption`; los pasos son una `ol`, y cada `li` se lee "500, croma 0,137". La barra es decorativa (`aria-hidden`): el dato está en el texto.
+- Como la información está en el texto, la barra no necesita 3:1; aun así, su borde da 3,33 / 10,92 sobre la página.
+
+### 5.9 `ScalePreview`
+
+**Para qué sirve.** Ver las escalas generadas sobre un fondo claro y uno oscuro (T22, tomado de Scale).
+
+**Esquema.**
+
+```txt
+ScalePreview (figure)
+├── panel claro (div, aria-hidden) · etiqueta debajo "Sobre blanco"
+│     └── una fila de 11 muestras por escala generada
+├── panel oscuro (div, aria-hidden) · etiqueta debajo "Sobre neutral 950"
+└── pie (figcaption)
+```
+
+**Props.** `scales` (`{ name, colors: string[] }[]`), `light` y `dark` (hex de los dos fondos), `caption`.
+
+**Datos.** El fondo de cada panel y las muestras son colores de la escala del usuario, no tokens de la web, como las muestras de `ColorScale`. Con la recomendación de la pregunta 4: fondo claro `#FFFFFF` y fondo oscuro el `neutral/950` generado (los fondos de página de DesignToken101, D23, con los valores del usuario). Los paneles no cambian con Light y Dark.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Panel: borde | `border/neutral/default`, `border-width/100` (para que el panel claro se vea en Light) |
+| Panel: radio y relleno | `radius/container`; `space/400` |
+| Muestra | alto `space/800`; `radius/control`; sin borde (se ve el color contra el fondo); huecos `space/100` entre muestras y `space/200` entre filas |
+| Etiquetas y pie | `text/neutral/subtle`, `caption/default` |
+| Disposición | Dos columnas desde 64rem; apilados por debajo |
+
+**Accesibilidad.** Los paneles son decorativos (`aria-hidden`): los valores están en las tablas. Las etiquetas y el pie van sobre el fondo de la página, con el contraste de los tokens de texto (7,74 / 7,65), sea cual sea el color del panel.
+
+### 5.10 Cambios en componentes que ya existen y plantillas
+
+- **`ColorScale` (C14):** prop nueva `colors` (11 hex) con `name`, en lugar de `palette`, para los hex que calcula la herramienta (`investigacion-herramientas.md` §5.6). En las lecciones no cambia nada. En Figma no cambia: el hex ya es un texto. `highlight` marca el paso de la marca ("Tu color").
+- **`Table`:** sin cambios. En Escalas, columnas Exportar (`Checkbox` sin etiqueta visible: "Exportar el paso 500 de emerald"), Paso, oklch, Hex, Contraste con blanco, Contraste con `neutral/950` y Recorte ("−45 %", en texto; vacío si no recorta).
+- **Hex resultante** (Escalas): debajo del campo del color, una línea `output` con una muestra decorativa de 24 px (`space/600`, `radius/100`, borde `border/neutral/default`) y "Se usa el hex #33CC99" (`body/small`, `text/neutral/subtle`, el hex en `Code`). No es un componente.
+- **`Sidebar`:** sección "Herramientas" sin número, en el grupo "Referencia", antes de Recursos, con "Escalas de color" y "Completar la exportación".
+
+**Plantillas de Escalas de color** (Desktop y Mobile, Light y Dark), con los valores de DesignToken101 (`#33CC99`, `emerald`, tinte 0,5, `green`, las tres escalas de estado):
+
+```txt
+LessonHeader (sección "Herramientas", "Escalas de color")
+Prose: introducción con enlace a "Escalas de color"
+## Entrada
+   TextField "Color de marca" (code) · hex resultante
+   TextField "Nombre de la paleta"
+   TextField "Tinte de los neutros" (pregunta 1)
+   Select "Curva de referencia" · dos frases · ChromaChart
+   CheckboxGroup "Escalas de estado"
+## Resultado
+   Callout warning × avisos (ninguno con DesignToken101)
+   por escala: ### nombre · ColorScale · Table (con la columna Exportar)
+   ScalePreview
+## Exportar
+   ErrorSummary (solo con errores)
+   Button primary "Descargar el archivo .tokens.json" · Button secondary "Copiar el enlace con los ajustes"
+## Importar en Figma
+   Lista numerada (3 pasos) · Callout warning
+```
+
+**Plantillas de Completar la exportación**, con los cuatro .zip de DesignToken101 cargados (sin decisiones pendientes):
+
+```txt
+LessonHeader (sección "Herramientas", "Completar la exportación")
+Prose: introducción con enlace a "Completar la exportación"
+## Subir
+   FileUpload con 4 FileItem
+## Decisiones (solo si hacen falta)
+   TypeDecision × n
+## Avisos (solo si hay referencias sin destino)
+   Callout warning
+## Resultado
+   Table (archivos, alias, tipos)
+   ErrorSummary (solo con errores)
+   Button primary "Descargar dtcg.zip" · lista de Link, uno por archivo
+## En tu repositorio
+   Prose (dos frases) · Button secondary "Descargar figma-to-dtcg.mjs" · CodeBlock (SCOPE_TYPES) · CodeBlock (comando)
+   Enlace a "Las variables CSS"
+```
+
+### 5.11 Preguntas para Oscar
+
+1. **Tinte de los neutros.** (a) `TextField` numérico (`inputMode="decimal"`, de 0 a 1, ayuda "0 es gris puro; DesignToken101 usa 0,5"); (b) un deslizador con el mismo campo al lado (componente nuevo; el campo es la alternativa a arrastrar, 2.5.7). *Recomendación: a*: no hace falta otro componente (P11), no hay nada que arrastrar y el valor es el mismo `TINT` del script.
+2. **Pasos que se exportan.** (a) una columna "Exportar" en la tabla de cada escala, con los 11 marcados; (b) un solo grupo de 11 casillas para todas las escalas. *Recomendación: a*: el acento y los neutros suelen necesitar pasos distintos, y la casilla queda en la fila del paso que describe.
+3. **Campo con error.** (a) el borde no cambia (`border/neutral/strong`); el error lo dicen el texto y el icono en `text/danger/default`; (b) token nuevo `color/border/danger/strong` (Light `red/600`, 4,68 sobre blanco; Dark `red/400`, 7,09 sobre `neutral/950`) para el borde del campo no válido. `border/danger/default` no sirve: en Light da 1,88:1, menos que el borde normal. *Recomendación: a*, sin token nuevo; si prefieres el borde rojo, b.
+4. **Fondos de la vista previa.** (a) blanco y el `neutral/950` generado para el usuario; (b) los fondos de la web (Light y Dark de DesignToken101). *Recomendación: a*: la vista previa es del sistema del usuario, y su `neutral/950` lleva su tinte.
+5. **Borde de la zona para soltar.** (a) continuo; (b) discontinuo, que en Figma pide una longitud de trazo sin variable. *Recomendación: a* (solo tokens, S27).
+6. **Cabecera.** (a) `LessonHeader` como en las lecciones (sección, título, descripción y fecha de revisión); (b) sin la fecha. *Recomendación: a*: sin cambios en el componente, y la fecha dice cuándo se comprobó la herramienta.
+7. **Estados en las plantillas.** (a) el estado con resultado en los cuatro marcos de cada página, más un marco Desktop Light de cada página con errores (`ErrorSummary`, campos no válidos y, en Normalización, dos `TypeDecision`); (b) solo el estado con resultado. *Recomendación: a*: los errores son la parte nueva del diseño.
+8. **Sitio del `ErrorSummary`.** (a) encima del botón de descarga; (b) al principio de la herramienta. *Recomendación: a*: las páginas son largas y el usuario está en el botón.
+9. **Iconos nuevos** (§5.1): `li:upload`, `li:folder-open`, `li:download`, `li:link` y `li:circle-alert`. *Recomendación: sí.*
+10. **`ColorScale` con `colors`** (§5.10): cambia C14. *Recomendación: sí* (lo pide §5.6 de la investigación).
+
+---
+
+## 6. Decisiones que afectan a este documento
 
 | # | Decisión |
 |---|---|
