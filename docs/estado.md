@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. T23: la herramienta de escalas entrega la escala del color y la de neutros, sin escalas de estado; `componentes-v1.md` §5 al día (sin `CheckboxGroup`); falta que diseño lo pase a Figma. Antes, el mismo día: componentes y plantillas de las herramientas (D44 a D60, diseño).
+Última actualización: 2026-10-08, sesión de diseño. T23 en Figma (D61): plantillas de Escalas de color con dos escalas (`emerald` y `neutral`), `ScalePreview` igual y `CheckboxGroup` borrado de TokensDS; `entrega-diseno.md` §3.11 y §3.12 al día. Antes, el mismo día: T23 (contenido): la herramienta de escalas entrega la escala del color y la de neutros, sin escalas de estado; `componentes-v1.md` §5 al día. Antes: componentes y plantillas de las herramientas (D44 a D60, diseño).
 
 ---
 
@@ -51,7 +51,6 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
-  - **T23 (contenido, 2026-10-08):** quitar el bloque "Escalas de estado" de las plantillas de Escalas de color y el componente `CheckboxGroup`; el resultado son dos escalas, la del color y la de neutros. `componentes-v1.md` §5 ya está al día.
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
   - **Sin decidir:** nombre de las carpetas dentro de `dtcg.zip` y de los enlaces por archivo (las plantillas usan el del .zip, `Primitives/Value.tokens.json`; el repositorio, `primitives/`).
   - **Para contenido:** las dos páginas se llaman como las lecciones que enlazan ("Escalas de color" en Primitivos y "Completar la exportación" en De Figma al código), así que el sidebar muestra dos entradas iguales en secciones distintas; decidir si las herramientas llevan otro `nav_title`.

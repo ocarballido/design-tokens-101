@@ -386,6 +386,12 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - **Auditoría** por script de los diez marcos: sin valores sueltos en los nodos propios, todo el texto con estilo, sin guiones largos. Capturas revisadas: Desktop Light de las dos páginas, Mobile Light, Desktop Dark y los dos marcos de errores.
 - **Incongruencia corregida:** `entrega-diseno.md` citaba la portada Desktop Light como 137:2993, que ya no existe (Oscar la rehízo el 2026-10-07, 133:5656).
 
+**Herramientas: T23 en Figma (2026-10-08, D61)**
+- **Encargo** (sesión de contenido): aplicar T23 en TokensDS; la herramienta de escalas entrega solo la escala del color y la de neutros.
+- **Comprobación previa:** instancias de `CheckboxGroup` buscadas con la API de plugins en las ocho páginas; solo había cinco, una en `Fields` de cada plantilla de Escalas de color. Las cinco instancias de `ScalePreview`, sin overrides.
+- **Hecho:** en las cinco plantillas, fuera el `CheckboxGroup` y los marcos `Scale red`, `Scale amber` y `Scale blue` (20 nodos); en `ScalePreview`, fuera las filas `red`, `amber` y `blue` de los cuatro paneles (12 filas; la variante `large` pasa de 264 a 156 px de alto y la `small`, de 532 a 316); `CheckboxGroup` borrado de `Tools`, que queda con nueve componentes. Alto de las plantillas: escritorio de 6260 a 3914 px, móvil de 9521 a 5966, errores de 6468 a 4122.
+- **Revisado en captura:** Desktop Light (165:1963) y Mobile Dark (166:8534): Entrada termina en la curva y `ChromaChart`, Resultado tiene `emerald` y `neutral`, y `ScalePreview` dos tiras por panel.
+
 **Pendiente**
 - ~~Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).~~ **Hecho el 2026-10-06** (captura de Oscar, `docs/capturas/dev-mode-button-primary-2026-10-06.png`): Dev Mode escribe el code syntax tal cual, sin valor de reserva.
 
