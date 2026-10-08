@@ -269,6 +269,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - El bloque 0 compila con `@next/mdx` sin cambios en el MDX.
 - Anclas: `rehype-slug` conserva las tildes en el `id` (`qué-define-la-especificación`). El `href` sale codificado (`#qu%C3%A9-…`), y el navegador lo descodifica antes de buscar el `id` ([HTML Standard](https://html.spec.whatwg.org/multipage/browsing-the-web.html#find-a-potential-indicated-element)). Las 76 anclas de "En esta página" tienen destino, 34 de ellas con tildes (`npm run check:content`).
 
+### 2026-10-08: páginas de Herramientas y textos de la interfaz (rama `herramientas`)
+
+- `content/es/98-tools/` con `meta.json` ("Herramientas"), `01-color-scales.mdx` ("Generar escalas": introducción, `<ScaleGenerator />`, "Importar en Figma" en tres pasos y `Callout` `warning`) y `02-normalize-export.mdx` ("Normalizar la exportación": introducción, `<ExportNormalizer />` y enlace a "Las variables CSS"); `98-tools` en `content/es/meta.json`, antes de `99-resources`.
+- El paso 1 de "Importar en Figma" dice solo lo comprobado (§7 de la investigación): arrastrar a una colección crea las variables y el modo `Value`; *Import mode* actualiza las que tienen el mismo nombre y tipo. Si crea variables nuevas en una colección existente no está comprobado (prueba 4, sin hacer).
+- `messages/es.json`: `ToolScales` (apartados, campos con ayuda y error, curva en dos frases, gráfico, los tres avisos de §5.2 con el mismo sentido que `tools/scales.py`, columnas de la tabla, vista previa, botones y `ErrorSummary`) y `ToolNormalize` (subida, decisiones de tipo con sus opciones, referencias sin destino, resumen, descarga, `ErrorSummary` y "En tu repositorio"). Plurales con la sintaxis ICU de next-intl.
+- `npm test`: 15 de 15. La rama no compila hasta que existan los componentes (un MDX con un componente sin definir rompe el build), por eso no está en `main`.
+
 ## Diseño
 
 **Estado:** cerrado (2026-10-02). Todo lo que necesita desarrollo está en `docs/entrega-diseno.md`.
