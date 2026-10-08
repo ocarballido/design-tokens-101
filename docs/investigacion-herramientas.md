@@ -393,6 +393,19 @@ Dos archivos DTCG preparados por la sesión, `Uno.tokens.json` y `Dos.tokens.jso
 
 **Conclusión:** la importación no puede crear una variable sin scopes. Una lista vacía y la falta de la clave dan lo mismo, `ALL_SCOPES`. Por eso exportar e importar no es un viaje de ida y vuelta: un primitivo sin scopes (la exportación no escribe la clave) vuelve con todos.
 
+### Prueba 4: *Import mode* con variables nuevas
+
+2026-10-08, archivo de borrador nuevo de Oscar. Dos archivos generados con `toFigmaTokens` de `tools/scales.mjs`: `Value.tokens.json` con `color/prueba/500` (`#74A4FF`) e `Importar.tokens.json` con `color/prueba/500` (`#FF6D94`), `color/prueba/600` (`#F31C72`, variable nueva en un grupo que ya existe) y `color/neutral/500` (`#7B7072`, grupo nuevo). Oscar arrastró el primero a una colección y, después, hizo *Import mode* con el segundo sobre su modo.
+
+| Qué | Resultado (observado por Oscar) |
+|---|---|
+| `color/prueba/500` | Actualizada a `#FF6D94` |
+| `color/prueba/600` | No se crea |
+| `color/neutral/500` | No se crea |
+| Aviso | Un mensaje breve que dice que ha habido 2 errores (desapareció antes de copiar el texto) |
+
+**Conclusión:** *Import mode* solo actualiza las variables que ya existen con el mismo nombre y tipo; no crea variables ni grupos, y avisa con un error por cada una que no puede importar (las dos cifras coinciden; el texto del aviso, sin leer). Por eso el archivo de "Generar escalas" no sirve para añadir una escala a una colección Primitives que ya existe con *Import mode*. Vía posible, sin comprobar: arrastrar el archivo (crea una colección) y copiar y pegar las variables en la colección del usuario, que la ayuda de Figma documenta ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables), "You can copy and paste variables to any collection"); no dice qué pasa con el nombre del grupo, la visibilidad ni los scopes al pegar (prueba 5).
+
 ### Al terminar
 
 Oscar borra el archivo de prueba (o la sesión lo pide). El resultado está en `historial.md` (2026-10-08).
