@@ -159,7 +159,7 @@
     "summaryAliases": "Alias",
     "summaryType": "Tokens de tipo {type}",
     "summaryOpacity": "Opacidades con el decimal de Figma",
-    "summaryExcluded": "Variables no exportadas",
+    "summaryExcluded": "Tokens no exportados",
     "download": "Descargar dtcg.zip",
     "filesList": "Archivos por separado",
     "errorTitle": "Falta algo para descargar",
