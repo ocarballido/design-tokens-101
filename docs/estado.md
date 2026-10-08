@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. T24 (nombres de las herramientas y carpetas del .zip). Lógica de las dos herramientas hecha y probada: `tools/scales.mjs`, `tools/figma-to-dtcg.mjs` (mapa de scopes, función pura, todos los errores, referencias sin destino), `tools/zip.mjs` y `npm test` (15 pruebas); `normalize-the-export` y `exercise-figma-to-code` al día. Falta el build. Antes, el mismo día: D61 a D63 (diseño), T23.
+Última actualización: 2026-10-08, sesión de contenido. Páginas de Herramientas y textos de la interfaz (`ToolScales`, `ToolNormalize` en `messages/es.json`) en la rama `herramientas`; no compila hasta que desarrollo haga los componentes. Antes, el mismo día: T24 y la lógica de las dos herramientas (contenido), D61 a D63 (diseño), T23.
 
 ---
 
@@ -33,12 +33,11 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
-- **Herramientas (T8, T21 a T24):** lógica hecha y probada (`tools/scales.mjs`, `tools/figma-to-dtcg.mjs`, `tools/zip.mjs`, `tests/`). Siguiente (contenido): las dos páginas y los textos de la interfaz, en la rama `herramientas` (no compilan hasta que existan los componentes). Después, desarrollo, y al final los enlaces desde las cinco lecciones. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
+- **Herramientas (T8, T21 a T24):** lógica hecha y probada (`tools/scales.mjs`, `tools/figma-to-dtcg.mjs`, `tools/zip.mjs`, `tests/`); páginas (`content/es/98-tools/`) y textos de la interfaz (`messages/es.json`, `ToolScales` y `ToolNormalize`) en la rama `herramientas`. Siguiente: desarrollo; al publicar, los enlaces desde las cinco lecciones (`investigacion-herramientas.md` §9). **Oscar decide:** si el archivo de escalas lleva code syntax Web (haría falta un campo para el prefijo; ahora no lo lleva y el paso 3 de "Importar en Figma" lo pide a mano) y si se hace la prueba 4 (si *Import mode* crea variables nuevas en una colección que ya existe; la página no lo afirma). Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; si un estilo de texto creado desde un texto con variables las conserva.
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
-- **D44 a D60 (herramientas):** los textos de la interfaz de las dos páginas, con los provisionales que llevan las plantillas (`entrega-diseno.md` §3.12: descripciones de `LessonHeader`, introducciones, ayudas, errores, pies de `ColorScale`, pasos de "Importar en Figma", "En tu repositorio") y los de `componentes-v1.md` §5 (etiquetas, ayudas, errores, títulos del `ErrorSummary` y nombre accesible de las casillas "Exportar el paso {paso} de {paleta}", D46); el tinte se escribe como número de 0 a 1 (D45).
 - **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
@@ -74,6 +73,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
+- **Herramientas (rama `herramientas`):** los componentes de `componentes-v1.md` §5 y `ScaleGenerator` y `ExportNormalizer`, con la lógica de `tools/` y los textos de `ToolScales` y `ToolNormalize`; comprobar que Next empaqueta `tools/figma-to-dtcg.mjs` (importa `node:` solo en la línea de comandos). Se une a `main` cuando compile.
 - **Build de las correcciones del 2026-10-08 (contenido, T24):** `npm run build && npm run check:content` (texto en `normalize-the-export` y `exercise-figma-to-code`) y `npm run tokens && npm run check:tokens && npm test` (`tools/figma-to-dtcg.mjs` cambió; la salida tiene que ser la misma; `npm test` es nuevo).
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
