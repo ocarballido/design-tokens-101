@@ -1280,15 +1280,16 @@ ChromaChart (figure)
 | `max` | `number` | Escala fija del eje: el mayor C de las 17 curvas, para que al cambiar de curva las barras se puedan comparar |
 | `highlight` | `string` opcional | Paso donde cae la marca (paso ancla), como en `ColorScale` |
 | `highlightLabel` | `string` opcional | "Tu color", obligatorio con `highlight` (1.4.1) |
+| `highlightColor` | `string` opcional | Hex del usuario para el relleno de la barra destacada (C21) |
 
-**Datos.** El largo de cada barra es un dato (C ÷ `max`), no un estilo, como el relleno de las muestras de `ColorScale`: no sale de un token. Todo lo demás, sí.
+**Datos.** El largo de cada barra es un dato (C ÷ `max`), no un estilo, como el relleno de las muestras de `ColorScale`: no sale de un token. También el relleno de la barra destacada, que es el color del usuario (C21). Todo lo demás, sí.
 
 **Tokens.**
 
 | Parte | Token |
 |---|---|
 | Barra | Relleno `background/neutral/strong`; solo borde inferior `border/neutral/default`, `border-width/100`; sin radio (`radius/0`); alto de la fila, `space/600` (D56) |
-| Barra del paso destacado | Relleno `background/accent/strong/default`, borde inferior `border/accent/strong`, + `highlightLabel` (D56) |
+| Barra del paso destacado | Relleno con el hex del usuario (`highlightColor`, dato), borde inferior `border/neutral/strong`, + `highlightLabel` (C21, cambia D56) |
 | Número del paso | `text/neutral/default`, `label/default`, columna de ancho mínimo `space/800` |
 | Valor de C | `text/neutral/subtle`, `caption/default` (con coma decimal: "0,137") |
 | Fila | alto `space/600`, el de la barra; hueco `space/200` |
@@ -1296,7 +1297,7 @@ ChromaChart (figure)
 
 **Accesibilidad.**
 - `figure` con `figcaption`; los pasos son una `ol`, y cada `li` se lee "500, croma 0,137". La barra es decorativa (`aria-hidden`): el dato está en el texto.
-- Como la información está en el texto, la barra no necesita 3:1 (1.4.11): es decorativa. La del paso destacado se distingue también por "Tu color" (1.4.1); su relleno da 2,05 / 9,63 frente a la página, como el `Button` `primary`.
+- Como la información está en el texto, la barra no necesita 3:1 (1.4.11): es decorativa. La del paso destacado se distingue también por "Tu color" (1.4.1); su relleno es el color del usuario, que puede no contrastar con la página, y por eso lleva el borde inferior `border/neutral/strong` (4,70 / 4,20).
 
 ### 5.9 `ScalePreview`
 

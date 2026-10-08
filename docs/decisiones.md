@@ -112,6 +112,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C18 | Componente `Takeaways` para "Lo que te llevas" (diseño cambiado por V35). | Cerrada | 2026-10-05 |
 | C19 | Secciones del sidebar numeradas desde el prefijo de la carpeta; Recursos sin número; el número, alineado al inicio (cambia V40). | Cerrada | 2026-10-06 |
 | C20 | Campo `meta_title` en el frontmatter: `<title>` para buscadores cuando el título solo se entiende dentro del curso; sin meta keywords. | Cerrada | 2026-10-07 |
+| C21 | La barra "Tu color" de `ChromaChart` se rellena con el hex del usuario (dato, como las muestras de `ColorScale`) y lleva el borde inferior `border/neutral/strong` (cambia D56). | Cerrada | 2026-10-08 |
 
 ## Sistema de tokens
 

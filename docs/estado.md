@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. Pruebas 4 y 5 en Figma: "Importar en Figma" de Generar escalas rehecho (arrastrar y copiar y pegar; *Import mode* solo actualiza) y enlaces a las herramientas desde cinco lecciones. Antes, el mismo día: herramientas en código y en `main` (desarrollo), T25, T24 y la lógica de las dos herramientas (contenido), D61 a D63 (diseño), T23.
+Última actualización: 2026-10-08, sesión de contenido. C21: la barra "Tu color" de `ChromaChart` con el color del usuario (encargo a desarrollo y a diseño). Antes, el mismo día: pruebas 4 y 5 e "Importar en Figma" rehecho (contenido), herramientas en `main` (desarrollo), D61 a D63 (diseño).
 
 ---
 
@@ -51,6 +51,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
+  - **C21 (contenido, 2026-10-08):** en `ChromaChart`, borde inferior de la barra destacada `border/neutral/strong` (antes `border/accent/strong`); el relleno, en código, es el hex del usuario (en Figma sigue `#33CC99`).
   - **T24 (contenido, 2026-10-08):** las páginas se llaman "Generar escalas" y "Normalizar la exportación" (título de `LessonHeader`, sidebar y `PageNav` de las plantillas); las carpetas del .zip, con el nombre de Figma (como ya hacen las plantillas).
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
