@@ -24,6 +24,9 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: comparación con Scale (hihayk.github.io/scale)**
+- A petición de Oscar. Algoritmo leído en `hihayk/scale` (commit `69b766b`, 2020-06-04) y ejecutado con `color` 3.0.0, `color-convert` 1.9.2 y `color-string` 1.5.2 (sacados de GitHub; npm sin acceso). Con `#F1A035` y los ajustes del enlace de Oscar: saltos de L entre 0,027 y 0,156, tono de 68 a 95, paso más claro con L 0,93. Detalle y recomendación en `investigacion-herramientas.md` §5.5.
+
 **2026-10-08, sesión de contenido: decisiones de las herramientas (T22) y `scales.py`**
 - Oscar aprueba las recomendaciones de `investigacion-herramientas.md` §8 (cierra A15). En la 8 pide explicar al usuario qué es la curva de referencia: va en T22 (texto y gráfico del croma por paso junto al selector).
 - `tools/scales.py`: entrada `ACCENT_HEX` (antes HSL), `REFERENCE` con `TW_CURVES` (17 paletas de Tailwind CSS 4.3.3, copiadas de la etiqueta `v4.3.3`, commit `c2b24dd`; `green` idéntica a la de antes), recorte por paso (`clip`) y tres avisos (sin croma con el umbral de CSS Color 4, ancla extrema, pasos recortados). `semantic.py` llama a `build('#33CC99')`. Comprobado con Python 3.13.16: 55 hex, oklch y tablas de contraste idénticos; `semantic.py` sin errores y con la misma salida. Avisos probados con `#808080`, `#1A2B5C` (`green` y `blue`) y `#FF0000` (`green` y `red`).

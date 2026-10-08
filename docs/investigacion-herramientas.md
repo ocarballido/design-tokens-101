@@ -208,7 +208,34 @@ Tres diferencias que hay que replicar, porque sin ellas los hex no coinciden:
 
 **Recomendación:** que la entrada de `scales.py` y de la herramienta sea el **hex** (el valor que se guarda en Figma, S9, S30): si el usuario escribe RGB o HSL, se convierte a hex primero y se muestra. `scales.py` pasa a aceptar `ACCENT_HEX`. La salida de DesignToken101 no cambia.
 
-### 5.5 Requisitos de T8 al día
+### 5.5 Comparación con Scale (hihayk.github.io/scale)
+
+Pregunta de Oscar (2026-10-08): si Scale, de Hayk An, usa el mismo principio, si lo hace mejor o si la herramienta de DesignToken101 resuelve algo que Scale no tiene.
+
+**Cómo funciona** (código de `hihayk/scale`, `src/utils.js`, último commit del 2020-06-04): parte del color de marca y genera N pasos oscuros y M claros. Cada paso gira el tono en HSL, aumenta la saturación en HSL y mezcla el color con negro o con blanco en sRGB, en proporciones iguales hasta el porcentaje elegido (librería `color` 3.0.0, funciones `rotate`, `saturate` y `mix`). Exporta un SVG y la lista de colores; guarda los ajustes en la URL.
+
+**Prueba propia** (2026-10-08): su función ejecutada con `color` 3.0.0 y sus dependencias (`color-convert` 1.9.2, `color-string` 1.5.2), con el color y los ajustes del enlace de Oscar (`#F1A035`, 5 oscuros al 95 %, 5 claros al 70 %, sin giro de tono, saturación +100 %), y medida con las conversiones de `scales.py`:
+
+| | Scale (enlace de Oscar) | Scale (valores por defecto) | DesignToken101 (`green`) |
+|---|---|---|---|
+| Hex, de claro a oscuro | `#FFE6B3` … `#F1A035` … `#0D0900` | `#FFD3EC` … `#F1A035` … `#527F14` | `#FFF8F0` … `#F1A035` (400) … `#342109` |
+| L del paso más claro | 0,93 | 0,91 | 0,98 |
+| Salto de L entre pasos (mín. y máx.) | 0,027 y 0,156 | 0,003 y 0,110 | 0,020 y 0,125 |
+| Tono (oklch) a lo largo de la escala | de 68 a 95 | de 9 a 355 (rosa a verde) | de 68 a 70 |
+| Contraste y salida para Figma | No | No | Sí |
+
+Lo que dicen las cifras:
+
+- **No es el mismo principio.** Scale trabaja en HSL y mezcla en sRGB; DesignToken101 fija la L percibida de cada paso con una curva probada y mantiene el tono (lecciones `color-space` y `color-scales`).
+- **Pasos desiguales.** En el enlace de Oscar, los cinco claros se separan entre 0,027 y 0,04 de L y los oscuros, hasta 0,156: los claros casi no se distinguen y los oscuros dan saltos grandes.
+- **El tono se mueve sin pedirlo.** Mezclar con negro en sRGB lleva el naranja hacia el amarillo oliva (de 68 a 95), con el giro de tono a 0. Con los valores por defecto, el giro es deliberado y la "escala" va del rosa al verde: es una paleta expresiva, no una escala tonal.
+- **La marca va en el centro por número de pasos**, no por su luminosidad, y el paso más claro depende del porcentaje de mezcla (0,93 con el 70 %): no hay un casi blanco para fondos.
+- **Lo que Scale tiene y la herramienta puede adoptar sin cambiar el método:** los ajustes en la URL (para compartir y repetir una escala) y la vista previa sobre fondo claro y oscuro.
+- **El número de pasos variable** no encaja con el curso: los nombres `50` a `950` son la convención (módulo 4) y las curvas de referencia tienen 11 puntos. P11 se cumple de otra forma: se calculan los 11 y el usuario exporta solo los que va a usar, con su nombre.
+
+**Recomendación:** desarrollar la herramienta propia; no enviar al usuario a Scale, porque aplica el método que la lección `color-space` explica que no da pasos regulares (luminosidad en HSL). Añadir a la herramienta los ajustes en la URL y la elección de los pasos que se exportan.
+
+### 5.6 Requisitos de T8 al día
 
 | Requisito (`historial.md`) | Después de esta investigación |
 |---|---|
