@@ -406,6 +406,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Paso destacado de `ColorScale` en una caja (2026-10-08, D62)**
+- `git pull` hasta `57e6575`. `src/components/ColorScale.tsx`: el `li` del paso destacado lleva `rounded-control border-(length:--t101-border-width-100) border-neutral-default bg-neutral-strong p-200` y su muestra va sin borde (antes, `border-width/200` y `border/neutral/strong`); los demás pasos no cambian. `npm run build` (86 páginas) y `check:tokens` (8 valores arbitrarios, 5 excepciones): sin errores.
+- Comprobado con Chrome headless (CDP, `prefers-color-scheme` emulado, tema system) en `color-scales` (500), `semantic-color` (700) y `light-and-dark` (950), a 375 y 1440 px, en Light y Dark: caja con relleno `#F4F5F5` y borde `#E3E6E5` en Light, `#1F2924` y borde del mismo color en Dark (como dice §3.8), radio 8 px, relleno 8 px, muestra con borde 0 y los demás pasos con su borde de 1 px; sin scroll horizontal (`scrollWidth` 375 en móvil). En Dark, la muestra 950 se distingue bien sobre la caja.
+- Efectos de la caja, sin cambiar (los decide diseño): la muestra y el texto del paso destacado bajan 8 px respecto a los demás pasos de su fila, y la muestra es 16 px más estrecha; la etiqueta `text/accent/default en Light` de `semantic-color` parte la palabra (`text/accen` · `t/default` a 375 px, `text/acce` · `nt/default` a 1440 px); el texto tiene ahora 16 px menos de ancho (sin comprobar si ya la partía antes).
+
 **Build de T22 (2026-10-08)**
 - `git pull` hasta `5ec8186`. `python3 tools/semantic.py` con el `tools/scales.py` nuevo: sin errores. `npm run build` (86 páginas estáticas) y `check:content` (78 páginas, 648 anclas): sin errores.
 

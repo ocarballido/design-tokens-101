@@ -46,15 +46,21 @@ export function ColorScale({ palette, caption, highlight, highlightLabel }: Colo
           const { hex, color } = step(palette, name);
           const highlighted = name === highlight;
           return (
-            <li key={name} className="flex min-w-0 flex-col gap-100">
+            <li
+              key={name}
+              className={cx(
+                'flex min-w-0 flex-col gap-100',
+                // D62: el paso destacado va en una caja; la etiqueta sigue siendo la marca (1.4.1).
+                highlighted &&
+                  'rounded-control border-(length:--t101-border-width-100) border-neutral-default bg-neutral-strong p-200',
+              )}
+            >
               {/* La muestra es decorativa: la información está en el texto (número y hex). */}
               <span
                 aria-hidden
                 className={cx(
                   'block h-1200 rounded-control',
-                  highlighted
-                    ? 'border-(length:--t101-border-width-200) border-neutral-strong'
-                    : 'border-(length:--t101-border-width-100) border-neutral-default',
+                  !highlighted && 'border-(length:--t101-border-width-100) border-neutral-default',
                 )}
                 style={{ backgroundColor: color }}
               />
