@@ -70,7 +70,6 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
-- **Build de las correcciones del 2026-10-08 (sesión de contenido):** `npm run build && npm run check:content`. Cambia texto en `what-is-dtcg`, `figma-dtcg-tailwind`, `typography`, `what-is-an-alias`, `what-figma-exports` (bloque JSON nuevo), `normalize-the-export` (párrafo, extracto de código y enlace a `/figma-to-code/what-figma-exports#por-qué-el-valor-viene-resuelto`), `exercise-figma-to-code`, `course-summary` y `conclusions`; enlace nuevo en `typography`. Después, `npm run tokens && npm run check:tokens`: `tools/figma-to-dtcg.mjs` cambió y la salida debe ser la misma (comprobado en esta sesión solo con el script).
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).

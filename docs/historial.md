@@ -358,6 +358,9 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Build de las correcciones de contenido (2026-10-08, A15, decisiones 11 y 15)**
+- `git pull` hasta `8d4c06f`. `npm run tokens` y `check:tokens` con el `tools/figma-to-dtcg.mjs` nuevo: sin errores (82 alias, 155 tokens) y sin cambios en `tokens/dtcg/` ni en `src/styles/`. `npm run build` (86 páginas estáticas) y `check:content` (78 páginas, 648 anclas): sin errores.
+
 **Imagen para compartir, Node en Vercel y despliegue (2026-10-07, V52 y V53)**
 - `git pull` con lo de contenido: `content/es/99-resources/02-figma-files.mdx` (P18), enlaces desde `requirements` y `exercise-final`, y V52 cambiada (`public/brand/share.png`, PNG RGBA de 1200 × 630; `alt` coherente con la imagen).
 - `npm run build` (86 páginas estáticas, con `/resources/figma-files`), `check:content` y `check:tokens`: sin errores.
