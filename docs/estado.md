@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de diseño. Herramientas: plantillas de las dos páginas en Figma (D57 a D60); siguen los textos (contenido) y el desarrollo.
+Última actualización: 2026-10-08, sesión de contenido. T23: la herramienta de escalas entrega la escala del color y la de neutros, sin escalas de estado; `componentes-v1.md` §5 al día (sin `CheckboxGroup`); falta que diseño lo pase a Figma. Antes, el mismo día: componentes y plantillas de las herramientas (D44 a D60, diseño).
 
 ---
 

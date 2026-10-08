@@ -121,7 +121,7 @@ Un escritor de .zip propio (cabecera local, directorio central, CRC-32 y `Compre
   - Escalas: el script es Python y la web necesita JavaScript, así que aquí sí hay dos implementaciones. La prueba de §5.4 es la que garantiza que coinciden.
 - **Pruebas con `node:test`** (un script `npm test`, sin dependencias):
   1. Normalización: `tokens/figma/` → función pura → igual, byte a byte, a `tokens/dtcg/`. Más casos sintéticos (cada combinación de tipo y scope, alias, opacidad en float32, conflicto de scopes, scope sin tipo) con su salida esperada.
-  2. Escalas: `scales.py` escribe un archivo de casos (una lista de colores de marca, cada uno con sus 55 hex: acento, neutros y las tres escalas de estado) y la prueba compara la versión de JavaScript hex a hex. El archivo de casos se guarda en el repositorio, así que `npm test` no necesita Python; Python solo hace falta para regenerarlo si cambia el método.
+  2. Escalas: `scales.py` escribe un archivo de casos (una lista de colores de marca, cada uno con sus 22 hex: la escala del color y la de neutros, T23) y la prueba compara la versión de JavaScript hex a hex. El archivo de casos se guarda en el repositorio, así que `npm test` no necesita Python; Python solo hace falta para regenerarlo si cambia el método.
 - Lo que no cubren estas pruebas, y queda para la prueba manual de cada versión: la interfaz (subida, decisiones, descarga) en Chrome, Firefox y Safari.
 
 ---
@@ -239,7 +239,7 @@ Lo que dicen las cifras:
 
 | Requisito (`historial.md`) | Después de esta investigación |
 |---|---|
-| Entrada en hex, RGB u HSL; tinte de los neutros; escalas de estado | Igual, con el hex como entrada canónica (§5.4) |
+| Entrada en hex, RGB u HSL; tinte de los neutros; escalas de estado | Hex como entrada canónica (§5.4). Sin escalas de estado (T23): la herramienta entrega la escala del color y la de neutros |
 | Salida visual con `ColorScale` y tabla de oklch, hex y contraste | Igual, más los pasos recortados y los avisos (§5.2). `ColorScale` lee hoy los hex de los tokens (C14): necesita aceptar los hex de la herramienta |
 | Archivo DTCG importable en Figma | Sin los `$extensions` hasta la prueba de §7 (§5.1) |
 | Todo en el navegador; prueba automática igual a `scales.py` | Probado que es posible (§5.4); prueba con `node:test` (§4) |
@@ -433,8 +433,8 @@ Sección `content/es/98-tools/` ("Herramientas", `meta.json`), en el grupo "Refe
 
 1. **Introducción** (dos frases): genera las escalas de color de tu sistema con el método del curso y te da el archivo para importarlas en Figma. Enlace a [Escalas de color](/primitives/color-scales).
 2. **La herramienta** (componente interactivo):
-   - **Entrada:** color de marca (hex, RGB o HSL; se calcula desde el hex), nombre de la paleta, tinte de los neutros, curva de referencia (`green` por defecto, con dos frases sobre qué es y el gráfico del croma por paso) y, opcional, escalas de estado.
-   - **Resultado:** las escalas con `ColorScale` y su tabla (paso, oklch, hex, contraste con blanco y con `neutral/950`), los pasos recortados marcados y los avisos de §5.2. Vista previa sobre fondo claro y oscuro.
+   - **Entrada:** color de marca (hex, RGB o HSL; se calcula desde el hex), nombre de la paleta, tinte de los neutros, curva de referencia (`green` por defecto, con dos frases sobre qué es y el gráfico del croma por paso).
+   - **Resultado:** dos escalas, la del color y la de neutros (T23), con `ColorScale` y su tabla (paso, oklch, hex, contraste con blanco y con `neutral/950`), los pasos recortados marcados y los avisos de §5.2. Vista previa sobre fondo claro y oscuro.
    - **Exportar:** elegir los pasos que se van a usar (los 11 marcados por defecto; los nombres no cambian), descargar el archivo `.tokens.json` y copiar el enlace con los ajustes.
 3. **Importar en Figma** (tres pasos): arrastrar el archivo a una colección nueva o usar *Import mode*; quitar los scopes de los primitivos, que la importación pone en `ALL_SCOPES` (§7, prueba 3); revisar que *Import mode* sobre una colección existente cambia los valores sin preguntar (§7, prueba 2).
 

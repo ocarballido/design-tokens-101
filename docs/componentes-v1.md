@@ -931,7 +931,6 @@ Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de colo
 | Tinte de los neutros (0 a 1) | Escalas | `TextField` numérico (D45) | No |
 | Curva de referencia | Escalas | `Select` (§5.3) y dos frases de `Prose` | Sí |
 | Gráfico del croma por paso | Escalas | `ChromaChart` (§5.8) | Sí |
-| Escalas de estado (opcional) | Escalas | `CheckboxGroup` con tres `Checkbox` (§5.4) | Sí |
 | Escalas generadas | Escalas | `ColorScale` (§3.8) con los hex de la herramienta: prop nueva `colors` (§5.10) | Cambio |
 | Tabla de cada escala (paso, oklch, hex, contraste, recorte) | Escalas | `Table` (§3.6), con `Code` para los valores | No |
 | Pasos recortados y avisos de §5.2 | Escalas | Columna "Recorte" de la tabla (texto) y `Callout` `warning` (§3.2) con enlace a la lección | No |
@@ -1056,20 +1055,16 @@ Select (div)
 
 **Contraste:** valor 17,79 / 18,89 (`default`) y 16,28 / 14,34 (`hover`); chevron 7,74 / 7,65.
 
-### 5.4 `Checkbox` y `CheckboxGroup`
+### 5.4 `Checkbox`
 
-**Para qué sirve.** Marcar opciones sueltas: las escalas de estado que se generan (red, amber, blue) y los pasos que se exportan.
+**Para qué sirve.** Marcar los pasos que se exportan, en la columna "Exportar" de la tabla de cada escala (D46). Sin `CheckboxGroup` desde T23: la herramienta ya no genera escalas de estado, que era su único uso.
 
 **Esquema.**
 
 ```txt
-CheckboxGroup (fieldset)
-├── legend
-├── ayuda (p) · opcional
-└── Checkbox × n
-      Checkbox (label que envuelve)
-      ├── caja: input type="checkbox" con estilo (appearance: none) · marca li:check
-      └── texto
+Checkbox (label que envuelve)
+├── caja: input type="checkbox" con estilo (appearance: none) · marca li:check
+└── texto
 ```
 
 **Props de `Checkbox`.**
@@ -1081,9 +1076,7 @@ CheckboxGroup (fieldset)
 | `name`, `value`, `onChange` | | No se ven |
 | `state` | solo Figma | Variante: `default`, `hover`, `focus` |
 
-**Props de `CheckboxGroup`.** `legend` (`string`), `hint` (`string` opcional), `children` (los `Checkbox`). En Figma: texto `legend`, booleano `showHint` y slot.
-
-**Variantes en Figma:** `Checkbox` `checked` (2) × `state` (3) = 6; `CheckboxGroup`, 1.
+**Variantes en Figma:** `Checkbox` `checked` (2) × `state` (3) = 6.
 
 **Tokens de la caja.**
 
@@ -1342,7 +1335,7 @@ ScalePreview (figure)
 - **Hex resultante** (Escalas): debajo del campo del color, una línea `output` con una muestra decorativa de 24 px (`space/600`, `radius/100`, borde `border/neutral/default`) y "Se usa el hex #33CC99" (`body/small`, `text/neutral/subtle`, el hex en `Code`). No es un componente.
 - **`Sidebar`:** sección "Herramientas" sin número, en el grupo "Referencia", antes de Recursos, con "Escalas de color" y "Completar la exportación".
 
-**Plantillas de Escalas de color** (D51: Desktop y Mobile, Light y Dark, más un marco Desktop Light con errores), con los valores de DesignToken101 (`#33CC99`, `emerald`, tinte 0,5, `green`, las tres escalas de estado):
+**Plantillas de Escalas de color** (D51: Desktop y Mobile, Light y Dark, más un marco Desktop Light con errores), con los valores de DesignToken101 (`#33CC99`, `emerald`, tinte 0,5, `green`). El resultado son dos escalas, la del color y la de neutros (T23):
 
 ```txt
 LessonHeader (sección "Herramientas", "Escalas de color")
@@ -1352,7 +1345,6 @@ Prose: introducción con enlace a "Escalas de color"
    TextField "Nombre de la paleta"
    TextField "Tinte de los neutros" (D45)
    Select "Curva de referencia" · dos frases · ChromaChart
-   CheckboxGroup "Escalas de estado"
 ## Resultado
    Callout warning × avisos (ninguno con DesignToken101)
    por escala: ### nombre · ColorScale · Table (con la columna Exportar)

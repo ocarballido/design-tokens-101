@@ -24,6 +24,9 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: T23, escalas de la herramienta**
+- Oscar decide que la herramienta entregue solo la escala del color que añade el usuario y, a propuesta de contenido (opción B), también la de neutros; sin escalas de estado. `componentes-v1.md` §5: sin la fila de escalas de estado del inventario, §5.4 solo `Checkbox` (sin `CheckboxGroup`), plantilla de Escalas sin el bloque. `investigacion-herramientas.md`: índice (§9), requisitos (§5.6) y prueba de paridad (§4, 22 hex).
+
 **2026-10-08, sesión de contenido: índice de las herramientas**
 - Oscar aprueba las recomendaciones de la comparación con Scale (ajustes en la URL, vista previa en claro y oscuro, exportar solo los pasos elegidos; siempre 11), añadidas a T22. Índice de las dos páginas en `investigacion-herramientas.md` §9, corto por petición de Oscar: sin la estructura de lección (T3).
 
