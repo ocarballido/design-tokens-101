@@ -297,6 +297,11 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - `color-scales`: frase sobre `emerald` como curva de tono más cercano y lo que da la herramienta con `#33CC99`.
 - Guion de pruebas, apartado A, rehecho.
 
+### 2026-10-08: C27, resultado desactualizado
+
+- Contraste del resultado con opacidad de grupo, calculado con los primitivos de `src/styles/tokens.css` (mezcla en sRGB sobre el fondo de la página): mínimo en Light 4,77 / 3,31 / 2,78 / 2,35 / 2,00 / 1,72 con 100 / 80 / 70 / 60 / 50 / 40 % (texto del `Callout` `warning`); en Dark 7,65 / 5,21 / 4,22 / 3,38 / 2,68 / 2,11 (texto secundario). Por eso C27 atenúa solo las muestras.
+- Token `opacity/inactive` = 0,4 en `tokens/code-only.tokens.json` (`sistema-tokens-v1.md` §4.9); textos `staleNotice` y `errorStale`; pruebas A12b y A12c en el guion.
+
 ## Diseño
 
 **Estado:** cerrado (2026-10-02). Todo lo que necesita desarrollo está en `docs/entrega-diseno.md`.

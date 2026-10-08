@@ -76,6 +76,8 @@
     "generate": "Generar escalas",
     "generateErrorTitle": "Revisa los campos para generar las escalas",
     "resultSummary": "Escalas de <code></code> · tinte {tint} · curva {curve}",
+    "staleNotice": "Has cambiado los ajustes. Pulsa Generar escalas para actualizar el resultado.",
+    "errorStale": "Genera las escalas con los ajustes nuevos antes de descargar",
     "colorLabel": "Color de marca",
     "colorHint": "En hex, RGB o HSL: #33CC99, rgb(51 204 153) o hsl(160 60% 50%).",
     "colorError": "Escribe un color en hex, RGB o HSL, por ejemplo #33CC99.",

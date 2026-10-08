@@ -1386,6 +1386,7 @@ Prose: introducción con enlace a la lección "Completar la exportación"
 - **Deslizador del tinte (C23):** `label` (`label/default`), ayuda (`caption/default`, `text/neutral/subtle`), `input type="range"` (`min=0`, `max=1`, `step=0.05`) con `accent-color` `border/accent/strong`, y a su derecha un `output` con el valor ("0,5", `body/default`, `text/neutral/default`). Ancho flexible; alto del objetivo de al menos 24 px (2.5.8). Sin error. Componente nuevo en Figma.
 - **Botón "Generar escalas" (C24):** `Button` `primary` debajo de la curva y su gráfica; `ErrorSummary` encima de él cuando hay errores; el `h2` "Resultado" recibe el foco al generar; debajo, una línea `body/small` `text/neutral/subtle` con lo generado (el hex en `Code`). Sin resultado mientras haya errores.
 - **Curva y nombre propuestos (C25, C26):** el `Select` de la curva y el `TextField` del nombre empiezan con la propuesta y la siguen hasta que el usuario los cambia.
+- **Resultado desactualizado (C27):** con color, tinte o curva distintos de los generados, las muestras de `ColorScale` y `ScalePreview` a `opacity/inactive`; debajo del `h2` "Resultado", el aviso `staleNotice` en `role="status"` (`body/small`, `text/neutral/default`, con `li:circle-alert` en `text/warning/default`); la descarga, bloqueada con `errorStale` en el `ErrorSummary`. El nombre se aplica al momento.
 - **Aviso de recorte (C25):** `Callout` `note`; marca sin croma y paso extremo siguen en `warning`.
 
 ### 5.11 Preguntas para Oscar: aprobadas las diez recomendaciones el 2026-10-08 (D45 a D54)

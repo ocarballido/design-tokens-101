@@ -357,6 +357,10 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 - Vive en `tokens/code-only.tokens.json`: sin estilos de efecto en Figma en v1 (S28). Tipo DTCG `dimension`. La numeración sigue la de `space` (`300` = 12 px).
 - En Tailwind, `backdrop-blur-300` (espacio de nombres `--blur-*`).
 
+### 4.9 Opacidad (C27): token solo de código
+
+`opacity/inactive` = 0,4. Atenúa las muestras de color (`ColorScale`, `ScalePreview`) de un resultado que ya no corresponde a los ajustes en "Generar escalas". Nunca se aplica a texto: con cualquier opacidad que se note, el texto de esa zona baja de 4,5:1 (con el 80 %, 3,31:1 en Light; cálculo de C27). No hay variable en Figma: el estado desactualizado no se dibuja en las plantillas.
+
 ## 5. Nomenclatura
 
 ### 5.1 Escuela y orden (cerradas, A2, A3)

@@ -26,6 +26,8 @@ Cómo apuntar: el número de la prueba y "bien" o lo que ha pasado. Una captura 
 | A10 | Color `#808080` y generar | Aviso "Tu color no tiene croma…"; nombre `gray`, curva `green`; "Tu color" en el 600 |
 | A11 | Color `#1A2B5C` y generar | Curva `blue`. Aviso de paso extremo (950) y nota de recorte en 200, 300, 400 y 500 (−3 %, −9 %, −7 %, −5 %) |
 | A12 | Color `#FF6B00` y generar | Curva `orange`, "Tu color" en el 500, nota de recorte en ocho pasos. Cambias a la curva `green`: la gráfica cambia al momento; la escala, al generar |
+| A12b | Generas; después cambias el color (o el tinte, o la curva) sin pulsar el botón | Las muestras de las escalas y de la vista previa se atenúan; el texto no. Debajo de "Resultado", "Has cambiado los ajustes…" (VoiceOver lo anuncia). Descargar da "Genera las escalas con los ajustes nuevos antes de descargar", con enlace al botón. Si vuelves al valor generado, todo vuelve a la normalidad |
+| A12c | Cambias solo el nombre | No se atenúa nada: el título de la escala, el pie y la tabla cambian al momento, y el archivo descargado usa el nombre nuevo |
 | A13 | Desmarcas los pasos 50 y 950 de la primera escala y descargas | El archivo no tiene esos dos pasos; los nombres de los demás no cambian |
 | A14 | Desmarcas los 22 pasos y descargas | "Falta algo para descargar" con "Marca al menos un paso para exportar"; el enlace lleva a la primera casilla |
 | A15 | Con `#FF6B00`, nombre `brand`, tinte `0,25` y curva `orange`, generas y pulsas "Copiar el enlace con los ajustes"; lo abres en otra pestaña | "Enlace copiado" unos segundos. La pestaña nueva abre con esos ajustes y el resultado ya generado. Un enlace con solo el color (`?color=1877F2`) propone nombre y curva |
