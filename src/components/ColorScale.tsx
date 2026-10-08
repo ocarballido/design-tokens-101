@@ -8,6 +8,7 @@ import { cx } from '@/lib/cx';
 // regenera con `npm run tokens`, el gráfico cambia solo.
 // D54: con `colors` (11 hex) y `name`, en lugar de `palette`, muestra los hex que calcula la
 // herramienta de escalas (§5.10); la muestra es entonces el hex, que es un dato, no un token.
+// C27: con `inactive`, las muestras (nunca el texto) van a opacity/inactive.
 
 const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] as const;
 
@@ -50,9 +51,10 @@ type ColorScaleProps = (
   highlight?: string;
   // Obligatorio si hay highlight: el paso destacado se distingue también por texto (1.4.1).
   highlightLabel?: string;
+  inactive?: boolean;
 };
 
-export function ColorScale({ palette, colors, name: scaleName, caption, highlight, highlightLabel }: ColorScaleProps) {
+export function ColorScale({ palette, colors, name: scaleName, caption, highlight, highlightLabel, inactive = false }: ColorScaleProps) {
   if (colors && (colors.length !== STEPS.length || colors.some((hex) => !/^#[0-9A-F]{6}$/.test(hex)))) {
     throw new Error('ColorScale: colors son 11 hex en mayúsculas y con 6 cifras');
   }
@@ -85,6 +87,7 @@ export function ColorScale({ palette, colors, name: scaleName, caption, highligh
                 className={cx(
                   'block h-1200 rounded-control',
                   !highlighted && 'border-(length:--t101-border-width-100) border-neutral-default',
+                  inactive && 'opacity-(--t101-opacity-inactive)',
                 )}
                 style={{ backgroundColor: color }}
               />

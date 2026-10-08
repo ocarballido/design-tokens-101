@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. C23 a C27 en Generar escalas (deslizador del tinte, botón "Generar escalas", curva y nombre propuestos, nota de recorte, resultado desactualizado con `opacity/inactive`): lógica, token y textos en `main`, encargo a desarrollo. Antes, el mismo día: C21 y C22 en código (desarrollo), guion de pruebas, pruebas 4 y 5 (contenido).
+Última actualización: 2026-10-08, sesión de desarrollo. C27 (resultado desactualizado en Generar escalas, token `opacity/inactive`) en código y en `main`; tokens, build, `check:content` y `npm test` sin errores, probado en Chrome. Antes, el mismo día: C27 decidida (contenido), C23 a C26 en código (desarrollo).
 
 ---
 
@@ -76,7 +76,8 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
-- **Herramientas (2026-10-08, detalle en `historial.md`):** probadas en Chrome 154 con Playwright, también con C21 a C26; falta la prueba manual en Safari y Firefox (subida de carpeta y .zip, decisiones, descargas) y con lector de pantalla; en Generar escalas, también el clic en la pista del deslizador (C23, 2.5.7) y su `accent-color` en cada navegador. Sin revisar por Oscar en el navegador.
+- **C27, para Oscar:** con el nombre propuesto (sin editar), cambiar el color cambia al momento el nombre del resultado: las muestras atenuadas de `emerald` se titulan ya `red`. Es lo que dicen C26 y C27 juntas; decidir si el nombre propuesto debe esperar a "Generar escalas". Y, con un nombre no válido en el campo, el resultado y la descarga usan el último válido (el campo muestra su error).
+- **Herramientas (2026-10-08, detalle en `historial.md`):** probadas en Chrome 154 con Playwright, también con C21 a C27; falta la prueba manual en Safari y Firefox (subida de carpeta y .zip, decisiones, descargas) y con lector de pantalla; en Generar escalas, también el clic en la pista del deslizador (C23, 2.5.7) y su `accent-color` en cada navegador. Sin revisar por Oscar en el navegador.
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).

@@ -112,6 +112,9 @@ function tailwindTheme() {
     // (https://tailwindcss.com/docs/transition-duration).
     [/^easing\.(.+)$/, (m, id) => [[`--ease-${m[1]}`, ref(id)]]],
     [/^duration\./, () => null],
+    // C27: la documentación de Tailwind no da --opacity-* como espacio de nombres del tema; los
+    // componentes usan opacity-(--t101-opacity-inactive) (https://tailwindcss.com/docs/opacity).
+    [/^opacity\./, () => null],
     // V28: --blur-* da blur-* y backdrop-blur-* (https://tailwindcss.com/docs/backdrop-filter-blur).
     [/^blur\.(.+)$/, (m, id) => [[`--blur-${m[1]}`, ref(id)]]],
     // Las media queries no leen variables: el breakpoint se escribe con su valor (D11).

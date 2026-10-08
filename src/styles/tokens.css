@@ -156,6 +156,8 @@
   --t101-line-height-snug: 1.4;
   /* Títulos grandes */
   --t101-line-height-tight: 1.2;
+  /* Solo código (C27): muestras de color de un resultado que ya no corresponde a los ajustes (Generar escalas). Solo para contenido que no es texto: el texto atenuado no llega a 4,5:1. Fuente: docs/sistema-tokens-v1.md §4.9. */
+  --t101-opacity-inactive: 0.4;
   --t101-radius-0: 0rem;
   --t101-radius-100: 0.25rem;
   --t101-radius-200: 0.5rem;

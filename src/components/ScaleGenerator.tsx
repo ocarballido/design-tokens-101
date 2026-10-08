@@ -1,6 +1,6 @@
 'use client';
 
-import { Download, Link as LinkIcon } from 'lucide-react';
+import { CircleAlert, Download, Link as LinkIcon } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
@@ -50,10 +50,14 @@ import { download } from '@/lib/download';
 // - El tinte es un deslizador nativo de 0 a 1 (C23): no tiene valor no válido.
 // - La curva y el nombre los propone suggest() a partir del color hasta que el usuario los cambia
 //   (C25, C26); null significa "el propuesto".
-// - La descarga está siempre activa (D14) y solo comprueba que haya pasos marcados: si no, aparece
-//   su ErrorSummary encima (D52) y recibe el foco.
+// - Resultado desactualizado (C27): si el color, el tinte o la curva no son los generados, las
+//   muestras van a opacity/inactive (nunca el texto), el aviso sale en un role="status" debajo de
+//   "Resultado" y la descarga se bloquea; si vuelven a coincidir, deja de estarlo. El nombre no lo
+//   marca: se aplica al momento (el último válido).
+// - La descarga está siempre activa (D14) y comprueba que el resultado esté al día y que haya pasos
+//   marcados: si no, aparece su ErrorSummary encima (D52) y recibe el foco.
 // - Los ajustes se leen de la URL al cargar (?color=33CC99&tint=0.5, más name y curve si el usuario
-//   los eligió) y el botón secundario copia el enlace del resultado.
+//   los eligió) y el botón secundario copia el enlace de los ajustes generados.
 
 const LESSON = '/primitives/color-scales';
 const CURVES = Object.keys(TW_CURVES);
@@ -75,6 +79,8 @@ export function ScaleGenerator() {
   // Último color válido del campo: de él salen las propuestas mientras el campo no es válido.
   const [lastColor, setLastColor] = useState(DEFAULTS.color);
   const [nameEdited, setNameEdited] = useState(false);
+  // Último nombre válido: el del resultado, que se aplica al momento (C27).
+  const [appliedName, setAppliedName] = useState(() => suggest(DEFAULTS.color).name);
   const [curveChoice, setCurveChoice] = useState<string | null>(DEFAULTS.curve);
   const [tint, setTint] = useState(DEFAULTS.tint);
   const [generated, setGenerated] = useState<ScaleState | null>(DEFAULTS);
@@ -98,6 +104,7 @@ export function ScaleGenerator() {
     setText({ color: state.color, name: state.name ?? '' });
     setLastColor(state.color);
     setNameEdited(state.name !== null);
+    setAppliedName(state.name ?? suggest(state.color).name);
     setCurveChoice(state.curve);
     setTint(state.tint);
     setGenerated(state);
@@ -143,13 +150,18 @@ export function ScaleGenerator() {
   // La gráfica sigue al selector y al campo de color al momento (C24).
   const chartInput = useMemo(() => build(parsed.color ?? lastColor, tint, curve).input, [parsed.color, lastColor, tint, curve]);
 
-  // Resultado: lo generado al montar o con el botón.
-  const result = useMemo(() => {
+  useEffect(() => {
+    if (parsed.name !== null) setAppliedName(parsed.name);
+  }, [parsed.name]);
+
+  // Resultado: lo generado al montar o con el botón, con el nombre de ahora (C27).
+  const generatedResult = useMemo(() => {
     if (!generated) return null;
-    const own = suggest(generated.color);
-    const resolved = { ...generated, name: generated.name ?? own.name, curve: generated.curve ?? own.curve };
+    const resolved = { ...generated, curve: generated.curve ?? suggest(generated.color).curve };
     return { ...resolved, scales: build(resolved.color, resolved.tint, resolved.curve) };
   }, [generated]);
+  const result = generatedResult ? { ...generatedResult, name: appliedName } : null;
+  const stale = result !== null && (parsed.color !== result.color || tint !== result.tint || curve !== result.curve);
 
   const inputErrors = [
     parsed.color === null ? { message: t('errorColor'), href: '#scale-color' } : null,
@@ -187,9 +199,22 @@ export function ScaleGenerator() {
     setResultFocus((count) => count + 1);
   }
 
+  const downloadErrors = [
+    stale ? { message: t('errorStale'), href: '#scale-generate' } : null,
+    accentSteps.length + neutralSteps.length === 0
+      ? { message: t('errorSteps'), href: `#${exportId(appliedName, STEPS[0])}` }
+      : null,
+  ].filter((error) => error !== null);
+
+  // Resuelto lo que faltaba, el resumen se va y no vuelve hasta la próxima descarga.
+  const downloadBlocked = downloadErrors.length > 0;
+  useEffect(() => {
+    if (!downloadBlocked) setDownloadSummary(0);
+  }, [downloadBlocked]);
+
   function onDownload() {
     if (!result) return;
-    if (accentSteps.length + neutralSteps.length === 0) {
+    if (downloadErrors.length) {
       setDownloadSummary((count) => count + 1);
       return;
     }
@@ -201,7 +226,9 @@ export function ScaleGenerator() {
   async function copyLink() {
     if (!generated) return;
     const { origin, pathname } = window.location;
-    await navigator.clipboard.writeText(`${origin}${pathname}${searchFromState(generated)}`);
+    // Los ajustes generados; el nombre, el aplicado (se aplica al momento, C27).
+    const settings = { ...generated, name: nameEdited ? appliedName : null };
+    await navigator.clipboard.writeText(`${origin}${pathname}${searchFromState(settings)}`);
     setCopied(true);
   }
 
@@ -358,7 +385,9 @@ export function ScaleGenerator() {
               <ErrorSummary ref={generateSummaryRef} title={t('generateErrorTitle')} errors={inputErrors} />
             ) : null}
             <div>
-              <Button onClick={onGenerate}>{t('generate')}</Button>
+              <Button id="scale-generate" onClick={onGenerate}>
+                {t('generate')}
+              </Button>
             </div>
           </div>
         </div>
@@ -374,6 +403,15 @@ export function ScaleGenerator() {
               <p className="type-body-small text-neutral-subtle">
                 {t.rich('resultSummary', { code: () => <Code>{result.color}</Code>, tint: decimal(result.tint), curve: result.curve })}
               </p>
+              {/* La región existe siempre, para que el lector anuncie el aviso al aparecer (4.1.3). */}
+              <div role="status">
+                {stale ? (
+                  <p className="flex items-start gap-100 type-body-small text-neutral-default">
+                    <CircleAlert aria-hidden className="my-050 size-400 shrink-0 text-warning-default" />
+                    <span className="min-w-0">{t('staleNotice')}</span>
+                  </p>
+                ) : null}
+              </div>
             </div>
             {warnings.map((warning, i) => (
               <Callout key={i} variant={warning.variant}>
@@ -397,6 +435,7 @@ export function ScaleGenerator() {
                     }
                     highlight={scale.highlight ? String(scales.input.anchorStep) : undefined}
                     highlightLabel={scale.highlight ? t('yourColor') : undefined}
+                    inactive={stale}
                   />
                   {scaleTable(scale.name, scale.rows, dark, scale.selected, scale.setSelected)}
                 </div>
@@ -411,18 +450,15 @@ export function ScaleGenerator() {
                 lightLabel={t('previewLight')}
                 darkLabel={t('previewDark')}
                 caption={t('previewCaption')}
+                inactive={stale}
               />
             </div>
           </section>
 
           <section className="flex flex-col gap-400">
             <Heading2>{t('export')}</Heading2>
-            {downloadSummary && accentSteps.length + neutralSteps.length === 0 ? (
-              <ErrorSummary
-                ref={downloadSummaryRef}
-                title={t('errorTitle')}
-                errors={[{ message: t('errorSteps'), href: `#${exportId(result.name, STEPS[0])}` }]}
-              />
+            {downloadSummary && downloadErrors.length ? (
+              <ErrorSummary ref={downloadSummaryRef} title={t('errorTitle')} errors={downloadErrors} />
             ) : null}
             <div className="flex flex-wrap items-center gap-200">
               <Button icon={Download} onClick={onDownload}>
