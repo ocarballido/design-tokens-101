@@ -200,6 +200,7 @@ export function parseTint(input) {
  *   { code: 'clipped', steps }      pasos en los que el ajuste a sRGB recorta el croma
  */
 export function build(hex, tint = 0.5, reference = 'green') {
+  if (reference == null) reference = suggest(hex).curve; // null: la curva propuesta (C25)
   const curve = TW_CURVES[reference];
   if (!curve) throw new Error(`Curva desconocida: ${reference}`);
   const brand = hexToRgb(hex);

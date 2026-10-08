@@ -65,6 +65,7 @@ test('curva y nombre propuestos por el tono (C25, C26)', () => {
   assert.deepEqual(suggest('#1877F2'), { curve: 'blue', name: 'blue' });
   assert.deepEqual(suggest('#F40009'), { curve: 'red', name: 'red' });
   assert.deepEqual(suggest('#808080'), { curve: 'green', name: 'gray' });
+  assert.equal(build('#33CC99', 0.5, null).input.reference, 'emerald');
   assert.equal(searchFromState({ color: '#33CC99', name: null, tint: 0.5, curve: null }), '?color=33CC99&tint=0.5');
   assert.deepEqual(stateFromSearch('?color=33CC99&tint=0.5'), { color: '#33CC99', name: null, tint: 0.5, curve: null });
 });
