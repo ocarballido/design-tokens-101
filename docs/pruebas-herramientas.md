@@ -16,7 +16,8 @@ Cómo apuntar: el número de la prueba y "bien" o lo que ha pasado. Una captura 
 |---|---|---|
 | A1 | Abres la página | Color `#33CC99`, nombre `emerald`, tinte `0,5`, curva `green`. "Se usa el hex `#33CC99`". En el gráfico, "Tu color" en el paso 500, con la barra en el verde de tu color (C21, cuando desarrollo lo haga). Dos escalas, `emerald` y `neutral`, sin avisos. Pies: "Escala emerald, del paso 50 al 950: tu color está en el 500." y "Escala neutral, del paso 50 al 950: los grises de tu sistema." |
 | A2 | Escribes `rgb(51 204 153)`, después `hsl(160 60% 50%)`, después `51 204 153`, después `#3c9` | Las cuatro veces, "Se usa el hex `#33CC99`" y la misma escala |
-| A3 | Escribes `#33CC9` | La escala no cambia (sigue la última entrada válida). Sin error todavía: los errores salen al pulsar la descarga |
+| A3 | Escribes `#33CC9` y pasas al campo siguiente con Tab | La escala no cambia (sigue la última entrada válida). Al salir del campo aparece su error (C22). Mientras escribes por primera vez, no |
+| A3b | Tinte `100` y Tab | Error "Escribe un número de 0 a 1, por ejemplo 0,5."; los neutros no cambian. Corriges a `0,5` y el error desaparece |
 | A4 | Con `#33CC9`, pulsas "Descargar el archivo .tokens.json" | No descarga. Aparece "Falta algo para descargar" encima de los botones, con el foco en él y el enlace "Escribe un color válido". El campo muestra su error con el icono. El enlace lleva el foco al campo |
 | A5 | Tinte `1,5` y nombre `Brand`; pulsas la descarga | Tres enlaces en el resumen (color, si sigue mal, nombre y tinte); cada campo con su error |
 | A6 | Corriges todo y vuelves a pulsar | Descarga `Value.tokens.json`; el resumen de errores desaparece |

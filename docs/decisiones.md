@@ -113,6 +113,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C19 | Secciones del sidebar numeradas desde el prefijo de la carpeta; Recursos sin número; el número, alineado al inicio (cambia V40). | Cerrada | 2026-10-06 |
 | C20 | Campo `meta_title` en el frontmatter: `<title>` para buscadores cuando el título solo se entiende dentro del curso; sin meta keywords. | Cerrada | 2026-10-07 |
 | C21 | La barra "Tu color" de `ChromaChart` se rellena con el hex del usuario (dato, como las muestras de `ColorScale`) y lleva el borde inferior `border/neutral/strong` (cambia D56). | Cerrada | 2026-10-08 |
+| C22 | En "Generar escalas", cada campo muestra su error al salir de él, además de al pulsar la descarga; el tinte sigue siendo un campo de texto con `inputMode="decimal"` (D45), sin `type="number"`. | Cerrada | 2026-10-08 |
 
 ## Sistema de tokens
 

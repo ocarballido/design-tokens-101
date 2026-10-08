@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. C21: la barra "Tu color" de `ChromaChart` con el color del usuario (encargo a desarrollo y a diseño). Antes, el mismo día: pruebas 4 y 5 e "Importar en Figma" rehecho (contenido), herramientas en `main` (desarrollo), D61 a D63 (diseño).
+Última actualización: 2026-10-08, sesión de contenido. C21 (barra "Tu color" con el color del usuario) y C22 (errores de los campos al salir de ellos), encargadas a desarrollo; guion de pruebas en `docs/pruebas-herramientas.md`. Antes, el mismo día: pruebas 4 y 5 e "Importar en Figma" rehecho (contenido), herramientas en `main` (desarrollo).
 
 ---
 

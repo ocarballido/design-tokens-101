@@ -1007,6 +1007,7 @@ Con `invalid = true`, el borde no cambia (D47): el error se identifica por el te
 - El borde da 4,70 / 4,20 frente a la página (1.4.11): por eso `border/neutral/strong` y no `default` (`sistema-tokens-v1.md` §6.2, "No se comprueban").
 - Alto de al menos 24 px (2.5.8). Ancho flexible: a 320 px ocupa la columna.
 - En el campo del color, `autocomplete="off"` y `spellcheck="false"`.
+- El error aparece al salir del campo y al pulsar la descarga, no mientras se escribe por primera vez (C22).
 
 **Contraste** (Light / Dark): etiqueta y valor 17,79 / 18,89; ayuda 7,74 / 7,65; error 6,29 / 10,52 sobre la página; borde 4,70 / 4,20; anillo 3,33 / 10,92.
 
