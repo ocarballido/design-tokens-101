@@ -119,6 +119,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C25 | La curva de referencia la propone la herramienta por el tono más cercano (paso 500 de Tailwind CSS 4.3.3) hasta que el usuario elige otra (cambia el `green` por defecto de T22); el aviso de recorte pasa a nota. | Cerrada | 2026-10-08 |
 | C26 | El nombre de la paleta lo propone la herramienta con el de esa curva (`gray` sin croma) hasta que el usuario lo edita. | Cerrada | 2026-10-08 |
 | C27 | Resultado desactualizado en "Generar escalas": al cambiar color, tinte o curva, aviso sobre el resultado, muestras al 40 % (`opacity/inactive`, solo código, nunca texto) y descarga bloqueada hasta generar; el nombre se aplica al momento. | Cerrada | 2026-10-08 |
+| C28 | El nombre propuesto pasa al resultado al generar (el escrito por el usuario, al momento); un nombre no válido bloquea la descarga. | Cerrada | 2026-10-08 |
 
 ## Sistema de tokens
 
