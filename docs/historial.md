@@ -447,6 +447,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**C31 en código (2026-10-08)**
+- **Foco del pulgar:** en `range-tint` (`src/styles/base.css`), dos sombras sin desenfoque con `:focus-visible`: un hueco de `border-width/200` en `background/neutral/default` y, por fuera, el anillo de `border-width/200` en `border/focus` (`calc(border-width/200 * 2)`), en WebKit y Firefox. Resuelve el hallazgo de C29 (anillo del mismo color que el borde).
+- **Comprobaciones:** `npm run build`, `check:content`, `check:tokens` y `npm test` (17 de 17) sin errores. En Chrome 154 con Playwright: captura ampliada del pulgar con foco de teclado, con el hueco y el anillo separados del borde. Sin probar en Dark, Safari ni Firefox.
+
 **C29 y C30 en código (2026-10-08)**
 - **Deslizador (C29):** utilidad `range-tint` en `src/styles/base.css` sobre el `input type="range"` nativo: `appearance: none`; pista (`::-webkit-slider-runnable-track`, `::-moz-range-track`) de `space/100`, `radius/100`, `border/neutral/strong`; pulgar (`::-webkit-slider-thumb`, `::-moz-range-thumb`) de `space/600` × `space/600`, `radius/1200`, relleno `background/accent/strong/default` y borde `border-width/200` `border/accent/strong`, centrado en WebKit con un margen negativo calculado. Sin `accent-color`. Las reglas de cada motor van por separado (un pseudoelemento desconocido anula la lista entera).
 - **Foco del pulgar:** Chrome 154 no pinta `outline` en `::-webkit-slider-thumb` (comprobado con captura): el anillo es `box-shadow: 0 0 0 border-width/200 border/focus`, por fuera del borde. **Hallazgo:** `border/focus` y `border/accent/strong` son el mismo color (`emerald/600` en Light, `emerald/400` en Dark), así que con foco el borde del pulgar solo pasa de 2 a 4 px. Planteado a Oscar.

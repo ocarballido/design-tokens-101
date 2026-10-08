@@ -109,13 +109,18 @@
     background-color: var(--t101-color-background-accent-strong-default);
   }
 
-  /* El anillo es una sombra sin desenfoque y no un outline: Chrome no pinta el outline del pulgar
-   * (comprobado en Chrome 154). Mismo grosor y color que focus-ring, por fuera del borde. */
+  /* C31: el anillo son sombras sin desenfoque y no un outline: Chrome no pinta el outline del pulgar
+   * (comprobado en Chrome 154). border/focus es el color del borde del pulgar, así que entre los dos
+   * va un hueco de border-width/200 en background/neutral/default y, por fuera, el anillo. */
   &:focus-visible::-webkit-slider-thumb {
-    box-shadow: 0 0 0 var(--t101-border-width-200) var(--t101-color-border-focus);
+    box-shadow:
+      0 0 0 var(--t101-border-width-200) var(--t101-color-background-neutral-default),
+      0 0 0 calc(var(--t101-border-width-200) * 2) var(--t101-color-border-focus);
   }
   &:focus-visible::-moz-range-thumb {
-    box-shadow: 0 0 0 var(--t101-border-width-200) var(--t101-color-border-focus);
+    box-shadow:
+      0 0 0 var(--t101-border-width-200) var(--t101-color-background-neutral-default),
+      0 0 0 calc(var(--t101-border-width-200) * 2) var(--t101-color-border-focus);
   }
 }
 
