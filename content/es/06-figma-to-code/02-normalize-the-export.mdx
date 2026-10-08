@@ -3,7 +3,7 @@ title: Completar la exportación
 meta_title: "Normalizar la exportación de Figma a DTCG"
 description: "Por qué la exportación de Figma no se puede usar tal cual y cómo se completa: los alias recuperados, el tipo deducido del scope, las unidades y la opacidad. Un paso que se detiene antes que adivinar."
 nav_title: Completar la exportación
-lastReviewed: 2026-10-05
+lastReviewed: 2026-10-08
 ---
 
 La exportación de Figma es casi DTCG. Le faltan las referencias de los alias, las unidades y algunos tipos. En esta lección verás qué hace DesignToken101 con cada token antes de generar el CSS, y por qué cada cambio sale de una decisión que tomaste en Figma.
@@ -57,14 +57,14 @@ Un número de Figma no dice qué es. Su scope sí: es la lista de propiedades en
 | `STROKE_FLOAT` | Grosor del trazo | `dimension` |
 | `FONT_SIZE` | Tamaño de fuente | `dimension` |
 | `WIDTH_HEIGHT` | Ancho y alto | `dimension` |
-| `FONT_STYLE` | Peso tipográfico, en la exportación de DesignToken101 | `fontWeight` |
+| `FONT_STYLE` (en una variable de número) | Peso tipográfico | `fontWeight` |
 | `FONT_FAMILY` (con `$type` `string`) | Familia tipográfica | `fontFamily` |
 
 Los colores ya salen como `color`, un tipo DTCG, y no cambian.
 
 Dos detalles de esta tabla:
 
-- **Los pesos llevan el scope `FONT_STYLE`** en la exportación de DesignToken101. La API de plugins tiene además un scope `FONT_WEIGHT` ([Plugin API: VariableScope](https://developers.figma.com/docs/plugins/api/VariableScope/)). Nuestra exportación no lo usa, y la normalización no lo trata: si aparece, se detiene ([Detenerse antes que adivinar](#detenerse-antes-que-adivinar)).
+- **La exportación no escribe el scope del peso con su nombre.** En Figma, los pesos de DesignToken101 tienen el scope de peso tipográfico, que la API de plugins llama `FONT_WEIGHT` ([Plugin API: VariableScope](https://developers.figma.com/docs/plugins/api/VariableScope/)). La exportación lo escribe como `FONT_STYLE`, el nombre que la API reserva para el estilo de las variables de texto (comprobado con la API de plugins y la exportación de esta web, octubre de 2026). Por eso la normalización busca `FONT_STYLE` en una variable `number`. Con los bordes pasa algo parecido: `STROKE_COLOR` en Figma, `STROKE` en la exportación. Los colores no cambian de tipo, así que ese nombre no afecta a la normalización.
 - **El peso es un `number` en Figma** porque lo creamos como variable Number, no como String ([Tipografía](/primitives/typography)). En DTCG, `fontWeight` admite números del 1 al 1000 ([Format Module: Font weight](https://www.designtokens.org/TR/2025.10/format/#font-weight)): el valor no cambia; cambia el tipo.
 
 <Callout variant="warning">
@@ -117,7 +117,7 @@ Lo comprobamos el 2026-10-05 con Node.js 22.22.0, sobre una copia de la exportac
 size.test: $type "number" con scopes [ALL_SCOPES] no previsto. Revisa docs/paso-7-tokens.md §3.
 ```
 
-Con esta misma regla detectamos, al preparar la primera exportación (2026-10-03), que los pesos de DesignToken101 llevan el scope `FONT_STYLE`.
+Con esta misma regla detectamos, al preparar la primera exportación (2026-10-03), que la exportación escribe el scope de los pesos como `FONT_STYLE`.
 
 <InCode title="El script de normalización">
 

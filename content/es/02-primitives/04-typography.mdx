@@ -3,7 +3,7 @@ title: Tipografía
 meta_title: "Tokens de tipografía"
 description: Los primitivos tipográficos de DesignToken101 (familias, tamaños y pesos), de dónde sale la escala de tamaños y por qué el interlineado vive en código.
 nav_title: Tipografía
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-08
 ---
 
 La tipografía tiene varias escalas a la vez: familias, tamaños, pesos e interlineados. En esta lección verás los primitivos tipográficos de DesignToken101 y de dónde sale cada escala. Cómo se combinan en estilos de texto lo verás en [Estilos de texto como capa](/relations/text-styles).
@@ -146,7 +146,7 @@ Los primitivos tipográficos se ocultan al publicar porque nadie los aplica a ma
 
 <Callout variant="note">
 
-En la exportación de Figma, el scope del peso aparece como `FONT_STYLE` (comprobado en la exportación de esta web). Sirve para saber qué buscar si lees el JSON.
+En Figma, el scope de los pesos es el de peso tipográfico (`FONT_WEIGHT` en la API de plugins), pero la exportación lo escribe como `FONT_STYLE` (comprobado con la API de plugins y la exportación de esta web, octubre de 2026). Sirve para saber qué buscar si lees el JSON. Lo verás en [El tipo sale del scope](/figma-to-code/normalize-the-export#el-tipo-sale-del-scope).
 
 </Callout>
 

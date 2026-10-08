@@ -32,7 +32,7 @@ Un archivo por modo, con el árbol completo de la colección y el nombre del mod
 | **`font-weight/*`** | **`number`** | **`FONT_STYLE`** | `fontWeight` |
 | `font-family/*` | `string` (+ `com.figma.type: "string"`) | `FONT_FAMILY` | `fontFamily` |
 
-- **`font-weight` sale como `number`, no como `fontWeight`** (pregunta pendiente de D04, resuelta). El scope que usa Figma para el peso es `FONT_STYLE`.
+- **`font-weight` sale como `number`, no como `fontWeight`** (pregunta pendiente de D04, resuelta). En la exportación, el scope del peso es `FONT_STYLE`; en Figma, esas variables tienen `FONT_WEIGHT` (API de plugins, comprobado el 2026-10-08). La exportación tampoco escribe `STROKE_COLOR`: lo escribe `STROKE`. Detalle en `investigacion-herramientas.md` §6.2.
 - **Ningún tamaño sale como `dimension`:** todos son `number` sin unidad (`"$value": 4`). La ayuda de Figma lo explica: al *importar*, Figma convierte `dimension` (solo `px`) en Number; al exportar no vuelve a `dimension`.
 - **`string` no es un tipo DTCG.** La propia ayuda de Figma lo dice: "not an officially defined DTCG token type". El Format Module prohíbe a las herramientas adivinar el tipo por el valor ([DTCG Format 2025.10](https://www.designtokens.org/TR/2025.10/format/)).
 
@@ -102,7 +102,7 @@ Un script propio (prototipo probado; propuesta: `tools/figma-to-dtcg.mjs`) convi
 4. `string` con scope `FONT_FAMILY` → `fontFamily`.
 5. Quita `$extensions` de la raíz (el modo se sabe por el archivo).
 6. `alpha` en float32 → el decimal más corto con el mismo float32 (`0.8999999761581421` → `0.9`, V31).
-7. **Se detiene con error** ante cualquier `$type` o scope no previsto, en vez de adivinar. Así se detectó que el peso usa `FONT_STYLE`.
+7. **Se detiene con error** ante cualquier `$type` o scope no previsto, en vez de adivinar. Así se detectó que la exportación escribe el scope del peso como `FONT_STYLE`.
 
 El tipo se deduce del **scope**, que es una decisión de diseño registrada en Figma (S22), no del valor (que el Format Module prohíbe).
 

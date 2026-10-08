@@ -24,6 +24,9 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: corrección del scope del peso (A15, decisión 11, aprobada por Oscar)**
+- `normalize-the-export`: la fila de la tabla y la viñeta explican que los pesos tienen `FONT_WEIGHT` en Figma y la exportación lo escribe `FONT_STYLE` (y `STROKE_COLOR` como `STROKE`); "Detenerse antes que adivinar" dice qué se detectó. `typography`: el `Callout` añade el nombre del scope en Figma y enlaza a "El tipo sale del scope". `exercise-figma-to-code`, paso 3: el ejemplo de scope desconocido ya no es `FONT_WEIGHT`. `paso-7-tokens.md` §1.2 y §3 al día. `lastReviewed` de las tres lecciones: 2026-10-08. Sin build en esta sesión (npm sin acceso).
+
 **2026-10-08, sesión de contenido: investigación de las herramientas (T4, T8, T21)**
 - Documento: `docs/investigacion-herramientas.md`, pendiente de la aprobación de Oscar (A15, 14 decisiones en §8). T21 registrada (decisión de Oscar del 2026-10-07).
 - Pruebas propias (Python 3.13.16, Node.js 22.22.0, Chromium 141 con Playwright 1.56.0, API de plugins de Figma por el servidor MCP), fuera del repositorio:
