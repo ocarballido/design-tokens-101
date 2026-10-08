@@ -127,6 +127,8 @@ Decide el tipo de cada uno y añádelo a SCOPE_TYPES, al principio de este archi
 
 La decisión es tuya y queda escrita en el propio script, en el mapa `SCOPE_TYPES`. `exclude` deja el token fuera de la salida. Con esta misma regla detectamos, al preparar la primera exportación (2026-10-03), que la exportación escribe el scope de los pesos como `FONT_STYLE`.
 
+Si no quieres instalar nada, [Normalizar la exportación](/tools/normalize-export) hace lo mismo en tu navegador, con este script, y te pide el tipo de los scopes que no conoce.
+
 <InCode title="El script de normalización">
 
 El script está en el repositorio, en `tools/figma-to-dtcg.mjs` ([ocarballido/design-tokens-101](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs)). No necesita dependencias, basta con Node.js. Al principio está el mapa que decide el tipo de cada scope; si tu sistema usa otros, los añades ahí:

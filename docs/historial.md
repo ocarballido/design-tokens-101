@@ -281,6 +281,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - *Import mode* actualiza `color/prueba/500` pero no crea `color/prueba/600` (variable nueva en un grupo existente) ni `color/neutral/500` (grupo nuevo); Figma avisa de 2 errores. Detalle en `investigacion-herramientas.md` §7. T25 (sin code syntax en el archivo de escalas) registrada el mismo día.
 - Consecuencia: el archivo de "Generar escalas" no se añade con *Import mode* a una colección que ya existe. Siguiente: prueba 5 (arrastrar y copiar y pegar entre colecciones) y, con su resultado, el paso 1 de "Importar en Figma".
 
+### 2026-10-08: prueba 5, "Importar en Figma" y enlaces a las herramientas
+
+- Prueba 5 (Oscar): arrastrar el archivo al panel vacío crea "Collection 1" con el modo del nombre del archivo; copiar las variables y pegarlas con ⌘V / Ctrl+V en otra colección conserva el nombre con el grupo. El menú contextual no ofrece *Paste* (ni *Copy* en un grupo). Detalle en `investigacion-herramientas.md` §7.
+- `98-tools/01-color-scales.mdx`: "Importar en Figma" en cuatro pasos (arrastrar; renombrar o copiar y pegar en la colección existente; scopes y visibilidad; code syntax) y `Callout` sobre *Import mode*, que solo actualiza.
+- Enlaces a las herramientas: `color-space` (paso 2 de "Cómo se crearon los colores"), `color-scales` (después del `Callout` de "En Figma"), `exercise-scales` (pasos 3 y 4 y la nota), `normalize-the-export` (antes del `InCode` del script) y `exercise-figma-to-code` (antes del `InCode` de Node.js). `lastReviewed` de `color-space` al 2026-10-08.
+- `investigacion-herramientas.md`: §6.5 y §8 con el empaquetado comprobado por desarrollo; §9 al día. Sin build en esta sesión (sin `node_modules`): los cambios son texto y enlaces, sin componentes nuevos.
+
 ## Diseño
 
 **Estado:** cerrado (2026-10-02). Todo lo que necesita desarrollo está en `docs/entrega-diseno.md`.

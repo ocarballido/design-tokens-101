@@ -338,7 +338,7 @@ Dos diferencias de comportamiento, solo cuando hay error:
 - **Escritura a medias.** El script actual borra `tokens/dtcg/` y escribe archivo por archivo, así que si se detiene en el tercero deja dos escritos. El prototipo comprueba todo antes de borrar y escribir.
 - **El orden.** El prototipo ordena los archivos por ruta; el actual los recorre en el orden de `readdirSync`. La salida no cambia; con varios errores, podría cambiar cuál se informa primero (con la recomendación de §6.4 se informan todos).
 
-**Sin comprobar:** que Next.js (Turbopack) empaquete para el navegador un módulo con `await import('node:fs')` dentro de un `if`. En esta sesión no hay npm ni build. Si no lo empaqueta, la alternativa es separar la función pura en otro archivo (`tools/normalize-figma.mjs`) que importa el script; la descarga para el alumno sería entonces de dos archivos, o uno generado al publicar.
+**Comprobado por desarrollo el 2026-10-08** (`historial.md`): Turbopack empaqueta el módulo en un solo archivo para el navegador. Allí `process.argv` está vacío, así que el bloque de la línea de comandos no se ejecuta y `node:fs` y `node:path` no se cargan. No hace falta separar la función pura.
 
 ### 6.6 Otras comprobaciones que la normalización no hace hoy
 
@@ -406,6 +406,19 @@ Dos archivos DTCG preparados por la sesión, `Uno.tokens.json` y `Dos.tokens.jso
 
 **Conclusión:** *Import mode* solo actualiza las variables que ya existen con el mismo nombre y tipo; no crea variables ni grupos, y avisa con un error por cada una que no puede importar (las dos cifras coinciden; el texto del aviso, sin leer). Por eso el archivo de "Generar escalas" no sirve para añadir una escala a una colección Primitives que ya existe con *Import mode*. Vía posible, sin comprobar: arrastrar el archivo (crea una colección) y copiar y pegar las variables en la colección del usuario, que la ayuda de Figma documenta ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables), "You can copy and paste variables to any collection"); no dice qué pasa con el nombre del grupo, la visibilidad ni los scopes al pegar (prueba 5).
 
+### Prueba 5: arrastrar el archivo y pegar en otra colección
+
+2026-10-08, archivo de borrador nuevo de Oscar, con `Importar.tokens.json` de la prueba 4.
+
+| Qué | Resultado (observado por Oscar) |
+|---|---|
+| Arrastrar el archivo al panel vacío | Colección nueva "Collection 1" con un modo "Importar" (el nombre del archivo) y las tres variables con sus valores |
+| Copiar y pegar en otra colección ("Destino") | Clic derecho sobre las variables, *Copy*; en la colección de destino, ⌘V / Ctrl+V. Las variables llegan con el mismo nombre, grupo incluido. El clic derecho sobre el nombre de la colección o sobre la tabla vacía no ofrece *Paste*; el clic derecho sobre un grupo no ofrece *Copy* |
+
+Sin leer con la API: la visibilidad y los scopes después de pegar. Por eso la página pide revisarlos en cada variable en lugar de afirmar qué conserva el pegado. El nombre de la colección no coincide con la prueba 2 ("Uno", como el archivo); la página no lo nombra.
+
+**Conclusión:** para añadir la escala a una colección que ya existe, arrastrar el archivo y copiar y pegar las variables. Es lo que dice el paso 2 de "Importar en Figma" desde el 2026-10-08.
+
 ### Al terminar
 
 Oscar borra el archivo de prueba (o la sesión lo pide). El resultado está en `historial.md` (2026-10-08).
@@ -414,7 +427,7 @@ Oscar borra el archivo de prueba (o la sesión lo pide). El resultado está en `
 
 ## 8. Decisiones para Oscar
 
-**Aprobadas todas el 2026-10-08 (T22).** Las 8, 9 y 10 ya están en `tools/scales.py`. Implementadas el mismo día en `tools/figma-to-dtcg.mjs` (4 a 7 y 14), `tools/scales.mjs`, `tools/zip.mjs` (3) y `npm test` (13). La 6 está a falta de comprobar que el build de Next.js empaqueta el módulo para el navegador (desarrollo).
+**Aprobadas todas el 2026-10-08 (T22).** Las 8, 9 y 10 ya están en `tools/scales.py`. Implementadas el mismo día en `tools/figma-to-dtcg.mjs` (4 a 7 y 14), `tools/scales.mjs`, `tools/zip.mjs` (3) y `npm test` (13). La 6, comprobada en el build de Next.js por desarrollo el mismo día (§6.5).
 
 1. **Dónde van.** Carpeta `98-tools` ("Herramientas"), en el grupo "Referencia", antes de Recursos y sin número; páginas `/tools/color-scales` y `/tools/normalize-export`, enlazadas desde las lecciones de §1. *Recomendación: sí.*
 2. **Qué sube el alumno a la normalización.** Opciones: (a) los .zip que da Figma y una carpeta con una subcarpeta por colección; (b) además, JSON sueltos indicando la colección de cada uno; (c) solo JSON sueltos. *Recomendación: a*: es lo que entrega *Export modes* y evita el choque de `Value.tokens.json` (§2). (b) se puede añadir después.
@@ -449,7 +462,7 @@ Sección `content/es/98-tools/` ("Herramientas", `meta.json`), en el grupo "Refe
    - **Entrada:** color de marca (hex, RGB o HSL; se calcula desde el hex), nombre de la paleta, tinte de los neutros, curva de referencia (`green` por defecto, con dos frases sobre qué es y el gráfico del croma por paso).
    - **Resultado:** dos escalas, la del color y la de neutros (T23), con `ColorScale` y su tabla (paso, oklch, hex, contraste con blanco y con `neutral/950`), los pasos recortados marcados y los avisos de §5.2. Vista previa sobre fondo claro y oscuro.
    - **Exportar:** elegir los pasos que se van a usar (los 11 marcados por defecto; los nombres no cambian), descargar el archivo `.tokens.json` y copiar el enlace con los ajustes.
-3. **Importar en Figma** (tres pasos): arrastrar el archivo a una colección nueva o usar *Import mode*; quitar los scopes de los primitivos, que la importación pone en `ALL_SCOPES` (§7, prueba 3); revisar que *Import mode* sobre una colección existente cambia los valores sin preguntar (§7, prueba 2).
+3. **Importar en Figma** (cuatro pasos, rehechos tras las pruebas 4 y 5): arrastrar el archivo (crea una colección); renombrarla o copiar y pegar las variables en la colección de primitivos que ya existe; quitar los scopes, que la importación pone en `ALL_SCOPES` (§7, prueba 3), y revisar la visibilidad; añadir el code syntax. Un `Callout` dice que *Import mode* solo sirve para actualizar una escala que ya existe (§7, pruebas 2 y 4).
 
 ### `02-normalize-export.mdx`: Completar la exportación (`/tools/normalize-export`)
 
@@ -463,7 +476,7 @@ Sección `content/es/98-tools/` ("Herramientas", `meta.json`), en el grupo "Refe
 
 ### Enlaces desde las lecciones
 
-Cuando las páginas estén publicadas, no antes: los cinco de §1 (`color-space`, `color-scales`, `exercise-scales`, `normalize-the-export`, `exercise-figma-to-code`).
+Hechos el 2026-10-08, con las páginas ya en `main`: los cinco de §1 (`color-space`, `color-scales`, `exercise-scales`, `normalize-the-export`, `exercise-figma-to-code`).
 
 ---
 

@@ -12,12 +12,15 @@ Escribe tu color y obtén dos escalas de once pasos: la de tu color y la de neut
 
 ## Importar en Figma
 
-1. En el panel de variables, crea una colección y arrastra a ella el archivo `Value.tokens.json`. Figma crea una variable por paso y un modo con el nombre del archivo, `Value`. Si esas variables ya existen en tu colección, haz clic derecho en su modo y elige *Import mode*: Figma actualiza las variables con el mismo nombre y tipo ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
-2. Quita el scope de las variables nuevas. La importación les pone todos los scopes, aunque el archivo no lleve ninguno (lo comprobamos en octubre de 2026). Ya vienen ocultas al publicar.
-3. Añade a cada variable su code syntax Web, como en [Escalas de color](/primitives/color-scales#en-figma).
+1. Arrastra el archivo `Value.tokens.json` al panel de variables. Figma crea una colección nueva con una variable por paso y un modo con el nombre del archivo, `Value`.
+2. Si todavía no tienes colección de primitivos, renombra esta, por ejemplo `Primitives`. Si ya la tienes, pasa las variables a ella: selecciónalas, haz clic derecho y elige *Copy*; abre tu colección, haz clic en el panel y pulsa ⌘V (Ctrl+V en Windows). Llegan con el mismo nombre, también el del grupo. Después, borra la colección que creó la importación ([Figma: Create and manage variables](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
+3. En cada variable, quita todos los scopes y comprueba que *Hide from publishing* está marcado. La importación pone todos los scopes aunque el archivo no lleve ninguno.
+4. Añade a cada variable su code syntax Web, como en [Escalas de color](/primitives/color-scales#en-figma).
+
+Lo comprobamos en Figma en octubre de 2026.
 
 <Callout variant="warning">
 
-*Import mode* sobre un modo que ya tiene variables con los mismos nombres cambia sus valores sin preguntar (lo comprobamos en octubre de 2026). Si tus tokens semánticos ya apuntan a esa escala, cambiarán con ella.
+*Import mode* no añade variables a una colección: solo actualiza las que ya tienen el mismo nombre y tipo, y avisa con un error por cada una que no encuentra. Sirve para actualizar una escala que ya tienes: haz clic derecho en el modo de la colección, elige *Import mode* y el archivo. Cambia los valores sin preguntar, así que tus tokens semánticos que apuntan a esa escala cambiarán con ella.
 
 </Callout>

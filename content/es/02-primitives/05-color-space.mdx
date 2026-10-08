@@ -3,7 +3,7 @@ title: Espacio de color
 meta_title: "Espacio de color de las escalas: oklch y sRGB"
 description: Por qué DesignToken101 construye sus escalas de color en oklch y las guarda en sRGB, qué pasa con los colores fuera de gama, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
 nav_title: Espacio de color
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-08
 ---
 
 Los colores de DesignToken101 no se eligieron uno a uno en el selector de Figma. Se generaron a partir de un único color de marca, con un método que trabaja en un espacio de color (oklch) y guarda el resultado en otro (sRGB). En esta lección verás cómo se hizo, qué significa cada espacio, por qué los separamos, qué límites tiene Figma y cómo reproducir las conversiones con el script del repositorio.
@@ -32,7 +32,7 @@ Los colores de DesignToken101 no se eligieron uno a uno en el selector de Figma.
 </Flow>
 
 1. **Elegir el color de marca.** Es la decisión de partida: `#33CC99`, en HSL 160°, 60 %, 50 %. Las demás decisiones estéticas (cuánto tinte llevan los grises, cuánto croma las escalas de estado) son parámetros del método.
-2. **Generar las escalas.** El script `tools/scales.py` convierte el color de marca a oklch y calcula once pasos para el acento, once para los neutros y once para cada color de estado. Cómo calcula cada paso lo verás en [Escalas de color](/primitives/color-scales#el-método).
+2. **Generar las escalas.** El script `tools/scales.py` convierte el color de marca a oklch y calcula once pasos para el acento, once para los neutros y once para cada color de estado. Cómo calcula cada paso lo verás en [Escalas de color](/primitives/color-scales#el-método). Para tu color y sus neutros, la herramienta [Generar escalas](/tools/color-scales) hace lo mismo en el navegador.
 3. **Ajustar a sRGB.** Si algún paso calculado no existe en sRGB, el script lo convierte en el más parecido que sí existe. Da como resultado un hex por paso.
 4. **Copiar los hex a Figma.** Cada hex se escribe en una variable Color de la colección `Primitives`: `color/emerald/500` = `#33CC99`. Figma no genera escalas; recibe los valores ya calculados.
 5. **Diseñar con tokens semánticos.** Al diseñar, nadie aplica un hex ni un primitivo: se aplican tokens semánticos como `color/text/neutral/default`, que apuntan a los primitivos. Los verás en el [módulo Relaciones](/relations/layers).

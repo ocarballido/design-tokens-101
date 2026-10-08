@@ -44,7 +44,7 @@ Nombra cada paso con su número proporcional: con base 4, `space/400` = 16 px.
 
 ## Paso 3 Color
 
-1. Convierte tu color de marca a oklch y genera su escala de once pasos con el método de [Escalas de color](/primitives/color-scales#el-método): en `tools/scales.py`, cambia `ACCENT_HEX` y, si tu marca no es verde, elige en `REFERENCE` la curva de un tono parecido. Ejecuta el script y lee sus avisos.
+1. Convierte tu color de marca a oklch y genera su escala de once pasos con el método de [Escalas de color](/primitives/color-scales#el-método). Sin instalar nada, escribe tu color en [Generar escalas](/tools/color-scales). Con el script, en `tools/scales.py` cambia `ACCENT_HEX` y, si tu marca no es verde, elige en `REFERENCE` la curva de un tono parecido. En los dos casos, lee los avisos.
 2. Genera los neutros con el tono de tu marca. Elige el tinte: 0,5 como DesignToken101, o 0 para un gris puro.
 3. Si tu diseño tiene mensajes de información, éxito, aviso o error, genera sus escalas por tono ([Escalas de estado](/primitives/status-colors)). Si tu marca ya es de uno de esos tonos, reutiliza su escala, como hace DesignToken101 con `emerald`.
 4. Nombra cada paleta por su tono, no por su rol.
@@ -52,13 +52,13 @@ Nombra cada paso con su número proporcional: con base 4, `space/400` = 16 px.
 
 <Callout variant="note">
 
-Si no usas el script, puedes aplicar el método a mano con un conversor a oklch. Lo importante es que la L de cada paso siga una curva de referencia y que el color de marca quede exacto en su paso.
+Si no usas la herramienta ni el script, puedes aplicar el método a mano con un conversor a oklch. Lo importante es que la L de cada paso siga una curva de referencia y que el color de marca quede exacto en su paso.
 
 </Callout>
 
 ## Paso 4 Crea la colección en Figma
 
-Crea la colección `Primitives` con un modo y añade las variables de los pasos 1 a 3. Para cada escala, aplica el scope y la visibilidad de [La colección completa](/primitives/primitives-collection#la-colección-de-un-vistazo), y añade el code syntax Web.
+Crea la colección `Primitives` con un modo y añade las variables de los pasos 1 a 3. Para cada escala, aplica el scope y la visibilidad de [La colección completa](/primitives/primitives-collection#la-colección-de-un-vistazo), y añade el code syntax Web. Si generaste el color con la herramienta, empieza por importar su archivo ([Importar en Figma](/tools/color-scales#importar-en-figma)).
 
 No crees variables para los interlineados ni para los espaciados negativos: anótalos aparte como tokens de código.
 
