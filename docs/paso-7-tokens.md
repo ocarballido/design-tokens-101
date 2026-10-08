@@ -72,7 +72,7 @@ El `alpha` va en su propio campo, en float32 (0,9 no es exacto en float32), y `h
 ```
 
 - Fuente: la ayuda de Figma documenta que los alias **entre colecciones** se representan con `com.figma.aliasData` ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)).
-- Comprobado: los 82 alias de la exportación (31 × 2 de Semantic color, 9 × 2 de Layout, 2 radios de Semantic size) son entre colecciones. No hay alias dentro de una colección, así que no se ha visto cómo los exporta Figma.
+- Comprobado: los 82 alias de la exportación (31 × 2 de Semantic color, 9 × 2 de Layout, 2 radios de Semantic size) son entre colecciones. No hay alias dentro de una colección. Con una colección de prueba (2026-10-08, `investigacion-herramientas.md` §7), Figma los exporta como referencia DTCG en `$value` (`"{number.gap}"`), sin `com.figma.aliasData`.
 - Consecuencia: una herramienta que lea el archivo tal cual genera `--t101-color-text-on-accent: #050c09`, no `var(--t101-color-neutral-950)`. Se pierde la capa de alias.
 
 ### 1.5 Otras extensiones

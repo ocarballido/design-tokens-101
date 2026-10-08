@@ -24,6 +24,12 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: pruebas de exportación e importación DTCG en la interfaz de Figma (A15, §7)**
+- Archivo de borrador "zz DesignToken101 · prueba DTCG (borrar)" en el equipo Pro de Oscar, con la colección preparada por la API de plugins; Oscar hizo los clics.
+- Exportación (35 variables, modos A y B): .zip con el nombre de la colección y `A.tokens.json` y `B.tokens.json` en la raíz, sin comprimir. De los 23 scopes, solo cambian `FONT_WEIGHT` → `FONT_STYLE` y `STROKE_COLOR` → `STROKE`; sin scopes, sin la clave; `ALL_SCOPES`, escrito. Boolean: `number` 1/0 con `com.figma.type: "boolean"`. Alias dentro de la colección: `"{number.gap}"` en `$value`, sin `aliasData`. Oculta, code syntax (Web, Android, iOS) y `$description`, exportados.
+- **El script de normalización convierte un alias de número dentro de la colección en `{ "value": "{number.gap}", "unit": "px" }`, sin error** (Node.js 22.22.0 sobre la exportación real). DesignToken101 no tiene ese caso. Propuesta de corrección: decisión 15.
+- Importación (`Uno` y luego *Import mode* con `Dos`, sin avisos): modo con el nombre del archivo; lee scopes (traduce `STROKE`), code syntax, visibilidad, descripción y referencias; la segunda importación cambia valor y scope sin preguntar y conserva lo que no trae. Sin resolver: si `[]` es "sin scopes" (prueba 3, con `Tres.tokens.json`).
+
 **2026-10-08, sesión de contenido: corrección del scope del peso (A15, decisión 11, aprobada por Oscar)**
 - `normalize-the-export`: la fila de la tabla y la viñeta explican que los pesos tienen `FONT_WEIGHT` en Figma y la exportación lo escribe `FONT_STYLE` (y `STROKE_COLOR` como `STROKE`); "Detenerse antes que adivinar" dice qué se detectó. `typography`: el `Callout` añade el nombre del scope en Figma y enlaza a "El tipo sale del scope". `exercise-figma-to-code`, paso 3: el ejemplo de scope desconocido ya no es `FONT_WEIGHT`. `paso-7-tokens.md` §1.2 y §3 al día. `lastReviewed` de las tres lecciones: 2026-10-08. Sin build en esta sesión (npm sin acceso).
 

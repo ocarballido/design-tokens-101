@@ -261,4 +261,4 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 
 | # | Decisión | Quién | Bloquea |
 |---|---|---|---|
-| A15 | Herramientas (T8, T21): las 13 decisiones que quedan de `docs/investigacion-herramientas.md` §8 (la 11 se aprobó y aplicó el 2026-10-08) | Oscar | Índice, diseño y desarrollo de las herramientas |
+| A15 | Herramientas (T8, T21): las decisiones que quedan de `docs/investigacion-herramientas.md` §8 (1 a 10 y 13 a 15; la 11 se aplicó y la 12, las pruebas en Figma, está hecha salvo la prueba 3) | Oscar | Índice, diseño y desarrollo de las herramientas |
