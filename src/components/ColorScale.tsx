@@ -1,4 +1,5 @@
 import primitives from '../../tokens/dtcg/primitives/Value.tokens.json';
+import { Fragment } from 'react';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §3.8 (C14).
@@ -22,6 +23,21 @@ function step(palette: Palette, name: string) {
   // §3.8: 6 cifras en mayúsculas (#33CC99, no #3c9).
   if (!/^#[0-9A-F]{6}$/.test(hex)) throw new Error(`ColorScale: hex inesperado en color/${palette}/${name}: ${hex}`);
   return { name, hex, color: token.$extensions['com.figma.codeSyntax'].WEB };
+}
+
+// D63: la etiqueta puede partirse después de cada "/", para que un nombre de token
+// (text/accent/default) no se corte por la mitad de una palabra.
+function withBreaks(label: string) {
+  return label.split('/').map((part, i, parts) => (
+    <Fragment key={i}>
+      {part}
+      {i < parts.length - 1 ? (
+        <>
+          /<wbr />
+        </>
+      ) : null}
+    </Fragment>
+  ));
 }
 
 type ColorScaleProps = {
@@ -49,10 +65,11 @@ export function ColorScale({ palette, caption, highlight, highlightLabel }: Colo
             <li
               key={name}
               className={cx(
-                'flex min-w-0 flex-col gap-100',
-                // D62: el paso destacado va en una caja; la etiqueta sigue siendo la marca (1.4.1).
-                highlighted &&
-                  'rounded-control border-(length:--t101-border-width-100) border-neutral-default bg-neutral-strong p-200',
+                // D63: todos los pasos llevan el relleno y el borde (transparente) de la caja,
+                // para que el destacado no se desplace. D62: el destacado va en una caja; la
+                // etiqueta sigue siendo la marca (1.4.1).
+                'flex min-w-0 flex-col gap-100 rounded-control border-(length:--t101-border-width-100) p-200',
+                highlighted ? 'border-neutral-default bg-neutral-strong' : 'border-transparent',
               )}
             >
               {/* La muestra es decorativa: la información está en el texto (número y hex). */}
@@ -75,7 +92,7 @@ export function ColorScale({ palette, caption, highlight, highlightLabel }: Colo
                 {highlighted ? (
                   <span className="type-caption-default text-neutral-default">
                     <span className="sr-only">, </span>
-                    {highlightLabel}
+                    {withBreaks(highlightLabel!)}
                   </span>
                 ) : null}
               </span>
