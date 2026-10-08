@@ -916,7 +916,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 
 ## 5. Componentes de las herramientas (T22): aprobado por Oscar el 2026-10-08 (D44 a D54)
 
-**En Figma desde el 2026-10-08 (D55):** primera versión de la sesión de diseño, pendiente de la revisión de Oscar; nodos, medidas y diferencias en `entrega-diseno.md` §3.11.
+**En Figma desde el 2026-10-08 (D55), revisados por Oscar (D56); nodos, medidas y diferencias en `entrega-diseno.md` §3.11.
 
 Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de color" (`/tools/color-scales`) y "Completar la exportación" (`/tools/normalize-export`), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
 
@@ -1293,16 +1293,16 @@ ChromaChart (figure)
 
 | Parte | Token |
 |---|---|
-| Barra | Relleno `background/accent/subtle`; borde `border/accent/strong`, `border-width/100`; `radius/100` |
-| Barra del paso destacado | Borde `border-width/200` + `highlightLabel` |
+| Barra | Relleno `background/neutral/strong`; solo borde inferior `border/neutral/default`, `border-width/100`; sin radio (`radius/0`); alto de la fila, `space/600` (D56) |
+| Barra del paso destacado | Relleno `background/accent/strong/default`, borde inferior `border/accent/strong`, + `highlightLabel` (D56) |
 | Número del paso | `text/neutral/default`, `label/default`, columna de ancho mínimo `space/800` |
 | Valor de C | `text/neutral/subtle`, `caption/default` (con coma decimal: "0,137") |
-| Fila | alto `space/600`; hueco `space/200` |
+| Fila | alto `space/600`, el de la barra; hueco `space/200` |
 | Pie | `text/neutral/subtle`, `caption/default` |
 
 **Accesibilidad.**
 - `figure` con `figcaption`; los pasos son una `ol`, y cada `li` se lee "500, croma 0,137". La barra es decorativa (`aria-hidden`): el dato está en el texto.
-- Como la información está en el texto, la barra no necesita 3:1; aun así, su borde da 3,33 / 10,92 sobre la página.
+- Como la información está en el texto, la barra no necesita 3:1 (1.4.11): es decorativa. La del paso destacado se distingue también por "Tu color" (1.4.1); su relleno da 2,05 / 9,63 frente a la página, como el `Button` `primary`.
 
 ### 5.9 `ScalePreview`
 
@@ -1328,7 +1328,8 @@ ScalePreview (figure)
 |---|---|
 | Panel: borde | `border/neutral/default`, `border-width/100` (para que el panel claro se vea en Light) |
 | Panel: radio y relleno | `radius/container`; `space/400` |
-| Muestra | alto `space/800`; `radius/control`; sin borde (se ve el color contra el fondo); huecos `space/100` entre muestras y `space/200` entre filas |
+| Fila de muestras | una tira continua: sin hueco entre muestras (`space/0`), `radius/control` en la fila y recorte del contenido; `space/100` entre filas (D56) |
+| Muestra | alto `space/800`; sin radio ni borde (se ve el color contra el fondo) |
 | Etiquetas y pie | `text/neutral/subtle`, `caption/default` |
 | Disposición | Dos columnas desde 64rem; apilados por debajo |
 
@@ -1451,3 +1452,4 @@ Prose: introducción con enlace a "Completar la exportación"
 | D44 | Componentes de las herramientas, sin tokens nuevos (§5). |
 | D45 a D54 | Tinte con `TextField` numérico, columna "Exportar", campo con error sin cambio de borde, fondos de `ScalePreview`, borde continuo de la zona, `LessonHeader`, estados de las plantillas, sitio de `ErrorSummary`, iconos nuevos y `ColorScale` con `colors` (§5.11). |
 | D55 | Componentes de las herramientas en Figma, primera versión de la sesión de diseño (§5; `entrega-diseno.md` §3.11). |
+| D56 | Cambios de Oscar en `ChromaChart` (barras como filas de tabla) y `ScalePreview` (escalas en tiras continuas) (§5.8, §5.9). |
