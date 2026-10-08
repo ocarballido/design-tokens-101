@@ -113,7 +113,11 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C19 | Secciones del sidebar numeradas desde el prefijo de la carpeta; Recursos sin número; el número, alineado al inicio (cambia V40). | Cerrada | 2026-10-06 |
 | C20 | Campo `meta_title` en el frontmatter: `<title>` para buscadores cuando el título solo se entiende dentro del curso; sin meta keywords. | Cerrada | 2026-10-07 |
 | C21 | La barra "Tu color" de `ChromaChart` se rellena con el hex del usuario (dato, como las muestras de `ColorScale`) y lleva el borde inferior `border/neutral/strong` (cambia D56). | Cerrada | 2026-10-08 |
-| C22 | En "Generar escalas", cada campo muestra su error al salir de él, además de al pulsar la descarga; el tinte sigue siendo un campo de texto con `inputMode="decimal"` (D45), sin `type="number"`. | Cerrada | 2026-10-08 |
+| C22 | En "Generar escalas", cada campo muestra su error al salir de él, además de al pulsar la descarga; el tinte sigue siendo un campo de texto con `inputMode="decimal"` (D45), sin `type="number"` (el tinte, sustituido por C23). | Cerrada | 2026-10-08 |
+| C23 | El tinte de los neutros se elige con un deslizador nativo de 0 a 1 (paso 0,05) con el valor visible al lado (sustituye a D45). | Cerrada | 2026-10-08 |
+| C24 | "Generar escalas" con un botón "Generar escalas": se genera al abrir la página y al pulsarlo; con un campo no válido, resumen de errores y ningún resultado (sustituye el resultado de la última entrada válida de D59). | Cerrada | 2026-10-08 |
+| C25 | La curva de referencia la propone la herramienta por el tono más cercano (paso 500 de Tailwind CSS 4.3.3) hasta que el usuario elige otra (cambia el `green` por defecto de T22); el aviso de recorte pasa a nota. | Cerrada | 2026-10-08 |
+| C26 | El nombre de la paleta lo propone la herramienta con el de esa curva (`gray` sin croma) hasta que el usuario lo edita. | Cerrada | 2026-10-08 |
 
 ## Sistema de tokens
 

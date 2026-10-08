@@ -262,9 +262,33 @@ export function toFigmaTokens(scales, { name, accentSteps = STEPS, neutralSteps 
   return `${JSON.stringify({ color }, null, 2)}\n`;
 }
 
+// --- Curva y nombre propuestos (C25 y C26) -----------------------------------------------------
+
+// Tono (H de oklch) del paso 500 de cada paleta en el CSS fuente de Tailwind CSS 4.3.3
+// (packages/tailwindcss/theme.css), comprobado el 2026-10-08.
+export const TW_HUES = {
+  red: 25.331, orange: 47.604, amber: 70.08, yellow: 86.047, lime: 130.85, green: 149.579,
+  emerald: 162.48, teal: 182.503, cyan: 215.221, sky: 237.323, blue: 259.815, indigo: 277.117,
+  violet: 292.717, purple: 303.9, fuchsia: 322.15, pink: 354.308, rose: 16.439,
+};
+
+/**
+ * La curva de tono más parecido al color (la regla de la lección color-scales) y su nombre como
+ * nombre de la paleta. Sin croma no hay tono: curva green (de ella solo se usa L) y nombre gray.
+ * @returns {{ curve: string, name: string }}
+ */
+export function suggest(hex) {
+  const [, C, H] = rgbToOklch(...hexToRgb(hex));
+  if (C <= ACHROMATIC) return { curve: 'green', name: 'gray' };
+  const distance = (h) => Math.min(Math.abs(h - H), 360 - Math.abs(h - H));
+  const curve = Object.keys(TW_HUES).reduce((best, key) => (distance(TW_HUES[key]) < distance(TW_HUES[best]) ? key : best));
+  return { curve, name: curve };
+}
+
 // --- Ajustes en la URL (T22) -------------------------------------------------------------------
 
-export const DEFAULTS = { color: '#33CC99', name: 'emerald', tint: 0.5, curve: 'green' };
+// name y curve en null: los propone suggest() a partir del color hasta que el usuario elige otros.
+export const DEFAULTS = { color: '#33CC99', name: null, tint: 0.5, curve: null };
 
 export function stateFromSearch(search) {
   const params = new URLSearchParams(search);
@@ -275,6 +299,10 @@ export function stateFromSearch(search) {
   return { color, name, tint, curve };
 }
 
+// name y curve solo van en la URL si el usuario los eligió (no null).
 export function searchFromState({ color, name, tint, curve }) {
-  return `?${new URLSearchParams({ color: color.replace('#', ''), name, tint: String(tint), curve })}`;
+  const params = { color: color.replace('#', ''), tint: String(tint) };
+  if (name) params.name = name;
+  if (curve) params.curve = curve;
+  return `?${new URLSearchParams(params)}`;
 }

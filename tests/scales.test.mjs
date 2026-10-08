@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { build, parseColor, parseTint, isPaletteName, toFigmaTokens, stateFromSearch, searchFromState, DEFAULTS } from '../tools/scales.mjs';
+import { build, parseColor, parseTint, isPaletteName, toFigmaTokens, stateFromSearch, searchFromState, DEFAULTS, suggest, TW_HUES, TW_CURVES } from '../tools/scales.mjs';
 
 const cases = JSON.parse(fs.readFileSync(new URL('./fixtures/scales-cases.json', import.meta.url), 'utf8'));
 
@@ -57,4 +57,14 @@ test('ajustes en la URL', () => {
   const state = { color: '#FF6B00', name: 'brand', tint: 0.25, curve: 'orange' };
   assert.deepEqual(stateFromSearch(searchFromState(state)), state);
   assert.deepEqual(stateFromSearch('?color=zzz&name=Neutral&tint=9&curve=nada'), DEFAULTS);
+});
+
+test('curva y nombre propuestos por el tono (C25, C26)', () => {
+  assert.deepEqual(Object.keys(TW_HUES), Object.keys(TW_CURVES));
+  assert.deepEqual(suggest('#33CC99'), { curve: 'emerald', name: 'emerald' });
+  assert.deepEqual(suggest('#1877F2'), { curve: 'blue', name: 'blue' });
+  assert.deepEqual(suggest('#F40009'), { curve: 'red', name: 'red' });
+  assert.deepEqual(suggest('#808080'), { curve: 'green', name: 'gray' });
+  assert.equal(searchFromState({ color: '#33CC99', name: null, tint: 0.5, curve: null }), '?color=33CC99&tint=0.5');
+  assert.deepEqual(stateFromSearch('?color=33CC99&tint=0.5'), { color: '#33CC99', name: null, tint: 0.5, curve: null });
 });

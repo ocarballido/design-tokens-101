@@ -288,6 +288,15 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 - Enlaces a las herramientas: `color-space` (paso 2 de "Cómo se crearon los colores"), `color-scales` (después del `Callout` de "En Figma"), `exercise-scales` (pasos 3 y 4 y la nota), `normalize-the-export` (antes del `InCode` del script) y `exercise-figma-to-code` (antes del `InCode` de Node.js). `lastReviewed` de `color-space` al 2026-10-08.
 - `investigacion-herramientas.md`: §6.5 y §8 con el empaquetado comprobado por desarrollo; §9 al día. Sin build en esta sesión (sin `node_modules`): los cambios son texto y enlaces, sin componentes nuevos.
 
+### 2026-10-08: C23 a C26 en Generar escalas
+
+- Observaciones de Oscar al probar la herramienta publicada: el tinte admitía 100 y el resultado seguía; el aviso de recorte salía casi siempre; el nombre se quedaba en `emerald`; el resultado cambiaba con cada tecla.
+- Medido para C25 con `tools/scales.mjs`: 114 de 187 pasos de las paletas de Tailwind CSS 4.3.3 no caben en sRGB con su tono; recorte en el 64,7 % de una rejilla HSL de 5.280 colores con `green` y en el 36,0 % con la curva de tono más cercano. Tonos del paso 500 leídos de `theme.css` 4.3.3 (`TW_HUES`).
+- `tools/scales.mjs`: `TW_HUES`, `suggest(hex)` (curva y nombre propuestos) y `DEFAULTS` con `name` y `curve` en `null` (propuestos); la URL solo lleva `name` y `curve` si el usuario los eligió. Pruebas: 17 de 17.
+- `messages/es.json`: ayudas del nombre, del tinte y de la curva; nota de recorte con el texto corregido; `generate`, `generateErrorTitle` y `resultSummary`; fuera `tintError` y `errorTint`.
+- `color-scales`: frase sobre `emerald` como curva de tono más cercano y lo que da la herramienta con `#33CC99`.
+- Guion de pruebas, apartado A, rehecho.
+
 ## Diseño
 
 **Estado:** cerrado (2026-10-02). Todo lo que necesita desarrollo está en `docs/entrega-diseno.md`.

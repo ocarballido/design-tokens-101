@@ -929,7 +929,7 @@ Anatomía de lo que necesitan las dos páginas de Herramientas, "Generar escalas
 |---|---|---|---|
 | Color de marca (hex, RGB o HSL) | Escalas | `TextField` (§5.2), con el hex resultante debajo (texto de la página, §5.10) | Sí |
 | Nombre de la paleta | Escalas | `TextField` | Sí (el mismo) |
-| Tinte de los neutros (0 a 1) | Escalas | `TextField` numérico (D45) | No |
+| Tinte de los neutros (0 a 1) | Escalas | Deslizador nativo con el valor al lado (C23, sustituye a D45) | Sí |
 | Curva de referencia | Escalas | `Select` (§5.3) y dos frases de `Prose` | Sí |
 | Gráfico del croma por paso | Escalas | `ChromaChart` (§5.8) | Sí |
 | Escalas generadas | Escalas | `ColorScale` (§3.8) con los hex de la herramienta: prop nueva `colors` (§5.10) | Cambio |
@@ -1380,6 +1380,13 @@ Prose: introducción con enlace a la lección "Completar la exportación"
    Prose (dos frases) · Button secondary "Descargar figma-to-dtcg.mjs" · CodeBlock (SCOPE_TYPES) · CodeBlock (comando)
    Enlace a "Las variables CSS"
 ```
+
+### 5.10b Cambios del 2026-10-08 (C23 a C26)
+
+- **Deslizador del tinte (C23):** `label` (`label/default`), ayuda (`caption/default`, `text/neutral/subtle`), `input type="range"` (`min=0`, `max=1`, `step=0.05`) con `accent-color` `border/accent/strong`, y a su derecha un `output` con el valor ("0,5", `body/default`, `text/neutral/default`). Ancho flexible; alto del objetivo de al menos 24 px (2.5.8). Sin error. Componente nuevo en Figma.
+- **Botón "Generar escalas" (C24):** `Button` `primary` debajo de la curva y su gráfica; `ErrorSummary` encima de él cuando hay errores; el `h2` "Resultado" recibe el foco al generar; debajo, una línea `body/small` `text/neutral/subtle` con lo generado (el hex en `Code`). Sin resultado mientras haya errores.
+- **Curva y nombre propuestos (C25, C26):** el `Select` de la curva y el `TextField` del nombre empiezan con la propuesta y la siguen hasta que el usuario los cambia.
+- **Aviso de recorte (C25):** `Callout` `note`; marca sin croma y paso extremo siguen en `warning`.
 
 ### 5.11 Preguntas para Oscar: aprobadas las diez recomendaciones el 2026-10-08 (D45 a D54)
 

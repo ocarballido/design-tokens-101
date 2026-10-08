@@ -14,26 +14,24 @@ Cómo apuntar: el número de la prueba y "bien" o lo que ha pasado. Una captura 
 
 | # | Qué haces | Qué debe pasar |
 |---|---|---|
-| A1 | Abres la página | Color `#33CC99`, nombre `emerald`, tinte `0,5`, curva `green`. "Se usa el hex `#33CC99`". En el gráfico, "Tu color" en el paso 500, con la barra en el verde de tu color (C21, cuando desarrollo lo haga). Dos escalas, `emerald` y `neutral`, sin avisos. Pies: "Escala emerald, del paso 50 al 950: tu color está en el 500." y "Escala neutral, del paso 50 al 950: los grises de tu sistema." |
-| A2 | Escribes `rgb(51 204 153)`, después `hsl(160 60% 50%)`, después `51 204 153`, después `#3c9` | Las cuatro veces, "Se usa el hex `#33CC99`" y la misma escala |
-| A3 | Escribes `#33CC9` y pasas al campo siguiente con Tab | La escala no cambia (sigue la última entrada válida). Al salir del campo aparece su error (C22). Mientras escribes por primera vez, no |
-| A3b | Tinte `100` y Tab | Error "Escribe un número de 0 a 1, por ejemplo 0,5."; los neutros no cambian. Corriges a `0,5` y el error desaparece |
-| A4 | Con `#33CC9`, pulsas "Descargar el archivo .tokens.json" | No descarga. Aparece "Falta algo para descargar" encima de los botones, con el foco en él y el enlace "Escribe un color válido". El campo muestra su error con el icono. El enlace lleva el foco al campo |
-| A5 | Tinte `1,5` y nombre `Brand`; pulsas la descarga | Tres enlaces en el resumen (color, si sigue mal, nombre y tinte); cada campo con su error |
-| A6 | Corriges todo y vuelves a pulsar | Descarga `Value.tokens.json`; el resumen de errores desaparece |
-| A7 | Nombre `neutral` | Error de nombre (no puede llamarse como la escala de neutros). También `2brand`. `brand-blue` sí vale |
-| A8 | Color `#808080` | Aviso: "Tu color no tiene croma…". "Tu color" en el paso 600. Neutros grises (`neutral/950` `#0A0A0A`) |
-| A9 | Color `#1A2B5C` | Dos avisos: paso 950, un extremo de la curva, y recorte en los pasos 50 a 600. En la tabla, columna Recorte de 50 a 600 (−67 %, −71 %, −69 %, −70 %, −64 %, −53 %, −26 %) |
-| A10 | Color `#0000FF` | Aviso de recorte en diez pasos (todos salvo el 800, que es el de tu color). "Tu color" en el 800 |
-| A11 | Color `#FF6B00`, curva `green` y después `orange` | Con `orange`: "Tu color" en el 500, recorte en ocho pasos. Al cambiar de curva, el gráfico cambia y la escala también |
-| A12 | `#33CC99` con curva `teal` | "Tu color" pasa al 400; `emerald/500` es `#31B98B`. La barra "Tu color" sigue con tu color |
-| A13 | Tinte `0` | `neutral/950` `#0A0A0A` (gris puro). Con `0,25`, un gris entre los dos. Acepta coma y punto |
-| A14 | Desmarcas los pasos 50 y 950 de `emerald` y descargas | El archivo no tiene `emerald/50` ni `emerald/950`; los nombres de los demás no cambian |
-| A15 | Desmarcas los 22 pasos y descargas | Error "Marca al menos un paso para exportar"; el enlace lleva a la primera casilla |
-| A16 | Con color `#FF6B00`, nombre `brand`, tinte `0,25` y curva `orange`, pulsas "Copiar el enlace con los ajustes" y lo abres en otra pestaña | El botón dice "Enlace copiado" unos segundos. La pestaña nueva abre con esos cuatro ajustes |
-| A17 | Vista previa | Dos paneles, sobre blanco y sobre el `neutral/950` generado. No cambian al pasar la web a Dark |
-| A18 | Abres `Value.tokens.json` en un editor | `color/<nombre>/<paso>` y `color/neutral/<paso>`, con `hex`, `com.figma.hiddenFromPublishing: true`, sin scopes ni code syntax (T25) |
-| A19 | Sigues "Importar en Figma" con el archivo de A18, en un archivo de borrador | Pasos 1 a 4 tal como están en la página; también el paso 2 con una colección que ya tenga variables. Después, *Import mode* con otro archivo con los mismos pasos: actualiza los valores |
+| A1 | Abres la página | Color `#33CC99`, nombre `emerald` y curva `emerald` (propuestos por el tono, C25 y C26), tinte `0,5` en el deslizador. Resultado ya generado, con la línea "Escalas de #33CC99 · tinte 0,5 · curva emerald". "Tu color" en el paso 400, con la barra en tu color. Sin avisos. Pies: "…tu color está en el 400." y "…los grises de tu sistema." |
+| A2 | Escribes `rgb(51 204 153)`, después `hsl(160 60% 50%)`, después `51 204 153`, después `#3c9` | Las cuatro veces, "Se usa el hex `#33CC99`". El resultado no cambia hasta pulsar "Generar escalas" (C24) |
+| A3 | Escribes `#1877F2` | Nombre y curva pasan a `blue` solos. Pulsas "Generar escalas": el foco va a "Resultado" (en el móvil, la página baja hasta él); "Tu color" en el 500; una nota (no un aviso) de recorte en los pasos 300, 400, 600, 700 y 800 |
+| A4 | Escribes `#33CC9` y pasas al campo siguiente con Tab | Al salir del campo aparece su error (C22); mientras escribes por primera vez, no |
+| A5 | Con `#33CC9`, pulsas "Generar escalas" | "Revisa los campos para generar las escalas" encima del botón, con el foco en él y el enlace al campo del color. **No hay resultado** (C24) |
+| A6 | Corriges el color y vuelves a pulsar | El resumen de errores desaparece y vuelve el resultado |
+| A7 | Escribes tú un nombre, `brand-blue`, y después cambias el color a `#F40009` | El nombre se queda en `brand-blue` (ya no lo propone la herramienta); la curva pasa a `red`. Con `neutral`, `Brand` o `2brand`, error de nombre |
+| A8 | Eliges tú la curva `green` y cambias el color | La curva se queda en `green` |
+| A9 | Tinte: arrastras el deslizador, haces clic en un punto de la pista y usas las flechas del teclado | Las tres cosas cambian el valor, de 0,05 en 0,05, sin salir de 0 a 1; el valor se ve al lado ("0,25"). Con `0` y "Generar escalas", `neutral/950` `#0A0A0A` |
+| A10 | Color `#808080` y generar | Aviso "Tu color no tiene croma…"; nombre `gray`, curva `green`; "Tu color" en el 600 |
+| A11 | Color `#1A2B5C` y generar | Curva `blue`. Aviso de paso extremo (950) y nota de recorte en 200, 300, 400 y 500 (−3 %, −9 %, −7 %, −5 %) |
+| A12 | Color `#FF6B00` y generar | Curva `orange`, "Tu color" en el 500, nota de recorte en ocho pasos. Cambias a la curva `green`: la gráfica cambia al momento; la escala, al generar |
+| A13 | Desmarcas los pasos 50 y 950 de la primera escala y descargas | El archivo no tiene esos dos pasos; los nombres de los demás no cambian |
+| A14 | Desmarcas los 22 pasos y descargas | "Falta algo para descargar" con "Marca al menos un paso para exportar"; el enlace lleva a la primera casilla |
+| A15 | Con `#FF6B00`, nombre `brand`, tinte `0,25` y curva `orange`, generas y pulsas "Copiar el enlace con los ajustes"; lo abres en otra pestaña | "Enlace copiado" unos segundos. La pestaña nueva abre con esos ajustes y el resultado ya generado. Un enlace con solo el color (`?color=1877F2`) propone nombre y curva |
+| A16 | Vista previa | Dos paneles, sobre blanco y sobre el `neutral/950` generado. No cambian al pasar la web a Dark |
+| A17 | Abres `Value.tokens.json` en un editor | `color/<nombre>/<paso>` y `color/neutral/<paso>`, con `hex`, `com.figma.hiddenFromPublishing: true`, sin scopes ni code syntax (T25) |
+| A18 | Sigues "Importar en Figma" con el archivo de A17, en un archivo de borrador | Pasos 1 a 4 tal como están en la página; también el paso 2 con una colección que ya tenga variables. Después, *Import mode* con otro archivo con los mismos pasos: actualiza los valores |
 
 ## B. Normalizar la exportación
 
@@ -62,6 +60,6 @@ Cómo apuntar: el número de la prueba y "bien" o lo que ha pasado. Una captura 
 | C1 | Light, Dark y system | Todo legible; los paneles de la vista previa no cambian (D48) |
 | C2 | Ventana de 320 px de ancho (o móvil) | Sin scroll horizontal de la página; las tablas tienen su propio scroll; `ScalePreview` apilado |
 | C3 | Solo teclado | Todo se alcanza con Tab en orden lógico, con el anillo de foco visible; casillas con la barra espaciadora; los `select` con las flechas |
-| C4 | VoiceOver | Cada campo dice su etiqueta, ayuda y error; cada casilla, "Exportar el paso 500 de emerald"; el gráfico, "500, croma 0,219, Tu color"; el resumen de errores se lee al aparecer |
+| C4 | VoiceOver | Cada campo dice su etiqueta, ayuda y error; cada casilla, "Exportar el paso 500 de emerald"; el gráfico, cada paso con su croma y "Tu color" en el de tu color; el deslizador, su valor; el resumen de errores se lee al aparecer |
 | C5 | Colores forzados (Windows, Contraste alto) o, en Chrome, DevTools → Rendering → "Emulate CSS forced-colors" | Bordes, casillas, foco y botones visibles |
-| C6 | Safari y Firefox | A1 a A6, A16, B1 a B6, B11 y B12. En Firefox y Safari, la subida de carpeta (B6) es la que más puede fallar |
+| C6 | Safari y Firefox | A1 a A9 (en A9, que el clic en la pista mueva el pulgar), A15, B1 a B6, B11 y B12. En Firefox y Safari, la subida de carpeta (B6) es la que más puede fallar |

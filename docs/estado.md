@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de desarrollo. C21 (`ChromaChart` con `highlightColor`) y C22 (errores de los campos al salir de ellos) en código y en `main`; build, `check:content` y `npm test` sin errores, probado en Chrome. Antes, el mismo día: C21 y C22 decididas y guion de pruebas (contenido), pruebas 4 y 5 (contenido), herramientas en `main` (desarrollo).
+Última actualización: 2026-10-08, sesión de contenido. C23 a C26 en Generar escalas (deslizador del tinte, botón "Generar escalas", curva y nombre propuestos por el tono, nota de recorte): lógica y textos en `main`, encargo a desarrollo. Antes, el mismo día: C21 y C22 en código (desarrollo), guion de pruebas, pruebas 4 y 5 (contenido).
 
 ---
 
@@ -51,6 +51,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
+  - **C23 y C24 (contenido, 2026-10-08):** componente deslizador para el tinte (sustituye al `TextField` de D45) y botón "Generar escalas" con su `ErrorSummary` en las plantillas de Generar escalas (`componentes-v1.md` §5.10b).
   - **C21 (contenido, 2026-10-08):** en `ChromaChart`, borde inferior de la barra destacada `border/neutral/strong` (antes `border/accent/strong`); el relleno, en código, es el hex del usuario (en Figma sigue `#33CC99`).
   - **T24 (contenido, 2026-10-08):** las páginas se llaman "Generar escalas" y "Normalizar la exportación" (título de `LessonHeader`, sidebar y `PageNav` de las plantillas); las carpetas del .zip, con el nombre de Figma (como ya hacen las plantillas).
 - **Archivo de referencia (P16, D37, D38):**
