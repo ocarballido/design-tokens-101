@@ -29,7 +29,7 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Lección, escritorio, Light / Dark ("Lesson · Desktop · Light" / "· Dark", D38) | Templates | [35:843](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843) / [35:1479](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-1479) |
 | Lección, móvil, Light / Dark | Templates | [52:487](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-487) / [52:688](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=52-688) |
 | Menú móvil abierto (panel lateral, V25), Light / Dark ("Lesson · Mobile · Light · Menu open") | Templates | [55:699](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-699) / [55:833](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=55-833) |
-| Portada (P27, D42), escritorio y móvil, Light / Dark ("Home · Desktop · Light"…) | Templates | [137:2993](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-2993) / [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) · [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) / [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) |
+| Portada (P27, D42), escritorio y móvil, Light / Dark ("Home · Desktop · Light"…) | Templates | [133:5656](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=133-5656) / [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) · [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) / [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) |
 | Muestra de estilos de texto (marcos "Text styles · Desktop · Light", "· Dark" y "· Mobile · Light") | Text styles | 14:12, 14:40, 16:13 |
 | Iconos de Lucide como componentes locales (26, `li:*`, D37; marco `Icons`; desde D53, `li:upload` 153:852, `li:folder-open` 153:859, `li:download` 153:866, `li:link` 153:873 y `li:circle-alert` 153:880) | Components | [108:1963](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1963) |
 | `Flow`, `FlowGroup`, `FlowStep`, `FlowConnector` (C13, §3.3 de este documento) | Components | [62:256](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=62-256) |
@@ -44,6 +44,8 @@ Documentos de referencia: `docs/sistema-tokens-v1.md` (tokens: fuente de verdad)
 | Marcos de exportación de los logotipos (`logo-colored`, `logo-colored-dark`, `logo-gray`, `logo-gray-dark` y `logo-oc`; D35, §3.6) | Logo exports (D38) | 57:749, 96:1997, 57:727, 96:2005, 57:724 |
 | `ColorScaleStep` y `ColorScale` (C14, D34; §3.5 de este documento) | Components | [93:1020](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=93-1020) |
 | Componentes de las herramientas (D44, D55; §3.11 de este documento), marco `Tools` | Components | [155:846](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=155-846) |
+| Escalas de color (D51; §3.12), escritorio y móvil, Light / Dark, y escritorio Light con errores ("Color scales · …") | Templates | [165:1963](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=165-1963) / [166:7902](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=166-7902) · [166:3921](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=166-3921) / [166:8534](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=166-8534) · [166:9166](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=166-9166) |
+| Completar la exportación (D51; §3.12), igual ("Normalize export · …") | Templates | [167:10805](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=167-10805) / [168:13900](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=168-13900) · [168:11087](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=168-11087) / [168:13985](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=168-13985) · [168:14070](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=168-14070) |
 
 Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-designtoken101.mdx`.
 
@@ -292,7 +294,7 @@ Punto 2 de "Para la primera versión" (`estado.md`). Hecho en TokensDS, no en la
 
 Los nombres de las claves de `messages/es.json` son una propuesta; los textos: `reportError` "¿Has encontrado un error?" y `reportLink` "Avísalo en GitHub". En Figma, el hueco de `space/100` sustituye al espacio del párrafo (Figma no cuenta el espacio final de un texto). `Link` tiene ahora `size=caption` (136:842 a 136:855). Oscar lo resolvió con una propiedad de texto por tamaño (`children`, `children-small`, `children-caption`); en el pie, el texto va en `children-caption` (D41).
 
-**Portada (D42, P27).** Cuatro marcos copiados de las plantillas de lección: [137:2993](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-2993) (Desktop Light), [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) (Desktop Dark), [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) (Mobile Light) y [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) (Mobile Dark). Sidebar con todas las secciones cerradas y sin lección actual. En `Content`, el marco `Hero`:
+**Portada (D42, P27).** Cuatro marcos copiados de las plantillas de lección: [133:5656](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=133-5656) (Desktop Light), [137:3253](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3253) (Desktop Dark), [137:3290](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3290) (Mobile Light) y [137:3448](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=137-3448) (Mobile Dark). Sidebar con todas las secciones cerradas y sin lección actual. En `Content`, el marco `Hero`:
 
 | Parte | Escritorio | Móvil |
 |---|---|---|
@@ -318,9 +320,9 @@ Primera versión dibujada por la sesión de diseño a petición de Oscar (D55), 
 | `ErrorSummary` | [157:916](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=157-916) | `size` (`large`, `small`) × `state` (`default`, `focus`) = 4 | `title`; lista de `Link` |
 | `TypeDecision` | [157:1160](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=157-1160) | `open` × `state` del `summary` (`default`, `hover`, `focus`) = 6 | `legend`, `summary`; ejemplos con `Code`; `Select` dentro |
 | `FileItem` | [158:988](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=158-988) | `invalid` = 2 | `name`, `detail`, `error`; `IconButton` con `li:x` |
-| `FileUpload` | [158:1079](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=158-1079) | `dragOver` = 2 | `label`, `hint`, `showHint`, `showList`; dos `Button` `secondary` (`li:upload`, `li:folder-open`) y dos `FileItem` |
+| `FileUpload` | [158:1079](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=158-1079) | `dragOver` = 2 | `label`, `hint`, `showHint`, `showList`; dos `Button` `secondary` (`li:upload`, `li:folder-open`), que bajan de línea si no caben; slot `files` (D57) con dos `FileItem` de ejemplo |
 | `ChromaChart` | [159:1021](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=159-1021) | 1 (curva `green`, paso 500 destacado) | `caption` |
-| `ScalePreview` | [159:1102](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=159-1102) | 1 (las cinco escalas de DesignToken101) | `caption` |
+| `ScalePreview` | [164:3708](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=164-3708) | `size` (`large` 159:1102, `small` 164:3579; D58) = 2 (las cinco escalas de DesignToken101) | `caption` |
 
 **Medidas** (todo con variables): campos con relleno `space/200` × `space/300`, borde `border/neutral/strong` de `border-width/100`, `radius/control`, separación `space/100` entre etiqueta, ayuda, campo y error; icono de error `li:circle-alert` de 16 px. Caja de `Checkbox` de 16 × 16 (`space/400` en ancho y alto), `radius/100`, `li:check` de 12 px; fila con alto mínimo `space/600`. `ErrorSummary` con relleno `space/600` (`large`) o `space/400` (`small`), icono de 24 px y hueco `space/300`. `TypeDecision` con relleno `space/400` y hueco `space/300`; `summary` con relleno `space/100` × `space/200` y `radius/control`. Zona de `FileUpload` con relleno `space/600`, hueco `space/300`, `radius/container`; filas de `FileItem` con borde inferior. `ChromaChart` (D56): columna del número con ancho mínimo `space/800`, columna del valor de `space/2400`; barras del alto de la fila (`space/600`), sin radio, relleno `background/neutral/strong` y solo borde inferior `border/neutral/default`; la del paso destacado, relleno `background/accent/strong/default` y borde inferior `border/accent/strong`; el largo de cada barra es un dato (C ÷ 0,295 sobre una pista de 496 px en el componente de 640). `ScalePreview` (D56): paneles con relleno `space/400`, `radius/container`, borde `border/neutral/default` y `space/100` entre filas; cada escala es una tira continua (sin hueco, `radius/control` en la fila y recorte), con muestras de alto `space/800` rellenas con los primitivos (en la herramienta serán los hex calculados, D48).
 
@@ -329,6 +331,47 @@ Primera versión dibujada por la sesión de diseño a petición de Oscar (D55), 
 **Diferencias con §5 de `componentes-v1.md`:** `size` de `ErrorSummary` es solo de Figma (en código, `p-400 desktop:p-600`), como el de `Takeaways`. `showLabel` de `Checkbox` es solo de Figma (en la columna Exportar, la etiqueta es solo accesible, D46). En `TypeDecision`, el estado con error se dibuja con la variante `invalid` del `Select` de dentro. `value` de `TextField` y `Select` es el texto que se ve, no un prop.
 
 **Auditoría (2026-10-08):** colores, grosores, rellenos internos, huecos y radios con variables en los diez componentes; todo el texto con estilo. Fuera de la regla, como en el resto del archivo: el tamaño de los iconos (24, 16 y 12 px), el radio del contenedor de variantes de Figma y el largo de las barras de `ChromaChart` (dato). Tras D56, auditoría repetida sin valores sueltos; el alto de las barras (24 px sin variable) se vinculó a `space/600`, mismo valor. Revisados en Light y Dark (modo de Semantic color en el marco). Objetivos: campos de 37 px de alto, `summary` de 28, filas de `Checkbox` de 24 e `IconButton` de 40 (≥ 24 × 24). El contraste es el de §5 de `componentes-v1.md`: mismos tokens sobre los mismos fondos.
+
+### 3.12 Plantillas de las herramientas (D51, D57 a D60, 2026-10-08)
+
+Diez marcos en Templates, en la fila `y = 6200`, copiados de las plantillas de lección (35:843 y 52:487) con la estructura de `componentes-v1.md` §5.10. Los Dark son copias de los Light con el modo Dark de Semantic color en el marco.
+
+| Marco | Desktop Light | Desktop Dark | Mobile Light | Mobile Dark | Errores (Desktop Light) |
+|---|---|---|---|---|---|
+| Escalas de color (`/tools/color-scales`) | 165:1963 | 166:7902 | 166:3921 | 166:8534 | 166:9166 (D59) |
+| Completar la exportación (`/tools/normalize-export`) | 167:10805 | 168:13900 | 168:11087 | 168:13985 | 168:14070 (D60) |
+
+**Comunes a los diez**
+- **Sidebar:** "Empezar aquí" cerrada y sin `current`; en el grupo Referencia, antes de Recursos, `SidebarSection` "Herramientas" con `showNumber = false`, `open = true` y `current = true`, y dos `SidebarItem`: "Escalas de color" y "Completar la exportación" (`current` en la de su página). En los marcos móviles el sidebar sigue oculto, como en las lecciones.
+- **`LessonHeader`** (D50): sección "Herramientas", título, descripción y "Última revisión: 08/10/2026".
+- **Apartados:** cada uno es un marco vertical con el `h2` (`heading/2`, `text/neutral/subtle`, como en las lecciones) y hueco `space/400`; en Escalas, `Fields` separa los campos con `space/600` y `Result` las escalas con `space/600`.
+- **`PageNav`** con los dos enlaces: Escalas, "Conclusiones" ← → "Completar la exportación"; Completar, "Escalas de color" ← → "Fuentes consultadas". Escritorio en dos columnas con hueco `space/400`; móvil apilado (`grid gap-400 desktop:grid-cols-2`, como en el código).
+- **Textos:** los provisionales de `investigacion-herramientas.md` §9 y `componentes-v1.md` §5; los definitivos, de la sesión de contenido.
+
+**Escalas de color**
+- Valores de DesignToken101 (`python3 tools/scales.py`): `#33CC99`, `emerald`, tinte 0,5, curva `green`, las tres escalas de estado. Sin recorte en ningún paso y sin avisos, así que no hay `Callout` en Resultado.
+- **Hex resultante:** fila `Output` bajo el campo del color, hueco `space/200`: muestra de 24 × 24 (`space/600`, `radius/100`, borde `border/neutral/default`, relleno del primitivo `emerald/500`, que en la herramienta será el hex calculado), "Se usa el hex" (`body/small`, `text/neutral/subtle`) y `Code` con `HUG`.
+- **`ChromaChart`:** en el móvil, la instancia llena la columna y el largo de cada barra se recalcula para su pista (C ÷ 0,295 × 199 px): es un dato, no un estilo.
+- **Escalas:** `h3` (`heading/3`, `text/neutral/default`) con el nombre, `ColorScale` (`large` en escritorio, `small` en móvil; en `emerald`, paso 500 destacado con "Tu color") y la tabla. `ScalePreview` `large` / `small` (D58) al final de Resultado.
+- **Tabla:** celdas `TableCell` y, en Exportar, un marco con el mismo relleno (`space/300` × `space/200`) y borde inferior que contiene un `Checkbox` con `showLabel = false` (D46), centrado en vertical. Anchos en escritorio: oklch llena; las otras seis columnas, `space/2400`. En móvil, todas `space/2400` salvo oklch (`space/4000`) dentro de un marco `Table` que recorta: es el scroll horizontal propio de la tabla del código (§3.6).
+- **Exportar:** `Button` `primary` (`li:download`) y `secondary` (`li:link`) en una fila que baja de línea, hueco `space/200`.
+- **Importar en Figma:** lista numerada (marca de `space/600` en `text/neutral/subtle`) y `Callout` `warning`.
+
+**Completar la exportación**
+- `FileUpload` con los cuatro .zip en el slot `files` (D57): `Primitives.zip`, `Semantic_color.zip`, `Semantic_size.zip` y `Layout.zip`, con el nombre que da *Export modes* (`investigacion-herramientas.md` §7) y el detalle "Colección · N archivos".
+- **Resumen:** tabla de dos columnas con lo que da `tools/figma-to-dtcg.mjs` sobre la exportación del repositorio (2026-10-08): 6 archivos, 82 alias, 123 `color`, 56 `dimension`, 4 `fontWeight`, 2 `fontFamily` y 2 opacidades escritas con el decimal de Figma (V31).
+- **Descarga:** `Button` `primary` "Descargar dtcg.zip" y un `Link` por archivo, en un marco con hueco `space/100`.
+- **En tu repositorio:** párrafo, `Button` `secondary` (`li:download`), `CodeBlock` con `SCOPE_TYPES` (el mapa de §6.5 de la investigación con los scopes de hoy) y `CodeBlock` con el comando, y el enlace a "Las variables CSS".
+
+**Marcos con errores**
+- **Escalas (D59):** `TextField` del color con `invalid = true` y valor `#33CC9`, del tinte con `1,5`; `ErrorSummary` `large` en Exportar, encima de los botones (D52), con dos `Link`; Resultado igual que con la entrada válida.
+- **Completar la exportación (D60):** quinto `FileItem` `Foundations.zip`; apartado "Decisiones" después de Subir con dos `TypeDecision` (`LINE_HEIGHT`, 12 variables; `OPACITY`, 3), con el `Select` en `invalid = true` y "Elige un tipo"; en Resultado, `ErrorSummary` y el botón de descarga, sin tabla de resumen ni enlaces por archivo.
+
+**Auditoría (2026-10-08)**, con un script sobre los diez marcos: sin rellenos, trazos, huecos, rellenos internos ni radios sin variable en los nodos propios de las plantillas; todo el texto con estilo (los párrafos con enlace combinan `body/default` con el relleno de `text/accent/default` y subrayado en el tramo del enlace, como en las lecciones); ningún guion largo. Fuera de la regla, como siempre: el tamaño de los iconos y el de la pantalla, y el largo de las barras de `ChromaChart` (dato). Contraste: los mismos tokens sobre los mismos fondos que en `componentes-v1.md` §5 y en las plantillas de lección (`h2` en `text/neutral/subtle` 7,74 / 7,65; texto 17,79 / 18,89; enlaces 5,08 / 10,92). Revisados en captura los marcos Desktop Light, Mobile Light, Desktop Dark y los dos de errores.
+
+**Para desarrollo**
+- `ScalePreview` `size` y el ancho de las barras de `ChromaChart` en móvil son solo de Figma.
+- Pendiente de decidir (no lo dice ningún documento): el nombre de las carpetas dentro de `dtcg.zip` y de los enlaces por archivo. Las plantillas usan el nombre del .zip (`Primitives/Value.tokens.json`); el repositorio usa otro (`primitives/`, C10).
 
 ## 4. Accesibilidad comprobada en el diseño
 

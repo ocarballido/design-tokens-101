@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de diseño. Herramientas: componentes revisados por Oscar y adoptados (D56); listos para las plantillas, que se hacen en una sesión nueva con el encargo del apartado de Diseño.
+Última actualización: 2026-10-08, sesión de diseño. Herramientas: plantillas de las dos páginas en Figma (D57 a D60); siguen los textos (contenido) y el desarrollo.
 
 ---
 
@@ -33,12 +33,12 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
-- **Herramientas (T8, T21, T22):** índice aprobado (`investigacion-herramientas.md` §9). En diseño: anatomía de los componentes nuevos y plantillas de las dos páginas. Después: textos de la interfaz (contenido), desarrollo y los enlaces desde las lecciones. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
+- **Herramientas (T8, T21, T22):** índice aprobado (`investigacion-herramientas.md` §9); componentes y plantillas en Figma (D44 a D60, `entrega-diseno.md` §3.11 y §3.12). Después: textos de la interfaz (contenido), desarrollo y los enlaces desde las lecciones. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; si un estilo de texto creado desde un texto con variables las conserva.
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
-- **D44 a D54 (herramientas):** los textos de la interfaz de las dos páginas, con los provisionales de `componentes-v1.md` §5 (etiquetas, ayudas, errores, títulos del `ErrorSummary` y nombre accesible de las casillas "Exportar el paso {paso} de {paleta}", D46); el tinte se escribe como número de 0 a 1 (D45).
+- **D44 a D60 (herramientas):** los textos de la interfaz de las dos páginas, con los provisionales que llevan las plantillas (`entrega-diseno.md` §3.12: descripciones de `LessonHeader`, introducciones, ayudas, errores, pies de `ColorScale`, pasos de "Importar en Figma", "En tu repositorio") y los de `componentes-v1.md` §5 (etiquetas, ayudas, errores, títulos del `ErrorSummary` y nombre accesible de las casillas "Exportar el paso {paso} de {paleta}", D46); el tinte se escribe como número de 0 a 1 (D45).
 - **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
@@ -50,7 +50,10 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** archivo TokensDS al día con el código (D31 a D39) y con lo de la primera versión (D40 a D42: C19, enlace del pie y portada). Detalle en `historial.md` y `docs/entrega-diseno.md` §3.10.
 
 **Pendiente**
-- **Herramientas (T22, D44 a D56):** anatomía aprobada (`componentes-v1.md` §5), iconos (D53) y componentes en Figma (D55, `entrega-diseno.md` §3.11). Componentes revisados por Oscar (D56). Falta: las **plantillas** de las dos páginas según D51 y §5.10 de `componentes-v1.md`: diez marcos en Templates (por página, Desktop y Mobile × Light y Dark con el resultado, y uno Desktop Light con errores), copiados de las plantillas de lección (35:843 y siguientes) con la sección "Herramientas" en el sidebar (grupo Referencia, sin número, antes de Recursos, `current` y abierta, con sus dos lecciones) y `LessonHeader` con la sección "Herramientas" (D50).
+- **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
+  - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
+  - **Sin decidir:** nombre de las carpetas dentro de `dtcg.zip` y de los enlaces por archivo (las plantillas usan el del .zip, `Primitives/Value.tokens.json`; el repositorio, `primitives/`).
+  - **Para contenido:** las dos páginas se llaman como las lecciones que enlazan ("Escalas de color" en Primitivos y "Completar la exportación" en De Figma al código), así que el sidebar muestra dos entradas iguales en secciones distintas; decidir si las herramientas llevan otro `nav_title`.
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.

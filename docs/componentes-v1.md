@@ -916,7 +916,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 
 ## 5. Componentes de las herramientas (T22): aprobado por Oscar el 2026-10-08 (D44 a D54)
 
-**En Figma desde el 2026-10-08 (D55), revisados por Oscar (D56); nodos, medidas y diferencias en `entrega-diseno.md` §3.11.
+**En Figma desde el 2026-10-08 (D55), revisados por Oscar (D56); nodos, medidas y diferencias en `entrega-diseno.md` §3.11; plantillas de las dos páginas en §3.12 (D57 a D60).**
 
 Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de color" (`/tools/color-scales`) y "Completar la exportación" (`/tools/normalize-export`), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
 
@@ -1133,7 +1133,7 @@ FileUpload (div, role="group", aria-labelledby → etiqueta)
 | Prop | Tipo | En Figma |
 |---|---|---|
 | `label`, `hint` | `string` | Texto (+ `showHint`) |
-| `files` | lista de archivos cargados | Slot con `FileItem` + booleano `showList` |
+| `files` | lista de archivos cargados | Slot `files` con `FileItem` (D57) + booleano `showList` |
 | `onAdd`, `onRemove` | funciones | No se ven |
 | `dragOver` | solo Figma: hay un archivo encima de la zona (en código, una clase entre `dragenter` y `dragleave`) | Variante `dragOver` = `true` / `false` |
 
@@ -1318,7 +1318,7 @@ ScalePreview (figure)
 └── pie (figcaption)
 ```
 
-**Props.** `scales` (`{ name, colors: string[] }[]`), `light` y `dark` (hex de los dos fondos), `caption`.
+**Props.** `scales` (`{ name, colors: string[] }[]`), `light` y `dark` (hex de los dos fondos), `caption`. En Figma, además, la variante `size` (solo Figma, D58): `large`, dos columnas; `small`, paneles apilados.
 
 **Datos.** El fondo de cada panel y las muestras son colores de la escala del usuario, no tokens de la web, como las muestras de `ColorScale`. Fondo claro (D48) `#FFFFFF` y fondo oscuro el `neutral/950` generado (los fondos de página de DesignToken101, D23, con los valores del usuario). Los paneles no cambian con Light y Dark.
 
@@ -1364,7 +1364,9 @@ Prose: introducción con enlace a "Escalas de color"
    Lista numerada (3 pasos) · Callout warning
 ```
 
-**Plantillas de Completar la exportación** (D51), con los cuatro .zip de DesignToken101 cargados (sin decisiones pendientes); el marco con errores lleva dos `TypeDecision` y el `ErrorSummary`:
+**Marco con errores de Escalas** (D59): color `#33CC9` y tinte `1,5` no válidos, cada campo con su error, `ErrorSummary` con un enlace a cada uno y el resultado de la última entrada válida ("Se usa el hex #33CC99").
+
+**Plantillas de Completar la exportación** (D51), con los cuatro .zip de DesignToken101 cargados (sin decisiones pendientes); el marco con errores (D60) añade un `Foundations.zip` de ejemplo, lleva dos `TypeDecision` sin tipo y el `ErrorSummary`, y no muestra el resumen ni los enlaces por archivo mientras falte una decisión:
 
 ```txt
 LessonHeader (sección "Herramientas", "Completar la exportación")
@@ -1453,3 +1455,6 @@ Prose: introducción con enlace a "Completar la exportación"
 | D45 a D54 | Tinte con `TextField` numérico, columna "Exportar", campo con error sin cambio de borde, fondos de `ScalePreview`, borde continuo de la zona, `LessonHeader`, estados de las plantillas, sitio de `ErrorSummary`, iconos nuevos y `ColorScale` con `colors` (§5.11). |
 | D55 | Componentes de las herramientas en Figma, primera versión de la sesión de diseño (§5; `entrega-diseno.md` §3.11). |
 | D56 | Cambios de Oscar en `ChromaChart` (barras como filas de tabla) y `ScalePreview` (escalas en tiras continuas) (§5.8, §5.9). |
+| D57 | Lista de `FileUpload` como slot `files` (§5.5). |
+| D58 | `ScalePreview` con variante `size` solo de Figma (§5.9). |
+| D59, D60 | Marcos con errores de las plantillas de las herramientas (§5.10). |

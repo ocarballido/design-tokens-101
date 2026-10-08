@@ -212,6 +212,10 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D54 | `ColorScale` acepta los hex de la herramienta con una prop `colors` (y `name`) en lugar de `palette` (cambia C14). | Cerrada | 2026-10-08 |
 | D55 | Componentes de las herramientas en Figma (marco `Tools`): primera versión de la sesión de diseño, a petición de Oscar, que la revisa (excepción puntual a D05). | Cerrada | 2026-10-08 |
 | D56 | Cambios de Oscar en los componentes de las herramientas (revisión de D55): `ChromaChart` con barras como filas de tabla (relleno `background/neutral/strong`, borde inferior, sin radio; la destacada en `background/accent/strong/default`) y `ScalePreview` con cada escala en una tira continua; los otros ocho, sin cambios. | Cerrada | 2026-10-08 |
+| D57 | La lista de `FileUpload` es un slot `files` (como `children` de `Flow`): la instancia lleva tantos `FileItem` como archivos. | Cerrada | 2026-10-08 |
+| D58 | `ScalePreview` con variante `size` solo de Figma: `large`, dos columnas; `small`, paneles apilados (por debajo de 64rem). | Cerrada | 2026-10-08 |
+| D59 | Plantilla con errores de Escalas de color: color y tinte no válidos, `ErrorSummary` con dos enlaces y el resultado de la última entrada válida. | Cerrada | 2026-10-08 |
+| D60 | Plantilla con errores de Completar la exportación: los cuatro .zip de DesignToken101 más un `Foundations.zip` de ejemplo, dos `TypeDecision` sin tipo y `ErrorSummary`; sin resumen ni descargas por archivo mientras falte una decisión. | Cerrada | 2026-10-08 |
 
 ## Desarrollo
 
