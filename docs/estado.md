@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de desarrollo. C29 (deslizador con estilo propio) y C30 (pulso del resultado desactualizado, `duration/2000`) en código y en `main`; tokens, build, `check:content` y `npm test` sin errores, probado en Chrome. Abierto: el foco del pulgar apenas se distingue de su borde (Oscar). Antes, el mismo día: C29 y C30 decididas (contenido).
+Última actualización: 2026-10-08, sesión de contenido. C31 (foco del pulgar con hueco y anillo) y precisión de C30 (qué pulsa), encargo a desarrollo. Antes, el mismo día: C29 y C30 en código (desarrollo).
 
 ---
 

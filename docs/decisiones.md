@@ -121,7 +121,8 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | C27 | Resultado desactualizado en "Generar escalas": al cambiar color, tinte o curva, aviso sobre el resultado, muestras al 40 % (`opacity/inactive`, solo código, nunca texto) y descarga bloqueada hasta generar; el nombre se aplica al momento. | Cerrada | 2026-10-08 |
 | C28 | El nombre propuesto pasa al resultado al generar (el escrito por el usuario, al momento); un nombre no válido bloquea la descarga. | Cerrada | 2026-10-08 |
 | C29 | Deslizador del tinte con estilo propio: pulgar de 24 px (`space/600`) con borde `border/accent/strong`, pista de 4 px (`space/100`) en `border/neutral/strong`. | Cerrada | 2026-10-08 |
-| C30 | El resultado desactualizado pulsa entero sin parar (de 1 a `opacity/inactive`, ciclo `duration/2000`) hasta generar; sin pulso con `prefers-reduced-motion`; riesgo de accesibilidad aceptado (2.2.2 y 1.4.3, cambia C27). | Cerrada | 2026-10-08 |
+| C30 | El resultado desactualizado pulsa entero sin parar (de 1 a `opacity/inactive`, ciclo `duration/2000`) hasta generar; sin pulso con `prefers-reduced-motion`; riesgo de accesibilidad aceptado (2.2.2 y 1.4.3, cambia C27); no pulsan el título, el resumen de lo generado ni el aviso. | Cerrada | 2026-10-08 |
+| C31 | Foco del pulgar del deslizador: hueco de `border-width/200` en `background/neutral/default` y, por fuera, el anillo de `border-width/200` en `border/focus`. | Cerrada | 2026-10-08 |
 
 ## Sistema de tokens
 
