@@ -86,6 +86,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | T22 | Herramientas: sección `98-tools` sin número en Referencia; normalización con .zip o carpeta, descarga en .zip propio, tipos dudosos y conflictos los decide el usuario, un solo script con mapa, todos los errores a la vez y referencias sin destino; escalas desde el hex, con curva de referencia elegible (`green` por defecto, explicada con un gráfico) tres avisos, ajustes en la URL, vista previa en claro y oscuro y exportación de los pasos elegidos (siempre 11); pruebas con `node:test`. | Cerrada | 2026-10-08 |
 | T23 | La herramienta de escalas entrega dos escalas, la del color que añade el usuario y la de neutros con su tono; sin escalas de estado (quita `CheckboxGroup`). | Cerrada | 2026-10-08 |
 | T24 | Nombres de las herramientas: "Generar escalas" y "Normalizar la exportación" (las URL no cambian); en el .zip de la normalización, cada carpeta con el nombre de la colección tal como lo escribe Figma. | Cerrada | 2026-10-08 |
+| T25 | El archivo de "Generar escalas" no lleva code syntax ni campo de prefijo: el usuario lo añade en Figma (paso 3 de "Importar en Figma"). | Cerrada | 2026-10-08 |
 
 ## Contenido y técnica
 
