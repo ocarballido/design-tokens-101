@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode, Ref } from 'react';
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
@@ -14,6 +14,8 @@ type ButtonProps = {
   /** Icono opcional, al final. */
   icon?: LucideIcon;
   href?: string;
+  /** Solo sin href: el <button> (FileUpload devuelve el foco al primer botón, §5.5). */
+  ref?: Ref<HTMLButtonElement>;
 } & Omit<ComponentPropsWithoutRef<'button'>, 'children'>;
 
 const VARIANTS = {
@@ -23,7 +25,7 @@ const VARIANTS = {
     'border-(length:--t101-border-width-100) border-neutral-strong text-neutral-default hover:bg-neutral-hover active:bg-neutral-active',
 };
 
-export function Button({ variant = 'primary', children, icon: Icon, href, className, type = 'button', ...props }: ButtonProps) {
+export function Button({ variant = 'primary', children, icon: Icon, href, className, type = 'button', ref, ...props }: ButtonProps) {
   const classes = cx(
     'inline-flex cursor-pointer items-center justify-center gap-200 rounded-control py-200 type-label-default focus-ring',
     Icon ? 'ps-400 pe-300' : 'px-400',
@@ -49,7 +51,7 @@ export function Button({ variant = 'primary', children, icon: Icon, href, classN
     );
   }
   return (
-    <button type={type} className={classes} {...props}>
+    <button ref={ref} type={type} className={classes} {...props}>
       {content}
     </button>
   );

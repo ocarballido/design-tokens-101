@@ -6,6 +6,8 @@ import { cx } from '@/lib/cx';
 // Nada se escribe a mano: el color de la muestra es la variable del primitivo (su code syntax Web)
 // y el hex sale de tokens/dtcg/primitives al compilar. Si la escala cambia en Figma y se
 // regenera con `npm run tokens`, el gráfico cambia solo.
+// D54: con `colors` (11 hex) y `name`, en lugar de `palette`, muestra los hex que calcula la
+// herramienta de escalas (§5.10); la muestra es entonces el hex, que es un dato, no un token.
 
 const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] as const;
 
@@ -40,26 +42,31 @@ function withBreaks(label: string) {
   ));
 }
 
-type ColorScaleProps = {
-  palette: Palette;
+type ColorScaleProps = (
+  | { palette: Palette; colors?: never; name?: never }
+  | { palette?: never; colors: readonly string[]; name: string }
+) & {
   caption: string;
   highlight?: string;
   // Obligatorio si hay highlight: el paso destacado se distingue también por texto (1.4.1).
   highlightLabel?: string;
 };
 
-export function ColorScale({ palette, caption, highlight, highlightLabel }: ColorScaleProps) {
+export function ColorScale({ palette, colors, name: scaleName, caption, highlight, highlightLabel }: ColorScaleProps) {
+  if (colors && (colors.length !== STEPS.length || colors.some((hex) => !/^#[0-9A-F]{6}$/.test(hex)))) {
+    throw new Error('ColorScale: colors son 11 hex en mayúsculas y con 6 cifras');
+  }
   if (highlight && !STEPS.includes(highlight as (typeof STEPS)[number])) {
     throw new Error(`ColorScale: highlight="${highlight}" no es un paso de la escala`);
   }
   if (highlight && !highlightLabel) throw new Error('ColorScale: highlight necesita highlightLabel (1.4.1)');
 
   return (
-    <figure data-component="ColorScale" data-palette={palette} className="flex flex-col gap-300">
+    <figure data-component="ColorScale" data-palette={palette ?? scaleName} className="flex flex-col gap-300">
       {/* Por debajo de breakpoint/desktop, 4 por fila; desde 64rem (D11), los 11 en una fila. */}
       <ol className="grid grid-cols-4 gap-x-200 gap-y-400 desktop:grid-cols-11">
-        {STEPS.map((name) => {
-          const { hex, color } = step(palette, name);
+        {STEPS.map((name, i) => {
+          const { hex, color } = colors ? { hex: colors[i], color: colors[i] } : step(palette!, name);
           const highlighted = name === highlight;
           return (
             <li

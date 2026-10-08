@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de contenido. Páginas de Herramientas y textos de la interfaz (`ToolScales`, `ToolNormalize` en `messages/es.json`) en la rama `herramientas`; no compila hasta que desarrollo haga los componentes. Antes, el mismo día: T24 y la lógica de las dos herramientas (contenido), D61 a D63 (diseño), T23.
+Última actualización: 2026-10-08, sesión de desarrollo. Herramientas en código y unidas a `main`: los nueve componentes de `componentes-v1.md` §5, `colors` en `ColorScale` (D54), `ScaleGenerator` y `ExportNormalizer`; build, `check:content`, `tokens`, `check:tokens` y `npm test` sin errores, y las dos páginas probadas en Chrome. Antes, el mismo día: páginas y textos de Herramientas, T24 y la lógica de las dos herramientas (contenido), D61 a D63 (diseño), T23.
 
 ---
 
@@ -25,7 +25,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 1. **Oscar:** vista previa en el Post Inspector de LinkedIn; alta del dominio en Google Search Console (propiedad de tipo Dominio) y envío de `sitemap.xml`; prueba manual en Safari, Firefox y con VoiceOver.
 2. **Opcional (Oscar):** reexportar `home-light` y `home-dark` a 880 × 880 (D43, V48; desarrollo cambia las medidas); comprobar si `designtoken101.com` está libre y redirigirlo; prueba con Starter (si se hace, contenido lo añade a "Archivos de Figma").
 
-Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la página de errores frecuentes (T1; ninguna lección los promete), las herramientas de escalas y de normalización (T8, T21) y la versión en inglés (P24).
+Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la página de errores frecuentes (T1; ninguna lección los promete) y la versión en inglés (P24). Las herramientas de escalas y de normalización (T8, T21) están en `main` desde el 2026-10-08.
 
 ## Contenido
 
@@ -33,11 +33,12 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
-- **Herramientas (T8, T21 a T24):** lógica hecha y probada (`tools/scales.mjs`, `tools/figma-to-dtcg.mjs`, `tools/zip.mjs`, `tests/`); páginas (`content/es/98-tools/`) y textos de la interfaz (`messages/es.json`, `ToolScales` y `ToolNormalize`) en la rama `herramientas`. Siguiente: desarrollo; al publicar, los enlaces desde las cinco lecciones (`investigacion-herramientas.md` §9). **Oscar decide:** si el archivo de escalas lleva code syntax Web (haría falta un campo para el prefijo; ahora no lo lleva y el paso 3 de "Importar en Figma" lo pide a mano) y si se hace la prueba 4 (si *Import mode* crea variables nuevas en una colección que ya existe; la página no lo afirma). Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
+- **Herramientas (T8, T21 a T24):** lógica hecha y probada (`tools/scales.mjs`, `tools/figma-to-dtcg.mjs`, `tools/zip.mjs`, `tests/`); páginas (`content/es/98-tools/`), textos de la interfaz (`messages/es.json`, `ToolScales` y `ToolNormalize`) y componentes, en `main` desde el 2026-10-08. Siguiente: los enlaces desde las cinco lecciones (`investigacion-herramientas.md` §9). **Oscar decide:** si el archivo de escalas lleva code syntax Web (haría falta un campo para el prefijo; ahora no lo lleva y el paso 3 de "Importar en Figma" lo pide a mano) y si se hace la prueba 4 (si *Import mode* crea variables nuevas en una colección que ya existe; la página no lo afirma). Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; si un estilo de texto creado desde un texto con variables las conserva.
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
+- **Herramientas (desarrollo, 2026-10-08):** el pie de `ColorScale` en "Generar escalas" es `tableCaption` ("Escala emerald", "Escala neutral"); las plantillas llevan otro ("Escala emerald, desde #33CC99 con la curva green" y "Neutros con el tono de la marca y un tinte de 0,5"), que no está en `messages/es.json`: si se quiere, dos textos nuevos. Los errores de los campos aparecen al pulsar la descarga, no al salir del campo (motivo en `historial.md`).
 - **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).
@@ -64,7 +65,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 ## Desarrollo
 
-**Estado:** la web funciona en Light, Dark y system, en móvil y escritorio, con los módulos 0 a 10 compilados y comprobados (último build: 2026-10-07, módulo 10 y V40). Detalle de cada comprobación en `historial.md`.
+**Estado:** la web funciona en Light, Dark y system, en móvil y escritorio, con los módulos 0 a 10 y las dos herramientas compilados y comprobados (último build: 2026-10-08, herramientas). Detalle de cada comprobación en `historial.md`.
 
 **Portada (V47)**
 - **Oscar:** decidir si se reexportan las imágenes a 880 × 880 (las de ahora, 440 × 441, se ven a media resolución en pantallas de alta densidad, V48) y revisar la portada en el navegador, en Light, Dark, móvil y escritorio; también el texto de `title` y `description` (propuesta de desarrollo, V47).
@@ -73,8 +74,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
-- **Herramientas (rama `herramientas`):** los componentes de `componentes-v1.md` §5 y `ScaleGenerator` y `ExportNormalizer`, con la lógica de `tools/` y los textos de `ToolScales` y `ToolNormalize`; comprobar que Next empaqueta `tools/figma-to-dtcg.mjs` (importa `node:` solo en la línea de comandos). Se une a `main` cuando compile.
-- **Build de las correcciones del 2026-10-08 (contenido, T24):** `npm run build && npm run check:content` (texto en `normalize-the-export` y `exercise-figma-to-code`) y `npm run tokens && npm run check:tokens && npm test` (`tools/figma-to-dtcg.mjs` cambió; la salida tiene que ser la misma; `npm test` es nuevo).
+- **Herramientas (2026-10-08, detalle en `historial.md`):** probadas en Chrome 154 con Playwright; falta la prueba manual en Safari y Firefox (subida de carpeta y .zip, decisiones, descargas) y con lector de pantalla. Sin revisar por Oscar en el navegador.
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).

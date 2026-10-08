@@ -1,12 +1,15 @@
 import type { MDXComponents } from 'mdx/types';
-import { useTranslations } from 'next-intl';
 import { isValidElement, type ComponentPropsWithoutRef, type ReactElement } from 'react';
 import { Callout } from '@/components/Callout';
+import { Code } from '@/components/Code';
 import { CodeBlock } from '@/components/CodeBlock';
 import { ColorScale } from '@/components/ColorScale';
+import { ExportNormalizer } from '@/components/ExportNormalizer';
 import { Flow, FlowGroup, FlowStep } from '@/components/Flow';
 import { InCode } from '@/components/InCode';
 import { Heading2, UnorderedList } from '@/components/Prose';
+import { ScaleGenerator } from '@/components/ScaleGenerator';
+import { Table, Td, Th } from '@/components/Table';
 import { Takeaways } from '@/components/Takeaways';
 import { TextLink } from '@/components/TextLink';
 
@@ -30,18 +33,6 @@ function Pre({ children }: ComponentPropsWithoutRef<'pre'>) {
   );
 }
 
-// Tabla (componentes-v1.md §3.6): contenedor con scroll horizontal propio, que se puede enfocar (1.4.10).
-function Table(props: ComponentPropsWithoutRef<'table'>) {
-  const t = useTranslations('Table');
-  return (
-    <div role="region" aria-label={t('label')} tabIndex={0} className="overflow-x-auto focus-ring">
-      <table className="w-full border-collapse" {...props} />
-    </div>
-  );
-}
-
-const cell = 'border-b-(length:--t101-border-width-100) border-neutral-default px-300 py-200 text-start align-top text-neutral-default';
-
 const components: MDXComponents = {
   h2: Heading2,
   h3: (props) => <h3 className="type-heading-3 text-neutral-default" {...props} />,
@@ -50,17 +41,12 @@ const components: MDXComponents = {
   ul: UnorderedList,
   ol: (props) => <ol className="list-decimal ps-400 marker:text-neutral-subtle" {...props} />,
   a: TextLink,
-  // Code (§3.5): código en línea. Dentro de <pre> lo sustituye CodeBlock.
-  // wrap-break-word: un nombre largo se parte si no cabe en la línea (1.4.10), sin cambiar
-  // el ancho mínimo de las celdas de tabla.
-  code: (props) => (
-    <code className="rounded-100 bg-neutral-strong px-050 type-code-default text-neutral-default wrap-break-word" {...props} />
-  ),
+  code: Code,
   pre: Pre,
-  table: Table,
-  // remark-gfm solo genera th en la fila de cabecera.
-  th: (props) => <th scope="col" className={`${cell} bg-neutral-subtle type-label-default`} {...props} />,
-  td: (props) => <td className={`${cell} type-body-small`} {...props} />,
+  // Tabla (§3.6). remark-gfm solo genera th en la fila de cabecera.
+  table: (props) => <Table {...props} />,
+  th: (props) => <Th {...props} />,
+  td: Td,
   Callout,
   InCode,
   Flow,
@@ -68,6 +54,9 @@ const components: MDXComponents = {
   FlowStep,
   ColorScale,
   Takeaways,
+  // Herramientas (T22, componentes-v1.md §5).
+  ScaleGenerator,
+  ExportNormalizer,
 };
 
 export function useMDXComponents(): MDXComponents {
