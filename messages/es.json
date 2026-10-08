@@ -101,6 +101,8 @@
     "colContrastDark": "Contraste con neutral/950",
     "colClip": "Recorte",
     "tableCaption": "Escala {name}",
+    "captionAccent": "Escala {name}, del paso 50 al 950: tu color está en el {step}.",
+    "captionNeutral": "Escala neutral, del paso 50 al 950: los grises de tu sistema.",
     "exportStep": "Exportar el paso {step} de {name}",
     "clip": "−{percent} %",
     "previewCaption": "Las escalas sobre blanco y sobre el neutral/950 generado",

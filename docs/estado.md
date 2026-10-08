@@ -38,7 +38,6 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
 **Pendiente de reflejar en el contenido**
-- **Herramientas (desarrollo, 2026-10-08):** el pie de `ColorScale` en "Generar escalas" es `tableCaption` ("Escala emerald", "Escala neutral"); las plantillas llevan otro ("Escala emerald, desde #33CC99 con la curva green" y "Neutros con el tono de la marca y un tinte de 0,5"), que no está en `messages/es.json`: si se quiere, dos textos nuevos. Los errores de los campos aparecen al pulsar la descarga, no al salir del campo (motivo en `historial.md`).
 - **P18, diseño de partida:** cuando exista, añadirlo a "Archivos de Figma" y enlazarlo desde el ejercicio del módulo 1 ("Qué necesitas").
 - **S21 y D12 a D14:** el contraste de la tabla semántica y por estado (módulo 7). Comprobar que está todo reflejado al revisar el módulo.
 - **V49 a V52:** si "Cómo se hizo esta web" cuenta la parte técnica, los metadatos (`meta_title`, canónicas, sitemap y Open Graph).

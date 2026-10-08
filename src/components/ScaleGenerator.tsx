@@ -271,7 +271,11 @@ export function ScaleGenerator() {
               <ColorScale
                 name={scale.name}
                 colors={scale.colors}
-                caption={t('tableCaption', { name: scale.name })}
+                caption={
+                  scale.highlight
+                    ? t('captionAccent', { name: scale.name, step: scales.input.anchorStep })
+                    : t('captionNeutral')
+                }
                 highlight={scale.highlight ? String(scales.input.anchorStep) : undefined}
                 highlightLabel={scale.highlight ? t('yourColor') : undefined}
               />
