@@ -1,6 +1,6 @@
 # Investigación de las herramientas: escalas de color y normalización
 
-Sesión de contenido, 2026-10-08. Investigación previa (T4) de dos herramientas para un apartado "Herramientas" de la web: la de escalas de color (T8) y la de normalización de la exportación de Figma a DTCG (T21, decisión de Oscar del 2026-10-07). **Pendiente de aprobación de Oscar**: no se pasa al índice, al diseño ni al desarrollo sin ella.
+Sesión de contenido, 2026-10-08. Investigación previa (T4) de dos herramientas para un apartado "Herramientas" de la web: la de escalas de color (T8) y la de normalización de la exportación de Figma a DTCG (T21, decisión de Oscar del 2026-10-07). **Aprobada por Oscar el 2026-10-08** con todas las recomendaciones de §8 (T22). En la 8 pidió que la herramienta explique qué es la curva de referencia.
 
 Pregunta: qué hace falta saber para que las dos herramientas funcionen en el navegador, sean accesibles, den la misma salida que los scripts del repositorio (`tools/scales.py`, `tools/figma-to-dtcg.mjs`) y no afirmen nada que no se haya comprobado (P14). En cada apartado se separa **lo que dice la fuente**, **lo que se comprobó por prueba** y **la recomendación**.
 
@@ -373,6 +373,8 @@ Oscar borra el archivo de prueba (o la sesión lo pide). El resultado está en `
 ---
 
 ## 8. Decisiones para Oscar
+
+**Aprobadas todas el 2026-10-08 (T22).** Las 8, 9 y 10 ya están en `tools/scales.py`.
 
 1. **Dónde van.** Carpeta `98-tools` ("Herramientas"), en el grupo "Referencia", antes de Recursos y sin número; páginas `/tools/color-scales` y `/tools/normalize-export`, enlazadas desde las lecciones de §1. *Recomendación: sí.*
 2. **Qué sube el alumno a la normalización.** Opciones: (a) los .zip que da Figma y una carpeta con una subcarpeta por colección; (b) además, JSON sueltos indicando la colección de cada uno; (c) solo JSON sueltos. *Recomendación: a*: es lo que entrega *Export modes* y evita el choque de `Value.tokens.json` (§2). (b) se puede añadir después.

@@ -6,7 +6,7 @@ import sys
 import scales as s
 
 prim={'white':'#FFFFFF','black':'#000000'}
-b=s.build((160,60,50))
+b=s.build('#33CC99')
 for r in b['accent']: prim[f"emerald/{r['step']}"]=r['hex']
 for r in b['neutral']: prim[f"neutral/{r['step']}"]=r['hex']
 for hue,rows in s.status_scales(0.66).items():

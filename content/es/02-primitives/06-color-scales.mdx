@@ -3,7 +3,7 @@ title: Escalas de color
 meta_title: "Escalas de color para tokens"
 description: El método con el que DesignToken101 construye la escala del acento y la de los neutros a partir del color de marca, el resultado con su contraste y cómo crear las variables en Figma.
 nav_title: Escalas de color
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-08
 ---
 
 Con el espacio de color decidido, puedes construir las escalas. DesignToken101 parte de un único color de marca, `#33CC99`, y genera dos escalas de once pasos: la del acento y la de los neutros. En esta lección verás el método paso a paso, el resultado y lo que dice sobre el uso de cada color.
@@ -36,7 +36,7 @@ Con el espacio de color decidido, puedes construir las escalas. DesignToken101 p
 
 "Curva" significa cómo cambian L y C a lo largo de los pasos. En una escala como las de Tailwind CSS, la L baja del `50` (casi blanco) al `950` (casi negro), y el C sube hacia los pasos centrales y vuelve a bajar en los extremos, porque los colores muy claros o muy oscuros admiten menos croma (puedes verlo en [oklch.com](https://oklch.com/): la gama se estrecha arriba y abajo).
 
-DesignToken101 toma la curva de `green` de Tailwind CSS v4, porque su tono (≈150) es cercano al de la marca (165,4) ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). De `green` se toman dos columnas, L y C; el tono es el de la marca. Así queda la referencia y lo que sale de ella:
+DesignToken101 toma la curva de `green` de Tailwind CSS v4, porque su tono (≈150) es cercano al de la marca (165,4) ([Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)). Los valores del script coinciden con el CSS fuente de Tailwind CSS 4.3.3 ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/v4.3.3/packages/tailwindcss/theme.css)). De `green` se toman dos columnas, L y C; el tono es el de la marca. Así queda la referencia y lo que sale de ella:
 
 | Paso | L de `green` | C de `green` | L de `emerald` | C de `emerald` |
 |---|---|---|---|---|
@@ -66,7 +66,7 @@ La L de `emerald` es la de `green` en todos los pasos menos en el `500`, que es 
 
 <Callout variant="recommendation">
 
-El método es nuestro, no una norma. Lo elegimos porque se puede reproducir con un script y porque el color de marca aparece tal cual en la escala. Si tu marca tiene otro tono, usa como referencia la curva de Tailwind CSS cuyo tono se parezca más al suyo: el método funciona igual, porque de la referencia toma L y C, no el tono.
+El método es nuestro, no una norma. Lo elegimos porque se puede reproducir con un script y porque el color de marca aparece tal cual en la escala. Si tu marca tiene otro tono, usa como referencia la curva de Tailwind CSS cuyo tono se parezca más al suyo: el método funciona igual, porque de la referencia toma L y C, no el tono. Cada curva está ajustada para su color (la de `yellow`, por ejemplo, es más clara en los pasos centrales), así que una curva cercana al tono de tu marca suele obligar a recortar menos croma al pasar a sRGB.
 
 </Callout>
 
@@ -92,7 +92,7 @@ Fíjate en el `500`: su L (0,755) no es la de la referencia (0,723), porque es l
 
 ## La escala de neutros
 
-Los neutros son los grises de la interfaz: fondos, texto y bordes. Tailwind CSS tiene dos escalas grises: `neutral`, sin croma, y `gray`, con un ligero tinte azulado ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). El método mezcla las dos y les da el tono de la marca:
+Los neutros son los grises de la interfaz: fondos, texto y bordes. Tailwind CSS tiene dos escalas grises: `neutral`, sin croma, y `gray`, con un ligero tinte azulado ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/v4.3.3/packages/tailwindcss/theme.css)). El método mezcla las dos y les da el tono de la marca:
 
 - **L** de `neutral`.
 - **C** de `gray` multiplicado por 0,5: un tinte suave.
@@ -133,7 +133,7 @@ Qué combinación usa la web para cada cosa se decide en los tokens semánticos 
 
 ## El nombre de las paletas
 
-La paleta del acento se llama **`emerald`**: su tono, 165,4, está cerca del de `emerald` de Tailwind CSS, entre 162 y 173 según el paso ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)). No se llama `brand` ni `accent`, por la regla que viste en [Qué es un primitivo](/primitives/what-is-a-primitive#el-nombre-dice-qué-valor-es).
+La paleta del acento se llama **`emerald`**: su tono, 165,4, está cerca del de `emerald` de Tailwind CSS, entre 162 y 173 según el paso ([theme.css](https://github.com/tailwindlabs/tailwindcss/blob/v4.3.3/packages/tailwindcss/theme.css)). No se llama `brand` ni `accent`, por la regla que viste en [Qué es un primitivo](/primitives/what-is-a-primitive#el-nombre-dice-qué-valor-es).
 
 La de los neutros se llama **`neutral`**, como la escala gris de Tailwind CSS: se nombra por su naturaleza, no por un tono.
 
@@ -160,17 +160,20 @@ Desde la raíz del repositorio:
 python3 tools/scales.py
 ```
 
-El script imprime cada escala con su oklch, su hex y su contraste con blanco y con `neutral/950`, y marca el paso de la marca. También escribe `tools/scales.json`.
+El script imprime cada escala con su oklch, su hex y su contraste con blanco y con `neutral/950`, y marca el paso de la marca y los pasos en los que el ajuste a sRGB recorta el croma. También escribe `tools/scales.json`.
 
-Para generar las escalas de otra marca, cambia los valores de entrada al final del script. El color va en HSL (grados, porcentaje, porcentaje):
+Para generar las escalas de otra marca, cambia los valores de entrada al final del script. El color va en hex, el valor que guardarás en Figma:
 
 ```python filename="tools/scales.py"
-ACCENT_HSL = (160, 60, 50)  # color de marca de DesignToken101: #33CC99 (S8)
-TINT = 0.5                  # croma de los neutros: gray × 0,5 (S11); 0 = gris puro
-out = build(ACCENT_HSL, TINT)
+ACCENT_HEX = '#33CC99'  # color de marca de DesignToken101 (S8)
+TINT = 0.5              # croma de los neutros: gray × 0,5 (S11); 0 = gris puro
+REFERENCE = 'green'     # curva de referencia: una de TW_CURVES (S10)
+out = build(ACCENT_HEX, TINT, REFERENCE)
 ```
 
-`build` aplica el método de esta lección. `TINT` es el multiplicador del croma de los neutros.
+`build` aplica el método de esta lección. `TINT` es el multiplicador del croma de los neutros. `REFERENCE` es la curva: el script tiene las 17 paletas de color de Tailwind CSS 4.3.3 (`red`, `orange`, `amber`, `yellow`, `lime`, `green`, `emerald`, `teal`, `cyan`, `sky`, `blue`, `indigo`, `violet`, `purple`, `fuchsia`, `pink` y `rose`).
+
+Al final, el script avisa en tres casos: si la marca no tiene croma (un gris; su tono no existe y los neutros salen sin tinte), si cae en un paso extremo (50, 100, 900 o 950) y si el ajuste a sRGB recorta el croma en algún paso.
 
 </InCode>
 
@@ -187,7 +190,7 @@ out = build(ACCENT_HSL, TINT)
 ## Fuentes
 
 - [Tailwind CSS: Colors](https://tailwindcss.com/docs/colors)
-- [Tailwind CSS: theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css)
+- [Tailwind CSS: theme.css (código fuente, v4.3.3)](https://github.com/tailwindlabs/tailwindcss/blob/v4.3.3/packages/tailwindcss/theme.css)
 - [WCAG 2.2: Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
 - [Figma: Hide styles, components, and variables when publishing](https://help.figma.com/hc/en-us/articles/360039238193)

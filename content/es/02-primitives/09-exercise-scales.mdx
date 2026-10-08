@@ -3,7 +3,7 @@ title: "Ejercicio: tus primitivos"
 meta_title: "Ejercicio: crea tus tokens primitivos"
 description: Convierte el inventario del módulo 1 en escalas primitivas, créalas en Figma y anota qué primitivo usa cada elemento. Es el punto de partida de los tokens semánticos.
 nav_title: Ejercicio
-lastReviewed: 2026-10-04
+lastReviewed: 2026-10-08
 ---
 
 En este ejercicio conviertes el inventario del módulo 1 en tu colección de primitivos, aplicando lo visto en el módulo: escalas, espacio de color, scopes y visibilidad. Al final anotarás qué primitivo usa cada elemento de tu diseño. Esa lista es el punto de partida del [módulo Relaciones](/relations/what-is-an-alias).
@@ -44,7 +44,7 @@ Nombra cada paso con su número proporcional: con base 4, `space/400` = 16 px.
 
 ## Paso 3 Color
 
-1. Convierte tu color de marca a oklch y genera su escala de once pasos con el método de [Escalas de color](/primitives/color-scales#el-método): en `tools/scales.py`, cambia `ACCENT_HSL` y ejecuta el script.
+1. Convierte tu color de marca a oklch y genera su escala de once pasos con el método de [Escalas de color](/primitives/color-scales#el-método): en `tools/scales.py`, cambia `ACCENT_HEX` y, si tu marca no es verde, elige en `REFERENCE` la curva de un tono parecido. Ejecuta el script y lee sus avisos.
 2. Genera los neutros con el tono de tu marca. Elige el tinte: 0,5 como DesignToken101, o 0 para un gris puro.
 3. Si tu diseño tiene mensajes de información, éxito, aviso o error, genera sus escalas por tono ([Escalas de estado](/primitives/status-colors)). Si tu marca ya es de uno de esos tonos, reutiliza su escala, como hace DesignToken101 con `emerald`.
 4. Nombra cada paleta por su tono, no por su rol.
