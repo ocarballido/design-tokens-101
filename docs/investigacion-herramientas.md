@@ -401,7 +401,7 @@ Oscar borra el archivo de prueba (o la sesión lo pide). El resultado está en `
 
 ## 8. Decisiones para Oscar
 
-**Aprobadas todas el 2026-10-08 (T22).** Las 8, 9 y 10 ya están en `tools/scales.py`.
+**Aprobadas todas el 2026-10-08 (T22).** Las 8, 9 y 10 ya están en `tools/scales.py`. Implementadas el mismo día en `tools/figma-to-dtcg.mjs` (4 a 7 y 14), `tools/scales.mjs`, `tools/zip.mjs` (3) y `npm test` (13). La 6 está a falta de comprobar que el build de Next.js empaqueta el módulo para el navegador (desarrollo).
 
 1. **Dónde van.** Carpeta `98-tools` ("Herramientas"), en el grupo "Referencia", antes de Recursos y sin número; páginas `/tools/color-scales` y `/tools/normalize-export`, enlazadas desde las lecciones de §1. *Recomendación: sí.*
 2. **Qué sube el alumno a la normalización.** Opciones: (a) los .zip que da Figma y una carpeta con una subcarpeta por colección; (b) además, JSON sueltos indicando la colección de cada uno; (c) solo JSON sueltos. *Recomendación: a*: es lo que entrega *Export modes* y evita el choque de `Value.tokens.json` (§2). (b) se puede añadir después.

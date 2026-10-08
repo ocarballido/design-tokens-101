@@ -71,7 +71,7 @@ Dos detalles de esta tabla:
 
 <Callout variant="warning">
 
-Una variable de número sin scope, o con el scope de todas las propiedades (`ALL_SCOPES`), no se puede normalizar: no hay ninguna decisión de la que deducir el tipo. Los scopes que pusiste en los módulos 2 a 5 ordenan los selectores de Figma y, además, deciden el tipo en código.
+Una variable de número sin scope, o con el scope de todas las propiedades (`ALL_SCOPES`), no se normaliza hasta que decides su tipo: no hay ninguna decisión de la que deducirlo. Los scopes que pusiste en los módulos 2 a 5 ordenan los selectores de Figma y, además, deciden el tipo en código.
 
 </Callout>
 
@@ -111,63 +111,53 @@ La normalización sustituye el `alpha` por el decimal más corto que da el mismo
 
 ## Detenerse antes que adivinar
 
-Si la normalización encuentra un tipo o un scope que no conoce, **se detiene con un error** que nombra el token. No elige un tipo por su cuenta. Es la regla del Format Module aplicada al propio script: si no hay una decisión registrada, no se inventa.
+Si la normalización encuentra un token sin un tipo decidido, **no escribe nada** y dice todos los casos de una vez, con cuántos tokens tiene cada uno. Un token no tiene tipo decidido si su scope no está en el mapa del script, si no tiene scope o tiene `ALL_SCOPES`, o si tiene dos scopes que darían tipos distintos. Hace lo mismo con una referencia cuyo destino no está en los archivos. No elige un tipo por su cuenta: es la regla del Format Module aplicada al propio script.
 
-Lo comprobamos el 2026-10-05 con Node.js 22.22.0, sobre una copia de la exportación: añadimos una variable Number con el scope `ALL_SCOPES` y el script paró con este mensaje:
+Lo comprobamos el 2026-10-08 con Node.js 22.22.0, sobre una copia de la exportación: añadimos una variable Number con el scope `ALL_SCOPES` y el script paró con este mensaje:
 
 ```txt
-size.test: $type "number" con scopes [ALL_SCOPES] no previsto. Revisa docs/paso-7-tokens.md §3.
+No se ha escrito nada en tokens/dtcg/.
+
+Tokens sin tipo DTCG decidido:
+- number con ALL_SCOPES: 1 token (size.test)
+
+Decide el tipo de cada uno y añádelo a SCOPE_TYPES, al principio de este archivo. Por ejemplo:
+  number: { 'ALL_SCOPES': 'dimension' | 'number' | 'fontWeight' | 'exclude' }
 ```
 
-Con esta misma regla detectamos, al preparar la primera exportación (2026-10-03), que la exportación escribe el scope de los pesos como `FONT_STYLE`.
+La decisión es tuya y queda escrita en el propio script, en el mapa `SCOPE_TYPES`. `exclude` deja el token fuera de la salida. Con esta misma regla detectamos, al preparar la primera exportación (2026-10-03), que la exportación escribe el scope de los pesos como `FONT_STYLE`.
 
 <InCode title="El script de normalización">
 
-El script está en el repositorio, en `tools/figma-to-dtcg.mjs` ([ocarballido/design-tokens-101](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs)). No necesita dependencias, basta con Node.js. Esta es la parte que decide cada token:
+El script está en el repositorio, en `tools/figma-to-dtcg.mjs` ([ocarballido/design-tokens-101](https://github.com/ocarballido/design-tokens-101/blob/main/tools/figma-to-dtcg.mjs)). No necesita dependencias, basta con Node.js. Al principio está el mapa que decide el tipo de cada scope; si tu sistema usa otros, los añades ahí:
 
 ```js filename="tools/figma-to-dtcg.mjs (abreviado)"
-const DIMENSION_SCOPES = new Set(['GAP', 'CORNER_RADIUS', 'STROKE_FLOAT', 'FONT_SIZE', 'WIDTH_HEIGHT']);
-const isReference = (value) => typeof value === 'string' && /^\{[^{}]+\}$/.test(value);
+export const SCOPE_TYPES = {
+  number: {
+    FONT_STYLE: 'fontWeight',
+    GAP: 'dimension',
+    CORNER_RADIUS: 'dimension',
+    STROKE_FLOAT: 'dimension',
+    FONT_SIZE: 'dimension',
+    WIDTH_HEIGHT: 'dimension',
+  },
+  string: {
+    FONT_FAMILY: 'fontFamily',
+  },
+  boolean: {},
+};
 
-function convertToken(token, id) {
-  const extensions = token.$extensions ?? {};
-  const scopes = extensions['com.figma.scopes'] ?? [];
-  const alias = extensions['com.figma.aliasData'];
-  const out = { ...token };
-
-  if (token.$type === 'color') {
-    const alpha = token.$value?.alpha;
-    if (typeof alpha === 'number' && float32Decimal(alpha) !== alpha) {
-      out.$value = { ...token.$value, alpha: float32Decimal(alpha) };
-    }
-  } else if (token.$type === 'number' && scopes.includes('FONT_STYLE')) {
-    out.$type = 'fontWeight';
-  } else if (token.$type === 'number' && scopes.some((scope) => DIMENSION_SCOPES.has(scope))) {
-    out.$type = 'dimension';
-    // Un alias dentro de la colección ya es una referencia: se deja como está.
-    if (!isReference(token.$value)) out.$value = { value: token.$value, unit: 'px' };
-  } else if (token.$type === 'string' && scopes.includes('FONT_FAMILY')) {
-    out.$type = 'fontFamily';
-  } else {
-    throw new Error(`${id}: $type "${token.$type}" con scopes [${scopes}] no previsto.`);
-  }
-
-  if (alias) {
-    out.$value = `{${alias.targetVariableName.replace(/\//g, '.')}}`;
-  }
-  return out;
-}
-
-// Decimal más corto que da el mismo float32.
-function float32Decimal(value) {
-  if (Math.fround(value) !== value) return value;
-  for (let digits = 1; digits <= 9; digits++) {
-    const candidate = Number(value.toPrecision(digits));
-    if (Math.fround(candidate) === value) return candidate;
-  }
-  return value;
+// El tipo decidido para estos scopes, o null si no hay decisión.
+export function typeFor(type, scopes, map = SCOPE_TYPES) {
+  const byScope = map[type] ?? {};
+  const key = scopeKey(scopes); // 'GAP', 'FONT_STYLE+GAP' o '(sin scopes)'
+  if (key in byScope) return byScope[key];
+  const types = [...new Set(scopes.map((scope) => byScope[scope]).filter(Boolean))];
+  return types.length === 1 && !scopes.includes('ALL_SCOPES') ? types[0] : null;
 }
 ```
+
+Con el tipo decidido, cada token recibe los cambios de esta lección: la unidad en `dimension` (salvo que ya sea una referencia), la opacidad con el decimal escrito en Figma y la referencia DTCG en lugar del valor resuelto.
 
 Además, el script quita el `$extensions` de la raíz de cada archivo (el nombre del modo) y conserva el de cada token. El Format Module pide a las herramientas que conserven las extensiones que no conocen ([Format Module: Extensions](https://www.designtokens.org/TR/2025.10/format/#extensions)).
 
@@ -177,7 +167,7 @@ Para ejecutarlo, desde la raíz del proyecto:
 node tools/figma-to-dtcg.mjs
 ```
 
-Con la exportación de DesignToken101 escribe 6 archivos y este resumen (comprobado el 2026-10-05 con Node.js 22.22.0; el proyecto usa Node.js 24):
+Con la exportación de DesignToken101 escribe 6 archivos y este resumen (comprobado el 2026-10-08 con Node.js 22.22.0; el proyecto usa Node.js 24):
 
 ```txt
 tokens/dtcg: 6 archivos · 82 alias · 56 dimension · 4 fontWeight · 2 fontFamily · 123 color · 2 alpha float32

@@ -33,6 +33,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 - `content/{locale}/NN-seccion/NN-pagina.mdx`: lecciones (C6). La web se publica solo en español (P24); la parte técnica de idiomas sigue en el código, sin uso.
 - `docs/`: documentos compartidos.
 - `tools/`: scripts de escalas y contraste (`python3 tools/scales.py`, `python3 tools/semantic.py`) y comprobación del contenido compilado (`npm run build && npm run check:content`).
+- `tools/scales.mjs`, `tools/figma-to-dtcg.mjs` y `tools/zip.mjs`: la lógica de las herramientas de la web (T22 a T24), en módulos sin dependencias que usan la web y los scripts. `tests/`: sus pruebas (`npm test`, con `node:test`); `tests/fixtures/scales-cases.json` se regenera con `python3 tests/fixtures/scales-cases.py` si cambia el método de `scales.py`.
 - `src/`: la aplicación Next.js. `app/[section]/[lesson]/page.tsx` carga las lecciones (sin segmento de idioma, V45); `lib/content.ts` lee `content/`; `components/`, los componentes; `i18n/`, next-intl; `mdx-components.tsx`, los componentes del MDX.
 - `messages/{locale}.json`: textos de la interfaz (next-intl).
 - `tokens/figma/`: exportación de Figma, sin editar (C10). `tokens/dtcg/`: DTCG normalizado (generado). `tokens/code-only.tokens.json`: tokens solo de código, iguales en todos los modos (desde el 2026-10-04 no hay tokens de código por tema: `overlay` y `translucent` salen de Figma, V31). `tokens/tokens101.resolver.json`: une los modos (V08).

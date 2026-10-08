@@ -919,7 +919,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 
 **En Figma desde el 2026-10-08 (D55), revisados por Oscar (D56); nodos, medidas y diferencias en `entrega-diseno.md` §3.11; plantillas de las dos páginas en §3.12 (D57 a D60).**
 
-Anatomía de lo que necesitan las dos páginas de Herramientas, "Escalas de color" (`/tools/color-scales`) y "Completar la exportación" (`/tools/normalize-export`), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
+Anatomía de lo que necesitan las dos páginas de Herramientas, "Generar escalas" (`/tools/color-scales`) y "Normalizar la exportación" (`/tools/normalize-export`) (nombres de T24), según el índice aprobado (`investigacion-herramientas.md` §9) y T22. Oscar diseña los componentes (D05); este apartado fija la estructura con la misma plantilla que el resto del documento. Las medidas que se citan (rellenos, alto de un área) son una propuesta: el aspecto lo decide Oscar, siempre con tokens. Los textos son los provisionales de §9; los definitivos los escribe la sesión de contenido.
 
 **Sin tokens nuevos** (D44). Oscar aprobó las diez recomendaciones de §5.11 (D45 a D54).
 
@@ -1334,13 +1334,13 @@ ScalePreview (figure)
 - **`ColorScale` (C14, D54):** prop nueva `colors` (11 hex) con `name`, en lugar de `palette`, para los hex que calcula la herramienta (`investigacion-herramientas.md` §5.6). En las lecciones no cambia nada. En Figma no cambia: el hex ya es un texto. `highlight` marca el paso de la marca ("Tu color").
 - **`Table`:** sin cambios. En Escalas, columnas Exportar (D46; `Checkbox` sin etiqueta visible: "Exportar el paso 500 de emerald"), Paso, oklch, Hex, Contraste con blanco, Contraste con `neutral/950` y Recorte ("−45 %", en texto; vacío si no recorta).
 - **Hex resultante** (Escalas): debajo del campo del color, una línea `output` con una muestra decorativa de 24 px (`space/600`, `radius/100`, borde `border/neutral/default`) y "Se usa el hex #33CC99" (`body/small`, `text/neutral/subtle`, el hex en `Code`). No es un componente.
-- **`Sidebar`:** sección "Herramientas" sin número, en el grupo "Referencia", antes de Recursos, con "Escalas de color" y "Completar la exportación".
+- **`Sidebar`:** sección "Herramientas" sin número, en el grupo "Referencia", antes de Recursos, con "Generar escalas" y "Normalizar la exportación" (T24).
 
 **Plantillas de Escalas de color** (D51: Desktop y Mobile, Light y Dark, más un marco Desktop Light con errores), con los valores de DesignToken101 (`#33CC99`, `emerald`, tinte 0,5, `green`). El resultado son dos escalas, la del color y la de neutros (T23):
 
 ```txt
-LessonHeader (sección "Herramientas", "Escalas de color")
-Prose: introducción con enlace a "Escalas de color"
+LessonHeader (sección "Herramientas", "Generar escalas")
+Prose: introducción con enlace a la lección "Escalas de color"
 ## Entrada
    TextField "Color de marca" (code) · hex resultante
    TextField "Nombre de la paleta"
@@ -1362,8 +1362,8 @@ Prose: introducción con enlace a "Escalas de color"
 **Plantillas de Completar la exportación** (D51), con los cuatro .zip de DesignToken101 cargados (sin decisiones pendientes); el marco con errores (D60) añade un `Foundations.zip` de ejemplo, lleva dos `TypeDecision` sin tipo y el `ErrorSummary`, y no muestra el resumen ni los enlaces por archivo mientras falte una decisión:
 
 ```txt
-LessonHeader (sección "Herramientas", "Completar la exportación")
-Prose: introducción con enlace a "Completar la exportación"
+LessonHeader (sección "Herramientas", "Normalizar la exportación")
+Prose: introducción con enlace a la lección "Completar la exportación"
 ## Subir
    FileUpload con 4 FileItem
 ## Decisiones (solo si hacen falta)

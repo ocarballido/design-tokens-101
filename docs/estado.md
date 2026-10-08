@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-08, sesión de diseño. D63: `ColorScale` con el mismo relleno en todos los pasos (el destacado queda alineado) y la etiqueta del destacado partida tras cada "/"; Figma y documentos al día, falta el código. Antes, el mismo día: D62 en código (desarrollo); D62, paso destacado en una caja (diseño); T23 en Figma (D61); T23 (contenido); componentes y plantillas de las herramientas (D44 a D60).
+Última actualización: 2026-10-08, sesión de contenido. T24 (nombres de las herramientas y carpetas del .zip). Lógica de las dos herramientas hecha y probada: `tools/scales.mjs`, `tools/figma-to-dtcg.mjs` (mapa de scopes, función pura, todos los errores, referencias sin destino), `tools/zip.mjs` y `npm test` (15 pruebas); `normalize-the-export` y `exercise-figma-to-code` al día. Falta el build. Antes, el mismo día: D61 a D63 (diseño), T23.
 
 ---
 
@@ -33,7 +33,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Pendiente**
 - **Glosario y página de errores frecuentes** (Recursos, T1). Candidatos ya reflejados en las lecciones: la exportación no conserva los alias (paso 7); opacidad en float32 (V31); renombrar o duplicar sin cambiar el code syntax (V33); interlineado leído como píxeles (D01); `font-family: Inter` frente a `next/font` (V13); `border` sin valor (V14); la negrita de un fragmento rompe el estilo de texto (D17); modo elegido en un componente principal (`apply-modes`).
-- **Herramientas (T8, T21, T22):** índice aprobado (`investigacion-herramientas.md` §9); componentes y plantillas en Figma (D44 a D60, `entrega-diseno.md` §3.11 y §3.12). Después: textos de la interfaz (contenido), desarrollo y los enlaces desde las lecciones. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
+- **Herramientas (T8, T21 a T24):** lógica hecha y probada (`tools/scales.mjs`, `tools/figma-to-dtcg.mjs`, `tools/zip.mjs`, `tests/`). Siguiente (contenido): las dos páginas y los textos de la interfaz, en la rama `herramientas` (no compilan hasta que existan los componentes). Después, desarrollo, y al final los enlaces desde las cinco lecciones. Oscar borra el archivo "zz DesignToken101 · prueba DTCG (borrar)" de su equipo Pro.
 - **Sin verificar, y por eso no se afirma en el contenido (P14):** si Figma exporta las variables Timing y Easing en DTCG y en qué unidad; qué `colorSpace` exporta una variable escrita en oklch; qué ve un archivo que usa la biblioteca cuando un semántico apunta a un primitivo oculto; si un estilo de texto creado desde un texto con variables las conserva.
 - **Observación de desarrollo, sin decidir:** la tabla de `text-contrast` ("los más justos") no incluye `text/danger/default` sobre `background/danger/subtle` (5,75 en Light). `danger` no se usa todavía (S31).
 
@@ -52,8 +52,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
-  - **Sin decidir:** nombre de las carpetas dentro de `dtcg.zip` y de los enlaces por archivo (las plantillas usan el del .zip, `Primitives/Value.tokens.json`; el repositorio, `primitives/`).
-  - **Para contenido:** las dos páginas se llaman como las lecciones que enlazan ("Escalas de color" en Primitivos y "Completar la exportación" en De Figma al código), así que el sidebar muestra dos entradas iguales en secciones distintas; decidir si las herramientas llevan otro `nav_title`.
+  - **T24 (contenido, 2026-10-08):** las páginas se llaman "Generar escalas" y "Normalizar la exportación" (título de `LessonHeader`, sidebar y `PageNav` de las plantillas); las carpetas del .zip, con el nombre de Figma (como ya hacen las plantillas).
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.
@@ -75,6 +74,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
+- **Build de las correcciones del 2026-10-08 (contenido, T24):** `npm run build && npm run check:content` (texto en `normalize-the-export` y `exercise-figma-to-code`) y `npm run tokens && npm run check:tokens && npm test` (`tools/figma-to-dtcg.mjs` cambió; la salida tiene que ser la misma; `npm test` es nuevo).
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).

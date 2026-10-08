@@ -24,6 +24,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-08, sesión de contenido: T24 y lógica de las herramientas**
+- T24 (Oscar aprueba las dos recomendaciones): nombres "Generar escalas" y "Normalizar la exportación"; carpetas del .zip con el nombre de Figma. `componentes-v1.md` §5 al día.
+- `tools/figma-to-dtcg.mjs` (T22, decisiones 4 a 7 y 14): mapa `SCOPE_TYPES` al principio, entre marcas `<scope-types>` para que la web escriba las decisiones del usuario (`withScopeTypes`); función pura `normalize`; claves por scope, por scopes unidos con "+" o `(sin scopes)`; conflictos y `ALL_SCOPES` sin tipo; `exclude`; Boolean como tipo propio; lista todos los tokens sin tipo y las referencias sin destino y no escribe nada. Salida de DesignToken101 idéntica byte a byte (Node.js 22.22.0).
+- `tools/scales.mjs`: `scales.py` en JavaScript con las 17 curvas (iguales a las de `scales.py`), entrada hex, RGB o HSL, avisos como códigos, archivo `Value.tokens.json` para Figma (pasos elegidos, ocultos, sin scopes ni code syntax) y ajustes en la URL. `tools/zip.mjs`: lectura (métodos 0 y 8) y escritura.
+- `npm test` (`node --test`, sin dependencias): 15 pruebas. 418 casos de `tests/fixtures/scales-cases.json` (22 colores × 17 curvas, y tres tintes con `green`) iguales a `scales.py`; normalización contra `tokens/dtcg/` y contra la exportación real de la prueba 1 (`tests/fixtures/figma-export-prueba.zip`); script descargable con decisiones; .zip de ida y vuelta. Los tres módulos, cargados también en Chromium 141 sin errores.
+- Lecciones: `normalize-the-export` ("Detenerse antes que adivinar" con el mensaje nuevo, probado el 2026-10-08; extracto del código con `SCOPE_TYPES` y `typeFor`; aviso de los números sin scope) y `exercise-figma-to-code` (paso 3).
+
 **2026-10-08, sesión de contenido: T23, escalas de la herramienta**
 - Oscar decide que la herramienta entregue solo la escala del color que añade el usuario y, a propuesta de contenido (opción B), también la de neutros; sin escalas de estado. `componentes-v1.md` §5: sin la fila de escalas de estado del inventario, §5.4 solo `Checkbox` (sin `CheckboxGroup`), plantilla de Escalas sin el bloque. `investigacion-herramientas.md`: índice (§9), requisitos (§5.6) y prueba de paridad (§4, 22 hex).
 
