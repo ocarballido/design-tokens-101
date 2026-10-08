@@ -363,6 +363,9 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**Build de T22 (2026-10-08)**
+- `git pull` hasta `5ec8186`. `python3 tools/semantic.py` con el `tools/scales.py` nuevo: sin errores. `npm run build` (86 páginas estáticas) y `check:content` (78 páginas, 648 anclas): sin errores.
+
 **Build de las correcciones de contenido (2026-10-08, A15, decisiones 11 y 15)**
 - `git pull` hasta `8d4c06f`. `npm run tokens` y `check:tokens` con el `tools/figma-to-dtcg.mjs` nuevo: sin errores (82 alias, 155 tokens) y sin cambios en `tokens/dtcg/` ni en `src/styles/`. `npm run build` (86 páginas estáticas) y `check:content` (78 páginas, 648 anclas): sin errores.
 
