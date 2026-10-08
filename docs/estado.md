@@ -77,6 +77,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
+- **C29 y C30 (contenido, 2026-10-08):** estilo del deslizador y pulso del resultado desactualizado (riesgo aceptado); encargado a desarrollo.
 - **Herramientas (2026-10-08, detalle en `historial.md`):** probadas en Chrome 154 con Playwright, también con C21 a C28; falta la prueba manual en Safari y Firefox (subida de carpeta y .zip, decisiones, descargas) y con lector de pantalla; en Generar escalas, también el clic en la pista del deslizador (C23, 2.5.7) y su `accent-color` en cada navegador. Sin revisar por Oscar en el navegador.
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
