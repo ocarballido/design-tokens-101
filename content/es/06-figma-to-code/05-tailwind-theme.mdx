@@ -1,9 +1,9 @@
 ---
 title: El tema de Tailwind CSS
 meta_title: "Tokens en el tema de Tailwind CSS"
-description: "La segunda capa del código: un tema de Tailwind CSS v4 que apunta a las variables de los tokens. Por qué hace falta el prefijo --t101-, cómo se evita text-text, qué tokens no se exponen y cómo encajan el breakpoint y las fuentes."
+description: "La segunda capa del código: un tema de Tailwind CSS v4 que apunta a las variables de los tokens. Por qué hace falta el prefijo --t101-, cómo se evita text-text, qué tokens no se exponen y cómo encajan los breakpoints y las fuentes."
 nav_title: El tema de Tailwind CSS
-lastReviewed: 2026-10-05
+lastReviewed: 2026-10-09
 ---
 
 Las variables CSS ya sirven en cualquier proyecto. Si el proyecto usa Tailwind CSS, falta un paso: que cada token sea también una clase, como `bg-neutral-default` o `p-400`. En esta lección verás cómo se genera esa segunda capa, por qué los nombres necesitan el prefijo `--t101-` y qué decide DesignToken101 sobre lo que se expone y lo que no.
@@ -14,7 +14,7 @@ Las variables CSS ya sirven en cualquier proyecto. Si el proyecto usa Tailwind C
 - [Por qué el prefijo](#por-qué-el-prefijo)
 - [Un espacio de nombres por propiedad](#un-espacio-de-nombres-por-propiedad)
 - [Lo que no se expone](#lo-que-no-se-expone)
-- [El breakpoint](#el-breakpoint)
+- [Los breakpoints](#los-breakpoints)
 - [La familia tipográfica](#la-familia-tipográfica)
 - [Un token de principio a fin](#un-token-de-principio-a-fin)
 - [Lo que te llevas](#lo-que-te-llevas)
@@ -114,17 +114,26 @@ No uses `border` sin valor para el grosor: en Tailwind CSS escribe `border-width
 
 </Callout>
 
-## El breakpoint
+## Los breakpoints
 
-Los breakpoints de Tailwind CSS se definen en el espacio de nombres `--breakpoint-*` y dan los prefijos de las clases, como `md:` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). Con el tema por defecto quitado, DesignToken101 tiene un único breakpoint:
+Los breakpoints de Tailwind CSS se definen en el espacio de nombres `--breakpoint-*` y dan los prefijos de las clases, como `md:` ([Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)). `--*: initial` quita el tema por defecto entero, también sus breakpoints: si ningún token los declara, `md:` no existe.
+
+Lo que dice la fuente: los breakpoints de Tailwind CSS v4 son `sm` (40rem), `md` (48rem), `lg` (64rem), `xl` (80rem) y `2xl` (96rem). Se pueden cambiar, añadir o quitar con `--breakpoint-*`, y conviene escribirlos todos en la misma unidad, porque Tailwind ordena las clases por su valor ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)).
+
+DesignToken101 los conserva como tokens de código, con los mismos nombres y valores, y añade el suyo, `desktop`, que es un alias de `lg`:
 
 ```css
+--breakpoint-2xl: 96rem;
 --breakpoint-desktop: 64rem;
+--breakpoint-lg: 64rem;
+--breakpoint-md: 48rem;
+--breakpoint-sm: 40rem;
+--breakpoint-xl: 80rem;
 ```
 
-Da el prefijo `desktop:`: `desktop:p-400` aplica `p-400` desde 64rem. Es el mismo corte que el bloque Desktop de la capa 1.
+`desktop:` es el corte del sistema: `desktop:p-400` aplica `p-400` desde 64rem, el mismo ancho del bloque Desktop de la capa 1. `lg:` vale lo mismo, pero los componentes de esta web usan `desktop:`, porque el nombre dice para qué sirve el corte. Los demás quedan para ajustes de maquetación que no son el cambio de modo.
 
-Este es el único token de la capa 2 que se escribe con su valor y no con `var()`. El breakpoint acaba en la condición de una consulta `@media`, donde `var()` no funciona ([El breakpoint, un token que se usa de dos formas](/figma-to-code/code-only-tokens#el-breakpoint-un-token-que-se-usa-de-dos-formas)). El valor se lee del token al generar, así que sigue teniendo una sola fuente.
+Los breakpoints son los únicos tokens de la capa 2 que se escriben con su valor y no con `var()`. Acaban en la condición de una consulta `@media`, donde `var()` no funciona ([Los breakpoints, tokens que se usan de dos formas](/figma-to-code/code-only-tokens#los-breakpoints-tokens-que-se-usan-de-dos-formas)). El valor se lee del token al generar, y el alias de `desktop` se resuelve en ese momento, así que siguen teniendo una sola fuente.
 
 ## La familia tipográfica
 
@@ -185,14 +194,15 @@ const rules = [
   [/^font-size\.\d+$/, () => null],
   [/^font-size\.(.+)$/, (m, id) => [[`--text-${m[1].replace(/\./g, '-')}`, ref(id)]]],
   // … pesos, familias, interlineados, tamaños, movimiento y desenfoque
-  [/^breakpoint\.desktop$/, () => [['--breakpoint-desktop', `${bpValue}${bpUnit}`]]],
+  // Breakpoints: el valor resuelto, no var() (breakpoint(), en "Los tokens de código").
+  [/^breakpoint\.(.+)$/, (m) => [[`--breakpoint-${m[1]}`, breakpoint(m[1])]]],
 ];
 
 // En build(): para cada token, la primera regla que coincide.
 if (!rule) throw new Error(`theme.css: el token ${id} no tiene regla en terrazzo.config.mjs`);
 ```
 
-El resultado es `src/styles/theme.css`, con 87 variables del tema, que se importa después de `tokens.css`. Los dos archivos están generados: no se editan a mano.
+El resultado es `src/styles/theme.css`, con 92 variables del tema, que se importa después de `tokens.css`. Los dos archivos están generados: no se editan a mano.
 
 </InCode>
 
@@ -209,6 +219,7 @@ El resultado es `src/styles/theme.css`, con 87 variables del tema, que se import
 ## Fuentes
 
 - [Tailwind CSS: Theme variables](https://tailwindcss.com/docs/theme)
+- [Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)
 - [Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)
 - [Tailwind CSS: transition-duration](https://tailwindcss.com/docs/transition-duration)
 - [CSS Custom Properties Level 1: Dependency cycles](https://www.w3.org/TR/css-variables-1/#cycles)

@@ -3,7 +3,7 @@ title: Los modos en código
 meta_title: "Los modos de Figma en código"
 description: Qué pasa con los modos de Figma al llegar al código. DTCG no tiene modos y los une el Resolver; en CSS, cada modo es un bloque que redefine las mismas variables. Cómo elige la web el tema y el ancho de pantalla.
 nav_title: Los modos en código
-lastReviewed: 2026-10-05
+lastReviewed: 2026-10-09
 ---
 
 En Figma, eliges el modo de cada pantalla a mano. En la web, alguien tiene que elegirlo por ti: la preferencia del sistema, un selector de tema o el ancho de la ventana. En esta lección verás el recorrido de un modo desde Figma hasta el CSS, en lo justo para entender los modos. Cómo se exporta y se convierte todo el sistema lo verás en [el módulo De Figma al código](/figma-to-code/what-figma-exports).
@@ -173,7 +173,7 @@ En Figma, el modo de `Layout` lo eliges en cada marco. En la web lo decide el an
 
 Es el enfoque *mobile-first* de Tailwind CSS: los estilos sin prefijo valen para todos los anchos y los breakpoints añaden cambios a partir de un ancho mínimo. 64rem es el breakpoint `lg` de Tailwind CSS v4 ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)).
 
-El corte de 64rem es un token, `breakpoint/desktop`, pero **existe únicamente en código**. En Figma no hay nada que lo use: el modo se elige a mano, no por el ancho del marco. Por eso no es una variable de Figma, y su fuente es la especificación del sistema.
+El corte de 64rem es un token, `breakpoint/desktop`, alias del breakpoint `lg` de Tailwind CSS ([Los breakpoints](/figma-to-code/tailwind-theme#los-breakpoints)), pero **existe únicamente en código**. En Figma no hay nada que lo use: el modo se elige a mano, no por el ancho del marco. Por eso no es una variable de Figma, y su fuente es la especificación del sistema.
 
 ```css filename="src/styles/tokens.css (abreviado)"
 :root {

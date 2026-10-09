@@ -165,6 +165,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | S35 | `background/neutral/translucent` al 96 % en Light, por el contraste del anillo de foco. | Cerrada | 2026-10-05 |
 | S36 | Versión semántica del sistema; 1.0.0 al cerrar el módulo 8. | Cerrada | 2026-10-06 |
 | S37 | Descripción obligatoria en los semánticos y opcional en los primitivos. | Cerrada | 2026-10-06 |
+| S38 | Breakpoints de Tailwind (`sm` a `2xl`) como tokens de código, con sus nombres (excepción a S4); `breakpoint/desktop` pasa a alias de `breakpoint/lg`; sistema 1.1.0. | Cerrada | 2026-10-09 |
 
 ## Diseño
 
@@ -180,7 +181,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D08 | Iconos de Lucide; código sin resaltado de colores. | Cerrada | 2026-09-30 |
 | D09 | Marcos de escritorio (1440 px) y móvil (375 px); el corte se fija en código. | Cerrada | 2026-09-30 |
 | D10 | Colección Layout con los tamaños de texto en Desktop y Mobile. | Cerrada | 2026-09-30 |
-| D11 | Corte de escritorio en 64rem, solo en código. | Cerrada | 2026-09-30 |
+| D11 | Corte de escritorio en 64rem, solo en código (alias de `breakpoint/lg` desde S38). | Cerrada | 2026-09-30 |
 | D12 | Tokens de estado de los controles: `hover`, `active`, `text/accent/hover` y `border/accent/strong`. | Cerrada | 2026-10-01 |
 | D13 | El estado ocupa el lugar del énfasis (`text/accent/hover`). | Cerrada | 2026-10-01 |
 | D14 | Sin `disabled` en v1. | Cerrada | 2026-10-01 |

@@ -4,14 +4,15 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-10-06.
+Última actualización: 2026-10-09.
 
-**Versión del sistema: 1.0.0** (2026-10-06, S36). API pública: los nombres de las variables publicadas en Figma, de las variables CSS (`--t101-*`) y de las clases de la capa 2. Cada cambio posterior sube el número según S36: PATCH para un valor o un alias, MINOR para algo nuevo o un token obsoleto, MAJOR para borrar o renombrar.
+**Versión del sistema: 1.1.0** (2026-10-09, S38; 1.0.0 el 2026-10-06, S36). API pública: los nombres de las variables publicadas en Figma, de las variables CSS (`--t101-*`) y de las clases de la capa 2. Cada cambio posterior sube el número según S36: PATCH para un valor o un alias, MINOR para algo nuevo o un token obsoleto, MAJOR para borrar o renombrar.
 
 **Versiones del sistema**
 
 | Versión | Fecha | Añadido | Cambiado | Obsoleto | Eliminado |
 |---|---|---|---|---|---|
+| 1.1.0 | 2026-10-09 | Breakpoints de Tailwind CSS como tokens solo de código: `breakpoint/sm`, `md`, `lg`, `xl` y `2xl` (S38, §4.10) | `breakpoint/desktop` pasa a ser alias de `breakpoint/lg`; mismo nombre y mismo valor, 64rem (S38) | No aplica | No aplica |
 | 1.0.0 | 2026-10-06 | Primera versión estable: el sistema completo (97 primitivos, 33 semánticos de color, 4 de tamaño, 9 de Layout, 10 estilos de texto y los tokens de código de §4) | No aplica | No aplica | No aplica |
 
 Las versiones 0.y.z no se numeraron: el historial anterior está en el registro de cambios de este documento y en `docs/decisiones.md`.
@@ -38,6 +39,7 @@ Las versiones 0.y.z no se numeraron: el historial anterior está en el registro 
 | 2026-10-04 | Desarrollo | `size/sidebar/width`, `color/background/overlay` y `color/background/neutral/translucent` salen de la exportación de Figma, no de los tokens solo de código (§4.6, §6.1, §7). Opacidad en float32 recuperada por el normalizador (V31). Sin cambios de valor. |
 | 2026-10-05 | Contenido | §6.1: `color/background/neutral/translucent` pasa al 96 % en Light (S35), para que el anillo de foco llegue a 3:1 sobre la cabecera en el peor caso (1.4.11). Dark sigue al 90 %. |
 | 2026-10-06 | Contenido | Versión del sistema 1.0.0 y tabla "Versiones del sistema" (S36), al aprobarse el módulo 8. |
+| 2026-10-09 | Contenido | Versión 1.1.0 (S38): breakpoints de Tailwind CSS como tokens solo de código y `breakpoint/desktop` como alias de `breakpoint/lg` (§4.2, §4.10, §5.2 y §7). §5.2: vocabulario de categorías completado con las de código (`duration`, `easing`, `blur`, `opacity`, `breakpoint`) y §7: lista de tokens solo de código completada (`duration/2000`, `opacity/inactive`). |
 
 ---
 
@@ -264,7 +266,7 @@ Tomado del Simple Design System de Figma ([SDS theme.css](https://raw.githubuser
 - El texto de lectura se mantiene en 16 px en móvil.
 - En Figma, un estilo de texto con el tamaño vinculado a una variable con modos cambia según el modo del marco (comprobado en el archivo el 2026-09-30: `heading/1` = 40 px en Desktop y 32 px en Mobile con el mismo estilo).
 
-**Breakpoint (D11): `breakpoint/desktop` = 64rem (1024 px), token solo de código.** En CSS, Mobile es el valor por defecto y Desktop se aplica con `@media (width >= 64rem)`. Coincide con `lg` de Tailwind CSS v4, cuyos breakpoints son *mobile-first* con `min-width` y se definen con `--breakpoint-*` ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)). Es también el ancho desde el que el sidebar deja de ser un panel (D09). En Figma no hay token: se diseña en dos marcos (1440 y 375 px) con el modo de Layout correspondiente.
+**Breakpoint (D11): `breakpoint/desktop` = 64rem (1024 px), token solo de código; desde S38, alias de `breakpoint/lg` (§4.10).** En CSS, Mobile es el valor por defecto y Desktop se aplica con `@media (width >= 64rem)`. Coincide con `lg` de Tailwind CSS v4, cuyos breakpoints son *mobile-first* con `min-width` y se definen con `--breakpoint-*` ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design)). Es también el ancho desde el que el sidebar deja de ser un panel (D09). En Figma no hay token: se diseña en dos marcos (1440 y 375 px) con el modo de Layout correspondiente.
 
 **Pesos (D04, sustituye a la parte de S29 que usaba String):** variables **Number** con el peso numérico.
 
@@ -362,6 +364,25 @@ Relacionado: 2.4.13 Focus Appearance (AAA) pide que el indicador de foco tenga u
 
 `opacity/inactive` = 0,4. Punto más bajo del pulso del resultado desactualizado en "Generar escalas" (C30) y, con `prefers-reduced-motion`, opacidad fija de sus muestras de color (C27). Con el pulso, el texto también baja de opacidad: riesgo de accesibilidad aceptado por Oscar (C30). Fuera de ese caso, nunca se aplica a texto: con cualquier opacidad que se note, el texto de esa zona baja de 4,5:1 (con el 80 %, 3,31:1 en Light; cálculo de C27). No hay variable en Figma: el estado desactualizado no se dibuja en las plantillas.
 
+### 4.10 Breakpoints (S38): tokens solo de código
+
+Los de Tailwind CSS v4, con sus valores y nombres ([Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design), comprobado el 2026-10-09). La capa 2 quita el tema por defecto de Tailwind (`--*: initial`, V09), y con él sus breakpoints: estos tokens los devuelven.
+
+| Token | Valor | px | Variante de Tailwind |
+|---|---|---|---|
+| breakpoint/sm | 40rem | 640 | `sm:` |
+| breakpoint/md | 48rem | 768 | `md:` |
+| breakpoint/lg | 64rem | 1024 | `lg:` |
+| breakpoint/xl | 80rem | 1280 | `xl:` |
+| breakpoint/2xl | 96rem | 1536 | `2xl:` |
+| breakpoint/desktop | `{breakpoint.lg}` | 1024 | `desktop:` |
+
+- `sm` a `2xl` son primitivos; `breakpoint/desktop` es el semántico: el corte entre los modos Mobile y Desktop de Layout y desde el que el sidebar es fijo (D11). Los componentes usan `desktop:` para ese corte; `sm:` a `2xl:` quedan para ajustes de maquetación que no son el cambio de modo.
+- **Excepción a la regla 1 de §5.2** (palabras completas): los nombres son los de Tailwind, porque el nombre del token es el prefijo de la clase.
+- Todos en `rem`: Tailwind ordena las variantes por su valor y recomienda una sola unidad.
+- En la capa 1, `--t101-breakpoint-*`; el alias, `var(--t101-breakpoint-lg)`. En la capa 2 y en las consultas `@media` el valor se escribe resuelto, porque una consulta no lee variables (D11).
+- En Figma no hay variable: ningún breakpoint cambia el modo de un marco (D09, D11).
+
 ## 5. Nomenclatura
 
 ### 5.1 Escuela y orden (cerradas, A2, A3)
@@ -377,7 +398,7 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 
 **Reglas**
 
-1. Minúsculas y kebab-case dentro de cada segmento. Palabras completas (`background`, no `bg`). Sin valores ni temas en el nombre (S4). Excepción: los pesos tipográficos usan su número CSS (`font-weight/600`, D04).
+1. Minúsculas y kebab-case dentro de cada segmento. Palabras completas (`background`, no `bg`). Sin valores ni temas en el nombre (S4). Excepciones: los pesos tipográficos usan su número CSS (`font-weight/600`, D04), y los breakpoints, los nombres de Tailwind CSS (`breakpoint/sm`, S38, §4.10).
 2. Separador `/` en Figma. Figma lo convierte en grupos anidados en DTCG y en `-` en CSS.
 3. Orden fijo: categoría / propiedad / rol / énfasis / estado. Un nivel que no aporta información no se escribe.
 4. **Hoja explícita:** si un nombre fuera a la vez token y grupo, el token lleva `/default`. DTCG prohíbe que un objeto sea token y grupo a la vez ([DTCG Format: Groups](https://www.designtokens.org/TR/2025.10/format/#group-structure)).
@@ -390,7 +411,7 @@ Reglas y vocabulario aprobados por Oscar el 2026-09-30.
 
 | Nivel | Valores |
 |---|---|
-| Categoría | `color`, `space`, `radius`, `border-width`, `font-family`, `font-size`, `font-weight`, `line-height`, `size` (D20) |
+| Categoría | `color`, `space`, `radius`, `border-width`, `font-family`, `font-size`, `font-weight`, `line-height`, `size` (D20). Solo de código: `duration`, `easing` (V24), `blur` (V28), `opacity` (C27) y `breakpoint` (D11, S38) |
 | Propiedad (color) | `background`, `text`, `border` |
 | Rol | `neutral`, `accent`, `info`, `success`, `warning`, `danger` (no `error`; como el SDS y Atlassian). Roles que no dependen de un color de rol (S34): `focus` (anillo de foco, `color/border/focus`) y `overlay` (capa sobre el contenido, `color/background/overlay`); `disabled` seguiría el mismo patrón (D14). Los pares `on-{rol}` ocupan también este nivel (regla 7). |
 | Énfasis | `default`, `subtle` (menos énfasis: fondos tintados, texto secundario), `strong` (más énfasis: fondos sólidos). Aprobado por Oscar (2026-09-30). `translucent` (fondo con transparencia, V28). |
@@ -579,7 +600,7 @@ Scopes disponibles según [Figma: Create and manage variables](https://help.figm
 | | | `size/content/max-width` (D20, V27) y `size/sidebar/width` (V16) | No | Ancho y alto |
 | **Layout** (D10) | Desktop, Mobile | `font-size/{estilo}` (9 tokens, §4.2) | No | Tamaño de fuente. Se usan desde los estilos de texto (§8) |
 
-**No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/desktop` (D11), `duration/200` y `easing/standard` (V24), `blur/300` (V28). Su fuente única es esta especificación.
+**No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/*` (D11, S38), `duration/200` y `easing/standard` (V24), `duration/2000` (C30), `blur/300` (V28) y `opacity/inactive` (C27). Su fuente única es esta especificación.
 
 **Creadas en Figma el 2026-10-04** (antes vivían solo en código): `size/sidebar/width` en Semantic size (V16), y `color/background/overlay` (V25) y `color/background/neutral/translucent` (V28) en Semantic color, con scope, code syntax Web y descripción. Reexportadas el mismo día: ya salen de la exportación de Figma; se han quitado de `tokens/code-only.tokens.json`, se han borrado `code-only.{light,dark}.tokens.json` y sus entradas del Resolver.
 

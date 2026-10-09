@@ -175,12 +175,12 @@ Mapeo propuesto (capa 2):
 | `font-weight/*` | `--font-weight-*` | `font-600` |
 | `font-family/*` | `--font-*` | `font-sans`, `font-mono` |
 | `line-height/*` | `--leading-*` | `leading-normal` |
-| `breakpoint/desktop` | `--breakpoint-*` (`--breakpoint-*: initial` + `--breakpoint-desktop`) | `desktop:` |
+| `breakpoint/*` | `--breakpoint-*` (`--breakpoint-sm` a `--breakpoint-2xl` y `--breakpoint-desktop`, S38) | `sm:` a `2xl:` y `desktop:` |
 | `size/content/max-width` | `--container-*` | `max-w-content` |
 
 - Los primitivos de color **no** se exponen en Tailwind (S22: solo sirven de destino de alias). Los componentes usan semánticos.
 - Propuesta: generar este archivo con el mismo build (script propio leyendo los tokens resueltos), para que un token nuevo en Figma aparezca sin tocar CSS a mano.
-- `--breakpoint-*` no admite `var()` porque las media queries no leen variables; se escribe el valor (`64rem`) generado desde el token.
+- `--breakpoint-*` no admite `var()` porque las media queries no leen variables; se escribe el valor (`64rem`) generado desde el token; un alias, como `breakpoint/desktop` desde S38, se resuelve al generar.
 
 ## 7. Decisiones
 

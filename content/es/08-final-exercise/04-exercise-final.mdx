@@ -3,7 +3,7 @@ title: "Ejercicio: cierra tu sistema"
 meta_title: "Ejercicio: cierra tu sistema de tokens"
 description: "Reúne las decisiones de los ejercicios 1 a 7, describe cada token, comprueba el sistema entero, escribe su documentación, completa el código si lo sigues y publica tu sistema de tokens como versión 1.0.0."
 nav_title: Ejercicio
-lastReviewed: 2026-10-07
+lastReviewed: 2026-10-09
 ---
 
 Este es el último ejercicio del curso. Partes de todo lo que has hecho en los ejercicios 1 a 7 y terminas con tu sistema de tokens cerrado: documentado, comprobado entero y publicado como versión 1.0.0. Tu sistema tiene la misma estructura, el mismo método y la misma convención que el de esta web, con los valores de tu diseño.
@@ -116,16 +116,19 @@ Así empieza el de esta web, con dos de sus tokens de código:
     "normal": { "$value": 1.5, "$description": "Texto de lectura" }
   },
   "breakpoint": {
+    "$type": "dimension",
+    "lg": { "$value": { "value": 64, "unit": "rem" } },
     "desktop": {
-      "$type": "dimension",
-      "$value": { "value": 64, "unit": "rem" },
-      "$description": "Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Fuente: docs/sistema-tokens-v1.md §4.2."
+      "$value": "{breakpoint.lg}",
+      "$description": "Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Alias del breakpoint lg de Tailwind CSS (S38)."
     }
   }
 }
 ```
 
-El `$type` del grupo `line-height` vale para sus tres tokens. Las dimensiones llevan valor y unidad por separado, como pide DTCG.
+El `$type` de cada grupo vale para todos sus tokens. Las dimensiones llevan valor y unidad por separado, como pide DTCG.
+
+Si en la capa 2 usas Tailwind CSS con `--*: initial`, sus breakpoints desaparecen. Si quieres los prefijos `sm:` a `2xl:`, decláralos aquí como tokens, con los nombres y valores de Tailwind CSS ([Los breakpoints](/figma-to-code/tailwind-theme#los-breakpoints)).
 
 </InCode>
 
@@ -179,7 +182,7 @@ En el ejercicio del módulo 6 generaste la capa 1 con Terrazzo a partir de tus c
 
 El `version` es el de la especificación del Resolver, no el de tu sistema ([El registro de cambios](/final-exercise/version-the-system#el-registro-de-cambios)).
 
-**3. Amplía la configuración.** Cada bloque pide ahora un modo de cada eje, y se añade el bloque de Desktop con su consulta `@media`. El corte se lee de tu archivo de tokens de código, porque una consulta `@media` no puede leer una variable CSS ([El breakpoint, un token que se usa de dos formas](/figma-to-code/code-only-tokens#el-breakpoint-un-token-que-se-usa-de-dos-formas)):
+**3. Amplía la configuración.** Cada bloque pide ahora un modo de cada eje, y se añade el bloque de Desktop con su consulta `@media`. El corte se lee de tu archivo de tokens de código, porque una consulta `@media` no puede leer una variable CSS ([Los breakpoints, tokens que se usan de dos formas](/figma-to-code/code-only-tokens#los-breakpoints-tokens-que-se-usan-de-dos-formas)):
 
 ```js filename="terrazzo.config.mjs"
 import fs from 'node:fs';
@@ -192,7 +195,14 @@ const LAYOUT_TOKENS = ['text-size.**']; // los grupos de tu colección Layout
 
 // El corte entre Mobile y Desktop, desde tu archivo de tokens de código.
 const codeOnly = JSON.parse(fs.readFileSync(new URL('./tokens/code-only.tokens.json', import.meta.url), 'utf8'));
-const { value: bpValue, unit: bpUnit } = codeOnly.breakpoint.desktop.$value; // el nombre de tu token de corte
+// Valor de un breakpoint, con el alias resuelto: una consulta @media no lee variables CSS.
+const breakpoint = (name) => {
+  const { $value } = codeOnly.breakpoint[name];
+  return typeof $value === 'string'
+    ? breakpoint($value.slice(1, -1).split('.').pop()) // "{breakpoint.lg}" → lg
+    : `${$value.value}${$value.unit}`;
+};
+const DESKTOP = `(width >= ${breakpoint('desktop')})`; // el nombre de tu token de corte
 
 export default defineConfig({
   tokens: ['./tokens/sistema.resolver.json'],
@@ -219,7 +229,7 @@ export default defineConfig({
         {
           input: { theme: 'light', layout: 'desktop' },
           include: LAYOUT_TOKENS,
-          prepare: (contents) => `@media (width >= ${bpValue}${bpUnit}) {\n  :root {\n    ${contents}\n  }\n}`,
+          prepare: (contents) => `@media ${DESKTOP} {\n  :root {\n    ${contents}\n  }\n}`,
         },
       ],
     }),
@@ -227,7 +237,7 @@ export default defineConfig({
 });
 ```
 
-La línea que lee el corte usa el nombre de tu token en el archivo de tokens de código: si tu token no se llama `breakpoint.desktop`, cámbialo en esa línea. Si no coinciden, la configuración falla al cargarse: en la prueba de esta web, con el token llamado `bp.desktop`, el build se detuvo con "config: Cannot read properties of undefined (reading 'desktop')", un mensaje que no nombra el token.
+La línea de `DESKTOP` usa el nombre de tu token de corte, dentro del grupo `breakpoint` de tu archivo de tokens de código: si se llama de otra forma, cámbialo en esa línea y en la función. La función sirve tanto si tu token tiene valor propio como si es un alias. Si no coinciden, la configuración falla al cargarse: en la prueba de esta web, con el token llamado `bp.desktop`, el build se detuvo con "config: Cannot read properties of undefined (reading 'desktop')", un mensaje que no nombra el token.
 
 Genera el CSS con `npx tz build` y revisa el resultado:
 
@@ -262,10 +272,11 @@ Estas líneas amplían el ejemplo del módulo 6 con las categorías que faltaban
   --ease-standard: var(--t101-easing-standard);             /* ease-standard */
   --blur-300: var(--t101-blur-300);                          /* backdrop-blur-300 */
   --breakpoint-desktop: 64rem;                               /* desktop: */
+  --breakpoint-lg: 64rem;                                    /* lg: */
 }
 ```
 
-Fíjate en la última línea: el breakpoint se escribe con su valor y no con `var()`, por el mismo motivo que en el paso 7 ([El breakpoint](/figma-to-code/tailwind-theme#el-breakpoint)).
+Fíjate en las dos últimas líneas: los breakpoints se escriben con su valor y no con `var()`, por el mismo motivo que en el paso 7, y `desktop`, con el valor ya resuelto de `lg` ([Los breakpoints](/figma-to-code/tailwind-theme#los-breakpoints)).
 
 Cuando termines, comprueba que ningún nombre de la capa 2 coincide con uno de la capa 1 ([Por qué el prefijo](/figma-to-code/tailwind-theme#por-qué-el-prefijo)) y que cada token de la capa 1 está expuesto o tiene su motivo escrito.
 

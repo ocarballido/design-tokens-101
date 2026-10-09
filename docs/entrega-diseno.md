@@ -71,7 +71,7 @@ Las plantillas usan el contenido real de `content/es/00-start-here/01-what-is-de
 |---|---|---|
 | `line-height/*` (1.2 / 1.4 / 1.5) | Figma interpreta el interlineado de una variable como píxeles (D01) | §4.2 |
 | `space/negative/*` | Figma no puede limitar un token al gap (D02) | §4.1 |
-| `breakpoint/desktop` = 64rem | Figma no tiene variables de breakpoint (D11) | §4.2 |
+| `breakpoint/desktop` = 64rem (alias de `breakpoint/lg` desde S38) | Figma no tiene variables de breakpoint (D11) | §4.2 |
 | Estilos de texto compuestos (10 estilos) | La exportación DTCG de Figma no incluye estilos de texto | §8 (incluye `body/strong`, D17) |
 
 Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weight/*` (variables Number, D04) y el `colorSpace` del color.

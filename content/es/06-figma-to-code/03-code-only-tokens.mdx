@@ -3,7 +3,7 @@ title: Los tokens de código
 meta_title: "Tokens que viven solo en código"
 description: "Los tokens que no existen en Figma: cuáles son, por qué viven en código, dónde se escriben y cómo entran en la misma cadena que los de Figma. Y qué pasa cuando Figma puede guardarlos."
 nav_title: Los tokens de código
-lastReviewed: 2026-10-05
+lastReviewed: 2026-10-09
 ---
 
 Algunos tokens de DesignToken101 no están en Figma. Los primitivos de código los viste en el módulo 2; en esta lección tienes la lista completa, sabes dónde se escriben y cómo se generan junto a los de Figma, con el mismo nombre y las mismas comprobaciones.
@@ -13,7 +13,7 @@ Algunos tokens de DesignToken101 no están en Figma. Los primitivos de código l
 - [La lista completa](#la-lista-completa)
 - [Por qué se escriben en DTCG](#por-qué-se-escriben-en-dtcg)
 - [Dónde viven](#dónde-viven)
-- [El breakpoint, un token que se usa de dos formas](#el-breakpoint-un-token-que-se-usa-de-dos-formas)
+- [Los breakpoints, tokens que se usan de dos formas](#los-breakpoints-tokens-que-se-usan-de-dos-formas)
 - [Cuando Figma puede guardarlo, se mueve](#cuando-figma-puede-guardarlo-se-mueve)
 - [Lo que te llevas](#lo-que-te-llevas)
 
@@ -23,9 +23,10 @@ Algunos tokens de DesignToken101 no están en Figma. Los primitivos de código l
 |---|---|---|---|
 | `line-height/tight`, `snug`, `normal` | 1.2, 1.4, 1.5 | Figma lee una variable de interlineado como píxeles, no como multiplicador | [Tipografía](/primitives/typography#interlineado-y-espaciado-entre-letras) |
 | `space/negative/100` … `600` | −4 a −24 px | En Figma se aplicarían al gap o al padding, y en CSS ninguno de los dos admite negativos | [Espaciado](/primitives/spacing#espaciado-negativo) |
-| `duration/200`, `easing/standard` | 200 ms, `cubic-bezier(0.2, 0, 0, 1)` | Figma tiene variables Timing y Easing, pero se aplican a Figma Motion, y esta web no diseña animaciones en Figma | [Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación) |
-| `breakpoint/desktop` | 64rem (1024 px) | En Figma, el modo de `Layout` se elige a mano en cada marco: nada usa el corte | [Los modos en código](/modes/modes-in-code#el-ancho-de-pantalla) |
+| `duration/200`, `duration/2000`, `easing/standard` | 200 ms, 2000 ms, `cubic-bezier(0.2, 0, 0, 1)` | Figma tiene variables Timing y Easing, pero se aplican a Figma Motion, y esta web no diseña animaciones en Figma | [Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación) |
+| `breakpoint/sm`, `md`, `lg`, `xl`, `2xl` y `breakpoint/desktop` | 40 a 96rem; `desktop` es un alias de `lg` (64rem) | En Figma, el modo de `Layout` se elige a mano en cada marco: nada usa un corte | [Los modos en código](/modes/modes-in-code#el-ancho-de-pantalla) y [El tema de Tailwind CSS](/figma-to-code/tailwind-theme#los-breakpoints) |
 | `blur/300` | 12 px | Difumina lo que pasa por debajo de la cabecera fija. DesignToken101 no tiene estilos de efecto en su versión 1, así que el desenfoque no se diseña en Figma | Esta lección |
+| `opacity/inactive` | 0,4 | Atenúa un resultado desactualizado en Generar escalas, un estado que no se dibuja en Figma | [Tipos simples](/fundamentals/simple-types#opacidad) |
 
 Cada fila tiene un motivo distinto, pero la regla es la misma: **cada token tiene una sola fuente**. Si Figma no puede guardar un token como lo necesita el código, o no lo usa, su fuente es la especificación del sistema, no el archivo de Figma ([Una sola fuente de verdad](/fundamentals/source-of-truth)).
 
@@ -52,13 +53,15 @@ Todos están en un archivo, `tokens/code-only.tokens.json`. El Resolver lo carga
 
 Un detalle del formato: en este archivo, el tipo se escribe en el grupo y lo heredan sus tokens. Los tres interlineados comparten `"$type": "number"` en el grupo `line-height`. El Format Module lo permite: un token sin `$type` toma el de su grupo más cercano ([Format Module: Type](https://www.designtokens.org/TR/2025.10/format/#type-0)).
 
-## El breakpoint, un token que se usa de dos formas
+## Los breakpoints, tokens que se usan de dos formas
 
-`breakpoint/desktop` se genera como cualquier token, `--t101-breakpoint-desktop: 64rem`. Pero donde se necesita, en la condición de una consulta `@media`, no se puede escribir `var(--t101-breakpoint-desktop)`.
+DesignToken101 tiene seis breakpoints. Cinco son los de Tailwind CSS, con sus nombres: `breakpoint/sm` a `breakpoint/2xl`. El sexto, `breakpoint/desktop`, es el corte entre los modos Mobile y Desktop de `Layout`, y es un alias de `breakpoint/lg`. Es el mismo reparto que en el color: el primitivo dice cuánto vale; el semántico, para qué sirve ([Las capas](/relations/layers)).
+
+Se generan como cualquier token: `--t101-breakpoint-lg: 64rem` y `--t101-breakpoint-desktop: var(--t101-breakpoint-lg)`. Pero donde se necesitan, en la condición de una consulta `@media`, no se puede escribir `var(--t101-breakpoint-desktop)`.
 
 Lo que dice la fuente: `var()` no se puede usar en los nombres de propiedad, en los selectores ni en ningún sitio que no sea el valor de una propiedad ([MDN: var()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var)). La condición de una `@media` no es el valor de una propiedad.
 
-Por eso la configuración lee el valor del token, `64rem`, y lo escribe tal cual en la consulta: `@media (width >= 64rem)`. El valor sigue teniendo una sola fuente, el token; lo que cambia es que se copia al generar, no se referencia. Lo mismo pasa en la capa de Tailwind CSS ([El breakpoint](/figma-to-code/tailwind-theme#el-breakpoint)).
+Por eso la configuración lee el valor del token y lo escribe tal cual en la consulta: `@media (width >= 64rem)`. Si el token es un alias, como `desktop`, sigue la referencia hasta el valor. El valor sigue teniendo una sola fuente, el token; lo que cambia es que se copia al generar, no se referencia. Lo mismo pasa en la capa de Tailwind CSS ([Los breakpoints](/figma-to-code/tailwind-theme#los-breakpoints)).
 
 ## Cuando Figma puede guardarlo, se mueve
 
@@ -96,22 +99,31 @@ Con los de movimiento podría pasar lo mismo: Figma tiene variables Timing y Eas
     }
   },
   "breakpoint": {
-    "desktop": {
-      "$type": "dimension",
-      "$value": { "value": 64, "unit": "rem" }
-    }
+    "$type": "dimension",
+    "sm": { "$value": { "value": 40, "unit": "rem" } },
+    "md": { "$value": { "value": 48, "unit": "rem" } },
+    "lg": { "$value": { "value": 64, "unit": "rem" } },
+    "xl": { "$value": { "value": 80, "unit": "rem" } },
+    "2xl": { "$value": { "value": 96, "unit": "rem" } },
+    "desktop": { "$value": "{breakpoint.lg}" }
   }
 }
 ```
 
-El breakpoint se escribe en `rem`, la unidad de la consulta. Los tamaños de Figma llegan en `px` y se convierten al generar; este no se convierte, porque ya está en `rem`.
+Los breakpoints se escriben en `rem`, la unidad de la consulta. Los tamaños de Figma llegan en `px` y se convierten al generar; estos no se convierten, porque ya están en `rem`. `desktop` no tiene valor propio: `{breakpoint.lg}` es una referencia, como las de los semánticos.
 
-La configuración de Terrazzo lee el breakpoint del mismo archivo para escribir la consulta del modo Desktop:
+La configuración de Terrazzo lee los breakpoints del mismo archivo. Una función devuelve el valor de uno, siguiendo la referencia si es un alias, y con ella se escribe la consulta del modo Desktop:
 
 ```js filename="terrazzo.config.mjs (abreviado)"
 const codeOnly = JSON.parse(fs.readFileSync(new URL('./tokens/code-only.tokens.json', import.meta.url), 'utf8'));
-const { value: bpValue, unit: bpUnit } = codeOnly.breakpoint.desktop.$value;
-const DESKTOP = `(width >= ${bpValue}${bpUnit})`; // las media queries no leen variables CSS
+// Valor de un breakpoint, con el alias resuelto: una consulta @media no lee variables CSS.
+const breakpoint = (name) => {
+  const { $value } = codeOnly.breakpoint[name];
+  return typeof $value === 'string'
+    ? breakpoint($value.slice(1, -1).split('.').pop()) // "{breakpoint.lg}" → lg
+    : `${$value.value}${$value.unit}`;
+};
+const DESKTOP = `(width >= ${breakpoint('desktop')})`; // (width >= 64rem)
 ```
 
 </InCode>

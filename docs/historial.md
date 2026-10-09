@@ -24,6 +24,13 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-09, sesión de contenido: S38, breakpoints de Tailwind CSS**
+- Pregunta de Oscar: con `--*: initial` (V09) desaparecen los breakpoints de Tailwind (`sm:` a `2xl:`). Oscar decide recuperarlos como tokens de código, con los nombres de Tailwind (excepción a S4) y `breakpoint/desktop` como alias de `breakpoint/lg`. Valores comprobados en [Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design) el mismo día: 40, 48, 64, 80 y 96rem.
+- Documentos: `decisiones.md` y `decisiones-detalle.md` (S38; D11 remite a S38), `sistema-tokens-v1.md` (versión 1.1.0, §4.2, §4.10 nueva, regla 1 y vocabulario de §5.2, lista de §7), `paso-7-tokens.md` y `entrega-diseno.md`.
+- Incongruencias corregidas en el mismo bloque: el vocabulario de categorías de §5.2 no tenía las de código (`duration`, `easing`, `blur`, `opacity`); la lista de §7 y la tabla de `code-only-tokens` no tenían `duration/2000` (C30) ni `opacity/inactive` (C27).
+- Lecciones: `tailwind-theme` (sección "Los breakpoints", regla de la capa 2, 92 variables del tema), `code-only-tokens` (tabla, sección "Los breakpoints, tokens que se usan de dos formas" y archivo y configuración del `InCode`), `modes-in-code`, `source-of-truth`, `exercise-final` (pasos 6 a 8: grupo `breakpoint` con alias, función `breakpoint()` y capa 2) y "Archivos de Figma" (la 1.1.0 no cambia el archivo de Figma). Las anclas `#el-breakpoint…` pasan a `#los-breakpoints…` en todas las lecciones que las enlazaban.
+- Todo en la rama `s38-breakpoints`: las lecciones describen un código que aún no existe, así que no pasan a `main` hasta que desarrollo lo implemente y compile.
+
 **2026-10-08, sesión de contenido: T24 y lógica de las herramientas**
 - T24 (Oscar aprueba las dos recomendaciones): nombres "Generar escalas" y "Normalizar la exportación"; carpetas del .zip con el nombre de Figma. `componentes-v1.md` §5 al día.
 - `tools/figma-to-dtcg.mjs` (T22, decisiones 4 a 7 y 14): mapa `SCOPE_TYPES` al principio, entre marcas `<scope-types>` para que la web escriba las decisiones del usuario (`withScopeTypes`); función pura `normalize`; claves por scope, por scopes unidos con "+" o `(sin scopes)`; conflictos y `ALL_SCOPES` sin tipo; `exclude`; Boolean como tipo propio; lista todos los tokens sin tipo y las referencias sin destino y no escribe nada. Salida de DesignToken101 idéntica byte a byte (Node.js 22.22.0).
