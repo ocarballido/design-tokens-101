@@ -4,11 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-<<<<<<< Updated upstream
-Última actualización: 2026-10-08, sesión de diseño. Herramientas en Figma al día con C21, C23, C24, C29, C31 y T24: componente `Slider`, barra destacada de `ChromaChart`, botón "Generar escalas", línea de lo generado, marco con errores sin resultado y nombres nuevos; `entrega-diseno.md` §3.11 y §3.12 al día. Antes, el mismo día: C31 en código (desarrollo); C31 decidida (contenido).
-=======
-Última actualización: 2026-10-09, sesión de desarrollo. V54 en Generar escalas (color y nombre en una fila desde desktop, pie de `ChromaChart`, ayuda y "(sugerida)" en la curva, aviso de desactualizado en un `Callout` `warning` encima del botón); solo build, sin errores.
->>>>>>> Stashed changes
+Última actualización: 2026-10-09, sesión de desarrollo. V54 en Generar escalas (color y nombre en una fila desde desktop, pie de `ChromaChart`, ayuda y "(sugerida)" en la curva, aviso de desactualizado en un `Callout` `warning` encima del botón); solo build, sin errores. Antes, 2026-10-08, sesión de diseño: herramientas en Figma al día con C21, C23, C24, C29, C31 y T24.
 
 ---
 
@@ -55,15 +51,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma, al día con C21, C23, C24, C29, C31 y T24 (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
-<<<<<<< Updated upstream
-=======
-  - **C29 (contenido, 2026-10-08):** deslizador del tinte con pulgar de 24 px (`space/600`, borde `border/accent/strong`) y pista de 4 px (`space/100`, `border/neutral/strong`).
   - **V54 (desarrollo, 2026-10-09):** en las plantillas de Generar escalas, color y nombre en una fila en Desktop; sin las dos frases de la curva (el pie de `ChromaChart` y la ayuda del `Select` las sustituyen, con "(sugerida)" en la opción); el aviso de desactualizado, `Callout` `warning` encima del botón (`componentes-v1.md` §5.8, §5.10 y §5.10b).
-  - **C27 y C30 (contenido, 2026-10-08):** el estado desactualizado (pulso) no se dibuja en Figma (`opacity/inactive` y `duration/2000` son solo de código).
-  - **C23 y C24 (contenido, 2026-10-08):** componente deslizador para el tinte (sustituye al `TextField` de D45) y botón "Generar escalas" con su `ErrorSummary` en las plantillas de Generar escalas (`componentes-v1.md` §5.10b).
-  - **C21 (contenido, 2026-10-08):** en `ChromaChart`, borde inferior de la barra destacada `border/neutral/strong` (antes `border/accent/strong`); el relleno, en código, es el hex del usuario (en Figma sigue `#33CC99`).
-  - **T24 (contenido, 2026-10-08):** las páginas se llaman "Generar escalas" y "Normalizar la exportación" (título de `LessonHeader`, sidebar y `PageNav` de las plantillas); las carpetas del .zip, con el nombre de Figma (como ya hacen las plantillas).
->>>>>>> Stashed changes
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.
