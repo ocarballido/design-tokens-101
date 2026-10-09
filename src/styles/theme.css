@@ -5,7 +5,12 @@
   --default-font-family: var(--font-sans);
   --default-mono-font-family: var(--font-mono);
   --blur-300: var(--t101-blur-300);
+  --breakpoint-2xl: 96rem;
   --breakpoint-desktop: 64rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-xl: 80rem;
   --background-color-accent-strong-active: var(--t101-color-background-accent-strong-active);
   --background-color-accent-strong-default: var(--t101-color-background-accent-strong-default);
   --background-color-accent-strong-hover: var(--t101-color-background-accent-strong-hover);

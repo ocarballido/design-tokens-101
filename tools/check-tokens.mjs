@@ -101,12 +101,27 @@ for (const token of figmaFiles.primitives.filter((t) => t.$type === 'color')) {
 const codeOnly = {
   '--t101-line-height-tight': '1.2', '--t101-line-height-snug': '1.4', '--t101-line-height-normal': '1.5',
   '--t101-space-negative-100': '-0.25rem', '--t101-space-negative-200': '-0.5rem', '--t101-space-negative-300': '-0.75rem',
-  '--t101-space-negative-400': '-1rem', '--t101-space-negative-600': '-1.5rem', '--t101-breakpoint-desktop': '64rem',
+  '--t101-space-negative-400': '-1rem', '--t101-space-negative-600': '-1.5rem',
   '--t101-duration-200': '200ms', '--t101-easing-standard': 'cubic-bezier(0.2, 0, 0, 1)',
   '--t101-blur-300': '0.75rem',
+  // S38: breakpoints de Tailwind CSS v4; desktop es alias de lg (§4.10).
+  '--t101-breakpoint-sm': '40rem', '--t101-breakpoint-md': '48rem', '--t101-breakpoint-lg': '64rem',
+  '--t101-breakpoint-xl': '80rem', '--t101-breakpoint-2xl': '96rem', '--t101-breakpoint-desktop': 'var(--t101-breakpoint-lg)',
 };
 for (const [name, value] of Object.entries(codeOnly)) {
   if (blocks.root.get(name) !== value) errors.push(`${name}: ${blocks.root.get(name)} ≠ ${value} (§4)`);
+}
+
+// 5c. Breakpoints en la capa 2 (S38): los seis, con el valor escrito y no var(), porque una consulta
+//     @media no lee variables CSS (D11).
+const themeBreakpoints = { sm: '40rem', md: '48rem', lg: '64rem', xl: '80rem', '2xl': '96rem', desktop: '64rem' };
+const declaredBreakpoints = [...themeCss.matchAll(/^\s+--breakpoint-([\w-]+):\s*(.+);$/gm)];
+if (declaredBreakpoints.length !== Object.keys(themeBreakpoints).length) {
+  errors.push(`theme.css: ${declaredBreakpoints.length} breakpoints ≠ ${Object.keys(themeBreakpoints).length} (§4.10)`);
+}
+for (const [name, value] of Object.entries(themeBreakpoints)) {
+  const declared = declaredBreakpoints.find(([, n]) => n === name)?.[2];
+  if (declared !== value) errors.push(`theme.css: --breakpoint-${name}: ${declared} ≠ ${value} (S38, sin var())`);
 }
 
 // 5b. Tokens que vivían solo en código y ahora salen de Figma (V16, V25, V28; creados el 2026-10-04).
@@ -181,8 +196,8 @@ const expected = {
   'border-(length:--t101-border-width-100)': 'border-width: var(--t101-border-width-100)',
   'type-heading-1': 'font-size: var(--t101-font-size-heading-1)',
 };
-const forbidden = ['bg-text-neutral-default', 'text-text-neutral-default', 'bg-red-500', 'p-4', 'text-xl', 'rounded-lg', 'lg:p-400', 'backdrop-blur-md'];
-const output = compiler.build([...Object.keys(expected), ...forbidden, 'desktop:p-400']);
+const forbidden = ['bg-text-neutral-default', 'text-text-neutral-default', 'bg-red-500', 'p-4', 'text-xl', 'rounded-lg', 'backdrop-blur-md'];
+const output = compiler.build([...Object.keys(expected), ...forbidden, 'desktop:p-400', 'sm:p-400', '2xl:p-400']);
 const ruleFor = (cls) => {
   const selector = `.${cls.replace(/[:/()]/g, (c) => `\\${c}`)}`;
   const start = output.indexOf(`${selector} {`) >= 0 ? output.indexOf(`${selector} {`) : output.indexOf(`${selector}:`);
@@ -194,6 +209,9 @@ for (const [cls, declaration] of Object.entries(expected)) {
 }
 for (const cls of forbidden) if (ruleFor(cls)) errors.push(`Tailwind: .${cls} no debería existir`);
 if (!/@media \(width >= 64rem\)\s*\{\s*\.desktop\\:p-400/.test(output)) errors.push('Tailwind: desktop: no usa (width >= 64rem)');
+// S38: los prefijos de Tailwind existen (con --*: initial, solo si hay tokens que los declaran).
+if (!/@media \(width >= 40rem\)\s*\{\s*\.sm\\:p-400/.test(output)) errors.push('Tailwind: sm: no usa (width >= 40rem)');
+if (!/@media \(width >= 96rem\)\s*\{\s*\.\\32 xl\\:p-400/.test(output)) errors.push('Tailwind: 2xl: no usa (width >= 96rem)');
 
 // 8. Valores arbitrarios en src/ (T17, V43). `--*: initial` impide las clases que no salen de los
 //    tokens, pero no los valores entre corchetes (p-[13px], bg-[#316ff6]), que generan su CSS con el

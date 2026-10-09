@@ -8,8 +8,13 @@
   --t101-blur-300: 0.75rem;
   --t101-border-width-100: 0.0625rem;
   --t101-border-width-200: 0.125rem;
-  /* Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Fuente: docs/sistema-tokens-v1.md §4.2. */
-  --t101-breakpoint-desktop: 64rem;
+  --t101-breakpoint-2xl: 96rem;
+  /* Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Alias del breakpoint lg de Tailwind CSS (S38). Fuente: docs/sistema-tokens-v1.md §4.10. */
+  --t101-breakpoint-desktop: var(--t101-breakpoint-lg);
+  --t101-breakpoint-lg: 64rem;
+  --t101-breakpoint-md: 48rem;
+  --t101-breakpoint-sm: 40rem;
+  --t101-breakpoint-xl: 80rem;
   --t101-color-amber-50: #fefbf0;
   --t101-color-amber-100: #faf3d6;
   --t101-color-amber-200: #f6e6aa;

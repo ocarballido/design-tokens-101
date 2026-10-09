@@ -8,8 +8,14 @@ import { defineConfig } from '@terrazzo/cli';
 import css from '@terrazzo/plugin-css';
 
 const codeOnly = JSON.parse(fs.readFileSync(new URL('./tokens/code-only.tokens.json', import.meta.url), 'utf8'));
-const { value: bpValue, unit: bpUnit } = codeOnly.breakpoint.desktop.$value;
-const DESKTOP = `(width >= ${bpValue}${bpUnit})`; // D11; las media queries no leen variables CSS
+// Valor de un breakpoint, con el alias resuelto: una consulta @media no lee variables CSS.
+const breakpoint = (name) => {
+  const { $value } = codeOnly.breakpoint[name];
+  return typeof $value === 'string'
+    ? breakpoint($value.slice(1, -1).split('.').pop()) // "{breakpoint.lg}" → lg
+    : `${$value.value}${$value.unit}`;
+};
+const DESKTOP = `(width >= ${breakpoint('desktop')})`; // D11, S38: (width >= 64rem)
 
 const REM_BASE = 16; // sistema-tokens-v1.md §4: px en Figma, rem en CSS con base 16
 
@@ -117,8 +123,8 @@ function tailwindTheme() {
     [/^opacity\./, () => null],
     // V28: --blur-* da blur-* y backdrop-blur-* (https://tailwindcss.com/docs/backdrop-filter-blur).
     [/^blur\.(.+)$/, (m, id) => [[`--blur-${m[1]}`, ref(id)]]],
-    // Las media queries no leen variables: el breakpoint se escribe con su valor (D11).
-    [/^breakpoint\.desktop$/, () => [['--breakpoint-desktop', `${bpValue}${bpUnit}`]]],
+    // Las media queries no leen variables: el breakpoint se escribe con su valor, el alias resuelto (D11, S38).
+    [/^breakpoint\.(.+)$/, (m) => [[`--breakpoint-${m[1]}`, breakpoint(m[1])]]],
   ];
 
   return {
