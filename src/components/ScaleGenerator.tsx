@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleAlert, Download, Link as LinkIcon } from 'lucide-react';
+import { Download, Link as LinkIcon } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
@@ -43,18 +43,21 @@ import { download } from '@/lib/download';
 //   "Generar escalas" (C24). Con un campo no válido, el botón muestra el ErrorSummary encima (D52) y
 //   no hay resultado hasta que se corrija y se pulse otra vez; si todo es válido, el foco pasa al
 //   título "Resultado". La gráfica de la curva sigue al selector al momento, con el color del campo
-//   si es válido.
+//   si es válido; su pie la describe y enlaza el método de la lección (V54).
+// - Color y nombre van en una fila desde desktop (V54): el color, con el ancho que necesita; el
+//   nombre, con el resto; alineados arriba para que el error de uno no mueva el otro.
 // - El error del color y del nombre se ve desde que se sale del campo (blur) y mientras siga sin ser
 //   válido, y en los dos al pulsar el botón (C22). Si el campo pierde el foco por un clic, el error
 //   aparece al soltar: si apareciera antes, el contenido bajaría entre el mousedown y el mouseup y el
 //   clic se perdería (pasó en la prueba de la primera versión).
 // - El tinte es un deslizador nativo de 0 a 1 (C23): no tiene valor no válido.
 // - La curva y el nombre los propone suggest() a partir del color hasta que el usuario los cambia
-//   (C25, C26); null significa "el propuesto".
+//   (C25, C26); null significa "el propuesto". En el selector, la opción propuesta lleva "(sugerida)"
+//   aunque el usuario elija otra, y cambia con el color (V54).
 // - Resultado desactualizado (C27, C30): si el color, el tinte o la curva no son los generados, el
 //   resultado pulsa de 1 a opacity/inactive sin parar (pulse-stale; con prefers-reduced-motion, sin
-//   pulso y solo las muestras a opacity/inactive), el aviso sale en un role="status" debajo de
-//   "Resultado" y la descarga se bloquea; si vuelven a coincidir, deja de estarlo. El nombre no lo
+//   pulso y solo las muestras a opacity/inactive), el aviso sale en un Callout warning encima del
+//   botón "Generar escalas", dentro de un role="status" (V54), y la descarga se bloquea; si vuelven a coincidir, deja de estarlo. El nombre no lo
 //   marca (C28): el escrito por el usuario se aplica al momento (el último válido); el propuesto se
 //   ve en el campo al momento, pero el resultado lo toma al generar, porque depende del color.
 // - La descarga está siempre activa (D14) y comprueba que el nombre sea válido (C28), que el
@@ -64,6 +67,7 @@ import { download } from '@/lib/download';
 //   los eligió) y el botón secundario copia el enlace de los ajustes generados.
 
 const LESSON = '/primitives/color-scales';
+const METHOD = `${LESSON}#el-método`;
 const CURVES = Object.keys(TW_CURVES);
 // Escala fija del eje de ChromaChart: el mayor C de las 17 curvas (§5.8).
 const MAX_CHROMA = Math.max(...Object.values(TW_CURVES).flatMap((curve) => curve.map(([, c]) => c)));
@@ -304,40 +308,44 @@ export function ScaleGenerator() {
       <section className="flex flex-col gap-400">
         <Heading2>{t('input')}</Heading2>
         <div className="flex flex-col gap-600">
-          <div className="flex flex-col gap-200">
+          {/* Desde desktop, en una fila (V54): el nombre (flex-1, base 0) toma lo que deja el color. */}
+          <div className="flex flex-col gap-600 desktop:flex-row desktop:items-start">
+            <div className="flex flex-col gap-200">
+              <TextField
+                id="scale-color"
+                label={t('colorLabel')}
+                hint={t('colorHint')}
+                code
+                autoComplete="off"
+                spellCheck={false}
+                value={text.color}
+                onChange={(event) => changeColor(event.target.value)}
+                onBlur={() => touch('color')}
+                error={showError('color') ? t('colorError') : undefined}
+              />
+              {/* Hex resultante (§5.10): el color del campo, o el último válido. */}
+              <output htmlFor="scale-color" className="flex items-center gap-200 type-body-small text-neutral-subtle">
+                <span
+                  aria-hidden
+                  className="size-600 shrink-0 rounded-100 border-(length:--t101-border-width-100) border-neutral-default"
+                  style={{ backgroundColor: lastColor }}
+                />
+                <span>{t.rich('colorUsed', { code: () => <Code>{lastColor}</Code> })}</span>
+              </output>
+            </div>
             <TextField
-              id="scale-color"
-              label={t('colorLabel')}
-              hint={t('colorHint')}
-              code
+              id="scale-name"
+              label={t('nameLabel')}
+              hint={t('nameHint')}
               autoComplete="off"
               spellCheck={false}
-              value={text.color}
-              onChange={(event) => changeColor(event.target.value)}
-              onBlur={() => touch('color')}
-              error={showError('color') ? t('colorError') : undefined}
+              value={name}
+              onChange={(event) => changeName(event.target.value)}
+              onBlur={() => touch('name')}
+              error={showError('name') ? t('nameError') : undefined}
+              className="desktop:min-w-0 desktop:flex-1"
             />
-            {/* Hex resultante (§5.10): el color del campo, o el último válido. */}
-            <output htmlFor="scale-color" className="flex items-center gap-200 type-body-small text-neutral-subtle">
-              <span
-                aria-hidden
-                className="size-600 shrink-0 rounded-100 border-(length:--t101-border-width-100) border-neutral-default"
-                style={{ backgroundColor: lastColor }}
-              />
-              <span>{t.rich('colorUsed', { code: () => <Code>{lastColor}</Code> })}</span>
-            </output>
           </div>
-          <TextField
-            id="scale-name"
-            label={t('nameLabel')}
-            hint={t('nameHint')}
-            autoComplete="off"
-            spellCheck={false}
-            value={name}
-            onChange={(event) => changeName(event.target.value)}
-            onBlur={() => touch('name')}
-            error={showError('name') ? t('nameError') : undefined}
-          />
           {/* Deslizador nativo (C23, §5.10b): flechas del teclado y clic en la pista (2.5.7); pulgar y
               pista con el estilo de C29 (range-tint, en base.css). */}
           <div className="flex flex-col gap-100">
@@ -368,30 +376,46 @@ export function ScaleGenerator() {
             <Select
               id="scale-curve"
               label={t('curveLabel')}
-              options={CURVES.map((option) => ({ value: option, label: option }))}
+              hint={t('curveHint')}
+              options={CURVES.map((option) => ({
+                value: option,
+                label: option === proposal.curve ? t('curveSuggested', { curve: option }) : option,
+              }))}
               value={curve}
               onChange={(event) => setCurveChoice(event.target.value)}
             />
-            <p className="type-body-default text-neutral-default">{t('curveIntro')}</p>
-            <p className="type-body-default text-neutral-default">{t('curveAdvice')}</p>
             <ChromaChart
-              curve={curve}
               steps={STEPS}
               chroma={TW_CURVES[curve].map(([, c]) => c)}
               max={MAX_CHROMA}
               highlight={chartInput.anchorStep}
               highlightLabel={t('yourColor')}
               highlightColor={chartInput.hex}
+              caption={t.rich('chartCaption', { curve, link: (chunks) => <TextLink href={METHOD}>{chunks}</TextLink> })}
             />
           </div>
-          <div className="flex flex-col gap-400">
-            {generateSummary && inputErrors.length ? (
-              <ErrorSummary ref={generateSummaryRef} title={t('generateErrorTitle')} errors={inputErrors} />
-            ) : null}
-            <div>
-              <Button id="scale-generate" onClick={onGenerate}>
-                {t('generate')}
-              </Button>
+          <div className="flex flex-col">
+            {/* La región existe siempre, para que el lector anuncie el aviso al aparecer (4.1.3), sin
+                mover el foco. Va junto al botón que lo resuelve (V54). No coincide con el ErrorSummary:
+                con errores no hay resultado. */}
+            <div role="status" aria-live="polite">
+              {stale ? (
+                <div className="pb-400">
+                  <Callout variant="warning">
+                    <p className="type-body-default">{t('staleNotice')}</p>
+                  </Callout>
+                </div>
+              ) : null}
+            </div>
+            <div className="flex flex-col gap-400">
+              {generateSummary && inputErrors.length ? (
+                <ErrorSummary ref={generateSummaryRef} title={t('generateErrorTitle')} errors={inputErrors} />
+              ) : null}
+              <div>
+                <Button id="scale-generate" onClick={onGenerate}>
+                  {t('generate')}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -407,17 +431,8 @@ export function ScaleGenerator() {
               <p className="type-body-small text-neutral-subtle">
                 {t.rich('resultSummary', { code: () => <Code>{result.color}</Code>, tint: decimal(result.tint), curve: result.curve })}
               </p>
-              {/* La región existe siempre, para que el lector anuncie el aviso al aparecer (4.1.3). */}
-              <div role="status">
-                {stale ? (
-                  <p className="flex items-start gap-100 type-body-small text-neutral-default">
-                    <CircleAlert aria-hidden className="my-050 size-400 shrink-0 text-warning-default" />
-                    <span className="min-w-0">{t('staleNotice')}</span>
-                  </p>
-                ) : null}
-              </div>
             </div>
-            {/* C30: pulsa todo lo que hay debajo del aviso; el título, el resumen y el aviso no. */}
+            {/* C30: pulsa todo lo que hay debajo del resumen; el título y el resumen no (el aviso está en Entrada, V54). */}
             <div className={cx('flex flex-col gap-400', stale && 'pulse-stale')}>
               {warnings.map((warning, i) => (
                 <Callout key={i} variant={warning.variant}>

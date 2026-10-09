@@ -447,6 +447,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**V54 en código (2026-10-09)**
+- **Generar escalas** (`src/components/ScaleGenerator.tsx`, `ChromaChart.tsx`, `messages/es.json`): color y nombre en una fila con `desktop:flex-row desktop:items-start` (el nombre con `desktop:flex-1 desktop:min-w-0`); el proyecto no tiene corte `md` (V09), así que Oscar eligió `desktop` (64rem). `curveIntro` y `curveAdvice` borrados: el primero, recortado, es el pie de `ChromaChart` (`chartCaption` nuevo, con enlace a `/primitives/color-scales#el-método`; prop `caption` en lugar de `curve`); el segundo, la ayuda `curveHint` del `Select`. Clave nueva `curveSuggested` ("{curve} (sugerida)") en la opción de `suggest(lastColor).curve`. `staleNotice` en un `Callout` `warning` encima del botón, en un `div` `role="status"` `aria-live="polite"` siempre presente (el hueco va dentro, `pb-400`, para que la región vacía no deje espacio); `CircleAlert` ya no se importa en la herramienta.
+- **Comprobaciones:** `npm run build` sin errores; las utilidades nuevas están en el CSS generado. Por petición de Oscar, solo el build: sin `check:content`, sin prueba en el navegador ni con lector de pantalla.
+
 **C31 en código (2026-10-08)**
 - **Foco del pulgar:** en `range-tint` (`src/styles/base.css`), dos sombras sin desenfoque con `:focus-visible`: un hueco de `border-width/200` en `background/neutral/default` y, por fuera, el anillo de `border-width/200` en `border/focus` (`calc(border-width/200 * 2)`), en WebKit y Firefox. Resuelve el hallazgo de C29 (anillo del mismo color que el borde).
 - **Comprobaciones:** `npm run build`, `check:content`, `check:tokens` y `npm test` (17 de 17) sin errores. En Chrome 154 con Playwright: captura ampliada del pulgar con foco de teclado, con el hueco y el anillo separados del borde. Sin probar en Dark, Safari ni Firefox.

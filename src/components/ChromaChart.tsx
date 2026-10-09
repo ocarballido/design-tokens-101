@@ -1,4 +1,5 @@
 import { useFormatter, useTranslations } from 'next-intl';
+import type { ReactNode } from 'react';
 import { cx } from '@/lib/cx';
 
 // Anatomía: docs/componentes-v1.md §5.8 (en Figma, entrega-diseno.md §3.11; barras de D56).
@@ -10,9 +11,9 @@ import { cx } from '@/lib/cx';
 //   border/neutral/strong (4,70 / 4,20) la separa de la página aunque ese color no contraste.
 // - La barra es decorativa (aria-hidden): cada li se lee "500, croma 0,137" (y "Tu color"). El paso
 //   destacado se distingue también por el texto (1.4.1).
+// - El pie lo pasa la página (V54): describe el gráfico y enlaza la lección que explica la curva.
 
 type ChromaChartProps = {
-  curve: string;
   steps: readonly number[];
   /** Valores de C de la curva, de 50 a 950. */
   chroma: readonly number[];
@@ -21,9 +22,11 @@ type ChromaChartProps = {
   highlightLabel?: string;
   /** Hex del usuario para el relleno de la barra destacada (C21). */
   highlightColor?: string;
+  /** Pie del gráfico (figcaption). */
+  caption: ReactNode;
 };
 
-export function ChromaChart({ curve, steps, chroma, max, highlight, highlightLabel, highlightColor }: ChromaChartProps) {
+export function ChromaChart({ steps, chroma, max, highlight, highlightLabel, highlightColor, caption }: ChromaChartProps) {
   const t = useTranslations('ToolScales');
   const format = useFormatter();
   const value = (c: number) => format.number(c, { minimumFractionDigits: 3, maximumFractionDigits: 3 });
@@ -59,7 +62,7 @@ export function ChromaChart({ curve, steps, chroma, max, highlight, highlightLab
           );
         })}
       </ol>
-      <figcaption className="type-caption-default text-neutral-subtle">{t('chartCaption', { curve })}</figcaption>
+      <figcaption className="type-caption-default text-neutral-subtle">{caption}</figcaption>
     </figure>
   );
 }

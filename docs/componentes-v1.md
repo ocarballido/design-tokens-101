@@ -1269,19 +1269,19 @@ Usa por primera vez los tokens de `danger` (S31: se mantenían sin uso).
 ChromaChart (figure)
 ├── lista ordenada (ol)
 │     └── paso (li): número del paso · barra (decorativa) · valor de C   × 11
-└── pie (figcaption): "Croma por paso de la curva green"
+└── pie (figcaption): "Croma de cada paso de la curva green de Tailwind CSS. Tu color ocupa el paso de luminosidad más parecida y conserva su tono (Escalas de color)." (V54)
 ```
 
 **Props.**
 
 | Prop | Tipo | Notas |
 |---|---|---|
-| `curve` | `string` | Nombre de la curva (pie y nombre accesible) |
 | `chroma` | `number[]` (11) | Valores de C de la curva, de 50 a 950 |
 | `max` | `number` | Escala fija del eje: el mayor C de las 17 curvas, para que al cambiar de curva las barras se puedan comparar |
 | `highlight` | `string` opcional | Paso donde cae la marca (paso ancla), como en `ColorScale` |
 | `highlightLabel` | `string` opcional | "Tu color", obligatorio con `highlight` (1.4.1) |
 | `highlightColor` | `string` opcional | Hex del usuario para el relleno de la barra destacada (C21) |
+| `caption` | `ReactNode` | Pie del gráfico: lo escribe la página, con el nombre de la curva y un enlace a "El método" de la lección (V54; antes, prop `curve`) |
 
 **Datos.** El largo de cada barra es un dato (C ÷ `max`), no un estilo, como el relleno de las muestras de `ColorScale`: no sale de un token. También el relleno de la barra destacada, que es el color del usuario (C21). Todo lo demás, sí.
 
@@ -1344,10 +1344,10 @@ ScalePreview (figure)
 LessonHeader (sección "Herramientas", "Generar escalas")
 Prose: introducción con enlace a la lección "Escalas de color"
 ## Entrada
-   TextField "Color de marca" (code) · hex resultante
-   TextField "Nombre de la paleta"
-   TextField "Tinte de los neutros" (D45)
-   Select "Curva de referencia" · dos frases · ChromaChart
+   TextField "Color de marca" (code) · hex resultante | TextField "Nombre de la paleta"  (en una fila desde 64rem, V54)
+   TextField "Tinte de los neutros" (D45; deslizador desde C23)
+   Select "Curva de referencia" con ayuda y "(sugerida)" en la opción propuesta (V54) · ChromaChart con pie (V54)
+   Callout warning staleNotice (solo con el resultado desactualizado, V54) · ErrorSummary (solo con errores) · Button "Generar escalas" (C24)
 ## Resultado
    Callout warning × avisos (ninguno con DesignToken101)
    por escala: ### nombre · ColorScale · Table (con la columna Exportar)
@@ -1386,8 +1386,9 @@ Prose: introducción con enlace a la lección "Completar la exportación"
 - **Deslizador del tinte (C23, estilo de C29):** `label` (`label/default`), ayuda (`caption/default`, `text/neutral/subtle`), `input type="range"` (`min=0`, `max=1`, `step=0.05`) con pulgar de 24 px (`space/600`, `radius/1200`, relleno `background/accent/strong/default`, borde `border-width/200` `border/accent/strong`), pista de 4 px (`space/100`, `radius/100`, `border/neutral/strong`) y foco en el pulgar con hueco de `border-width/200` en `background/neutral/default` y anillo de `border-width/200` en `border/focus` (C31), y a su derecha un `output` con el valor ("0,5", `body/default`, `text/neutral/default`). Ancho flexible; alto del objetivo de al menos 24 px (2.5.8). Sin error. Componente nuevo en Figma.
 - **Botón "Generar escalas" (C24):** `Button` `primary` debajo de la curva y su gráfica; `ErrorSummary` encima de él cuando hay errores; el `h2` "Resultado" recibe el foco al generar; debajo, una línea `body/small` `text/neutral/subtle` con lo generado (el hex en `Code`). Sin resultado mientras haya errores.
 - **Curva y nombre propuestos (C25, C26):** el `Select` de la curva y el `TextField` del nombre empiezan con la propuesta y la siguen hasta que el usuario los cambia.
-- **Resultado desactualizado (C27, pulso de C30):** con color, tinte o curva distintos de los generados, todo el resultado salvo el título, el resumen de lo generado y el aviso pulsa de 1 a `opacity/inactive` en ciclos de `duration/2000` (`easing/standard`), sin parar; con `prefers-reduced-motion`, sin pulso y solo las muestras de `ColorScale` y `ScalePreview` a `opacity/inactive`; debajo del `h2` "Resultado", el aviso `staleNotice` en `role="status"` (`body/small`, `text/neutral/default`, con `li:circle-alert` en `text/warning/default`); la descarga, bloqueada con `errorStale` en el `ErrorSummary`. El nombre escrito por el usuario se aplica al momento; el propuesto, al generar (C28). Un nombre no válido bloquea la descarga con `errorName` (C28).
+- **Resultado desactualizado (C27, pulso de C30):** con color, tinte o curva distintos de los generados, todo el resultado salvo el título, el resumen de lo generado y el aviso pulsa de 1 a `opacity/inactive` en ciclos de `duration/2000` (`easing/standard`), sin parar; con `prefers-reduced-motion`, sin pulso y solo las muestras de `ColorScale` y `ScalePreview` a `opacity/inactive`; el aviso `staleNotice` en un `Callout` `warning` justo encima del botón "Generar escalas", dentro de una región `role="status"` `aria-live="polite"` que existe siempre (V54; antes, una línea `body/small` con `li:circle-alert` debajo del `h2` "Resultado"); la descarga, bloqueada con `errorStale` en el `ErrorSummary`. El nombre escrito por el usuario se aplica al momento; el propuesto, al generar (C28). Un nombre no válido bloquea la descarga con `errorName` (C28).
 - **Aviso de recorte (C25):** `Callout` `note`; marca sin croma y paso extremo siguen en `warning`.
+- **Página más corta (V54, 2026-10-09):** color y nombre en una fila desde 64rem (`items-start`; el color con su ancho, el nombre con el resto); la explicación de la curva sale de la página y queda en el pie de `ChromaChart`, con enlace a la lección; la propuesta de curva es la ayuda del `Select` ("Por defecto, la curva del tono más parecido a tu color: suele recortar menos croma.") y su opción se llama "{curve} (sugerida)" aunque se elija otra.
 
 ### 5.11 Preguntas para Oscar: aprobadas las diez recomendaciones el 2026-10-08 (D45 a D54)
 
