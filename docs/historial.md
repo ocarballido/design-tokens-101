@@ -24,6 +24,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 ## Contenido
 
+**2026-10-09, sesión de contenido: corrección de §5.5 (comparación con Scale)**
+- En `investigacion-herramientas.md` §5.5, el salto de L mínimo de Scale con sus valores por defecto ponía 0,003: era el valor absoluto. En esa escala la L no baja siempre; sube tres veces seguidas (saltos −0,010, −0,023 y −0,003 del cuarto al octavo paso). La tabla dice ahora "−0,023 y 0,110 (la L sube tres veces)" y el punto "El tono se mueve sin pedirlo" lo explica.
+- Comprobado: los 11 hex (`#FFD3EC` … `#527F14`) convertidos con `rgbToOklch` de `tools/scales.mjs` dan las L de la corrección (0,912 a 0,543).
+
 **2026-10-09, sesión de contenido: S38, breakpoints de Tailwind CSS**
 - Pregunta de Oscar: con `--*: initial` (V09) desaparecen los breakpoints de Tailwind (`sm:` a `2xl:`). Oscar decide recuperarlos como tokens de código, con los nombres de Tailwind (excepción a S4) y `breakpoint/desktop` como alias de `breakpoint/lg`. Valores comprobados en [Tailwind CSS: Responsive design](https://tailwindcss.com/docs/responsive-design) el mismo día: 40, 48, 64, 80 y 96rem.
 - Documentos: `decisiones.md` y `decisiones-detalle.md` (S38; D11 remite a S38), `sistema-tokens-v1.md` (versión 1.1.0, §4.2, §4.10 nueva, regla 1 y vocabulario de §5.2, lista de §7), `paso-7-tokens.md` y `entrega-diseno.md`.
