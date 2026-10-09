@@ -584,6 +584,65 @@ Sin tokens nuevos.
 
 **Comprobado en desarrollo (2026-10-05):** el `##` dentro del componente recibe su `id` de `rehype-slug` y el enlace de "En esta página" llega. Cambios de diseño de Oscar en V35. **En Figma desde el 2026-10-05 (D28),** con las diferencias de §4.10.
 
+### 3.10 `AnnotatedCode` (código con marcas): V56, diseño de Claude en Figma aprobado por Oscar el 2026-10-09
+
+**Para qué sirve.** Un bloque de código en el que algunas líneas llevan una marca numerada, y una leyenda debajo que explica cada marca. Primer uso: el ejemplo de "Un token en formato DTCG" (`start-here/what-is-dtcg`).
+
+**En Figma:** TokensDS, página Components, marco `AnnotatedCode` (203:1025): `CodeMarker` (203:1026), `CodeLine` (203:1034, variante `marked`), `CodeAnnotation` (203:1035) y `AnnotatedCode` (203:8240). Sin tokens nuevos.
+
+**Props.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `children` | el bloque de código y la leyenda, desde el MDX | Instancias de `CodeLine` y `CodeAnnotation` |
+| `filename` | `string` opcional, del bloque de código | Texto + booleano `showFilename` |
+| `marks` | números de línea marcados, del bloque de código | `marked` en cada `CodeLine` y número de su `CodeMarker` |
+
+**En el MDX.** El bloque de código sigue siendo un bloque de código; `marks` da los números de línea marcados (desde 1), en orden: la primera línea de la lista lleva la marca 1, la segunda la 2… La leyenda es una lista ordenada con una explicación por marca, que empieza por el término en negrita y con punto; el término y la descripción admiten `Code` en línea y enlaces.
+
+````mdx
+<AnnotatedCode>
+
+```json filename="tokens.json" marks="2,4"
+{
+  "color": {
+    "emerald": {
+      "500": { … }
+    }
+  }
+}
+```
+
+1. **Grupo.** Organiza tokens.
+2. **Token.** Un nombre con un valor: `color.emerald.500`.
+
+</AnnotatedCode>
+````
+
+El build falla si falta el bloque con `marks`, si una marca pasa de la última línea, si no hay tantas explicaciones como marcas o si una explicación no empieza por el término en negrita. El punto del término sale en el MDX y no en la página, porque el término va en su propia línea.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Contenedor, cabecera, botón copiar | Iguales que `CodeBlock` (§3.4) |
+| Cuerpo | Relleno vertical `space/400`, sin relleno lateral (lo lleva cada línea) |
+| Línea | Relleno lateral `space/400`; hueco con la marca `space/200` |
+| Línea marcada: fondo | `background/accent/subtle` |
+| Marca: fondo y número | `background/accent/strong/default`, `text/on-accent`, `caption/default`, radio `radius/full`, relleno `space/050` × `space/150` |
+| Leyenda | Separada por `border-width/100` + `border/neutral/default`; relleno y hueco entre explicaciones `space/400` |
+| Explicación | Fila con marca y término (`body/strong`, hueco `space/200`), descripción debajo (`body/default`, hueco `space/050`) |
+
+**Accesibilidad.**
+- La marca no depende del color: lleva número (1.4.1). Delante del número hay un texto oculto, "nota" (`messages/es.json`, `CodeBlock.mark`), así que el lector de pantalla lee "nota 1" en la línea y "nota 1 Grupo" en la leyenda, y relaciona las dos.
+- El botón copiar copia solo el código, sin marcas. La marca tiene `user-select: none`: tampoco se copia al seleccionar el código a mano.
+- La leyenda es una `<ol>` con `role="list"` (sin números de lista: Safari le quitaría la semántica, como a la lista de `Takeaways`, §3.9); cada `<li>` empieza con la misma marca.
+- El área de código es la de `CodeBlock`: scroll horizontal propio y se enfoca con el teclado (1.4.10). El fondo de la línea marcada llega al final de la línea más larga. La marca es `relative`: su texto oculto (`sr-only`, en posición absoluta) no escapa del scroll del bloque. Sin scroll de página a 320 px.
+
+**Contraste** (≥ 4,5:1): número de la marca, `text/on-accent` sobre `background/accent/strong/default`, 9,63 / 9,63: el par del `Button` `primary` en `default` (§2.2), ya medido. Código sobre la línea marcada, `text/neutral/default` sobre `background/accent/subtle`, 16,98 / 14,36: el par del texto de `Takeaways` (§3.9). El resto, como `CodeBlock` (§3.4).
+
+**En código.** `AnnotatedCode.tsx` lee el bloque y la leyenda del MDX y se los pasa a `CodeBlock` (props `marks` y `legend`), que pinta cada línea por separado; `CodeMarker.tsx` es la marca. `tools/rehype-code-meta.mjs` lee `marks="…"` como lee `filename`.
+
 ---
 
 ## 4. Componentes de la estructura de la página

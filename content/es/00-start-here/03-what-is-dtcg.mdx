@@ -2,7 +2,7 @@
 title: Qué es DTCG
 description: DTCG es el grupo del W3C que define un formato JSON común para intercambiar tokens de diseño entre herramientas. Qué es, qué estado tiene y para qué lo usamos.
 nav_title: Qué es DTCG
-lastReviewed: 2026-10-08
+lastReviewed: 2026-10-09
 ---
 
 DTCG son las siglas de **Design Tokens Community Group**, un grupo comunitario del W3C. También se usa "DTCG" para referirse a la especificación que publica: un formato de archivo para que distintas herramientas puedan leer y escribir los mismos tokens.
@@ -51,33 +51,55 @@ Los tipos simples que define son `color`, `dimension`, `fontFamily`, `fontWeight
 
 ## Un token en formato DTCG
 
-Un archivo DTCG es un archivo JSON. Las propiedades de la especificación empiezan por `$`. Este ejemplo define un color primitivo y un token semántico que apunta a él:
+Un archivo DTCG es un archivo JSON. Las propiedades de la especificación empiezan por `$`. Este ejemplo define el color de la marca, un token semántico que apunta a él y un token compuesto: el anillo de foco de esta web, escrito como un solo token. En el sistema de DesignToken101, el anillo son dos tokens, `color/border/focus` y `border-width/200`.
 
-```json filename="tokens.json"
+<AnnotatedCode>
+
+```json filename="tokens.json" marks="2,4,5,6,18,27"
 {
   "color": {
-    "blue": {
+    "emerald": {
       "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "srgb",
-          "components": [0.145, 0.388, 0.922],
-          "hex": "#2563eb"
+          "components": [0.2, 0.8, 0.6],
+          "hex": "#33cc99"
         }
       }
     },
-    "action": {
-      "primary": {
-        "$type": "color",
-        "$value": "{color.blue.500}"
+    "background": {
+      "accent": {
+        "strong": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.emerald.500}"
+          }
+        }
+      }
+    }
+  },
+  "border": {
+    "focus": {
+      "$type": "border",
+      "$value": {
+        "color": "{color.border.focus}",
+        "width": "{border-width.200}",
+        "style": "solid"
       }
     }
   }
 }
 ```
 
-- `color.blue.500` tiene un valor explícito: un objeto con espacio de color y componentes.
-- `color.action.primary` es un **alias**: su valor es el nombre completo de otro token entre llaves. Las llaves solo pueden apuntar a tokens completos, no a grupos ([Format Module: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)).
+1. **Grupo.** Organiza tokens. Las herramientas no deben deducir de él el tipo ni el uso del token.
+2. **Token.** Un nombre con un valor. Su nombre completo une los grupos con puntos: `color.emerald.500`.
+3. **Tipo.** `$type` dice a las herramientas cómo tratar el valor.
+4. **Valor.** `$value` guarda el valor. Aquí es explícito: espacio de color y componentes.
+5. **Alias.** El valor es otro token: su nombre completo entre llaves. Las llaves solo pueden apuntar a tokens completos, no a grupos ([Format Module: Curly brace syntax](https://www.designtokens.org/TR/2025.10/format/#curly-brace-syntax-token-references)).
+6. **Token compuesto.** El valor tiene varias partes con nombre: color, grosor y estilo.
+
+</AnnotatedCode>
 
 Algunas reglas que afectan a cómo nombrarás tus tokens ([Format Module: Character restrictions](https://www.designtokens.org/TR/2025.10/format/#character-restrictions)):
 
@@ -108,6 +130,7 @@ Figma importa y exporta variables en formato DTCG ([Figma: Modes for variables](
 - **Exportar un modo:** vista Variables → clic derecho sobre el modo → *Export mode*.
 - **Exportar todos los modos de una colección:** clic derecho sobre la colección → *Export modes*.
 - **Importar:** crear una colección nueva y arrastrar uno o varios archivos JSON a la vista Variables. Cada archivo crea un modo.
+- **Actualizar una colección:** clic derecho sobre un modo de una colección existente → *Import mode*. Las variables que coinciden en nombre y tipo se actualizan.
 
 Hay restricciones de importación que conviene conocer desde el principio:
 

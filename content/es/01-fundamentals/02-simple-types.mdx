@@ -3,7 +3,7 @@ title: Tipos simples
 meta_title: "Tipos simples de tokens en DTCG y Figma"
 description: Los tipos de token de un solo valor que define DTCG, los tipos de variable de Figma y cómo se corresponden en DesignToken101, con sus excepciones.
 nav_title: Tipos simples
-lastReviewed: 2026-10-03
+lastReviewed: 2026-10-09
 ---
 
 Cada token tiene un tipo, y el tipo decide cómo lo trata cada herramienta. En esta lección verás los tipos de un solo valor que define DTCG, los que tiene Figma y cómo encajan entre sí. Algunos no encajan del todo; esas excepciones son las que marcan qué tokens viven en código.
@@ -70,7 +70,7 @@ Esta tabla resume qué tipo DTCG le corresponde a cada clase de valor, cómo se 
 | Interlineado | `number` | Variable Number, pero Figma la lee como píxeles | **En código, no en Figma.** En Figma, los estilos de texto usan porcentaje |
 | Duración | `duration` | Variable Timing (Figma Motion) | **En código** |
 | Curva de animación | `cubicBezier` | Variable Easing (Figma Motion) | **En código** |
-| Opacidad | No tiene tipo propio | Variable Number (opacidad de capa) | Sin tokens de opacidad; la transparencia va dentro del color |
+| Opacidad | No tiene tipo propio | Variable Number (opacidad de capa) | Sin variables de opacidad en Figma; la transparencia va dentro del color |
 
 Las filas en negrita son decisiones del sistema de esta web. Los apartados siguientes explican cada una.
 
@@ -156,7 +156,7 @@ DTCG no define un tipo para la opacidad. La transparencia de un color va en su p
 
 <Callout variant="recommendation">
 
-DesignToken101 no tiene tokens de opacidad. Cuando hace falta transparencia, el token es un color con `alpha`: por ejemplo, la capa que oscurece la página al abrir el menú en móvil es negro con `alpha` 0,5.
+En Figma, DesignToken101 no tiene variables de opacidad. Cuando hace falta transparencia, el token es un color con `alpha`. Hay dos: la capa que oscurece la página al abrir el menú en móvil (`color/background/overlay`, negro con `alpha` 0,5) y el fondo de la cabecera (`color/background/neutral/translucent`, blanco con `alpha` 0,96). La única opacidad de capa es `opacity/inactive`, solo de código, para el resultado desactualizado de Generar escalas.
 
 </Callout>
 

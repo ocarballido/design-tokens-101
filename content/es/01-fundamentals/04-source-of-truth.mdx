@@ -3,7 +3,7 @@ title: Una sola fuente de verdad
 meta_title: "Una sola fuente de verdad para los tokens"
 description: Cada token se define en un único lugar y todo lo demás se genera a partir de él. Dónde está esa fuente en DesignToken101, qué tokens viven en código y por qué.
 nav_title: Fuente de verdad
-lastReviewed: 2026-10-03
+lastReviewed: 2026-10-09
 ---
 
 Un token pierde su valor si existe en dos sitios que pueden contradecirse. En esta lección verás qué significa tener una sola fuente de verdad, dónde está en DesignToken101 y por qué algunos tokens se definen en código en lugar de en Figma.
@@ -12,6 +12,7 @@ Un token pierde su valor si existe en dos sitios que pueden contradecirse. En es
 
 - [Qué es una fuente de verdad](#qué-es-una-fuente-de-verdad)
 - [Dónde está la fuente en DesignToken101](#dónde-está-la-fuente-en-designtoken101)
+- [Por qué Figma y no el código](#por-qué-figma-y-no-el-código)
 - [Los tokens que viven en código](#los-tokens-que-viven-en-código)
 - [Cómo se mantiene un solo nombre](#cómo-se-mantiene-un-solo-nombre)
 - [En Figma](#en-figma)
@@ -50,6 +51,24 @@ Lo que se genera a partir de esas fuentes, y que nadie edita a mano:
 | Variables CSS de los tokens | Los archivos DTCG |
 | Tema de Tailwind CSS | Las variables CSS |
 
+## Por qué Figma y no el código
+
+Hay dos formas habituales de organizar la fuente de verdad: decidir en Figma y generar el código, o decidir en archivos del repositorio y llevar los tokens a Figma.
+
+| | El diseño primero | El repositorio primero |
+|---|---|---|
+| Dónde se decide | Variables de Figma | Archivos DTCG en el repositorio |
+| Cómo llega al otro lado | Se exporta de Figma y se genera el código | Se genera el código y se escriben las variables en Figma |
+| Qué exige | Completar la exportación de Figma | Una forma de escribir variables en Figma |
+
+Para escribir variables en Figma desde fuera hay dos caminos de Figma. La API REST de variables las lee y las escribe, pero solo con un asiento Full de una organización Enterprise ([Figma: Variables REST API](https://developers.figma.com/docs/rest-api/variables)). Sin Enterprise queda la importación: en una colección existente, clic derecho sobre un modo → *Import mode*, y Figma actualiza las variables que coinciden en nombre y tipo ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Es un paso manual, modo a modo, y Figma solo importa `px` y color sRGB o HSL ([Qué es DTCG](/start-here/what-is-dtcg#dtcg-en-figma)).
+
+<Callout variant="recommendation">
+
+DesignToken101 decide en Figma por tres motivos. El público del curso diseña en Figma. Sin Enterprise, el camino inverso es una importación manual por cada modo de cada colección. Y el CSS de esta web usa `rem`, que Figma no importa: con el repositorio como fuente haría falta un paso de conversión, igual que ahora pero en la otra dirección. El coste de nuestra elección es el paso que completa la exportación y los pocos tokens que viven en código. Si tu equipo trabaja sobre todo en código, el repositorio primero puede encajar mejor: cambia la dirección del recorrido, no las capas ni los nombres.
+
+</Callout>
+
 ## Los tokens que viven en código
 
 Estos tokens se definen en código y no existen como variables de Figma:
@@ -58,7 +77,7 @@ Estos tokens se definen en código y no existen como variables de Figma:
 |---|---|
 | **Interlineado** (`line-height/tight`, `snug`, `normal`) | Figma lee una variable de interlineado como píxeles, no como multiplicador. Lo comprobamos en Figma ([Tipos simples](/fundamentals/simple-types#interlineado)) |
 | **Espaciado negativo** (`space/negative/*`) | Lo comprobamos en la API de plugins de Figma: el mismo scope (`GAP`) cubre el gap y el padding, y Figma acepta padding negativo. Un padding negativo no es válido en CSS ([MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)), así que no podemos limitar el token al gap |
-| **Punto de corte** (`breakpoint/desktop`, 64rem) | En Figma Design, el modo se asigna a capas y marcos ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)) y no cambia con el ancho; en el foro de Figma se pide como mejora ([hilo del foro, 2025](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209)). En CSS, el punto de corte va en una media query, y las media queries no admiten variables CSS ([MDN: Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)) |
+| **Punto de corte** (`breakpoint/desktop`, 64rem) | En Figma Design, el modo se asigna a capas y marcos ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)) y no cambia con el ancho; en el foro de Figma se pide como mejora ([hilo del foro, 2025](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209)). En CSS, el punto de corte va en una media query, y las media queries no admiten variables CSS ([MDN: Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)). Figma sí guarda anchos, como `size/content/max-width`, pero un ancho no es un punto de corte: no cambia el modo. |
 | **Duración y curva** (`duration/200`, `easing/standard`) | Figma tiene variables Timing y Easing, pero se aplican a animaciones de Figma Motion, y esta web no diseña animaciones en Figma ([Tipos simples](/fundamentals/simple-types#duración-y-curva-de-animación)) |
 
 <Callout variant="recommendation">
@@ -69,7 +88,7 @@ Un token vive en código cuando Figma no puede guardarlo de forma que funcione i
 
 <Callout variant="note">
 
-Que un token viva en código no significa que viva en el CSS escrito a mano. En esta web se escriben en un archivo DTCG propio, y de ahí se generan las variables CSS igual que las demás.
+Que un token viva en código no significa que viva en el CSS escrito a mano. En esta web se escriben en un archivo DTCG propio, y de ahí se generan las variables CSS igual que las demás ([Los tokens de código](/figma-to-code/code-only-tokens)).
 
 </Callout>
 
@@ -131,6 +150,7 @@ Cómo se automatiza cada paso lo verás en [el módulo De Figma al código](/fig
 - [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/)
 - [Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)
 - [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
+- [Figma: Variables REST API](https://developers.figma.com/docs/rest-api/variables)
 - Foro de Figma: [Automatic variable mode switching for true responsive previews](https://forum.figma.com/suggest-a-feature-11/automatic-variable-mode-switching-for-true-responsive-previews-44209) (2025, hilo de la comunidad)
 - [MDN: padding](https://developer.mozilla.org/en-US/docs/Web/CSS/padding)
 - [MDN: Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

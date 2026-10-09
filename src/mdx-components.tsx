@@ -1,5 +1,6 @@
 import type { MDXComponents } from 'mdx/types';
 import { isValidElement, type ComponentPropsWithoutRef, type ReactElement } from 'react';
+import { AnnotatedCode } from '@/components/AnnotatedCode';
 import { Callout } from '@/components/Callout';
 import { Code } from '@/components/Code';
 import { CodeBlock } from '@/components/CodeBlock';
@@ -7,7 +8,7 @@ import { ColorScale } from '@/components/ColorScale';
 import { ExportNormalizer } from '@/components/ExportNormalizer';
 import { Flow, FlowGroup, FlowStep } from '@/components/Flow';
 import { InCode } from '@/components/InCode';
-import { Heading2, UnorderedList } from '@/components/Prose';
+import { Heading2, OrderedList, UnorderedList } from '@/components/Prose';
 import { ScaleGenerator } from '@/components/ScaleGenerator';
 import { Table, Td, Th } from '@/components/Table';
 import { Takeaways } from '@/components/Takeaways';
@@ -39,7 +40,7 @@ const components: MDXComponents = {
   h4: (props) => <h4 className="type-heading-4 text-neutral-default" {...props} />,
   p: (props) => <p className="type-body-default text-neutral-default" {...props} />,
   ul: UnorderedList,
-  ol: (props) => <ol className="list-decimal ps-400 marker:text-neutral-subtle" {...props} />,
+  ol: OrderedList,
   a: TextLink,
   code: Code,
   pre: Pre,
@@ -48,6 +49,7 @@ const components: MDXComponents = {
   th: (props) => <Th {...props} />,
   td: Td,
   Callout,
+  AnnotatedCode,
   InCode,
   Flow,
   FlowGroup,

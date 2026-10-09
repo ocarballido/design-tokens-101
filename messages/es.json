@@ -24,7 +24,8 @@
   "CodeBlock": {
     "copy": "Copiar código",
     "copied": "Copiado",
-    "label": "Código"
+    "label": "Código",
+    "mark": "nota"
   },
   "Table": {
     "label": "Tabla"

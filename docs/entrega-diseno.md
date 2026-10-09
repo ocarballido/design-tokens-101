@@ -382,6 +382,21 @@ Diez marcos en Templates, en la fila `y = 6200`, copiados de las plantillas de l
 - Carpetas dentro de `dtcg.zip` y enlaces por archivo: con el nombre de la colección tal como lo escribe Figma (T24), como ya hacen las plantillas (`Primitives/Value.tokens.json`).
 - Los textos de la entrada que no cambian C23, C24 ni T24 (ayudas del color y del nombre, frases de la curva, pasos de "Importar en Figma") siguen siendo los provisionales de las plantillas: en código mandan `messages/es.json` y el MDX.
 
+### 3.13 `AnnotatedCode` (V56, 2026-10-09)
+
+Diseño de Claude en Figma a petición de Oscar (excepción a D05, como C13 y D25), con la anatomía de `componentes-v1.md` §3.10. Marco `AnnotatedCode` ([203:1025](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=203-1025)) en la página Components. Sin tokens nuevos.
+
+| Componente | Nodo | Variantes (solo Figma, salvo las que son props) | Propiedades |
+|---|---|---|---|
+| `CodeMarker` | [203:1026](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=203-1026) | 1 | `number` (texto) |
+| `CodeLine` | [203:1034](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=203-1034) | `marked` = 2 | `code` (texto); con `marked`, `CodeMarker` como instancia expuesta (su número se edita desde la línea) |
+| `CodeAnnotation` | [203:1035](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=203-1035) | 1 | `term`, `description` (texto); `CodeMarker` como instancia expuesta |
+| `AnnotatedCode` | [203:8240](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=203-8240) | 1 | `filename`, `showFilename`, `showCopied`; `IconButton` con `li:copy`; ejemplo de `what-is-dtcg` con seis líneas marcadas y su leyenda |
+
+**Medidas** (todo con variables): contenedor, cabecera y botón como `CodeBlock`; cuerpo con relleno vertical `space/400` y sin relleno lateral; cada línea con relleno lateral `space/400` y hueco `space/200` con la marca; línea marcada con fondo `background/accent/subtle`; marca con `background/accent/strong/default`, `text/on-accent`, `caption/default`, `radius/full` y relleno `space/050` × `space/150`; leyenda con borde superior `border/neutral/default` de `border-width/100`, relleno y hueco `space/400`; en cada explicación, marca y término (`body/strong`) con hueco `space/200` y descripción (`body/default`) a `space/050`.
+
+**Diferencias con §3.10 de `componentes-v1.md`:** `CodeLine` y `CodeAnnotation` no son componentes en código: son una línea del bloque y un `<li>` de la leyenda. El término de Figma no lleva el punto del MDX. `showFilename` y `showCopied` son solo de Figma, como en `CodeBlock`.
+
 ## 4. Accesibilidad comprobada en el diseño
 
 Comprobado con scripts sobre el archivo el 2026-10-02 (contraste con la fórmula de WCAG 2.2, resolviendo cada variable en Light y Dark):

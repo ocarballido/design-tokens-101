@@ -293,6 +293,9 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V53 | Node 24.x en Vercel con `"engines": { "node": "24.x" }` en `package.json`. | Cerrada | 2026-10-07 |
 | V54 | Generar escalas: color y nombre en una fila desde desktop; la explicación de la curva, como pie de `ChromaChart` con enlace a la lección; la propuesta, como ayuda del `Select` y "(sugerida)" en su opción; el aviso de desactualizado (C27), en un `Callout` `warning` con `role="status"` encima de "Generar escalas". | Cerrada | 2026-10-09 |
 | V55 | Generar escalas: color y nombre en dos columnas iguales con las filas compartidas (`TextField` con `subgrid` y `children` para el hex resultante) y ayuda del nombre más corta (precisa V54). | Cerrada | 2026-10-09 |
+| V56 | Componente `AnnotatedCode` (diseño de Claude en Figma, excepción a D05): bloque de código con `marks="…"` por número de línea dentro de `<AnnotatedCode>` y leyenda como lista ordenada de Markdown; marca con número y "nota" oculto, sin copiarse. | Cerrada | 2026-10-09 |
+| V57 | "Tipos simples": sin variables de opacidad en Figma; dos colores con `alpha` y `opacity/inactive` solo de código. | Cerrada | 2026-10-09 |
+| V58 | "Por qué Figma y no el código": sin Enterprise queda *Import mode* (manual, modo a modo); motivos: el público, la importación manual y el CSS en `rem`; *Import mode* también en "Qué es DTCG". | Cerrada | 2026-10-09 |
 
 ## Abiertas
 

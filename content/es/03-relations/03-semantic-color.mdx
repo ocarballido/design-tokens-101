@@ -3,7 +3,7 @@ title: Semánticos de color
 meta_title: "Tokens semánticos de color"
 description: Cómo pasar de la lista de usos a tokens semánticos de color, los de DesignToken101 con su primitivo en Light y en Dark, por qué varios semánticos pueden apuntar al mismo primitivo y cuándo se añade uno nuevo.
 nav_title: Semánticos de color
-lastReviewed: 2026-10-07
+lastReviewed: 2026-10-09
 ---
 
 El color es la capa semántica más grande de DesignToken101 y la que mejor muestra para qué sirven los alias. En esta lección verás cómo se pasa de una lista de usos a tokens semánticos, cuáles tiene esta web y a qué primitivo apunta cada uno, y qué decide ese primitivo.
@@ -63,7 +63,9 @@ El nombre que aplicas al diseño es el mismo en los dos modos. Lo que cambia es 
 
 Son 33 tokens en la colección `Semantic color` de Figma. En esta lección están los de base. Los de estado (hover, active, seleccionado y foco) los verás en [Estados](/relations/states), y dos tokens con transparencia, en [Cuando un semántico no es alias](/relations/direct-values).
 
-**Neutros:** la estructura de la página.
+### Neutros
+
+La estructura de la página.
 
 | Token | Light | Dark | Uso |
 |---|---|---|---|
@@ -75,7 +77,9 @@ Son 33 tokens en la colección `Semantic color` de Figma. En esta lección está
 | `color/border/neutral/default` | `neutral/200` | `neutral/800` | Separadores y bordes decorativos |
 | `color/border/neutral/strong` | `neutral/500` | `neutral/500` | Bordes que identifican algo y necesitan contraste |
 
-**Acento:** el color de la marca.
+### Acento
+
+El color de la marca.
 
 | Token | Light | Dark | Uso |
 |---|---|---|---|
@@ -85,7 +89,9 @@ Son 33 tokens en la colección `Semantic color` de Figma. En esta lección está
 | `color/text/on-accent` | `neutral/950` | `neutral/950` | Texto sobre el botón principal |
 | `color/border/accent/default` | `emerald/300` | `emerald/700` | Borde del `Callout` de recomendación (decorativo) |
 
-**Mensajes:** información, éxito, aviso y error. Los cuatro roles siguen el mismo patrón de tres tokens (fondo, borde y texto):
+### Mensajes
+
+Información, éxito, aviso y error. Los cuatro roles siguen el mismo patrón de tres tokens (fondo, borde y texto):
 
 | Token | Light | Dark | Uso |
 |---|---|---|---|
