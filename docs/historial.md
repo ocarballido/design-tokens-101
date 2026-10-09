@@ -443,6 +443,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 **Pendiente**
 - ~~Ver a mano cómo muestra Dev Mode el code syntax `var(--t101-…)` en el panel Inspect (D03).~~ **Hecho el 2026-10-06** (captura de Oscar, `docs/capturas/dev-mode-button-primary-2026-10-06.png`): Dev Mode escribe el code syntax tal cual, sin valor de reserva.
 
+**V54 y V55 en Figma (2026-10-09, desde la sesión de desarrollo, a petición de Oscar)**
+- Los cinco marcos de Generar escalas (165:1963, 166:7902, 166:3921, 166:8534, 166:9166) con la API de plugins: marco `Color and name` en los tres Desktop; ayudas del color, del nombre y de la curva con los textos del código; sin los párrafos de la curva; pie nuevo de `ChromaChart` con el enlace; `Callout` `warning` `Stale notice` oculto encima del botón en los cuatro con resultado. Detalle en `entrega-diseno.md` §3.12.
+- **Alineación:** la primera versión dejaba el campo del nombre 17 px más abajo (ayuda de una línea frente a dos). Sin variable de 34 px para un alto mínimo, Oscar eligió un salto de línea (U+2028) al final de la ayuda del color en los marcos Desktop. Después, campos a la misma altura (6664) y de 452 px en los tres; revisados en captura `Fields` de Desktop Light y del marco con errores. Nodos nuevos: hueco con variable y sin relleno; ningún valor suelto.
+
 ## Desarrollo
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).

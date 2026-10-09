@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-09, sesión de desarrollo. V55: color y nombre en dos columnas iguales y alineadas (subgrid), ayuda del nombre más corta; build y `check:tokens` sin errores, probado en Chrome a 375, 1024 y 1440 px. Antes, el mismo día: V54 en Generar escalas (color y nombre en una fila desde desktop, pie de `ChromaChart`, ayuda y "(sugerida)" en la curva, aviso de desactualizado en un `Callout` `warning` encima del botón); solo build, sin errores. Antes, 2026-10-08, sesión de diseño: herramientas en Figma al día con C21, C23, C24, C29, C31 y T24.
+Última actualización: 2026-10-09, sesión de desarrollo. V54 y V55 en las cinco plantillas de Figma de Generar escalas (`entrega-diseno.md` §3.12). Antes, el mismo día: V55: color y nombre en dos columnas iguales y alineadas (subgrid), ayuda del nombre más corta; build y `check:tokens` sin errores, probado en Chrome a 375, 1024 y 1440 px. Antes, el mismo día: V54 en Generar escalas (color y nombre en una fila desde desktop, pie de `ChromaChart`, ayuda y "(sugerida)" en la curva, aviso de desactualizado en un `Callout` `warning` encima del botón); solo build, sin errores. Antes, 2026-10-08, sesión de diseño: herramientas en Figma al día con C21, C23, C24, C29, C31 y T24.
 
 ---
 
@@ -49,9 +49,8 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Estado:** archivo TokensDS al día con el código (D31 a D39) y con lo de la primera versión (D40 a D42: C19, enlace del pie y portada). Detalle en `historial.md` y `docs/entrega-diseno.md` §3.10.
 
 **Pendiente**
-- **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma, al día con C21, C23, C24, C29, C31 y T24 (`entrega-diseno.md` §3.11 y §3.12). Abierto:
+- **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma, al día con C21, C23, C24, C29, C31, T24, V54 y V55 (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
-  - **V54 y V55 (desarrollo, 2026-10-09):** en las plantillas de Generar escalas, color y nombre en una fila en Desktop, en dos columnas iguales con los campos a la misma altura y la ayuda nueva del nombre (V55); sin las dos frases de la curva (el pie de `ChromaChart` y la ayuda del `Select` las sustituyen, con "(sugerida)" en la opción); el aviso de desactualizado, `Callout` `warning` encima del botón (`componentes-v1.md` §5.8, §5.10 y §5.10b).
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.
