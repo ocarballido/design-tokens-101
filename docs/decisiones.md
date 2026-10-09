@@ -292,6 +292,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V52 | Open Graph y X en cada página con su título y descripción; imagen `share.png` de 1200 × 630 y tarjeta `summary_large_image` (antes, `home-light.png` y `summary`). | Cerrada | 2026-10-07 |
 | V53 | Node 24.x en Vercel con `"engines": { "node": "24.x" }` en `package.json`. | Cerrada | 2026-10-07 |
 | V54 | Generar escalas: color y nombre en una fila desde desktop; la explicación de la curva, como pie de `ChromaChart` con enlace a la lección; la propuesta, como ayuda del `Select` y "(sugerida)" en su opción; el aviso de desactualizado (C27), en un `Callout` `warning` con `role="status"` encima de "Generar escalas". | Cerrada | 2026-10-09 |
+| V55 | Generar escalas: color y nombre en dos columnas iguales con las filas compartidas (`TextField` con `subgrid` y `children` para el hex resultante) y ayuda del nombre más corta (precisa V54). | Cerrada | 2026-10-09 |
 
 ## Abiertas
 

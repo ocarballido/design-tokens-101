@@ -4,7 +4,7 @@ En qué punto está cada frente y qué sigue abierto. **Corto a propósito** (P2
 
 **Cómo se actualiza:** al cerrar un bloque, cada sesión (1) añade el detalle con fecha a `historial.md`, (2) cambia aquí su apartado para que diga solo lo que sigue abierto y (3) pone una línea en "Última actualización" (solo la última; las anteriores, al historial).
 
-Última actualización: 2026-10-09, sesión de desarrollo. V54 en Generar escalas (color y nombre en una fila desde desktop, pie de `ChromaChart`, ayuda y "(sugerida)" en la curva, aviso de desactualizado en un `Callout` `warning` encima del botón); solo build, sin errores. Antes, 2026-10-08, sesión de diseño: herramientas en Figma al día con C21, C23, C24, C29, C31 y T24.
+Última actualización: 2026-10-09, sesión de desarrollo. V55: color y nombre en dos columnas iguales y alineadas (subgrid), ayuda del nombre más corta; build y `check:tokens` sin errores, probado en Chrome a 375, 1024 y 1440 px. Antes, el mismo día: V54 en Generar escalas (color y nombre en una fila desde desktop, pie de `ChromaChart`, ayuda y "(sugerida)" en la curva, aviso de desactualizado en un `Callout` `warning` encima del botón); solo build, sin errores. Antes, 2026-10-08, sesión de diseño: herramientas en Figma al día con C21, C23, C24, C29, C31 y T24.
 
 ---
 
@@ -51,7 +51,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 **Pendiente**
 - **Herramientas (T22, D44 a D60):** componentes y diez plantillas en Figma, al día con C21, C23, C24, C29, C31 y T24 (`entrega-diseno.md` §3.11 y §3.12). Abierto:
   - **Oscar:** revisar las plantillas (D51), como hizo con los componentes (D56).
-  - **V54 (desarrollo, 2026-10-09):** en las plantillas de Generar escalas, color y nombre en una fila en Desktop; sin las dos frases de la curva (el pie de `ChromaChart` y la ayuda del `Select` las sustituyen, con "(sugerida)" en la opción); el aviso de desactualizado, `Callout` `warning` encima del botón (`componentes-v1.md` §5.8, §5.10 y §5.10b).
+  - **V54 y V55 (desarrollo, 2026-10-09):** en las plantillas de Generar escalas, color y nombre en una fila en Desktop, en dos columnas iguales con los campos a la misma altura y la ayuda nueva del nombre (V55); sin las dos frases de la curva (el pie de `ChromaChart` y la ayuda del `Select` las sustituyen, con "(sugerida)" en la opción); el aviso de desactualizado, `Callout` `warning` encima del botón (`componentes-v1.md` §5.8, §5.10 y §5.10b).
 - **Archivo de referencia (P16, D37, D38):**
   - Hecho (2026-10-07): nombre "DesignToken101: Reference system" (Oscar); texto de Community aprobado; versión, fecha y enlace en Read me (sesión de contenido, en la copia y en TokensDS: "Versión 1.0.0, publicada en octubre de 2026. Web del curso: designtokens101.com", con enlace, sin el `Callout` `pending`); licencia revisada (CC BY 4.0 la pone Figma; Lucide con su aviso en Read me; fuentes OFL no van dentro del archivo); frase de `body/small` comprobada (la dice la ayuda de Figma, "Modes for variables", y la cita `name-constraints`).
   - Hecho por Oscar (2026-10-07): captura del panel de variables (Semantic color, Light y Dark), imágenes de Community exportadas y página "Community images" borrada.
@@ -73,7 +73,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** reiniciar `next dev` (el que estaba en marcha conserva las rutas con `[locale]` y da 404).
 
 **Pendiente o sin verificar**
-- **Herramientas (2026-10-08, detalle en `historial.md`):** probadas en Chrome 154 con Playwright, también con C21 a C31; falta la prueba manual en Safari y Firefox (subida de carpeta y .zip, decisiones, descargas) y con lector de pantalla; en Generar escalas, también el clic en la pista del deslizador (C23, 2.5.7) y su estilo propio (C29) y el pulso (C30) en cada navegador. V54 (2026-10-09), solo con build: falta verla en el navegador (fila de color y nombre a 1024 px, pie y opción "(sugerida)") y oír el `Callout` del aviso con lector de pantalla. Sin revisar por Oscar en el navegador.
+- **Herramientas (2026-10-08, detalle en `historial.md`):** probadas en Chrome 154 con Playwright, también con C21 a C31; falta la prueba manual en Safari y Firefox (subida de carpeta y .zip, decisiones, descargas) y con lector de pantalla; en Generar escalas, también el clic en la pista del deslizador (C23, 2.5.7) y su estilo propio (C29) y el pulso (C30) en cada navegador. V54 y V55 (2026-10-09): vistas en Chrome; falta Safari y Firefox (subgrid) y oír el `Callout` del aviso con lector de pantalla. Sin revisar por Oscar en el navegador.
 - **Dominio canónico: resuelto el 2026-10-07 con la opción (a).** En Vercel, `designtokens101.com` sirve producción y `www` redirige a él (308); coincide con la canónica, `og:url` y el sitemap.
 - **Imagen para compartir (V52):** `share.png` y tarjeta grande en producción, comprobadas en el `<head>` el 2026-10-07. Oscar: vista previa en LinkedIn (después de resolver el dominio canónico) y alta del sitemap en Google Search Console.
 - Despliegue en Vercel con Node 24.x (V53): termina sin errores (commit `8111f6a`), con lo que `next/font/google` descarga las fuentes en Vercel. Sin leer el log del build (sin CLI de Vercel en esta sesión).

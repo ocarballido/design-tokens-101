@@ -83,7 +83,7 @@
     "colorError": "Escribe un color en hex, RGB o HSL, por ejemplo #33CC99.",
     "colorUsed": "Se usa el hex <code></code>",
     "nameLabel": "Nombre de la paleta",
-    "nameHint": "Te proponemos el nombre del tono más parecido a tu color; puedes cambiarlo. En minúsculas y con guiones, como emerald o brand-blue.",
+    "nameHint": "Por defecto, el del tono más parecido; en minúsculas y con guiones, como brand-blue.",
     "nameError": "Escribe el nombre en minúsculas, con letras, números y guiones, sin empezar por un número ni llamarlo neutral.",
     "tintLabel": "Tinte de los neutros",
     "tintHint": "0 es gris puro; 1, el máximo de color que da el método. DesignToken101 usa 0,5.",

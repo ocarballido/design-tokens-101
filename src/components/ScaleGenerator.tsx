@@ -44,8 +44,8 @@ import { download } from '@/lib/download';
 //   no hay resultado hasta que se corrija y se pulse otra vez; si todo es válido, el foco pasa al
 //   título "Resultado". La gráfica de la curva sigue al selector al momento, con el color del campo
 //   si es válido; su pie la describe y enlaza el método de la lección (V54).
-// - Color y nombre van en una fila desde desktop (V54): el color, con el ancho que necesita; el
-//   nombre, con el resto; alineados arriba para que el error de uno no mueva el otro.
+// - Color y nombre van en una fila desde desktop (V54), en dos columnas iguales que comparten las
+//   filas (subgrid, V55): los campos quedan a la misma altura aunque las ayudas midan distinto.
 // - El error del color y del nombre se ve desde que se sale del campo (blur) y mientras siga sin ser
 //   válido, y en los dos al pulsar el botón (C22). Si el campo pierde el foco por un clic, el error
 //   aparece al soltar: si apareciera antes, el contenido bajaría entre el mousedown y el mouseup y el
@@ -308,23 +308,25 @@ export function ScaleGenerator() {
       <section className="flex flex-col gap-400">
         <Heading2>{t('input')}</Heading2>
         <div className="flex flex-col gap-600">
-          {/* Desde desktop, en una fila (V54): el nombre (flex-1, base 0) toma lo que deja el color. */}
-          <div className="flex flex-col gap-600 desktop:flex-row desktop:items-start">
-            <div className="flex flex-col gap-200">
-              <TextField
-                id="scale-color"
-                label={t('colorLabel')}
-                hint={t('colorHint')}
-                code
-                autoComplete="off"
-                spellCheck={false}
-                value={text.color}
-                onChange={(event) => changeColor(event.target.value)}
-                onBlur={() => touch('color')}
-                error={showError('color') ? t('colorError') : undefined}
-              />
-              {/* Hex resultante (§5.10): el color del campo, o el último válido. */}
-              <output htmlFor="scale-color" className="flex items-center gap-200 type-body-small text-neutral-subtle">
+          {/* Desde desktop, dos columnas iguales con las filas compartidas (V54, V55): etiqueta, ayuda,
+              campo y, debajo, el error y, en el color, el hex resultante. */}
+          <div className="flex flex-col gap-600 desktop:grid desktop:grid-cols-2 desktop:gap-x-600 desktop:gap-y-100">
+            <TextField
+              subgrid
+              id="scale-color"
+              label={t('colorLabel')}
+              hint={t('colorHint')}
+              code
+              autoComplete="off"
+              spellCheck={false}
+              value={text.color}
+              onChange={(event) => changeColor(event.target.value)}
+              onBlur={() => touch('color')}
+              error={showError('color') ? t('colorError') : undefined}
+            >
+              {/* Hex resultante (§5.10): el color del campo, o el último válido. pt-100 lo deja a space/200
+                  del campo, como antes de V55. */}
+              <output htmlFor="scale-color" className="flex items-center gap-200 pt-100 type-body-small text-neutral-subtle">
                 <span
                   aria-hidden
                   className="size-600 shrink-0 rounded-100 border-(length:--t101-border-width-100) border-neutral-default"
@@ -332,8 +334,9 @@ export function ScaleGenerator() {
                 />
                 <span>{t.rich('colorUsed', { code: () => <Code>{lastColor}</Code> })}</span>
               </output>
-            </div>
+            </TextField>
             <TextField
+              subgrid
               id="scale-name"
               label={t('nameLabel')}
               hint={t('nameHint')}
@@ -343,7 +346,6 @@ export function ScaleGenerator() {
               onChange={(event) => changeName(event.target.value)}
               onBlur={() => touch('name')}
               error={showError('name') ? t('nameError') : undefined}
-              className="desktop:min-w-0 desktop:flex-1"
             />
           </div>
           {/* Deslizador nativo (C23, §5.10b): flechas del teclado y clic en la pista (2.5.7); pulgar y

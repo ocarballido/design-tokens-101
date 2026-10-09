@@ -968,7 +968,9 @@ TextField (div)
 ├── etiqueta (label for → campo)
 ├── ayuda (p, id) · opcional
 ├── campo (input)
-└── error (p, id) · solo con error: icono li:circle-alert (decorativo) + texto
+└── debajo (div) · solo con error o children
+      ├── error (p, id) · solo con error: icono li:circle-alert (decorativo) + texto
+      └── children · opcional (el hex resultante de Escalas, V55)
 ```
 
 **Props.**
@@ -980,6 +982,8 @@ TextField (div)
 | `error` | `string` opcional: el campo pasa a no válido | Texto + variante `invalid` = `true` / `false` |
 | `code` | `boolean`: el valor se escribe en `code/default` (hex) | Variante `code` = `true` / `false` |
 | `inputMode` | `'text' \| 'decimal'` | No se ve |
+| `subgrid` | `boolean`, solo código: las cuatro partes ocupan las filas de la rejilla del padre, para que dos campos en una fila queden alineados aunque sus ayudas midan distinto (V55) | No se ve |
+| `children` | `ReactNode` opcional, debajo del error (V55) | No se ve |
 | `name`, `value`, `onChange` | | No se ven |
 | `state` | solo Figma | Variante: `default`, `focus` |
 
@@ -1344,7 +1348,7 @@ ScalePreview (figure)
 LessonHeader (sección "Herramientas", "Generar escalas")
 Prose: introducción con enlace a la lección "Escalas de color"
 ## Entrada
-   TextField "Color de marca" (code) · hex resultante | TextField "Nombre de la paleta"  (en una fila desde 64rem, V54)
+   TextField "Color de marca" (code) · hex resultante | TextField "Nombre de la paleta"  (dos columnas iguales desde 64rem con las filas compartidas, V54 y V55)
    TextField "Tinte de los neutros" (D45; deslizador desde C23)
    Select "Curva de referencia" con ayuda y "(sugerida)" en la opción propuesta (V54) · ChromaChart con pie (V54)
    Callout warning staleNotice (solo con el resultado desactualizado, V54) · ErrorSummary (solo con errores) · Button "Generar escalas" (C24)
@@ -1388,7 +1392,7 @@ Prose: introducción con enlace a la lección "Completar la exportación"
 - **Curva y nombre propuestos (C25, C26):** el `Select` de la curva y el `TextField` del nombre empiezan con la propuesta y la siguen hasta que el usuario los cambia.
 - **Resultado desactualizado (C27, pulso de C30):** con color, tinte o curva distintos de los generados, todo el resultado salvo el título, el resumen de lo generado y el aviso pulsa de 1 a `opacity/inactive` en ciclos de `duration/2000` (`easing/standard`), sin parar; con `prefers-reduced-motion`, sin pulso y solo las muestras de `ColorScale` y `ScalePreview` a `opacity/inactive`; el aviso `staleNotice` en un `Callout` `warning` justo encima del botón "Generar escalas", dentro de una región `role="status"` `aria-live="polite"` que existe siempre (V54; antes, una línea `body/small` con `li:circle-alert` debajo del `h2` "Resultado"); la descarga, bloqueada con `errorStale` en el `ErrorSummary`. El nombre escrito por el usuario se aplica al momento; el propuesto, al generar (C28). Un nombre no válido bloquea la descarga con `errorName` (C28).
 - **Aviso de recorte (C25):** `Callout` `note`; marca sin croma y paso extremo siguen en `warning`.
-- **Página más corta (V54, 2026-10-09):** color y nombre en una fila desde 64rem (`items-start`; el color con su ancho, el nombre con el resto); la explicación de la curva sale de la página y queda en el pie de `ChromaChart`, con enlace a la lección; la propuesta de curva es la ayuda del `Select` ("Por defecto, la curva del tono más parecido a tu color: suele recortar menos croma.") y su opción se llama "{curve} (sugerida)" aunque se elija otra.
+- **Página más corta (V54, V55, 2026-10-09):** color y nombre en dos columnas iguales desde 64rem, con las filas compartidas (`TextField` con `subgrid`; el hex resultante, como `children` del color) y la ayuda del nombre "Por defecto, el del tono más parecido; en minúsculas y con guiones, como brand-blue."; la explicación de la curva sale de la página y queda en el pie de `ChromaChart`, con enlace a la lección; la propuesta de curva es la ayuda del `Select` ("Por defecto, la curva del tono más parecido a tu color: suele recortar menos croma.") y su opción se llama "{curve} (sugerida)" aunque se elija otra.
 
 ### 5.11 Preguntas para Oscar: aprobadas las diez recomendaciones el 2026-10-08 (D45 a D54)
 
