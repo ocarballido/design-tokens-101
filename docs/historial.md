@@ -462,6 +462,10 @@ Al cerrar un bloque de trabajo, cada sesión añade aquí el detalle (con fecha)
 
 **Estado:** pasos 4, 7 y 8 hechos (2026-10-03). La web se ve con el diseño en Light, Dark y system, en móvil y escritorio. Siguiente: lo pendiente de abajo y el despliegue en Vercel (después de P17).
 
+**V59, enlace a colorgods desde "Generar escalas" (2026-10-14)**
+- `content/es/98-tools/01-color-scales.mdx`: `Callout` `recommendation` después de `<ScaleGenerator />` con el enlace a https://colorgods.com (Markdown, `TextLink` con el icono externo, como los demás); `lastReviewed` 2026-10-14. README: la fila de `tools/` nombra colorgods como versión ampliada de "Generar escalas".
+- **Comprobaciones:** `npm test` (17 de 17), `npm run build`, `check:content` y `check:tokens` sin errores (el proyecto no tiene lint). En Chrome con Playwright (`next start`), `/tools/color-scales` a 1440 y 375 px en Light: la nota sale entre "Exportar" e "Importar en Figma", un solo enlace, sin scroll horizontal (ancho de página 1440 y 375). Sin probar en Dark, Safari ni Firefox.
+
 **S38, breakpoints de Tailwind CSS en código (2026-10-09)**
 - `tokens/code-only.tokens.json`: grupo `breakpoint` con `$type: dimension` y su descripción; `sm` 40rem, `md` 48rem, `lg` 64rem, `xl` 80rem, `2xl` 96rem y `desktop` = `{breakpoint.lg}`.
 - `terrazzo.config.mjs`: función `breakpoint()` (sigue el alias) y regla `^breakpoint\.(.+)$` de la capa 2, iguales a los `InCode` de `code-only-tokens` y `tailwind-theme` y al paso 7 de `exercise-final`; no hizo falta cambiar las lecciones.

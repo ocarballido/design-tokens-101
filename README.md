@@ -14,7 +14,7 @@ En construcción. El avance de cada frente está en [`docs/estado.md`](docs/esta
 |---|---|
 | `content/` | Lecciones en MDX, por idioma |
 | `docs/` | Especificación del sistema de tokens, anatomía de componentes, decisiones y estado |
-| `tools/` | Scripts que generan las escalas de color y comprueban el contraste (Python, sin dependencias) |
+| `tools/` | Scripts que generan las escalas de color y comprueban el contraste (Python, sin dependencias) y la lógica de las herramientas de la web. La versión ampliada de "Generar escalas" es [colorgods](https://colorgods.com) |
 
 ## Autoría
 
