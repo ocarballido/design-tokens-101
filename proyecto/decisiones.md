@@ -300,6 +300,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V58 | "Por qué Figma y no el código": sin Enterprise queda *Import mode* (manual, modo a modo); motivos: el público, la importación manual y el CSS en `rem`; *Import mode* también en "Qué es DTCG". | Cerrada | 2026-10-09 |
 | V59 | "Generar escalas" enlaza a colorgods (https://colorgods.com), su versión ampliada, con un `Callout` `recommendation` después de la herramienta; también en el README. | Cerrada | 2026-10-14 |
 | V60 | Componente `CodePreview` (diseño de Claude en Figma, excepción a D05, como V56): `CodeBlock` con pestañas Markdown / Vista previa para bloques markdown marcados con `preview`; la vista previa se renderiza en el build; copiar copia siempre el markdown fuente. | Cerrada | 2026-10-21 |
+| V61 | Primer archivo de guidelines de la librería de Figma: `docs/anti-patterns.md`, con tres escenarios (dos `Button` `primary` en una vista, `Callout` elegido por el color, `Takeaways` fuera del final), sacados de la especificación; se sube a mano a TokensDS. | Cerrada | 2026-10-21 |
 
 ## Abiertas
 
