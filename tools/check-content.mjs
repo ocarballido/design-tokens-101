@@ -1,4 +1,4 @@
-// Comprueba el HTML prerenderizado por `next build` (paso 4 de docs/estado.md):
+// Comprueba el HTML prerenderizado por `next build` (paso 4 de proyecto/estado.md):
 //   1. Cada enlace "#ancla" de una lección apunta a un id que existe en la página.
 //      El fragmento se compara descodificado, como hace el navegador
 //      (https://html.spec.whatwg.org/multipage/browsing-the-web.html#find-a-potential-indicated-element).

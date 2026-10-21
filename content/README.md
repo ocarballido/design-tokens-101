@@ -67,11 +67,11 @@ Se diseñarán en Figma con el sistema de DesignToken101 y se implementarán en 
 | `<Callout variant="recommendation">` | Decisión propia de DesignToken101, no una norma |
 | `<Callout variant="pending">` | Contenido en preparación (un módulo, un canal de contacto). Nunca para una afirmación técnica sin comprobar (P14) |
 | `<InCode title="…">` | Itinerario de código; se puede plegar y el diseñador puede saltarlo |
-| `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
-| `<ColorScale palette="emerald" caption="…" />` | Una escala de color de forma visual, con paso y hex (C14). `highlight` marca un paso (p. ej. el color de marca) con `highlightLabel`. Anatomía en `docs/componentes-v1.md` §3.8 |
-| ` ```json filename="tokens.json" ` | Bloque de código con nombre de archivo (`CodeBlock`, `docs/componentes-v1.md` §3.4). Dentro de `<AnnotatedCode>`, `marks="2,4"` marca líneas (§3.10) |
+| `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `proyecto/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
+| `<ColorScale palette="emerald" caption="…" />` | Una escala de color de forma visual, con paso y hex (C14). `highlight` marca un paso (p. ej. el color de marca) con `highlightLabel`. Anatomía en `proyecto/componentes-v1.md` §3.8 |
+| ` ```json filename="tokens.json" ` | Bloque de código con nombre de archivo (`CodeBlock`, `proyecto/componentes-v1.md` §3.4). Dentro de `<AnnotatedCode>`, `marks="2,4"` marca líneas (§3.10) |
 | ` ```markdown filename="button.md" preview ` | Bloque markdown con pestañas Markdown / Vista previa (`CodePreview`, V60, §3.11). Solo en `markdown` o `md`: en otro lenguaje falla `check:content` |
-| `<Takeaways>` | Envuelve el apartado "Lo que te llevas" (título `##` y lista) de cada lección (C18, T10). Anatomía en `docs/componentes-v1.md` §3.9 |
+| `<Takeaways>` | Envuelve el apartado "Lo que te llevas" (título `##` y lista) de cada lección (C18, T10). Anatomía en `proyecto/componentes-v1.md` §3.9 |
 
 ## Guía de redacción
 

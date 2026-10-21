@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
-// `Link` de la anatomía (docs/componentes-v1.md §2.3). Se llama TextLink para no confundirlo con
+// `Link` de la anatomía (proyecto/componentes-v1.md §2.3). Se llama TextLink para no confundirlo con
 // el Link de next-intl, que usa por dentro para los enlaces internos (añade el idioma).
 // - El subrayado es obligatorio (1.4.1): en Dark el color del enlace solo da 1,73:1 frente al texto.
 // - Hereda el estilo de texto del bloque en el que está.

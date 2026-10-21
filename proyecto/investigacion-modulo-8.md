@@ -55,7 +55,7 @@ Lo que falta para "el sistema de tokens completo" (`what-we-teach`, P5):
 - Módulo 4: la convención se escribe y se guarda donde la encuentre quien use el sistema (recomendación de `exercise-naming`).
 - Módulo 3 (`direct-values`): cada excepción tiene "un motivo registrado" en el registro de decisiones del proyecto.
 - Módulo 7: registro de decisiones de accesibilidad con columnas Qué falla, Criterio y nivel, Decisión, Motivo, Alternativa y Fecha.
-- DesignToken101 usa `docs/decisiones.md` (estado, fecha y motivo de cada decisión) y `docs/sistema-tokens-v1.md` (registro de cambios).
+- DesignToken101 usa `proyecto/decisiones.md` (estado, fecha y motivo de cada decisión) y `proyecto/sistema-tokens-v1.md` (registro de cambios).
 
 ### Prueba propia: las descripciones de DesignToken101
 
@@ -192,7 +192,7 @@ P11 ("un sistema tan grande como lo que resuelve") ya está en `what-is-designto
 **Decididas el 2026-10-06:** Oscar elige la recomendación en los seis puntos (1 A, 2 A, 3 opcional, 4 únicamente si se prueba, 5 A, 6 con el índice). Registradas en S36, S37 y T15. En el punto 2, la reexportación del 2026-10-06 trae al día la descripción de `translucent`, pero los 14 semánticos siguen sin descripción.
 
 1. **Versión de DesignToken101.** La especificación dice "v1" y P16 pide una versión en la portada del archivo de referencia, pero el sistema no tiene número. Opciones:
-   - A. **1.0.0 con el cierre del módulo 8**, registro de cambios en `docs/sistema-tokens-v1.md` (el que ya tiene) y la misma cifra en la portada del archivo de referencia. *Recomendada:* el módulo enseña a hacerlo y la web lo hace.
+   - A. **1.0.0 con el cierre del módulo 8**, registro de cambios en `proyecto/sistema-tokens-v1.md` (el que ya tiene) y la misma cifra en la portada del archivo de referencia. *Recomendada:* el módulo enseña a hacerlo y la web lo hace.
    - B. Sin número; el módulo enseña el versionado con ejemplos de Atlassian y de un sistema inventado.
 2. **Las 14 descripciones que faltan** (y la de `translucent`). Si el módulo pide descripción en todos los semánticos (§2, punto 2), DesignToken101 no lo cumple hoy. Opciones:
    - A. **Oscar las escribe en Figma y reexporta `Semantic color`** (C10), antes de redactar o en paralelo; la sesión de contenido puede proponer los 14 textos. *Recomendada.*

@@ -4,12 +4,12 @@
 
 :root {
   color-scheme: light;
-  /* Solo código (V28): difuminado del contenido que pasa por debajo de la cabecera sticky (backdrop-filter). Sin estilos de efecto en Figma en v1 (S28). La numeración sigue la de space (300 = 12 px). Fuente: docs/sistema-tokens-v1.md §4.8. */
+  /* Solo código (V28): difuminado del contenido que pasa por debajo de la cabecera sticky (backdrop-filter). Sin estilos de efecto en Figma en v1 (S28). La numeración sigue la de space (300 = 12 px). Fuente: proyecto/sistema-tokens-v1.md §4.8. */
   --t101-blur-300: 0.75rem;
   --t101-border-width-100: 0.0625rem;
   --t101-border-width-200: 0.125rem;
   --t101-breakpoint-2xl: 96rem;
-  /* Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Alias del breakpoint lg de Tailwind CSS (S38). Fuente: docs/sistema-tokens-v1.md §4.10. */
+  /* Solo código (D11): desde aquí se aplican el modo Desktop de Layout y el sidebar fijo. Alias del breakpoint lg de Tailwind CSS (S38). Fuente: proyecto/sistema-tokens-v1.md §4.10. */
   --t101-breakpoint-desktop: var(--t101-breakpoint-lg);
   --t101-breakpoint-lg: 64rem;
   --t101-breakpoint-md: 48rem;
@@ -126,11 +126,11 @@
   --t101-color-text-success-default: var(--t101-color-emerald-700);
   --t101-color-text-warning-default: var(--t101-color-amber-700);
   --t101-color-white: #fff;
-  /* Solo código (V24): Figma tiene variables Timing, pero se aplican a Figma Motion y esta web no diseña animaciones en Figma. Panel móvil y acordeón del sidebar. Fuente: docs/sistema-tokens-v1.md §4.7. */
+  /* Solo código (V24): Figma tiene variables Timing, pero se aplican a Figma Motion y esta web no diseña animaciones en Figma. Panel móvil y acordeón del sidebar. Fuente: proyecto/sistema-tokens-v1.md §4.7. */
   --t101-duration-200: 200ms;
-  /* Solo código (C30): un ciclo del pulso del resultado desactualizado en Generar escalas (de 1 a opacity/inactive y vuelta). Fuente: docs/sistema-tokens-v1.md §4.7. */
+  /* Solo código (C30): un ciclo del pulso del resultado desactualizado en Generar escalas (de 1 a opacity/inactive y vuelta). Fuente: proyecto/sistema-tokens-v1.md §4.7. */
   --t101-duration-2000: 2000ms;
-  /* Solo código (V24): curva de las animaciones de la interfaz. Fuente: docs/sistema-tokens-v1.md §4.7. */
+  /* Solo código (V24): curva de las animaciones de la interfaz. Fuente: proyecto/sistema-tokens-v1.md §4.7. */
   --t101-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --t101-font-family-mono: "JetBrains Mono";
   --t101-font-family-sans: "Inter";
@@ -163,7 +163,7 @@
   --t101-line-height-snug: 1.4;
   /* Títulos grandes */
   --t101-line-height-tight: 1.2;
-  /* Solo código (C27): muestras de color de un resultado que ya no corresponde a los ajustes (Generar escalas). Solo para contenido que no es texto: el texto atenuado no llega a 4,5:1. Fuente: docs/sistema-tokens-v1.md §4.9. */
+  /* Solo código (C27): muestras de color de un resultado que ya no corresponde a los ajustes (Generar escalas). Solo para contenido que no es texto: el texto atenuado no llega a 4,5:1. Fuente: proyecto/sistema-tokens-v1.md §4.9. */
   --t101-opacity-inactive: 0.4;
   --t101-radius-0: 0rem;
   --t101-radius-100: 0.25rem;

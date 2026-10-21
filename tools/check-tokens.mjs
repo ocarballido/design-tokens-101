@@ -1,4 +1,4 @@
-// Comprueba los tokens generados por `npm run tokens` (paso 7, docs/paso-7-tokens.md):
+// Comprueba los tokens generados por `npm run tokens` (paso 7, proyecto/paso-7-tokens.md):
 //   1. Cada code syntax Web de Figma (var(--t101-…), S6/D03) tiene su variable en tokens.css y es
 //      la ruta de la variable con guiones (V33): detecta un code syntax viejo o copiado de otra.
 //   2. Cada var(--t101-…) usado en tokens.css y theme.css está definido (sin referencias rotas).
@@ -143,7 +143,7 @@ for (const [file, name, expected] of fromFigma) {
 
 // 6. Estilos de texto (V15): src/styles/text-styles.css frente a la tabla §8 de la especificación.
 const textStylesCss = read('src/styles/text-styles.css');
-const spec = read('docs/sistema-tokens-v1.md');
+const spec = read('proyecto/sistema-tokens-v1.md');
 const section8 = spec.slice(spec.indexOf('## 8. Estilos de texto'));
 const styleRows = [...section8.matchAll(/^\| ([a-z]+\/[a-z0-9]+) \| `font-family\/(\w+)` \| `(font-size\/[\w/-]+)` [^|]*\| `(line-height\/\w+)` [^|]*\| `(font-weight\/\d+)` \|/gm)];
 if (styleRows.length !== 10) errors.push(`§8: se esperaban 10 estilos de texto y se leyeron ${styleRows.length}`);

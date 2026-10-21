@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §4.3. Si no hay lección anterior o siguiente, no se muestra.
+// Anatomía: proyecto/componentes-v1.md §4.3. Si no hay lección anterior o siguiente, no se muestra.
 
 type Target = { title: string; href: string };
 

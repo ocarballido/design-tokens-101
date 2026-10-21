@@ -4,7 +4,7 @@ import { CodeBlock } from '@/components/CodeBlock';
 import { CodeMarker } from '@/components/CodeMarker';
 import { OrderedList } from '@/components/Prose';
 
-// Anatomía: docs/componentes-v1.md §3.10. Un bloque de código con marcas numeradas y su leyenda.
+// Anatomía: proyecto/componentes-v1.md §3.10. Un bloque de código con marcas numeradas y su leyenda.
 // En el MDX, dentro de <AnnotatedCode>: el bloque con `marks="2,4,18"` (números de línea; la
 // primera es la marca 1) y una lista ordenada con una explicación por marca, que empieza por el
 // término en negrita: `1. **Grupo.** Organiza tokens.`

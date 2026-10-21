@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Logo } from '@/components/Logo';
 import { TextLink } from '@/components/TextLink';
 
-// Anatomía: docs/componentes-v1.md §4.8. Región footer: logotipo, autor (P8), aviso de P7 y
+// Anatomía: proyecto/componentes-v1.md §4.8. Región footer: logotipo, autor (P8), aviso de P7 y
 // enlace para avisar de un error (P25).
 
 const AUTHOR_URL = 'https://www.oscarballido.com';

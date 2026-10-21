@@ -5,7 +5,7 @@ import { IconButton } from '@/components/IconButton';
 import { FieldError, fieldHint, fieldLabel } from '@/components/TextField';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §5.5 (en Figma, entrega-diseno.md §3.11; slot `files`, D57).
+// Anatomía: proyecto/componentes-v1.md §5.5 (en Figma, entrega-diseno.md §3.11; slot `files`, D57).
 // - Dos botones como vía principal (subir no exige arrastrar, 2.5.7): un input no elige archivos y
 //   carpetas a la vez (webkitdirectory, investigacion-herramientas.md §2). Los input quedan ocultos
 //   y fuera del orden de tabulación; el control es el botón visible.

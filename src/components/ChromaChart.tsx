@@ -2,7 +2,7 @@ import { useFormatter, useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §5.8 (en Figma, entrega-diseno.md §3.11; barras de D56).
+// Anatomía: proyecto/componentes-v1.md §5.8 (en Figma, entrega-diseno.md §3.11; barras de D56).
 // El croma de cada paso de la curva de referencia, en barras horizontales: cabe igual a 320 px.
 // - El largo de cada barra es un dato (C ÷ max), no un estilo, como el relleno de las muestras de
 //   ColorScale: no sale de un token. `max` es fijo (el mayor C de las 17 curvas), para que al

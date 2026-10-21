@@ -3,7 +3,7 @@ import { Children, isValidElement, useId, type ReactNode } from 'react';
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §3.7 (C13). Diseño y medidas: docs/entrega-diseno.md §3.3 (D24).
+// Anatomía: proyecto/componentes-v1.md §3.7 (C13). Diseño y medidas: proyecto/entrega-diseno.md §3.3 (D24).
 // figure + figcaption; los elementos de primer nivel y los pasos de un grupo son listas <ol>.
 // El orden lo da el HTML: al bajar de línea, el orden visual sigue siendo el del código.
 // Flow y FlowGroup ponen los <li>; FlowStep solo dibuja la caja.

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-// Anatomía: docs/componentes-v1.md §4.6. Primer elemento enfocable; oculto hasta que recibe el
+// Anatomía: proyecto/componentes-v1.md §4.6. Primer elemento enfocable; oculto hasta que recibe el
 // foco y lleva al <main> (2.4.1 Bypass Blocks).
 
 export function SkipLink({ target }: { target: string }) {

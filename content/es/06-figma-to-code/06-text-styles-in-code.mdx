@@ -87,7 +87,7 @@ Es un caso en el que el código y Figma llegan al mismo resultado de forma disti
 
 <InCode title="La comprobación de los estilos">
 
-La comprobación del proyecto, `npm run check:tokens`, lee la tabla de los estilos en `docs/sistema-tokens-v1.md` y la compara con `src/styles/text-styles.css`. Para cada fila exige que la utilidad exista y que sus cuatro propiedades sean las de la tabla:
+La comprobación del proyecto, `npm run check:tokens`, lee la tabla de los estilos en `proyecto/sistema-tokens-v1.md` y la compara con `src/styles/text-styles.css`. Para cada fila exige que la utilidad exista y que sus cuatro propiedades sean las de la tabla:
 
 ```js filename="tools/check-tokens.mjs (abreviado)"
 for (const [, style, family, size, lineHeight, weight] of styleRows) {

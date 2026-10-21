@@ -1,4 +1,4 @@
-/* Estilos de texto por rol (S24): la tabla §8 de docs/sistema-tokens-v1.md, escrita a mano (V15).
+/* Estilos de texto por rol (S24): la tabla §8 de proyecto/sistema-tokens-v1.md, escrita a mano (V15).
  * La exportación DTCG de Figma no incluye los estilos de texto, así que la fuente es la tabla.
  * Cada estilo es una utilidad de Tailwind: `type-heading-1`, `type-body-default`…
  * El tamaño cambia con el modo Layout (D10, D11) porque --t101-font-size-{estilo} cambia en tokens.css.

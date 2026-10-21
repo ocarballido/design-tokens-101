@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import type { ComponentPropsWithoutRef } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §3.6. La usan el MDX (remark-gfm) y las herramientas.
+// Anatomía: proyecto/componentes-v1.md §3.6. La usan el MDX (remark-gfm) y las herramientas.
 // Contenedor con scroll horizontal propio, que se puede enfocar (1.4.10).
 export function Table({ label, ...props }: ComponentPropsWithoutRef<'table'> & { label?: string }) {
   const t = useTranslations('Table');

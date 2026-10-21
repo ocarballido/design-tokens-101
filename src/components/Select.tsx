@@ -3,7 +3,7 @@ import { useId, type ComponentPropsWithoutRef } from 'react';
 import { cx } from '@/lib/cx';
 import { FieldError, fieldControl, fieldHint, fieldLabel } from '@/components/TextField';
 
-// Anatomía: docs/componentes-v1.md §5.3 (en Figma, entrega-diseno.md §3.11).
+// Anatomía: proyecto/componentes-v1.md §5.3 (en Figma, entrega-diseno.md §3.11).
 // select nativo: el teclado y la lista abierta los da el navegador. El chevron es decorativo y no
 // recibe el puntero: va encima del select, en la misma celda de una rejilla.
 // Con `placeholder`, la primera opción tiene valor vacío y no hay opción elegida por defecto

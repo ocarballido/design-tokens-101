@@ -2,7 +2,7 @@ import { ClockAlert, Info, ThumbsUp, TriangleAlert, type LucideIcon } from 'luci
 import { useLocale, useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 
-// Anatomía: docs/componentes-v1.md §3.2. No es interactivo.
+// Anatomía: proyecto/componentes-v1.md §3.2. No es interactivo.
 // Etiqueta fija por variante (D18): con el icono, dice qué tipo de aviso es sin depender del color (1.4.1).
 // Icono y etiqueta en text/{rol}/default, como la anatomía (V18). El borde es decorativo.
 // La etiqueta lleva el idioma de la interfaz, que puede no ser el de una lección sin traducir.

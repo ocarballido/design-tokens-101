@@ -1,7 +1,7 @@
 // Escalas de color en JavaScript para la herramienta "Generar escalas" (T8, T22, T23).
 // Es tools/scales.py traducido línea a línea: mismas conversiones, mismas curvas y mismo redondeo,
 // para que la web y el script den los mismos hex (prueba: tests/scales.test.mjs).
-// Diferencias que hay que conservar al traducir (docs/investigacion-herramientas.md §5.4):
+// Diferencias que hay que conservar al traducir (proyecto/investigacion-herramientas.md §5.4):
 //   - round() de Python redondea al par en la mitad; Math.round, hacia +∞ → pyRound.
 //   - el % de Python con decimales siempre da positivo → pyMod.
 // La herramienta entrega dos escalas: la del color del usuario y la de neutros con su tono (T23).

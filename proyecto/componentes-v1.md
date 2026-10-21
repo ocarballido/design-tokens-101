@@ -2,7 +2,7 @@
 
 Encargo para diseñar los componentes de la web en Figma. **Oscar diseña; este documento solo fija la estructura** (D05): para qué sirve cada componente, sus partes, sus props, sus estados y qué token lleva cada parte en cada estado. No decide el aspecto: tamaños, iconos, alineaciones y proporciones son libres, siempre con tokens.
 
-**Para desarrollo:** lo diseñado en Figma manda en lo visual. Las diferencias aceptadas están en §4.10, y el resumen de la entrega en `docs/entrega-diseno.md`.
+**Para desarrollo:** lo diseñado en Figma manda en lo visual. Las diferencias aceptadas están en §4.10, y el resumen de la entrega en `proyecto/entrega-diseno.md`.
 
 **Cómo leerlo.** Cada componente se lee solo, sin saltar a otras secciones. Todos siguen la misma plantilla:
 
@@ -16,7 +16,7 @@ Encargo para diseñar los componentes de la web en Figma. **Oscar diseña; este 
 
 Estado: aprobada por Oscar (2026-09-30), con D06–D15. **Reescrita el 2026-10-01** con esta plantilla. Ajustes tras el diseño en §4.10 (2026-10-02).
 
-Documentos relacionados: `docs/sistema-tokens-v1.md` (tokens y estilos de texto), `docs/decisiones.md`, `docs/estado.md`.
+Documentos relacionados: `proyecto/sistema-tokens-v1.md` (tokens y estilos de texto), `proyecto/decisiones.md`, `proyecto/estado.md`.
 
 ---
 

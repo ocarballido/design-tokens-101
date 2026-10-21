@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §4.2. Recibe las secciones ya leídas de content/
+// Anatomía: proyecto/componentes-v1.md §4.2. Recibe las secciones ya leídas de content/
 // (src/lib/content.ts) desde el layout. Se usa en el escritorio y en el panel móvil (D21).
 // Anillo de foco por dentro (focus-ring-inset): el sidebar tiene scroll propio y lo recortaría.
 

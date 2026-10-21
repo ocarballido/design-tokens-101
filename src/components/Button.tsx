@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode, Ref } from 'react';
 import Link from 'next/link';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §2.2. Con `href` es un enlace; sin él, un <button> (D15).
+// Anatomía: proyecto/componentes-v1.md §2.2. Con `href` es un enlace; sin él, un <button> (D15).
 // Sin disabled ni loading en v1 (D14).
 // `primary` lleva un borde transparente de border-width/100: con colores forzados el navegador
 // lo pinta con un color del sistema y el botón conserva su contorno (T17, V42).

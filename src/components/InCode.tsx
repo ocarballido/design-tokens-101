@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useId, useState, type ReactNode } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §3.3. Cerrado por defecto.
+// Anatomía: proyecto/componentes-v1.md §3.3. Cerrado por defecto.
 // Patrón Disclosure: la cabecera entera es un button con aria-expanded
 // (https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/). `open` solo cambia el chevron.
 // El anillo de foco va por dentro de la cabecera, como en Figma: por fuera lo recortaría el bloque.

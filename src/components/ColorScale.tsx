@@ -2,7 +2,7 @@ import primitives from '../../tokens/dtcg/primitives/Value.tokens.json';
 import { Fragment } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §3.8 (C14).
+// Anatomía: proyecto/componentes-v1.md §3.8 (C14).
 // Nada se escribe a mano: el color de la muestra es la variable del primitivo (su code syntax Web)
 // y el hex sale de tokens/dtcg/primitives al compilar. Si la escala cambia en Figma y se
 // regenera con `npm run tokens`, el gráfico cambia solo.

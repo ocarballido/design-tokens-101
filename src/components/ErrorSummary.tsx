@@ -2,7 +2,7 @@ import { CircleAlert } from 'lucide-react';
 import { useId, type MouseEvent, type Ref } from 'react';
 import { TextLink } from '@/components/TextLink';
 
-// Anatomía: docs/componentes-v1.md §5.7 (en Figma, entrega-diseno.md §3.11).
+// Anatomía: proyecto/componentes-v1.md §5.7 (en Figma, entrega-diseno.md §3.11).
 // Sustituye al botón desactivado (D14): aparece al pulsar una descarga que no puede hacerse,
 // encima del botón (D52), y recibe el foco (tabindex="-1"), así que el lector lee el título y la
 // lista; sin role="alert". Cada enlace lleva al campo y le da el foco (3.3.1): saltar a un ancla

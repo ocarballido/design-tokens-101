@@ -1,6 +1,6 @@
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §5.9 (en Figma, entrega-diseno.md §3.11; tiras de D56).
+// Anatomía: proyecto/componentes-v1.md §5.9 (en Figma, entrega-diseno.md §3.11; tiras de D56).
 // Las escalas generadas sobre blanco y sobre el neutral/950 generado (D48). El fondo de cada panel y
 // las muestras son los hex del usuario, no tokens de la web: no cambian con Light y Dark.
 // Los paneles son decorativos (aria-hidden): los valores están en las tablas. Las etiquetas y el pie

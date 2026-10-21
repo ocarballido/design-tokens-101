@@ -1,4 +1,4 @@
-// Genera las dos capas de tokens de la web (docs/paso-7-tokens.md, V06–V11):
+// Genera las dos capas de tokens de la web (proyecto/paso-7-tokens.md, V06–V11):
 //   src/styles/tokens.css  capa 1: variables --t101-* con sus modos (plugin-css de Terrazzo)
 //   src/styles/theme.css   capa 2: @theme inline de Tailwind CSS v4 que apunta a la capa 1 (plugin propio)
 // Entrada: tokens/tokens101.resolver.json (DTCG 2025.10 Resolver). Uso: npm run tokens

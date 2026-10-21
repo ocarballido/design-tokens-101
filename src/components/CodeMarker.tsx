@@ -1,4 +1,4 @@
-// Marca numerada de AnnotatedCode (docs/componentes-v1.md §3.10): al final de una línea de código y
+// Marca numerada de AnnotatedCode (proyecto/componentes-v1.md §3.10): al final de una línea de código y
 // al principio de su explicación en la leyenda. No depende del color: lleva el número (1.4.1).
 // El texto oculto ("nota 1") relaciona, con lector de pantalla, la línea con la leyenda.
 // select-none: al seleccionar el código a mano, la marca no se copia con él.

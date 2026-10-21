@@ -1,5 +1,5 @@
 // Convierte la exportación de Figma (tokens/figma/, C10) en DTCG 2025.10 estricto (tokens/dtcg/).
-// Motivo y pruebas: docs/paso-7-tokens.md §1 y §3 (V06) y docs/investigacion-herramientas.md §6 (T21, T22).
+// Motivo y pruebas: proyecto/paso-7-tokens.md §1 y §3 (V06) y proyecto/investigacion-herramientas.md §6 (T21, T22).
 // La herramienta "Normalizar la exportación" de la web usa este mismo archivo (función normalize).
 //
 // Lo que Figma exporta y lo que hace este script:

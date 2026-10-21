@@ -6,7 +6,7 @@
 
 Este documento recoge todo lo visto en la fase 1 del plan de aprendizaje, **en su versión corregida**. Sirve como material de base para dos cosas: continuar el estudio en nuevas sesiones y construir la web-curso. Si algo de este documento contradice lo dicho en una conversación anterior, prevalece este documento.
 
-> **Nota (2026-10-03):** documento histórico de la fase 1. Las decisiones posteriores (S8–S29, D01–D23) están en `docs/decisiones.md` y `docs/sistema-tokens-v1.md`, y prevalecen sobre las recomendaciones provisionales de aquí. Ejemplo: el peso tipográfico se guarda como Number, no como String (D04).
+> **Nota (2026-10-03):** documento histórico de la fase 1. Las decisiones posteriores (S8–S29, D01–D23) están en `proyecto/decisiones.md` y `proyecto/sistema-tokens-v1.md`, y prevalecen sobre las recomendaciones provisionales de aquí. Ejemplo: el peso tipográfico se guarda como Number, no como String (D04).
 
 ---
 

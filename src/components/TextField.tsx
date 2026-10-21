@@ -2,7 +2,7 @@ import { CircleAlert } from 'lucide-react';
 import { useId, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §5.2 (en Figma, entrega-diseno.md §3.11).
+// Anatomía: proyecto/componentes-v1.md §5.2 (en Figma, entrega-diseno.md §3.11).
 // - Etiqueta siempre visible (3.3.2); aria-describedby a la ayuda y al error; con error,
 //   aria-invalid (3.3.1).
 // - Con error el borde no cambia (D47): lo dicen el texto y el icono en text/danger/default.

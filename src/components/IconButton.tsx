@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 import type { ComponentPropsWithoutRef } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §2.1. 40 × 40 px (padding space/200 + icono de 24 px), sin fondo
+// Anatomía: proyecto/componentes-v1.md §2.1. 40 × 40 px (padding space/200 + icono de 24 px), sin fondo
 // en reposo. `label` es el nombre accesible: obligatorio, porque el botón solo tiene un icono.
 
 type IconButtonProps = {

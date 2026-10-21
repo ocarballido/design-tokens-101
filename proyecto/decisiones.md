@@ -1,6 +1,6 @@
 # DesignToken101: Decisiones
 
-Qué se ha decidido, en una línea por decisión. **Si algo aquí contradice una conversación, prevalece este documento.** El motivo, las fuentes y las opciones descartadas de cada una están en `docs/decisiones-detalle.md` (bajo demanda, P22); si el resumen y el detalle no coinciden, manda el detalle.
+Qué se ha decidido, en una línea por decisión. **Si algo aquí contradice una conversación, prevalece este documento.** El motivo, las fuentes y las opciones descartadas de cada una están en `proyecto/decisiones-detalle.md` (bajo demanda, P22); si el resumen y el detalle no coinciden, manda el detalle.
 
 Estados: **Cerrada** (no se reabre sin motivo) · **Provisional** (puede cambiar antes de publicar) · **Sustituida** · **Abierta**.
 
@@ -10,12 +10,12 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 
 | Documento | Qué es | Quién lo cambia |
 |---|---|---|
-| `docs/decisiones.md` | Qué se decidió, en una línea (se carga en cada sesión) | Quien decide |
-| `docs/decisiones-detalle.md` | Por qué, con fuentes y opciones descartadas | Quien decide |
-| `docs/estado.md` | Lo que sigue abierto en cada frente (se carga en cada sesión) | Cada sesión, su apartado |
-| `docs/historial.md` | Detalle de lo hecho: pruebas, cifras, hallazgos | Cada sesión, al cerrar un bloque |
-| `docs/sistema-tokens-v1.md`, `docs/componentes-v1.md` | Especificación de los tokens y anatomía de los componentes | Cualquier sesión, con aprobación de Oscar |
-| `docs/entrega-diseno.md` | Dónde está cada cosa en Figma y cómo pasa a código | Sesión de diseño |
+| `proyecto/decisiones.md` | Qué se decidió, en una línea (se carga en cada sesión) | Quien decide |
+| `proyecto/decisiones-detalle.md` | Por qué, con fuentes y opciones descartadas | Quien decide |
+| `proyecto/estado.md` | Lo que sigue abierto en cada frente (se carga en cada sesión) | Cada sesión, su apartado |
+| `proyecto/historial.md` | Detalle de lo hecho: pruebas, cifras, hallazgos | Cada sesión, al cerrar un bloque |
+| `proyecto/sistema-tokens-v1.md`, `proyecto/componentes-v1.md` | Especificación de los tokens y anatomía de los componentes | Cualquier sesión, con aprobación de Oscar |
+| `proyecto/entrega-diseno.md` | Dónde está cada cosa en Figma y cómo pasa a código | Sesión de diseño |
 | `content/`, `tools/` | Lecciones (MDX) y scripts de escalas y comprobación | Contenido; cualquier sesión |
 
 1. Un hueco o una contradicción en la especificación no se improvisa: se plantean las opciones y **Oscar decide** en esa sesión.
@@ -57,6 +57,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | P25 | Los errores se comunican con issues de GitHub en el repositorio público; los enlazan la lección "Cómo se hizo esta web" y el pie, con una plantilla de issue en español (resuelve A11). | Cerrada | 2026-10-07 |
 | P26 | Dominio de la web: `designtokens101.com`. | Cerrada | 2026-10-07 |
 | P27 | La web tiene portada en `/`: título, subtítulo, un párrafo, el botón "Empezar el curso" y el símbolo del logotipo en isométrico, válido en Light y Dark (sustituye a V04; imagen precisada por D43). | Cerrada | 2026-10-07 |
+| P28 | `designtokens101` es el repositorio de la librería en el que se aplica la guía de ds4agents (G22): los documentos del proyecto pasan a `proyecto/` y `docs/` queda para la documentación del sistema. | Cerrada | 2026-10-21 |
 
 ## Temario
 

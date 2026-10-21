@@ -2,7 +2,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Code } from '@/components/Code';
 import { Select } from '@/components/Select';
 
-// Anatomía: docs/componentes-v1.md §5.6 (en Figma, entrega-diseno.md §3.11).
+// Anatomía: proyecto/componentes-v1.md §5.6 (en Figma, entrega-diseno.md §3.11).
 // Una combinación de $type y scopes sin tipo DTCG claro (investigacion-herramientas.md §6.3 y §6.4).
 // - fieldset con legend: el lector anuncia la combinación al llegar al select.
 // - details y summary nativos (patrón Disclosure sin ARIA propio); el summary mide 28 px de alto.

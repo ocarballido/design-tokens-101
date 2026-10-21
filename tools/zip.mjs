@@ -1,7 +1,7 @@
 // Lectura y escritura de .zip sin dependencias, para "Normalizar la exportación" (T22, decisión 3).
 // Usa DecompressionStream y CompressionStream con el formato "deflate-raw" (Chrome 103, Firefox 113,
 // Safari 16.4; Node.js 18). Lee los métodos 0 (sin comprimir, el que usa Figma: prueba del 2026-10-08)
-// y 8 (deflate); escribe con el 8. Detalle y pruebas: docs/investigacion-herramientas.md §2, §3 y §7.
+// y 8 (deflate); escribe con el 8. Detalle y pruebas: proyecto/investigacion-herramientas.md §2, §3 y §7.
 
 const u16 = (view, offset) => view.getUint16(offset, true);
 const u32 = (view, offset) => view.getUint32(offset, true);

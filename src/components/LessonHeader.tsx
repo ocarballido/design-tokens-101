@@ -1,6 +1,6 @@
 import { useFormatter, useLocale, useTranslations } from 'next-intl';
 
-// Anatomía: docs/componentes-v1.md §4.1 (con contenedor, §4.10). title es el único h1 de la página.
+// Anatomía: proyecto/componentes-v1.md §4.1 (con contenedor, §4.10). title es el único h1 de la página.
 
 type LessonHeaderProps = {
   title: string;

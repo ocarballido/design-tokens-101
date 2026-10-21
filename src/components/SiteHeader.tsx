@@ -6,7 +6,7 @@ import { Sidebar, type SidebarData } from '@/components/Sidebar';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import Link from 'next/link';
 
-// Anatomía: docs/componentes-v1.md §4.7. Región header.
+// Anatomía: proyecto/componentes-v1.md §4.7. Región header.
 // Escritorio (size=large): logotipo y selector de tema. Sin selector de idioma: la web es solo en
 // español (P24); LanguageSwitcher se queda en el código, sin uso.
 // Móvil (size=small, por debajo de 64rem): logotipo y botón de menú; el selector pasa al panel (D19, D21).

@@ -40,7 +40,7 @@ Lo que el curso **promete** al módulo 9:
 
 ### DesignToken101 hoy
 
-`docs/componentes-v1.md` describe cada componente con la misma plantilla: partes, props (mismo nombre en Figma y en React, §1.1), variantes de Figma y **una tabla de tokens con una fila por parte y una columna por estado** (§2.2, `Button`). El código la sigue literalmente: `src/components/Button.tsx` tiene un objeto `VARIANTS` con las clases de cada variante, y cada clase es un token (`bg-accent-strong-default`, `hover:bg-accent-strong-hover`…).
+`proyecto/componentes-v1.md` describe cada componente con la misma plantilla: partes, props (mismo nombre en Figma y en React, §1.1), variantes de Figma y **una tabla de tokens con una fila por parte y una columna por estado** (§2.2, `Button`). El código la sigue literalmente: `src/components/Button.tsx` tiene un objeto `VARIANTS` con las clases de cada variante, y cada clase es un token (`bg-accent-strong-default`, `hover:bg-accent-strong-hover`…).
 
 ### Recomendación
 

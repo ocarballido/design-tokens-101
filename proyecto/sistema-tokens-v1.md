@@ -1,6 +1,6 @@
 # DesignToken101: Sistema de tokens v1 (especificación)
 
-Especificación del sistema de tokens de DesignToken101. Es el encargo para la sesión de diseño (variables en Figma) y el contenido del ejercicio final del curso (módulo 8). Se construyó en la sesión de contenido (paso 2 de `docs/estado.md`). Cualquier cambio sigue el protocolo de `docs/decisiones.md`.
+Especificación del sistema de tokens de DesignToken101. Es el encargo para la sesión de diseño (variables en Figma) y el contenido del ejercicio final del curso (módulo 8). Se construyó en la sesión de contenido (paso 2 de `proyecto/estado.md`). Cualquier cambio sigue el protocolo de `proyecto/decisiones.md`.
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
@@ -15,7 +15,7 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 | 1.1.0 | 2026-10-09 | Breakpoints de Tailwind CSS como tokens solo de código: `breakpoint/sm`, `md`, `lg`, `xl` y `2xl` (S38, §4.10) | `breakpoint/desktop` pasa a ser alias de `breakpoint/lg`; mismo nombre y mismo valor, 64rem (S38) | No aplica | No aplica |
 | 1.0.0 | 2026-10-06 | Primera versión estable: el sistema completo (97 primitivos, 33 semánticos de color, 4 de tamaño, 9 de Layout, 10 estilos de texto y los tokens de código de §4) | No aplica | No aplica | No aplica |
 
-Las versiones 0.y.z no se numeraron: el historial anterior está en el registro de cambios de este documento y en `docs/decisiones.md`.
+Las versiones 0.y.z no se numeraron: el historial anterior está en el registro de cambios de este documento y en `proyecto/decisiones.md`.
 
 **Registro de cambios**
 

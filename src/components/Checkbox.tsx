@@ -2,7 +2,7 @@ import { Check } from 'lucide-react';
 import type { ComponentPropsWithoutRef } from 'react';
 import { cx } from '@/lib/cx';
 
-// Anatomía: docs/componentes-v1.md §5.4 (en Figma, entrega-diseno.md §3.11).
+// Anatomía: proyecto/componentes-v1.md §5.4 (en Figma, entrega-diseno.md §3.11).
 // - input type="checkbox" con appearance: none: sigue siendo la casilla del navegador para el
 //   teclado y el lector de pantalla. La etiqueta envuelve la caja: pulsar el texto también marca, y
 //   la fila mide al menos 24 px de alto (2.5.8).

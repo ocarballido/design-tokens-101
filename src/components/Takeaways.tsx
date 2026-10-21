@@ -2,7 +2,7 @@ import { Check, GraduationCap } from 'lucide-react';
 import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
 import { Heading2, UnorderedList } from '@/components/Prose';
 
-// Anatomía: docs/componentes-v1.md §3.9 (C18). "Lo que te llevas" (T10), al final de cada lección.
+// Anatomía: proyecto/componentes-v1.md §3.9 (C18). "Lo que te llevas" (T10), al final de cada lección.
 // No es un Callout: el título es el ## del MDX, con el id de rehype-slug, para que llegue el
 // enlace de "En esta página". El componente le añade el icono y le da nombre a la región.
 // Icono y marcas decorativos (aria-hidden): la lista sigue siendo una ul con sus elementos.
