@@ -12,6 +12,9 @@
 //      Vigila los espacios de nombres por propiedad, que Tailwind no documenta.
 //   8. En src/ no hay valores arbitrarios entre corchetes fuera de la lista de excepciones, y la
 //      sintaxis de variable entre paréntesis apunta a tokens --t101-* (T17, V43).
+//   9. Cada token de Semantic color, Semantic size y Layout tiene $description no vacía y sin
+//      referencias internas (S37, G25 fase 3): una descripción es para quien la lee en Figma o la
+//      recibe un agente, y "D12" o "V33" no le dicen nada.
 // Uso: npm run tokens && npm run check:tokens
 
 import fs from 'node:fs';
@@ -251,12 +254,28 @@ for (const file of sourceFiles) {
     });
 }
 
+// 9. Descripciones de los semánticos (S37, G25 fase 3).
+const semanticFiles = ['semanticSize', 'light', 'dark', 'mobile', 'desktop'];
+const INTERNAL_REF = /\b[A-Z]\d{1,2}\b/;
+let describedCount = 0;
+for (const file of semanticFiles) {
+  for (const token of figmaFiles[file]) {
+    const route = tokenPath.get(token).join('/');
+    const description = token.$description?.trim();
+    if (!description) errors.push(`${file}: ${route} no tiene $description (S37)`);
+    else if (INTERNAL_REF.test(description)) {
+      errors.push(`${file}: ${route}: la descripción cita "${INTERNAL_REF.exec(description)[0]}" (sin referencias internas)`);
+    } else describedCount += 1;
+  }
+}
+
 console.log(
   `tokens.css: ${blocks.root.size} en :root · ${blocks.darkAttr.size} en [data-theme="dark"] · ` +
     `${blocks.darkMedia.size} en prefers-color-scheme · ${blocks.desktop.size} en Desktop`,
 );
 console.log(`theme.css: ${(themeCss.match(/^\s+--[\w-]+:/gm) ?? []).length} variables de Tailwind`);
 console.log(`src/: ${sourceFiles.length} archivos · ${arbitraryCount} valores arbitrarios (${Object.keys(ARBITRARY_ALLOWED).length} excepciones)`);
+console.log(`Semánticos: ${describedCount} descripciones válidas (por modo)`);
 if (errors.length) {
   console.error(`\n${errors.length} error(es):\n- ${errors.join('\n- ')}`);
   process.exit(1);

@@ -236,6 +236,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D62 | Cambio de Oscar en `ColorScaleStep`: el paso destacado va en una caja (`background/neutral/strong`, borde `border/neutral/default`, `radius/control`, relleno `space/200`) y su muestra no lleva borde; la etiqueta sigue siendo obligatoria. | Cerrada | 2026-10-08 |
 | D63 | `ColorScale`: todos los pasos con relleno `space/200` (y borde transparente en código) para que el destacado quede alineado; la etiqueta del destacado se parte después de cada "/". | Cerrada | 2026-10-08 |
 | D64 | Fase 2 de la guía de ds4agents en TokensDS (G28): piloto en los marcos de su nivel, descripciones con la plantilla de la guía, anotaciones en la variante (no en el conjunto), dev resources al archivo de código y capa del icono de `Icon` renombrada a `Glyph`. | Cerrada | 2026-10-21 |
+| D65 | Fase 3 de la guía de ds4agents (G29): descripciones de token con dos partes (para qué sirve y su restricción) y sin referencias internas, en `sistema-tokens-v1.md`; regla de capas por categoría según S22 en `docs/rules/rules-tokens.md`; `radius/nested` nuevo para elementos dentro de un contenedor; sistema 1.2.0. | Cerrada | 2026-10-21 |
 
 ## Desarrollo
 

@@ -32,7 +32,7 @@ test('DesignToken101: la salida es igual, byte a byte, a tokens/dtcg/', () => {
   assert.deepEqual(result.unresolved, []);
   assert.deepEqual(result.missingRefs, []);
   for (const f of result.files) assert.equal(f.text, fs.readFileSync(path.join(root, 'tokens/dtcg', f.path), 'utf8'), f.path);
-  assert.equal(summary(result.count), 'tokens/dtcg: 6 archivos · 82 alias · 56 dimension · 4 fontWeight · 2 fontFamily · 123 color · 2 alpha float32');
+  assert.equal(summary(result.count), 'tokens/dtcg: 6 archivos · 83 alias · 57 dimension · 4 fontWeight · 2 fontFamily · 123 color · 2 alpha float32');
 });
 
 test('exportación real de Figma (.zip sin comprimir): pide todo lo que no tiene tipo decidido', async () => {

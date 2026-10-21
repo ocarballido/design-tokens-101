@@ -4,7 +4,7 @@
       "1": {
         "$type": "dimension",
         "$value": "{font-size.06}",
-        "$description": "Tamaño del estilo de texto heading/1. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Título de la página. Tamaño del estilo de texto heading/1; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto heading/1.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:3",
           "com.figma.scopes": [
@@ -24,7 +24,7 @@
       "2": {
         "$type": "dimension",
         "$value": "{font-size.05}",
-        "$description": "Tamaño del estilo de texto heading/2. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Títulos de sección. Tamaño del estilo de texto heading/2; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto heading/2.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:4",
           "com.figma.scopes": [
@@ -44,7 +44,7 @@
       "3": {
         "$type": "dimension",
         "$value": "{font-size.04}",
-        "$description": "Tamaño del estilo de texto heading/3. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Subtítulos dentro de una sección. Tamaño del estilo de texto heading/3; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto heading/3.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:5",
           "com.figma.scopes": [
@@ -64,7 +64,7 @@
       "4": {
         "$type": "dimension",
         "$value": "{font-size.04}",
-        "$description": "Tamaño del estilo de texto heading/4. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Títulos menores. Tamaño del estilo de texto heading/4; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto heading/4.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:6",
           "com.figma.scopes": [
@@ -86,7 +86,7 @@
       "default": {
         "$type": "dimension",
         "$value": "{font-size.03}",
-        "$description": "Tamaño del estilo de texto body/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Texto de lectura. Tamaño del estilo de texto body/default; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto body/default.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:7",
           "com.figma.scopes": [
@@ -106,7 +106,7 @@
       "small": {
         "$type": "dimension",
         "$value": "{font-size.02}",
-        "$description": "Tamaño del estilo de texto body/small. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Texto secundario y notas. Tamaño del estilo de texto body/small; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto body/small.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:8",
           "com.figma.scopes": [
@@ -128,7 +128,7 @@
       "default": {
         "$type": "dimension",
         "$value": "{font-size.02}",
-        "$description": "Tamaño del estilo de texto label/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Etiquetas de campos y texto de botones. Tamaño del estilo de texto label/default; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto label/default.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:9",
           "com.figma.scopes": [
@@ -150,7 +150,7 @@
       "default": {
         "$type": "dimension",
         "$value": "{font-size.01}",
-        "$description": "Tamaño del estilo de texto caption/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Leyendas, ayudas y nombres de archivo. Tamaño del estilo de texto caption/default; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto caption/default.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:10",
           "com.figma.scopes": [
@@ -172,7 +172,7 @@
       "default": {
         "$type": "dimension",
         "$value": "{font-size.02}",
-        "$description": "Tamaño del estilo de texto code/default. Mobile por defecto; Desktop desde breakpoint/desktop (64rem) en código (D10, D11).",
+        "$description": "Código, en bloque y en línea. Tamaño del estilo de texto code/default; cambia entre móvil y escritorio. No lo apliques suelto: usa el estilo de texto code/default.",
         "$extensions": {
           "com.figma.variableId": "VariableID:16:11",
           "com.figma.scopes": [

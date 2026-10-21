@@ -13,7 +13,7 @@
           "alpha": 0.5,
           "hex": "#000000"
         },
-        "$description": "Capa sobre el contenido cuando el panel de navegación móvil está abierto (V25). color/black al 50 %, igual en Light y Dark. Valor directo: un alias de Figma no puede cambiar la opacidad.",
+        "$description": "Capa que oscurece el contenido cuando el panel de navegación móvil está abierto. No como fondo de un componente.",
         "$extensions": {
           "com.figma.variableId": "VariableID:75:303",
           "com.figma.scopes": [
@@ -29,7 +29,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.neutral.950}",
-          "$description": "Fondo de la página",
+          "$description": "Fondo de la página. No para tarjetas ni bloques: usa background/neutral/subtle.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:101",
             "com.figma.scopes": [
@@ -50,7 +50,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.neutral.900}",
-          "$description": "Fondo de tarjetas y bloques de código",
+          "$description": "Fondo de tarjetas y bloques de código. No para la página: usa background/neutral/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:102",
             "com.figma.scopes": [
@@ -71,7 +71,7 @@
         "strong": {
           "$type": "color",
           "$value": "{color.neutral.800}",
-          "$description": "Fondo de superficies destacadas: grupo del selector de tema, y código en línea",
+          "$description": "Superficies destacadas, como el grupo del selector de tema y el código en línea. No para hover, aunque tenga el mismo color: usa background/neutral/hover.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:103",
             "com.figma.scopes": [
@@ -92,7 +92,7 @@
         "hover": {
           "$type": "color",
           "$value": "{color.neutral.800}",
-          "$description": "Hover de controles neutros sin fondo (IconButton, sidebar, cabecera de InCode, selector de tema, botón secundario, navegación anterior y siguiente). El texto pasa a text/neutral/default (D12).",
+          "$description": "Fondo de un control neutro sin fondo al pasar el ratón (botón secundario, IconButton, navegación). Su texto pasa a text/neutral/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:20:2",
             "com.figma.scopes": [
@@ -113,7 +113,7 @@
         "active": {
           "$type": "color",
           "$value": "{color.neutral.700}",
-          "$description": "Active (pulsado) de controles neutros. El texto pasa a text/neutral/default: el secundario da 3,99:1 en Dark (D12).",
+          "$description": "Fondo de un control neutro pulsado. Su texto pasa a text/neutral/default: text/neutral/subtle no llega a 4,5:1 en Dark.",
           "$extensions": {
             "com.figma.variableId": "VariableID:20:3",
             "com.figma.scopes": [
@@ -143,7 +143,7 @@
             "alpha": 0.9,
             "hex": "#050C09"
           },
-          "$description": "color/white al 96 % en Light (S35) y neutral/950 al 90 % en Dark, con blur/300 detrás (solo en código). Valor directo: un alias de Figma no puede cambiar la opacidad",
+          "$description": "Fondo de la cabecera fija, que deja ver con desenfoque el contenido que pasa por debajo. Solo para superficies fijas sobre contenido que se desplaza.",
           "$extensions": {
             "com.figma.variableId": "VariableID:75:304",
             "com.figma.scopes": [
@@ -160,7 +160,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.emerald.950}",
-          "$description": "Fondo tintado de acento: Callout recommendation, Lo que te llevas, lección actual del sidebar y pasos de Flow",
+          "$description": "Fondo tintado de acento: Callout recommendation, Takeaways y elemento actual de la navegación. No para botones: usa background/accent/strong/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:109",
             "com.figma.scopes": [
@@ -182,7 +182,7 @@
           "default": {
             "$type": "color",
             "$value": "{color.emerald.500}",
-            "$description": "Botón principal",
+            "$description": "Fondo del botón principal. Solo para la acción principal, con text/on-accent encima.",
             "$extensions": {
               "com.figma.variableId": "VariableID:13:110",
               "com.figma.scopes": [
@@ -203,7 +203,7 @@
           "hover": {
             "$type": "color",
             "$value": "{color.emerald.400}",
-            "$description": "Botón principal al pasar el ratón",
+            "$description": "Fondo del botón principal al pasar el ratón. Solo como estado de background/accent/strong/default.",
             "$extensions": {
               "com.figma.variableId": "VariableID:13:111",
               "com.figma.scopes": [
@@ -224,7 +224,7 @@
           "active": {
             "$type": "color",
             "$value": "{color.emerald.600}",
-            "$description": "Botón principal pulsado",
+            "$description": "Fondo del botón principal pulsado. Solo como estado de background/accent/strong/default.",
             "$extensions": {
               "com.figma.variableId": "VariableID:13:112",
               "com.figma.scopes": [
@@ -248,7 +248,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.blue.950}",
-          "$description": "Fondo de los mensajes de información (Callout note)",
+          "$description": "Fondo de los mensajes de información (Callout note). Va con text/info/default y border/info/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:115",
             "com.figma.scopes": [
@@ -271,7 +271,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.emerald.950}",
-          "$description": "Fondo de los mensajes de éxito. Sin uso todavía (S31)",
+          "$description": "Fondo de los mensajes de éxito. Ningún componente lo usa todavía. No para fondos de acento: usa background/accent/subtle.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:118",
             "com.figma.scopes": [
@@ -294,7 +294,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.amber.950}",
-          "$description": "Fondo de los avisos (Callout warning)",
+          "$description": "Fondo de los avisos (Callout warning). Va con text/warning/default y border/warning/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:121",
             "com.figma.scopes": [
@@ -317,7 +317,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.red.950}",
-          "$description": "Fondo de los mensajes de error. Sin uso todavía (S31)",
+          "$description": "Fondo de los mensajes de error. Ningún componente lo usa todavía. Va con text/danger/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:124",
             "com.figma.scopes": [
@@ -341,7 +341,7 @@
       "on-accent": {
         "$type": "color",
         "$value": "{color.neutral.950}",
-        "$description": "Texto sobre el botón principal",
+        "$description": "Texto e iconos sobre background/accent/strong/*. Solo sobre esos fondos.",
         "$extensions": {
           "com.figma.variableId": "VariableID:13:113",
           "com.figma.scopes": [
@@ -363,7 +363,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.neutral.50}",
-          "$description": "Texto principal",
+          "$description": "Texto principal e iconos de la interfaz. También el texto de un control neutro en hover o pulsado.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:104",
             "com.figma.scopes": [
@@ -384,7 +384,7 @@
         "subtle": {
           "$type": "color",
           "$value": "{color.neutral.400}",
-          "$description": "Texto secundario",
+          "$description": "Texto secundario: ayudas, metadatos y leyendas. No para texto que haya que leer para completar una tarea, ni sobre background/neutral/active.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:105",
             "com.figma.scopes": [
@@ -407,7 +407,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.emerald.400}",
-          "$description": "Enlaces y texto de acento",
+          "$description": "Enlaces y texto de acento. No para párrafos de texto.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:108",
             "com.figma.scopes": [
@@ -428,7 +428,7 @@
         "hover": {
           "$type": "color",
           "$value": "{color.emerald.300}",
-          "$description": "Enlace al pasar el ratón (D12).",
+          "$description": "Enlace al pasar el ratón. Solo como estado de text/accent/default.",
           "$extensions": {
             "com.figma.variableId": "VariableID:20:4",
             "com.figma.scopes": [
@@ -451,7 +451,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.blue.300}",
-          "$description": "Texto e icono de los mensajes de información (Callout note)",
+          "$description": "Texto e icono de los mensajes de información (Callout note). Solo sobre background/info/subtle o el fondo de la página.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:117",
             "com.figma.scopes": [
@@ -474,7 +474,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.emerald.300}",
-          "$description": "Texto e icono de los mensajes de éxito (mensaje Copiado del bloque de código)",
+          "$description": "Texto e icono de los mensajes de éxito, como \"Copiado\" en el bloque de código.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:120",
             "com.figma.scopes": [
@@ -497,7 +497,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.amber.300}",
-          "$description": "Texto e icono de los avisos (Callout warning)",
+          "$description": "Texto e icono de los avisos (Callout warning). Solo sobre background/warning/subtle o el fondo de la página.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:123",
             "com.figma.scopes": [
@@ -520,7 +520,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.red.300}",
-          "$description": "Texto e icono de los mensajes de error. Sin uso todavía (S31)",
+          "$description": "Texto e icono de los errores, como el mensaje de error de TextField. El error también se dice con texto, nunca solo con el color.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:126",
             "com.figma.scopes": [
@@ -544,7 +544,7 @@
       "focus": {
         "$type": "color",
         "$value": "{color.emerald.400}",
-        "$description": "Anillo de foco (2 px, border-width/200)",
+        "$description": "Anillo de foco de los elementos interactivos, con border-width/200. No para marcar lo seleccionado: usa border/accent/strong.",
         "$extensions": {
           "com.figma.variableId": "VariableID:13:114",
           "com.figma.scopes": [
@@ -565,7 +565,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.neutral.800}",
-          "$description": "Bordes y separadores (decorativos)",
+          "$description": "Bordes y separadores decorativos. No para el borde que identifica un control: usa border/neutral/strong.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:106",
             "com.figma.scopes": [
@@ -585,7 +585,7 @@
         "strong": {
           "$type": "color",
           "$value": "{color.neutral.500}",
-          "$description": "Bordes que identifican un control (≥ 3:1)",
+          "$description": "Borde que identifica un control, como un campo o el botón secundario. Cumple 3:1; no para separadores.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:107",
             "com.figma.scopes": [
@@ -607,7 +607,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.blue.700}",
-          "$description": "Borde de los mensajes de información (Callout note). Decorativo: no necesita 3:1",
+          "$description": "Borde de los mensajes de información (Callout note). Decorativo: no sirve para identificar un control.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:116",
             "com.figma.scopes": [
@@ -629,7 +629,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.emerald.700}",
-          "$description": "Borde de los mensajes de éxito, decorativo. Sin uso todavía (S31)",
+          "$description": "Borde de los mensajes de éxito. Decorativo; ningún componente lo usa todavía.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:119",
             "com.figma.scopes": [
@@ -651,7 +651,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.amber.700}",
-          "$description": "Borde de los avisos (Callout warning). Decorativo: no necesita 3:1",
+          "$description": "Borde de los avisos (Callout warning). Decorativo: no sirve para identificar un control.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:122",
             "com.figma.scopes": [
@@ -673,7 +673,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.red.700}",
-          "$description": "Borde de los mensajes de error, decorativo. Sin uso todavía (S31)",
+          "$description": "Borde de los mensajes de error. Decorativo; ningún componente lo usa todavía.",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:125",
             "com.figma.scopes": [
@@ -695,7 +695,7 @@
         "default": {
           "$type": "color",
           "$value": "{color.emerald.700}",
-          "$description": "Borde del Callout recommendation (decorativo; D06).",
+          "$description": "Borde del Callout recommendation. Decorativo: no sirve para identificar un control.",
           "$extensions": {
             "com.figma.variableId": "VariableID:16:12",
             "com.figma.scopes": [
@@ -715,7 +715,7 @@
         "strong": {
           "$type": "color",
           "$value": "{color.emerald.400}",
-          "$description": "Indicador de seleccionado o actual: marca lateral de la lección actual del sidebar y borde de los pasos de Flow con enlace en hover. ≥ 3:1 frente a página, subtle y accent/subtle (1.4.11, D12).",
+          "$description": "Indicador de seleccionado o actual, como la marca del elemento actual de la navegación. Cumple 3:1; no para el foco: usa border/focus.",
           "$extensions": {
             "com.figma.variableId": "VariableID:20:5",
             "com.figma.scopes": [

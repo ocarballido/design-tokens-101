@@ -3,7 +3,7 @@
     "control": {
       "$type": "number",
       "$value": 8,
-      "$description": "Botones, campos y chips",
+      "$description": "Esquinas de botones, campos y chips. No para contenedores: usa radius/container.",
       "$extensions": {
         "com.figma.variableId": "VariableID:13:128",
         "com.figma.scopes": [
@@ -23,7 +23,7 @@
     "container": {
       "$type": "number",
       "$value": 16,
-      "$description": "Tarjetas, Callouts y bloques de código",
+      "$description": "Esquinas de tarjetas, Callouts y bloques de código. No para controles: usa radius/control.",
       "$extensions": {
         "com.figma.variableId": "VariableID:13:129",
         "com.figma.scopes": [
@@ -39,6 +39,26 @@
           "targetVariableSetName": "Primitives"
         }
       }
+    },
+    "nested": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Esquinas de un elemento dentro de un contenedor con radius/container, como las pestañas de CodePreview. Solo dentro de un contenedor.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:316:183",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--t101-radius-nested)"
+        },
+        "com.figma.aliasData": {
+          "targetVariableId": "VariableID:efa35daf87672437546a0facfbb159b0752e4b42/-1:-1",
+          "targetVariableName": "radius/300",
+          "targetVariableSetId": "VariableCollectionId:5bf317aa0f2563f554ff38b6d0b429ef07cae671/-1:-1",
+          "targetVariableSetName": "Primitives"
+        }
+      }
     }
   },
   "size": {
@@ -46,7 +66,7 @@
       "max-width": {
         "$type": "number",
         "$value": 960,
-        "$description": "Ancho máximo del contenido de la lección: 960 px = 60rem (V27; antes 720 px). Incluye el padding horizontal (space/400) a cada lado: ≈ 928 px de texto (D20). Valor directo (excepción a la regla 6): no hay escala de tamaños.",
+        "$description": "Ancho máximo de la columna de contenido de una página, con su relleno lateral incluido. Solo para la columna principal.",
         "$extensions": {
           "com.figma.variableId": "VariableID:55:668",
           "com.figma.scopes": [
@@ -62,7 +82,7 @@
       "width": {
         "$type": "number",
         "$value": 304,
-        "$description": "Ancho del sidebar en escritorio y del panel de navegación móvil: 304 px = 19rem (V16, V25). Valor directo (excepción a la regla 6): no hay escala de tamaños.",
+        "$description": "Ancho del sidebar en escritorio y del panel de navegación móvil. Solo para esos dos elementos.",
         "$extensions": {
           "com.figma.variableId": "VariableID:75:302",
           "com.figma.scopes": [

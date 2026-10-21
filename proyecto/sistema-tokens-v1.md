@@ -4,14 +4,15 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-10-09.
+Última actualización: 2026-10-21.
 
-**Versión del sistema: 1.1.0** (2026-10-09, S38; 1.0.0 el 2026-10-06, S36). API pública: los nombres de las variables publicadas en Figma, de las variables CSS (`--t101-*`) y de las clases de la capa 2. Cada cambio posterior sube el número según S36: PATCH para un valor o un alias, MINOR para algo nuevo o un token obsoleto, MAJOR para borrar o renombrar.
+**Versión del sistema: 1.2.0** (2026-10-21, D65; 1.1.0 el 2026-10-09, S38; 1.0.0 el 2026-10-06, S36). API pública: los nombres de las variables publicadas en Figma, de las variables CSS (`--t101-*`) y de las clases de la capa 2. Cada cambio posterior sube el número según S36: PATCH para un valor o un alias, MINOR para algo nuevo o un token obsoleto, MAJOR para borrar o renombrar.
 
 **Versiones del sistema**
 
 | Versión | Fecha | Añadido | Cambiado | Obsoleto | Eliminado |
 |---|---|---|---|---|---|
+| 1.2.0 | 2026-10-21 | `radius/nested` en Semantic size, alias de `radius/300` (D65, §4.3) | Descripciones de los semánticos reescritas en dos partes, sin referencias internas (D65, §7); no son API pública | No aplica | No aplica |
 | 1.1.0 | 2026-10-09 | Breakpoints de Tailwind CSS como tokens solo de código: `breakpoint/sm`, `md`, `lg`, `xl` y `2xl` (S38, §4.10) | `breakpoint/desktop` pasa a ser alias de `breakpoint/lg`; mismo nombre y mismo valor, 64rem (S38) | No aplica | No aplica |
 | 1.0.0 | 2026-10-06 | Primera versión estable: el sistema completo (97 primitivos, 33 semánticos de color, 4 de tamaño, 9 de Layout, 10 estilos de texto y los tokens de código de §4) | No aplica | No aplica | No aplica |
 
@@ -40,6 +41,7 @@ Las versiones 0.y.z no se numeraron: el historial anterior está en el registro 
 | 2026-10-05 | Contenido | §6.1: `color/background/neutral/translucent` pasa al 96 % en Light (S35), para que el anillo de foco llegue a 3:1 sobre la cabecera en el peor caso (1.4.11). Dark sigue al 90 %. |
 | 2026-10-06 | Contenido | Versión del sistema 1.0.0 y tabla "Versiones del sistema" (S36), al aprobarse el módulo 8. |
 | 2026-10-09 | Contenido | Versión 1.1.0 (S38): breakpoints de Tailwind CSS como tokens solo de código y `breakpoint/desktop` como alias de `breakpoint/lg` (§4.2, §4.10, §5.2 y §7). §5.2: vocabulario de categorías completado con las de código (`duration`, `easing`, `blur`, `opacity`, `breakpoint`) y §7: lista de tokens solo de código completada (`duration/2000`, `opacity/inactive`). |
+| 2026-10-21 | Desarrollo | Versión 1.2.0 (D65): `radius/nested` (§4.3 y §7) y descripciones de los semánticos en dos partes, sin referencias internas (§7). Semantic size pasa a 5 variables. |
 
 ---
 
@@ -312,7 +314,7 @@ Escala definida por Oscar (2026-09-30); 30 px se sustituyó por 32 px para mante
 | radius/1200 | 48 | 3 |
 | radius/full | 9999 | 624.9375 |
 
-**Semánticos (S23):** `radius/control` → `radius/200` (8 px), para botones, campos y chips. `radius/container` → `radius/400` (16 px), para tarjetas, Callouts y bloques de código.
+**Semánticos (S23):** `radius/control` → `radius/200` (8 px), para botones, campos y chips. `radius/container` → `radius/400` (16 px), para tarjetas, Callouts y bloques de código. `radius/nested` → `radius/300` (12 px), para un elemento dentro de un contenedor con `radius/container`, como las pestañas de CodePreview (D65).
 
 ### 4.4 Grosor de borde
 
@@ -597,8 +599,11 @@ Scopes disponibles según [Figma: Create and manage variables](https://help.figm
 | | | `color/text/*` | No | Relleno de texto y relleno de forma (los iconos usan tokens de texto) |
 | | | `color/border/*` | No | Trazo |
 | **Semantic size** | 1 (`Value`) | `radius/control`, `radius/container` | No | Radio |
+| | | `radius/nested` (D65) | No | Radio |
 | | | `size/content/max-width` (D20, V27) y `size/sidebar/width` (V16) | No | Ancho y alto |
 | **Layout** (D10) | Desktop, Mobile | `font-size/{estilo}` (9 tokens, §4.2) | No | Tamaño de fuente. Se usan desde los estilos de texto (§8) |
+
+**Descripciones de los semánticos (S37, D65):** cada variable de Semantic color, Semantic size y Layout lleva una descripción en dos partes: para qué sirve y su restricción principal. Ejemplo: `radius/control`, "Esquinas de botones, campos y chips. No para contenedores: usa radius/container." Sin valores (los da la variable) ni referencias internas como `D12` o `V33` (no le dicen nada a quien la lee en Figma ni a un agente). `npm run check:tokens` lo comprueba en la exportación.
 
 **No se crean en Figma (tokens solo de código):** `line-height/*` (D01), `space/negative/*` (D02), `breakpoint/*` (D11, S38), `duration/200` y `easing/standard` (V24), `duration/2000` (C30), `blur/300` (V28) y `opacity/inactive` (C27). Su fuente única es esta especificación.
 
