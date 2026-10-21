@@ -11,12 +11,15 @@
 //   6. CSS generado (V46): ninguna clase con valor arbitrario entre corchetes fuera de las
 //      excepciones de V43 (tools/arbitrary-allowed.mjs). check:tokens lo mira en src/; aquí se mira
 //      lo que se publica, venga de donde venga (V44).
+//   7. CodePreview (V60): `preview` solo en bloques markdown o md. En otro lenguaje,
+//      tools/rehype-code-meta.mjs no lo aplica; aquí se avisa, para que no se pierda sin decirlo.
 // Solo español y sin prefijo de idioma en la URL (P24, V45): las páginas son /{seccion}/{leccion}.
 // Uso: npm run build && npm run check:content
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { ARBITRARY_ALLOWED } from './arbitrary-allowed.mjs';
+import { PREVIEW_LANGUAGES, hasPreview } from './rehype-code-meta.mjs';
 
 const ROOT = process.cwd();
 const HTML_DIR = path.join(ROOT, '.next/server/app');
@@ -143,8 +146,28 @@ for (const cls of cssArbitrary) {
   if (!(cls in ARBITRARY_ALLOWED)) errors.push(`CSS generado: valor arbitrario ${cls} (no sale de src/ o falta su excepción, V43–V46)`);
 }
 
+// 7. `preview` fuera de un bloque markdown (V60), en las fuentes MDX de todos los idiomas.
+let previewCount = 0;
+const mdxFiles = fs
+  .readdirSync(path.join(ROOT, 'content'), { recursive: true })
+  .filter((file) => file.endsWith('.mdx'))
+  .map((file) => path.join(ROOT, 'content', file));
+for (const file of mdxFiles) {
+  fs.readFileSync(file, 'utf8')
+    .split('\n')
+    .forEach((line, index) => {
+      const fence = /^\s*(`{3,}|~{3,})([\w-]*)\s*(.*)$/.exec(line);
+      if (!fence || !hasPreview(fence[3])) return;
+      previewCount++;
+      if (!PREVIEW_LANGUAGES.includes(fence[2])) {
+        errors.push(`${path.relative(ROOT, file)}:${index + 1}: \`preview\` en un bloque ${fence[2] || 'sin lenguaje'} (solo markdown o md, V60)`);
+      }
+    });
+}
+
 console.log(`Páginas: ${expected.length} (${LOCALE}, sin prefijo de idioma)`);
 console.log(`CSS generado: ${cssFiles.length} archivo(s) · ${cssArbitrary.size} clases con corchetes (${[...cssArbitrary].filter((c) => c in ARBITRARY_ALLOWED).length} excepciones)`);
+console.log(`Bloques con preview (CodePreview): ${previewCount}`);
 console.log(`Anclas comprobadas: ${anchorCount} (${accentedCount} con tildes u otros caracteres no ASCII)`);
 console.log(`Grupos del sidebar (es): ${groupLabels().join(', ')}`);
 console.log(`Números de sección (es, "-" sin número): ${sectionNumbers().join(', ')}`);

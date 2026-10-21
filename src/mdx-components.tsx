@@ -13,6 +13,7 @@ import { ScaleGenerator } from '@/components/ScaleGenerator';
 import { Table, Td, Th } from '@/components/Table';
 import { Takeaways } from '@/components/Takeaways';
 import { TextLink } from '@/components/TextLink';
+import { renderMarkdownPreview } from '@/lib/render-markdown-preview';
 
 // Prose (componentes-v1.md §3.1): cómo se ve cada elemento Markdown del MDX.
 // La separación vertical entre bloques la pone la utilidad `flow` del contenedor.
@@ -20,15 +21,16 @@ import { TextLink } from '@/components/TextLink';
 // para que herede el tamaño también dentro de tablas y Callouts.
 
 // Bloque de código: ```json filename="tokens.json" llega como <pre><code class="language-json"
-// data-filename="tokens.json"> (tools/rehype-code-meta.mjs).
-type CodeElement = ReactElement<{ className?: string; 'data-filename'?: string; children?: string }>;
+// data-filename="tokens.json"> (tools/rehype-code-meta.mjs). Con ```markdown preview llega también
+// data-preview: la vista previa de CodePreview (§3.11) se renderiza aquí, en el servidor.
+type CodeElement = ReactElement<{ className?: string; 'data-filename'?: string; 'data-preview'?: string; children?: string }>;
 
 function Pre({ children }: ComponentPropsWithoutRef<'pre'>) {
   if (!isValidElement(children)) return <pre>{children}</pre>;
-  const { className = '', 'data-filename': filename, children: code = '' } = (children as CodeElement).props;
+  const { className = '', 'data-filename': filename, 'data-preview': preview, children: code = '' } = (children as CodeElement).props;
   const language = /language-([\w-]+)/.exec(className)?.[1];
   return (
-    <CodeBlock language={language} filename={filename}>
+    <CodeBlock language={language} filename={filename} preview={preview !== undefined ? renderMarkdownPreview(code) : undefined}>
       {code}
     </CodeBlock>
   );

@@ -16,11 +16,13 @@ export function Table({ label, ...props }: ComponentPropsWithoutRef<'table'> & {
 const cell = 'border-b-(length:--t101-border-width-100) border-neutral-default px-300 py-200 text-start align-top text-neutral-default';
 
 // Cabecera de columna; con scope="row", cabecera de fila (resumen de la normalización).
-export function Th({ scope = 'col', className, ...props }: ComponentPropsWithoutRef<'th'>) {
+// `header` es el aspecto (TableCell header=true en Figma): por defecto, solo en las de columna;
+// las claves del frontmatter de CodePreview (§3.11) son cabeceras de fila con aspecto de cabecera.
+export function Th({ scope = 'col', header = scope === 'col', className, ...props }: ComponentPropsWithoutRef<'th'> & { header?: boolean }) {
   return (
     <th
       scope={scope}
-      className={cx(cell, scope === 'col' ? 'bg-neutral-subtle type-label-default' : 'type-body-small', className)}
+      className={cx(cell, header ? 'bg-neutral-subtle type-label-default' : 'type-body-small', className)}
       {...props}
     />
   );

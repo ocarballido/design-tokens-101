@@ -25,7 +25,11 @@
     "copy": "Copiar código",
     "copied": "Copiado",
     "label": "Código",
-    "mark": "nota"
+    "mark": "nota",
+    "tabs": "Ver el markdown o su vista previa",
+    "markdown": "Markdown",
+    "preview": "Vista previa",
+    "frontmatter": "Frontmatter"
   },
   "Table": {
     "label": "Tabla"

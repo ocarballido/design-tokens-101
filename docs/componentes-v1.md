@@ -281,7 +281,7 @@ Figma tiene cinco tipos de propiedad: variante, booleano (solo muestra u oculta 
 | `language` | `string` (`json`, `css`, `txt`…), no se ve | Descripción |
 | `filename` | `string` opcional | Texto + booleano `showFilename` |
 
-En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="tokens.json"`.
+En el MDX: ` ```json filename="tokens.json" ` → `language="json"`, `filename="tokens.json"`. En un bloque markdown, la palabra `preview` añade las pestañas Markdown / Vista previa (`CodePreview`, §3.11).
 
 **Variantes en Figma:** 1 (con `showFilename` y `showCopied`). El botón de copiar es un `IconButton` (§2.1, icono `li:copy`).
 
@@ -642,6 +642,72 @@ El build falla si falta el bloque con `marks`, si una marca pasa de la última l
 **Contraste** (≥ 4,5:1): número de la marca, `text/on-accent` sobre `background/accent/strong/default`, 9,63 / 9,63: el par del `Button` `primary` en `default` (§2.2), ya medido. Código sobre la línea marcada, `text/neutral/default` sobre `background/accent/subtle`, 16,98 / 14,36: el par del texto de `Takeaways` (§3.9). El resto, como `CodeBlock` (§3.4).
 
 **En código.** `AnnotatedCode.tsx` lee el bloque y la leyenda del MDX y se los pasa a `CodeBlock` (props `marks` y `legend`), que pinta cada línea por separado; `CodeMarker.tsx` es la marca. `tools/rehype-code-meta.mjs` lee `marks="…"` como lee `filename`.
+
+### 3.11 `CodePreview` (markdown con vista previa): V60, diseño de Claude en Figma, 2026-10-21
+
+**Para qué sirve.** Un bloque de código markdown con dos pestañas: el markdown tal como se escribe y su vista previa, como se lee. Para enseñar un documento (la descripción de un componente, un README) sin tener que imaginarlo. Es un `CodeBlock` (§3.4) con la prop `preview`.
+
+**En Figma:** TokensDS, página Components, marco `CodePreview` (238:1090): `CodeTab` (238:1107, variantes `current` y `state`), `CodeTabs` (238:1108) y `CodePreview` (239:1152, variantes `tab=markdown` y `tab=preview`), más un ejemplo a 320 px. Sin tokens nuevos.
+
+**Props.**
+
+| Prop | Tipo | En Figma |
+|---|---|---|
+| `children` | el markdown, del bloque de código | Texto del panel Markdown |
+| `filename` | `string` opcional, del bloque de código | Texto de la cabecera |
+| `preview` | la vista previa ya renderizada (`ReactNode`); con ella, `CodeBlock` es `CodePreview` | Variante `tab=preview` |
+
+**En el MDX.** La palabra `preview` en el meta de un bloque `markdown` o `md`, en cualquier orden con `filename`. Si el markdown lleva su propio bloque de código, el de fuera usa cuatro comillas invertidas:
+
+`````mdx
+````markdown filename="docs/components/text-field.md" preview
+---
+name: TextField
+status: stable
+---
+
+# TextField
+
+Campo de texto de una línea.
+````
+`````
+
+`tools/rehype-code-meta.mjs` la convierte en `data-preview` solo en markdown o md; `npm run check:content` falla si `preview` va en otro lenguaje. La pestaña inicial es Markdown.
+
+**Tokens.**
+
+| Parte | Token |
+|---|---|
+| Contenedor, cabecera, botón copiar, panel Markdown | Iguales que `CodeBlock` (§3.4) |
+| Cabecera | Nombre de archivo a la izquierda y acciones a la derecha (hueco `space/200` entre pestañas, "Copiado" y copiar); si no cabe, baja de línea (V39), con `space/100` entre filas |
+| Carril (`CodeTabs`) | `background/neutral/strong`, radio `radius/300`, relleno y hueco `space/050` (como `ThemeToggle`) |
+| Pestaña (`CodeTab`) | `label/default`, radio `radius/control`, relleno `space/150` × `space/300`, borde `border-width/100` |
+| Pestaña actual | Fondo `background/neutral/default`, borde `border/neutral/default`, texto `text/neutral/default` |
+| Pestaña no actual | Sin fondo, texto `text/neutral/subtle`; `hover` `background/neutral/hover`, `active` `background/neutral/active`, con el mismo texto. En código lleva un borde transparente de `border-width/100`: en Figma el borde va por dentro y las dos pestañas miden lo mismo |
+| Pestaña actual en `hover` y `active` | Sin cambios |
+| Foco de la pestaña | Borde `border-width/200` en `border/focus`, por dentro (en código, `focus-ring-inset`) |
+| Panel Vista previa | Fondo `background/neutral/default`; relleno y hueco `space/400` |
+| Frontmatter | `Table` (§3.6) sin fila de cabecera: la clave con el aspecto de `TableCell` `header=true`, el valor como celda; las dos, centradas en vertical |
+| Código dentro de la vista previa | `<pre>` con `code/default` y `text/neutral/default`, sin fondo ni borde (no está en Figma) |
+
+**La vista previa.** Se renderiza en el servidor, en el build (`src/lib/render-markdown-preview.tsx`), nunca en el cliente; el HTML que lleve el markdown no pasa.
+- Párrafos, listas, tablas y código en línea con los componentes de Prose (§3.1).
+- El frontmatter YAML va encima del contenido, como tabla clave/valor. La columna de la clave se ajusta al contenido. Un valor que no es un texto (una lista) se muestra como está escrito: `[Label, Input, HelperText]`.
+- `#` y `##` tienen el estilo de `heading/3` y `heading/4`; `###` y los siguientes, el de `heading/4`. No son encabezados de la página: van como párrafos, sin id ni ancla.
+- Los enlaces relativos, a anclas o a archivos `.md` son texto (el archivo no existe en la web); los absolutos `https`, `TextLink` (§2.3).
+- Un bloque de código es un `<pre>` simple, que parte las líneas largas, no otro `CodeBlock`.
+
+**Accesibilidad.**
+- Patrón Tabs de las WAI-ARIA APG con activación automática: `role="tablist"` con `aria-label` ("Ver el markdown o su vista previa"), `role="tab"` con `aria-selected` y `aria-controls`, `role="tabpanel"` con `aria-labelledby` y `tabIndex=0`. Solo la pestaña actual está en el orden de tabulación; flechas izquierda y derecha (circulares), Inicio y Fin mueven el foco y cambian de panel.
+- La pestaña actual lleva fondo y borde, no solo otro color (1.4.1). Mide 34 px de alto (2.5.8).
+- Sin JavaScript se ve el panel Markdown: el de la vista previa sale con `hidden`.
+- Los títulos del ejemplo son párrafos: con `h3` o `role="heading"` entrarían en la lista de encabezados del lector de pantalla, mezclados con los de la lección y con un nivel que no les corresponde.
+- Copiar copia siempre el markdown fuente, esté abierta la pestaña que esté; "Copiado" se anuncia como en `CodeBlock`.
+- A 320 px, las pestañas y copiar bajan a su propia línea, y "Copiado" con copiar a otra si no caben; una tabla ancha de la vista previa tiene su propio scroll (§3.6). Sin scroll de página.
+
+**Contraste** (≥ 4,5:1): pestaña actual, `text/neutral/default` sobre `background/neutral/default`, el par del texto de la lección (17,79 / 18,89); pestaña no actual, `text/neutral/subtle` sobre el carril `background/neutral/strong` y sobre `background/neutral/hover`, 7,08 / 5,81; sobre `background/neutral/active`, 6,16 / **3,99 en Dark, por debajo de 4,5:1** (pendiente de Oscar: D12 pide `text/neutral/default` en `hover` y `active`, Figma no); vista previa, los pares de Prose y `Table` sobre `background/neutral/default`. El resto, como `CodeBlock` (§3.4).
+
+**En código.** `Pre` (`mdx-components.tsx`) ve `data-preview`, llama a `renderMarkdownPreview` y le pasa el resultado a `CodeBlock` en la prop `preview`. `Th` admite `header` para la clave del frontmatter.
 
 ---
 

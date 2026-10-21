@@ -69,6 +69,8 @@ Se diseñarán en Figma con el sistema de DesignToken101 y se implementarán en 
 | `<InCode title="…">` | Itinerario de código; se puede plegar y el diseñador puede saltarlo |
 | `<Flow caption="…">` con `<FlowGroup>` y `<FlowStep>` | Gráfico de un proceso: pasos en orden, agrupados o no en fases (C13). Anatomía y ejemplo en `docs/componentes-v1.md` §3.7. Un paso `pending` debe decirlo también en su `meta` ("En estudio") |
 | `<ColorScale palette="emerald" caption="…" />` | Una escala de color de forma visual, con paso y hex (C14). `highlight` marca un paso (p. ej. el color de marca) con `highlightLabel`. Anatomía en `docs/componentes-v1.md` §3.8 |
+| ` ```json filename="tokens.json" ` | Bloque de código con nombre de archivo (`CodeBlock`, `docs/componentes-v1.md` §3.4). Dentro de `<AnnotatedCode>`, `marks="2,4"` marca líneas (§3.10) |
+| ` ```markdown filename="button.md" preview ` | Bloque markdown con pestañas Markdown / Vista previa (`CodePreview`, V60, §3.11). Solo en `markdown` o `md`: en otro lenguaje falla `check:content` |
 | `<Takeaways>` | Envuelve el apartado "Lo que te llevas" (título `##` y lista) de cada lección (C18, T10). Anatomía en `docs/componentes-v1.md` §3.9 |
 
 ## Guía de redacción
