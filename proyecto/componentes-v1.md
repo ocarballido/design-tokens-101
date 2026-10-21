@@ -647,7 +647,7 @@ El build falla si falta el bloque con `marks`, si una marca pasa de la última l
 
 **Para qué sirve.** Un bloque de código markdown con dos pestañas: el markdown tal como se escribe y su vista previa, como se lee. Para enseñar un documento (la descripción de un componente, un README) sin tener que imaginarlo. Es un `CodeBlock` (§3.4) con la prop `preview`.
 
-**En Figma:** TokensDS, página Components, marco `CodePreview` (238:1090): `CodeTab` (238:1107, variantes `current` y `state`), `CodeTabs` (238:1108) y `CodePreview` (239:1152, variantes `tab=markdown` y `tab=preview`), más un ejemplo a 320 px. Sin tokens nuevos.
+**En Figma:** TokensDS, página Components, marco `CodePreview` (238:1090, dentro de `Organisms` desde D64): `CodeTab` (238:1107, variantes `current` y `state`), `CodeTabs` (238:1108) y `CodePreview` (239:1152, variantes `tab=markdown` y `tab=preview`), más un ejemplo a 320 px. Sin tokens nuevos.
 
 **Props.**
 

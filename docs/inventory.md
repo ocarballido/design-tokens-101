@@ -55,27 +55,50 @@ Ninguno en el alcance.
 ## Diferencias
 
 - **Button:** `showIcon` (booleano) en Figma, `icon` (componente de Lucide) en código. Decisión: aceptar y traducir en Code Connect.
-- **Button:** está en el marco "Molecules" de Figma, pero es átomo. Decisión: se mueve a "Atoms" en la fase 2.
+- **Button:** estaba en el marco "Molecules" de Figma, pero es átomo. Resuelto en la fase 2: está en "Atoms" (2026-10-21).
 - **TextField:** el error es `invalid` (booleano) en Figma y `error` (texto) en código. Decisión: aceptar y traducir en Code Connect (fase 5).
-- **TextField:** está en el marco "Tools" de Figma, no en "Molecules". Decisión: se reordena en la fase 2 (estructura de la librería).
+- **TextField:** estaba en el marco "Tools" de Figma. Resuelto en la fase 2: está en "Molecules" (2026-10-21), con Takeaways; CodePreview, CodeTab y CodeTabs están en "Organisms".
 - **TextField:** `inputMode`, `subgrid` y `children` solo existen en código. Decisión: aceptar (no son visuales).
 - **Takeaways:** el icono es `li:graduation-cap` en Figma y en designtokens101; ds4agents usa `BookOpenText` (G15) y ese icono no está en el marco Icons de Figma. Un agente que lea Figma para ds4agents pondrá el birrete. Decisión: la excepción G15 se documenta en la capa de agente de ds4agents (fase 6); la librería no cambia.
 - **CodeBlock / CodePreview:** en Figma son dos componentes (más AnnotatedCode, CodeTabs y CodeTab); en código son un solo `CodeBlock` que cambia con `preview`, `marks` y `legend`. El atributo `data-component` sí dice `CodePreview` o `AnnotatedCode`. Decisión: aceptar y mapear los tres al mismo `CodeBlock` en Code Connect (fase 5; comprobar entonces en la documentación de Code Connect que se admite).
 - **CodeBlock:** `language` solo existe en código (no se ve). Decisión: aceptar.
 - **Página de la guía:** el patrón se llama "Lesson" y tiene contenido de curso (G10). Decisión: aceptar; el equivalente de ds4agents se documenta en sus patrones (fase 4).
 - **Lista de comprobación:** no hay diseño en Figma. Decisión: aceptar como patrón solo de código, documentado en Markdown (fase 4).
-- **Plantilla Lesson:** cada sección se llama "ThisPage", igual que el bloque "En esta página". Decisión: renombrar por función en la fase 2.
+- **Plantilla Lesson:** cada sección se llamaba "ThisPage", igual que el bloque "En esta página". Resuelto en la fase 2: `OnThisPage` y ocho `Section` en cada uno de los seis marcos (2026-10-21).
 
-## Scorecard (2026-10-21, solo el piloto)
+## Ready for AI (fase 2, 2026-10-21)
+
+Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_context` sobre cada conjunto o componente) y con la API de plugins (lectura).
+
+| Componente | Variables | Capas por función | Descripción | Anotaciones | Dev resources | Guidelines | Code Connect |
+|---|---|---|---|---|---|---|---|
+| Button | Sí | Sí | Sí | 1 (Development) | Código | Sí | No (fase 5) |
+| TextField | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | Sí | No (fase 5) |
+| Callout | Sí | Sí | Sí | 1 (Accessibility) | Código | Sí | No (fase 5) |
+| Takeaways | Sí | Sí | Sí | 1 (Accessibility) | Código | Sí | No (fase 5) |
+| CodeBlock | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | No aplica | No (fase 5) |
+| CodePreview (con CodeTab y CodeTabs) | Sí | Sí | Sí | 3 (Interaction, Development, Accessibility) | Código (`CodeBlock.tsx`) | No aplica | No (fase 5) |
+
+- **Descripción:** plantilla de la guía (propósito, usar, no usar, tokens), sin la línea "Docs:" hasta la fase 4 y con una línea "Solo Figma:" (G28 de ds4agents). Sin `&quot;`.
+- **Dev resources:** solo el archivo de código en GitHub; el documento Markdown llega en la fase 4 y no hay Storybook (G25). El enlace de documentación del componente está vacío.
+- **Guidelines:** `docs/anti-patterns.md` (V61), subido a TokensDS por Oscar el 2026-10-21. "No aplica": ningún escenario trata ese componente.
+
+**Lo que recibe el agente (`get_design_context`):**
+- La descripción del componente, en una sección "Component descriptions", y el dev resource dentro de ella como "Documentation: [Github](…)". También llegan las descripciones de los componentes anidados (Icon, IconButton, TableCell, iconos `li:*`), que siguen con el formato anterior y referencias internas.
+- Las anotaciones, como atributos `data-interaction-annotations`, `data-accessibility-annotations`, etc. Solo llegan si están en un componente o en una variante: las que estaban en el conjunto de variantes no llegaban, y la de una variante llega ligada a esa combinación de propiedades. Por eso cada anotación está en la variante a la que corresponde (D64).
+- Variables como `var(--t101-…)` con su valor de reserva. Excepciones: el interlineado como número (D01), `radius/300` en CodeTabs y `radius/100` en TableCell (primitivos) y la lista de ejemplo de la vista previa de CodePreview, con el color y el tamaño en crudo aunque en Figma están enlazados (texto con estilos mezclados).
+- La capa del icono dentro de Icon (22:6) llegaba como `li:circle-plus` fuera cual fuera el icono; ahora se llama `Glyph` (D64). El icono real solo se deduce del nombre del archivo SVG.
+
+## Scorecard (2026-10-21, solo el piloto, tras la fase 2)
 
 | Criterio | Puntos (0-3) | Nota |
 |---|---|---|
 | Cobertura | 3 | Los cinco componentes existen en código (CodePreview como `CodeBlock` con `preview`) |
-| Variables | 2 | Todo lo leído usa variables con code syntax `var(--t101-*)`. Sin comprobar si hay valores sueltos: `get_variable_defs` solo lista los enlazados. El interlineado de los estilos de texto es un número, no una variable. CodeTabs usa `radius/300` (primitivo) |
-| Nombres | 2 | Componentes y propiedades coinciden con el código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview. Capas de la plantilla poco descriptivas ("ThisPage") |
-| Contexto en Figma | 1 | Descripción en los seis (con CodePreview), con props de React y decisiones; en CodeBlock, Takeaways y CodePreview las comillas están escritas como `&quot;` (en CodePreview, `&amp;quot;`); confirmado en Figma (no es de la herramienta), se corrige en la fase 2. Sin anotaciones (ni en los componentes, ni en sus capas, ni en la página Components, aunque el archivo tiene las categorías Development, Interaction, Accessibility y Content) y sin enlaces de documentación (2026-10-21). Dev resources: ninguno en los seis componentes del piloto (comprobado por Oscar en Dev Mode). Guidelines de librería sin verificar |
+| Variables | 3 | Ningún valor sin variable en los ocho componentes (API de plugins, 2026-10-21); el relleno blanco de las filas de CodePreview, quitado. Excepciones aceptadas: interlineado (D01) y `radius/300` en CodeTabs (primitivo) |
+| Nombres | 2 | Capas por función en el piloto y en la plantilla (sin `Frame`, `Group` ni `Text`). Propiedades como en código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview, que se traducen en Code Connect (fase 5) |
+| Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; `anti-patterns.md` en las guidelines. Falta el enlace de documentación y el doc Markdown (fase 4) |
 | Tokens | 2 | DTCG con alias y `$description` en todo el color semántico Light. Semantic-size y layout sin revisar |
 | Documentación | 1 | Anatomía completa en `proyecto/componentes-v1.md`; nada en `docs/` con el formato de la guía |
 | Vínculo con el código | 0 | Sin Code Connect |
 | Gobernanza | 1 | Responsable y protocolo de decisiones; sin changelog del sistema ni proceso de contribución |
-| **Media** | **1,50** | |
+| **Media** | **1,88** | Antes de la fase 2: 1,50 |
