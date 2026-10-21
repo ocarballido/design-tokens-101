@@ -11,16 +11,16 @@ code: designtokens101, src/components
 
 Estados: stable · beta · deprecated · figma-only · code-only
 
-Borrador. Nivel, categoría y estado son propuestas: los decide Oscar.
+Nivel, categoría y estado decididos por Oscar el 2026-10-21 (categorías por G26 y estados por G27 de ds4agents).
 
 | Componente | Nivel | Categoría | Estado | Figma | Código | Code Connect | Doc |
 |---|---|---|---|---|---|---|---|
 | Button | átomo | actions | stable | Sí (24:728) | Sí (`Button.tsx`) | No | No |
 | TextField | molécula | forms | stable | Sí (155:923) | Sí (`TextField.tsx`) | No | No |
 | Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | No | No |
-| Takeaways | molécula | pendiente | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | No | No |
-| CodeBlock | molécula | pendiente | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | No |
-| CodePreview | organismo | pendiente | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | No |
+| Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | No | No |
+| CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | No |
+| CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | No |
 
 "Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` solo tiene `.gitkeep`; la anatomía de cada componente está en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
 
@@ -55,16 +55,16 @@ Ninguno en el alcance.
 ## Diferencias
 
 - **Button:** `showIcon` (booleano) en Figma, `icon` (componente de Lucide) en código. Decisión: aceptar y traducir en Code Connect.
-- **Button:** está en el marco "Molecules" de Figma; aquí se propone átomo. Decisión: pendiente.
-- **TextField:** el error es `invalid` (booleano) en Figma y `error` (texto) en código. Decisión: pendiente (aceptar y traducir en Code Connect, o renombrar en Figma).
-- **TextField:** está en el marco "Tools" de Figma, no en "Molecules". Decisión: pendiente.
+- **Button:** está en el marco "Molecules" de Figma, pero es átomo. Decisión: se mueve a "Atoms" en la fase 2.
+- **TextField:** el error es `invalid` (booleano) en Figma y `error` (texto) en código. Decisión: aceptar y traducir en Code Connect (fase 5).
+- **TextField:** está en el marco "Tools" de Figma, no en "Molecules". Decisión: se reordena en la fase 2 (estructura de la librería).
 - **TextField:** `inputMode`, `subgrid` y `children` solo existen en código. Decisión: aceptar (no son visuales).
-- **Takeaways:** el icono es `li:graduation-cap` en Figma y en designtokens101; ds4agents usa `BookOpenText` (G15) y ese icono no está en el marco Icons de Figma. Un agente que lea Figma para ds4agents pondrá el birrete. Decisión: pendiente.
-- **CodeBlock / CodePreview:** en Figma son dos componentes (más AnnotatedCode, CodeTabs y CodeTab); en código son un solo `CodeBlock` que cambia con `preview`, `marks` y `legend`. El atributo `data-component` sí dice `CodePreview` o `AnnotatedCode`. Decisión: pendiente (aceptar y mapear varios componentes de Figma a `CodeBlock`, o separar en código).
+- **Takeaways:** el icono es `li:graduation-cap` en Figma y en designtokens101; ds4agents usa `BookOpenText` (G15) y ese icono no está en el marco Icons de Figma. Un agente que lea Figma para ds4agents pondrá el birrete. Decisión: la excepción G15 se documenta en la capa de agente de ds4agents (fase 6); la librería no cambia.
+- **CodeBlock / CodePreview:** en Figma son dos componentes (más AnnotatedCode, CodeTabs y CodeTab); en código son un solo `CodeBlock` que cambia con `preview`, `marks` y `legend`. El atributo `data-component` sí dice `CodePreview` o `AnnotatedCode`. Decisión: aceptar y mapear los tres al mismo `CodeBlock` en Code Connect (fase 5; comprobar entonces en la documentación de Code Connect que se admite).
 - **CodeBlock:** `language` solo existe en código (no se ve). Decisión: aceptar.
-- **Página de la guía:** el patrón se llama "Lesson" y tiene contenido de curso (G10). Decisión: pendiente (renombrar el marco o aceptar que el nombre es de designtokens101).
-- **Lista de comprobación:** no hay diseño en Figma. Decisión: pendiente.
-- **Plantilla Lesson:** cada sección se llama "ThisPage", igual que el bloque "En esta página". Decisión: pendiente (nombres por función, capítulo 2).
+- **Página de la guía:** el patrón se llama "Lesson" y tiene contenido de curso (G10). Decisión: aceptar; el equivalente de ds4agents se documenta en sus patrones (fase 4).
+- **Lista de comprobación:** no hay diseño en Figma. Decisión: aceptar como patrón solo de código, documentado en Markdown (fase 4).
+- **Plantilla Lesson:** cada sección se llama "ThisPage", igual que el bloque "En esta página". Decisión: renombrar por función en la fase 2.
 
 ## Scorecard (2026-10-21, solo el piloto)
 
