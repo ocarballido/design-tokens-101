@@ -37,7 +37,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** publicar TokensDS para que lleguen a los archivos que usan la librería los cambios de D64 (descripciones, anotaciones y `Glyph`).
 - Fuera del piloto, sin hacer: las descripciones de los componentes anidados (`Icon`, `IconButton`, `TableCell`, iconos `li:*`) siguen con el formato anterior y llegan así al agente.
 
-**Fase 3, Tokens (D65): hecha** (2026-10-21). **Siguiente: fase 4.** Abierto: comprobar si `get_design_context` entrega la descripción de una variable y si CodeBlock en Figma usa `color/text/success/default` en "Copiado".
+**Fase 3, Tokens (D65): hecha** (2026-10-21). **Siguiente: fase 4.** Pendientes de la fase 3 comprobados (`docs/inventory.md`): las descripciones de token no llegan por el MCP de Figma, sino por el repositorio.
 
 ## Contenido
 

@@ -91,11 +91,12 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 
 ## Tokens (fase 3, 2026-10-21)
 
-- **Semánticos que usa el piloto** (comprobado con `get_variable_defs`): 25 de color (24 en Figma más `color.text.success.default` en código, en el mensaje "Copiado"), `radius.control`, `radius.container`, `radius.group` (CodeTabs y ThemeToggle, D66) y 8 de Layout (todos menos `font-size.heading.1`).
+- **Semánticos que usa el piloto** (comprobado con `get_variable_defs`): 25 de color, todos usados en Figma (`color.text.success.default`, en la capa "Copiado" de CodeBlock), `radius.control`, `radius.container`, `radius.group` (CodeTabs y ThemeToggle, D66) y 8 de Layout (todos menos `font-size.heading.1`).
 - **Primitivos directos:** `space.*`, `border-width.*`, `font-weight.*` y `font-family.*` (estos dos a través de los estilos de texto), permitidos por S22; `radius.300` en CodeTabs pasó a `radius.group` en Figma y en código (D66).
 - **Obsoletos:** ninguno.
 - **Descripciones:** las 46 reescritas y `radius/group` nuevo (creado como `radius/nested` en D65, renombrado en D66). `npm run check:tokens` comprueba que cada token de Semantic color, Semantic size y Layout tiene `$description` no vacía y sin referencias internas (punto 9).
-- **Pendiente sin comprobar:** si `get_design_context` entrega la descripción de una variable (`get_variable_defs` no la entrega), y si CodeBlock en Figma usa `color.text.success.default` en la capa "Copiado".
+- **CodeBlock, "Copiado"** (comprobado el 2026-10-21 con el servidor MCP remoto de Figma): la capa `50:271` usa `color/text/success/default`. Está oculta por defecto (propiedad `showCopied`), por eso `get_variable_defs` no la devolvía.
+- **Descripciones de token y el agente** (comprobado el 2026-10-21 con el servidor MCP remoto de Figma, en Takeaways, `89:364`): `get_design_context` no entrega la descripción de las variables (`get_variable_defs` tampoco). Da el nombre como `var(--t101-…)` con su valor de reserva, los estilos de texto, las descripciones de componente y las anotaciones. Las descripciones de token llegan al agente por el repositorio (comentarios de `tokens.css` y DTCG), no por el MCP de Figma. Probado en un componente: repetir si cambia el servidor.
 
 ## Scorecard (2026-10-21, solo el piloto, tras la fase 3)
 
