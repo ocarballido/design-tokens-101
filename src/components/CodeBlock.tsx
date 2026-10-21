@@ -103,7 +103,7 @@ export function CodeBlock({ children, language, filename, marks, legend, preview
               role="tablist"
               aria-label={t('tabs')}
               onKeyDown={onTabKeyDown}
-              className="flex gap-050 rounded-300 bg-neutral-strong p-050"
+              className="flex gap-050 rounded-group bg-neutral-strong p-050"
             >
               {TABS.map((value) => {
                 const selected = value === tab;

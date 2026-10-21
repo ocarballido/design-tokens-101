@@ -680,7 +680,7 @@ Campo de texto de una línea.
 |---|---|
 | Contenedor, cabecera, botón copiar, panel Markdown | Iguales que `CodeBlock` (§3.4) |
 | Cabecera | Nombre de archivo a la izquierda y acciones a la derecha (hueco `space/200` entre pestañas, "Copiado" y copiar); si no cabe, baja de línea (V39), con `space/100` entre filas |
-| Carril (`CodeTabs`) | `background/neutral/strong`, radio `radius/300`, relleno y hueco `space/050` (como `ThemeToggle`) |
+| Carril (`CodeTabs`) | `background/neutral/strong`, radio `radius/group` (D66), relleno y hueco `space/050` (como `ThemeToggle`) |
 | Pestaña (`CodeTab`) | `label/default`, radio `radius/control`, relleno `space/150` × `space/300`, borde `border-width/100` |
 | Pestaña actual | Fondo `background/neutral/default`, borde `border/neutral/default`, texto `text/neutral/default` |
 | Pestaña no actual | Sin fondo, texto `text/neutral/subtle`; `hover` `background/neutral/hover`, `active` `background/neutral/active`, con el mismo texto. En código lleva un borde transparente de `border-width/100`: en Figma el borde va por dentro y las dos pestañas miden lo mismo |

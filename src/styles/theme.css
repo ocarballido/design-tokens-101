@@ -76,7 +76,7 @@
   --radius-container: var(--t101-radius-container);
   --radius-control: var(--t101-radius-control);
   --radius-full: var(--t101-radius-full);
-  --radius-nested: var(--t101-radius-nested);
+  --radius-group: var(--t101-radius-group);
   --container-content: var(--t101-size-content-max-width);
   --container-sidebar: var(--t101-size-sidebar-width);
   --spacing-0: var(--t101-space-0);

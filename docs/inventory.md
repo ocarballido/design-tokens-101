@@ -86,15 +86,15 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 **Lo que recibe el agente (`get_design_context`):**
 - La descripción del componente, en una sección "Component descriptions", y el dev resource dentro de ella como "Documentation: [Github](…)". También llegan las descripciones de los componentes anidados (Icon, IconButton, TableCell, iconos `li:*`), que siguen con el formato anterior y referencias internas.
 - Las anotaciones, como atributos `data-interaction-annotations`, `data-accessibility-annotations`, etc. Solo llegan si están en un componente o en una variante: las que estaban en el conjunto de variantes no llegaban, y la de una variante llega ligada a esa combinación de propiedades. Por eso cada anotación está en la variante a la que corresponde (D64).
-- Variables como `var(--t101-…)` con su valor de reserva. Excepciones: el interlineado como número (D01), `radius/300` en CodeTabs y `radius/100` en TableCell (primitivos) y la lista de ejemplo de la vista previa de CodePreview, con el color y el tamaño en crudo aunque en Figma están enlazados (texto con estilos mezclados).
+- Variables como `var(--t101-…)` con su valor de reserva. Excepciones: el interlineado como número (D01), `radius/100` en TableCell (primitivo; `radius/300` de CodeTabs pasó a `radius/group`, D66) y la lista de ejemplo de la vista previa de CodePreview, con el color y el tamaño en crudo aunque en Figma están enlazados (texto con estilos mezclados).
 - La capa del icono dentro de Icon (22:6) llegaba como `li:circle-plus` fuera cual fuera el icono; ahora se llama `Glyph` (D64). El icono real solo se deduce del nombre del archivo SVG.
 
 ## Tokens (fase 3, 2026-10-21)
 
-- **Semánticos que usa el piloto** (comprobado con `get_variable_defs`): 25 de color (24 en Figma más `color.text.success.default` en código, en el mensaje "Copiado"), `radius.control`, `radius.container` y 8 de Layout (todos menos `font-size.heading.1`).
-- **Primitivos directos:** `space.*`, `border-width.*`, `font-weight.*` y `font-family.*` (estos dos a través de los estilos de texto), permitidos por S22; y `radius.300` en CodeTabs, que pasará a `radius.nested` (pendiente: aplicarlo en Figma y en `CodeBlock.tsx`).
+- **Semánticos que usa el piloto** (comprobado con `get_variable_defs`): 25 de color (24 en Figma más `color.text.success.default` en código, en el mensaje "Copiado"), `radius.control`, `radius.container`, `radius.group` (CodeTabs y ThemeToggle, D66) y 8 de Layout (todos menos `font-size.heading.1`).
+- **Primitivos directos:** `space.*`, `border-width.*`, `font-weight.*` y `font-family.*` (estos dos a través de los estilos de texto), permitidos por S22; `radius.300` en CodeTabs pasó a `radius.group` en Figma y en código (D66).
 - **Obsoletos:** ninguno.
-- **Descripciones:** las 46 reescritas y `radius/nested` nuevo. `npm run check:tokens` comprueba que cada token de Semantic color, Semantic size y Layout tiene `$description` no vacía y sin referencias internas (punto 9).
+- **Descripciones:** las 46 reescritas y `radius/group` nuevo (creado como `radius/nested` en D65, renombrado en D66). `npm run check:tokens` comprueba que cada token de Semantic color, Semantic size y Layout tiene `$description` no vacía y sin referencias internas (punto 9).
 - **Pendiente sin comprobar:** si `get_design_context` entrega la descripción de una variable (`get_variable_defs` no la entrega), y si CodeBlock en Figma usa `color.text.success.default` en la capa "Copiado".
 
 ## Scorecard (2026-10-21, solo el piloto, tras la fase 3)
@@ -102,7 +102,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 | Criterio | Puntos (0-3) | Nota |
 |---|---|---|
 | Cobertura | 3 | Los cinco componentes existen en código (CodePreview como `CodeBlock` con `preview`) |
-| Variables | 3 | Ningún valor sin variable en los ocho componentes (API de plugins, 2026-10-21); el relleno blanco de las filas de CodePreview, quitado. Excepciones aceptadas: interlineado (D01) y `radius/300` en CodeTabs (primitivo) |
+| Variables | 3 | Ningún valor sin variable en los ocho componentes (API de plugins, 2026-10-21); el relleno blanco de las filas de CodePreview, quitado. Excepciones aceptadas: interlineado (D01); `radius/300` de CodeTabs, sustituido por `radius/group` (D66) |
 | Nombres | 2 | Capas por función en el piloto y en la plantilla (sin `Frame`, `Group` ni `Text`). Propiedades como en código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview, que se traducen en Code Connect (fase 5) |
 | Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; `anti-patterns.md` en las guidelines. Falta el enlace de documentación y el doc Markdown (fase 4) |
 | Tokens | 3 | Descripciones con plantilla (para qué sirve y restricción, sin referencias internas) en los 47 semánticos, vigiladas por `check:tokens`; regla de capas en `docs/rules/rules-tokens.md` |

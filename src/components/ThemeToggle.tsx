@@ -65,7 +65,7 @@ export function ThemeToggle() {
   useLayoutEffect(applyStoredTheme, []);
 
   return (
-    <div role="group" aria-label={t('label')} className="flex gap-100 rounded-300 bg-neutral-strong p-100">
+    <div role="group" aria-label={t('label')} className="flex gap-100 rounded-group bg-neutral-strong p-100">
       {OPTIONS.map(({ value, icon: Icon }) => {
         const isCurrent = value === current;
         return (

@@ -40,17 +40,17 @@
         }
       }
     },
-    "nested": {
+    "group": {
       "$type": "dimension",
       "$value": "{radius.300}",
-      "$description": "Esquinas de un elemento dentro de un contenedor con radius/container, como las pestañas de CodePreview. Solo dentro de un contenedor.",
+      "$description": "Esquinas del carril que agrupa varios controles, como CodeTabs y ThemeToggle. No para un control suelto: usa radius/control.",
       "$extensions": {
         "com.figma.variableId": "VariableID:316:183",
         "com.figma.scopes": [
           "CORNER_RADIUS"
         ],
         "com.figma.codeSyntax": {
-          "WEB": "var(--t101-radius-nested)"
+          "WEB": "var(--t101-radius-group)"
         },
         "com.figma.aliasData": {
           "targetVariableId": "VariableID:efa35daf87672437546a0facfbb159b0752e4b42/-1:-1",

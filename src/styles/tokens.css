@@ -176,7 +176,7 @@
   --t101-radius-container: var(--t101-radius-400);
   --t101-radius-control: var(--t101-radius-200);
   --t101-radius-full: 624.9375rem;
-  --t101-radius-nested: var(--t101-radius-300);
+  --t101-radius-group: var(--t101-radius-300);
   /* Ancho máximo de la columna de contenido de una página, con su relleno lateral incluido. Solo para la columna principal. */
   --t101-size-content-max-width: 60rem;
   /* Ancho del sidebar en escritorio y del panel de navegación móvil. Solo para esos dos elementos. */
