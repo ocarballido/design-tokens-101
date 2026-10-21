@@ -31,7 +31,7 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 
 **Estado:** documentos del proyecto en `proyecto/`; `docs/` libre para la documentación del sistema (2026-10-21).
 
-**Siguiente fase:** auditoría del piloto.
+**Fase 1, auditoría del piloto (G25): borrador** en `docs/inventory.md` (inventario, diferencias y scorecard, media 1,50; 2026-10-21). TokensDS comprobado en solo lectura: no hay marco de lista de comprobación en Templates; los seis componentes no tienen anotaciones ni enlaces de documentación; dev resources sin verificar (el MCP no los lee). **Oscar decide** las diferencias marcadas "pendiente" en el inventario (lista en `docs/estado.md` de ds4agents).
 
 ## Contenido
 
