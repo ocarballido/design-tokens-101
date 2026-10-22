@@ -76,7 +76,7 @@ Además acepta los atributos de `<input>` (`name`, `value`, `onChange`, `onBlur`
 - Dentro de un formulario con su botón de envío (`Button`).
 - Dos campos en una fila, dentro de una rejilla, con `subgrid` en los dos.
 - `children` solo para información sobre el valor del campo, como el hex resultante.
-- Con varios errores en el formulario, encima del botón va `ErrorSummary`, que enlaza a cada campo.
+- Si al pulsar la acción del formulario hay uno o más errores, `ErrorSummary` aparece encima del botón, con un enlace a cada campo.
 
 ## Reglas
 

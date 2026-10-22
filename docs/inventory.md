@@ -102,18 +102,21 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 
 - **Reglas:** `docs/rules/anti-patterns.md` y `docs/rules/rules-tokens.md`.
 - **Componentes:** `docs/components/` con `button.md`, `text-field.md`, `callout.md`, `takeaways.md` y `code-block.md` (CodePreview dentro, como variante `beta`), con la plantilla de la guía y la profundidad de su nivel (2026-10-22).
+- **Patrones:** `docs/patterns/lesson-page.md` (página de lección, marcos "Lesson") y `docs/patterns/checklist.md` (lista de comprobación, solo código), con receta de componentes, props y tokens (2026-10-22).
+- **Contenido:** `docs/content/voice-and-tone.md`, sacado de las convenciones escritas del repositorio; lo que no está escrito (texto de botones, estados vacíos, confirmaciones) queda fuera (2026-10-22).
+- **Repaso para agentes** (paso 7, 2026-10-22): sin "intenta", "mejor" ni "si es posible" en `docs/`; "según haga falta" y "con varios errores" pasan a condiciones comprobables.
 - **Fundamentos: `color.md`** (`docs/foundations/color.md`): principios, los 33 semánticos de color (fondo, texto y borde) con uso y restricción sacados de su `$description`, y reglas para agentes.
 
-## Scorecard (2026-10-21, solo el piloto, tras la fase 3)
+## Scorecard (2026-10-22, solo el piloto; Documentación puntuada de nuevo tras la fase 4)
 
 | Criterio | Puntos (0-3) | Nota |
 |---|---|---|
 | Cobertura | 3 | Los cinco componentes existen en código (CodePreview como `CodeBlock` con `preview`) |
 | Variables | 3 | Ningún valor sin variable en los ocho componentes (API de plugins, 2026-10-21); el relleno blanco de las filas de CodePreview, quitado. Excepciones aceptadas: interlineado (D01); `radius/300` de CodeTabs, sustituido por `radius/group` (D66) |
 | Nombres | 2 | Capas por función en el piloto y en la plantilla (sin `Frame`, `Group` ni `Text`). Propiedades como en código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview, que se traducen en Code Connect (fase 5) |
-| Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; `anti-patterns.md` en las guidelines. Falta el enlace de documentación y el doc Markdown (fase 4) |
+| Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; `anti-patterns.md` en las guidelines. Falta el enlace de documentación en Figma, que ya puede apuntar a `docs/components/` |
 | Tokens | 3 | Descripciones con plantilla (para qué sirve y restricción, sin referencias internas) en los 47 semánticos, vigiladas por `check:tokens`; regla de capas en `docs/rules/rules-tokens.md` |
-| Documentación | 1 | Anatomía completa en `proyecto/componentes-v1.md`; nada en `docs/` con el formato de la guía |
+| Documentación | 3 | Reglas de uso en Markdown en todos los componentes estables del piloto (y en CodePreview, `beta`), con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). Sin script de validación en la integración continua (paso 9) |
 | Vínculo con el código | 0 | Sin Code Connect |
 | Gobernanza | 1 | Responsable y protocolo de decisiones; sin changelog del sistema ni proceso de contribución |
-| **Media** | **2,00** | 16 / 8. Antes de la fase 3: 1,88; antes de la fase 2: 1,50 |
+| **Media** | **2,25** | 18 / 8. Antes de la fase 4: 2,00; antes de la fase 3: 1,88; antes de la fase 2: 1,50 |
