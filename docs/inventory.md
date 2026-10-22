@@ -15,14 +15,14 @@ Nivel, categoría y estado decididos por Oscar el 2026-10-21 (categorías por G2
 
 | Componente | Nivel | Categoría | Estado | Figma | Código | Code Connect | Doc |
 |---|---|---|---|---|---|---|---|
-| Button | átomo | actions | stable | Sí (24:728) | Sí (`Button.tsx`) | No | No |
-| TextField | molécula | forms | stable | Sí (155:923) | Sí (`TextField.tsx`) | No | No |
-| Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | No | No |
-| Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | No | No |
-| CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | No |
-| CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | No |
+| Button | átomo | actions | stable | Sí (24:728) | Sí (`Button.tsx`) | No | Sí |
+| TextField | molécula | forms | stable | Sí (155:923) | Sí (`TextField.tsx`) | No | Sí |
+| Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | No | Sí |
+| Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | No | Sí |
+| CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | Sí |
+| CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | Sí |
 
-"Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` tiene `inventory.md`, `rules/` (`rules-tokens.md` y `anti-patterns.md`) y `foundations/color.md`; los documentos de componente llegan en el paso 3 de la fase 4. Hasta entonces, la anatomía de cada componente está en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
+"Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` tiene `inventory.md`, `rules/` (`rules-tokens.md` y `anti-patterns.md`), `foundations/color.md` y `components/` (un documento por componente del piloto; CodePreview va en `code-block.md`). La anatomía completa sigue en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
 
 CodePreview va como `beta` porque tiene tres puntos abiertos (V60: contraste de la pestaña `active` en Dark, `hover` en el carril, código en línea de la vista previa).
 
@@ -101,6 +101,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 ## Documentación (fase 4, 2026-10-22)
 
 - **Reglas:** `docs/rules/anti-patterns.md` y `docs/rules/rules-tokens.md`.
+- **Componentes:** `docs/components/` con `button.md`, `text-field.md`, `callout.md`, `takeaways.md` y `code-block.md` (CodePreview dentro, como variante `beta`), con la plantilla de la guía y la profundidad de su nivel (2026-10-22).
 - **Fundamentos: `color.md`** (`docs/foundations/color.md`): principios, los 33 semánticos de color (fondo, texto y borde) con uso y restricción sacados de su `$description`, y reglas para agentes.
 
 ## Scorecard (2026-10-21, solo el piloto, tras la fase 3)
