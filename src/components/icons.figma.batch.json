@@ -4,156 +4,182 @@
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2055",
       "name": "ArrowDown",
+      "component": "ArrowDown",
       "id": "icon-arrow-down",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2060",
       "name": "ArrowRight",
+      "component": "ArrowRight",
       "id": "icon-arrow-right",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2070",
       "name": "Check",
+      "component": "Check",
       "id": "icon-check",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2035",
       "name": "ChevronDown",
+      "component": "ChevronDown",
       "id": "icon-chevron-down",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2040",
       "name": "ChevronLeft",
+      "component": "ChevronLeft",
       "id": "icon-chevron-left",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1995",
       "name": "ChevronRight",
+      "component": "ChevronRight",
       "id": "icon-chevron-right",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2030",
       "name": "ChevronUp",
+      "component": "ChevronUp",
       "id": "icon-chevron-up",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=153-880",
       "name": "CircleAlert",
+      "component": "CircleAlert",
       "id": "icon-circle-alert",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1975",
       "name": "CirclePlus",
+      "component": "CirclePlus",
       "id": "icon-circle-plus",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2020",
       "name": "ClockAlert",
+      "component": "ClockAlert",
       "id": "icon-clock-alert",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2025",
       "name": "Code",
+      "component": "Code",
       "id": "icon-code",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2045",
       "name": "Copy",
+      "component": "Copy",
       "id": "icon-copy",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=153-866",
       "name": "Download",
+      "component": "Download",
       "id": "icon-download",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2000",
       "name": "ExternalLink",
+      "component": "ExternalLink",
       "id": "icon-external-link",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=153-859",
       "name": "FolderOpen",
+      "component": "FolderOpen",
       "id": "icon-folder-open",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2065",
       "name": "GraduationCap",
+      "component": "GraduationCap",
       "id": "icon-graduation-cap",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2005",
       "name": "Info",
+      "component": "Info",
       "id": "icon-info",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1990",
       "name": "LaptopMinimal",
+      "component": "LaptopMinimal",
       "id": "icon-laptop-minimal",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=153-873",
       "name": "Link",
+      "component": "Link",
       "id": "icon-link",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2050",
       "name": "Menu",
+      "component": "Menu",
       "id": "icon-menu",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1985",
       "name": "Moon",
+      "component": "Moon",
       "id": "icon-moon",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1980",
       "name": "SunDim",
+      "component": "SunDim",
       "id": "icon-sun-dim",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2015",
       "name": "ThumbsUp",
+      "component": "ThumbsUp",
       "id": "icon-thumbs-up",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-2010",
       "name": "TriangleAlert",
+      "component": "TriangleAlert",
       "id": "icon-triangle-alert",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=153-852",
       "name": "Upload",
+      "component": "Upload",
       "id": "icon-upload",
       "source": "lucide-react"
     },
     {
       "url": "https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=108-1968",
       "name": "X",
+      "component": "X",
       "id": "icon-x",
       "source": "lucide-react"
     }
