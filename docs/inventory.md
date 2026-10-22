@@ -1,6 +1,6 @@
 ---
 title: Inventario del sistema de diseño (piloto G25)
-updated: 2026-10-21
+updated: 2026-10-22
 owner: Oscar Carballido
 scope: Piloto G25. Button, TextField, Callout, Takeaways, CodeBlock (con CodePreview); patrones "página de la guía" y "lista de comprobación"
 figma: TokensDS (yAIMfySdLHo6hyNg8E1F6O), página Components (0:1) y Templates (35:842)
@@ -97,6 +97,11 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 - **Descripciones:** las 46 reescritas y `radius/group` nuevo (creado como `radius/nested` en D65, renombrado en D66). `npm run check:tokens` comprueba que cada token de Semantic color, Semantic size y Layout tiene `$description` no vacía y sin referencias internas (punto 9).
 - **CodeBlock, "Copiado"** (comprobado el 2026-10-21 con el servidor MCP remoto de Figma): la capa `50:271` usa `color/text/success/default`. Está oculta por defecto (propiedad `showCopied`), por eso `get_variable_defs` no la devolvía.
 - **Descripciones de token y el agente** (comprobado el 2026-10-21 con el servidor MCP remoto de Figma, en Takeaways, `89:364`): `get_design_context` no entrega la descripción de las variables (`get_variable_defs` tampoco). Da el nombre como `var(--t101-…)` con su valor de reserva, los estilos de texto, las descripciones de componente y las anotaciones. Las descripciones de token llegan al agente por el repositorio (comentarios de `tokens.css` y DTCG), no por el MCP de Figma. Probado en un componente: repetir si cambia el servidor.
+
+## Documentación (fase 4, 2026-10-22)
+
+- **Reglas:** `docs/rules/anti-patterns.md` y `docs/rules/rules-tokens.md`.
+- **Fundamentos: `color.md`** (`docs/foundations/color.md`): principios, los 33 semánticos de color (fondo, texto y borde) con uso y restricción sacados de su `$description`, y reglas para agentes.
 
 ## Scorecard (2026-10-21, solo el piloto, tras la fase 3)
 
