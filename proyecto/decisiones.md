@@ -241,6 +241,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D67 | Fase 4 de la guía de ds4agents terminada: `docs/` con fundamento de color, cinco componentes del piloto, dos patrones, voz y tono y reglas; guidelines de Figma generadas desde `docs/`; `validate-docs` en CI; línea "Docs:" y enlace de documentación en TokensDS. | Cerrada | 2026-10-22 |
 | D68 | Code Connect del piloto con archivos de plantilla `.figma.ts` (CLI), uno por componente de Figma y junto a su componente en `src/components`, para los seis del piloto; no con Code Connect UI, que no traduce propiedades. | Cerrada | 2026-10-22 |
 | D69 | Las conexiones con plantilla (D68) no llevan instrucciones para el MCP; las reglas llegan al agente por la descripción del componente en Figma (con la línea "Docs:") y por `docs/`. | Cerrada | 2026-10-22 |
+| D70 | Los 26 iconos `li:*` de TokensDS se conectan con Code Connect con un archivo batch, cada uno a su componente de lucide-react; Button lee el icono anidado con `executeTemplate` y no con `name`, que no está documentado. Amplía D68 fuera del piloto. | Cerrada | 2026-10-22 |
 
 ## Desarrollo
 
