@@ -13,7 +13,9 @@
     "check:content": "node tools/check-content.mjs",
     "tokens": "node tools/figma-to-dtcg.mjs && tz build",
     "check:tokens": "node tools/check-tokens.mjs",
-    "test": "node --test \"tests/*.test.mjs\""
+    "test": "node --test \"tests/*.test.mjs\"",
+    "docs:check": "node tools/validate-docs.mjs",
+    "docs:figma": "node tools/build-figma-guidelines.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
