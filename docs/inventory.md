@@ -66,22 +66,23 @@ Ninguno en el alcance.
 - **Lista de comprobación:** no hay diseño en Figma. Decisión: aceptar como patrón solo de código, documentado en Markdown (fase 4).
 - **Plantilla Lesson:** cada sección se llamaba "ThisPage", igual que el bloque "En esta página". Resuelto en la fase 2: `OnThisPage` y ocho `Section` en cada uno de los seis marcos (2026-10-21).
 
-## Ready for AI (fase 2, 2026-10-21)
+## Ready for AI (fase 2, 2026-10-21; Docs y guidelines, fase 4, 2026-10-22)
 
-Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_context` sobre cada conjunto o componente) y con la API de plugins (lectura).
+Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_context` sobre cada conjunto o componente) y con la API de plugins (lectura). La columna Docs y las guidelines, puestas por Oscar en TokensDS el 2026-10-22 (D67).
 
-| Componente | Variables | Capas por función | Descripción | Anotaciones | Dev resources | Guidelines | Code Connect |
-|---|---|---|---|---|---|---|---|
-| Button | Sí | Sí | Sí | 1 (Development) | Código | Sí | No (fase 5) |
-| TextField | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | Sí | No (fase 5) |
-| Callout | Sí | Sí | Sí | 1 (Accessibility) | Código | Sí | No (fase 5) |
-| Takeaways | Sí | Sí | Sí | 1 (Accessibility) | Código | Sí | No (fase 5) |
-| CodeBlock | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | No aplica | No (fase 5) |
-| CodePreview (con CodeTab y CodeTabs) | Sí | Sí | Sí | 3 (Interaction, Development, Accessibility) | Código (`CodeBlock.tsx`) | No aplica | No (fase 5) |
+| Componente | Variables | Capas por función | Descripción | Anotaciones | Dev resources | Docs | Guidelines | Code Connect |
+|---|---|---|---|---|---|---|---|---|
+| Button | Sí | Sí | Sí | 1 (Development) | Código | `button.md` | Sí | No (fase 5) |
+| TextField | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `text-field.md` | Sí | No (fase 5) |
+| Callout | Sí | Sí | Sí | 1 (Accessibility) | Código | `callout.md` | Sí | No (fase 5) |
+| Takeaways | Sí | Sí | Sí | 1 (Accessibility) | Código | `takeaways.md` | Sí | No (fase 5) |
+| CodeBlock | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `code-block.md` | Sí | No (fase 5) |
+| CodePreview (con CodeTab y CodeTabs) | Sí | Sí | Sí | 3 (Interaction, Development, Accessibility) | Código (`CodeBlock.tsx`) | `code-block.md` | Sí | No (fase 5) |
 
-- **Descripción:** plantilla de la guía (propósito, usar, no usar, tokens), sin la línea "Docs:" hasta la fase 4 y con una línea "Solo Figma:" (G28 de ds4agents). Sin `&quot;`.
-- **Dev resources:** solo el archivo de código en GitHub; el documento Markdown llega en la fase 4 y no hay Storybook (G25). El enlace de documentación del componente está vacío.
-- **Guidelines:** `docs/rules/anti-patterns.md` (V61), subido a TokensDS por Oscar el 2026-10-21. "No aplica": ningún escenario trata ese componente.
+- **Descripción:** plantilla de la guía (propósito, usar, no usar, tokens), con una línea "Solo Figma:" (G28 de ds4agents) y, al final, una línea "Docs:" con su documento de `docs/components/` (2026-10-22). Sin `&quot;`. Revisadas frente a los documentos por Oscar: no se contradicen.
+- **Dev resources:** el archivo de código en GitHub; no hay Storybook (G25).
+- **Docs:** el enlace de documentación del componente apunta a su documento de `docs/components/`; CodePreview, a `code-block.md` (2026-10-22).
+- **Guidelines:** `overview.md`, `components.md`, `patterns.md` y `rules.md`, generadas con `npm run docs:figma` y subidas a TokensDS por Oscar el 2026-10-22; el `anti-patterns.md` suelto (V61), borrado, porque va dentro de `rules.md`. Los seis componentes están en `components.md`.
 
 **Lo que recibe el agente (`get_design_context`):**
 - La descripción del componente, en una sección "Component descriptions", y el dev resource dentro de ella como "Documentation: [Github](…)". También llegan las descripciones de los componentes anidados (Icon, IconButton, TableCell, iconos `li:*`), que siguen con el formato anterior y referencias internas.
@@ -114,7 +115,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 | Cobertura | 3 | Los cinco componentes existen en código (CodePreview como `CodeBlock` con `preview`) |
 | Variables | 3 | Ningún valor sin variable en los ocho componentes (API de plugins, 2026-10-21); el relleno blanco de las filas de CodePreview, quitado. Excepciones aceptadas: interlineado (D01); `radius/300` de CodeTabs, sustituido por `radius/group` (D66) |
 | Nombres | 2 | Capas por función en el piloto y en la plantilla (sin `Frame`, `Group` ni `Text`). Propiedades como en código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview, que se traducen en Code Connect (fase 5) |
-| Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; `anti-patterns.md` en las guidelines. Falta el enlace de documentación en Figma, que ya puede apuntar a `docs/components/` |
+| Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; línea "Docs:" y enlace de documentación a `docs/components/`; guidelines generadas desde `docs/` |
 | Tokens | 3 | Descripciones con plantilla (para qué sirve y restricción, sin referencias internas) en los 47 semánticos, vigiladas por `check:tokens`; regla de capas en `docs/rules/rules-tokens.md` |
 | Documentación | 3 | Reglas de uso en Markdown en todos los componentes estables del piloto (y en CodePreview, `beta`), con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). Sin script de validación en la integración continua (paso 9) |
 | Vínculo con el código | 0 | Sin Code Connect |

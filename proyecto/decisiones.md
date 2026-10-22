@@ -238,6 +238,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D64 | Fase 2 de la guía de ds4agents en TokensDS (G28): piloto en los marcos de su nivel, descripciones con la plantilla de la guía, anotaciones en la variante (no en el conjunto), dev resources al archivo de código y capa del icono de `Icon` renombrada a `Glyph`. | Cerrada | 2026-10-21 |
 | D65 | Fase 3 de la guía de ds4agents (G29): descripciones de token con dos partes (para qué sirve y su restricción) y sin referencias internas, en `sistema-tokens-v1.md`; regla de capas por categoría según S22 en `docs/rules/rules-tokens.md`; `radius/nested` nuevo para elementos dentro de un contenedor; sistema 1.2.0 (token renombrado en D66). | Cerrada | 2026-10-21 |
 | D66 | `radius/nested` pasa a `radius/group` (mismo ID, alias de `radius/300`): el radio del carril que agrupa varios controles, en CodeTabs y ThemeToggle (corrige D65); el sistema sigue en 1.2.0, con su fila corregida (excepción a S36). | Cerrada | 2026-10-21 |
+| D67 | Fase 4 de la guía de ds4agents terminada: `docs/` con fundamento de color, cinco componentes del piloto, dos patrones, voz y tono y reglas; guidelines de Figma generadas desde `docs/`; `validate-docs` en CI; línea "Docs:" y enlace de documentación en TokensDS. | Cerrada | 2026-10-22 |
 
 ## Desarrollo
 
