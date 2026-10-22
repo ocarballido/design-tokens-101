@@ -22,7 +22,7 @@ Nivel, categoría y estado decididos por Oscar el 2026-10-21 (categorías por G2
 | CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | No |
 | CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | No |
 
-"Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` solo tiene `.gitkeep`; la anatomía de cada componente está en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
+"Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` tiene `inventory.md`, `rules/` (`rules-tokens.md` y `anti-patterns.md`) y `foundations/color.md`; los documentos de componente llegan en el paso 3 de la fase 4. Hasta entonces, la anatomía de cada componente está en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
 
 CodePreview va como `beta` porque tiene tres puntos abiertos (V60: contraste de la pestaña `active` en Dark, `hover` en el carril, código en línea de la vista previa).
 
