@@ -81,7 +81,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 
 - **Descripción:** plantilla de la guía (propósito, usar, no usar, tokens), sin la línea "Docs:" hasta la fase 4 y con una línea "Solo Figma:" (G28 de ds4agents). Sin `&quot;`.
 - **Dev resources:** solo el archivo de código en GitHub; el documento Markdown llega en la fase 4 y no hay Storybook (G25). El enlace de documentación del componente está vacío.
-- **Guidelines:** `docs/anti-patterns.md` (V61), subido a TokensDS por Oscar el 2026-10-21. "No aplica": ningún escenario trata ese componente.
+- **Guidelines:** `docs/rules/anti-patterns.md` (V61), subido a TokensDS por Oscar el 2026-10-21. "No aplica": ningún escenario trata ese componente.
 
 **Lo que recibe el agente (`get_design_context`):**
 - La descripción del componente, en una sección "Component descriptions", y el dev resource dentro de ella como "Documentation: [Github](…)". También llegan las descripciones de los componentes anidados (Icon, IconButton, TableCell, iconos `li:*`), que siguen con el formato anterior y referencias internas.
