@@ -17,7 +17,7 @@ Nivel, categoría y estado decididos por Oscar el 2026-10-21 (categorías por G2
 |---|---|---|---|---|---|---|---|
 | Button | átomo | actions | stable | Sí (24:728) | Sí (`Button.tsx`) | No | Sí |
 | TextField | molécula | forms | stable | Sí (155:923) | Sí (`TextField.tsx`) | No | Sí |
-| Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | No | Sí |
+| Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
 | Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | No | Sí |
 | CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | Sí |
 | CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | Sí |
@@ -74,7 +74,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 |---|---|---|---|---|---|---|---|---|
 | Button | Sí | Sí | Sí | 1 (Development) | Código | `button.md` | Sí | No (fase 5) |
 | TextField | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `text-field.md` | Sí | No (fase 5) |
-| Callout | Sí | Sí | Sí | 1 (Accessibility) | Código | `callout.md` | Sí | No (fase 5) |
+| Callout | Sí | Sí | Sí | 1 (Accessibility) | Código | `callout.md` | Sí | Sí (plantilla, 2026-10-22) |
 | Takeaways | Sí | Sí | Sí | 1 (Accessibility) | Código | `takeaways.md` | Sí | No (fase 5) |
 | CodeBlock | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `code-block.md` | Sí | No (fase 5) |
 | CodePreview (con CodeTab y CodeTabs) | Sí | Sí | Sí | 3 (Interaction, Development, Accessibility) | Código (`CodeBlock.tsx`) | `code-block.md` | Sí | No (fase 5) |

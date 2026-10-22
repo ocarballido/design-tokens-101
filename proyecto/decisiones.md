@@ -240,6 +240,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D66 | `radius/nested` pasa a `radius/group` (mismo ID, alias de `radius/300`): el radio del carril que agrupa varios controles, en CodeTabs y ThemeToggle (corrige D65); el sistema sigue en 1.2.0, con su fila corregida (excepción a S36). | Cerrada | 2026-10-21 |
 | D67 | Fase 4 de la guía de ds4agents terminada: `docs/` con fundamento de color, cinco componentes del piloto, dos patrones, voz y tono y reglas; guidelines de Figma generadas desde `docs/`; `validate-docs` en CI; línea "Docs:" y enlace de documentación en TokensDS. | Cerrada | 2026-10-22 |
 | D68 | Code Connect del piloto con archivos de plantilla `.figma.ts` (CLI), uno por componente de Figma y junto a su componente en `src/components`, para los seis del piloto; no con Code Connect UI, que no traduce propiedades. | Cerrada | 2026-10-22 |
+| D69 | Las conexiones con plantilla (D68) no llevan instrucciones para el MCP; las reglas llegan al agente por la descripción del componente en Figma (con la línea "Docs:") y por `docs/`. | Cerrada | 2026-10-22 |
 
 ## Desarrollo
 
