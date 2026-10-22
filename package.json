@@ -37,6 +37,7 @@
     "yaml": "^2.9.1"
   },
   "devDependencies": {
+    "@figma/code-connect": "^2.0.2",
     "@tailwindcss/postcss": "^4.3.3",
     "@terrazzo/cli": "2.7.1",
     "@terrazzo/plugin-css": "2.7.1",
