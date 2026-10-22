@@ -15,12 +15,12 @@ Nivel, categoría y estado decididos por Oscar el 2026-10-21 (categorías por G2
 
 | Componente | Nivel | Categoría | Estado | Figma | Código | Code Connect | Doc |
 |---|---|---|---|---|---|---|---|
-| Button | átomo | actions | stable | Sí (24:728) | Sí (`Button.tsx`) | No | Sí |
-| TextField | molécula | forms | stable | Sí (155:923) | Sí (`TextField.tsx`) | No | Sí |
+| Button | átomo | actions | stable | Sí (24:728) | Sí (`Button.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
+| TextField | molécula | forms | stable | Sí (155:923) | Sí (`TextField.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
 | Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
-| Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | No | Sí |
-| CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | No | Sí |
-| CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | No | Sí |
+| Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
+| CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
+| CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | Sí (plantilla, 2026-10-22) | Sí |
 
 "Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` tiene `inventory.md`, `rules/` (`rules-tokens.md` y `anti-patterns.md`), `foundations/color.md` y `components/` (un documento por componente del piloto; CodePreview va en `code-block.md`). La anatomía completa sigue en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
 
@@ -54,13 +54,13 @@ Ninguno en el alcance.
 
 ## Diferencias
 
-- **Button:** `showIcon` (booleano) en Figma, `icon` (componente de Lucide) en código. Decisión: aceptar y traducir en Code Connect.
+- **Button:** `showIcon` (variante "true" | "false", no booleano) en Figma, `icon` (componente de Lucide) en código. Decisión: aceptar y traducir en Code Connect. Resuelto en la fase 5 (D70): la plantilla lee el icono anidado con `executeTemplate`.
 - **Button:** estaba en el marco "Molecules" de Figma, pero es átomo. Resuelto en la fase 2: está en "Atoms" (2026-10-21).
-- **TextField:** el error es `invalid` (booleano) en Figma y `error` (texto) en código. Decisión: aceptar y traducir en Code Connect (fase 5).
+- **TextField:** el error es `invalid` (variante) y el texto `error` en Figma, y `error` (texto) en código. Decisión: aceptar y traducir en Code Connect. Resuelto en la fase 5 (D68): `error="…"` solo con `invalid` en "true".
 - **TextField:** estaba en el marco "Tools" de Figma. Resuelto en la fase 2: está en "Molecules" (2026-10-21), con Takeaways; CodePreview, CodeTab y CodeTabs están en "Organisms".
 - **TextField:** `inputMode`, `subgrid` y `children` solo existen en código. Decisión: aceptar (no son visuales).
 - **Takeaways:** el icono es `li:graduation-cap` en Figma y en designtokens101; ds4agents usa `BookOpenText` (G15) y ese icono no está en el marco Icons de Figma. Un agente que lea Figma para ds4agents pondrá el birrete. Decisión: la excepción G15 se documenta en la capa de agente de ds4agents (fase 6); la librería no cambia.
-- **CodeBlock / CodePreview:** en Figma son dos componentes (más AnnotatedCode, CodeTabs y CodeTab); en código son un solo `CodeBlock` que cambia con `preview`, `marks` y `legend`. El atributo `data-component` sí dice `CodePreview` o `AnnotatedCode`. Decisión: aceptar y mapear los tres al mismo `CodeBlock` en Code Connect (fase 5; comprobar entonces en la documentación de Code Connect que se admite).
+- **CodeBlock / CodePreview:** en Figma son dos componentes (más AnnotatedCode, CodeTabs y CodeTab); en código son un solo `CodeBlock` que cambia con `preview`, `marks` y `legend`. El atributo `data-component` sí dice `CodePreview` o `AnnotatedCode`. Decisión: aceptar y mapear los tres al mismo `CodeBlock` en Code Connect (fase 5; comprobar entonces en la documentación de Code Connect que se admite). Resuelto en la fase 5 (D68, D71): una plantilla por componente de Figma, con la sintaxis del MDX; CodeTabs y CodeTab no se conectan.
 - **CodeBlock:** `language` solo existe en código (no se ve). Decisión: aceptar.
 - **Página de la guía:** el patrón se llama "Lesson" y tiene contenido de curso (G10). Decisión: aceptar; el equivalente de ds4agents se documenta en sus patrones (fase 4).
 - **Lista de comprobación:** no hay diseño en Figma. Decisión: aceptar como patrón solo de código, documentado en Markdown (fase 4).
@@ -72,12 +72,12 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 
 | Componente | Variables | Capas por función | Descripción | Anotaciones | Dev resources | Docs | Guidelines | Code Connect |
 |---|---|---|---|---|---|---|---|---|
-| Button | Sí | Sí | Sí | 1 (Development) | Código | `button.md` | Sí | No (fase 5) |
-| TextField | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `text-field.md` | Sí | No (fase 5) |
+| Button | Sí | Sí | Sí | 1 (Development) | Código | `button.md` | Sí | Sí (plantilla, 2026-10-22) |
+| TextField | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `text-field.md` | Sí | Sí (plantilla, 2026-10-22) |
 | Callout | Sí | Sí | Sí | 1 (Accessibility) | Código | `callout.md` | Sí | Sí (plantilla, 2026-10-22) |
-| Takeaways | Sí | Sí | Sí | 1 (Accessibility) | Código | `takeaways.md` | Sí | No (fase 5) |
-| CodeBlock | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `code-block.md` | Sí | No (fase 5) |
-| CodePreview (con CodeTab y CodeTabs) | Sí | Sí | Sí | 3 (Interaction, Development, Accessibility) | Código (`CodeBlock.tsx`) | `code-block.md` | Sí | No (fase 5) |
+| Takeaways | Sí | Sí | Sí | 1 (Accessibility) | Código | `takeaways.md` | Sí | Sí (plantilla, 2026-10-22) |
+| CodeBlock | Sí | Sí | Sí | 2 (Interaction, Accessibility) | Código | `code-block.md` | Sí | Sí (plantilla, 2026-10-22) |
+| CodePreview (con CodeTab y CodeTabs) | Sí | Sí | Sí | 3 (Interaction, Development, Accessibility) | Código (`CodeBlock.tsx`) | `code-block.md` | Sí | Sí (plantilla, 2026-10-22) |
 
 - **Descripción:** plantilla de la guía (propósito, usar, no usar, tokens), con una línea "Solo Figma:" (G28 de ds4agents) y, al final, una línea "Docs:" con su documento de `docs/components/` (2026-10-22). Sin `&quot;`. Revisadas frente a los documentos por Oscar: no se contradicen.
 - **Dev resources:** el archivo de código en GitHub; no hay Storybook (G25).
@@ -108,7 +108,17 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 - **Repaso para agentes** (paso 7, 2026-10-22): sin "intenta", "mejor" ni "si es posible" en `docs/`; "según haga falta" y "con varios errores" pasan a condiciones comprobables.
 - **Fundamentos: `color.md`** (`docs/foundations/color.md`): principios, los 33 semánticos de color (fondo, texto y borde) con uso y restricción sacados de su `$description`, y reglas para agentes.
 
-## Scorecard (2026-10-22, solo el piloto; Documentación puntuada de nuevo tras la fase 4)
+## Code Connect (fase 5, 2026-10-22)
+
+- **Plantillas `.figma.ts` (CLI, D68):** Button, TextField, Callout, Takeaways, CodeBlock y CodePreview, junto a su componente en `src/components`; también AnnotatedCode (D71). Code Connect UI no traduce propiedades.
+- **Iconos (D70):** los 26 `li:*` con un archivo batch (`icons.figma.batch.ts` y `.json`), cada uno a su componente de lucide-react. Button lee el icono anidado con `executeTemplate` (`metadata.props.name`).
+- **Reglas (D69):** las conexiones no llevan instrucciones para el MCP (función de Code Connect UI). Las reglas llegan por la descripción del componente con la línea "Docs:" y por `docs/`.
+- **Sintaxis (D71):** la familia CodeBlock y Takeaways con la sintaxis del MDX (bloque de código con metadatos, `preview`, `<AnnotatedCode>`); lenguaje jsx para todo el proyecto (no se puede cambiar por plantilla).
+- **Fuera:** `state`, `showCopied`, `size` y `tab`, solo de Figma; CodeTabs y CodeTab, partes de Figma sin componente de código.
+- **Comprobado** con el servidor MCP remoto de Figma (`get_code_connect_map`, 2026-10-22): cada variante de los seis, AnnotatedCode, Info (108:2005) y el marco Lesson · Desktop · Light (35:843), con 3 Callout y 1 Takeaways correctos.
+- **Pendiente:** el mapa de ese marco devuelve también iconos sueltos (`<ChevronDown />`, `<Moon />`…) dentro de componentes no conectados (sidebar, selector de tema).
+
+## Scorecard (2026-10-22, solo el piloto; Vínculo con el código puntuado de nuevo tras la fase 5)
 
 | Criterio | Puntos (0-3) | Nota |
 |---|---|---|
@@ -117,7 +127,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 | Nombres | 2 | Capas por función en el piloto y en la plantilla (sin `Frame`, `Group` ni `Text`). Propiedades como en código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview, que se traducen en Code Connect (fase 5) |
 | Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; línea "Docs:" y enlace de documentación a `docs/components/`; guidelines generadas desde `docs/` |
 | Tokens | 3 | Descripciones con plantilla (para qué sirve y restricción, sin referencias internas) en los 47 semánticos, vigiladas por `check:tokens`; regla de capas en `docs/rules/rules-tokens.md` |
-| Documentación | 3 | Reglas de uso en Markdown en todos los componentes estables del piloto (y en CodePreview, `beta`), con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). Sin script de validación en la integración continua (paso 9) |
-| Vínculo con el código | 0 | Sin Code Connect |
+| Documentación | 3 | Reglas de uso en Markdown en todos los componentes estables del piloto (y en CodePreview, `beta`), con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). `npm run docs:check` en la integración continua |
+| Vínculo con el código | 3 | Code Connect en todos los componentes estables del piloto y en CodePreview (plantillas, D68), más AnnotatedCode y los 26 iconos (D70, D71); comprobado con `get_code_connect_map`. Responsable: Oscar. Pendiente: iconos sueltos dentro de componentes no conectados |
 | Gobernanza | 1 | Responsable y protocolo de decisiones; sin changelog del sistema ni proceso de contribución |
-| **Media** | **2,25** | 18 / 8. Antes de la fase 4: 2,00; antes de la fase 3: 1,88; antes de la fase 2: 1,50 |
+| **Media** | **2,63** | 21 / 8. Antes de la fase 5: 2,25; antes de la fase 4: 2,00; antes de la fase 3: 1,88; antes de la fase 2: 1,50 |
