@@ -32,7 +32,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 
 - `content/{locale}/NN-seccion/NN-pagina.mdx`: lecciones (C6). La web se publica solo en español (P24); la parte técnica de idiomas sigue en el código, sin uso.
 - `proyecto/`: documentos del proyecto, compartidos entre sesiones (decisiones, estado, historial, especificación).
-- `docs/`: documentación del sistema que propone la guía de ds4agents (P28).
+- `docs/`: documentación del sistema que propone la guía de ds4agents (P28). ds4agents lo copia literalmente, salvo `inventory.md`, a su `docs/sistema/libreria/` (D72): un cambio en `docs/` incluye avisar a Oscar, en la misma tarea, de que hay que copiarlo a ds4agents.
 - `tools/`: scripts de escalas y contraste (`python3 tools/scales.py`, `python3 tools/semantic.py`) y comprobación del contenido compilado (`npm run build && npm run check:content`).
 - `tools/scales.mjs`, `tools/figma-to-dtcg.mjs` y `tools/zip.mjs`: la lógica de las herramientas de la web (T22 a T24), en módulos sin dependencias que usan la web y los scripts. `tests/`: sus pruebas (`npm test`, con `node:test`); `tests/fixtures/scales-cases.json` se regenera con `python3 tests/fixtures/scales-cases.py` si cambia el método de `scales.py`.
 - `src/`: la aplicación Next.js. `app/[section]/[lesson]/page.tsx` carga las lecciones (sin segmento de idioma, V45); `lib/content.ts` lee `content/`; `components/`, los componentes; `i18n/`, next-intl; `mdx-components.tsx`, los componentes del MDX.
