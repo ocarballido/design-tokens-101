@@ -246,6 +246,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D72 | ds4agents copia literalmente `docs/`, salvo `inventory.md` y `content/voice-and-tone.md`, a su `docs/sistema/libreria/` (G35 de ds4agents, ampliada el 2026-10-23); un cambio en lo copiado incluye, en la misma tarea, avisar a Oscar de que hay que copiarlo. | Cerrada | 2026-10-23 |
 | D73 | `AGENTS.md` en la raíz con las reglas del sistema, el mapa de `docs/`, el uso del MCP de Figma y Code Connect y los comandos (fase 6 de G22, paso 1); `CLAUDE.md` lo importa con `@AGENTS.md` y guarda el flujo del proyecto. | Cerrada | 2026-10-23 |
 | D74 | Skills `build-ui` y `review-ui` en `.claude/skills/` (fase 6 de G22, paso 3), coherentes con `AGENTS.md`; cada comprobación de `review-ui` sale de una regla de `docs/` o de las reglas no negociables de `AGENTS.md` y la cita, con `check:tokens` y `check:content` donde ya comprueban. | Cerrada | 2026-10-23 |
+| D75 | Sistema de diseño DesignToken101 en Claude con `/design-sync` (fase 6 de G22): solo los cinco componentes del piloto, con un paquete propio en `.design-sync/` (sin `dist/` ni Storybook), la cabecera de convenciones sacada de `AGENTS.md` y `docs/`, y revisión visual de Oscar en Light en lugar de la captura automática. | Cerrada | 2026-10-23 |
 
 ## Desarrollo
 

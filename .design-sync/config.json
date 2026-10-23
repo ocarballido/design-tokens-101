@@ -1,0 +1,30 @@
+{
+  "projectId": "ac9cc2fa-08a7-44ac-870d-c3fc6cabb398",
+  "shape": "package",
+  "pkg": "designtoken101",
+  "globalName": "DesignToken101",
+  "entry": ".design-sync/.cache/dist/index.js",
+  "buildCmd": "node .design-sync/pilot/build.mjs",
+  "readmeHeader": ".design-sync/conventions.md",
+  "srcDir": "../../../src/components",
+  "cssEntry": "styles.css",
+  "docsDir": "../../../docs/components",
+  "guidelinesGlob": [
+    "../../../docs/rules/*.md",
+    "../../../docs/foundations/*.md",
+    "../../../docs/patterns/*.md",
+    "../../../docs/content/*.md"
+  ],
+  "componentSrcMap": {
+    "Heading2": null,
+    "UnorderedList": null,
+    "DesignToken101Provider": null
+  },
+  "dtsPropsFor": {
+    "Button": "variant?: 'primary' | 'secondary'; children: React.ReactNode; /** Icono de Lucide, al final: uno de window.DesignToken101.icons (p. ej. icons.ChevronRight). */ icon?: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>; /** Con href es un enlace; sin él, un <button>. */ href?: string; /** Solo sin href. Por defecto 'button'. */ type?: 'button' | 'submit' | 'reset'; onClick?: React.MouseEventHandler<HTMLButtonElement>; ref?: React.Ref<HTMLButtonElement>; className?: string; id?: string; style?: React.CSSProperties;",
+    "TextField": "/** Etiqueta visible, obligatoria. */ label: string; hint?: string; /** Texto del error; con él, aria-invalid. El borde no cambia. */ error?: string; /** El valor se escribe en la fuente de código (un hex). */ code?: boolean; inputMode?: 'text' | 'decimal'; /** Toma las filas de la rejilla del padre (grid con filas compartidas). */ subgrid?: boolean; /** Contenido debajo del campo, después del error. */ children?: React.ReactNode; value?: string; defaultValue?: string; onChange?: React.ChangeEventHandler<HTMLInputElement>; onBlur?: React.FocusEventHandler<HTMLInputElement>; name?: string; autoComplete?: string; spellCheck?: boolean; required?: boolean; className?: string; id?: string; style?: React.CSSProperties;"
+  },
+  "provider": {
+    "component": "DesignToken101Provider"
+  }
+}

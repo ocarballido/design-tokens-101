@@ -20,3 +20,10 @@ tools/scales.json
 # Next.js
 next-env.d.ts
 *.tsbuildinfo
+
+# /design-sync (Claude Design)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
