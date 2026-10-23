@@ -244,6 +244,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D70 | Los 26 iconos `li:*` de TokensDS se conectan con Code Connect con un archivo batch, cada uno a su componente de lucide-react; Button lee el icono anidado con `executeTemplate` y no con `name`, que no está documentado. Amplía D68 fuera del piloto. | Cerrada | 2026-10-22 |
 | D71 | Los fragmentos de Code Connect de CodeBlock, CodePreview y AnnotatedCode usan la sintaxis del MDX (bloque de código con metadatos, `preview` y `<AnnotatedCode>`), no JSX de `<CodeBlock>`; Takeaways, también. Fuera: `showCopied`, `size`, `tab`, CodeTabs y CodeTab. El lenguaje sigue siendo jsx: no se puede cambiar por plantilla. | Cerrada | 2026-10-22 |
 | D72 | ds4agents copia literalmente `docs/`, salvo `inventory.md` y `content/voice-and-tone.md`, a su `docs/sistema/libreria/` (G35 de ds4agents, ampliada el 2026-10-23); un cambio en lo copiado incluye, en la misma tarea, avisar a Oscar de que hay que copiarlo. | Cerrada | 2026-10-23 |
+| D73 | `AGENTS.md` en la raíz con las reglas del sistema, el mapa de `docs/`, el uso del MCP de Figma y Code Connect y los comandos (fase 6 de G22, paso 1); `CLAUDE.md` lo importa con `@AGENTS.md` y guarda el flujo del proyecto. | Cerrada | 2026-10-23 |
 
 ## Desarrollo
 

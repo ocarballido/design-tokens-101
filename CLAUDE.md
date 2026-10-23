@@ -6,6 +6,7 @@ Los documentos de `proyecto/` son la fuente de verdad compartida entre las sesio
 
 ## Lee primero
 
+@AGENTS.md
 @proyecto/decisiones.md
 @proyecto/estado.md
 
@@ -25,8 +26,7 @@ Lee bajo demanda, cuando el trabajo lo pida:
 - **Quien decide, escribe:** en el mismo commit, el texto completo de la decisión en `proyecto/decisiones-detalle.md`, su resumen de una línea en `proyecto/decisiones.md` y el documento afectado. Numeración de la sesión de desarrollo: `V01`, `V02`…
 - **Al terminar un bloque de trabajo**, añade el detalle a `proyecto/historial.md`, deja en tu apartado de `proyecto/estado.md` solo lo que sigue abierto y, si afecta al curso, añade el punto a "Pendiente de reflejar en el contenido".
 - **Verifica antes de configurar:** consulta la documentación oficial (Next.js, next-intl, MDX, Tailwind CSS, Style Dictionary, Terrazzo) y cítala al tomar una decisión. Separa lo que dice la fuente de tu recomendación. Lo no verificado se marca como pendiente.
-- **Solo tokens:** ningún color, espacio, radio, grosor ni tamaño escrito a mano en los componentes. Todo sale de las variables `--t101-*` (S27).
-- **Accesibilidad (WCAG 2.2 AA):** foco visible con `:focus-visible` (anillo `--t101-border-width-200` + `--t101-color-border-focus`), objetivos de 24 × 24 px como mínimo, `aria-*` según `proyecto/componentes-v1.md`, sin scroll horizontal de página a 320 px.
+- **Reglas del sistema** (solo tokens, componentes, accesibilidad): en `AGENTS.md` (D73). Detalle propio del proyecto: anillo de foco `--t101-border-width-200` + `--t101-color-border-focus` y `aria-*` según `proyecto/componentes-v1.md`.
 
 ## Estructura del repositorio
 
