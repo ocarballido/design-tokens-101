@@ -46,7 +46,9 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Sigue igual:** la regla de capas (`docs/rules/rules-tokens.md`) no llega al agente por el MCP de Figma, solo por el repositorio.
 
 **Fase 6, la capa de agente: en curso** (D73 a D75). D75: sistema de diseño DesignToken101 en Claude con los cinco componentes del piloto (https://claude.ai/design/p/ac9cc2fa-08a7-44ac-870d-c3fc6cabb398; cómo resincronizar, en `.design-sync/NOTES.md`).
-- **Oscar:** revisar el modo Dark en Claude Design (solo se revisó Light).
+- **Pendiente para la próxima `/design-sync`** (prueba de Oscar del 2026-10-23, en `historial.md`):
+  - (a) Dejar fuera de la comprobación las variables `--tw-*` y dar categoría a `--t101-duration-200`, `--t101-duration-2000`, `--t101-easing-standard` y `--t101-opacity-inactive`, sin tocar a mano `tokens.css`, que es generado. Se puede hacer desde `.design-sync/`: `pilot/build.mjs` ya compila el CSS y puede añadir `/* @kind other */` al escribir `styles.css`, sin cambiar el generador. Las `--tw-*` no se pueden borrar (las usan las utilidades de Tailwind): se marcan; falta comprobar que la comprobación las deja fuera así.
+  - (b) Reforzar en `docs/components/takeaways.md` el ejemplo de código con `Heading2` con `id` y `UnorderedList`. Es un cambio en `docs/`: avisar para copiarlo a ds4agents (D72).
 - **Pendiente:** documentar `data-theme="dark"` en `docs/foundations/color.md`; hoy solo está en V10 y `tokens.css` (y en la cabecera de `.design-sync/conventions.md`). Es un cambio en `docs/`: avisar para copiarlo a ds4agents (D72).
 
 ## Contenido
