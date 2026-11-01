@@ -1,6 +1,6 @@
 # Notas de /design-sync (Claude Design)
 
-Primera sincronización: 2026-10-23, proyecto "DesignToken101" (https://claude.ai/design/p/ac9cc2fa-08a7-44ac-870d-c3fc6cabb398).
+Primera sincronización: 2026-10-23, proyecto "DesignToken101" (https://claude.ai/design/p/ac9cc2fa-08a7-44ac-870d-c3fc6cabb398), en la web independiente claude.ai/design, que cierra el 14 de diciembre de 2026. Cuando el sistema se mueva a Claude (D76), `/design-sync` ya no lo actualiza allí.
 
 ## Alcance
 
@@ -13,6 +13,7 @@ Primera sincronización: 2026-10-23, proyecto "DesignToken101" (https://claude.a
   - `next/link` se sustituye por un `<a>` (`pilot/next-link.tsx`): Claude Design no tiene el router de Next.
   - `.d.ts` con `tsc` (con `files`, porque `include` no recoge carpetas que empiezan por punto) y una entrada con rutas relativas (los `.d.ts` emitidos conservan `@/`).
   - CSS: `src/app/globals.css` compilado con `@tailwindcss/postcss`, igual que en Next (V44: solo clases de `src/`), más `@import` de Google Fonts para Inter y JetBrains Mono (en la web los sirve `next/font`).
+  - Las variables `--tw-*` (declaraciones y `@property`) y `--t101-duration-*`, `--t101-easing-*` y `--t101-opacity-*` llevan `/* @kind other */` (D76), como propuso la comprobación de Claude Design. Sin documentar: comprobar tras cada subida que no vuelven los avisos.
   - `pilot/icons.ts` se genera desde `src/components/icons.figma.batch.json` (D70): los 26 iconos de TokensDS en `DesignToken101.icons`.
 - `DesignToken101Provider` (`pilot/provider.tsx`) envuelve con `NextIntlClientProvider` y `messages/es.json`: sin él, Callout y CodeBlock fallan.
 - `Heading2`, `UnorderedList` y el proveedor se exportan en el paquete pero no son tarjetas (`componentSrcMap` con `null`).

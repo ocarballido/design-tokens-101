@@ -63,6 +63,7 @@ No es interactivo: no tiene estados.
 
 - Un solo `Takeaways` por página.
 - El título es un `##` del MDX: sin él, el build falla, porque necesita su `id` para "En esta página".
+- Fuera del MDX, en JSX, el título es `Heading2` con `id` y la lista es `UnorderedList` (`src/components/Prose.tsx`): el componente los reconoce por su tipo, así que un `h2` o una `ul` no valen.
 - La lista tiene tres elementos.
 - No añadas borde: lo que lo distingue del `Callout` `recommendation`, que tiene el mismo fondo, es la falta de borde y el título con icono.
 
@@ -102,3 +103,29 @@ Incorrecto:
 ```
 
 El título no es un `##`: no tiene `id`, no aparece en "En esta página" y el build falla. Escribe el título como `## Lo que te llevas`.
+
+En JSX, fuera del MDX, correcto:
+
+```jsx
+<Takeaways>
+  <Heading2 id="lo-que-te-llevas">Lo que te llevas</Heading2>
+  <UnorderedList>
+    <li>Un token es un nombre con un valor.</li>
+    <li>Los primitivos guardan los valores; los semánticos dicen para qué sirven.</li>
+    <li>El modo lo cambia el sistema, no el componente.</li>
+  </UnorderedList>
+</Takeaways>
+```
+
+Incorrecto:
+
+```jsx
+<Takeaways>
+  <h2 id="lo-que-te-llevas">Lo que te llevas</h2>
+  <ul>
+    <li>Un token es un nombre con un valor.</li>
+  </ul>
+</Takeaways>
+```
+
+Un `h2` y una `ul` no son `Heading2` ni `UnorderedList`: el componente no encuentra el título y falla ("falta el título ## con id"). Usa `Heading2` con `id` y `UnorderedList`.
