@@ -248,6 +248,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D74 | Skills `build-ui` y `review-ui` en `.claude/skills/` (fase 6 de G22, paso 3), coherentes con `AGENTS.md`; cada comprobación de `review-ui` sale de una regla de `docs/` o de las reglas no negociables de `AGENTS.md` y la cita, con `check:tokens` y `check:content` donde ya comprueban. | Cerrada | 2026-10-23 |
 | D75 | Sistema de diseño DesignToken101 en Claude con `/design-sync` (fase 6 de G22): solo los cinco componentes del piloto, con un paquete propio en `.design-sync/` (sin `dist/` ni Storybook), la cabecera de convenciones sacada de `AGENTS.md` y `docs/`, y revisión visual de Oscar en Light en lugar de la captura automática. | Cerrada | 2026-10-23 |
 | D76 | DesignToken101 pasa de claude.ai/design a Claude después de la próxima `/design-sync`, con las variables `--tw-*` y los tokens de duración, curva y opacidad marcados `/* @kind other */` desde `.design-sync/` y `Takeaways` con ejemplo en JSX en `docs/components/takeaways.md` (G36 de ds4agents; precisada por V62). | Cerrada | 2026-11-01 |
+| D77 | Fase 6 de G22 cerrada: `data-theme` documentado en `docs/foundations/color.md` y el paso 6 de la lista del capítulo 6 (Project) no se aplica, porque Oscar trabaja solo (G38 de ds4agents). | Cerrada | 2026-11-01 |
 
 ## Desarrollo
 

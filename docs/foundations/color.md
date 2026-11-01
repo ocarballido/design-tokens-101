@@ -63,6 +63,15 @@ tokens: tokens/dtcg/semantic-color/ (Light y Dark)
 | `color/border/accent/default` | Borde del Callout recommendation. | Decorativo: no sirve para identificar un control. |
 | `color/border/accent/strong` | Indicador de seleccionado o actual, como la marca del elemento actual de la navegación. Cumple 3:1. | No para el foco: usa border/focus. |
 
+## Light y Dark
+
+- Light es el modo por defecto: los tokens se declaran en `:root` (`src/styles/tokens.css`).
+- Dark se activa con `data-theme="dark"`. En la web, `ThemeToggle` lo pone en `<html>`.
+- Sin `data-theme`, manda la preferencia del sistema (`prefers-color-scheme`). `data-theme="light"` en `<html>` fuerza Light.
+- `data-theme="dark"` en un contenedor cambia a Dark solo lo que tiene dentro. El fondo y el color del texto de la página se ponen en `<html>`, así que el contenedor necesita los suyos: `bg-neutral-default` y `text-neutral-default`.
+- Cada modo declara `color-scheme`.
+- La variante `dark:` de Tailwind usa los mismos selectores. Solo la usan los logotipos, que cambian de imagen; los colores cambian solos con los tokens.
+
 ## Reglas para agentes
 
 - Usa solo los tokens de esta tabla. Nunca la paleta (color.emerald.*, color.neutral.*…) ni valores literales.
