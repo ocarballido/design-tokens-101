@@ -16,6 +16,7 @@ Este repositorio contiene la web-curso DesignToken101 y su sistema de diseño: t
 - Voz y tono: `docs/content/voice-and-tone.md`
 - Tokens: `tokens/figma/` (exportación de Figma, sin editar), `tokens/code-only.tokens.json` y `src/styles/tokens.css` y `theme.css` (generados; no se editan a mano)
 - Code Connect: `src/components/*.figma.ts` y `src/components/icons.figma.batch.*`
+- Versiones y cambios del sistema (qué es obsoleto y desde cuándo): `CHANGELOG.md`
 
 ## Cómo crear una interfaz
 1. Busca en `docs/patterns/` un patrón que encaje y sigue su receta.

@@ -31,7 +31,7 @@ Primera sincronización: 2026-10-23, proyecto "DesignToken101" (https://claude.a
 ## Riesgos al resincronizar
 
 - `dtsPropsFor` (Button, TextField) está escrito a mano: se queda viejo si cambian sus props.
-- `pilot/build.mjs` fija la versión del paquete en 1.2.0 (sistema, D65): cambiarla con el sistema.
+- `pilot/build.mjs` fija la versión del paquete en 1.3.0 (sistema, D78; la de `CHANGELOG.md`): cambiarla con el sistema.
 - El CSS es el de toda la web: una clase que deje de usarse en `src/` desaparece también de Claude Design, aunque la cite `conventions.md`. Validar la cabecera contra `ds-bundle/_ds_bundle.css` en cada sincronización, también cada combinación de la fila de espaciado: no existen todas (el 2026-11-01 faltaban `gap-150`, `p-300`, `px-100` y `px-600`, y la fila pasó a la lista exacta de cada prefijo).
 - Las fuentes llegan por red (Google Fonts), no van en el paquete.
 - Las vistas previas solo se han visto en el navegador de Oscar, en Light; Dark no se comprobó en Claude Design.

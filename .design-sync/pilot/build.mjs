@@ -89,7 +89,7 @@ writeFileSync(join(out, 'styles.css'), fonts + cssRoot.toString());
 writeFileSync(
   join(out, 'package.json'),
   JSON.stringify(
-    { name: 'designtoken101', version: '1.2.0', type: 'module', module: './index.js', types: './index.d.ts', style: './styles.css' },
+    { name: 'designtoken101', version: '1.3.0', type: 'module', module: './index.js', types: './index.d.ts', style: './styles.css' },
     null,
     2,
   ) + '\n',

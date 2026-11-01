@@ -4,17 +4,9 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-10-21.
+Última actualización: 2026-11-01.
 
-**Versión del sistema: 1.2.0** (2026-10-21, D65 y D66; 1.1.0 el 2026-10-09, S38; 1.0.0 el 2026-10-06, S36). API pública: los nombres de las variables publicadas en Figma, de las variables CSS (`--t101-*`) y de las clases de la capa 2. Cada cambio posterior sube el número según S36: PATCH para un valor o un alias, MINOR para algo nuevo o un token obsoleto, MAJOR para borrar o renombrar.
-
-**Versiones del sistema**
-
-| Versión | Fecha | Añadido | Cambiado | Obsoleto | Eliminado |
-|---|---|---|---|---|---|
-| 1.2.0 | 2026-10-21 | `radius/group` en Semantic size, alias de `radius/300` (D65, §4.3; creado como `radius/nested` y renombrado en la misma versión, D66) | Descripciones de los semánticos reescritas en dos partes, sin referencias internas (D65, §7); no son API pública | No aplica | No aplica |
-| 1.1.0 | 2026-10-09 | Breakpoints de Tailwind CSS como tokens solo de código: `breakpoint/sm`, `md`, `lg`, `xl` y `2xl` (S38, §4.10) | `breakpoint/desktop` pasa a ser alias de `breakpoint/lg`; mismo nombre y mismo valor, 64rem (S38) | No aplica | No aplica |
-| 1.0.0 | 2026-10-06 | Primera versión estable: el sistema completo (97 primitivos, 33 semánticos de color, 4 de tamaño, 9 de Layout, 10 estilos de texto y los tokens de código de §4) | No aplica | No aplica | No aplica |
+**Versión del sistema: 1.3.0** (2026-11-01). Las versiones, la API pública y la numeración están en `CHANGELOG.md` (S36, ampliada por D78).
 
 Las versiones 0.y.z no se numeraron: el historial anterior está en el registro de cambios de este documento y en `proyecto/decisiones.md`.
 
@@ -43,6 +35,7 @@ Las versiones 0.y.z no se numeraron: el historial anterior está en el registro 
 | 2026-10-09 | Contenido | Versión 1.1.0 (S38): breakpoints de Tailwind CSS como tokens solo de código y `breakpoint/desktop` como alias de `breakpoint/lg` (§4.2, §4.10, §5.2 y §7). §5.2: vocabulario de categorías completado con las de código (`duration`, `easing`, `blur`, `opacity`, `breakpoint`) y §7: lista de tokens solo de código completada (`duration/2000`, `opacity/inactive`). |
 | 2026-10-21 | Desarrollo | Versión 1.2.0 (D65): `radius/nested` (§4.3 y §7) y descripciones de los semánticos en dos partes, sin referencias internas (§7). Semantic size pasa a 5 variables. |
 | 2026-10-21 | Desarrollo | D66: `radius/nested` pasa a `radius/group` (§4.3 y §7), el radio del carril que agrupa varios controles (CodeTabs y ThemeToggle). Se corrige la fila 1.2.0 en lugar de subir a 2.0.0: el token llevaba horas publicado y nada lo usaba (excepción a S36). |
+| 2026-11-01 | Desarrollo | D78: la tabla "Versiones del sistema" pasa a `CHANGELOG.md`, que cubre todo el sistema (tokens, componentes y reglas de uso). Versión 1.3.0, sin cambios en los tokens. |
 
 ---
 

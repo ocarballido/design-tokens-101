@@ -164,7 +164,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | S33 | Tokens de componente: componente / variante / propiedad / estado. | Cerrada | 2026-10-04 |
 | S34 | `focus` y `overlay` son roles; los semánticos de tamaño siguen categoría / elemento / medida. | Cerrada | 2026-10-04 |
 | S35 | `background/neutral/translucent` al 96 % en Light, por el contraste del anillo de foco. | Cerrada | 2026-10-05 |
-| S36 | Versión semántica del sistema; 1.0.0 al cerrar el módulo 8. | Cerrada | 2026-10-06 |
+| S36 | Versión semántica del sistema; 1.0.0 al cerrar el módulo 8 (API pública ampliada por D78). | Cerrada | 2026-10-06 |
 | S37 | Descripción obligatoria en los semánticos y opcional en los primitivos. | Cerrada | 2026-10-06 |
 | S38 | Breakpoints de Tailwind (`sm` a `2xl`) como tokens de código, con sus nombres (excepción a S4); `breakpoint/desktop` pasa a alias de `breakpoint/lg`; sistema 1.1.0. | Cerrada | 2026-10-09 |
 
@@ -249,6 +249,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D75 | Sistema de diseño DesignToken101 en Claude con `/design-sync` (fase 6 de G22): solo los cinco componentes del piloto, con un paquete propio en `.design-sync/` (sin `dist/` ni Storybook), la cabecera de convenciones sacada de `AGENTS.md` y `docs/`, y revisión visual de Oscar en Light en lugar de la captura automática. | Cerrada | 2026-10-23 |
 | D76 | DesignToken101 pasa de claude.ai/design a Claude después de la próxima `/design-sync`, con las variables `--tw-*` y los tokens de duración, curva y opacidad marcados `/* @kind other */` desde `.design-sync/` y `Takeaways` con ejemplo en JSX en `docs/components/takeaways.md` (G36 de ds4agents; precisada por V62). | Cerrada | 2026-11-01 |
 | D77 | Fase 6 de G22 cerrada: `data-theme` documentado en `docs/foundations/color.md` y el paso 6 de la lista del capítulo 6 (Project) no se aplica, porque Oscar trabaja solo (G38 de ds4agents). | Cerrada | 2026-11-01 |
+| D78 | Un `CHANGELOG.md` para todo el sistema (Keep a Changelog): la API pública de S36 incluye también los componentes, sus props y las reglas escritas de `docs/` y `AGENTS.md`; 1.3.0 con `docs/`, Code Connect y la capa de agente; la tabla de versiones sale de `sistema-tokens-v1.md` (fase 7 de G22). | Cerrada | 2026-11-01 |
 
 ## Desarrollo
 
