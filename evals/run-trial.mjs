@@ -8,7 +8,7 @@
 //      respuesta fija de tasks.json.
 //   3. Puntuación: check:ui, check:tokens, build y check:content, y review-ui en una sesión aparte.
 // Resultado: evals/results/<ID>-t<n>/ (resumen y diff, en git) y evals/runs/<ID>-t<n>/ (transcripciones,
-// fuera de git). Uso: node evals/run-trial.mjs <ID> <n>  (EVALS_WORK: carpeta de las copias)
+// fuera de git). Uso: node evals/run-trial.mjs <ID> <n> [--force]  (EVALS_WORK: carpeta de las copias)
 
 import { execFileSync, execSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -27,6 +27,11 @@ const name = `${id}-t${n}`;
 const copy = path.join(process.env.EVALS_WORK ?? path.join(os.tmpdir(), 't101-evals'), `${name}-${Date.now()}`);
 const runs = path.join(ROOT, 'evals/runs', name);
 const results = path.join(ROOT, 'evals/results', name);
+// Un intento terminado no se repite: así una tanda cortada se puede volver a lanzar entera.
+if (fs.existsSync(path.join(results, 'summary.md')) && !process.argv.includes('--force')) {
+  console.log(`${name}: ya hecho (${path.relative(ROOT, results)}/summary.md); --force para repetirlo`);
+  process.exit(0);
+}
 for (const dir of [runs, results]) {
   fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });

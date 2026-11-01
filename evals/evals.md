@@ -34,7 +34,11 @@ Línea de base de la fase 7 de la guía de ds4agents (D79): si un agente sin con
 4. **Puntuación:** `npm run check:ui` (`tools/check-ui.mjs`), `check:tokens`, `build` y `check:content` (código); `review-ui` en una sesión aparte, sobre el diff (modelo); la nota de Oscar (persona).
 5. **Por tandas:** primero un intento por tarea; Oscar lo puntúa, se compara con `review-ui` y se ajusta el protocolo; después, los intentos 2 y 3.
 
-Para lanzar un intento: `EVALS_WORK=<carpeta temporal> node evals/run-trial.mjs <ID> <n>`. El resumen y el diff quedan en `evals/results/<ID>-t<n>/`; las transcripciones completas, en `evals/runs/` (fuera de git).
+Para lanzar un intento: `EVALS_WORK=<carpeta temporal> node evals/run-trial.mjs <ID> <n>`. El resumen y el diff quedan en `evals/results/<ID>-t<n>/`; las transcripciones completas, en `evals/runs/` (fuera de git). Un intento con `summary.md` no se repite (salvo con `--force`), así que una tanda cortada se vuelve a lanzar entera. La primera tanda, desde Terminal, con el Mac enchufado:
+
+```sh
+caffeinate -i sh -c 'printf "E07\nE01\nE02\nE04\nE03\nE05\nE06\nE09\nE10\n" | xargs -P 3 -I{} node evals/run-trial.mjs {} 1'
+```
 
 ## Rúbrica
 
