@@ -21,6 +21,9 @@ tools/scales.json
 next-env.d.ts
 *.tsbuildinfo
 
+# Evaluaciones: transcripciones completas de cada intento (D79)
+evals/runs/
+
 # /design-sync (Claude Design)
 .ds-sync/
 ds-bundle/

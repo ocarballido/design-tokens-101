@@ -52,7 +52,9 @@ Fuera de la primera versión, salvo que Oscar decida otra cosa: el glosario y la
 - **Oscar:** subir a TokensDS (Library → Manage guidelines…) `overview.md` y `components.md`, regenerados con `npm run docs:figma` (`color.md` de D77 y `takeaways.md` de D76); borrar la rama `prueba/cap6-claude-code` cuando la haya visto.
 - **Para la próxima vez que se mueva el sistema a Claude:** `color.md` ("Light y Dark") llega a Claude con `/design-sync` y "Move again". La cabecera de `.design-sync/conventions.md` pide para Dark un contenedor con `bg-neutral-default`; `color.md` añade `text-neutral-default`.
 
-**Fase 7, evaluación: empezada** (2026-11-01). D78: `CHANGELOG.md` con la versión 1.3.0 de todo el sistema. Siguiente: el resto de la lista del capítulo 7 de ds4agents.
+**Fase 7, evaluación: empezada** (2026-11-01). D78: `CHANGELOG.md` con la versión 1.3.0 de todo el sistema. D79: `evals/` (tareas, protocolo, lanzador `run-trial.mjs`) y `npm run check:ui`; primera tanda, un intento por tarea, en marcha. Después: puntuar con Oscar, intentos 2 y 3, acciones por fallo, `CONTRIBUTING.md` y repetir la scorecard.
+- **Oscar:** dibujar en TokensDS el marco de E08 (`evals/evals.md`) y puntuar la primera tanda (`evals/results/`).
+- **Observación, sin decidir:** `check:ui` sobre todo el repositorio encuentra `rounded-100` (radio primitivo) en Checkbox, Code y ScaleGenerator, fuera del piloto; `docs/rules/rules-tokens.md` pide `radius.control`, `radius.container` o `radius.group`.
 - **Destinos de 1.3.0 sin actualizar (Oscar):** publicar TokensDS con una nota que empiece por "1.3.0" (lleva también los cambios de D64, fase 2) y subir las guidelines de la fase 6; el paquete de Claude dirá 1.3.0 con la próxima `/design-sync` y "Move again".
 
 ## Contenido

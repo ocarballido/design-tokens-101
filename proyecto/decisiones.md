@@ -250,6 +250,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D76 | DesignToken101 pasa de claude.ai/design a Claude después de la próxima `/design-sync`, con las variables `--tw-*` y los tokens de duración, curva y opacidad marcados `/* @kind other */` desde `.design-sync/` y `Takeaways` con ejemplo en JSX en `docs/components/takeaways.md` (G36 de ds4agents; precisada por V62). | Cerrada | 2026-11-01 |
 | D77 | Fase 6 de G22 cerrada: `data-theme` documentado en `docs/foundations/color.md` y el paso 6 de la lista del capítulo 6 (Project) no se aplica, porque Oscar trabaja solo (G38 de ds4agents). | Cerrada | 2026-11-01 |
 | D78 | Un `CHANGELOG.md` para todo el sistema (Keep a Changelog): la API pública de S36 incluye también los componentes, sus props y las reglas escritas de `docs/` y `AGENTS.md`; 1.3.0 con `docs/`, Code Connect y la capa de agente; la tabla de versiones sale de `sistema-tokens-v1.md` (fase 7 de G22). | Cerrada | 2026-11-01 |
+| D79 | Evaluaciones de la fase 7 de G22 en `evals/`: diez tareas, tres intentos por tarea con `claude -p` en copias limpias sin `evals/`, por tandas; se puntúan con `npm run check:ui`, `check:tokens`, `check:content`, `review-ui` y la nota de Oscar; la segunda tarea desde Figma usa un marco nuevo de Oscar. | Cerrada | 2026-11-01 |
 
 ## Desarrollo
 

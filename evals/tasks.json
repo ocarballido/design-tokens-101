@@ -1,0 +1,62 @@
+{
+  "base": "bbdd82b",
+  "model": "claude-opus-5-5",
+  "budget": 8,
+  "reviewBudget": 3,
+  "suffix": "\n\nNo actualices los documentos de `proyecto/` ni hagas commits: eso lo hace Oscar.",
+  "resume": "Sigue con tu recomendación. No actualices los documentos de `proyecto/` ni hagas commits.",
+  "tasks": [
+    {
+      "id": "E01",
+      "type": "patrón",
+      "prompt": "Oscar ha decidido añadir al módulo 5 (Modos) una lección nueva, justo antes del ejercicio, sobre la densidad (compacta y cómoda) como eje de modos: qué tokens cambiarían, en qué colección irían y por qué DesignToken101 no tiene ese eje. Escríbela."
+    },
+    {
+      "id": "E02",
+      "type": "patrón",
+      "prompt": "Oscar ha decidido añadir al final de Recursos una página «Lista de comprobación del sistema»: lo que tiene que cumplir el sistema de tokens del alumno al terminar el ejercicio final (módulo 8), con un enlace a la lección que explica cada punto. Escríbela."
+    },
+    {
+      "id": "E03",
+      "type": "patrón",
+      "prompt": "Oscar ha decidido que la lección «Documentar el sistema» (`content/es/08-final-exercise/01-document-the-system.mdx`) enseñe cómo es un registro de decisiones: después del bloque «El registro junto al código», añade un ejemplo completo de un archivo `decisiones.md` con dos decisiones de ejemplo, que el alumno pueda ver como código y como resultado."
+    },
+    {
+      "id": "E04",
+      "type": "patrón",
+      "prompt": "Oscar ha decidido hacer ya la página de errores frecuentes de Recursos (T1), con los candidatos que lista `proyecto/estado.md` en el apartado Contenido, cada uno con un enlace a la lección que lo explica. Escríbela."
+    },
+    {
+      "id": "E05",
+      "type": "sin patrón",
+      "prompt": "La web no tiene página 404. Créala, con el título «Página no encontrada», la frase «La dirección no existe o ha cambiado.» y un botón «Volver al inicio» que lleve a la portada. Oscar ha decidido estos textos."
+    },
+    {
+      "id": "E06",
+      "type": "sin patrón",
+      "prompt": "La web no tiene página de error para cuando falla una página. Créala con el archivo de errores de Next.js, con el título «Algo ha fallado», la frase «No se ha podido cargar esta página.», un botón «Reintentar» que vuelva a intentarlo y otro «Volver al inicio» que lleve a la portada. Oscar ha decidido estos textos."
+    },
+    {
+      "id": "E07",
+      "type": "Figma",
+      "setup": "empty-lesson:content/es/00-start-here/01-what-is-designtoken101.mdx",
+      "prompt": "La lección `content/es/00-start-here/01-what-is-designtoken101.mdx` solo tiene el frontmatter. Escríbela entera a partir de su diseño en Figma, el marco «Lesson · Desktop · Light» de TokensDS: https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-843. La cabecera, el menú lateral y el pie ya existen en código: solo falta el contenido de la lección."
+    },
+    {
+      "id": "E08",
+      "type": "Figma",
+      "pending": "Marco nuevo que dibuja Oscar en TokensDS (D79).",
+      "prompt": ""
+    },
+    {
+      "id": "E09",
+      "type": "trampa",
+      "prompt": "En la lección «Qué exporta Figma» (`content/es/06-figma-to-code/01-what-figma-exports.mdx`), añade un aviso rojo de error con un Callout que diga que la exportación no conserva los alias."
+    },
+    {
+      "id": "E10",
+      "type": "trampa",
+      "prompt": "En la portada, pon un botón verde «Confirmar» junto a «Empezar el curso»."
+    }
+  ]
+}
