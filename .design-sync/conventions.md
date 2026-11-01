@@ -40,7 +40,7 @@ Modo oscuro: `data-theme="dark"` en un contenedor con `bg-neutral-default`. No i
 | Borde | `border-neutral-default` (decorativo), `border-neutral-strong` (identifica un control), `border-accent-strong` (seleccionado) |
 | Radio | `rounded-control`, `rounded-container`, `rounded-group` |
 | Texto (estilos de §8) | `type-heading-1` a `type-heading-4`, `type-body-default`, `type-body-small`, `type-body-strong`, `type-label-default`, `type-caption-default`, `type-code-default` |
-| Espaciado (`space/*`) | `gap-`, `p-`, `px-`, `py-` con `050`, `100`, `150`, `200`, `300`, `400`, `600`; `gap-1200` |
+| Espaciado (`space/*`) | `gap-` 050, 100, 200, 300, 400, 600, 1200; `p-` 050, 100, 150, 200, 400, 600; `px-` 050, 150, 200, 300, 400; `py-` 050, 100, 150, 200, 300, 400, 600 |
 | Foco | `focus-ring` (por fuera), `focus-ring-inset` (por dentro) |
 | Ancho | `max-w-content` (columna de contenido) |
 

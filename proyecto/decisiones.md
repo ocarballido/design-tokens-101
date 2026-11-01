@@ -247,7 +247,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | D73 | `AGENTS.md` en la raíz con las reglas del sistema, el mapa de `docs/`, el uso del MCP de Figma y Code Connect y los comandos (fase 6 de G22, paso 1); `CLAUDE.md` lo importa con `@AGENTS.md` y guarda el flujo del proyecto. | Cerrada | 2026-10-23 |
 | D74 | Skills `build-ui` y `review-ui` en `.claude/skills/` (fase 6 de G22, paso 3), coherentes con `AGENTS.md`; cada comprobación de `review-ui` sale de una regla de `docs/` o de las reglas no negociables de `AGENTS.md` y la cita, con `check:tokens` y `check:content` donde ya comprueban. | Cerrada | 2026-10-23 |
 | D75 | Sistema de diseño DesignToken101 en Claude con `/design-sync` (fase 6 de G22): solo los cinco componentes del piloto, con un paquete propio en `.design-sync/` (sin `dist/` ni Storybook), la cabecera de convenciones sacada de `AGENTS.md` y `docs/`, y revisión visual de Oscar en Light en lugar de la captura automática. | Cerrada | 2026-10-23 |
-| D76 | DesignToken101 pasa de claude.ai/design a Claude después de la próxima `/design-sync`, con las variables `--tw-*` y los tokens de duración, curva y opacidad marcados `/* @kind other */` desde `.design-sync/` y `Takeaways` con ejemplo en JSX en `docs/components/takeaways.md` (G36 de ds4agents). | Cerrada | 2026-11-01 |
+| D76 | DesignToken101 pasa de claude.ai/design a Claude después de la próxima `/design-sync`, con las variables `--tw-*` y los tokens de duración, curva y opacidad marcados `/* @kind other */` desde `.design-sync/` y `Takeaways` con ejemplo en JSX en `docs/components/takeaways.md` (G36 de ds4agents; precisada por V62). | Cerrada | 2026-11-01 |
 
 ## Desarrollo
 
@@ -314,6 +314,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V59 | "Generar escalas" enlaza a colorgods (https://colorgods.com), su versión ampliada, con un `Callout` `recommendation` después de la herramienta; también en el README. | Cerrada | 2026-10-14 |
 | V60 | Componente `CodePreview` (diseño de Claude en Figma, excepción a D05, como V56): `CodeBlock` con pestañas Markdown / Vista previa para bloques markdown marcados con `preview`; la vista previa se renderiza en el build; copiar copia siempre el markdown fuente. | Cerrada | 2026-10-21 |
 | V61 | Primer archivo de guidelines de la librería de Figma: `docs/rules/anti-patterns.md`, con tres escenarios (dos `Button` `primary` en una vista, `Callout` elegido por el color, `Takeaways` fuera del final), sacados de la especificación; se sube a mano a TokensDS. | Cerrada | 2026-10-21 |
+| V62 | `/* @kind other */` solo después de las declaraciones, en la misma línea, y no dentro de los `@property` de Tailwind (precisa D76). | Cerrada | 2026-11-01 |
 
 ## Abiertas
 

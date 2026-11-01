@@ -75,14 +75,12 @@ const from = join(root, 'src/app/globals.css');
 const { root: cssRoot } = await postcss([tailwind()]).process(readFileSync(from, 'utf8'), { from });
 // La comprobación de Claude Design contaba las variables internas de Tailwind (--tw-*) como tokens y
 // no daba categoría a duración, curva y opacidad. Se marcan con /* @kind other */, como propuso
-// (prueba de Oscar, 2026-10-23); tokens.css, que es generado, no cambia.
+// (prueba de Oscar, 2026-10-23); tokens.css, que es generado, no cambia. Solo en las declaraciones:
+// dentro de un @property el comentario no sirve (V62).
 const other = /^--(tw-|t101-(duration|easing|opacity)-)/;
 const kindOther = () => postcss.comment({ text: '@kind other', raws: { before: ' ', left: ' ', right: ' ' } });
 cssRoot.walkDecls((decl) => {
   if (other.test(decl.prop)) decl.after(kindOther());
-});
-cssRoot.walkAtRules('property', (rule) => {
-  if (other.test(rule.params)) rule.prepend(kindOther());
 });
 const fonts =
   '@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=JetBrains+Mono:wght@400..700&display=swap");\n';
