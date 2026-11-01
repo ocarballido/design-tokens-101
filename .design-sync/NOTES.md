@@ -1,10 +1,11 @@
 # Notas de /design-sync (Claude Design)
 
-Primera sincronización: 2026-10-23, proyecto "DesignToken101" (https://claude.ai/design/p/ac9cc2fa-08a7-44ac-870d-c3fc6cabb398), en la web independiente claude.ai/design, que cierra el 14 de diciembre de 2026. **Movido a Claude el 2026-11-01 (D76):** desde entonces `/design-sync` sube a ese proyecto de claude.ai/design y no llega a Claude. Para que un cambio llegue: subirlo con `/design-sync`, borrar el sistema en Claude y volver a moverlo desde Artifacts ("Move team design systems"), antes del 14 de diciembre; después de esa fecha, solo pidiéndoselo a Claude.
+Primera sincronización: 2026-10-23, proyecto "DesignToken101" (https://claude.ai/design/p/ac9cc2fa-08a7-44ac-870d-c3fc6cabb398), en la web independiente claude.ai/design, que cierra el 14 de diciembre de 2026. **Movido a Claude el 2026-11-01 (D76):** desde entonces `/design-sync` sube a ese proyecto de claude.ai/design y no llega a Claude. Para que un cambio llegue: subirlo con `/design-sync` y, en Artifacts de Claude, menú de Claude Design ("…"), "Move again"; si lo marca "already moved" o no lo actualiza, borrar el sistema en Claude y volver a moverlo. Antes del 14 de diciembre; después de esa fecha, solo pidiéndoselo a Claude.
 
 ## Alcance
 
 - Solo el piloto de `docs/inventory.md` (decisión de Oscar): Button, TextField, Callout, Takeaways y CodeBlock (CodePreview es CodeBlock con `preview`). Para añadir un componente: exportarlo en `pilot/index.tsx`, escribir su vista previa en `previews/` y su documento en `docs/components/`.
+- Sin navegación (V63): `guidelines/lesson-page.md` pide `Sidebar`, `SiteHeader`, `LessonHeader`, `PageNav` y `SiteFooter`, que no están en el paquete, y el agente se inventaba el menú. La cabecera (`conventions.md`, "Página de lección: solo la columna de contenido") le dice que no los dibuje. Si algún día se añaden al paquete, quitar ese apartado; `Sidebar` y `MobileNav` necesitarían sustituir `usePathname` de `next/navigation`, como `next/link`.
 
 ## Cómo se construye
 

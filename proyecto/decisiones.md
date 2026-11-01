@@ -315,6 +315,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V60 | Componente `CodePreview` (diseño de Claude en Figma, excepción a D05, como V56): `CodeBlock` con pestañas Markdown / Vista previa para bloques markdown marcados con `preview`; la vista previa se renderiza en el build; copiar copia siempre el markdown fuente. | Cerrada | 2026-10-21 |
 | V61 | Primer archivo de guidelines de la librería de Figma: `docs/rules/anti-patterns.md`, con tres escenarios (dos `Button` `primary` en una vista, `Callout` elegido por el color, `Takeaways` fuera del final), sacados de la especificación; se sube a mano a TokensDS. | Cerrada | 2026-10-21 |
 | V62 | `/* @kind other */` solo después de las declaraciones, en la misma línea, y no dentro de los `@property` de Tailwind (precisa D76). | Cerrada | 2026-11-01 |
+| V63 | La cabecera de convenciones de Claude dice que la navegación (`SiteHeader`, `Sidebar`, `LessonHeader`, `PageNav`, `SiteFooter`, `MobileNav`, `ThemeToggle`) no está en el paquete y que en una página de lección se diseña solo la columna de contenido; el paquete sigue con los cinco componentes del piloto (D75). | Cerrada | 2026-11-01 |
 
 ## Abiertas
 

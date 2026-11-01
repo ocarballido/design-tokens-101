@@ -55,3 +55,7 @@ El CSS solo trae las clases que usa la web: si una de la escala no existe, usa s
 - `CodeBlock`: código de varias líneas; con `preview`, solo para markdown (CodePreview).
 
 Recetas de pantallas: `guidelines/lesson-page.md` y `guidelines/checklist.md`. Voz y tono: `guidelines/voice-and-tone.md`.
+
+## Página de lección: solo la columna de contenido
+
+`guidelines/lesson-page.md` describe la página completa de la web, pero la navegación no está en este paquete: `SiteHeader`, `Sidebar`, `LessonHeader`, `PageNav`, `SiteFooter`, `MobileNav` y `ThemeToggle` no existen aquí. No los dibujes ni los imites. En una página de lección, diseña solo la columna de contenido (`max-w-content`): el título con `type-heading-1`, como en el ejemplo de arriba, el contenido con los componentes de este paquete y `Takeaways` al final.
