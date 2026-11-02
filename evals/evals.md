@@ -56,7 +56,7 @@ La de "Rúbrica" de ds4agents (`content/es/07-evaluation/03-rubric.mdx`):
 
 ## Resultados
 
-Primera tanda en curso.
+Primera tanda incompleta (E07 y E10 hechos; los demás, cortados o sin lanzar). Hoja de puntuación: `evals/puntuacion-tanda-1.md`.
 
 | ID | Intentos superados | Valores literales | Props inventadas | Obsoletos | Nota (0-3) |
 |---|---|---|---|---|---|
