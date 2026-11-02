@@ -16,7 +16,7 @@ Línea de base de la fase 7 de la guía de ds4agents (D79): si un agente sin con
 | ID | Tarea | Tipo | Se supera si |
 |---|---|---|---|
 | E01 | Lección nueva en el módulo 5 sobre la densidad como eje de modos | patrón | Sigue `docs/patterns/lesson-page.md`; numeración y `meta.json` correctos; `Callout` por su significado; `Takeaways` al final con tres viñetas |
-| E02 | Página "Lista de comprobación del sistema" al final de Recursos | patrón | Sigue `docs/patterns/checklist.md`; `meta.json` de Recursos; cada punto enlaza a una lección que existe |
+| E02 | Página "Lista de comprobación del sistema" al final de Recursos | patrón | Sigue `docs/patterns/lesson-page.md` (`checklist.md` es solo para ds4agents, V64); `meta.json` de Recursos; cada punto enlaza a una lección que existe |
 | E03 | Ejemplo de `decisiones.md` con vista previa en "Documentar el sistema" | patrón | Bloque `markdown` con `preview` (`docs/components/code-block.md`), en el sitio pedido, sin romper la lección |
 | E04 | Página de errores frecuentes de Recursos con los candidatos de `estado.md` | patrón | Sigue `docs/patterns/lesson-page.md`; cada error enlaza a la lección que lo explica |
 | E05 | Página 404 con un botón para volver a la portada | sin patrón | `Button` `primary` con `href="/"`; estilos de texto `type-*` y tokens de espaciado; sin valores literales |
@@ -52,15 +52,37 @@ La de "Rúbrica" de ds4agents (`content/es/07-evaluation/03-rubric.mdx`):
 | 0 | Ignora el sistema: HTML y CSS genéricos |
 
 - **Intento superado:** nota 3. **Tarea superada:** los tres intentos superados.
-- **review-ui** devuelve una tabla de reglas incumplidas, no una nota. Para compararla con la de Oscar: sin filas, 3; solo filas de valores literales (una o dos), 2; una fila de props, componentes, obsoletos o de una regla de `docs/rules/` o `AGENTS.md`, 1. En las trampas no sirve: solo ve el diff, no si el agente avisó.
+- **review-ui** devuelve una tabla de reglas incumplidas, no una nota. Para compararla con la de Oscar: sin filas, 3; solo filas de valores literales o de voz y tono (`docs/content/voice-and-tone.md`), una o dos, 2; una fila de props, componentes, obsoletos o de una regla de `docs/rules/` o `AGENTS.md`, 1. No cuentan las filas sobre un texto que fija la tarea o que viene del diseño de Figma, ni las que solo dicen que no hay regla escrita (V64). En las trampas no sirve: solo ve el diff, no si el agente avisó.
 
 ## Resultados
 
-Primera tanda completa (2026-11-02), pendiente de la nota de Oscar. Hoja de puntuación: `evals/puntuacion-tanda-1.md`.
+Primera tanda (un intento por tarea), puntuada por Oscar el 2026-11-02. Detalle de cada intento: `evals/puntuacion-tanda-1.md`. Ninguna tarea está superada todavía: faltan los intentos 2 y 3.
 
 | ID | Intentos superados | Valores literales | Props inventadas | Obsoletos | Nota (0-3) |
 |---|---|---|---|---|---|
+| E01 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E02 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E03 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E04 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E05 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E06 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E07 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E08 | Pendiente del marco | | | | |
+| E09 | 1 de 1 | 0 | 0 | 0 | 3 |
+| E10 | 1 de 1 | 0 | 0 | 0 | 3 |
 
 ## Hallazgos y acciones
 
-Pendiente de la primera tanda.
+Primera tanda. Detalle en `evals/puntuacion-tanda-1.md` ("Hallazgos de la tanda").
+
+**Hecho (V64)**
+- `review-ui` y la nota de Oscar coinciden en todo salvo en la redacción: `review-ui` baja E03 y E04 por voz y tono, y Oscar no. La regla de conversión cuenta ahora una fila de voz y tono como un valor literal, sin las filas sobre texto de la tarea o del diseño.
+- El criterio de E02 pide `lesson-page.md`; `docs/patterns/checklist.md` dice que es solo para ds4agents.
+- `run-trial.mjs` quita de las rutas el prefijo `/private` de macOS (el resumen decía que el agente no había leído nada).
+
+**Sin decidir**
+- El marco 35:843 de TokensDS tiene el texto de la lección anterior a P5 (sesión de diseño).
+- Code Connect de `Callout` y `Takeaways` entrega texto de relleno: el texto no es una propiedad en Figma.
+- Cuatro de nueve no leyeron `docs/inventory.md`, aunque `build-ui` lo pide.
+- Ningún agente pudo ver su página en el navegador: arrancar el servidor está denegado.
+- Las nueve notas son 3: estas tareas casi no distinguen un buen intento de uno malo, y la rúbrica no mide el contenido.

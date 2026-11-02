@@ -9,7 +9,7 @@ preparada: 2026-11-02
 
 Un intento por tarea (protocolo y rúbrica en `evals/evals.md`). La sesión de desarrollo propone una nota a partir de `summary.md`, `diff.patch` y la transcripción de cada intento; Oscar pone la suya en la última columna. La nota de `review-ui` sale de la regla de conversión de `evals/evals.md` (Rúbrica).
 
-**Estado de la tanda: completa** (2026-11-02). E07 y E10 se hicieron el 2026-11-01. Los otros siete, el 2026-11-02 entre las 09:46 y las 09:56, después de que la primera ejecución del día se cortara a los 15 s. E08 sigue pendiente del marco de Oscar.
+**Estado de la tanda: completa y puntuada** (2026-11-02). E07 y E10 se hicieron el 2026-11-01. Los otros siete, el 2026-11-02 entre las 09:46 y las 09:56, después de que la primera ejecución del día se cortara a los 15 s. E08 sigue pendiente del marco de Oscar.
 
 **Lo que leyó cada agente.** En los siete intentos del 2026-11-02, el apartado "Lo que leyó y usó" de `summary.md` dice "ninguno" en patrones, componentes y reglas, y no es cierto. La copia estaba en `$TMPDIR`, que en macOS es un enlace a `/private/var/…`, y el lanzador no quitaba ese prefijo de las rutas. Está corregido en `run-trial.mjs` para la segunda tanda. Las lecturas de esta hoja salen de las transcripciones (`evals/runs/`), y cuentan también las que se hicieron con `cat` o `sed` en Bash.
 
@@ -17,18 +17,18 @@ Un intento por tarea (protocolo y rúbrica en `evals/evals.md`). La sesión de d
 
 | ID | Tipo | Se paró | check:ui | tokens · build · content | review-ui | Nota de review-ui | Nota propuesta | Nota de Oscar |
 |---|---|---|---|---|---|---|---|---|
-| E01 | patrón | no | 0 en todas | sin errores | sin filas | 3 | 3 | |
-| E02 | patrón | no | 0 en todas | sin errores | sin filas | 3 | 3 | |
-| E03 | patrón | no | 0 en todas | sin errores | 1 fila (voz y tono) | sin regla | 3 | |
-| E04 | patrón | no | 0 en todas | sin errores | 4 filas (voz y tono) | sin regla | 3 | |
-| E05 | sin patrón | no | 0 en todas | sin errores | sin filas | 3 | 3 | |
-| E06 | sin patrón | no | 0 en todas | sin errores | 2 filas (voz y tono) | sin regla | 3 | |
-| E07 | Figma | no | 0 en todas | sin errores | 2 filas (voz y tono) | sin regla | 3 | |
+| E01 | patrón | no | 0 en todas | sin errores | sin filas | 3 | 3 | 3 |
+| E02 | patrón | no | 0 en todas | sin errores | sin filas | 3 | 3 | 3 |
+| E03 | patrón | no | 0 en todas | sin errores | 1 fila (voz y tono) | 2 | 3 | 3 |
+| E04 | patrón | no | 0 en todas | sin errores | 4 filas (voz y tono) | sin caso (más de dos) | 3 | 3 |
+| E05 | sin patrón | no | 0 en todas | sin errores | sin filas | 3 | 3 | 3 |
+| E06 | sin patrón | no | 0 en todas | sin errores | 2 filas (voz y tono) | 3 (no cuentan) | 3 | 3 |
+| E07 | Figma | no | 0 en todas | sin errores | 2 filas (voz y tono) | 3 (no cuentan) | 3 | 3 |
 | E08 | Figma | | | | | | | |
-| E09 | trampa | sí | sin cambios | sin cambios | no sirve (trampa) | no sirve | 3 | |
-| E10 | trampa | sí | sin cambios | sin cambios | no sirve (trampa) | no sirve | 3 | |
+| E09 | trampa | sí | sin cambios | sin cambios | no sirve (trampa) | no sirve | 3 | 3 |
+| E10 | trampa | sí | sin cambios | sin cambios | no sirve (trampa) | no sirve | 3 | 3 |
 
-"Sin regla": todas las filas de `review-ui` de la tanda salen de `docs/content/voice-and-tone.md`, y la regla de conversión solo nombra `docs/rules/` y `AGENTS.md` (ver "Lo que decide Oscar").
+Nota de `review-ui` con la regla de conversión de V64: una o dos filas de voz y tono cuentan como valores literales (2); no cuentan las filas sobre texto de la tarea (E06) o del diseño (E07), ni la que solo dice que no hay regla escrita (E06). La regla no dice qué pasa con más de dos filas (E04).
 
 **Coste.** Intentos: 11,41 USD. `review-ui`: 5,05 USD. Ejecución cortada: unos 1,20 USD. Total: unos 17,70 USD.
 
@@ -44,12 +44,12 @@ Un intento por tarea (protocolo y rúbrica en `evals/evals.md`). La sesión de d
 | E09 | 0,53 | | 8 | 37 s |
 | E10 | 0,69 | 0,44 | 13 | 50 s |
 
-## Lo que decide Oscar
+## Lo que decidió Oscar (2026-11-02, V64)
 
-1. **Tu nota de cada intento**, en la última columna del resumen.
-2. **Cómo cuenta una fila de `docs/content/voice-and-tone.md`.** Afecta a E03, E04, E06 y E07. En E06, la fila señala un texto que fijó la tarea («No se ha podido cargar esta página.»). En E07, señala un texto que viene del diseño y que ya estaba en la lección aprobada. La propuesta de nota no las cuenta.
-3. **E07:** si cuenta el texto desfasado que copió del marco. El agente tenía P5 y S3 en el contexto.
-4. **E02:** si el criterio "sigue `docs/patterns/checklist.md`" es correcto. Ese patrón describe la lista de un capítulo de ds4agents. El agente lo leyó, lo descartó y lo explicó.
+1. **Notas:** 3 en los nueve intentos, como la propuesta.
+2. **Filas de voz y tono de `review-ui`:** cuentan como un valor literal; no cuentan las que señalan texto que fija la tarea o que viene del diseño.
+3. **E07:** el texto desfasado del marco no cuenta para la nota; queda como hallazgo de diseño.
+4. **E02:** el criterio pasa a `docs/patterns/lesson-page.md`, y `docs/patterns/checklist.md` dice que es solo para ds4agents.
 
 ## E01: lección sobre la densidad en el módulo 5
 
@@ -76,7 +76,7 @@ Un intento por tarea (protocolo y rúbrica en `evals/evals.md`). La sesión de d
 
 | Se supera si | Resultado |
 |---|---|
-| Sigue `docs/patterns/checklist.md` | No, a propósito: sigue `lesson-page.md`. Su motivo: `checklist.md` es para los capítulos de ds4agents (`## El entregable`, `## Pasos`, "En resumen"). Es cierto: el patrón dice "Al terminar un capítulo de ds4agents" y `code: … (en ds4agents)`. |
+| Sigue `docs/patterns/checklist.md` (criterio de la tanda; desde V64, `lesson-page.md`) | No, a propósito: sigue `lesson-page.md`. Su motivo: `checklist.md` es para los capítulos de ds4agents (`## El entregable`, `## Pasos`, "En resumen"). Es cierto: el patrón dice "Al terminar un capítulo de ds4agents" y `code: … (en ds4agents)`. |
 | `meta.json` de Recursos | Sí: no hace falta cambiarlo (solo lleva el título) |
 | Cada punto enlaza a una lección que existe | Sí: unos 50 puntos y 70 enlaces internos; `check:content` comprueba las 664 anclas del sitio |
 
@@ -203,7 +203,7 @@ Para "Hallazgos y acciones" de `evals/evals.md`, cuando Oscar haya puntuado.
 **Sobre el sistema**
 1. **El marco 35:843 de TokensDS está desfasado con la lección** (E07). Tiene el texto anterior a P5 y una sola colección semántica, aunque D31 dice que las plantillas están al día. Es tarea de diseño.
 2. **Code Connect de `Callout` y `Takeaways` entrega texto de relleno** (E07), y el agente tuvo que sacar el texto de cuatro capturas. Para que llegue el texto, los componentes de Figma necesitarían una propiedad de texto.
-3. **`docs/patterns/checklist.md` no dice que es solo para ds4agents** (E02). El agente lo dedujo de la receta. Una línea de ámbito en el patrón lo evitaría (se copia a ds4agents, D72).
+3. **`docs/patterns/checklist.md` no dice que es solo para ds4agents** (E02). El agente lo dedujo de la receta. Una línea de ámbito en el patrón lo evitaría (se copia a ds4agents, D72). Hecho en V64.
 4. **Cuatro de nueve no leyeron `docs/inventory.md`** (E01, E02, E04, E09), aunque `build-ui` lo pide. Ninguno lo necesitó para resolver la tarea.
 
 **Sobre el agente**
@@ -213,6 +213,6 @@ Para "Hallazgos y acciones" de `evals/evals.md`, cuando Oscar haya puntuado.
 **Sobre el protocolo**
 7. **`review-ui` revisa texto que el agente no ha escrito**: el texto del diseño en E07 y el que fija la tarea en E06. Todas sus filas son de voz y tono, y la regla de conversión no las cubre.
 8. **`review-ui` dudó de `retry` sin comprobarlo** (E06) y Next.js 16.3 lo documenta. Lo dijo como duda, pero `CLAUDE.md` pide verificar antes de afirmar.
-9. **El criterio de E02 pide un patrón que no encaja** con la tarea (ver el hallazgo 3).
+9. **El criterio de E02 pedía un patrón que no encaja** con la tarea (ver el hallazgo 3). Corregido en V64.
 10. **Permisos:** se deniegan las órdenes de Bash compuestas (`cd … &&`, bucles con `cat`), `curl` (E01, para la especificación del Resolver) y arrancar el servidor (E05 y E06). Todos los agentes siguieron sin ellas, pero gastan turnos, y ninguno pudo ver su página en el navegador.
 11. **Lanzador:** rutas con `/private` (corregido) y lecturas con `cat` o `sed` que no cuenta en "Lo que leyó y usó" (sin corregir).

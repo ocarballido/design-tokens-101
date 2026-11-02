@@ -17,6 +17,9 @@ Los valores de los tokens no forman parte de la API.
 
 ## [Unreleased]
 
+### Changed
+- `docs/patterns/checklist.md` dice que es solo para el final de un capítulo de ds4agents; en DesignToken101, una página con una lista de comprobación sigue `docs/patterns/lesson-page.md` (V64).
+
 ## [1.3.0] - 2026-11-01
 
 Primera versión con los componentes del piloto y sus reglas dentro de la API pública (D78). No cambia ningún token: quien usa el sistema no tiene que cambiar nada.

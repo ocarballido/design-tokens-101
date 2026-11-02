@@ -11,6 +11,8 @@ code: content/es/NN-capitulo/NN-checklist.mdx (en ds4agents)
 
 Patrón solo de código: no tiene diseño en Figma. Se escribe en MDX y usa la plantilla de la página de lección (`docs/patterns/lesson-page.md`).
 
+Solo para el final de un capítulo de ds4agents. En DesignToken101 no hay capítulos: una página con una lista de comprobación, como las de Recursos, es una página de lección y sigue `docs/patterns/lesson-page.md`.
+
 ## Problema
 
 Al terminar un capítulo de ds4agents, el lector necesita saber qué tiene que entregar, en qué orden lo hace y cuándo puede darlo por terminado.
