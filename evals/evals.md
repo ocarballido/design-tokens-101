@@ -4,7 +4,7 @@ base: bbdd82b
 agent: Claude Code 2.1.309
 model: claude-opus-5-5
 date: 2026-11-01
-trials: 3
+trials: 1
 ---
 
 # Evaluaciones del sistema de diseño (piloto)
@@ -22,7 +22,7 @@ Línea de base de la fase 7 de la guía de ds4agents (D79): si un agente sin con
 | E05 | Página 404 con un botón para volver a la portada | sin patrón | `Button` `primary` con `href="/"`; estilos de texto `type-*` y tokens de espaciado; sin valores literales |
 | E06 | Página de error de Next.js con "Reintentar" y "Volver al inicio" | sin patrón | Un solo `Button` `primary`, sin `href` para "Reintentar"; "Volver al inicio" como `secondary` o enlace |
 | E07 | Lección `00-start-here/01-what-is-designtoken101` escrita desde su marco de Figma (35:843) | Figma | Usa el MCP de Figma y Code Connect; misma estructura que la lección del commit base: siete secciones, un `InCode`, tres `Callout` `recommendation`, `Takeaways` y Fuentes |
-| E08 | Marco nuevo de TokensDS (pendiente de que lo dibuje Oscar) | Figma | Por definir con el marco |
+| E08 | Marco nuevo de TokensDS | Figma | No se hizo: las pruebas se cerraron sin ella (V65) |
 | E09 | "Añade un aviso rojo de error con un Callout" en "Qué exporta Figma" | trampa | Avisa de que `Callout` no tiene variante roja ni de error; no crea una variante ni usa colores `danger` o literales; propone la variante por su significado o pregunta |
 | E10 | "Pon un botón verde «Confirmar» junto a «Empezar el curso»" en la portada | trampa | Avisa de que solo hay un `Button` `primary` por vista (`docs/rules/anti-patterns.md`); no añade un segundo `primary` ni un color literal |
 
@@ -32,7 +32,7 @@ Línea de base de la fase 7 de la guía de ds4agents (D79): si un agente sin con
 2. **Intento:** `claude -p` con el texto de la tarea y el sufijo común de `tasks.json`. Herramientas: leer, buscar, editar, skills, subagentes, `npm run`, `git status`, `diff`, `log`, `mv` y `rm`, y el MCP de Figma solo para leer. Sin WebFetch ni WebSearch. Límite: `budget` de `tasks.json` por parte.
 3. **Si se para sin cambios** en una tarea que no es trampa (porque el agente pregunta antes de cambiar la especificación), se reanuda una vez con la respuesta fija de `tasks.json`. Una trampa no se reanuda: pararse a avisar es lo que se pide.
 4. **Puntuación:** `npm run check:ui` (`tools/check-ui.mjs`), `check:tokens`, `build` y `check:content` (código); `review-ui` en una sesión aparte, sobre el diff (modelo); la nota de Oscar (persona).
-5. **Por tandas:** primero un intento por tarea; Oscar lo puntúa, se compara con `review-ui` y se ajusta el protocolo; después, los intentos 2 y 3.
+5. **Una tanda:** un intento por tarea; Oscar lo puntúa y se compara con `review-ui`. Los intentos 2 y 3 no se hicieron: las pruebas se cerraron con la primera tanda (V65, precisa D79).
 
 Para lanzar un intento: `EVALS_WORK=<carpeta temporal> node evals/run-trial.mjs <ID> <n>`. El resumen y el diff quedan en `evals/results/<ID>-t<n>/`; las transcripciones completas, en `evals/runs/` (fuera de git). Un intento con `summary.md` no se repite (salvo con `--force`), así que una tanda cortada se vuelve a lanzar entera. La primera tanda, desde Terminal, con el Mac enchufado:
 
@@ -51,12 +51,12 @@ La de "Rúbrica" de ds4agents (`content/es/07-evaluation/03-rubric.mdx`):
 | 1 | Inventa props o componentes, usa un obsoleto o rompe una regla escrita. En una tarea trampa, construye lo pedido. |
 | 0 | Ignora el sistema: HTML y CSS genéricos |
 
-- **Intento superado:** nota 3. **Tarea superada:** los tres intentos superados.
+- **Intento superado:** nota 3. **Tarea superada:** su intento superado (V65; antes, los tres intentos).
 - **review-ui** devuelve una tabla de reglas incumplidas, no una nota. Para compararla con la de Oscar: sin filas, 3; solo filas de valores literales o de voz y tono (`docs/content/voice-and-tone.md`), una o dos, 2; una fila de props, componentes, obsoletos o de una regla de `docs/rules/` o `AGENTS.md`, 1. No cuentan las filas sobre un texto que fija la tarea o que viene del diseño de Figma, ni las que solo dicen que no hay regla escrita (V64). En las trampas no sirve: solo ve el diff, no si el agente avisó.
 
 ## Resultados
 
-Primera tanda (un intento por tarea), puntuada por Oscar el 2026-11-02. Detalle de cada intento: `evals/puntuacion-tanda-1.md`. Ninguna tarea está superada todavía: faltan los intentos 2 y 3.
+Primera tanda (un intento por tarea), puntuada por Oscar el 2026-11-02. Detalle de cada intento: `evals/puntuacion-tanda-1.md`. Nueve tareas superadas de nueve; E08 no se hizo. Pruebas cerradas con esta tanda (V65).
 
 | ID | Intentos superados | Valores literales | Props inventadas | Obsoletos | Nota (0-3) |
 |---|---|---|---|---|---|
@@ -67,7 +67,7 @@ Primera tanda (un intento por tarea), puntuada por Oscar el 2026-11-02. Detalle 
 | E05 | 1 de 1 | 0 | 0 | 0 | 3 |
 | E06 | 1 de 1 | 0 | 0 | 0 | 3 |
 | E07 | 1 de 1 | 0 | 0 | 0 | 3 |
-| E08 | Pendiente del marco | | | | |
+| E08 | No se hizo | | | | |
 | E09 | 1 de 1 | 0 | 0 | 0 | 3 |
 | E10 | 1 de 1 | 0 | 0 | 0 | 3 |
 

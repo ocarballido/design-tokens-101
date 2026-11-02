@@ -320,6 +320,7 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V62 | `/* @kind other */` solo después de las declaraciones, en la misma línea, y no dentro de los `@property` de Tailwind (precisa D76). | Cerrada | 2026-11-01 |
 | V63 | La cabecera de convenciones de Claude dice que la navegación (`SiteHeader`, `Sidebar`, `LessonHeader`, `PageNav`, `SiteFooter`, `MobileNav`, `ThemeToggle`) no está en el paquete y que en una página de lección se diseña solo la columna de contenido; el paquete sigue con los cinco componentes del piloto (D75). | Cerrada | 2026-11-01 |
 | V64 | Primera tanda de D79 puntuada: 3 en los nueve intentos; en la conversión de `review-ui`, una fila de voz y tono cuenta como un valor literal y no cuentan las de texto de la tarea o del diseño; E02 se supera con `lesson-page.md` y `checklist.md` dice que es solo para ds4agents. | Cerrada | 2026-11-02 |
+| V65 | Las evaluaciones de la fase 7 se cierran con la primera tanda: un intento por tarea, sin intentos 2 y 3 ni E08 (precisa D79). | Cerrada | 2026-11-02 |
 
 ## Abiertas
 
