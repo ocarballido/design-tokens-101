@@ -1,0 +1,169 @@
+diff --git a/content/es/05-modes/07-density.mdx b/content/es/05-modes/07-density.mdx
+new file mode 100644
+index 0000000..82a864a
+--- /dev/null
++++ b/content/es/05-modes/07-density.mdx
+@@ -0,0 +1,159 @@
++---
++title: La densidad
++meta_title: "La densidad, compacta y cómoda, como eje de modos"
++description: Qué tokens cambiarían con una densidad compacta y otra cómoda, por qué necesitarían una capa semántica de espaciado, en qué colección irían y por qué DesignToken101 no tiene ese eje.
++nav_title: La densidad
++lastReviewed: 2026-11-02
++---
++
++DesignToken101 tiene dos ejes: el tema y el ancho de pantalla. Hay otros posibles, y uno de los más habituales es la **densidad**: una versión cómoda de la interfaz y otra compacta, en la que cabe más en el mismo espacio. En esta lección verás qué tokens cambiarían con ese eje, en qué colección irían y por qué DesignToken101 no lo tiene.
++
++**En esta página**
++
++- [Qué es la densidad](#qué-es-la-densidad)
++- [Qué tokens cambiarían](#qué-tokens-cambiarían)
++- [Los primitivos no pueden cambiar](#los-primitivos-no-pueden-cambiar)
++- [En qué colección irían](#en-qué-colección-irían)
++- [El tamaño de texto ya tiene eje](#el-tamaño-de-texto-ya-tiene-eje)
++- [Por qué DesignToken101 no tiene este eje](#por-qué-designtoken101-no-tiene-este-eje)
++- [En Figma](#en-figma)
++- [Lo que te llevas](#lo-que-te-llevas)
++
++## Qué es la densidad
++
++La densidad es cuánto espacio ocupan los elementos de la interfaz. Con dos valores:
++
++- **Cómoda:** los controles tienen más relleno y hay más separación entre ellos.
++- **Compacta:** los mismos controles, con menos relleno y menos separación, para que quepan más filas o más campos en la pantalla.
++
++Los componentes y los colores son los mismos en las dos. Cambian las medidas. Es uno de los usos de los modos que propone la ayuda de Figma: los tamaños de dispositivo, con variables Number para espaciados y tamaños ([Figma: Overview of variables](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)). La densidad usa el mismo tipo de variable, pero por otra razón: no la decide el ancho de la pantalla, sino cuánta información necesita ver quien usa la interfaz.
++
++## Qué tokens cambiarían
++
++En [Tamaño y espaciado](/accessibility/size-and-spacing#un-tamaño-es-una-suma-de-tokens) viste que el alto de un control es una suma de tokens: el relleno por cada lado y su contenido. La densidad cambia **el relleno** y deja el contenido igual. Si los controles de DesignToken101 tuvieran una versión compacta, con un paso menos de relleno, quedarían así:
++
++| Control | Suma en cómoda | Alto | Suma en compacta | Alto |
++|---|---|---|---|---|
++| `IconButton` (botón de menú) | `space/200` + icono de `space/600` + `space/200` | 40 px | `space/100` + icono de `space/600` + `space/100` | 32 px |
++| Opción del selector de tema | `space/150` + icono de `space/600` + `space/150` | 36 px | `space/050` + icono de `space/600` + `space/050` | 28 px |
++| Fila de lección del sidebar | `space/200` + una línea de `label/default` + `space/200` | 35,6 px | `space/100` + una línea de `label/default` + `space/100` | 27,6 px |
++
++Los tres siguen por encima de los 24 × 24 px que pide el criterio 2.5.8 ([Understanding 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)). Un modo compacto es donde un control puede bajar de ese mínimo sin que nadie lo note: comprueba la suma en los dos modos, no en el que diseñas primero.
++
++Cambiarían también otros espaciados con la misma función: el espacio entre las filas de una lista o el relleno de los contenedores. No cambiarían:
++
++- **Los colores.** Son del eje del tema.
++- **El tamaño de los iconos.** En la tabla, el icono mide lo mismo en los dos modos; es lo que mantiene los objetivos por encima del mínimo.
++- **El radio y el grosor de borde.** Un control más bajo puede llevar las mismas esquinas.
++- **El tamaño de texto.** Lo verás en [El tamaño de texto ya tiene eje](#el-tamaño-de-texto-ya-tiene-eje).
++
++## Los primitivos no pueden cambiar
++
++Hoy los componentes de DesignToken101 aplican el espaciado directamente desde los primitivos: `space/200`, `space/150`. El espaciado no tiene capa semántica ([Por qué el espaciado no tiene semánticos](/relations/semantic-size#por-qué-el-espaciado-no-tiene-semánticos)). Y los primitivos no pueden tener modos, por dos motivos:
++
++- **El modo es de la colección.** Si añades un modo Compact a `Primitives`, todas sus variables tienen un valor en Compact, también los colores ([Una columna de valores](/modes/what-is-a-mode#una-columna-de-valores)).
++- **El nombre dejaría de ser verdad.** En la escala de DesignToken101, el número del paso es proporcional al valor: `space/400` mide 16 px ([La escala de DesignToken101](/primitives/spacing#la-escala-de-designtoken101)). Si en Compact midiera 12 px, el nombre mentiría.
++
++Por eso la densidad empieza por crear **semánticos de espaciado**: tokens con el nombre de su función, que son alias de un primitivo distinto en cada modo. Con el orden de los semánticos de tamaño (categoría, elemento, medida), podrían ser estos. Son nombres de ejemplo: DesignToken101 no tiene ninguno.
++
++| Token de ejemplo | Comfortable | Compact | Dónde se aplica |
++|---|---|---|---|
++| `space/control/padding-block` | `space/200` (8) | `space/100` (4) | Relleno vertical de `IconButton` y de las filas del sidebar |
++| `space/group/padding-block` | `space/150` (6) | `space/050` (2) | Relleno vertical de las opciones dentro de un carril, como el selector de tema |
++
++Cada componente pasaría a usar el semántico en lugar del primitivo. Es el trabajo grande del eje: no está en la colección nueva, sino en revisar todos los componentes.
++
++## En qué colección irían
++
++Aplica la prueba de [Un eje por colección](/modes/one-axis-per-collection#cuándo-dos-variaciones-son-un-mismo-eje): ¿la densidad cambia los mismos tokens que otro eje, o cambia con él?
++
++- **Si la densidad es independiente del ancho**, puedes querer una pantalla compacta en Desktop y otra cómoda en Mobile. Es un eje propio y va en su propia colección: `Density`, con los modos Comfortable y Compact. Los modos de las colecciones se suman: `Layout` sigue con dos y `Density` añade dos.
++- **Si la densidad va siempre con el ancho** (por ejemplo, compacta en Mobile y cómoda en Desktop), no es un eje nuevo. Es el mismo eje que `Layout`, y los semánticos de espaciado van en `Layout`, con un valor en Desktop y otro en Mobile.
++
++Ponerla dentro de `Layout` siendo independiente tendría el problema de [Dos ejes en una sola colección](/modes/one-axis-per-collection#dos-ejes-en-una-sola-colección): cuatro modos (Desktop Comfortable, Desktop Compact, Mobile Comfortable, Mobile Compact) y la mitad de los valores repetidos.
++
++<InCode title="Un eje de densidad en el Resolver y en CSS">
++
++En el Resolver, una colección con modos es un modificador ([Los modos en código](/modes/modes-in-code#dtcg-no-tiene-modos)). Otros ejes, además del tema, van en otros modificadores ([Resolver Module: Inputs](https://www.designtokens.org/TR/2025.10/resolver/#inputs)). `Density` sería un tercero, junto a `theme` y `layout`:
++
++```json filename="tokens/tokens101.resolver.json (ejemplo, no existe)"
++{
++  "modifiers": {
++    "density": {
++      "default": "comfortable",
++      "contexts": {
++        "comfortable": [{ "$ref": "dtcg/density/Comfortable.tokens.json" }],
++        "compact": [{ "$ref": "dtcg/density/Compact.tokens.json" }]
++      }
++    }
++  }
++}
++```
++
++En CSS sería un bloque más que redefine las mismas variables. Como el tema, la elegiría quien usa la interfaz, no el ancho de la ventana, así que seguiría el patrón del tema: un atributo en `<html>`.
++
++```css filename="src/styles/tokens.css (ejemplo, no existe)"
++:root {
++  --t101-space-control-padding-block: var(--t101-space-200);
++}
++
++[data-density="compact"] {
++  --t101-space-control-padding-block: var(--t101-space-100);
++}
++```
++
++</InCode>
++
++## El tamaño de texto ya tiene eje
++
++Una interfaz compacta a menudo pide también texto más pequeño. Pero en DesignToken101 el tamaño de texto ya cambia en un eje: `font-size/body/default` está en `Layout`. Una variable está en una sola colección, así que no puede cambiar a la vez con el ancho y con la densidad. Las salidas son dos:
++
++- **La densidad no toca el texto.** `Density` cambia el espaciado, y el tamaño de texto sigue en `Layout`.
++- **Unir los dos ejes en una colección**, con los cuatro modos de la sección anterior y sus valores repetidos.
++
++<Callout variant="recommendation">
++
++Si un día DesignToken101 tuviera densidad, **la densidad cambiaría el espaciado y no el texto**. Así cada token cambia en un único eje, que es la regla de [Un eje por colección](/modes/one-axis-per-collection#una-colección-por-eje). Es nuestro criterio, no una norma de Figma ni de DTCG.
++
++</Callout>
++
++## Por qué DesignToken101 no tiene este eje
++
++DesignToken101 crea los tokens para los casos de uso que existen, no para los que podrían llegar ([Un sistema tan grande como lo que resuelve](/start-here/what-is-designtoken101#un-sistema-tan-grande-como-lo-que-resuelve)). La densidad no es un caso de uso de esta web: no hay una opción para elegirla ni una pantalla diseñada en versión compacta.
++
++Añadirla costaría, como mínimo:
++
++- Una capa semántica de espaciado que hoy no existe, y cambiar cada componente para que la use.
++- Una colección más, con sus descripciones, scopes y code syntax.
++- Un modo más que elegir en cada pantalla. En el ejercicio de este módulo revisas cuatro combinaciones (dos temas por dos anchos); con la densidad serían ocho.
++- Un modificador más en el Resolver, un bloque más en el CSS y su comprobación.
++
++Es el mismo criterio que deja a DesignToken101 sin semánticos de espaciado: un token con nombre de función aporta cuando varios elementos tienen que cambiar a la vez, y por separado del resto. La densidad es exactamente ese caso. Si la web lo necesitara, se añadirían los semánticos y la colección a la vez.
++
++## En Figma
++
++Si tu diseño necesita densidad, el método es el de `Layout` ([Crear la colección Layout](/modes/create-modes#crear-la-colección-layout)):
++
++1. Crea la colección `Density` y cambia el nombre de su primer modo a Comfortable, que será el modo por defecto. Añade el modo Compact.
++2. Crea una variable Number por semántico de espaciado, con el alias al primitivo `space/*` de cada modo.
++3. Añade la descripción, el scope de espaciado de auto layout y el code syntax Web. El scope cubre a la vez el gap y el padding: no puedes limitar la variable a uno de los dos ([Espaciado negativo](/primitives/spacing#espaciado-negativo)).
++4. En tus componentes, cambia los primitivos de espaciado por los semánticos. Después, decide si los primitivos de espaciado se siguen publicando: hoy se publican porque se aplican directamente ([La colección completa](/primitives/primitives-collection)).
++5. Elige el modo de `Density` en el marco de cada pantalla, igual que los de `Semantic color` y `Layout` ([Elegir el modo de un marco](/modes/apply-modes#elegir-el-modo-de-un-marco)).
++
++Antes de crearla, haz la prueba de la sección [En qué colección irían](#en-qué-colección-irían): si tu densidad va siempre con el ancho, no necesitas una colección nueva.
++
++<Takeaways>
++
++## Lo que te llevas
++
++- La densidad cambia el relleno y la separación de los elementos, no los colores ni el tamaño de los iconos.
++- Necesita semánticos de espaciado, porque un primitivo no puede valer distinto en cada modo.
++- Va en su propia colección si es independiente del ancho, y en `Layout` si va siempre con él.
++
++</Takeaways>
++
++## Fuentes
++
++- [Figma: Overview of variables, collections, and modes](https://help.figma.com/hc/en-us/articles/14506821864087-Overview-of-variables-collections-and-modes)
++- [Design Tokens Resolver Module 2025.10](https://www.designtokens.org/TR/2025.10/resolver/)
++- [W3C: Understanding Success Criterion 2.5.8 Target Size (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
+diff --git a/content/es/05-modes/07-exercise-modes.mdx b/content/es/05-modes/08-exercise-modes.mdx
+similarity index 100%
+rename from content/es/05-modes/07-exercise-modes.mdx
+rename to content/es/05-modes/08-exercise-modes.mdx

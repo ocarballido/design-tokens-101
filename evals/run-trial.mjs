@@ -62,6 +62,8 @@ const readEvents = (file) =>
 
 // 1. Copia limpia.
 fs.mkdirSync(copy, { recursive: true });
+// En macOS, /tmp y $TMPDIR son enlaces a /private/…: el agente escribe la ruta real.
+const realCopy = fs.realpathSync(copy);
 execSync(`git -C "${ROOT}" archive ${config.base} | tar -x -C "${copy}"`);
 fs.rmSync(path.join(copy, 'evals'), { recursive: true, force: true });
 const [setup, target] = (task.setup ?? '').split(':');
@@ -105,7 +107,7 @@ const review = hasChanges
   : { events: [{ type: 'result', result: 'Sin cambios: no se ejecuta.' }] };
 
 // Resumen: lo que leyó y usó el agente, comprobaciones y último mensaje.
-const relative = (p) => String(p).replaceAll(copy + '/', '').replaceAll(copy, '.');
+const relative = (p) => [realCopy, copy].reduce((s, dir) => s.replaceAll(dir + '/', '').replaceAll(dir, '.'), String(p));
 const calls = parts.flatMap((p, i) =>
   p.events.filter((e) => e.type === 'assistant').flatMap((e) =>
     e.message.content.filter((c) => c.type === 'tool_use').map((c) => {

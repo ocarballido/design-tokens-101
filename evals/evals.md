@@ -56,7 +56,7 @@ La de "Rúbrica" de ds4agents (`content/es/07-evaluation/03-rubric.mdx`):
 
 ## Resultados
 
-Primera tanda incompleta (E07 y E10 hechos; los demás, cortados o sin lanzar). Hoja de puntuación: `evals/puntuacion-tanda-1.md`.
+Primera tanda completa (2026-11-02), pendiente de la nota de Oscar. Hoja de puntuación: `evals/puntuacion-tanda-1.md`.
 
 | ID | Intentos superados | Valores literales | Props inventadas | Obsoletos | Nota (0-3) |
 |---|---|---|---|---|---|

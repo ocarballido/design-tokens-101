@@ -1,0 +1,140 @@
+diff --git a/content/es/99-resources/03-common-mistakes.mdx b/content/es/99-resources/03-common-mistakes.mdx
+new file mode 100644
+index 0000000..dbc4b51
+--- /dev/null
++++ b/content/es/99-resources/03-common-mistakes.mdx
+@@ -0,0 +1,134 @@
++---
++title: Errores frecuentes
++meta_title: "Errores frecuentes con tokens de diseño en Figma y en código"
++description: "Los errores que aparecen al crear tokens en Figma y al llevarlos al código: qué pasa, por qué y cómo evitarlo, cada uno con la lección que lo explica."
++nav_title: Errores frecuentes
++lastReviewed: 2026-11-02
++---
++
++Algunos errores no dan ningún aviso: el diseño se ve bien en Figma, el CSS se genera sin fallos y el problema aparece después. Esta página reúne los que salen en el curso, en el orden en que los vas encontrando. Cada uno dice qué pasa, por qué y cómo evitarlo, y enlaza a la lección que lo explica.
++
++**En esta página**
++
++- [El interlineado como variable](#el-interlineado-como-variable)
++- [La negrita en un fragmento de texto](#la-negrita-en-un-fragmento-de-texto)
++- [Renombrar o duplicar sin cambiar el code syntax](#renombrar-o-duplicar-sin-cambiar-el-code-syntax)
++- [Un modo elegido en el componente principal](#un-modo-elegido-en-el-componente-principal)
++- [Los alias que llegan resueltos](#los-alias-que-llegan-resueltos)
++- [La opacidad en float32](#la-opacidad-en-float32)
++- [La clase border sin valor](#la-clase-border-sin-valor)
++- [La familia tipográfica con el nombre de Figma](#la-familia-tipográfica-con-el-nombre-de-figma)
++- [Lo que te llevas](#lo-que-te-llevas)
++
++## El interlineado como variable
++
++DTCG trata el interlineado como un `number`, un multiplicador del tamaño de fuente ([Format Module: Number](https://www.designtokens.org/TR/2025.10/format/#number)), y Figma permite aplicar una variable Number al interlineado ([Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)). Pero, al probarlo en Figma, una variable con valor `1.5` dio un interlineado de 1,5 píxeles, y una con `150`, de 150 píxeles, también en estilos de texto definidos en porcentaje. Figma lee la variable como píxeles, no como multiplicador.
++
++<Callout variant="recommendation">
++
++En DesignToken101, los tokens de interlineado viven en código. En Figma, los estilos de texto usan 120 %, 140 % y 150 % escritos a mano, sin variable.
++
++</Callout>
++
++Lo explica [Tipos simples](/fundamentals/simple-types#interlineado). Cómo pasa el porcentaje a multiplicador en el CSS, en [Los estilos de texto en código](/figma-to-code/text-styles-in-code#el-interlineado-de-porcentaje-a-multiplicador).
++
++## La negrita en un fragmento de texto
++
++En Figma, poner en negrita una parte de un párrafo separa ese fragmento de su estilo de texto. El fragmento queda sin estilo, aunque el resto del párrafo lo tenga. Lo comprobamos en el archivo de DesignToken101. Un texto sin estilo es un valor suelto: no responde a ningún cambio del sistema.
++
++Para evitarlo, el texto destacado necesita su propio estilo. En DesignToken101 es `body/strong`. En código no hace falta: `<strong>` hereda el tamaño y el interlineado del párrafo y aplica el peso.
++
++Lo explica [Estilos de texto como capa](/relations/text-styles#un-texto-sin-estilo-es-un-valor-suelto). La parte del código, en [Los estilos de texto en código](/figma-to-code/text-styles-in-code#la-negrita).
++
++## Renombrar o duplicar sin cambiar el code syntax
++
++En Figma, el code syntax es un dato aparte del nombre de la variable ([Figma Plugin API: Variable](https://developers.figma.com/docs/plugins/api/Variable/)). Al renombrar una variable, los alias y los vínculos del diseño se conservan, pero el code syntax no cambia (comprobado con la API de plugins de Figma el 2026-10-04). Al duplicarla, la copia lleva el code syntax de la original.
++
++- **Si renombras**, la variable CSS sigue con el nombre viejo.
++- **Si duplicas**, dos variables tienen el mismo nombre en CSS.
++
++Figma no avisa de ninguno de los dos. Al renombrar o duplicar, cambia también el code syntax. En DesignToken101, `npm run check:tokens` comprueba que el code syntax de cada variable sea su ruta, y detecta los dos casos antes de publicar.
++
++Lo explica [Crear las variables en Figma](/naming/create-variables#si-tienes-que-renombrar). La comprobación, en [Comprobar y actualizar](/figma-to-code/check-and-update#los-errores-de-diseño-que-detecta).
++
++## Un modo elegido en el componente principal
++
++Una instancia hereda el modo del marco donde la colocas, salvo que el componente principal tenga un modo elegido. Entonces la instancia usa el modo del componente, esté donde esté. Lo comprobamos el 2026-10-05 con la API de plugins de Figma: con Light elegido en el componente principal, su instancia usó Light dentro de un marco en Dark.
++
++Lo ves cuando una instancia no cambia de tema con el resto de la pantalla.
++
++<Callout variant="recommendation">
++
++No elijas modo en un componente principal, salvo que el componente tenga que verse siempre en ese modo. Para verlo en Dark mientras lo diseñas, elige el modo en la página o en un marco que contenga instancias del componente.
++
++</Callout>
++
++Lo explica [Aplicar los modos al diseño](/modes/apply-modes#instancias-y-componentes). Cómo se prueba un componente en todos los modos, en [El componente en Figma](/components/components-in-figma#pruébalo-en-los-cuatro-modos).
++
++## Los alias que llegan resueltos
++
++Figma exporta un alias a otra colección con dos datos: el valor resuelto en `$value` y el destino en `com.figma.aliasData`. La ayuda de Figma documenta `com.figma.aliasData` como la forma de apuntar a variables de otra colección ([Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)). Un alias dentro de la misma colección se exporta ya como referencia DTCG.
++
++Una herramienta que lee la exportación tal cual ve un color, no un alias. Con la exportación de DesignToken101, Style Dictionary 5.5.5 y Terrazzo 2.7.1 escribieron el valor resuelto de cada alias en lugar de `var()` (octubre de 2026). El CSS parece correcto, pero ha perdido la capa de alias: cambiar un primitivo ya no cambia los semánticos que apuntan a él.
++
++<Callout variant="recommendation">
++
++En DesignToken101, un paso propio, la normalización, recupera la referencia de cada alias desde `com.figma.aliasData` antes de generar el CSS.
++
++</Callout>
++
++Lo explica [Qué sale de Figma](/figma-to-code/what-figma-exports#por-qué-el-valor-viene-resuelto). Cómo se recupera la referencia, en [Completar la exportación](/figma-to-code/normalize-the-export#recuperar-los-alias).
++
++## La opacidad en float32
++
++Figma escribe la opacidad como un número de coma flotante de 32 bits (float32). Un 50 % es exacto en ese formato; un 90 % sale como `0.8999999761581421`, el float32 más cercano a `0.9` ([MDN: Math.fround](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround)).
++
++La diferencia cae justo en un redondeo. En un color hexadecimal, 0,9 × 255 = 229,5 da `e6`, pero 0,8999999761581421 × 255 da 229,49999… y se redondea a `e5`. Sin corregir, el fondo de la cabecera de esta web en Dark saldría `#050c09e5` en lugar de `#050c09e6`.
++
++<Callout variant="recommendation">
++
++En DesignToken101, la normalización sustituye el `alpha` por el decimal más corto que da el mismo float32: `0.9`, el valor que se escribió en Figma.
++
++</Callout>
++
++Lo explica [Completar la exportación](/figma-to-code/normalize-the-export#la-opacidad-en-float32).
++
++## La clase border sin valor
++
++En Tailwind CSS, la clase `border` sin valor escribe `border-width: 1px` ([Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)). El grosor queda fuera de los tokens, aunque coincida con el valor de `border-width/100`.
++
++Tailwind CSS no tiene espacio de nombres para el grosor de borde, así que el token no tiene clase propia. Se usa con la sintaxis de variable: `border-(length:--t101-border-width-100)` ([Tailwind CSS: border-width, Using a custom value](https://tailwindcss.com/docs/border-width#using-a-custom-value)).
++
++Lo explica [El tema de Tailwind CSS](/figma-to-code/tailwind-theme#lo-que-no-se-expone).
++
++## La familia tipográfica con el nombre de Figma
++
++`font-family/sans` vale `"Inter"`, el nombre que guarda Figma. Esta web carga las fuentes con `next/font`, que las aloja en la propia web y las entrega en una variable CSS con el nombre que eliges, como `--font-inter` ([Next.js: Font, CSS variables](https://nextjs.org/docs/app/api-reference/components/font#css-variables)). Al construir la web lo comprobamos (2026-10-03): con `font-family: Inter`, el nombre del token, el navegador no usaba la fuente que carga `next/font`.
++
++<Callout variant="recommendation">
++
++En DesignToken101, la capa de Tailwind compone la familia en tres partes: la variable de `next/font`, si existe; si no, el token con el nombre de Figma; y las familias de reserva del sistema. El token no cambia y sigue saliendo de Figma.
++
++</Callout>
++
++Lo explica [El tema de Tailwind CSS](/figma-to-code/tailwind-theme#la-familia-tipográfica).
++
++<Takeaways>
++
++## Lo que te llevas
++
++- Cuatro de estos errores nacen en Figma y se evitan al diseñar: el interlineado como variable, la negrita suelta, el code syntax sin cambiar y el modo en el componente principal.
++- La exportación no llega intacta al código: los alias vienen resueltos y la opacidad, en float32, así que hay que completarla antes de generar el CSS.
++- En código, el grosor de borde y la familia tipográfica salen de sus tokens, no de la clase por defecto de Tailwind CSS ni del nombre de la fuente.
++
++</Takeaways>
++
++## Fuentes
++
++- [Design Tokens Format Module 2025.10: Number](https://www.designtokens.org/TR/2025.10/format/#number)
++- [Figma: Apply variables to designs](https://help.figma.com/hc/en-us/articles/15343107263511-Apply-variables-to-designs)
++- [Figma: Modes for variables](https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables)
++- [Figma Plugin API: Variable](https://developers.figma.com/docs/plugins/api/Variable/)
++- [MDN: Math.fround](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/fround)
++- [Tailwind CSS: border-width](https://tailwindcss.com/docs/border-width)
++- [Next.js: Font, CSS variables](https://nextjs.org/docs/app/api-reference/components/font#css-variables)

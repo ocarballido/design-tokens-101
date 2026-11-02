@@ -1,0 +1,52 @@
+diff --git a/messages/es.json b/messages/es.json
+index 6229643..4b59af8 100644
+--- a/messages/es.json
++++ b/messages/es.json
+@@ -74,6 +74,12 @@
+     "intro": "Paso a paso, planificarás un sistema de tokens, lo crearás con variables de Figma y lo llevarás al código en formato DTCG, con un itinerario opcional en CSS y Tailwind CSS. Cada afirmación técnica enlaza a su fuente, y esta web usa el mismo sistema que enseña.",
+     "start": "Empezar el curso"
+   },
++  "Error": {
++    "title": "Algo ha fallado",
++    "description": "No se ha podido cargar esta página.",
++    "retry": "Reintentar",
++    "home": "Volver al inicio"
++  },
+   "ToolScales": {
+     "input": "Entrada",
+     "result": "Resultado",
+diff --git a/src/app/error.tsx b/src/app/error.tsx
+new file mode 100644
+index 0000000..a0177aa
+--- /dev/null
++++ b/src/app/error.tsx
+@@ -0,0 +1,29 @@
++'use client';
++
++import { useTranslations } from 'next-intl';
++import { Button } from '@/components/Button';
++
++// Página de error de una página (https://nextjs.org/docs/app/api-reference/file-conventions/error).
++// Va dentro del layout raíz, con cabecera, sidebar y pie; un error del propio layout no llega aquí
++// (eso sería global-error). Tiene que ser un componente de cliente. `retry` vuelve a pedir y a
++// renderizar la página; `reset` solo la renderiza de nuevo, sin pedirla.
++
++export default function Error({ retry }: { error: Error & { digest?: string }; retry: () => void }) {
++  const t = useTranslations('Error');
++
++  return (
++    <div className="my-auto flex flex-col items-start gap-600 py-600 desktop:py-1600">
++      <div className="flex flex-col gap-200">
++        <h1 className="type-heading-1 text-neutral-default wrap-break-word">{t('title')}</h1>
++        <p className="type-body-default text-neutral-default">{t('description')}</p>
++      </div>
++      {/* Una sola acción primary por vista (docs/components/button.md). */}
++      <div className="flex flex-wrap gap-400">
++        <Button onClick={() => retry()}>{t('retry')}</Button>
++        <Button variant="secondary" href="/">
++          {t('home')}
++        </Button>
++      </div>
++    </div>
++  );
++}

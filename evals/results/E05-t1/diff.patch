@@ -1,0 +1,49 @@
+diff --git a/messages/es.json b/messages/es.json
+index 6229643..3210af7 100644
+--- a/messages/es.json
++++ b/messages/es.json
+@@ -74,6 +74,11 @@
+     "intro": "Paso a paso, planificarás un sistema de tokens, lo crearás con variables de Figma y lo llevarás al código en formato DTCG, con un itinerario opcional en CSS y Tailwind CSS. Cada afirmación técnica enlaza a su fuente, y esta web usa el mismo sistema que enseña.",
+     "start": "Empezar el curso"
+   },
++  "NotFound": {
++    "title": "Página no encontrada",
++    "description": "La dirección no existe o ha cambiado.",
++    "home": "Volver al inicio"
++  },
+   "ToolScales": {
+     "input": "Entrada",
+     "result": "Resultado",
+diff --git a/src/app/not-found.tsx b/src/app/not-found.tsx
+new file mode 100644
+index 0000000..74d1383
+--- /dev/null
++++ b/src/app/not-found.tsx
+@@ -0,0 +1,27 @@
++import type { Metadata } from 'next';
++import { getTranslations } from 'next-intl/server';
++import { Button } from '@/components/Button';
++import { SITE_NAME } from '@/lib/metadata';
++
++// Página 404. En la raíz de app/, Next.js la muestra para cualquier URL sin ruta y cuando una
++// lección llama a notFound() (https://nextjs.org/docs/app/api-reference/file-conventions/not-found).
++// Va dentro del layout raíz, como la portada: con sidebar y ninguna sección abierta (C11).
++// Sin URL canónica ni Open Graph: Next.js añade noindex a las respuestas 404.
++
++export async function generateMetadata(): Promise<Metadata> {
++  const t = await getTranslations('NotFound');
++  return { title: `${t('title')} · ${SITE_NAME}` };
++}
++
++export default async function NotFound() {
++  const t = await getTranslations('NotFound');
++
++  return (
++    // Centrada en vertical en main, como la portada (V48).
++    <div className="my-auto flex flex-col items-start gap-600 py-600 desktop:py-1600">
++      <h1 className="type-heading-1 text-neutral-default wrap-break-word">{t('title')}</h1>
++      <p className="type-body-default text-neutral-default">{t('description')}</p>
++      <Button href="/">{t('home')}</Button>
++    </div>
++  );
++}

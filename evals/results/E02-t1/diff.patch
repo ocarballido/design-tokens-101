@@ -1,0 +1,145 @@
+diff --git a/content/es/99-resources/03-system-checklist.mdx b/content/es/99-resources/03-system-checklist.mdx
+new file mode 100644
+index 0000000..d95fd39
+--- /dev/null
++++ b/content/es/99-resources/03-system-checklist.mdx
+@@ -0,0 +1,139 @@
++---
++title: Lista de comprobación del sistema
++meta_title: "Lista de comprobación de un sistema de tokens de diseño"
++description: "Lo que tiene que cumplir tu sistema de tokens al terminar el ejercicio final: primitivos, semánticos, nombres, estilos de texto, modos, tokens de código, accesibilidad, documentación y versión, con un enlace a la lección que explica cada punto."
++nav_title: Lista de comprobación
++lastReviewed: 2026-11-02
++---
++
++Esta lista reúne lo que tiene que cumplir tu sistema de tokens al terminar el [ejercicio final](/final-exercise/exercise-final). Cada ejercicio del curso comprobaba una parte; aquí están todas juntas, con un enlace a la lección que explica cada punto. Si un punto no se cumple, tienes dos salidas: corregirlo o escribir el motivo en tu registro de decisiones.
++
++**En esta página**
++
++- [Primitivos](#primitivos)
++- [Semánticos](#semánticos)
++- [Nombres](#nombres)
++- [Estilos de texto](#estilos-de-texto)
++- [Modos](#modos)
++- [Tokens de código](#tokens-de-código)
++- [Las capas de código](#las-capas-de-código)
++- [Accesibilidad](#accesibilidad)
++- [El sistema entero](#el-sistema-entero)
++- [Documentación y versión](#documentación-y-versión)
++- [Lo que te llevas](#lo-que-te-llevas)
++
++## Primitivos
++
++- Cada valor de tu inventario tiene un paso en una escala, o has decidido eliminarlo ([Encajar tu inventario en la escala](/primitives/spacing#encajar-tu-inventario-en-la-escala)).
++- El número de cada paso de espaciado, radio y grosor es proporcional a su valor: con base 4, `space/400` mide 16 px ([La escala de DesignToken101](/primitives/spacing#la-escala-de-designtoken101)).
++- Tu color de marca está exacto en su paso de la escala ([El método](/primitives/color-scales#el-método)).
++- Cada paleta se llama por su tono, no por su rol ([El nombre de las paletas](/primitives/color-scales#el-nombre-de-las-paletas); [Escalas por tono, no por rol](/primitives/status-colors#escalas-por-tono-no-por-rol)).
++- Los colores están guardados en sRGB ([Por qué guardar en sRGB](/primitives/color-space#por-qué-guardar-en-srgb)).
++- La colección `Primitives` tiene un modo, y cada escala tiene su scope y su visibilidad ([La colección de un vistazo](/primitives/primitives-collection#la-colección-de-un-vistazo); [Qué se publica y qué se oculta](/primitives/primitives-collection#qué-se-publica-y-qué-se-oculta)).
++
++## Semánticos
++
++- Cada uso de tu diseño pertenece a una función, y cada función es un token semántico ([Del uso al token](/relations/semantic-color#del-uso-al-token)).
++- Dos usos que comparten primitivo pero no función son dos tokens ([Varios semánticos, un primitivo](/relations/semantic-color#varios-semánticos-un-primitivo)).
++- Cada semántico es un alias de un primitivo, salvo las excepciones, que llevan su motivo en la descripción ([Cómo se controla una excepción](/relations/direct-values#cómo-se-controla-una-excepción)).
++- Ningún semántico apunta a otro semántico, y ninguna cadena pasa de dos saltos ([Las capas de DesignToken101](/relations/layers#las-capas-de-designtoken101)).
++- Cada estado que cambia un color (hover, active, seleccionado, foco) tiene su propio token ([Un estado es otro token](/relations/states#un-estado-es-otro-token)).
++- Has decidido, con un motivo escrito, si necesitas tokens de componente ([Cuándo se justifica](/relations/component-tokens#cuándo-se-justifica)).
++- Cada semántico tiene el scope de su propiedad y es visible al publicar ([Un scope por propiedad](/relations/semantic-collections#un-scope-por-propiedad); [Los semánticos se publican](/relations/semantic-collections#los-semánticos-se-publican)).
++
++## Nombres
++
++- Tienes tu convención escrita: el orden de los niveles, el vocabulario de cada nivel, la regla de los estados y el prefijo CSS ([La convención de DesignToken101](/naming/naming-convention)).
++- Cada nombre usa palabras de tu vocabulario, sin mayúsculas, espacios, puntos, llaves ni un `$` al principio de un nivel ([Las reglas](/naming/naming-convention#las-reglas); [Los caracteres que admite cada formato](/naming/name-constraints#los-caracteres-que-admite-cada-formato)).
++- Ningún nombre es a la vez token y grupo: si un token tiene estados, el de reposo lleva `/default` ([Un token no puede ser también un grupo](/naming/states-in-names#un-token-no-puede-ser-también-un-grupo)).
++- El estado va donde dice tu regla ([Dónde va el estado](/naming/states-in-names#dónde-va-el-estado)).
++- Cada variable tiene un code syntax que es su ruta con tu prefijo: `color/text/accent/default` da `var(--t101-color-text-accent-default)` ([Crear una variable completa](/naming/create-variables#crear-una-variable-completa); [Los errores de diseño que detecta](/figma-to-code/check-and-update#los-errores-de-diseño-que-detecta)).
++
++## Estilos de texto
++
++- Cada combinación de texto que se repite tiene su estilo, nombrado por su rol y no por su tamaño ([El estilo es el semántico](/relations/text-styles#el-estilo-es-el-semántico)).
++- La familia, el tamaño y el peso de cada estilo están vinculados a variables; el interlineado, en porcentaje y sin variable ([De un estilo a sus primitivos](/relations/text-styles#de-un-estilo-a-sus-primitivos)).
++- Cada texto de tus pantallas usa un estilo, también el texto destacado dentro de un párrafo ([Un texto sin estilo es un valor suelto](/relations/text-styles#un-texto-sin-estilo-es-un-valor-suelto)).
++
++## Modos
++
++Si tu diseño no tiene tema oscuro, comprueba los puntos de `Layout`: tus pantallas son dos combinaciones en lugar de cuatro.
++
++- Cada colección con modos cambia en un eje: `Semantic color` con el tema y `Layout` con el ancho de pantalla ([Una colección por eje](/modes/one-axis-per-collection#una-colección-por-eje)).
++- `Semantic color` tiene Light y Dark, con Light en la primera columna ([Añadir el modo Dark](/modes/create-modes#añadir-el-modo-dark)).
++- Cada variable de Dark apunta al primitivo de tu mapa de alias, o lleva su valor directo con el motivo en la descripción ([Añadir el modo Dark](/modes/create-modes#añadir-el-modo-dark)).
++- `Layout` tiene Desktop y Mobile, y un token de tamaño por estilo de texto con su alias en cada modo ([Crear la colección Layout](/modes/create-modes#crear-la-colección-layout)).
++- Cada estilo de texto vincula su tamaño a su token de `Layout` ([Vincular los estilos de texto](/modes/create-modes#vincular-los-estilos-de-texto)).
++- Tus pantallas eligen los modos en su marco, no en los elementos de dentro ni en los componentes principales ([Elegir el modo de un marco](/modes/apply-modes#elegir-el-modo-de-un-marco); [Instancias y componentes](/modes/apply-modes#instancias-y-componentes)).
++- Los logotipos y las imágenes tienen una versión por modo ([Lo que los tokens no cambian](/modes/light-and-dark#lo-que-los-tokens-no-cambian)).
++
++## Tokens de código
++
++- Tienes la lista de los tokens que necesita el código y no están en Figma, cada uno con su nombre según tu convención, su valor y su motivo ([La lista completa](/figma-to-code/code-only-tokens#la-lista-completa)).
++- Ninguno de esos tokens podría ser una variable de Figma ([Cuando Figma puede guardarlo, se mueve](/figma-to-code/code-only-tokens#cuando-figma-puede-guardarlo-se-mueve)).
++- La lista está en tu página de documentación, en un apartado "Tokens de código" ([Paso 6 del ejercicio final](/final-exercise/exercise-final#paso-6-completa-tus-tokens-de-código)).
++
++## Las capas de código
++
++Este apartado es del itinerario de código. Si sigues el curso en Figma, pasa a [Accesibilidad](#accesibilidad).
++
++<InCode title="Comprueba tus capas de código">
++
++- Tus tokens de código están en un archivo DTCG, cada uno con su tipo, su valor y su descripción ([Por qué se escriben en DTCG](/figma-to-code/code-only-tokens#por-qué-se-escriben-en-dtcg)).
++- Cada número y cada texto de tu exportación tiene un scope concreto, del que sale su tipo DTCG ([El tipo sale del scope](/figma-to-code/normalize-the-export#el-tipo-sale-del-scope)).
++- La herramienta que genera tu código no da ninguno de los errores que pide DTCG: referencias sin destino, referencias circulares, tipos sin determinar ni objetos que son a la vez token y grupo ([Lo que DTCG exige a un archivo](/final-exercise/final-check#lo-que-dtcg-exige-a-un-archivo)).
++- La capa 1 tiene todos tus tokens, también los de código, con el nombre de su code syntax ([El nombre](/figma-to-code/css-variables#el-nombre)).
++- Los tamaños están en `rem`, y cada alias es un `var()` a una variable que existe en el archivo ([Los valores](/figma-to-code/css-variables#los-valores); [Los alias](/figma-to-code/css-variables#los-alias)).
++- El bloque de Dark tiene los tokens de tu colección con tema, y el de Desktop, los de `Layout` ([Los modos](/figma-to-code/css-variables#los-modos)).
++- El corte de la consulta `@media` de Desktop se lee de tu archivo de tokens de código, porque una consulta `@media` no puede leer una variable CSS ([Los breakpoints, tokens que se usan de dos formas](/figma-to-code/code-only-tokens#los-breakpoints-tokens-que-se-usan-de-dos-formas)).
++- Cada token de la capa 1 está expuesto en la capa 2, en el espacio de nombres de su propiedad, o tiene escrito por qué no ([Un espacio de nombres por propiedad](/figma-to-code/tailwind-theme#un-espacio-de-nombres-por-propiedad); [Lo que no se expone](/figma-to-code/tailwind-theme#lo-que-no-se-expone)).
++- Ningún nombre de la capa 2 coincide con uno de la capa 1 ([Por qué el prefijo](/figma-to-code/tailwind-theme#por-qué-el-prefijo)).
++
++</InCode>
++
++## Accesibilidad
++
++Los umbrales son los del nivel AA de WCAG 2.2, el que usa el curso ([Tres niveles](/accessibility/wcag-and-tokens#tres-niveles)).
++
++- Cada par de texto y fondo tiene su razón de contraste en cada modo, calculada sin redondear, y llega a 4,5:1. Si usas la excepción de texto grande (3:1), tienes anotado a qué tamaño se usa el par, y ese tamaño no cambia con tus modos ([Cómo se comprueba un par](/accessibility/text-contrast#cómo-se-comprueba-un-par); [Texto grande](/accessibility/text-contrast#texto-grande); [Understanding 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)).
++- Si un fondo tiene transparencia, su par está comprobado con lo más claro y lo más oscuro que puede quedar debajo ([Fondos con transparencia](/accessibility/text-contrast#fondos-con-transparencia)).
++- El anillo de foco, la marca de seleccionado y los bordes y los iconos que identifican un control llegan a 3:1 frente a cada fondo donde hay un control ([Contra todos los fondos](/accessibility/non-text-contrast#contra-todos-los-fondos); [Understanding 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)).
++- Cada estado y cada mensaje que cambian de color tienen otra señal además del color, o una decisión escrita ([Revisa tus estados](/accessibility/use-of-color#revisa-tus-estados)).
++- El foco se ve, se ve entero y se ve bastante, con un token de color y un token de grosor ([Tres preguntas](/accessibility/focus#tres-preguntas)).
++- Tus controles más pequeños llegan a 24 × 24 px como suma de tokens ([Un tamaño es una suma de tokens](/accessibility/size-and-spacing#un-tamaño-es-una-suma-de-tokens); [Understanding 2.5.8](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)).
++- Cada animación que es movimiento se quita con `prefers-reduced-motion` ([El token no cambia, cambia si se aplica](/accessibility/motion-and-transparency#el-token-no-cambia-cambia-si-se-aplica)).
++- Cada token con transparencia tiene un semántico opaco que lo sustituye con `prefers-reduced-transparency` ([Un respaldo opaco para cada transparencia](/accessibility/motion-and-transparency#un-respaldo-opaco-para-cada-transparencia)).
++- Cada cosa que no cumple tiene su decisión (corregir o aceptar el riesgo) con el motivo, la alternativa y la fecha ([Paso 7 del ejercicio de accesibilidad](/accessibility/exercise-accessibility#paso-7-escribe-el-registro-de-decisiones)).
++
++## El sistema entero
++
++- Cada token tiene un uso, o un motivo para mantenerlo escrito en su descripción y en tu registro de decisiones ([Cada token tiene un uso](/final-exercise/final-check#cada-token-tiene-un-uso)).
++- Cada valor de tus pantallas, en todas las combinaciones de modos, sale de un token o de un estilo de texto ([Cada valor tiene token](/final-exercise/final-check#cada-valor-tiene-token)).
++- Cada token está en todos sus sitios (variable de Figma o archivo de tokens de código y, en el itinerario de código, capa 1 y capa 2), o tiene un motivo escrito para no estar ([Cada token está en todos sus sitios](/final-exercise/final-check#cada-token-está-en-todos-sus-sitios)).
++
++## Documentación y versión
++
++- Cada token semántico tiene una descripción con su función; las excepciones y los tokens sin uso, también con su motivo ([La descripción de un token](/final-exercise/document-the-system#la-descripción-de-un-token); [Qué tokens llevan descripción](/final-exercise/document-the-system#qué-tokens-llevan-descripción)).
++- Tu registro de decisiones tiene las de los módulos 1 a 7, cada una con su motivo, las alternativas descartadas, el módulo y la fecha ([El registro de decisiones](/final-exercise/document-the-system#el-registro-de-decisiones)).
++- Tu archivo de Figma tiene una página de documentación con la convención de nombres, el registro de decisiones y el registro de cambios ([Dónde vive la documentación](/final-exercise/document-the-system#dónde-vive-la-documentación)).
++- Tu sistema está publicado como 1.0.0: con su entrada en el registro de cambios, con la biblioteca publicada si otros archivos la usan y con una versión con nombre en el historial del archivo ([Antes y después de 1.0.0](/final-exercise/version-the-system#antes-y-después-de-100); [En Figma](/final-exercise/version-the-system#en-figma)).
++
++Cuando tu sistema cumpla la lista entera, compáralo con el de esta web: en [Archivos de Figma](/resources/figma-files) tienes el enlace y cómo hacer tu copia.
++
++<Takeaways>
++
++## Lo que te llevas
++
++- La lista reúne en una página lo que cada ejercicio del curso comprobaba por partes.
++- Cada punto se responde con un sí o un no, y enlaza a la lección que lo explica.
++- Un punto que no se cumple se corrige o queda en tu registro de decisiones con su motivo.
++
++</Takeaways>
++
++## Fuentes
++
++Las de las lecciones enlazadas. Las que cita esta página:
++
++- [Understanding 1.4.3 Contrast (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
++- [Understanding 1.4.11 Non-text Contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)
++- [Understanding 2.5.8 Target Size (Minimum)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)

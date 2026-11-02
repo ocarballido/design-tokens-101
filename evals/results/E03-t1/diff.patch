@@ -1,0 +1,26 @@
+diff --git a/content/es/08-final-exercise/01-document-the-system.mdx b/content/es/08-final-exercise/01-document-the-system.mdx
+index 956baa6..6cf9f33 100644
+--- a/content/es/08-final-exercise/01-document-the-system.mdx
++++ b/content/es/08-final-exercise/01-document-the-system.mdx
+@@ -112,6 +112,21 @@ Si tu equipo diseña en Figma y programa en un repositorio, elige uno de los dos
+ 
+ </InCode>
+ 
++### Un registro de ejemplo
++
++Un registro en un archivo de texto se escribe en Markdown: un título, una frase con las reglas del registro y una tabla con una fila por decisión. Este archivo `decisiones.md` lleva dos decisiones reales de DesignToken101 (D01 y S35). La pestaña Markdown muestra lo que se escribe, y Vista previa, cómo se lee:
++
++```markdown filename="decisiones.md" preview
++# Registro de decisiones
++
++Por qué el sistema es así. Una fila por decisión, con su fecha. Si una decisión cambia, no se borra: se añade la nueva y en la vieja se anota cuál la sustituye.
++
++| Decisión | Motivo | Alternativas descartadas | Módulo | Fecha |
++|---|---|---|---|---|
++| Interlineado únicamente en código | Figma lee una variable de interlineado como píxeles | Variable en Figma como multiplicador | 2 | 2026-09-30 |
++| `background/neutral/translucent` al 96 % en Light | El anillo de foco no llegaba a 3:1 sobre la cabecera | Cabecera opaca; anillo de dos colores | 7 | 2026-10-05 |
++```
++
+ ## En Figma
+ 
+ Para escribir o revisar las descripciones, abre la vista Variables. En cada fila, el icono de editar abre la ventana de la variable, donde está el campo de descripción ([Figma: Create and manage variables and collections](https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections)).
