@@ -1,6 +1,6 @@
 ---
 title: Inventario del sistema de diseño (piloto G25)
-updated: 2026-10-22
+updated: 2026-11-02
 owner: Oscar Carballido
 scope: Piloto G25. Button, TextField, Callout, Takeaways, CodeBlock (con CodePreview); patrones "página de la guía" y "lista de comprobación"
 figma: TokensDS (yAIMfySdLHo6hyNg8E1F6O), página Components (0:1) y Templates (35:842)
@@ -118,7 +118,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 - **Comprobado** con el servidor MCP remoto de Figma (`get_code_connect_map`, 2026-10-22): cada variante de los seis, AnnotatedCode, Info (108:2005) y el marco Lesson · Desktop · Light (35:843), con 3 Callout y 1 Takeaways correctos.
 - **Pendiente:** el mapa de ese marco devuelve también iconos sueltos (`<ChevronDown />`, `<Moon />`…) dentro de componentes no conectados (sidebar, selector de tema).
 
-## Scorecard (2026-10-22, solo el piloto; Vínculo con el código puntuado de nuevo tras la fase 5)
+## Scorecard (2026-11-02, solo el piloto; repetida al cerrar la fase 7)
 
 | Criterio | Puntos (0-3) | Nota |
 |---|---|---|
@@ -129,5 +129,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 | Tokens | 3 | Descripciones con plantilla (para qué sirve y restricción, sin referencias internas) en los 47 semánticos, vigiladas por `check:tokens`; regla de capas en `docs/rules/rules-tokens.md` |
 | Documentación | 3 | Reglas de uso en Markdown en todos los componentes estables del piloto (y en CodePreview, `beta`), con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). `npm run docs:check` en la integración continua |
 | Vínculo con el código | 3 | Code Connect en todos los componentes estables del piloto y en CodePreview (plantillas, D68), más AnnotatedCode y los 26 iconos (D70, D71); comprobado con `get_code_connect_map`. Responsable: Oscar. Pendiente: iconos sueltos dentro de componentes no conectados |
-| Gobernanza | 1 | Responsable y protocolo de decisiones; sin changelog del sistema ni proceso de contribución |
-| **Media** | **2,63** | 21 / 8. Antes de la fase 5: 2,25; antes de la fase 4: 2,00; antes de la fase 3: 1,88; antes de la fase 2: 1,50 |
+| Gobernanza | 3 | Responsable (Oscar) y protocolo de decisiones; `CHANGELOG.md` para todo el sistema (D78); `CONTRIBUTING.md` con el proceso y la Definition of Done; evaluaciones en `evals/`, con 3 en las nueve tareas de la primera tanda (V64 y V65). Antes, 1 |
+| **Media** | **2,88** | 23 / 8. Antes de la fase 7: 2,63; antes de la fase 5: 2,25; antes de la fase 4: 2,00; antes de la fase 3: 1,88; en la auditoría (2026-10-21, antes de la fase 2): 1,50 |
+
+**Comparada con la auditoría** (1,50, 2026-10-21): Variables, de 2 a 3; Contexto en Figma, de 1 a 3; Tokens, de 2 a 3; Documentación, de 1 a 3; Vínculo con el código, de 0 a 3; Gobernanza, de 1 a 3. Cobertura sigue en 3 y Nombres en 2, por las propiedades que se traducen en Code Connect (`invalid`/`error`, `showIcon`/`icon` y CodePreview).
