@@ -19,6 +19,7 @@ Los valores de los tokens no forman parte de la API.
 
 ### Changed
 - `docs/patterns/checklist.md` dice que es solo para el final de un capítulo de ds4agents; en DesignToken101, una página con una lista de comprobación sigue `docs/patterns/lesson-page.md` (V64).
+- CodePreview pasa a `stable` (V68): la pestaña no actual lleva texto `text/neutral/default` en `hover` y `active`, como `ThemeToggle`, y el código en línea de la vista previa es `Code`.
 
 ## [1.3.0] - 2026-11-01
 

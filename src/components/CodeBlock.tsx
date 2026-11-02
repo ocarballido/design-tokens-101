@@ -128,7 +128,7 @@ export function CodeBlock({ children, language, filename, marks, legend, preview
                       'cursor-pointer rounded-control border-(length:--t101-border-width-100) px-300 py-150 type-label-default whitespace-nowrap focus-ring-inset',
                       selected
                         ? 'border-neutral-default bg-neutral-default text-neutral-default'
-                        : 'border-transparent text-neutral-subtle hover:bg-neutral-hover active:bg-neutral-active',
+                        : 'border-transparent text-neutral-subtle hover:bg-neutral-hover hover:text-neutral-default active:bg-neutral-active active:text-neutral-default',
                     )}
                   >
                     {t(value)}

@@ -27,7 +27,7 @@ Un cambio en el sistema sigue estos pasos, en este orden:
 - [ ] Cumple WCAG 2.2 AA y no contradice ninguna regla escrita en `docs/rules/` ni en `AGENTS.md`
 - [ ] Tiene entrada en `CHANGELOG.md` y fila al día en `docs/inventory.md`
 
-Sin todos los puntos, el componente no está terminado. La Definition of Done no decide su estado: un componente con puntos abiertos es `beta`, como CodePreview (`docs/inventory.md`).
+Sin todos los puntos, el componente no está terminado. La Definition of Done no decide su estado: un componente con puntos abiertos es `beta` (`docs/inventory.md`).
 
 ## Retirar un componente
 

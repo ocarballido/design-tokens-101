@@ -52,7 +52,7 @@ La de "Rúbrica" de ds4agents (`content/es/07-evaluation/03-rubric.mdx`):
 | 0 | Ignora el sistema: HTML y CSS genéricos |
 
 - **Intento superado:** nota 3. **Tarea superada:** su intento superado (V65; antes, los tres intentos).
-- **review-ui** devuelve una tabla de reglas incumplidas, no una nota. Para compararla con la de Oscar: sin filas, 3; solo filas de valores literales o de voz y tono (`docs/content/voice-and-tone.md`), una o dos, 2; una fila de props, componentes, obsoletos o de una regla de `docs/rules/` o `AGENTS.md`, 1. No cuentan las filas sobre un texto que fija la tarea o que viene del diseño de Figma, ni las que solo dicen que no hay regla escrita (V64). En las trampas no sirve: solo ve el diff, no si el agente avisó.
+- **review-ui** devuelve una tabla de reglas incumplidas, no una nota. Para compararla con la de Oscar: sin filas, 3; solo filas de valores literales o de voz y tono (`docs/content/voice-and-tone.md`), una o dos, 2, y tres o más, 1 (V67); una fila de props, componentes, obsoletos o de una regla de `docs/rules/` o `AGENTS.md`, 1. No cuentan las filas sobre un texto que fija la tarea o que viene del diseño de Figma, ni las que solo dicen que no hay regla escrita (V64). En las trampas no sirve: solo ve el diff, no si el agente avisó.
 
 ## Resultados
 
@@ -80,9 +80,11 @@ Primera tanda. Detalle en `evals/puntuacion-tanda-1.md` ("Hallazgos de la tanda"
 - El criterio de E02 pide `lesson-page.md`; `docs/patterns/checklist.md` dice que es solo para ds4agents.
 - `run-trial.mjs` quita de las rutas el prefijo `/private` de macOS (el resumen decía que el agente no había leído nada).
 
-**Sin decidir**
-- El marco 35:843 de TokensDS tiene el texto de la lección anterior a P5 (sesión de diseño).
-- Code Connect de `Callout` y `Takeaways` entrega texto de relleno: el texto no es una propiedad en Figma.
-- Cuatro de nueve no leyeron `docs/inventory.md`, aunque `build-ui` lo pide.
-- Ningún agente pudo ver su página en el navegador: arrancar el servidor está denegado.
-- Las nueve notas son 3: estas tareas casi no distinguen un buen intento de uno malo, y la rúbrica no mide el contenido.
+**Decidido (V67, 2026-11-02)**
+- El marco 35:843 de TokensDS tiene el texto de la lección anterior a P5: se actualiza cuando los marcos Lesson pasen a ser ejemplos de la librería, al ampliar el sistema. Hasta entonces, una tarea desde Figma usa un marco al día.
+- Code Connect de `Callout` y `Takeaways` entrega texto de relleno: se acepta. Su texto es contenido libre (párrafos y listas), no una propiedad.
+- Cuatro de nueve no leyeron `docs/inventory.md`: `build-ui` no cambia, porque ninguno lo necesitó. Se vigila en la próxima tanda; si se vuelve a saltar sin consecuencias, el paso se quita.
+- Ningún agente pudo ver su página en el navegador: se acepta. Los intentos no arrancan servidores y la revisión visual es de Oscar.
+- Las nueve notas son 3: la próxima tanda, con la próxima versión MINOR, convierte estas nueve tareas en regresión, añade tareas más difíciles sacadas de fallos reales y hace E08 con un marco nuevo.
+- `review-ui` con tres o más filas de valores literales o de voz y tono: 1 (ver Rúbrica).
+- Sin corregir, porque las pruebas están cerradas (V65): las lecturas con `cat` o `sed` que el lanzador no cuenta. Se corrigen si se lanza otra tanda.

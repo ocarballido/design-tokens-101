@@ -321,6 +321,9 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V63 | La cabecera de convenciones de Claude dice que la navegación (`SiteHeader`, `Sidebar`, `LessonHeader`, `PageNav`, `SiteFooter`, `MobileNav`, `ThemeToggle`) no está en el paquete y que en una página de lección se diseña solo la columna de contenido; el paquete sigue con los cinco componentes del piloto (D75). | Cerrada | 2026-11-01 |
 | V64 | Primera tanda de D79 puntuada: 3 en los nueve intentos; en la conversión de `review-ui`, una fila de voz y tono cuenta como un valor literal y no cuentan las de texto de la tarea o del diseño; E02 se supera con `lesson-page.md` y `checklist.md` dice que es solo para ds4agents. | Cerrada | 2026-11-02 |
 | V65 | Las evaluaciones de la fase 7 se cierran con la primera tanda: un intento por tarea, sin intentos 2 y 3 ni E08 (precisa D79). | Cerrada | 2026-11-02 |
+| V66 | `CONTRIBUTING.md`: se aceptan las dos propuestas de desarrollo, la tarea de `evals/` en la Definition of Done (un intento) y retirar un componente fuera de las páginas de componentes de TokensDS. | Cerrada | 2026-11-02 |
+| V67 | Hallazgos de la primera tanda decididos: 35:843 se actualiza al pasar los marcos Lesson a ejemplos (al ampliar el sistema); texto de relleno de Code Connect aceptado; `build-ui` sin cambios; sin navegador en los intentos; la próxima tanda convierte las nueve en regresión; `review-ui` con tres o más filas, 1; `components.md` sigue en las guidelines; `rounded-100` fuera del piloto, al ampliar. | Cerrada | 2026-11-02 |
+| V68 | CodePreview pasa a `stable`: texto `text/neutral/default` en `hover` y `active` de la pestaña no actual (D12, como `ThemeToggle`; 9,84:1 en Dark) en código y en TokensDS, y código en línea de la vista previa con `Code` (en Figma, sin fondo). | Cerrada | 2026-11-02 |
 
 ## Abiertas
 

@@ -683,7 +683,7 @@ Campo de texto de una línea.
 | Carril (`CodeTabs`) | `background/neutral/strong`, radio `radius/group` (D66), relleno y hueco `space/050` (como `ThemeToggle`) |
 | Pestaña (`CodeTab`) | `label/default`, radio `radius/control`, relleno `space/150` × `space/300`, borde `border-width/100` |
 | Pestaña actual | Fondo `background/neutral/default`, borde `border/neutral/default`, texto `text/neutral/default` |
-| Pestaña no actual | Sin fondo, texto `text/neutral/subtle`; `hover` `background/neutral/hover`, `active` `background/neutral/active`, con el mismo texto. En código lleva un borde transparente de `border-width/100`: en Figma el borde va por dentro y las dos pestañas miden lo mismo |
+| Pestaña no actual | Sin fondo, texto `text/neutral/subtle`; `hover` `background/neutral/hover` y `active` `background/neutral/active`, los dos con texto `text/neutral/default` (V68, como `ThemeToggle` y D12). En código lleva un borde transparente de `border-width/100`: en Figma el borde va por dentro y las dos pestañas miden lo mismo |
 | Pestaña actual en `hover` y `active` | Sin cambios |
 | Foco de la pestaña | Borde `border-width/200` en `border/focus`, por dentro (en código, `focus-ring-inset`) |
 | Panel Vista previa | Fondo `background/neutral/default`; relleno y hueco `space/400` |
@@ -691,7 +691,7 @@ Campo de texto de una línea.
 | Código dentro de la vista previa | `<pre>` con `code/default` y `text/neutral/default`, sin fondo ni borde (no está en Figma) |
 
 **La vista previa.** Se renderiza en el servidor, en el build (`src/lib/render-markdown-preview.tsx`), nunca en el cliente; el HTML que lleve el markdown no pasa.
-- Párrafos, listas, tablas y código en línea con los componentes de Prose (§3.1).
+- Párrafos, listas, tablas y código en línea con los componentes de Prose (§3.1). El código en línea es `Code` (§3.5), con fondo; en Figma va sin fondo, porque un texto no admite fondo en una parte (V68).
 - El frontmatter YAML va encima del contenido, como tabla clave/valor. La columna de la clave se ajusta al contenido. Un valor que no es un texto (una lista) se muestra como está escrito: `[Label, Input, HelperText]`.
 - `#` y `##` tienen el estilo de `heading/3` y `heading/4`; `###` y los siguientes, el de `heading/4`. No son encabezados de la página: van como párrafos, sin id ni ancla.
 - Los enlaces relativos, a anclas o a archivos `.md` son texto (el archivo no existe en la web); los absolutos `https`, `TextLink` (§2.3).
@@ -705,7 +705,7 @@ Campo de texto de una línea.
 - Copiar copia siempre el markdown fuente, esté abierta la pestaña que esté; "Copiado" se anuncia como en `CodeBlock`.
 - A 320 px, las pestañas y copiar bajan a su propia línea, y "Copiado" con copiar a otra si no caben; una tabla ancha de la vista previa tiene su propio scroll (§3.6). Sin scroll de página.
 
-**Contraste** (≥ 4,5:1): pestaña actual, `text/neutral/default` sobre `background/neutral/default`, el par del texto de la lección (17,79 / 18,89); pestaña no actual, `text/neutral/subtle` sobre el carril `background/neutral/strong` y sobre `background/neutral/hover`, 7,08 / 5,81; sobre `background/neutral/active`, 6,16 / **3,99 en Dark, por debajo de 4,5:1** (pendiente de Oscar: D12 pide `text/neutral/default` en `hover` y `active`, Figma no); vista previa, los pares de Prose y `Table` sobre `background/neutral/default`. El resto, como `CodeBlock` (§3.4).
+**Contraste** (≥ 4,5:1): pestaña actual, `text/neutral/default` sobre `background/neutral/default`, el par del texto de la lección (17,79 / 18,89); pestaña no actual, `text/neutral/subtle` sobre el carril `background/neutral/strong` y sobre `background/neutral/hover`, 7,08 / 5,81; en `hover` y `active`, `text/neutral/default` sobre `background/neutral/hover` y `background/neutral/active`, 14,16 / 9,84 en `active` (V68; antes, `text/neutral/subtle`, 3,99 en Dark); vista previa, los pares de Prose y `Table` sobre `background/neutral/default`. El resto, como `CodeBlock` (§3.4).
 
 **En código.** `Pre` (`mdx-components.tsx`) ve `data-preview`, llama a `renderMarkdownPreview` y le pasa el resultado a `CodeBlock` en la prop `preview`. `Th` admite `header` para la clave del frontmatter.
 

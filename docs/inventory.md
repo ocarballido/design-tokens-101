@@ -20,11 +20,11 @@ Nivel, categoría y estado decididos por Oscar el 2026-10-21 (categorías por G2
 | Callout | molécula | feedback | stable | Sí (22:57) | Sí (`Callout.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
 | Takeaways | molécula | content | stable | Sí (89:364) | Sí (`Takeaways.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
 | CodeBlock | molécula | content | stable | Sí (50:267) | Sí (`CodeBlock.tsx`) | Sí (plantilla, 2026-10-22) | Sí |
-| CodePreview | organismo | content | beta | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | Sí (plantilla, 2026-10-22) | Sí |
+| CodePreview | organismo | content | stable | Sí (239:1152) | Sí (`CodeBlock` con `preview`) | Sí (plantilla, 2026-10-22) | Sí |
 
 "Doc" es documentación con el formato de la guía en `docs/`. Hoy `docs/` tiene `inventory.md`, `rules/` (`rules-tokens.md` y `anti-patterns.md`), `foundations/color.md` y `components/` (un documento por componente del piloto; CodePreview va en `code-block.md`). La anatomía completa sigue en `proyecto/componentes-v1.md`, que es una especificación del proyecto, no un documento para agentes.
 
-CodePreview va como `beta` porque tiene tres puntos abiertos (V60: contraste de la pestaña `active` en Dark, `hover` en el carril, código en línea de la vista previa).
+CodePreview pasa a `stable` el 2026-11-02 (V68): los tres puntos abiertos de V60 están resueltos en Figma y en código.
 
 ## Propiedades
 
@@ -87,7 +87,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 **Lo que recibe el agente (`get_design_context`):**
 - La descripción del componente, en una sección "Component descriptions", y el dev resource dentro de ella como "Documentation: [Github](…)". También llegan las descripciones de los componentes anidados (Icon, IconButton, TableCell, iconos `li:*`), que siguen con el formato anterior y referencias internas.
 - Las anotaciones, como atributos `data-interaction-annotations`, `data-accessibility-annotations`, etc. Solo llegan si están en un componente o en una variante: las que estaban en el conjunto de variantes no llegaban, y la de una variante llega ligada a esa combinación de propiedades. Por eso cada anotación está en la variante a la que corresponde (D64).
-- Variables como `var(--t101-…)` con su valor de reserva. Excepciones: el interlineado como número (D01), `radius/100` en TableCell (primitivo; `radius/300` de CodeTabs pasó a `radius/group`, D66) y la lista de ejemplo de la vista previa de CodePreview, con el color y el tamaño en crudo aunque en Figma están enlazados (texto con estilos mezclados).
+- Variables como `var(--t101-…)` con su valor de reserva. Excepciones: el interlineado como número (D01), `radius/100` en TableCell y en `Code` (primitivo, `proyecto/componentes-v1.md` §3.5; `radius/300` de CodeTabs pasó a `radius/group`, D66) y la lista de ejemplo de la vista previa de CodePreview, con el color y el tamaño en crudo aunque en Figma están enlazados (texto con estilos mezclados).
 - La capa del icono dentro de Icon (22:6) llegaba como `li:circle-plus` fuera cual fuera el icono; ahora se llama `Glyph` (D64). El icono real solo se deduce del nombre del archivo SVG.
 
 ## Tokens (fase 3, 2026-10-21)
@@ -127,7 +127,7 @@ Comprobado el 2026-10-21 con el servidor MCP remoto de Figma (`get_design_contex
 | Nombres | 2 | Capas por función en el piloto y en la plantilla (sin `Frame`, `Group` ni `Text`). Propiedades como en código salvo `invalid`/`error`, `showIcon`/`icon` y CodePreview, que se traducen en Code Connect (fase 5) |
 | Contexto en Figma | 3 | Descripción con plantilla, anotaciones y dev resources en los ocho componentes; línea "Docs:" y enlace de documentación a `docs/components/`; guidelines generadas desde `docs/` |
 | Tokens | 3 | Descripciones con plantilla (para qué sirve y restricción, sin referencias internas) en los 47 semánticos, vigiladas por `check:tokens`; regla de capas en `docs/rules/rules-tokens.md` |
-| Documentación | 3 | Reglas de uso en Markdown en todos los componentes estables del piloto (y en CodePreview, `beta`), con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). `npm run docs:check` en la integración continua |
+| Documentación | 3 | Reglas de uso en Markdown en todos los componentes del piloto, CodePreview incluido, con frontmatter y alternativa en cada "No usar"; dos patrones con receta, fundamento de color, voz y tono y reglas. Responsable: Oscar (`owner`). `npm run docs:check` en la integración continua |
 | Vínculo con el código | 3 | Code Connect en todos los componentes estables del piloto y en CodePreview (plantillas, D68), más AnnotatedCode y los 26 iconos (D70, D71); comprobado con `get_code_connect_map`. Responsable: Oscar. Pendiente: iconos sueltos dentro de componentes no conectados |
 | Gobernanza | 3 | Responsable (Oscar) y protocolo de decisiones; `CHANGELOG.md` para todo el sistema (D78); `CONTRIBUTING.md` con el proceso y la Definition of Done; evaluaciones en `evals/`, con 3 en las nueve tareas de la primera tanda (V64 y V65). Antes, 1 |
 | **Media** | **2,88** | 23 / 8. Antes de la fase 7: 2,63; antes de la fase 5: 2,25; antes de la fase 4: 2,00; antes de la fase 3: 1,88; en la auditoría (2026-10-21, antes de la fase 2): 1,50 |

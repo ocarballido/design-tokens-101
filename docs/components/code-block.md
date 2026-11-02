@@ -25,7 +25,7 @@ tokens:
 variants:
   - name: CodePreview
     level: organism
-    status: beta
+    status: stable
     figma: https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=239-1152
 ---
 
@@ -88,9 +88,9 @@ En el MDX no se escribe `<CodeBlock>`: se escribe un bloque de código.
 | Carril de las pestañas | `background/neutral/strong`, `radius/group` |
 | Pestaña | `label/default`, `radius/control`, `border-width/100` |
 | Pestaña actual | Fondo `background/neutral/default`, borde `border/neutral/default`, texto `text/neutral/default` |
-| Pestaña no actual | Sin fondo, texto `text/neutral/subtle`; `hover` `background/neutral/hover`, `active` `background/neutral/active` |
+| Pestaña no actual | Sin fondo, texto `text/neutral/subtle`; `hover` `background/neutral/hover` y `active` `background/neutral/active`, los dos con texto `text/neutral/default` |
 | Foco de la pestaña | `border/focus`, `border-width/200`, por dentro |
-| Panel Vista previa | Fondo `background/neutral/default`; texto con los estilos de Prose |
+| Panel Vista previa | Fondo `background/neutral/default`; texto con los estilos de Prose y código en línea con `Code` (en Figma, sin fondo) |
 
 ## Composición permitida
 
@@ -130,10 +130,6 @@ En el MDX no se escribe `<CodeBlock>`: se escribe un bloque de código.
 - `preview` en un bloque `json` o `tsx`: `check:content` falla. Quita `preview` o cambia el lenguaje a `markdown`.
 - Un bloque markdown con otro bloque dentro, con tres comillas invertidas fuera: el bloque de fuera se cierra antes de tiempo. Usa cuatro fuera.
 - Escribir `<CodeBlock>` en el MDX: escribe un bloque de código; el MDX lo convierte en `CodeBlock`.
-
-## Abierto
-
-`CodePreview` está en `beta` por tres puntos pendientes de decisión: el contraste del texto de la pestaña no actual en `active` en Dark (por debajo de 4,5:1), el `hover` de la pestaña, que no se distingue del carril, y el aspecto del código en línea de la vista previa.
 
 ## Ejemplos
 

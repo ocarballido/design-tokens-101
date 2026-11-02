@@ -19,7 +19,7 @@ export function WithoutFilename() {
   return <CodeBlock language="css">{`.button {\n  background: var(--t101-color-background-accent-strong-default);\n}`}</CodeBlock>;
 }
 
-// CodePreview (beta): pestañas Markdown / Vista previa.
+// CodePreview: pestañas Markdown / Vista previa.
 export function Preview() {
   return (
     <CodeBlock
