@@ -69,8 +69,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <SiteFooter />
         </NextIntlClientProvider>
         {/* V69 (G42 de ds4agents): visitas con Vercel Web Analytics, sin cookies ni eventos personalizados.
-            No mide nada hasta activarlo en el panel de Vercel, que añade las rutas /_vercel/insights/* en el
-            siguiente despliegue (https://vercel.com/docs/analytics/quickstart). Lo que se recoge, en /privacy. */}
+            Activado en el panel de Vercel el 2026-11-19, que sirve las rutas /_vercel/insights/*
+            (https://vercel.com/docs/analytics/quickstart). Lo que se recoge, en /privacy. */}
         <Analytics />
       </body>
     </html>

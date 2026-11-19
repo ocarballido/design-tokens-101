@@ -4,9 +4,9 @@ Especificación del sistema de tokens de DesignToken101. Es el encargo para la s
 
 **Estado del documento:** completo; el diseño está cerrado (2026-10-02). Las tres decisiones visuales de la sección 6 se cerraron con D23 (§6.3).
 
-Última actualización: 2026-11-01.
+Última actualización: 2026-11-19.
 
-**Versión del sistema: 1.3.0** (2026-11-01). Las versiones, la API pública y la numeración están en `CHANGELOG.md` (S36, ampliada por D78).
+**Versión del sistema: 1.3.1** (2026-11-19). Las versiones, la API pública y la numeración están en `CHANGELOG.md` (S36, ampliada por D78).
 
 Las versiones 0.y.z no se numeraron: el historial anterior está en el registro de cambios de este documento y en `proyecto/decisiones.md`.
 
@@ -36,6 +36,7 @@ Las versiones 0.y.z no se numeraron: el historial anterior está en el registro 
 | 2026-10-21 | Desarrollo | Versión 1.2.0 (D65): `radius/nested` (§4.3 y §7) y descripciones de los semánticos en dos partes, sin referencias internas (§7). Semantic size pasa a 5 variables. |
 | 2026-10-21 | Desarrollo | D66: `radius/nested` pasa a `radius/group` (§4.3 y §7), el radio del carril que agrupa varios controles (CodeTabs y ThemeToggle). Se corrige la fila 1.2.0 en lugar de subir a 2.0.0: el token llevaba horas publicado y nada lo usaba (excepción a S36). |
 | 2026-11-01 | Desarrollo | D78: la tabla "Versiones del sistema" pasa a `CHANGELOG.md`, que cubre todo el sistema (tokens, componentes y reglas de uso). Versión 1.3.0, sin cambios en los tokens. |
+| 2026-11-19 | Desarrollo | Versión 1.3.1 (V70), sin cambios en los tokens: V64, V68 y V69 (`CHANGELOG.md`). |
 
 ---
 

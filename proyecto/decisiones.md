@@ -324,7 +324,8 @@ DesignToken101 se trabaja en tres sesiones de Claude que no se ven entre sí: **
 | V66 | `CONTRIBUTING.md`: se aceptan las dos propuestas de desarrollo, la tarea de `evals/` en la Definition of Done (un intento) y retirar un componente fuera de las páginas de componentes de TokensDS. | Cerrada | 2026-11-02 |
 | V67 | Hallazgos de la primera tanda decididos: 35:843 se actualiza al pasar los marcos Lesson a ejemplos (al ampliar el sistema); texto de relleno de Code Connect aceptado; `build-ui` sin cambios; sin navegador en los intentos; la próxima tanda convierte las nueve en regresión; `review-ui` con tres o más filas, 1; `components.md` sigue en las guidelines; `rounded-100` fuera del piloto, al ampliar. | Cerrada | 2026-11-02 |
 | V68 | CodePreview pasa a `stable`: texto `text/neutral/default` en `hover` y `active` de la pestaña no actual (D12, como `ThemeToggle`; 9,84:1 en Dark) en código y en TokensDS, y código en línea de la vista previa con `Code` (en Figma, sin fondo). | Cerrada | 2026-11-02 |
-| V69 | Vercel Web Analytics en el layout raíz (solo visitas, sin activar en el panel hasta la respuesta de Vercel), página `/privacy` fuera de `content/` y tercer párrafo en `SiteFooter` con el patrón de P25 (TokensDS, §4.8 y código; G42 de ds4agents). | Cerrada | 2026-11-19 |
+| V69 | Vercel Web Analytics en el layout raíz (solo visitas, activado sin esperar a Vercel), página `/privacy` fuera de `content/` con los issues de GitHub como canal de contacto, y tercer párrafo en `SiteFooter` con el patrón de P25 (TokensDS, §4.8 y código; G42 de ds4agents). | Cerrada | 2026-11-19 |
+| V70 | Sistema 1.3.1 (PATCH) con V64, V68 y V69; TokensDS se publica con la nota "1.3.1". | Cerrada | 2026-11-19 |
 
 ## Abiertas
 
