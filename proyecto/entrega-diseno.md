@@ -98,7 +98,7 @@ Pendiente de comprobar al exportar: el `$type` con que Figma escribe `font-weigh
 | `ThemeToggle` → `ThemeOption` | `value` (`light`/`dark`/`system`), `current` | `state` | `button` con `aria-pressed`. |
 | `SkipLink` |: |: | Primer elemento enfocable; visible solo con el foco (2.4.1). |
 | `SiteHeader` |: | `size` (`large` escritorio / `small` móvil) | En móvil, los selectores van en el panel de navegación (D19, D21). |
-| `SiteFooter` |: |: | Incluye el aviso P7. El logotipo del autor es la instancia de `AuthorLink` (V36, D30). |
+| `SiteFooter` |: |: | Incluye el aviso P7 y los enlaces a los issues (D41) y a la privacidad (V69, §3.14). El logotipo del autor es la instancia de `AuthorLink` (V36, D30). |
 | `AuthorLink` |: (en código, el `<a>` de `SiteFooter`) | `state` (`default` / `focus`) | 39 × 24 px; anillo por fuera. |
 | `Takeaways` | `children` (título y lista del MDX) | `size` (`large` / `small`) | Ver §3.4. |
 | `SidebarGroup` | `label` (texto del separador de `meta.json`) |: | Las secciones del grupo van después, como hermanas (D29). |
@@ -396,6 +396,10 @@ Diseño de Claude en Figma a petición de Oscar (excepción a D05, como C13 y D2
 **Medidas** (todo con variables): contenedor, cabecera y botón como `CodeBlock`; cuerpo con relleno vertical `space/400` y sin relleno lateral; cada línea con relleno lateral `space/400` y hueco `space/200` con la marca; línea marcada con fondo `background/accent/subtle`; marca con `background/accent/strong/default`, `text/on-accent`, `caption/default`, `radius/full` y relleno `space/050` × `space/150`; leyenda con borde superior `border/neutral/default` de `border-width/100`, relleno y hueco `space/400`; en cada explicación, marca y término (`body/strong`) con hueco `space/200` y descripción (`body/default`) a `space/050`.
 
 **Diferencias con §3.10 de `componentes-v1.md`:** `CodeLine` y `CodeAnnotation` no son componentes en código: son una línea del bloque y un `<li>` de la leyenda. El término de Figma no lleva el punto del MDX. `showFilename` y `showCopied` son solo de Figma, como en `CodeBlock`.
+
+### 3.14 Enlace a la privacidad en `SiteFooter` (V69, 2026-11-19)
+
+Hecho por la sesión de desarrollo con el servidor MCP de Figma, a petición de Oscar (excepción a D05, como V56). En `SiteFooter` ([35:778](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=35-778)), bloque `Notice` (137:848, hueco `space/200`), la línea `Privacy` ([363:200](https://www.figma.com/design/yAIMfySdLHo6hyNg8E1F6O/TokensDS?node-id=363-200)) debajo de `Report`, duplicada de ella: "¿Qué datos recogemos?" (`Question`, `caption/default`, `text/neutral/subtle`) y un `Link` `size=caption`, `external=false`, "Lee la política de privacidad" (en `children-caption`), con hueco `space/100` y salto de línea con `space/0`. Sin tokens nuevos. Descripción del componente al día. Las 18 instancias visibles de Templates la heredan (con ella, el pie mide 264 px de alto en Desktop y 281 en Mobile, donde el aviso de P7 ocupa dos líneas); las dos de "Menu open" están ocultas. En código, el tercer párrafo de `SiteFooter` (`PRIVACY_PATH`, claves `privacyQuestion` y `privacyLink`).
 
 ## 4. Accesibilidad comprobada en el diseño
 

@@ -973,7 +973,7 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 
 ### 4.8 `SiteFooter`
 
-**Para qué sirve.** El pie de todas las páginas: logotipo, autor, aviso de P7 (hecho con ayuda de Claude y revisión de Oscar Carballido) y enlace para avisar de un error (P25).
+**Para qué sirve.** El pie de todas las páginas: logotipo, autor, aviso de P7 (hecho con ayuda de Claude y revisión de Oscar Carballido), enlace para avisar de un error (P25) y enlace a la página de privacidad (V69).
 
 | Parte | Token |
 |---|---|
@@ -983,8 +983,9 @@ Tokens: ver §4.10 (forma final del diseño). En `focus`, los mismos colores que
 | Enlaces | `Link` (§2.3) |
 | Logotipo del autor | Imagen SVG (D22) enlazada a `https://www.oscarballido.com` (V36), en la misma pestaña. 39 × 24 px. Foco: anillo `border-width/200` + `border/focus` por fuera |
 | Enlace a los issues (P25, D41) | Párrafo "¿Has encontrado un error? Avísalo en GitHub" debajo del aviso de P7, en el mismo bloque (hueco `space/200`). "Avísalo en GitHub" es un `Link` (§2.3) externo a `https://github.com/ocarballido/design-tokens-101/issues`, con el estilo del pie (`caption/default`; en Figma, `size=caption`). La pregunta, en `text/neutral/subtle` |
+| Enlace a la privacidad (V69) | Párrafo "¿Qué datos recogemos? Lee la política de privacidad" debajo del de los issues, en el mismo bloque (hueco `space/200`). "Lee la política de privacidad" es un `Link` (§2.3) interno a `/privacy`, sin icono externo, con el estilo del pie (`caption/default`; en Figma, `size=caption`, `external=false`). La pregunta, en `text/neutral/subtle` |
 
-**Accesibilidad.** Es la región `footer`. **Contraste:** 7,74 / 7,65. El enlace del logotipo del autor tiene nombre accesible "Oscar Carballido, web personal" (`aria-label`; la imagen sigue con `alt=""`), mide 39 × 24 px (≥ 24 × 24, 2.5.8) y el logotipo está exento de contraste (D22). El enlace a los issues va subrayado, con el contraste de §2.3 (5,08 / 10,92), y la pregunta del mismo párrafo le da contexto (2.4.4, A); mide 17 px de alto, pero está en una línea de texto, exenta de 2.5.8.
+**Accesibilidad.** Es la región `footer`. **Contraste:** 7,74 / 7,65. El enlace del logotipo del autor tiene nombre accesible "Oscar Carballido, web personal" (`aria-label`; la imagen sigue con `alt=""`), mide 39 × 24 px (≥ 24 × 24, 2.5.8) y el logotipo está exento de contraste (D22). Los enlaces a los issues y a la privacidad van subrayados, con el contraste de §2.3 (5,08 / 10,92), y la pregunta de cada párrafo les da contexto (2.4.4, A); miden 17 px de alto (dos líneas a 320 px el de la privacidad), pero están en una línea de texto, exenta de 2.5.8.
 
 ### 4.9 Plantilla de lección
 
@@ -1025,7 +1026,7 @@ Lo diseñado en Figma manda sobre este documento en lo visual. Diferencias con l
 | `CodeBlock` | Props: `children`, `filename`; solo de Figma: `showFilename`, `showCopied`. Botón copiar: `IconButton` con `li:copy`. |
 | `SkipLink` | Se dibuja en estado de foco. En las plantillas está oculto. |
 | `SiteHeader` | `size=large` (escritorio) y `size=small` (móvil, sin selectores: D19). Fondo `background/neutral/translucent` (V28, D33). **Sin desenfoque en Figma:** `blur/300` es un token solo de código (pendiente de Oscar). |
-| `SiteFooter` | Logotipo, autor y aviso P7. Todo el texto en `text/neutral/subtle` desde el 2026-10-05 (D33; antes, el autor en `default`). Desde D41, bloque `Notice` con el aviso y la línea `Report` (pregunta y `Link` con hueco `space/100`, porque Figma no cuenta el espacio final de un texto; en código es un espacio normal dentro del párrafo). |
+| `SiteFooter` | Logotipo, autor y aviso P7. Todo el texto en `text/neutral/subtle` desde el 2026-10-05 (D33; antes, el autor en `default`). Desde D41, bloque `Notice` con el aviso y la línea `Report` (pregunta y `Link` con hueco `space/100`, porque Figma no cuenta el espacio final de un texto; en código es un espacio normal dentro del párrafo). Desde V69, la línea `Privacy`, igual que `Report`, con el `Link` `external=false`. |
 | `Callout`, `InCode`, `LessonHeader`, `PageNavLink` | Borde de 1 px en los cuatro lados (`border-width/100`). |
 | Plantilla | Columna con ancho máximo `size/content/max-width` (960 px, V27), centrada. Sidebar con todas las secciones (0 a 10 y Recursos, D40) y los tres grupos (D29). Contenido de `what-is-designtoken101` al día (D31). **Listas del texto:** en Figma son listas nativas, y la viñeta toma el color del texto (`text/neutral/default`); en código, `marker:text-neutral-subtle`. Visto en el archivo: la viñeta sale del color del primer carácter de la línea; no se ha buscado otra forma de cambiarla. "En esta página" sí lleva la viñeta en `subtle`, porque sus elementos son instancias de `Link` con un marco `Marker`. |
 | Navegación móvil | Panel lateral con overlay (V25), en Figma desde el 2026-10-05 (D32): ancho `size/sidebar/width`, logotipo y botón de cerrar `li:x` arriba, selectores debajo y el sidebar; `Overlay` en `color/background/overlay` sobre la página y la cabecera. |
@@ -1591,3 +1592,4 @@ Prose: introducción con enlace a la lección "Completar la exportación"
 | D57 | Lista de `FileUpload` como slot `files` (§5.5). |
 | D58 | `ScalePreview` con variante `size` solo de Figma (§5.9). |
 | D59, D60 | Marcos con errores de las plantillas de las herramientas (§5.10). |
+| V69 | Enlace a la página de privacidad en `SiteFooter`, con el patrón de P25 (§4.8, §4.10). |

@@ -64,7 +64,13 @@
     "notice": "Esta web se ha hecho con ayuda de Claude (Anthropic) y con la revisión de una persona.",
     "authorSite": "Oscar Carballido, web personal",
     "reportError": "¿Has encontrado un error?",
-    "reportLink": "Avísalo en GitHub"
+    "reportLink": "Avísalo en GitHub",
+    "privacyQuestion": "¿Qué datos recogemos?",
+    "privacyLink": "Lee la política de privacidad"
+  },
+  "Privacy": {
+    "title": "Privacidad",
+    "description": "Qué medimos de tus visitas, cómo lo hacemos sin cookies y qué derechos tienes."
   },
   "Home": {
     "metaTitle": "DesignToken101 · Tokens de diseño, de Figma al código",

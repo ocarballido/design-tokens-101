@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
@@ -67,6 +68,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           </div>
           <SiteFooter />
         </NextIntlClientProvider>
+        {/* V69 (G42 de ds4agents): visitas con Vercel Web Analytics, sin cookies ni eventos personalizados.
+            No mide nada hasta activarlo en el panel de Vercel, que añade las rutas /_vercel/insights/* en el
+            siguiente despliegue (https://vercel.com/docs/analytics/quickstart). Lo que se recoge, en /privacy. */}
+        <Analytics />
       </body>
     </html>
   );
